@@ -2812,7 +2812,7 @@ LDUser user = new LDUser.Builder("user-key-123abc")
 </CodeTabItem>
 </CodeTabs>
 
-The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
 
 Our Javadoc for [ContextBuilder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/ContextBuilder.html) shows you all the attributes that LaunchDarkly supports by default.
 
@@ -2830,12 +2830,12 @@ If an attribute is a JSON object, then in your flag or segment targeting, you ca
 #### Private context attributes in the Java SDK
 ---
 
-You can optionally configure the Java SDK to treat some or all attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Java SDK to treat some or all attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private context attributes can be used for targeting purposes, but are removed from the context data sent back to LaunchDarkly.
 
 In the Java SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the `LDConfig` object, you can call the [`allAttributesPrivate`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#allAttributesPrivate) method, which takes in a boolean parameter. If `true`, all user attributes except the key for all users are removed before the SDK sends the user to LaunchDarkly.
-- When creating the `LDConfig` object, you can call the [`privateAttributes`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes) method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- When creating the `LDConfig` object, you can call the [`allAttributesPrivate`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#allAttributesPrivate) method, which takes in a boolean parameter. If `true`, all context attributes except the key for all contexts are removed before the SDK sends the context to LaunchDarkly.
+- When creating the `LDConfig` object, you can call the [`privateAttributes`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes) method, which takes in a set of custom or built-in attributes as a parameter. If any context has a custom or built-in attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
 Here's how to define private attributes:
 
@@ -2886,7 +2886,7 @@ LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
 </CodeTabItem>
 </CodeTabs>
 
-You can also mark attributes as private when building the user object by calling the equivalent “private” user builder method. For example:
+You can also mark attributes as private when building the context object by calling the `private` builder method. For example:
 
 <CodeTabs
   defaultValue="java"
@@ -3316,6 +3316,8 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Python code sample">
 
+In version 8.0 and higher of the Python SDK, the [`Context`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.Context) class has a `create` method for creating a simple context, with a context kind of "user" and with only a key. It has a `builder` method for building a context with other properties.
+
 In the Python SDK, users are dictionaries.
 
 Here's an example:
@@ -3323,12 +3325,27 @@ Here's an example:
 <CodeTabs
   defaultValue="py"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
+context = Context.builder("context-key-123abc") \
+    .set("firstName", "Sandy") \
+    .set("lastName", "Smith") \
+    .set("email", "sandy@example.com") \
+    .set("groups", ["Google", "Microsoft"]) \
+    .build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
+# In version 7.x of the SDK, the type for a user is simply a dictionary.
+
 user = {
     "key": "user-key-123abc",
     "firstName": "Sandy",
@@ -3343,38 +3360,51 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `Context.builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
+The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user." Other attribute values can be booleans, numbers, strings, arrays, or objects.
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the Python SDK
+#### Private context attributes in the Python SDK
 ---
 
-You can optionally configure the Python SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Python SDK to treat some or all attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private context attributes can be used for targeting purposes, but are removed from the context data sent back to LaunchDarkly.
 
 In the Python SDK there are two ways to define private attributes for the LaunchDarkly client:
 
-- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
-- In the LaunchDarkly `config` object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all context attributes for all contexts before sending the context to LaunchDarkly, except the key.
+- In the LaunchDarkly `config` object, you can define a list of attributes in `private_attributes`. If any context has a custom or built-in attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also define a set of `privateAttributeNames` on the user object. For example:
+You can also mark attributes as private when building the context object by calling the `private` builder method. For example:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
+context = Context.builder("context-key-123abc") \
+    .set("email", "sandy@example.com") \
+    .private("email") \
+    .build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
 user = {
     "key": "user-key-123abc",
     "email": "sandy@example.com",
@@ -3385,7 +3415,7 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
 #### Anonymous users in the Python SDK
 ---
@@ -3395,14 +3425,22 @@ If your application has both anonymous and logged-in states, you can distinguish
 Here's how:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
+context = Context.builder("context-key-123abc").anonymous(True).build()
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
 user = { "key":"user-key-123abc", "anonymous": True }
 ```
 

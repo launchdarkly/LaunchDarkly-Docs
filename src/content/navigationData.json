@@ -1369,7 +1369,13 @@
           },
           {
             "label": "Python SDK reference",
-            "path": "/sdk/server-side/python"
+            "path": "/sdk/server-side/python",
+            "items": [
+              {
+                "label": "Python SDK 7.x to 8.0 migration guide",
+                "path": "/sdk/server-side/python/migration-7-to-8"
+              }
+            ]
           },
           {
             "label": "Ruby SDK reference",

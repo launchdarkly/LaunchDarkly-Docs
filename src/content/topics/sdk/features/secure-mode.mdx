@@ -135,7 +135,7 @@ client.SecureModeHash(user)
 
 <Details summary="Expand Java code sample">
 
-The [`secureModeHash`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#secureModeHash(com.launchdarkly.sdk.LDContext)) method computes an HMAC signature of a user signed with the client's SDK key.
+The [`secureModeHash`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#secureModeHash(com.launchdarkly.sdk.LDContext)) method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
@@ -215,7 +215,7 @@ $client->secureModeHash(user);
 
 <Details summary="Expand Python code sample">
 
-The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
+The `SecureModeHash` method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
@@ -228,7 +228,7 @@ Here is the method:
 <CodeTabItem value="py">
 
 ```py
-hash = ldclient.get().secure_mode_hash(user)
+hash = ldclient.get().secure_mode_hash(context)
 ```
 
 </CodeTabItem>
