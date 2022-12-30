@@ -1458,6 +1458,11 @@
     "name": "Ruby",
     "versions": [
       {
+        "versionMajorMinor": "7.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-30"
+      },
+      {
         "versionMajorMinor": "6.4",
         "releaseYear": 2022,
         "releaseMonthDay": "09-07"
