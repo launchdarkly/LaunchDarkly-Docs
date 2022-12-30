@@ -3454,17 +3454,32 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Ruby code sample">
 
-In the Ruby SDK, users are hashes.
+In the Ruby SDK, contexts are instances of `LaunchDarkly::LDContext`. Legacy users can continue to be provided as simple hashes.
 
 Here's an example:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+context = LaunchDarkly::LDContext.create({
+    key: "user-key-123abc",
+    kind: "user",
+    firstName: "Sandy",
+    lastName: "Smith",
+    email: "sandy@example.com",
+    groups: ["Google", "Microsoft"]
+}
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 user = {
@@ -3481,13 +3496,13 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash string, as long as the same user always has the same key. We recommend using a hash string if possible. In this example the hash string is `"user-key-123abc"`.
+The `key` property is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash string, as long as the same context always has the same key. We recommend using a hash string if possible. In this example the hash string is `"user-key-123abc"`.
 
 <Callout intent="info">
-<CalloutTitle>User attribute keys must be symbols</CalloutTitle>
+<CalloutTitle>Context attribute keys must be symbols</CalloutTitle>
 <CalloutDescription>
 
-All user attribute keys, for both built-in and custom attributes, must be symbols and not strings.
+All context attribute keys, for both built-in and custom attributes, must be symbols and not strings.
 
 </CalloutDescription>
 </Callout>
@@ -3496,30 +3511,50 @@ All user attribute keys, for both built-in and custom attributes, must be symbol
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
+The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user" and the hash is assumed to be in the legacy user format. Other attribute values can be booleans, numbers, strings, arrays, or objects. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way.
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the Ruby SDK
+#### Private context attributes in the Ruby SDK
 ---
 
-You can optionally configure the Ruby SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the Ruby SDK to treat some or all context attributes as private context attributes. Private context attributes can be used for targeting purposes, but are removed from the context data sent back to LaunchDarkly.
 
 In the Ruby SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
-- In the LaunchDarkly config object, you can define a list of `private_attribute_names`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all context attributes for all contexts before sending the context to LaunchDarkly, except the key.
+- In the LaunchDarkly config object, you can define a list of `private_attributes`. If any context has a custom or built-in attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also define a set of `privateAttributeNames` on the user object. For example:
+You can also define a set of `privateAttributes` on the context object. For example:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+context = LaunchDarkly::LDContext.create({
+  key: "user-key-123abc",
+  kind: "user",
+  firstName: "Sandy",
+  lastName: "Smith",
+  email: "sandy@example.com",
+  groups: ["Google", "Microsoft"],
+  _meta: {
+    privateAttributes: ['email']
+  }
+})
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 user = {
@@ -3537,9 +3572,9 @@ user = {
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
-#### Anonymous users in the Ruby SDK
+#### Anonymous contexts in the Ruby SDK
 ---
 
 If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
@@ -3549,10 +3584,18 @@ Here's how:
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+context = { key: "context-key-123abc", anonymous: true }
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 user = { key: "user-key-123abc", anonymous: true }
@@ -3561,7 +3604,7 @@ user = { key: "user-key-123abc", anonymous: true }
 </CodeTabItem>
 </CodeTabs>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>
 
 ### Rust

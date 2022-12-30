@@ -1122,10 +1122,18 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+td.update(td.flag("flag-key-123abc").variation_for_all(false))
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 td.update(td.flag("flag-key-123abc").variation_for_all_users(false))
@@ -1139,10 +1147,28 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+# This flag is true for the context key "some-context-key" and false for everyone else
+td.update(td.flag("flag-key-456def").
+    variation_for_key("some-context-key", true).
+    fallthrough_variation(false))
+
+# This flag returns the string variation "green" for contexts who have the custom
+# attribute "admin" with a value of true, and "red" for everyone else.
+td.update(td.flag("flag-key-789ghi").
+    variations("red", "green").
+    fallthrough_variation(0).
+    if_match_context("user", "admin", true).then_return(1))
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 # This flag is true for the user key "some-user-key" and false for everyone else

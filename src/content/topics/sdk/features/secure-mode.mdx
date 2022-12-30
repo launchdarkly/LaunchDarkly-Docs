@@ -239,17 +239,25 @@ hash = ldclient.get().secure_mode_hash(context)
 
 <Details summary="Expand Ruby code sample">
 
-The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key.
+The `secure_mode_hash` method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+client.secure_mode_hash(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 client.secure_mode_hash(user)

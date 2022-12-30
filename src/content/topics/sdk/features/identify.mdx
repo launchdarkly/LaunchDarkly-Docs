@@ -1001,19 +1001,27 @@ To learn more, read [`identify`](https://launchdarkly-python-sdk.readthedocs.io/
 
 <Details summary="Expand Ruby code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+client.identify(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 client.identify(user)

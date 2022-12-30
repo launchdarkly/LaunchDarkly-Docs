@@ -767,17 +767,25 @@ You can also attach custom data to your event with optional parameters. To learn
 
 <Details summary="Expand Ruby code sample">
 
-The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` method lets you record actions your contexts take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+client.track("metric-key-123abc", context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 client.track("metric-key-123abc", user)
