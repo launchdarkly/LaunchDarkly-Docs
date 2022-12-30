@@ -1008,10 +1008,18 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="python"
   values={[
-    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
 <CodeTabItem value="python">
+
+```python
+td.update(td.flag("flag-key-123abc").variation_for_all(True))
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
 
 ```python
 td.update(td.flag("flag-key-123abc").variation_for_all_users(True))
@@ -1025,29 +1033,53 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="python"
   values={[
-    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
 <CodeTabItem value="python">
 
 ```python
-# This flag is true for the user key "some-user-key" and false for everyone else
+# This flag is true for the context with the key "context-key-123abc" and kind
+# of "organization", and false for everyone else.
+
 td.update(
-    td
-    .flag("flag-key-456def")
-    .variation_for_user("some-user-key", True)
-    .fallthrough_variation(False)
+    td.flag("flag-key-456def") \
+        .variation_for_key("organization", "context-key-123abc", True) \
+        .fallthrough_variation(False)
+)
+
+# This flag returns the string variation "green" for contexts of the kind "user"
+# who have the custom attribute "admin" with a value of true, and "red" for
+# everyone else.
+td.update(
+    td.flag("flag-key-789ghi") \
+        .variations("red", "green")
+        .fallthrough_variation(0)
+        .if_match_context("user", "admin", True)
+        .then_return(1)
+)
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
+# This flag is true for the user key "some-user-key" and false for everyone else.
+td.update(
+    td.flag("flag-key-456def") \
+        .variation_for_user("some-user-key", True)
+        .fallthrough_variation(False)
 )
 
 # This flag returns the string variation "green" for users who have the custom
 # attribute "admin" with a value of true, and "red" for everyone else.
 td.update(
-    td
-    .flag("flag-key-789ghi")
-    .variations("red", "green")
-    .fallthrough_variation(0)
-    .if_match("admin", True)
-    .then_return(1)
+    td.flag("flag-key-789ghi") \
+        .variations("red", "green") \
+        .fallthrough_variation(0) \
+        .if_match("admin", True) \
+        .then_return(1)
 )
 ```
 

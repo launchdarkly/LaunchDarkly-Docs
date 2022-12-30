@@ -576,7 +576,7 @@ Here's how:
 ```py
 # Initialization:
 ldclient.set_config(Config("sdk-key-123abc", offline=True))
-ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false)
+ldclient.get().variation("any.feature.flag", context, False) # will always return the default value (false)
 
 ```
 
