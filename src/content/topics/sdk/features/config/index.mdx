@@ -880,15 +880,15 @@ For a complete list of customizable parameters, read the documentation for the [
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
 
 <CodeTabs
-  defaultValue="sdk7"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'sdk7', },
-    { label: 'Python (SDK versions 6.12.x and earlier)', value: 'sdk6', },
+    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v6.12.x and earlier', value: 'sdk6', },
   ]
 }>
-<CodeTabItem value="sdk7">
+<CodeTabItem value="python">
 
-```py
+```python
 config = Config(sdk_key='sdk-key-123abc', http=HTTPConfig(connect_timeout=5))
 ldclient.set_config(config)
 ```
@@ -896,7 +896,7 @@ ldclient.set_config(config)
 </CodeTabItem>
 <CodeTabItem value="sdk6">
 
-```py
+```python
 config = Config(sdk_key='sdk-key-123abc', connect_timeout=5)
 ldclient.set_config(config)
 ```

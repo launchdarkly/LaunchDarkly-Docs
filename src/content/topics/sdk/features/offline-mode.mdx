@@ -566,14 +566,25 @@ In some situations, you might want avoid remote calls to LaunchDarkly and use fa
 Here's how:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
+# Initialization:
+ldclient.set_config(Config("sdk-key-123abc", offline=True))
+ldclient.get().variation("any.feature.flag", context, False) # will always return the default value (false)
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-7">
+
+```python
 # Initialization:
 ldclient.set_config(Config("sdk-key-123abc", offline=True))
 ldclient.get().variation("any.feature.flag", context, False) # will always return the default value (false)

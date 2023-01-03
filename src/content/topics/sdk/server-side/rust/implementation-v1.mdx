@@ -32,7 +32,7 @@ Each context has a required attribute called `kind` that describes the type of a
 When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you may know:
 
   * the username, first name, last name, and email address of a person, as part of a context with `kind` of "user"
-  * the organization, department, and location of a person, as part of a context with `kind` of "organization"
+  * the company, department, and location of an organization, as part of a context with `kind` of "organization"
   * the device, model, and operating system of an environment, as part of a context with `kind` of "device"
 
 This new version of the LaunchDarkly SDK requires you to evaluate feature flags using an **evaluation context**, which is an object containing one or more contexts.

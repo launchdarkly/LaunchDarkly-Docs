@@ -220,15 +220,23 @@ The `SecureModeHash` method computes an HMAC signature of a context signed with 
 Here is the method:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
 hash = ldclient.get().secure_mode_hash(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-7">
+
+```python
+hash = ldclient.get().secure_mode_hash(user)
 ```
 
 </CodeTabItem>

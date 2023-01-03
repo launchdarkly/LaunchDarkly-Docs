@@ -90,7 +90,7 @@ Next, import the LaunchDarkly client in your application code:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 import ldclient
 from ldclient.config import Config
 ```
@@ -125,7 +125,7 @@ Here's how:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 ldclient.set_config(Config("sdk-key-123abc"))
 client = ldclient.get()
 ```
@@ -161,8 +161,8 @@ else:
 </CodeTabItem>
 <CodeTabItem value="python-v7">
 
-```py
-user = {"key": "user@test.com"}
+```python
+user = {"key": "user-key-123abc"}
 flag_value = client.variation("flag-key-123abc", user, False)
 
 if flag_value:
@@ -192,7 +192,7 @@ Here's how:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 import uwsgidecorators
 
 @uwsgidecorators.postfork
@@ -254,7 +254,7 @@ Here's how to set the HTTPS_PROXY environment variable from within Python:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 os.environ["https_proxy"] = "https://web-proxy.domain.com:8080"
 ```
 
