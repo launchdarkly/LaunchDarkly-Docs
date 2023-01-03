@@ -1241,4 +1241,8 @@ module.exports = [
     fromPath: '/home/experimentation/metrics/page-view',
     toPath: '/home/creating-experiments/metrics/page-view',
   },
+  {
+    fromPath: '/integrations/slack/managing-approvals',
+    toPath: '/integrations/slack/approvals',
+  },
 ]
