@@ -181,16 +181,18 @@ If you are currently running any experiments, enabling audience allocation does 
 
 ## Using Experimentation
 
-We designed Experimentation to be accessible to a variety of roles within your organization. For example, product managers can use experiments to measure the value of the features they ship, designers can use experiments to conduct multivariate testing on UI and UX components, and DevOps engineers can use them to test the efficacy and performance of their infrastructure changes.
+We designed Experimentation to be accessible to a variety of roles within your organization. For example, product managers can use experiments to measure the value of the features they ship, designers can test multiple variations of UI and UX components, and DevOps engineers can test the efficacy and performance of their infrastructure changes.
 
-If an experiment tells you a flag has positive impact, you can roll that flag out to your entire user base to maximize its value. Alternatively, if you don't like the results you're getting from one flag, you can switch it off and minimize its impact on your user base.
+If an experiment tells you a feature has positive impact, you can roll that feature out to your entire user base to maximize its value. Alternatively, if you don't like the results you're getting from a feature, you can toggle the flag off and minimize its impact on your user base.
 
 Some of the things you can do with Experimentation include:
 
 - A/B/n testing, also called multivariate testing
-- Start and stop experiments at any time so you have granular control over when data is recorded
+- Start and stop experiments at any time so you have immediate control over which variations your customers encounter
 - Review credible intervals in experiment results so you can decide which variation you can trust to have the most impact
-- Expose specific groups of users to experiments, refining your testing audience
+- Target specific groups of users or segments to experiments, refining your testing audience
+- Measure the impact of changes to your product at all layers of your technology stack
+- Roll out product changes in multiple stages, leveraging both Experimentation and workflows
 
 To lean more, read [Designing experiments](/guides/experimentation/designing-experiments).
 
@@ -207,6 +209,7 @@ You can export experiment data to an external destination using Data Export. To 
 As you use Experimentation, consider these best practices:
 
 - **Use feature flags on every new feature you develop.** This is a best practice, but it especially helps when you're running experiments in LaunchDarkly. By flagging every feature, you can quickly turn any aspect of your product into an experiment.
+- **Run experiments on as many feature flags as possible.** This creates a culture of experimentation that helps you detect unexpected problems and refine and pressure-test metrics.
 - **Consider experiments from day one.** Create hypotheses in the planning stage of feature development, so you and your team are ready to run experiments as soon as your feature launches.
 - **Define what you're measuring.** Align with your team on which tangible metrics you're optimizing for, and what results constitute success.
 - **Plan your experiments in relation to each other.** If you're running multiple experiments simultaneously, make sure they don't collect similar or conflicting data.
@@ -217,6 +220,7 @@ You can use experiments to measure a variety of different outcomes. Some example
 - Testing the efficacy of different search implementations, such as Elasticsearch versus SOLR versus Algolia
 - Tracking how features you ship are increasing or decreasing page load time
 - Calculating conversion rates by monitoring how frequently users click on various page elements
+- Testing the impact of new artificial intelligence and machine learning (AI/ML) models on end-user behavior and product performance.
 
 <LearnMore>
 

@@ -44,17 +44,19 @@ To stop an experiment iteration:
 
 1. Navigate to the **Experiments** list.
 2. Click on the name of the experiment you want to stop. The **Design** tab appears.
-3. Click **Stop**:
+3. Click **Stop**. A "Stop this experiment?" dialog appears.
 
 ![An experiment with the "Stop" button called out.](experiment-stop-callout.png)
 
-You can stop recording an experiment at any time. Just like starting an iteration, stopping an iteration only impacts the experiment in one environment. If you wish to stop collecting data from every instance of an experiment, you must stop each experiment in each environment individually.
+4. Choose a variation to serve to all targets in the experiment.
+5. Enter a reason for stopping the experiment.
+6. Click "Stop experiment."
 
-When you stop recording an experiment, LaunchDarkly ends the iteration and stops collecting data about user behavior for that experiment. The data collected for that iteration is available in a table.
+After you stop an experiment iteration, the variation you chose in step 4 is served to all targets that match the experiment audience targeting rule. The flag's **Targeting** tab updates to reflect this.
 
-To view the data, choose the iteration from the **Iteration** tab:
+You can stop an experiment iteration at any time. Just like starting an iteration, stopping an iteration only impacts the experiment in one environment. If you wish to stop collecting data from every instance of an experiment, you must stop each experiment in each environment individually.
 
-![An experiment's "Iteration" tab.](experiment-iterations-tab.png)
+When you stop recording an experiment, LaunchDarkly ends the iteration and stops collecting data about user behavior for that experiment. The data collected for that iteration is available on the experiment's **Results** tab.
 
 Stopping an experiment does not delete the experiment. Stopping an experiment lets you retain the results and data the experiment has already collected.
 
