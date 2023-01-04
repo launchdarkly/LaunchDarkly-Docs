@@ -369,7 +369,7 @@ export async function getServerSideProps() {
 
 Client-side rendering is the only scenario in this guide that requires the React SDK. This means that it works differently than the previous examples.
 
-The client-side SDK uses a different, more restricted key than the server-side SDKs. To get the client-side ID, go to [Account Settings > Projects](https://app.launchdarkly.com/settings/projects). Copy the ID and add a `LAUNCHDARKLY_SDK_CLIENT_SIDE_ID` value to `.env.local`. You also must ensure this ID exists on your deployment provider as well.
+The client-side SDK uses a different, more restricted key than the server-side SDKs. To get the client-side ID, go to [Account Settings > Projects](https://app.launchdarkly.com/settings/projects). Copy the ID and add a `LAUNCHDARKLY_SDK_CLIENT_SIDE_ID` value to `.env.local`. You also must verify that this ID exists on your deployment provider.
 
 Environment variables are not automatically made available to the client in Next.js. In order to do that, you must alter the `next.config.js` file in your project to add the code below to the `module.exports` block. This code essentially says to make the `LAUNCHDARKLY_SDK_CLIENT_SIDE_ID` variable available on the client using the same variable name.
 

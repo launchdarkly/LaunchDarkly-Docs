@@ -110,17 +110,17 @@ Here's how mobile connections work:
    - The SDK actively monitors network availability. They avoid requests when the network is unavailable, and reconnect when the network becomes available again.
 - When the app is backgrounded, the stream connection terminates and the SDK uses polling instead.
    - The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
-   
+
    <Callout intent="info">
    <CalloutTitle>The iOS SDK does not support background fetch</CalloutTitle>
    <CalloutDescription>
-   
+
    Unlike other mobile SDKs, the iOS SDK does not fetch flag values from the background.
 
    </CalloutDescription>
    </Callout>
-   
-   - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.   
+
+   - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
 - When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values.
 - If the app closes and reopens without a connection to LaunchDarkly, the flag values cached in local storage are still available.
 
@@ -420,6 +420,13 @@ The mobile key does not need to be kept a secret. However, if you wish to reset 
 Configure JavaScript-based client-side SDKs to use the client-side ID. The client-side ID grants these SDKs access to evaluate any flags that are associated with the key's environment, and that you have enabled for client-side SDK availability by checking the flag's **SDKs using Client-side key** checkbox. Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
 
 Unlike a mobile key, the client-side ID for an environment never changes. The client-side ID does not need to be kept a secret.
+
+To find and copy your LaunchDarkly client-side ID:
+
+1. Navigate to the **Account settings** page.
+2. Click the **Projects** tab.
+3. Click the name of your project. The **Environments** tab appears.
+4. Click the environment's client-side ID to copy it to your clipboard.
 
 ## Language support
 
