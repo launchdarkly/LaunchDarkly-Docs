@@ -1108,6 +1108,11 @@
     "name": "PHP",
     "versions": [
       {
+        "versionMajorMinor": "5.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-04"
+      },
+      {
         "versionMajorMinor": "4.2",
         "releaseYear": 2022,
         "releaseMonthDay": "04-13"
