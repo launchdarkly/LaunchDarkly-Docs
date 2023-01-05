@@ -707,26 +707,35 @@ You can also attach custom data to your event with optional parameters. To learn
 
 <Details summary="Expand PHP code sample">
 
-The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` method lets you record actions your end users take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client->track("metric-key-123abc", user);
+$client->track("metric-key-123abc", $context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$client->track("metric-key-123abc", $user);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
 You can also attach custom data, including anything that can be marshaled to JSON, to your event by passing an extra parameter to `track`. To learn how, read [`track()`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_track).
+
 </Details>
 
 ### Python

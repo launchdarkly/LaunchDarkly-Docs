@@ -826,17 +826,25 @@ This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side
 
 <Details summary="Expand PHP code sample">
 
-The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key, an `LDUser`, and a default value.
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a default value.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+$value = $client->variation($key, $context, false);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
 
 ```php
 $value = $client->variation($key, $user, false);
@@ -845,7 +853,7 @@ $value = $client->variation($key, $user, false);
 </CodeTabItem>
 </CodeTabs>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 

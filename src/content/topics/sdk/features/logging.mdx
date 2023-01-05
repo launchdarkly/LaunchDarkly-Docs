@@ -701,7 +701,7 @@ The PHP SDK uses [Monolog](https://github.com/Seldaek/monolog). All loggers are 
 There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 You can pass a custom logger to the SDK by using the configurable `logger` property:
 
@@ -714,7 +714,7 @@ You can pass a custom logger to the SDK by using the configurable `logger` prope
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("sdk-key-123abc", array("logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Logger::DEBUG)])));
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", ["logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Level::Debug)])]);
 ```
 
 </CodeTabItem>

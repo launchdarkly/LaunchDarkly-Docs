@@ -603,28 +603,38 @@ This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side
 
 <Details summary="Expand PHP code sample">
 
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
 
-This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
+This method can be useful for passing feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for LaunchDarkly's [JavaScript SDK](/sdk/client-side/javascript).
 
 To use the all flags feature:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+$state  = $client->allFlagsState($context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
 
 ```php
 $state  = $client->allFlagsState($user);
 ```
 
 </CodeTabItem>
+
 </CodeTabs>
 
 To learn more, read the [API documentation](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_allFlagsState).
+
 </Details>
 
 ### Python

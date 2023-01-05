@@ -1,0 +1,296 @@
+---
+path: /sdk/server-side/PHP/migration-4-to-5
+title: PHP (server-side) SDK 4.x to 5.0 migration guide
+description: This topic explains the changes in the PHP SDK 5.0 release and how to migrate to that version.
+published: true
+tags: ['php', 'migration', 'sdk', 'server-side', 'context']
+---
+
+## Overview
+
+This topic explains the changes in the PHP SDK 5.0 release and how to adapt code that uses a 4.x version of the [PHP SDK](/sdk/server-side/php) to use version 5.0 or later.
+
+**Version 5.0 includes several breaking changes**. Additionally, if you use the Relay Proxy, you must update your Relay Proxy to version 7.0 before you update your SDK to version 5.0. To learn more, read the [Relay Proxy 7.0 release notes](https://github.com/launchdarkly/ld-relay/releases/tag/v7.0.0).
+
+## Identifying supported PHP versions for the 5.0 SDK
+
+The minimum PHP version for LaunchDarkly 5.0 SDK is 8.0.
+
+LaunchDarkly no longer supports earlier PHP versions, as stated in the [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
+
+## Understanding contexts
+
+Many LaunchDarkly customers create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. In previous versions of the LaunchDarkly SDK, you could define this information in a user object, using a combination of built-in and custom attributes. Now you can define this information in a more structured way, using **contexts**.
+
+Each context has a required attribute called `kind` that describes the type of attributes it contains. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
+
+When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you may know:
+
+  * the username, first name, last name, and email address of a person, as part of a context with `kind` of "user"
+  * the company, department, and location of an organization, as part of a context with `kind` of "organization"
+  * the device, model, and operating system of an environment, as part of a context with `kind` of "device"
+
+This new version of the LaunchDarkly SDK requires you to evaluate feature flags using an **evaluation context**, which is an object containing one or more contexts.
+
+To learn more about contexts, read [Contexts and segments](/home/contexts).
+
+## Migrating from users to contexts
+
+The 5.0 version of this SDK lets you use contexts. When you migrate from version 4.x, replace every instance of a user with a context. If there are any instances you do not replace, the 5.0 version of the PHP SDK will convert each `LDUser` parameter it receives to `LDContext`.
+
+<Callout intent="info">
+<CalloutTitle>LaunchDarkly assumes older versions of the SDK use <code>user</code> contexts</CalloutTitle>
+<CalloutDescription>
+
+A context always has a `kind` attribute. When older versions of the SDK send events to LaunchDarkly, LaunchDarkly will convert the users in those events to contexts with a `kind` of `user`.
+
+If a flag configuration specifies any context `kind`s other than `user`, older versions of the PHP SDK will not evaluate the flag correctly. You must upgrade your SDK if you are going to use context `kind`s other than `user` in your flag configurations.
+
+</CalloutDescription>
+</Callout>
+
+The primary differences between working with users and working with contexts include the following:
+
+* [Changes to flag evaluation](#understanding-changes-to-flag-evaluation): The methods for evaluating flags now require contexts, rather than users.
+* [Create contexts, not users](#understanding-differences-between-users-and-contexts): Where you previously created users, now you must create contexts.
+* [Changes to attributes](#understanding-changes-to-built-in-and-custom-attributes): There are now fewer built-in attributes. You can still add as many custom attributes as you like, although the format has changed slightly. A flag's targeting rules can now address fields within a JSON object.
+* [Changes to private attributes](#understanding-changes-to-private-attributes): You can mark specific attributes of a context as private, either across all contexts of any kind, or within a particular context or context kind.
+* [Changes to alias events](#understanding-changes-to-alias-events): The alias method has been removed.
+
+### Understanding changes to flag evaluation
+
+The methods for [evaluating flags](/sdk/features/evaluating) and determining [flag evaluation reasons](/sdk/features/evaluation-reasons) have changed slightly. The 5.0 version of the SDK includes the following changes:
+
+  * The `variation` and `variationDetail` methods now take a context, rather than a user, as a parameter. To learn more, read [method: variation](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_variation) and [method: variationDetail](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_variationDetail).
+  * The `USER_NOT_SPECIFIED` evaluation error code was previously defined as, the user object or user key was not provided. It has been redefined to mean that the context was not provided or was invalid.
+
+Here's how to evaluate a flag using a context:
+
+<CodeTabs
+  defaultValue="variation"
+  values={[
+    { label: 'PHP', value: 'variation', },
+  ]
+}>
+<CodeTabItem value="variation">
+
+```php
+$value = $client->variation("flag-key-123abc", $context, false);
+```
+</CodeTabItem>
+</CodeTabs>
+
+### Understanding differences between users and contexts
+
+Where you previously created users, now you must create contexts.
+
+Here's how to construct a basic context, as compared with constructing a user:
+
+<CodeTabs
+  defaultValue="user"
+  values={[
+    { label: '4.x syntax, user with key', value: 'user', },
+    { label: '5.0 syntax, single context with key', value: 'single-context', }
+  ]
+}>
+<CodeTabItem value="single-context">
+
+```php
+$context = LDContext::create("context-key-123abc");
+```
+</CodeTabItem>
+<CodeTabItem value="user">
+
+```php
+$user = (new LDUserBuilder("user-key-123abc"))->build();
+```
+</CodeTabItem>
+</CodeTabs>
+
+Here's how to construct a basic context, with a context kind of something other than "user":
+
+<CodeTabs
+  defaultValue="single-context"
+  values={[
+    { label: '5.0 syntax, single context with key', value: 'single-context', },
+  ]
+}>
+<CodeTabItem value="single-context">
+
+```php
+$context = LDContext::create("context-key-123abc", "organization");
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeTabs
+  defaultValue="multi-context"
+  values={[
+    { label: '5.0 syntax, multi-context', value: 'multi-context', },
+  ]
+}>
+<CodeTabItem value="multi-context">
+
+```php
+$deviceContext = LDContext::create("device-key", "device");
+$orgContext = LDContext::create("org-key", "org");
+$multiContext = LDContext::createMulti($deviceContext, $orgContext);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+### Understanding changes to built-in and custom attributes
+
+In previous SDK versions, the user object included several built-in attributes for describing the user. It also included optional custom attributes, which you could add to a `custom` object within the user object and then populate.
+
+In version 5.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. You can define additional attributes for a context by passing in a name and value for each. The value can be any JSON type, including boolean, number, string, array, or object.
+
+Here's how to construct a context with additional attributes, as compared with constructing a similar user:
+
+<CodeTabs
+  defaultValue="user"
+  values={[
+    { label: '4.x syntax, user with attributes', value: 'user', },
+    { label: '5.0 syntax, context with attributes', value: 'context', },
+  ]
+}>
+<CodeTabItem value="context">
+
+```php
+$context = LDContext::builder("context-key-123abc"))
+    ->name("Sandy")
+    ->set("email", "sandy@example.com")
+    ->build();
+```
+</CodeTabItem>
+<CodeTabItem value="user">
+
+```php
+$user = (new LDUserBuilder("user-key-123abc"))
+    ->name("Sandy")
+    ->email("sandy@example.com)
+    ->build();
+```
+</CodeTabItem>
+</CodeTabs>
+
+In previous versions of the SDK, if you set the value of a user's custom attribute to an object, you could not reference that object in evaluations. In version 5.0, if a context attribute's value is a JSON object, you can reference properties of that object as the attribute in the targeting rules for a flag or segment.
+
+Here's how to add object attributes to a context:
+
+<CodeTabs
+  defaultValue="context"
+  values={[
+    { label: '5.0 syntax, context with object attributes', value: 'context', },
+  ]
+}>
+<CodeTabItem value="context">
+
+```php
+$context = LDContext::builder("context-key-123abc")
+    ->set("address", ["street" => "Main St", "city" => "Springfield"])
+    ->build();
+```
+</CodeTabItem>
+</CodeTabs>
+
+In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting contexts](/flags/targeting-contexts/SC-163845).
+
+### Understanding changes to private attributes
+
+As in previous versions of the SDK, you can mark specific attributes of a context as private. This restricts the context data your application sends to LaunchDarkly, while still using that data for flag targeting.
+
+In version 5.0, there are two scopes for which you can mark attributes as private:
+
+  * Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
+  * Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+
+  In the first example, all attributes are marked private for all contexts. In the second example, the "email" and "address" attributes are private for all contexts:
+
+  <CodeTabs
+    defaultValue="private-all"
+    values={[
+      { label: '5.0 syntax, all attributes marked private', value: 'private-all', },
+      { label: '5.0 syntax, two attributes marked private', value: 'private-some', },
+    ]
+  }>
+  <CodeTabItem value="private-all">
+
+  ```php
+$client = new LaunchDarkly\LDClient($sdkKey, ['all_attributes_private' => true]);
+  ```
+  </CodeTabItem>
+  <CodeTabItem value="private-some">
+
+  ```php
+$client = new LaunchDarkly\LDClient($sdkKey, ['private_attribute_names' => ['name', 'email']]);
+  ```
+  </CodeTabItem>
+  </CodeTabs>
+
+Here's how to mark an attribute as private for a particular context:
+
+<CodeTabs
+  defaultValue="private"
+  values={[
+    { label: '5.0 syntax, an attribute marked private for one context', value: 'private', },
+  ]
+}>
+<CodeTabItem value="private">
+
+```php
+$context = LDContext::builder("context-key-123abc")
+    ->name("Sandy")
+    ->set("email", "sandy@example.com")
+    ->private("email")
+    ->build();
+```
+</CodeTabItem>
+</CodeTabs>
+
+For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
+
+For example, for the attribute `"address": { "street": "Main St", "city": "Springfield" }`, you could set just the `/address/street` as private.
+
+### Understanding changes to alias events
+
+In previous versions of the SDK, multiple user objects could represent one person. For example, this could happen the first time a person logged in to your application. The person might be represented by an anonymous user before they logged in, and a different user after they logged in. You could associate these two LaunchDarkly users by sending an `alias` event in the SDK.
+
+With the introduction of contexts, the person in this scenario is represented by two different context kinds. For example, before they log in, they might be represented by a device context. After they log in, they might be represented by a multi-context, for example, by one context kind based on their device and simultaneously by another context kind based on their user information.
+
+The 5.0 version of the SDK removes the ability to send an `alias` event. If you currently [alias users](/sdk/features/aliasing-users), you will need to remove this code when you migrate to version 5.0.
+
+If you want to continue associating two contexts with each other, you can use two different context kinds, and then identify a multi-context that includes both individual contexts when you want the association to occur.
+
+Here's how:
+
+<CodeTabs
+  defaultValue="multi-context"
+  values={[
+    { label: '5.0 syntax, associating two contexts', value: 'multi-context', },
+  ]
+}>
+<CodeTabItem value="multi-context">
+
+```php
+$deviceContext = LDContext::create("device-key", "device");
+$orgContext = LDContext::create("org-key", "org");
+$multiContext = LDContext::createMulti($deviceContext, $orgContext);
+
+$client->identify($multiContext);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [the SDK API documentation](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html).
+
+## Understanding what was deprecated
+
+All types and methods that were marked as deprecated in the last 4.x release have been removed from the 5.0 release. If you were using these with a recent version previously, you should already have received deprecation warnings at compile time, with suggestions about their recommended replacements.
+
+For a full list of deprecated types and methods, read [the SDK's API documentation](https://launchdarkly.github.io/php-server-sdk/).

@@ -543,14 +543,23 @@ Here's how:
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', },
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("sdk-key-123abc", array("offline" => true));
-$client->variation("any.feature.flag", user, false); // will always return the default value (false)
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", ["offline" => true]);
+$client->variation("any.feature.flag", $context, false); // will always return the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", ["offline" => true]);
+$client->variation("any.feature.flag", $user, false); // will always return the default value (false)
 ```
 
 </CodeTabItem>

@@ -937,28 +937,37 @@ To learn more, read [`identify`](https://launchdarkly.github.io/node-server-sdk/
 
 <Details summary="Expand PHP code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client->identify(user);
+$client->identify($context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$client->identify($user);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_identify).
+
 </Details>
 
 ### Python

@@ -6,6 +6,19 @@ tags: ['php', 'sdk', 'server-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 5 of the PHP SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [PHP (server-side) SDK 4.x to 5.0 migration guide](/sdk/server-side/PHP/migration-4-to-5).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the PHP SDK, and links to reference information on all of the supported features.
@@ -118,7 +131,7 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc");
 </CodeTabItem>
 </CodeTabs>
 
-You can use `$client` to check which variation a particular user will receive for a given feature flag.
+You can use `$client` to check which variation a particular context will receive for a given feature flag.
 
 Here's how:
 
@@ -131,11 +144,11 @@ Here's how:
 <CodeTabItem value="php">
 
 ```php
-$user = (new LaunchDarkly\LDUserBuilder("user-key-123abc"))
+$context = LDContext::builder("context-key-123abc")
   ->name("Sandy")
   ->build();
 
-if ($client->variation("your.flag.key", $user)) {
+if ($client->variation("your.flag.key", $context)) {
     // application code to show the feature
 } else {
     // the code to run if the feature is off

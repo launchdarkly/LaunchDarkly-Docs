@@ -930,10 +930,18 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+$td->update($td->flag("flag-key-123abc")->variationForAll(false));
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
 
 ```php
 $td->update($td->flag("flag-key-123abc")->variationForAllUsers(false));
@@ -947,10 +955,34 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+// This flag is true for the context with the key "context-key-123abc" and kind of "organization",
+// and false for everyone else
+$td->update(
+    $td->flag("flag-key-123abc")
+       ->variationForKey("organization", "context-key-123abc", true)
+       ->fallthroughVariation(false)
+);
+
+// This flag returns the string variation "green" for contexts that have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+$td->update(
+    $td->flag("flag-key-123abc")
+       ->variations("red", "green")
+       ->fallthroughVariation(0)
+       ->ifMatch("admin", true)
+       ->thenReturn(1)
+);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
 
 ```php
 // This flag is true for the user key "some-user-key" and false for everyone else
@@ -975,6 +1007,7 @@ $td->update(
 </CodeTabs>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-TestData.html).
+
 </Details>
 
 ### Python

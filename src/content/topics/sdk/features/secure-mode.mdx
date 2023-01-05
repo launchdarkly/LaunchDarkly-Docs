@@ -191,20 +191,28 @@ client.secureModeHash(user);
 
 <Details summary="Expand PHP code sample">
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
+The `secureModeHash` method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client->secureModeHash(user);
+$hash = $client->secureModeHash($context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$hash = $client->secureModeHash(user);
 ```
 
 </CodeTabItem>

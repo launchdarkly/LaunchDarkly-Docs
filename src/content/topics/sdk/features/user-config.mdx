@@ -3224,57 +3224,89 @@ You still need to generate a unique key for anonymous contexts. Session IDs or U
 
 <Details summary="Expand PHP code sample">
 
-In the PHP SDK, use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+In the PHP SDK, use a [builder pattern](http://en.wikipedia.org/wiki/Builder_pattern) to construct contexts.
 
 Here's an example:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$user = (new LDUserBuilder("user-key-123abc"))->firstName("Sandy")->lastName("Smith")->email("sandy@example.com")->custom(["groups" => array("Google","Microsoft")])->build();
+$context = LDContext::builder("context-key-123abc")
+    ->set("firstName", "Sandy")
+    ->set("lastName", "Smith")
+    ->set("email", "sandy@example.com")
+    ->set("groups", ["Google", "Microsoft"])
+    ->build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4>
+
+```php
+$user = (new LDUserBuilder("user-key-123abc"))
+    ->firstName("Sandy")
+    ->lastName("Smith")
+    ->email("sandy@example.com")
+    ->custom(["groups" => ["Google", "Microsoft"]])
+    ->build();
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-The first argument to [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The first argument to [`LDContextBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDContextBuilder.html) is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"context-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
+Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the PHP SDK
+#### Private attributes in the PHP SDK
 ---
 
-You can optionally configure the PHP SDK to treat some or all user attributes as private user attributes. Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the PHP SDK to treat some or all attributes as [private attributes](/home/contexts/attributes#using-private-user-attributes). Private attributes can be used for targeting purposes, but are removed from the data sent back to LaunchDarkly.
 
 In the PHP SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-*In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
-*In the LaunchDarkly `config` object, you can define a list of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+*In the LaunchDarkly `config`, you can set `all_attributes_private` to `true`. If you enable this, the SDK removes all attributes except the key and kind from a context before sending the context to LaunchDarkly.
+*In the LaunchDarkly `config` object, you can define a list of `private_attribute_names`. If any context has a custom or built-in attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling the equivalent "private" [`LDUserBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDUserBuilder.html) method.
+
+You can also mark attributes as private when building the context object by calling the equivalent "private" [`LDContextBuilder`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDContextBuilder.html) method.
+
+<!-- TKTK Verify URL. -->
 
 For example:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+$context = LDContext::builder('context-key-123abc')
+    ->set('email', 'sandy@example.com')
+    ->private('email')
+    ->build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4>
 
 ```php
 $user = (new LDUserBuilder('user-key-123abc'))
@@ -3285,9 +3317,9 @@ $user = (new LDUserBuilder('user-key-123abc'))
 </CodeTabItem>
 </CodeTabs>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
-#### Anonymous users in the PHP SDK
+#### Anonymous contexts in the PHP SDK
 ---
 
 If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
@@ -3297,10 +3329,18 @@ Here's how:
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+$context = LDContext::builder("aa0ceb")->anonymous(true)->build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4>
 
 ```php
 $user = (new LDUserBuilder("user-key-123abc"))->anonymous(true)->build();
@@ -3309,7 +3349,8 @@ $user = (new LDUserBuilder("user-key-123abc"))->anonymous(true)->build();
 </CodeTabItem>
 </CodeTabs>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
+
 </Details>
 
 ### Python
