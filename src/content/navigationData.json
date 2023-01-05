@@ -1557,6 +1557,10 @@
           {
             "label": "Building an audit log event hook integration",
             "path": "/guides/integrations/build-audit-log-event-hook"
+          },
+          {
+            "label": "Building an ephemeral Environments as a Service integration",
+            "path": "/guides/integrations/build-eaas"
           }
         ]
       },

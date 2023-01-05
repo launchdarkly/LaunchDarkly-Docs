@@ -1,0 +1,181 @@
+---
+path: /guides/integrations/build-eaas
+title: Building an ephemeral Environments as a Service integration
+description: This guide explains how LaunchDarkly partners can use the REST API to build an EaaS integration.
+published: true
+tags: ['guide', 'integration']
+---
+
+## Overview
+
+This guide explains how LaunchDarkly partners can use the REST API to build an Environment as a Service (EaaS) integration. By the end of this guide, you as a LaunchDarkly partner should have the information you need to create an integration that can manage the full lifecycle of on-demand LaunchDarkly environments.
+
+LaunchDarkly feature management gives customers the ability to enable certain features only for specific application environments, or for specific end users within those environments.
+
+Organizations that use ephemeral environments for development and testing need feature management specific to their ephemeral environment. This gives developers control of application features independent of other environments. It minimizes the risk of toggling features impacting other development efforts.
+
+If you are a LaunchDarkly partner providing EaaS, you can use the LaunchDarkly REST API as part of your integration to create, and then delete, a separate LaunchDarkly environment that is specific to the ephemeral environment you're providing for development and testing.
+
+## Understanding LaunchDarkly environments
+
+In LaunchDarkly, environments are organizational units contained within [projects](/home/organize/projects). LaunchDarkly customers will already have a configured project that they are looking to use.
+
+Environments allow LaunchDarkly customers to manage feature flags throughout the entire development lifecycle, from local development through production. Examples of LaunchDarkly environments within a project could be `Production`, `QA`, `Staging`, or individual environments. The exact naming is left to LaunchDarkly customers to configure.
+
+To learn more, read [Environments](/home/organize/environments).
+
+Environments are nested under projects and contain environment-specific metadata. When you create a new environment, all feature flag targeting is set to [default values](/home/getting-started/feature-flags#setting-default-values) for the environment, or, if you specify a `source` parameter during creation, feature flag targeting is set to match that source environment.
+
+Here's a visualization:
+
+<CodeTabs
+  defaultValue="text"
+  values={[
+    { label: 'Project Layout', value: 'text', },
+  ]
+}>
+<CodeTabItem value="text">
+
+```text
+project - My test project
+└── environments
+    ├── dev
+    ├── prod
+    └── test
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Building an integration
+
+To build an integration, make sure you meet the [prerequisites](/integrations/partner-integrations/getting-started#prerequisites). Then follow the steps outlined on the [Getting Started](/integrations/partner-integrations/getting-started) page.
+
+The Getting started page explains each of the following steps in detail:
+
+1. [Fork the LaunchDarkly Integration Framework repository](/integrations/partner-integrations/getting-started#1-fork-the-launchdarkly-integration-framework-repository).
+2. [Create a new directory](/integrations/partner-integrations/getting-started#2-create-a-new-directory).
+3. [Create an integration manifest](/integrations/partner-integrations/getting-started#3-create-an-integration-manifest). 
+  - For an example of a completed manifest, read the [Manifest.json example](#manifestjson-example).
+4. [Define the integration's capabilities](/integrations/partner-integrations/getting-started#5-define-the-integrations-capabilities). 
+  - No capability section is required for an EaaS integration. You can add a top-level key `"otherCapabilities"" ["external"]`.
+5. [Create end user documentation and README](/integrations/partner-integrations/getting-started#7-create-your-user-documentation-and-readme).
+6. [Submit the integration](/integrations/partner-integrations/getting-started#8-submit-the-integration).
+
+## Format of a request
+
+For an EaaS integration, include requests to create and delete a LaunchDarkly environment each time you spin up and shut down an ephemeral environment. The following sections describe the required request format.
+
+### HTTP User Agent for REST API requests
+
+All API calls from LaunchDarkly partners should include a custom User-Agent: 
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'JSON', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+{launchdarkly product}-{source product}-int/{version}
+```
+</CodeTabItem>
+</CodeTabs>
+
+
+### Authentication
+
+Your integration can use either API keys or OAuth for authentication:
+- If you use API keys, your customers will need to create them in LaunchDarkly and provide them to your service. 
+- If you use OAuth, configure it as described in [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
+
+LaunchDarkly has support for OAuth clients. The only two types of scoped permissions are currently `reader` and `writer`. An EaaS integration needs the `writer` scope so it can create and delete environments. However, your customers may not want to provide the level of access overall that this functionality would grant.
+
+### Creation
+
+The endpoint to create a new environment accepts a POST body in JSON format. The minimum set of required parameters is:
+
+* `key`: The environment key
+* `name`: The environment name
+* `color`: The HTML hex color code for the environment when viewed in the LaunchDarkly user interface
+
+Most EaaS integrations will want to leverage the `source` parameter to use another environment's targeting to clone. Note, there are no hard-coded environment keys in LaunchDarkly. 
+
+If a customer creates a project in LaunchDarkly without specifying environments, by default LaunchDarkly creates two environments, `prod` and `test`. If the customer creates a project and does specify environments, then those defaults will not be used.
+
+Optionally you, the partner, may want to tag environments with a consistent value so it is easier to query the LaunchDarkly API for a list of those environments.
+
+As a partner you will have to provide support for your users to provide a LaunchDarkly Environment key that they want to use as the value of the `source` parameter.
+
+<LearnMore>
+
+Learn more: [Create a LaunchDarkly environment](https://apidocs.launchdarkly.com/tag/Environments#operation/postEnvironment)
+
+</LearnMore>
+
+### Deletion
+
+In your EaaS integration, you should clean up any LaunchDarkly environments that you create when the associated ephemeral environment no longer exists. If you need to recreate the LaunchDarkly environment later, you can recreate it on demand using the `source` environment to get the latest flags. This also helps your customers experience less drift between LaunchDarkly environments if they have been in existence for an extended period of time.
+
+<LearnMore>
+
+Learn more: [Delete a LaunchDarkly environment](https://apidocs.launchdarkly.com/tag/Environments#operation/deleteEnvironment)
+
+</LearnMore>
+
+
+
+### Manifest.json example
+
+This manifest is required for an integration. It renders your integration metadata inside of the LaunchDarkly UI.
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'JSON', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+{
+	"name": "Sample Integration",
+	"version": "1.0.0",
+	"overview": "Short one-liner describing your integration.",
+	"description": "Send flag data to space. Markdown-based description.",
+	"author": "Example Dot Com",
+	"supportEmail": "support@example.com",
+	"links": {
+		"site": "https://example.com",
+		"supportWebsite": "https://docs.releaseapp.io/integrations/integrations-overview/launchdarkly-integration",
+		"privacyPolicy": "https://example.com/privacy"
+	},
+	"categories": ["automation"],
+	"icons": {
+		"square": "assets/images/square.svg",
+		"horizontal": "assets/images/horizontal.svg"
+	},
+	"otherCapabilities": ["external"]
+}
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+
+## Conclusion
+
+This guide describes the process of building an ephemeral Environments as a Service (EaaS) integration. The crucial step is to have your integration create, and then delete, a LaunchDarkly environment each time you spin up and shut down an ephemeral environment. To learn more about building your own integrations, read [Building partner integrations](/integrations/partner-integrations).
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>
