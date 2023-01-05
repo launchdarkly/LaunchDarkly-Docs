@@ -14,6 +14,8 @@ add-on
 admin
 alias
 all flags
+allflags
+allflagsstate
 amazon
 amplitude
 analyze
@@ -22,6 +24,8 @@ anonymous
 ansible
 apex
 appdynamics
+application id
+application version
 api
 apple
 approval
@@ -37,10 +41,13 @@ azure
 bandwidth
 bayesian
 big segment
+bigsegments
 billing
 bitbucket
 bitbucket pipes
 boolean
+boolvariation
+boolvariationdetail
 bootstrap
 built-in
 
@@ -56,11 +63,13 @@ circleci orb
 click
 client-side
 clone
+close
 cloudflare
 cloudwatch
 code references
 compare
 configure
+connection
 contribute
 consul
 conversion
@@ -78,6 +87,7 @@ dashboard
 data
 data export
 datadog
+datasource
 debt
 debugger
 default
@@ -170,6 +180,8 @@ jest
 jira
 js sdk
 json
+jsonvariation
+jsonvariationdetail
 
 # K
 
@@ -182,9 +194,14 @@ kubernetes
 lambda
 launched
 ld-find-code-refs
+ldconfig
+ldconfigbuilder
+lduser
 link
+listener
 log
 logdna
+logger
 lua
 
 # M
@@ -274,10 +291,12 @@ schema
 scim
 sdk
 secure
+securemodehash
 security
 segment
 server-side
 serverless
+serviceendpoints
 servicenow
 session
 setting
@@ -295,6 +314,8 @@ static
 statistics
 stop
 store
+stringvariation
+stringvariationdetail
 subscribe
 support
 svelte
@@ -331,6 +352,7 @@ user object
 
 value
 variation
+variationdetail
 version
 viewproject
 vue
