@@ -55,7 +55,7 @@ The example below focuses on a database migration, but you can use a similar str
 
 For this example, let's start with a data model that is never updated, where events are written and later read, but never changed. Later in the guide, we'll discuss how to handle the more complicated data model with ongoing event updates.
 
-In the next sections, we refer to two databases, `db1` and `db2`. `db1` is the original database from which you will migrate. `db2` is the destination database to which you will migrate your data. It receives data from `db1`.
+In the next sections, we refer to two databases, `Database A` and `Database B`, or `dbA` and `dbB`. `dbA` is the original database from which you will migrate. `dbB` is the destination database to which you will migrate your data. It receives data from `dbA`.
 
 Here is a diagram representing migrating databases with feature flags:
 
@@ -63,17 +63,17 @@ Here is a diagram representing migrating databases with feature flags:
 
 ### Preparing your Data Access Object (DAO)
 
-You read and write events in `db1` with Data Access Object (or [DAO](https://en.wikipedia.org/wiki/Data_access_object)) code.
+You read and write events in `dbA` with Data Access Object (or [DAO](https://en.wikipedia.org/wiki/Data_access_object)) code.
 
-First, you must write a new DAO that uses the same interface as `db1`, but can also read and write to `db2`. If there are differences in the way you need to query the data in the new data store, you must address those requirements now.
+First, you must write a new DAO that uses the same interface as `dbA`, but can also read and write to `dbB`. If there are differences in the way you need to query the data in the new data store, you must address those requirements now.
 
 ### Feature flagging your reads and writes
 
-Now, you have two implementations of your DAO interface, one backed by `db1` and the other by `db2`.
+Now, you have two implementations of your DAO interface, one backed by `dbA` and the other by `dbB`.
 
-Use a set of four feature flags to control reading and writing to each database independently (referred to below as `events-db1-read`, `events-db2-read`, `events-db1-write`, and `events-db2-write`).
+Use a set of four feature flags to control reading and writing to each database independently (referred to below as `events-dbA-read`, `events-dbB-read`, `events-dbA-write`, and `events-dbB-write`).
 
-For example, the function below will save an event to the appropriate database depending on the value of your feature flags (`events-db1-write` and `events-db2-write`):
+For example, the function below will save an event to the appropriate database depending on the value of your feature flags (`events-dbA-write` and `events-dbB-write`):
 
 <CodeTabs
   defaultValue="code"
@@ -86,11 +86,11 @@ For example, the function below will save an event to the appropriate database d
 
 ```go
 func storeEvent(evt Event, account ld.User) {
-  if ldclient.BoolVariation('events-db1-write', account, true) {
-   DB1EventsDao.createEvent(evt)
+  if ldclient.BoolVariation('events-dbA-write', account, true) {
+   DBAEventsDao.createEvent(evt)
   }
-  if ldclient.BoolVariation('events-db2-write', account, true) {
-   DB2EventsDao.createEvent(evt)
+  if ldclient.BoolVariation('events-dbB-write', account, true) {
+   DBBEventsDao.createEvent(evt)
   }
 }
 ```
@@ -109,9 +109,9 @@ The `ldclient.BoolVariation()` function retrieves the feature flag value from La
 
 If you follow the code above precisely, you can save the same event in both databases. This is deliberate. It lets us write events to the new data store while maintaining the integrity of the old store.
 
-If you need to cancel the migration or roll back from `db2` to `db1`, we can do so with confidence because both databases have all of the events stored.
+If you need to cancel the migration or roll back from `dbB` to `dbA`, we can do so with confidence because both databases have all of the events stored.
 
-The code that reads the events is more complicated. Here, the strategy is to read from both data stores at the same time, compare the results, then return the results from `db1`. If the results are different between the data stores, then we log it.
+The code that reads the events is more complicated. Here, the strategy is to read from both data stores at the same time, compare the results, then return the results from `dbA`. If the results are different between the data stores, then we log it.
 
 Here is an example:
 
@@ -127,26 +127,26 @@ Here is an example:
 ```go
 func findEventById(id string, account ld.User) Event {
   // Check both 'read' flags
-  shouldReadDB1 := ldclient.BoolVariation('events-db1-read', account, true)
-  shouldReadDB2 := ldclient.BoolVariation('events-db2-read', account, true)
-  if shouldReadDB1 && shouldReadDB2 { // compare results
-    DB1Evt := DB1EventsDao.findEventById(id)
-    DB2Evt := DB2EventsDao.findEventById(id)
+  shouldReadDBA := ldclient.BoolVariation('events-dbA-read', account, true)
+  shouldReadDBB := ldclient.BoolVariation('events-dbB-read', account, true)
+  if shouldReadDBA && shouldReadDBB { // compare results
+    dbAEvt := DBAEventsDao.findEventById(id)
+    dbBEvt := DBBEventsDao.findEventById(id)
     // In this example, we are just performing a simple deep-equality check.
     // In some more complex cases, you might want to perform some other
     // integrity check to compare the two results, and ensure they
     // are as you expect.
-    if !reflect.DeepEqual(DB1Evt, DB2Evt) {
+    if !reflect.DeepEqual(dbAEvt, dbBEvt) {
       logger.Error.Printf(
-        "db1 and db2 events differ: db1: %+v, db2: %+v",
-        DB1Evt,
-        DB2Evt)
+        "dbA and dbB events differ: dbA: %+v, dbB: %+v",
+        dbAEvt,
+        dbBEvt)
     }
-    return DB1Evt
-  } else if shouldReadDB2 { // read from just db2
-    return DB2EventsDao.findEventById(id)
-  } else { // read from just db1
-    return DB1EventsDao.findEventById(id)
+    return dbAEvt
+  } else if shouldReadDBB { // read from just dbB
+    return DBBEventsDao.findEventById(id)
+  } else { // read from just dbA
+    return DBAEventsDao.findEventById(id)
   }
 }
 ```
@@ -154,26 +154,26 @@ func findEventById(id string, account ld.User) Event {
 </CodeTabItem>
 </CodeTabs>
 
-This implementation has a bias toward the incumbent data store, which in this example is `db1`. It returns the value read from `db1` when it reads from both stores, and it will also read from `db1` any time the `db2` flag is `false`.
+This implementation has a bias toward the incumbent data store, which in this example is `dbA`. It returns the value read from `dbA` when it reads from both stores, and it will also read from `dbA` any time the `dbB` flag is `false`.
 
 ### Rolling it out
 
 Now that you’ve wrapped your data access in feature flags, you can plan the rollout.
 
-You can leave the read flag (`events-db2-read`) turned off for everyone, and progressively roll out the write flag (`events-db2-write`) to your user base. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `db2`, roll the flag out to more users, until all events are being written to both databases.
+You can leave the read flag (`events-dbB-read`) turned off for everyone, and progressively roll out the write flag (`events-dbB-write`) to your user base. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `dbB`, roll the flag out to more users, until all events are being written to both databases.
 
-When you are happy with the write performance and have confirmed that the data in `db2` is correct, you can plan to migrate the missing data that's not yet in `db2`. This data was written before the `events-db2-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `db2`. Make sure to do a final check on the resulting data in `db2`.
+When you are happy with the write performance and have confirmed that the data in `dbB` is correct, you can plan to migrate the missing data that's not yet in `dbB`. This data was written before the `events-dbB-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `dbB`. Make sure to do a final check on the resulting data in `dbB`.
 
 <Callout intent="alert">
 <CalloutTitle>How do you handle a data model that can be updated?</CalloutTitle>
 <CalloutDescription>
 
-The example up until this point assumed a data model that doesn't get updated, only created. The write strategy for a mutable data model is a bit more complicated. In this case, you may want to consider adding a <code>lastUpdate</code> property to your data store so that you can decide if your copy script will need to update the data in <code>db2</code>.
+The example up until this point assumed a data model that doesn't get updated, only created. The write strategy for a mutable data model is a bit more complicated. In this case, you may want to consider adding a <code>lastUpdate</code> property to your data store so that you can decide if your copy script will need to update the data in <code>dbB</code>.
 
 </CalloutDescription>
 </Callout>
 
-After your data is copied to `db2`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, pay attention for a “db1 and db2 events differ” message. That message does not indicate that something is wrong in production. Even if you receive that message, it hasn’t affected any users. They are still using the data from your old data store. If you receive that error message, you can fix any issues without impacting your users and move forward.
+After your data is copied to `dbB`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, pay attention for a “dbA and dbB events differ” message. That message does not indicate that something is wrong in production. Even if you receive that message, it hasn’t affected any users. They are still using the data from your old data store. If you receive that error message, you can fix any issues without impacting your users and move forward.
 
 <LearnMore>
 
@@ -181,7 +181,7 @@ Learn more: [Percentage rollouts](/home/flags/rollouts)
 
 </LearnMore>
 
-After you're comfortable with the performance metrics and error counts you're receiving with reads and writes, you can now turn off the read and write flags for `db1`, remove all references to all four flags in your code, and you are left with just `db2`.
+After you're comfortable with the performance metrics and error counts you're receiving with reads and writes, you can now turn off the read and write flags for `dbA`, remove all references to all four flags in your code, and you are left with just `dbB`.
 
 Here is a diagram representing an example migration strategy:
 
