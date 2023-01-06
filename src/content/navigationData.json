@@ -370,6 +370,10 @@
           {
             "label": "Resetting your password",
             "path": "/home/account-security/reset-password"
+          },
+          {
+            "label": "Organization access settings",
+            "path": "/home/account-security/organization-access-settings"
           }
         ]
       },

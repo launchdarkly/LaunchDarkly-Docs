@@ -1,0 +1,54 @@
+---
+path: /home/account-security/organization-access-settings
+title: Organization access settings
+description: This topic explains how to enable and disable organization access settings in LaunchDarkly.
+published: true
+tags: ['security', 'access', 'discover', 'join']
+---
+
+## Overview
+
+This topic explains how to enable and disable organization access settings in LaunchDarkly.
+
+You must have an Admin role to manage organization access settings. You can disable organization access settings at any time.
+
+## Understanding organization access settings
+
+You can configure organization access to allow members of your organization to find and join your LaunchDarkly accounts.
+
+Organization access settings include the following options:
+
+- Enable domain matching
+- Enable matched seat provisioning
+
+## Enabling domain matching
+
+Domain matching allows new members to discover your account and request access if their verified email domain matches your organization owner's email domain. You can disable domain matching at any time.
+
+To enable domain matching:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Security** tab and scroll to the "Organization access settings" section.
+3. Check "Enable domain matching."
+
+![Organization access settings with domain matching enabled.](domain-matching-enabled.png)
+
+Domain matching is now enabled. New members whose verified email domains match the Owner's email domain can discover and request access to your LaunchDarkly account.
+
+![The "Select an organization" screen with domain matched accounts found.](domain-matching-select-an-organization.png)
+
+When a new member requests access to your LaunchDarkly account, the account Owner receives the request in an email. Owners and Admins can approve access requests.
+
+## Enabling matched seat provisioning
+
+Matched seat provisioning allows new members with verified email domains that match your organization owner's domain to join your account automatically, if there are available seats. To enable matched seat provisioning you must also enable domain matching. You can disable matched seat provisioning at any time.
+
+To enable matched seat provisioning:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Security** tab and scroll to the "Organization access settings" section.
+3. Check "Enable matched seat provisioning."
+
+![Organization access settings with matched seat provisioning enabled.](domain-matching-seat-provisioning-enabled.png)
+
+Matched seat provisioning is now enabled, and new members whose verified email domains match the Owner's email domain can automatically join your LaunchDarkly account if there are available seats.
