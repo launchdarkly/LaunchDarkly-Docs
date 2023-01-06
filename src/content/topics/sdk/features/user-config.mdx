@@ -3247,7 +3247,7 @@ $context = LDContext::builder("context-key-123abc")
 ```
 
 </CodeTabItem>
-<CodeTabItem value="php-4>
+<CodeTabItem value="php-4">
 
 ```php
 $user = (new LDUserBuilder("user-key-123abc"))
@@ -3275,7 +3275,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 #### Private attributes in the PHP SDK
 ---
 
-You can optionally configure the PHP SDK to treat some or all attributes as [private attributes](/home/contexts/attributes#using-private-user-attributes). Private attributes can be used for targeting purposes, but are removed from the data sent back to LaunchDarkly.
+You can optionally configure the PHP SDK to treat some or all attributes as [private attributes](/home/contexts/attributes#using-private-context-attributes). Private attributes can be used for targeting purposes, but are removed from the data sent back to LaunchDarkly.
 
 In the PHP SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
@@ -3306,7 +3306,7 @@ $context = LDContext::builder('context-key-123abc')
 ```
 
 </CodeTabItem>
-<CodeTabItem value="php-4>
+<CodeTabItem value="php-4">
 
 ```php
 $user = (new LDUserBuilder('user-key-123abc'))
@@ -3340,7 +3340,7 @@ $context = LDContext::builder("aa0ceb")->anonymous(true)->build();
 ```
 
 </CodeTabItem>
-<CodeTabItem value="php-4>
+<CodeTabItem value="php-4">
 
 ```php
 $user = (new LDUserBuilder("user-key-123abc"))->anonymous(true)->build();

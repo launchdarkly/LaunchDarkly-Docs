@@ -1362,12 +1362,12 @@
             "path": "/sdk/server-side/php",
             "items": [
               {
-                "label": "PHP SDK 3.x to 4.0 migration guide",
-                "path": "/sdk/server-side/php/migration-3-to-4"
-              },
-              {
                 "label": "PHP SDK 4.x to 5.0 migration guide",
                 "path": "/sdk/server-side/php/migration-4-to-5"
+              },
+              {
+                "label": "PHP SDK 3.x to 4.0 migration guide",
+                "path": "/sdk/server-side/php/migration-3-to-4"
               }
             ]
           },
