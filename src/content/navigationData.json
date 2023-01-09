@@ -750,7 +750,13 @@
         "items": [
           {
             "label": "Microsoft Teams",
-            "path": "/integrations/microsoft-teams"
+            "path": "/integrations/microsoft-teams",
+            "items": [
+              {
+                "label": "Setting up Microsoft Teams integration",
+                "path": "/integrations/microsoft-teams/setting-up"
+              }
+            ]
           },
           {
             "label": "Slack app",
