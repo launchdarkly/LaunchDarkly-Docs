@@ -214,12 +214,9 @@ yarn cypress --env skip_external=true
 
 ### CI
 
-All of our tests are integrated into out CI/CI pipeline and most are guaranteed to run on every PR, except **Internal link validation** which only runs on `main` branch, because it can takes between 20-30 minutes.
+All of our tests are integrated into out CI/CI pipeline and most are guaranteed to run on every PR.
 
-To run **Internal link validation** on a branch:
-
-1. Navigate to the [Workflow page](https://github.com/launchdarkly/ld-docs-private/actions/workflows/cypressProd.yml)
-2. Select **Run workflow** and choose the branch you would like to run the validation tests on.
+Local link checking and spellcheck run as part of the [Testing](https://github.com/launchdarkly/ld-docs-private/actions/workflows/main.yml) GitHub action. External link link validation runs once per day as part of the [Scheduled link check](https://github.com/launchdarkly/ld-docs-private/actions/workflows/scheduled-link-check.yml) GitHub action.
 
 ## 🔨 Navigation data
 
