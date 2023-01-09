@@ -3,7 +3,7 @@ path: /sdk/features/service-endpoint-configuration
 title: Service endpoint configuration
 description: This topic explains how to configure LaunchDarkly SDKs to connect to alternate service endpoints. Typically this is only required for customers working with the LaunchDarkly federal instance.
 published: true
-tags: ['federal', 'sdk', 'domain', 'configure']
+tags: ['federal', 'sdk', 'domain', 'configure', 'serviceendpoints']
 ---
 
 ## Overview
@@ -781,7 +781,7 @@ To configure an alternate service endpoint for the SDK, use the `stream_uri`, `b
 }>
 <CodeTabItem value="python">
 
-```py
+```python
 config = Config(sdk_key='sdk-key-123abc',
   stream_uri="https://stream.launchdarkly.us",
   base_uri="https://app.launchdarkly.us",

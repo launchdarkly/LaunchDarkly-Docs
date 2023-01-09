@@ -3,7 +3,7 @@ path: /sdk/features/relay-proxy-configuration/proxy-mode
 title: Using proxy mode
 description: This topic explains how to configure LaunchDarkly SDKs to connect to your Relay Proxy when you are running in proxy mode.
 published: true
-tags: ['proxy', 'mode', 'relay proxy', 'sdk']
+tags: ['proxy', 'mode', 'relay proxy', 'sdk', 'serviceendpoints']
 ---
 
 ## Overview
@@ -378,6 +378,7 @@ This feature is available for the following server-side SDKs:
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
+* [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -733,7 +734,7 @@ To connect the SDK to the Relay Proxy, set the `stream_uri`, `base_uri`, and `ev
 }>
 <CodeTabItem value="python">
 
-```py
+```python
 config = Config(sdk_key='sdk-key-123abc',
   stream_uri="https://your-relay-proxy.com:8030",
   base_uri="https://your-relay-proxy.com:8030",
@@ -767,4 +768,31 @@ config = LaunchDarkly::Config.new(
 
 </CodeTabItem>
 </CodeTabs>
+</Details>
+
+### Rust
+
+<Details summary="Expand Rust code sample">
+
+To connect the SDK to the Relay Proxy, use the `ConfigBuilder` and `ServiceEndpointsBuilder` to specify the base URI of your Relay Proxy:
+
+<CodeTabs
+  defaultValue="rust"
+  values={[
+    { label: 'Rust', value: 'rust', },
+  ]
+}>
+<CodeTabItem value="rust">
+
+```rust
+let config = ConfigBuilder::new("sdk-key-123abc")
+    .service_endpoints(
+        ServiceEndpointsBuilder::new().relay_proxy("https://your-relay-proxy.com:8030"),
+    )
+    .build();
+```
+
+</CodeTabItem>
+</CodeTabs>
+
 </Details>

@@ -1,6 +1,8 @@
 ADFS
 adfs
 Aeson
+allflags
+allflagsstate
 allowfullscreen
 Apcu
 appdynamics
@@ -16,7 +18,10 @@ awssdk
 azuredevops
 backgrounded
 Bahmutov's
+bigsegments
 Bintray
+boolvariation
+boolvariationdetail
 boringcrypto
 boto
 bracket-paren
@@ -56,6 +61,7 @@ Dockerized
 docsite
 Dynatrace
 Dynatrace's
+eaas
 elif
 elsewhere
 emptystate
@@ -105,6 +111,8 @@ Isha
 Javadoc
 Javadocs
 Jetpack
+jsonvariation
+jsonvariationdetail
 kevinrob
 kubernetes
 lastfailure
@@ -115,6 +123,8 @@ ldapi
 ldclient
 ldclientapi
 ldclientapicpp
+ldconfig
+ldconfigbuilder
 ldcomponents
 ldconsul
 ldcontext
@@ -220,10 +230,12 @@ scim
 screenreaders
 scribblingfox
 SDLC
+securemodehash
 segmentable
 semanticpatch
 sensiolabs
 serializers
+serviceendpoints
 sfdx
 sidenav
 signalfx
@@ -237,6 +249,8 @@ Stackdriver
 stdlib
 stflib
 strcmp
+stringvariation
+stringvariationdetail
 struct
 subfeature
 subfeatures

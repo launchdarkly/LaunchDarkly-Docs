@@ -3,6 +3,11 @@
     "name": ".NET (client-side)",
     "versions": [
       {
+        "versionMajorMinor": "3.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-21"
+      },
+      {
         "versionMajorMinor": "2.0",
         "releaseYear": 2022,
         "releaseMonthDay": "01-07"
@@ -113,9 +118,19 @@
     "name": "Android",
     "versions": [
       {
+        "versionMajorMinor": "4.1",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-22"
+      },
+      {
         "versionMajorMinor": "4.0",
         "releaseYear": 2022,
         "releaseMonthDay": "12-07"
+      },
+      {
+        "versionMajorMinor": "3.5",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-22"
       },
       {
         "versionMajorMinor": "3.3",
@@ -1093,6 +1108,11 @@
     "name": "PHP",
     "versions": [
       {
+        "versionMajorMinor": "5.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-04"
+      },
+      {
         "versionMajorMinor": "4.2",
         "releaseYear": 2022,
         "releaseMonthDay": "04-13"
@@ -1142,6 +1162,11 @@
   {
     "name": "Python",
     "versions": [
+      {
+        "versionMajorMinor": "8.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-30"
+      },
       {
         "versionMajorMinor": "7.5",
         "releaseYear": 2022,
@@ -1442,6 +1467,11 @@
   {
     "name": "Ruby",
     "versions": [
+      {
+        "versionMajorMinor": "7.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "12-30"
+      },
       {
         "versionMajorMinor": "6.4",
         "releaseYear": 2022,

@@ -33,7 +33,7 @@ Follow this process:
 
 2. Schedule a kickoff meeting with @Sarah Day (or invite her to the feature kickoff meeting). You can add other writers if you need to as well.
 
-3. **Two weeks before your feature launches**, PR your docs updates into git-gatsby. The docs-reviewers alias get added automatically, but you should also add other technical or product reviewers if you need.
+3. **Two weeks before your feature launches**, PR your docs updates into ld-docs-private. The squad-docs alias get added automatically, but you should also add other technical or product reviewers if you need.
 
 4. Now the docs team gets your docs ready to ship! Expect to go back and forth with them in revisions once or twice before everyone agrees the docs are ready.
 
@@ -107,11 +107,11 @@ yarn clean-all
 
 ## (Internal LaunchDarkly use only) Accessing the repo and docs tools
 
-If you're a new LaunchDarkly technical writer or other contributor accessing the repo for the first time, you must complete the following setup steps to access and make changes to git-gatsby.
+If you're a new LaunchDarkly technical writer or other contributor accessing the repo for the first time, you must complete the following setup steps to access and make changes to ld-docs-private.
 
 1. Request access to the [Dev repo](https://github.com/launchdarkly/dev).
 2. Follow steps 1-9 under [New computer setup](https://launchdarkly.atlassian.net/wiki/spaces/ENG/pages/15237262/New+Computer+Setup).
-3. Request admin access to git-gatsby and [LaunchDarkly-Docs](https://github.com/launchdarkly/LaunchDarkly-Docs). To learn more more about how the repos relate to each other, read [Syncing content between git-gatsby and LaunchDarkly-Docs](https://launchdarkly.atlassian.net/wiki/spaces/ENG/pages/467009739/LaunchDarkly+Docs+How-to+Guide#Syncing-content-between-git-gatsby-and-LaunchDarkly-Docs).
+3. Request admin access to ld-docs-private and [LaunchDarkly-Docs](https://github.com/launchdarkly/LaunchDarkly-Docs). To learn more more about how the repos relate to each other, read [Syncing content between ld-docs-private and LaunchDarkly-Docs](https://launchdarkly.atlassian.net/wiki/spaces/ENG/pages/467009739/LaunchDarkly+Docs+How-to+Guide#Syncing-content-between-ld-docs-private-and-LaunchDarkly-Docs).
 
 ## (Internal LaunchDarkly use only) 🌗 Accessing the staging site
 
@@ -218,12 +218,12 @@ All of our tests are integrated into out CI/CI pipeline and most are guaranteed 
 
 To run **Internal link validation** on a branch:
 
-1. Navigate to the [Workflow page](https://github.com/launchdarkly/git-gatsby/actions/workflows/cypressProd.yml)
+1. Navigate to the [Workflow page](https://github.com/launchdarkly/ld-docs-private/actions/workflows/cypressProd.yml)
 2. Select **Run workflow** and choose the branch you would like to run the validation tests on.
 
 ## 🔨 Navigation data
 
-All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/git-gatsby/blob/main/src/content/navigationData.json).
+All navigation data are stored in [src/content/navigationData.json](https://github.com/launchdarkly/ld-docs-private/blob/main/src/content/navigationData.json).
 This is flattened at build time to autogenerate two files `rootTopics.json` and `secondLevelTopics.json`. The
 flattened data are queryable via graphql and allows us to render the side nav more efficiently.
 

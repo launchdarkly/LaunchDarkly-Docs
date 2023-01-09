@@ -37,7 +37,7 @@ Evaluating a flag for an evaluation context involves the following steps:
 1. [Preliminary checks](#preliminary-checks): verify that the flag is on and the supplied evaluation context has a key. If the flag is off, the SDK does not complete the rest of the checks, and serves the default off variation.
 2. [Prerequisite checks](#prerequisite-checks): determine whether the flag's prerequisites are met.
 3. [Individual targeting checks](#individual-targeting-checks): determine whether any context in the evaluation context matches an individual context targeting rule.
-4. [Targeting rule checks](#targeting-rule-checks): determine whether the any context matches other targeting rules.
+4. [Targeting rule checks](#targeting-rule-checks): determine whether any context matches other targeting rules.
 5. [Fallthrough](#fallthrough): return the variation from the default rule when on.
 
 The result of the evaluation is:

@@ -24,7 +24,7 @@ Plan to merge your PR any time after it has been approved. It will be automatica
 
 If you expect your PR to remain open for some time after approval, update the PR title with the expected merge date. The Docs team will periodically check in on approved PRs that have not yet been merged.
 
-You can also schedule the merge in advance, for example if you have a firm release date planned. To learn how, read [Scheduling a PR merge to main](https://github.com/launchdarkly/git-gatsby/blob/main/README.md#internal-launchdarkly-use-only-scheduling-a-pr-merge-to-main).
+You can also schedule the merge in advance, for example if you have a firm release date planned. To learn how, read [Scheduling a PR merge to main](https://github.com/launchdarkly/ld-docs-private/blob/main/README.md#internal-launchdarkly-use-only-scheduling-a-pr-merge-to-main).
 
 
 ### What to expect for PR deploy

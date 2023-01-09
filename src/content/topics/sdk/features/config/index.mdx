@@ -3,7 +3,7 @@ path: /sdk/features/config
 title: Configuration
 description: This topic explains how to configure various LaunchDarkly SDKs, both client- and server-side.
 published: true
-tags: ['configure', 'sdk']
+tags: ['configure', 'sdk', 'ldconfig', 'ldconfigbuilder']
 ---
 
 ## Overview
@@ -62,10 +62,22 @@ You can configure `Configuration.Builder`:
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+Configuration config = Configuration
+    .Builder("mobile-key-123abc")
+    .Events(Components.SendEvents().FlushInterval(TimeSpan.FromSeconds(2)))
+    .Build();
+LdClient client = LdClient.Init(config, context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
 
 ```csharp
 Configuration config = Configuration
@@ -738,7 +750,7 @@ LDClient client = new LDClient("sdk-key-123abc", config);
 </CodeTabItem>
 </CodeTabs>
 
-For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html). You can also read the [5.x version](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/5.10.2/com/launchdarkly/client/LDConfig.Builder.html).
+For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html). You can also read the [5.x version](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/5.10.2/com/launchdarkly/client/LDConfig.Builder.html).
 </Details>
 
 ### Lua
@@ -868,15 +880,15 @@ For a complete list of customizable parameters, read the documentation for the [
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
 
 <CodeTabs
-  defaultValue="sdk7"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'sdk7', },
-    { label: 'Python (SDK versions 6.12.x and earlier)', value: 'sdk6', },
+    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v6.12.x and earlier', value: 'sdk6', },
   ]
 }>
-<CodeTabItem value="sdk7">
+<CodeTabItem value="python">
 
-```py
+```python
 config = Config(sdk_key='sdk-key-123abc', http=HTTPConfig(connect_timeout=5))
 ldclient.set_config(config)
 ```
@@ -884,7 +896,7 @@ ldclient.set_config(config)
 </CodeTabItem>
 <CodeTabItem value="sdk6">
 
-```py
+```python
 config = Config(sdk_key='sdk-key-123abc', connect_timeout=5)
 ldclient.set_config(config)
 ```

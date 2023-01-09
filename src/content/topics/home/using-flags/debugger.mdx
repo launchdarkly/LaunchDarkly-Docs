@@ -11,7 +11,11 @@ site: launchDarklyOnly
 
 This topic explains how to use the debugger.
 
-The debugger gives you real-time insight into the events your application is sending to LaunchDarkly, so you can ensure that you've set LaunchDarkly up correctly. Different types of events appear, in detail or in summary, depending on what you want to view.
+The debugger gives you real-time insight into the events your application is sending to LaunchDarkly, so you can ensure that you've set up LaunchDarkly correctly. Different types of events appear, in detail or in summary, depending on what you want to view.
+
+Here is an image of the **Flag events** tab of the debugger:
+
+![The debugger, showing flag events.](debugger-connection-events-tab.png)
 
 ## Using the debugger
 
@@ -19,17 +23,16 @@ The debugger shows you a real-time stream of events arriving in LaunchDarkly fro
 
 <Callout intent="info">
 <CalloutTitle>The debugger must be visible to work</CalloutTitle>
-
 <CalloutDescription>
 
 The debugger does not display events when it is not the active tab in your browser. Leave it open and visible to view events as they occur. If you need to click around in your app to generate events, open the app in a second window. The debugger will time out after 15 minutes of inactivity. You can prompt to keep loading events.
-</CalloutDescription>
 
+</CalloutDescription>
 </Callout>
 
-## Flag events
+### The debugger connection state
 
-The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the menu to access individual event information. The connection state for the "Flag events" tab indicates if events have occurred in your environment recently.
+The connection state for the "Flag events" tab indicates if events have occurred in your environment recently.
 
 ![Debugger connected to live event stream with recent events.](debugger-connection-connected-state.png)
 
@@ -42,14 +45,6 @@ If there is an issue connecting to the event stream, an error status appears. Th
 Here is an image of an event stream error message:
 
 ![Error connecting to the event steam.](debugger-connection-error-state.png)
-
-Here is an image of the Flag events tab of the debugger:
-
-![The debugger, showing flag events](debugger-connection-events-tab.png)
-
-Flag evaluation events display as a summary. This saves data load. To get detailed evaluation event information for a flag, select it and click **Debug**.
-
-This temporarily enables detailed events for that flag. The events appear as they are received. View additional information, including the user attributes used for evaluation, by clicking on an individual event.
 
 <Callout intent="alert">
 <CalloutTitle>Older SDK versions send detailed events for every evaluation</CalloutTitle>
@@ -68,6 +63,27 @@ The minimum required version for each platform SDK to use `summary` events is:
 - Android: 2.4.0
 - iOS: 2.13.0
 - PHP: The PHP SDK does not itself support `summary` events. However, when PHP is used with LD Relay, the LD Relay event forwarding mode has the ability to turn the events received from the PHP SDK into `summary` events. This requires that you are using PHP SDK version 3.1.0 or higher. If you are using LD Relay with PHP you will need to upgrade LD Relay to version 4.0.0 or higher. Other SDKs do not require an LD Relay update to use `summary` events.
+
+</CalloutDescription>
+</Callout>
+
+## Flag events
+
+The debugger displays evaluation counts and variation breakdowns for each flag evaluated since you opened the debugger. Click on a flag or select it from the menu to access individual event information. 
+
+Flag evaluation events display as a summary. To get detailed evaluation event information for a flag, select it and click **Debug**. This temporarily enables full-fidelity debug events for the flag. To learn more, read [Event kinds](/home/data-export/schema-reference#event-kinds).
+
+Here is an image of the **Debug** button for a flag:
+
+![A flag with the "Debug" button called out.](debugger-flag-debug-button-callout.png)
+
+View additional information, including the user attributes used for evaluation, by clicking on an individual event.
+
+<Callout intent="info">
+<CalloutTitle>You must have permission to use the Debug feature</CalloutTitle>
+<CalloutDescription>
+
+To use the **Debug** button, you must either have a built-in Writer role or a custom role that allows the <code>updateOn</code> action on the <code>flag</code> resource. To learn more, read [Custom roles](/home/members/custom-roles) and [Feature flag actions](/home/members/role-actions#feature-flag-actions).
 
 </CalloutDescription>
 </Callout>

@@ -3,7 +3,7 @@ path: /sdk/features/shutdown
 title: Shutting down
 description: This topic explains how to safely shut down different LaunchDarkly SDKs.
 published: true
-tags: ['shutdown', 'sdk']
+tags: ['shutdown', 'sdk', 'close']
 ---
 
 ## Overview
@@ -421,7 +421,7 @@ close client
 
 <Details summary="Expand Java code sample">
 
-[`Close`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#close--) safely shuts down the client instance and releases all resources associated with the client.
+[`Close`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#close()) safely shuts down the client instance and releases all resources associated with the client.
 
 To shut down:
 
@@ -477,8 +477,7 @@ To shut down:
 }>
 <CodeTabItem value="py">
 
-```py
-# shut down the client, because we're about to quit
+```python
 ldclient.get().close()
 ```
 

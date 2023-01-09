@@ -381,7 +381,9 @@ LDClient.start(config: config, user: user) {
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -469,9 +471,11 @@ if (showFeature) {
 
 ## Background fetch
 
-When the app is backgrounded, the SDK does not receive real-time events. However, MacOS supports background fetch which updates flag values opportunistically, according to iOS standard defaults. iOS does not support background fetch.
+When the app is backgrounded, the SDK does not receive real-time events. 
 
-To change the background fetch interval for flags in your app, add the following code in your `LDConfig`:
+Unlike other mobile SDKs, the iOS SDK does not support background fetch, so devices on the iOS operating system will not fetch flags from the background. However, devices on MacOS will update flag values opportunistically, according to the iOS SDK standard background polling defaults. 
+
+To change the background polling default for flags in your app, add the following code in your `LDConfig`:
 
 <CodeTabs
   defaultValue="swift"

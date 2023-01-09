@@ -144,3 +144,12 @@ To assign roles:
 5. Click **Update User.**
 
 The next time this user logs into LaunchDarkly through Google Apps, their roles will update. If this is a brand new LaunchDarkly account member, an account will be created automatically with the roles you specified.
+
+<Callout intent="info">
+<CalloutTitle>Removing existing roles</CalloutTitle>
+<CalloutDescription>
+
+SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all existing roles, enter an empty string "" into the field.
+
+</CalloutDescription>
+</Callout>

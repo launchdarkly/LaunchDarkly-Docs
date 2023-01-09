@@ -12,7 +12,7 @@ This topic explains how to set up and configure an experiment in LaunchDarkly. I
 
 In LaunchDarkly, the combination of metrics and flags is an experiment. Experiments let you measure the effect of flags on end users by mapping them to the metrics your team cares about. To learn more, read [Designing experiments](/guides/experimentation/designing-experiments).
 
-## Understanding Experimentation
+## Configuring experiments
 
 When a user performs a metric-tracked action in your application after they encounter a feature flag, the experiment logs an event.
 
@@ -49,7 +49,7 @@ Your network must be allowed to send events to LaunchDarkly. Ensure that event s
 
 ### You must be using unique user keys
 
-Your anonymous users must have their own unique user keys to use Experimentation. To learn more, read [Designating anonymous users](/sdk/features/user-config#designating-anonymous-users).
+Your anonymous users must have their own unique user keys to use Experimentation. To learn more, read [Designating anonymous users](/sdk/features/user-context-config#designating-anonymous-contexts).
 
 ### You must configure the Relay Proxy to send events
 

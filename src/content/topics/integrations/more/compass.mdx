@@ -33,30 +33,23 @@ The Compass integration for LaunchDarkly displays a timeline of feature flag cha
 
 ## Prerequisites
 
-To connect Compass to LaunchDarkly, you must meet the following prerequisites:
+To complete this procedure, you must have the following prerequisites:
 
-* Be a Compass administrator on your Atlassian site.
-* Have a LaunchDarkly API access token for use with Compass. To learn more, read [Creating API access tokens](/home/account-security/api-access-tokens#creating-api-access-tokens).
+- Be a Compass administrator on your Atlassian site.
+- Have a personal or service API access token. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
-To generate an API token for use with Compass:
-
-1. Create a token with the Reader role.
-2. If you are on an Enterprise plan, check the **This is a service token** option when creating your access token. If you are on a Pro plan, leave this option unchecked.
-3. Copy the new token and save it somewhere secure.
-
-## Setting up the Compass integration
+## Set up the Compass integration
 
 The Compass integration is managed from the Atlassian Cloud site. Other than creating an API access token, there are no settings or preferences to configure in LaunchDarkly.
 
 Here's how to set up your Compass integration:
 
-1. Generate a LaunchDarkly API access token as described in the [Prerequisites](#prerequisites) section.
-2. Navigate to your Atlassian Compass site. For example, `https://mysite.atlassian.net/compass`.
-3. In the top navigation, click **Apps**.
-4. Find **LaunchDarkly** in the list of apps and click **Install**.
-5. After the LaunchDarkly app is installed, click **Configure**.
-6. Click **Allow access**. The "LaunchDarkly is requesting Access" screen appears.
-7. Review the requested permissions, then click **Accept**.
+1. Navigate to your Atlassian Compass site. For example, `https://mysite.atlassian.net/compass`.
+2. In the top navigation, click **Apps**.
+3. Find **LaunchDarkly** in the list of apps and click **Install**.
+4. After the LaunchDarkly app is installed, click **Configure**.
+5. Click **Allow access**. The "LaunchDarkly is requesting Access" screen appears.
+6. Review the requested permissions, then click **Accept**.
 
 ![LaunchDarkly authorization screen for Compass.](compass-ld-integration-auth-dialog.png)
 
@@ -69,8 +62,8 @@ Here's how to set up your Compass integration:
   </CalloutDescription>
 </Callout>
 
-8. Enter your LaunchDarkly API access token in the **Access token** field.
-9. Click **Submit**.
+7. Enter your LaunchDarkly API access token in the **Access token** field.
+8. Click **Submit**.
 
 ![LaunchDarkly access token screen for Compass.](compass-ld-integration-access-token.png)
 
@@ -134,7 +127,7 @@ Here's how:
 
 ## Disconnecting your API access token
 
-The Compass integration stores your LaunchDarkly API access token to read data from the LaunchDarkly API, as described in the [Setting up the Compass integration](#setting-up-the-compass-integration) section. If you need to cycle your LaunchDarkly access token, or if you want to connect Compass to a different LaunchDarkly organization, you can disconnect your access token.
+The Compass integration stores your LaunchDarkly API access token to read data from the LaunchDarkly API, as described in the [Set up the Compass integration](#set-up-the-compass-integration) section. If you need to cycle your LaunchDarkly access token, or if you want to connect Compass to a different LaunchDarkly organization, you can disconnect your access token.
 
 Here's how:
 

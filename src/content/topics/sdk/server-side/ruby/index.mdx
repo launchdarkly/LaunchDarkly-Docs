@@ -6,6 +6,21 @@ tags: ['ruby', 'sdk', 'server-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 7 of the Ruby SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Ruby SDK 6.x to 7.0 migration guide](/sdk/server-side/ruby/migration-6-to-7).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
 This topic documents how to get started with the server-side Ruby SDK, and links to reference information on all of the supported features.
 
 <Callout intent="primary">
@@ -47,6 +62,17 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
 <CalloutDescription>
 
 Due to a bug in recent versions of RubyGems, RubyGems versions 2.4.x are not compatible with the LaunchDarkly Ruby SDK.
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>SDK version compatibility</CalloutTitle>
+<CalloutDescription>
+
+The LaunchDarkly Ruby SDK, version 7.0 and higher, is compatible with Ruby 2.7 and higher.
+
+Prior to version 7.0, the LaunchDarkly Ruby SDK also supported Ruby 2.5 and 2.6.
 
 </CalloutDescription>
 </Callout>
@@ -116,22 +142,37 @@ client = LaunchDarkly::LDClient.new("sdk-key-123abc")
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use `client` to check which variation a particular context will receive for a given feature flag. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Flag evaluation reasons](/sdk/features/evaluation-reasons). For more information about how contexts are specified, read [User and context configuration](/sdk/features/user-context-config).
 
 Here's how:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+context = LaunchDarkly::LDContext.with_key("user@test.com")
+show_feature = client.variation("your.flag.key", context, false)
+if show_feature
+  # application code to show the feature
+else
+  # the code to run if the feature is off
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 show_feature = client.variation("your.flag.key", {key: "user@test.com"}, false)
@@ -143,8 +184,6 @@ else
 
 </CodeTabItem>
 </CodeTabs>
-
-Lastly, when your application is about to terminate, shut down `client`. To learn more, read [Shutting down](/sdk/features/shutdown#ruby).
 
 ## Initializing LDClient in a Rails Application
 
@@ -249,7 +288,6 @@ Lastly, shut down the client when your application terminates. This frees the re
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#ruby)
 * [Big Segments](/sdk/features/big-segments#ruby)
 * [Configuration](/sdk/features/config#ruby)
 * [Evaluating flags](/sdk/features/evaluating#ruby)

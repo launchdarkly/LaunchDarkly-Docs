@@ -41,6 +41,16 @@ To meet a prerequisite, the prerequisite flag must be **On**. LaunchDarkly consi
 
 Flags can be dependent on multiple prerequisite flags. If a dependent flag has multiple prerequisite flags, then all of the prerequisite flag requirements must be met for LaunchDarkly to evaluate the dependent flag for a user.
 
+A prerequisite flag displays any dependent flags on its **Targeting** tab:
+
+![The dependent flag section of a flag's "Targeting" tab.](flag-targeting-dependent.png)
+
+<LearnMore>
+
+You can also use the REST API: [List dependent feature flags](https://apidocs.launchdarkly.com/tag/Feature-flags-(beta)#operation/getDependentFlags)
+
+</LearnMore>
+
 LaunchDarkly automatically prevents you from saving changes that would introduce circular dependencies between prerequisites. For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of Flag A.
 
 <Callout intent="alert">
@@ -51,9 +61,3 @@ You cannot delete a flag that is a prerequisite for other flags. You must remove
 
 </CalloutDescription>
 </Callout>
-
-<LearnMore>
-
-You can also use the REST API: [List dependent feature flags](https://apidocs.launchdarkly.com/tag/Feature-flags-(beta)#operation/getDependentFlags)
-
-</LearnMore>

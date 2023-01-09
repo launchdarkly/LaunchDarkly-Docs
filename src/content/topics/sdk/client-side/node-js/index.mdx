@@ -115,7 +115,14 @@ import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 </CodeTabItem>
 </CodeTabs>
 
-After you install and import the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly. Your client-side ID is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
+After you install and import the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly.
+
+To find and copy your LaunchDarkly client-side ID:
+
+1. Navigate to the **Account settings** page.
+2. Click the **Projects** tab.
+3. Click the name of your project. The **Environments** tab appears.
+4. Click the environment's client-side ID to copy it to your clipboard.
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -130,7 +137,9 @@ Client-side IDs are not secret and you can expose them in your client-side code 
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>

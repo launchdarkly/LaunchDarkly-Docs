@@ -6,6 +6,21 @@ tags: ['python', 'sdk', 'server-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 8 of the Python SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Python SDK 7.x to 8.0 migration guide](/sdk/server-side/python/migration-7-to-8).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
 This topic documents how to get started with the Python SDK, and links to reference information on all of the supported features.
 
 <Callout intent="primary">
@@ -75,7 +90,7 @@ Next, import the LaunchDarkly client in your application code:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 import ldclient
 from ldclient.config import Config
 ```
@@ -91,7 +106,9 @@ The `get()` function enforces the singleton pattern. You should only have one in
 <CalloutTitle>ldclient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `ldclient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `ldclient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -108,7 +125,7 @@ Here's how:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 ldclient.set_config(Config("sdk-key-123abc"))
 client = ldclient.get()
 ```
@@ -116,25 +133,42 @@ client = ldclient.get()
 </CodeTabItem>
 </CodeTabs>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use `client` to check which variation a particular context will receive for a given feature flag. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Flag evaluation reasons](/sdk/features/evaluation-reasons). For more information about how contexts are specified, read [User and context configuration](/sdk/features/user-context-config).
 
-Here's how:
+In the v8.0 example, the context key is the string "context-key-123abc". In the v7.x example, the user key is the string "user-key-123abc":
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
-show_feature = client.variation("your.flag.key", {"key": "user@test.com"}, False)
+```python
+from ldclient import Context
 
-if show_feature:
-  # application code to show the feature
+context = Context.builder("context-key-123abc").name("Sandy").build()
+flag_value = client.variation("flag-key-123abc", context, False)
+
+if flag_value:
+    # application code to show the feature
 else:
-  # the code to run if the feature is off
+    # the code to run if the feature is off
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
+user = {"key": "user-key-123abc"}
+flag_value = client.variation("flag-key-123abc", user, False)
+
+if flag_value:
+    # application code to show the feature
+else:
+    # the code to run if the feature is off
 ```
 
 </CodeTabItem>
@@ -158,7 +192,7 @@ Here's how:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 import uwsgidecorators
 
 @uwsgidecorators.postfork
@@ -220,7 +254,7 @@ Here's how to set the HTTPS_PROXY environment variable from within Python:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 os.environ["https_proxy"] = "https://web-proxy.domain.com:8080"
 ```
 
@@ -235,7 +269,6 @@ Lastly, shut down the client when your application terminates. To learn more, re
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#python)
 * [Big Segments](/sdk/features/big-segments#python)
 * [Configuration](/sdk/features/config#python)
 * [Evaluating flags](/sdk/features/evaluating#python)

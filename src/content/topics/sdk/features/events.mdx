@@ -607,7 +607,7 @@ You can also attach a JSON object containing arbitrary data to your event, or a 
 
 <Details summary="Expand Java code sample">
 
-The [`track`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#track-java.lang.String-com.launchdarkly.sdk.LDContext-) method lets you record actions end users take on your site. This lets you record events that take place on your server.
+The [`track`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#track(java.lang.String,com.launchdarkly.sdk.LDContext)) method lets you record actions end users take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
@@ -634,9 +634,9 @@ client.track("metric-key-123abc", user);
 </CodeTabItem>
 </CodeTabs>
 
-You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackData-java.lang.String-com.launchdarkly.sdk.LDContext-com.launchdarkly.sdk.LDValue-). You can set the data to any value that can be represented in JSON. To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
+You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#trackData(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.LDValue)). You can set the data to any value that can be represented in JSON. To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
-If you are using [Experimentation](/home/about-experimentation), you can specify a numeric metric with [`trackMetric`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#trackMetric-java.lang.String-com.launchdarkly.sdk.LDUser-com.launchdarkly.sdk.LDValue-double-).
+If you are using [Experimentation](/home/about-experimentation), you can specify a numeric metric with [`trackMetric`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#trackMetric(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.LDValue,double)).
 
 </Details>
 
@@ -707,45 +707,62 @@ You can also attach custom data to your event with optional parameters. To learn
 
 <Details summary="Expand PHP code sample">
 
-The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` method lets you record actions your end users take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client->track("metric-key-123abc", user);
+$client->track("metric-key-123abc", $context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$client->track("metric-key-123abc", $user);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
 You can also attach custom data, including anything that can be marshaled to JSON, to your event by passing an extra parameter to `track`. To learn how, read [`track()`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_track).
+
 </Details>
 
 ### Python
 
 <Details summary="Expand Python code sample">
 
-The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` method lets you record actions end users take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
+ldclient.get().track("metric-key-123abc", context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
 ldclient.get().track("metric-key-123abc", user)
 ```
 
@@ -759,17 +776,25 @@ You can also attach custom data to your event with optional parameters. To learn
 
 <Details summary="Expand Ruby code sample">
 
-The `track` method lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` method lets you record actions your contexts take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+client.track("metric-key-123abc", context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 client.track("metric-key-123abc", user)

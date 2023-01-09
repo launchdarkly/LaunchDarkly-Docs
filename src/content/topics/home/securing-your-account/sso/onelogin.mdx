@@ -122,6 +122,15 @@ Now this account member can access the LaunchDarkly app through OneLogin.
 
 If this is a new account member who has never accessed LaunchDarkly before, an account will be automatically created for them when they log in through the OneLogin portal.
 
+<Callout intent="info">
+<CalloutTitle>Removing existing roles</CalloutTitle>
+<CalloutDescription>
+
+SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all existing roles, enter an empty string "" into the field.
+
+</CalloutDescription>
+</Callout>
+
 ## User provisioning with SCIM
 
 You can also configure OneLogin to provision users with LaunchDarkly's SCIM API.

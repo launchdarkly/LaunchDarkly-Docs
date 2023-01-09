@@ -60,23 +60,39 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-The `Identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+You can use the `Identify` or `IdentifyAsync` method to switch contexts. This loads any saved flag values for the next context, and tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify()` or `IdentifyAsync()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify()` or `IdentifyAsync()` so that the person receives the correct feature flag settings for their account.
 
-<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-176640) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
-You may want to wait until the flag values for the new user have been loaded before proceeding. You can do this either by calling the synchronous method `Identify` with a timeout, or by calling the asynchronous method `IdentifyAsync` and awaiting the result.
+You may want to wait until the flag values for the new context have been loaded before proceeding. You can do this either by calling the synchronous method `Identify` with a timeout, or by calling the asynchronous method `IdentifyAsync` and awaiting the result.
 
 Here's how:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
+
+```csharp
+var updatedContext = Context.Builder("context-key-123abc")
+    .Set("email", "sandy@example.com")
+    .Build();
+
+// Synchronous method
+client.Identify(updatedContext, TimeSpan.FromSeconds(5));
+
+// Asynchronous method
+await client.IdentifyAsync(updatedContext);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
 
 ```csharp
 var updatedUser = LDUser.Builder("user-key-123abc")
@@ -823,7 +839,7 @@ To learn more, read [`identify`](https://launchdarkly.github.io/haskell-server-s
 
 `identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -850,7 +866,7 @@ client.identify(user);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`identify`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#identify(com.launchdarkly.sdk.LDUser)).
+To learn more, read [`identify`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#identify(com.launchdarkly.sdk.LDContext)).
 </Details>
 
 ### Lua
@@ -921,75 +937,100 @@ To learn more, read [`identify`](https://launchdarkly.github.io/node-server-sdk/
 
 <Details summary="Expand PHP code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client->identify(user);
+$client->identify($context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$client->identify($user);
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_identify).
+
 </Details>
 
 ### Python
 
 <Details summary="Expand Python code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` method automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
+ldclient.get().identify(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
 ldclient.get().identify(user)
 ```
 
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`identify`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html?highlight=identify#ldclient.client.LDClient.identify).
+To learn more, read [`identify`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.identify).
 </Details>
 
 ### Ruby
 
 <Details summary="Expand Ruby code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+client.identify(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 client.identify(user)

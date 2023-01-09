@@ -579,8 +579,8 @@ If you use eslint, the SDK requires that you add `launchdarkly-js-client-sdk` as
 
 ## Events
 
-The React SDK (version 2.27+) sends flag evaluation events only when a context receives a flag evaluation. The React SDK calls the JavaScript SDK's `allFlags` method on load to cache flag values. It uses the JavaScript SDK's `sendEventsOnlyForVariation` option, set to `true`, to prevent `allFlags` from sending evaluation events for every flag.
+The React SDK (version 2.27 and later) sends flag evaluation events only when a context receives a flag evaluation, not when `allFlags` is called. The React SDK calls the JavaScript SDK's `allFlags` method on load to cache flag values. It uses the JavaScript SDK's `sendEventsOnlyForVariation` option, set to `true`, to prevent `allFlags` from sending evaluation events for every flag.
 
-Versions 2.28 and earlier of the React SDK send an evaluation event when a user reads a flag evaluation. To recreate this behavior in version 2.28 and later, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`. Version 3 sends events when a context receives a flag evaluation.
+Versions 2.26 and earlier of the React SDK send an evaluation event when a user reads a flag evaluation using `allFlags` and `variation`. To recreate this behavior in version 2.27 and later, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`. Version 3 only sends events when a context receives a flag evaluation.
 
 To learn more about the `sendEventsOnlyForVariation` option, read the [JavaScript SDK API documentation](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation). To learn more about the `sendEventsOnFlagRead` option, read the [React SDK API documentation](https://launchdarkly.github.io/react-client-sdk/interfaces/LDReactOptions.html#sendEventsOnFlagRead).

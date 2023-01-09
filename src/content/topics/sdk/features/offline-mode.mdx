@@ -424,7 +424,7 @@ config' = configSetOffline True config
 
 <Details summary="Expand Java code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting [`offline`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline-boolean-) mode in the client's `LDConfig`.
+In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting [`offline`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline(boolean)) mode in the client's `LDConfig`.
 
 Here's how:
 
@@ -543,14 +543,23 @@ Here's how:
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', },
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("sdk-key-123abc", array("offline" => true));
-$client->variation("any.feature.flag", user, false); // will always return the default value (false)
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", ["offline" => true]);
+$client->variation("any.feature.flag", $context, false); // will always return the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", ["offline" => true]);
+$client->variation("any.feature.flag", $user, false); // will always return the default value (false)
 ```
 
 </CodeTabItem>
@@ -566,17 +575,28 @@ In some situations, you might want avoid remote calls to LaunchDarkly and use fa
 Here's how:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
 # Initialization:
 ldclient.set_config(Config("sdk-key-123abc", offline=True))
-ldclient.get().variation("any.feature.flag", user, False) # will always return the default value (false)
+ldclient.get().variation("any.feature.flag", context, False) # will always return the default value (false)
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-7">
+
+```python
+# Initialization:
+ldclient.set_config(Config("sdk-key-123abc", offline=True))
+ldclient.get().variation("any.feature.flag", context, False) # will always return the default value (false)
 
 ```
 
@@ -595,10 +615,20 @@ Here's how:
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+config = LaunchDarkly::Config.new({offline: true})
+client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
+client.variation("any.feature.flag", context, false) # will always return the default value (false)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 config = LaunchDarkly::Config.new({offline: true})

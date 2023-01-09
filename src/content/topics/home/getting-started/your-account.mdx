@@ -19,13 +19,30 @@ You cannot sign up for LaunchDarkly as a user who is not associated with an orga
 </CalloutDescription>
 </Callout>
 
+## Join your organization's existing account
+
+If you want to join your organization's LaunchDarkly account, you have two options:
+
+- You can ask an admin to invite you to your organization's account
+- You can request access if your organization has enabled domain matching
+
+To request access through domain matching:
+
+1. Navigate to the [Signup page](https://app.launchdarkly.com/signup).
+2. Complete and submit the signup form. LaunchDarkly sends a verification email to the email address you provided.
+3. Click the verification link.
+4. If your organization has domain matching enabled, a list of organizations to which you can request access appears.
+5. Select an organization from the list and click "Request access."
+
+
+If your organization does not have domain matching enabled, completing the signup form in step 1 will create a new account with a 14-day trial. To learn more, read [Enabling domain matching](/home/account-security/organization-access-settings#enabling-domain-matching).
+
 ## Inviting other members to LaunchDarkly
 
 If you want to invite other members of your organization to LaunchDarkly, you have a few different options:
 
 - You can invite [individual account members](#adding-individual-account-members)
-- You can import account members from [an IDP or trial](#adding-members-who-signed-up-for-a-trial)
-- Account members on a LaunchDarkly trial can join from there
+- You can invite [members who are members of other accounts](#adding-members-who-are-members-of-other-accounts)
 
 <Callout intent="info">
 <CalloutTitle>LaunchDarkly supports SCIM</CalloutTitle>
@@ -42,41 +59,42 @@ If your organization already has a LaunchDarkly account, an account member with 
 
 After prospective members receive the invitation, they follow the sign up instructions to join your organization's account.
 
-## Adding members who signed up for a trial
+## Adding members who are members of other accounts
 
 <Callout intent="warning">
-<CalloutTitle>Invitations fail when your email address is in use by a trial account</CalloutTitle>
+<CalloutTitle>Invitations fail when an email address is in use by another account</CalloutTitle>
 <CalloutDescription>
 
-If your email address is associated with a trial account, you must de-associate it or delete the trial account before you can receive an invitation email from your organization.
+If your email address is associated with a trial or other organization's account, you must de-associate it before you can receive an invitation email from your organization.
 
 </CalloutDescription>
 </Callout>
 
-A LaunchDarkly account can only have one email address associated with it, and one email address cannot be used for multiple LaunchDarkly accounts. If you used your preferred email address to sign up for a trial, you must de-associate it from the trial account before you can join your organization's LaunchDarkly account, using one of two methods:
+A LaunchDarkly account can only have one email address associated with it, and one email address cannot be used for multiple LaunchDarkly accounts. If you used your preferred email address to sign up for a trial, for example, you must de-associate it from the trial account before you can join your organization's LaunchDarkly account, using one of two methods:
 
-- Changing your trial account email address
-- Deleting your trial account
+- Changing your account email address
+- Deleting your other account if you are the Owner
 
-### Changing your trial account email address
+### Changing your account email address
 
-To change the email address associated with your trial account:
+To change the email address associated with an account:
 
-1. Log in to your existing LaunchDarkly trial account.
+1. Log in to your existing LaunchDarkly account.
 2. Navigate to the **Account settings** page and click into the **Profile** tab.
 3. Replace your original email address in the **Email address** field with a new email address.
-4. Click **Update my info**.
-5. Enter your original login email address and password.
+4. Click **Update my info**. A re-authentication screen appears.
+5. Enter your original login email address and password. You are returned to your **Profile** tab.
+6. Click **Update my info** again. Your email address is now updated.
 
-You can now accept an invitation from your organization owner using the email address previously associated with the trial account.
+You can now accept an invitation from your organization owner using the email address previously associated with the other account.
 
 Here is a screenshot of the Profile tab under Account settings:
 
 ![The "Profile" tab with an email address filled in.](account-settings-profile.png)
 
-### Deleting your trial account
+### Deleting your other account
 
-To delete your trial account:
+To delete an account:
 
 1. Log in to your existing LaunchDarkly account.
 2. Navigate to the **Account settings** page and click into the **Members** tab.
@@ -86,7 +104,7 @@ To delete your trial account:
 6. Click **Delete account** again. A confirmation dialog appears.
 7. Type `yes` in the dialog to confirm.
 
-You can now accept an invitation from your organization owner using the email address previously associated with the trial account.
+You can now accept an invitation from your organization owner using the email address previously associated with the other account.
 
 ## Understanding LaunchDarkly's user entity types
 

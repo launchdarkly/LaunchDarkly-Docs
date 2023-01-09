@@ -44,17 +44,19 @@ To stop an experiment iteration:
 
 1. Navigate to the **Experiments** list.
 2. Click on the name of the experiment you want to stop. The **Design** tab appears.
-3. Click **Stop**:
+3. Click **Stop**. A "Stop this experiment?" dialog appears.
 
 ![An experiment with the "Stop" button called out.](experiment-stop-callout.png)
 
-You can stop recording an experiment at any time. Just like starting an iteration, stopping an iteration only impacts the experiment in one environment. If you wish to stop collecting data from every instance of an experiment, you must stop each experiment in each environment individually.
+4. Choose a variation to serve to all targets in the experiment.
+5. Enter a reason for stopping the experiment.
+6. Click "Stop experiment."
 
-When you stop recording an experiment, LaunchDarkly ends the iteration and stops collecting data about user behavior for that experiment. The data collected for that iteration is available in a table.
+After you stop an experiment iteration, the variation you chose in step 4 is served to all targets that match the experiment audience targeting rule. The flag's **Targeting** tab updates to reflect this.
 
-To view the data, choose the iteration from the **Iteration** tab:
+You can stop an experiment iteration at any time. Just like starting an iteration, stopping an iteration only impacts the experiment in one environment. If you wish to stop collecting data from every instance of an experiment, you must stop each experiment in each environment individually.
 
-![An experiment's "Iteration" tab.](experiment-iterations-tab.png)
+When you stop recording an experiment, LaunchDarkly ends the iteration and stops collecting data about user behavior for that experiment. The data collected for that iteration is available on the experiment's **Results** tab.
 
 Stopping an experiment does not delete the experiment. Stopping an experiment lets you retain the results and data the experiment has already collected.
 
@@ -64,9 +66,27 @@ You can also use the REST API: [Patch experiment](https://apidocs.launchdarkly.c
 
 </LearnMore>
 
-## Managing experiment audiences
+## Editing experiments
 
-Before you make any changes to an active experiment's audience, you must stop your experiment. To learn how, read [Stopping experiment iterations](#stopping-experiment-iterations).
+You can make changes to the hypothesis, audience, and metrics of an existing experiment.
+
+After you create an experiment, you cannot edit its name, flag, or the flag's variations. If you want to use a different flag or a different flag variation, you must create a new experiment.
+
+### Changing an experiment's hypothesis
+
+To change an experiment's hypothesis:
+
+1. Navigate to the **Design** tab of your experiment.
+2. Click **Edit experiment**:
+
+![A running experiment with the "Edit experiment" button called out.](experiment-edit-callout.png)
+
+3. Navigate to the "Details" section and click the pencil **edit** icon.
+4. Edit the hypothesis as needed.
+5. Scroll to the top of the page and click **Save**.
+  - If the experiment was running when you made edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
+
+### Changing an experiment's audience
 
 To edit the audience of an experiment:
 
@@ -79,8 +99,20 @@ To edit the audience of an experiment:
 4. Edit the traffic allocation as needed.
   - (Optional) To disable variation reassignment, click **Advanced**, then check the **Prevent variation reassignment when increasing traffic** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
 5. Scroll to the top of the page and click **Save**.
-  - If you didn't stop the experiment before making edits, a "Stop this experiment?" dialog appears. Select a variation to serve users while the experiment is stopped, enter a reason for the change, and click **Stop experiment**.
-  - If you did stop the experiment before making edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
+  - If the experiment was running when you made edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
+
+### Changing an experiment's metric
+
+If you want to begin measuring a completely different metric as part of an experiment, we recommend creating a new experiment instead of editing an existing one. If you want to use a similar metric, you can change the metric associated with an experiment.
+
+Here's how to change the metric:
+
+1. Navigate to the **Design** tab of your experiment.
+2. Click **Edit experiment**.
+3. Navigate to the "Metrics" section and click the pencil **edit** icon.
+4. Choose new metrics from the "Primary metric" or "Secondary metrics" menus.
+Scroll to the top of the page and click **Save**.
+  - If the experiment was running when you made edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
 
 ## Legacy experiments
 

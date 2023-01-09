@@ -65,7 +65,7 @@ module.exports = [
     toPath: '/sdk/features/user-context-config',
   },
 
-  // Redirects within the git-gatsby docs site
+  // Redirects within the docs site
 
   {
     fromPath: '/guides/infrastructure/unit-tests',
@@ -1240,5 +1240,9 @@ module.exports = [
   {
     fromPath: '/home/experimentation/metrics/page-view',
     toPath: '/home/creating-experiments/metrics/page-view',
+  },
+  {
+    fromPath: '/integrations/slack/managing-approvals',
+    toPath: '/integrations/slack/approvals',
   },
 ]

@@ -370,6 +370,10 @@
           {
             "label": "Resetting your password",
             "path": "/home/account-security/reset-password"
+          },
+          {
+            "label": "Organization access settings",
+            "path": "/home/account-security/organization-access-settings"
           }
         ]
       },
@@ -667,6 +671,10 @@
               {
                 "label": "Using flag triggers with Datadog",
                 "path": "/integrations/datadog/triggers"
+              },
+              {
+                "label": "Using the Datadog RUM integration",
+                "path": "/integrations/datadog/rum"
               }
             ]
           },
@@ -758,7 +766,7 @@
               },
               {
                 "label": "Managing approvals in Slack",
-                "path": "/integrations/slack/managing-approvals"
+                "path": "/integrations/slack/approvals"
               },
               {
                 "label": "Turning flag targeting on and off",
@@ -1137,6 +1145,10 @@
             "svg": "dotnet",
             "items": [
               {
+                "label": ".NET (client-side) SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/dotnet/migration-2-to-3"
+              },
+              {
                 "label": ".NET (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/dotnet/migration-1-to-2"
               }
@@ -1354,6 +1366,10 @@
             "path": "/sdk/server-side/php",
             "items": [
               {
+                "label": "PHP SDK 4.x to 5.0 migration guide",
+                "path": "/sdk/server-side/php/migration-4-to-5"
+              },
+              {
                 "label": "PHP SDK 3.x to 4.0 migration guide",
                 "path": "/sdk/server-side/php/migration-3-to-4"
               }
@@ -1361,11 +1377,23 @@
           },
           {
             "label": "Python SDK reference",
-            "path": "/sdk/server-side/python"
+            "path": "/sdk/server-side/python",
+            "items": [
+              {
+                "label": "Python SDK 7.x to 8.0 migration guide",
+                "path": "/sdk/server-side/python/migration-7-to-8"
+              }
+            ]
           },
           {
             "label": "Ruby SDK reference",
-            "path": "/sdk/server-side/ruby"
+            "path": "/sdk/server-side/ruby",
+            "items": [
+              {
+                "label": "Ruby SDK 6.x to 7.0 migration guide",
+                "path": "/sdk/server-side/ruby/migration-6-to-7"
+              }
+            ]
           },
           {
             "label": "Rust SDK reference",
@@ -1418,6 +1446,10 @@
             "path": "/guides/flags/creating-flags"
           },
           {
+            "label": "Creating naming conventions for flags",
+            "path": "/guides/flags/flag-naming"
+          },
+          {
             "label": "Feature flag hierarchy",
             "path": "/guides/flags/flag-hierarchy"
           },
@@ -1463,6 +1495,10 @@
           {
             "label": "Experimentation and Bayesian statistics",
             "path": "/guides/experimentation/bayesian"
+          },
+          {
+            "label": "Managing experiments with logged-out and logged-in end users",
+            "path": "/guides/experimentation/logged-out-logged-in"
           },
           {
             "label": "Measuring Experimentation impact with holdout experiments",
@@ -1529,6 +1565,10 @@
           {
             "label": "Building an audit log event hook integration",
             "path": "/guides/integrations/build-audit-log-event-hook"
+          },
+          {
+            "label": "Building an ephemeral Environments as a Service integration",
+            "path": "/guides/integrations/build-eaas"
           }
         ]
       },

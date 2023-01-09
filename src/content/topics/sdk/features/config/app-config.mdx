@@ -3,14 +3,14 @@ path: /sdk/features/app-config
 title: Application metadata configuration
 description: This topic explains how to configure LaunchDarkly SDKs to send application metadata to LaunchDarkly.
 published: true
-tags: ['configure', 'metadata', 'sdk']
+tags: ['configure', 'metadata', 'sdk', 'application id', 'application version']
 ---
 
 ## Overview
 
 This topic explains how to configure LaunchDarkly SDKs to send application metadata to LaunchDarkly. This feature is available for both client-side and server-side SDKs. 
 
-Sending application metadata to LaunchDarkly allows you to populate the "From app/SDK" field on Context details pages with information about the SDK or application that sent the context attributes. To learn more, read [The context details page](/home/contexts/context-details).
+Sending application metadata to LaunchDarkly allows you to populate the "From source" field on Context details pages with information about the SDK or application that sent the context attributes. To learn more, read [The context details page](/home/contexts/context-details).
 
 <Callout intent="info">
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
@@ -200,7 +200,7 @@ LDConfig config = new LDConfig.Builder()
 </CodeTabItem>
 </CodeTabs>
 
-For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html).
+For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html).
 </Details>
 
 ### Node.js (server-side)
@@ -259,7 +259,7 @@ This code sample shows you how to pass custom parameters to the client by creati
 To pass custom parameters:
 
 <CodeTabs
-  defaultValue="js"
+  defaultValue="ruby"
   values={[
     { label: 'Ruby', value: 'ruby', },
   ]

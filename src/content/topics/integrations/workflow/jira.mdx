@@ -1,24 +1,24 @@
 ---
 path: /integrations/jira
 title: Jira Cloud
-description: This topic explains how LaunchDarkly's Jira integration allows you to link your feature flags to Jira issues.
+description: This topic explains how LaunchDarkly's Jira Cloud integration allows you to link your feature flags to Jira issues.
 published: true
 tags: ['jira', 'issue', 'integration', 'enterprise', 'pro']
 site: launchDarklyOnly
 ---
 
 <Callout intent="primary">
-<CalloutTitle>The Jira integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutTitle>The Jira Cloud integration is a Pro and Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
-The Jira integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+The Jira Cloud integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
 </CalloutDescription>
 </Callout>
 
 ## Overview
 
-This topic explains how LaunchDarkly's Jira integration allows you to link your feature flags to your team's Jira issues. When you connect a feature flag to a Jira issue, LaunchDarkly automatically creates a Jira flag link. To learn more, read [Flag links](/home/flags/links).
+This topic explains how LaunchDarkly's Jira Cloud integration allows you to link your feature flags to your team's Jira issues. When you connect a feature flag to a Jira issue, LaunchDarkly automatically creates a Jira flag link. To learn more, read [Flag links](/home/flags/links).
 
 <Callout intent="info">
 <CalloutTitle>This integration is for Jira Cloud only</CalloutTitle>
@@ -36,9 +36,22 @@ When a feature flag is turned on or off or has its targeting rules updated, its 
 To complete this procedure, you must have the following prerequisites:
 
 - The LaunchDarkly for Jira app from the [Atlassian Marketplace](https://marketplace.atlassian.com/apps/1219142/launchdarkly-for-jira?hosting=cloud&tab=overview) in your Jira Cloud instance.
-- An API access token with the Writer role or a custom role with permission to control webhooks and manage flag links. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
+- A personal or service API access token. To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
-## Setting up the Jira integration
+## Set up the Jira integration
+
+To set up the Jira integration, you must complete the following steps:
+
+1. Give your API access token the required permissions:
+  - You can [create a custom role with webhook and flag link permissions, then add the custom role to a personal or service access token](#create-a-custom-role-and-add-it-to-an-api-access-token), or
+  - you can [add the built-in Writer role to your personal access token](#add-the-built-in-writer-role-to-your-personal-access-token).
+2. [Configure the LaunchDarkly integration in Jira with the API access token](#configure-the-launchdarkly-integration-in-jira).
+
+This allows LaunchDarkly to communicate with Jira any time you change a flag.
+
+## Give your API access token the required permissions
+
+You can create a custom role with appropriate permissions then add the custom role to a personal or service access token, or you can add the built-in Writer role to your personal access token.
 
 <Callout intent="info">
 <CalloutTitle>You may need to update your access token</CalloutTitle>
@@ -49,15 +62,18 @@ If you configured the Jira integration prior to February 15, 2022, you may need 
 </CalloutDescription>
 </Callout>
 
-When you first set up the Jira integration, you must complete the following steps:
+### Create a custom role and add it to an API access token
 
-1. [Create a custom role with webhook and flag link permissions](#creating-a-custom-role-with-webhook-and-flag-link-permissions)
-2. [Add the custom role to the API access token](#adding-the-custom-role-to-the-api-access-token)
-3. [Configure the LaunchDarkly integration in Jira with the API access token](#configuring-the-launchdarkly-integration-in-jira)
+<Details summary="Expand Create a custom role and add it to an API access token">
 
-This allows LaunchDarkly to communicate with Jira any time you change a flag.
+<Callout intent="primary">
+<CalloutTitle>Service tokens and custom roles are Enterprise features</CalloutTitle>
+<CalloutDescription>
 
-### Creating a custom role with webhook and flag link permissions
+Service tokens and custom roles are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
 
 To create a custom role for the API access token:
 
@@ -76,6 +92,10 @@ To create a custom role for the API access token:
 13. Click **Update statement**.
 
 The custom role is now configured.
+
+Here is an image of a custom role configured to grant access to webhooks and flag links:
+
+![An access token's custom role configured to grant access to webhooks and flag links.](jira-create-access-token.png)<br/>
 
 You can also use the advanced role policy editor to grant permissions by adding this policy:
 
@@ -113,13 +133,7 @@ You can also use the advanced role policy editor to grant permissions by adding 
 </CodeTabItem>
 </CodeTabs>
 
-Here is an image of a custom role configured to grant access to webhooks and flag links:
-
-![An access token's custom role configured to grant access to webhooks and flag links.](jira-create-access-token.png)<br/>
-
 To learn more about custom role policies, read [Creating custom roles and policies](/home/members/role-create).
-
-### Adding the custom role to the API access token
 
 Next, add the custom role to the API token to grant the Jira integration additional permissions.
 
@@ -134,9 +148,27 @@ To add the custom role to the API token:
 
 The custom role is applied to the API token.
 
-### Configuring the LaunchDarkly integration in Jira
+</Details>
 
-Finally, use your access token to configure the Jira integration for your LaunchDarkly account.
+### Add the built-in Writer role to your personal access token
+
+<Details summary="Expand Add the built-in Writer role to your personal access token">
+
+To add the built-in Writer role to a personal access token:
+
+1. Navigate to the **Account settings** page.
+2. Click into the **Authorization** tab.
+3. Find the personal access token you want to add permissions to and select "Edit token" from its **overflow menu**. The "Edit" panel appears.
+4. In the **Role** menu, select "Writer."
+5. Click **Save token**.
+
+Your personal token now has the Writer role.
+
+</Details>
+
+## Configure the LaunchDarkly integration in Jira
+
+Use your access token to configure the Jira integration for your LaunchDarkly account.
 
 1. Navigate to your Jira instance's app management page, and click the **Configuration** button for the LaunchDarkly app. The "Configure LaunchDarkly Integration" screen appears.
 2. Set your API access token.

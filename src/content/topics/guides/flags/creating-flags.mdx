@@ -46,7 +46,7 @@ Before you create a feature flag, answer these questions to determine what kind 
 * Is this a temporary or long-lived flag?
 * What are this flag's default values?
 
-Answering these questions will help you determine how you name and describe the flag, and whether you need to plan for the flag's removal after you are no longer using it. To learn more, read [Creating a flag naming scheme](#creating-a-flag-naming-scheme).
+Answering these questions will help you determine how you name and describe the flag, and whether you need to plan for the flag's removal after you are no longer using it. To learn more, read [Creating a flag naming convention](#creating-a-flag-naming-convention).
 
 ### Rollout flags
 
@@ -89,17 +89,17 @@ Flags have two identifiers:
 
 You specify both of these identifiers when you create a flag for the first time.
 
-### Creating a flag naming scheme
+### Creating a flag naming convention
 
-You are likely to make many more flags in the future, and it helps to name them consistently. The best way to write comprehensible names is to use a **flag naming scheme**.
+You are likely to make many more flags in the future, and it helps to name them consistently. The best way to write comprehensible names is to use a flag naming convention.
 
-Flag naming schemes should address at least three things:
+Flag naming conventions should address at least three things:
 
 * Which flag attributes make up the flag name
 * How those components should be phrased and formatted
 * How they should be ordered in the name
 
-Many organizations have a naming style guide as part of their coding style guide. Use your organization's style guide if it exists. If there isn't one, consider what information about a flag might be useful for later users of the flag to know. We recommend using descriptive naming conventions that include as much information about the flag as possible.
+Many organizations have a naming style guide as part of their coding style guide. We recommend using descriptive naming conventions that include information about the flag's purpose and intent.
 
 Some useful facts to include in a flag name are:
 
@@ -107,9 +107,8 @@ Some useful facts to include in a flag name are:
 - The intent behind the flag
 - The effect of changing its value
 - Where that effect happens, such as the interface element or page affected
-- Which team is responsible for the flag
-- Whether the flag is temporary or permanent
-- The date it was created
+
+To learn more, read [Creating naming conventions for flags](/guides/flags/flag-naming).
 
 ### Writing effective flag descriptions
 

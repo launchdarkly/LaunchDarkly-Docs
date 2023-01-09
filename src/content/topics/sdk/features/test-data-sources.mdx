@@ -3,7 +3,7 @@ path: /sdk/features/test-data-sources
 title: Test data sources
 description: This topic explains how to use the test data source feature for more control over your LaunchDarkly SDKs during testing.
 published: true
-tags: ['test', 'data', 'sdk']
+tags: ['test', 'data', 'sdk', 'datasource']
 ---
 
 ## Overview
@@ -62,7 +62,8 @@ To configure the SDK to use a test data source:
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -73,7 +74,22 @@ using LaunchDarkly.Sdk.Client.Integrations;
 var td = TestData.DataSource();
 // You can set any initial flag states here with td.Update
 
-var config = Configuration.Builder("sdk-key-123abc")
+var config = Configuration.Builder("mobile-key-123abc")
+    .DataSource(td)
+    .Build();
+var client = LdClient.Init(config, context, startWaitTime);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
+
+```csharp
+using LaunchDarkly.Sdk.Client.Integrations;
+
+var td = TestData.DataSource();
+// You can set any initial flag states here with td.Update
+
+var config = Configuration.Builder("mobile-key-123abc")
     .DataSource(td)
     .Build();
 var client = LdClient.Init(config, user, startWaitTime);
@@ -104,13 +120,31 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
 
 ```csharp
-// This flag is true for the user key "some-user-key" and false for everyone else
+// This flag is true for the context key "context-key-123abc" and false for everyone else
+td.Update(td.Flag("flag-key-456def")
+    .Variation(false)
+    .VariationForKey(ContextKind.Of("user"), "context-key-123abc", true));
+
+// This flag returns the string variation "green" for contexts where the custom
+// attribute "admin" has a value of true, and "red" for all other contexts.
+td.Update(td.Flag("flag-key-789ghi")
+    .Variations(LdValue.Of("red"), LdValue.Of("green"))
+    .VariationFunc(context =>
+        context.GetValue("admin").AsBool ? 1 : 0);
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
+
+```csharp
+// This flag is true for the user key "user-key-123abc" and false for everyone else
 td.Update(td.Flag("flag-key-456def")
     .Variation(false)
     .VariationForUser("user-key-123abc", true));
@@ -896,10 +930,18 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+$td->update($td->flag("flag-key-123abc")->variationForAll(false));
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
 
 ```php
 $td->update($td->flag("flag-key-123abc")->variationForAllUsers(false));
@@ -913,10 +955,34 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+// This flag is true for the context with the key "context-key-123abc" and kind of "organization",
+// and false for everyone else
+$td->update(
+    $td->flag("flag-key-123abc")
+       ->variationForKey("organization", "context-key-123abc", true)
+       ->fallthroughVariation(false)
+);
+
+// This flag returns the string variation "green" for contexts that have the custom
+// attribute "admin" with a value of true, and "red" for everyone else.
+$td->update(
+    $td->flag("flag-key-123abc")
+       ->variations("red", "green")
+       ->fallthroughVariation(0)
+       ->ifMatch("admin", true)
+       ->thenReturn(1)
+);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
 
 ```php
 // This flag is true for the user key "some-user-key" and false for everyone else
@@ -941,6 +1007,7 @@ $td->update(
 </CodeTabs>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-TestData.html).
+
 </Details>
 
 ### Python
@@ -974,10 +1041,18 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="python"
   values={[
-    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
 <CodeTabItem value="python">
+
+```python
+td.update(td.flag("flag-key-123abc").variation_for_all(True))
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
 
 ```python
 td.update(td.flag("flag-key-123abc").variation_for_all_users(True))
@@ -991,29 +1066,53 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="python"
   values={[
-    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
 <CodeTabItem value="python">
 
 ```python
-# This flag is true for the user key "some-user-key" and false for everyone else
+# This flag is true for the context with the key "context-key-123abc" and kind
+# of "organization", and false for everyone else.
+
 td.update(
-    td
-    .flag("flag-key-456def")
-    .variation_for_user("some-user-key", True)
-    .fallthrough_variation(False)
+    td.flag("flag-key-456def") \
+        .variation_for_key("organization", "context-key-123abc", True) \
+        .fallthrough_variation(False)
+)
+
+# This flag returns the string variation "green" for contexts of the kind "user"
+# who have the custom attribute "admin" with a value of true, and "red" for
+# everyone else.
+td.update(
+    td.flag("flag-key-789ghi") \
+        .variations("red", "green")
+        .fallthrough_variation(0)
+        .if_match_context("user", "admin", True)
+        .then_return(1)
+)
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
+# This flag is true for the user key "some-user-key" and false for everyone else.
+td.update(
+    td.flag("flag-key-456def") \
+        .variation_for_user("some-user-key", True)
+        .fallthrough_variation(False)
 )
 
 # This flag returns the string variation "green" for users who have the custom
 # attribute "admin" with a value of true, and "red" for everyone else.
 td.update(
-    td
-    .flag("flag-key-789ghi")
-    .variations("red", "green")
-    .fallthrough_variation(0)
-    .if_match("admin", True)
-    .then_return(1)
+    td.flag("flag-key-789ghi") \
+        .variations("red", "green") \
+        .fallthrough_variation(0) \
+        .if_match("admin", True) \
+        .then_return(1)
 )
 ```
 
@@ -1056,10 +1155,18 @@ To set a flag to a specific value:
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+td.update(td.flag("flag-key-123abc").variation_for_all(false))
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 td.update(td.flag("flag-key-123abc").variation_for_all_users(false))
@@ -1073,10 +1180,28 @@ There are other ways you can configure flag behavior using a test data source. H
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+# This flag is true for the context key "some-context-key" and false for everyone else
+td.update(td.flag("flag-key-456def").
+    variation_for_key("some-context-key", true).
+    fallthrough_variation(false))
+
+# This flag returns the string variation "green" for contexts who have the custom
+# attribute "admin" with a value of true, and "red" for everyone else.
+td.update(td.flag("flag-key-789ghi").
+    variations("red", "green").
+    fallthrough_variation(0).
+    if_match_context("user", "admin", true).then_return(1))
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 # This flag is true for the user key "some-user-key" and false for everyone else

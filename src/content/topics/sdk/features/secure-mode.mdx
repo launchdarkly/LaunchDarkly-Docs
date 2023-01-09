@@ -3,7 +3,7 @@ path: /sdk/features/secure-mode
 title: Secure mode
 description: This topic explains how to use the secure mode feature for safely evaluating feature flags in your web browser.
 published: true
-tags: ['secure', 'mode', 'evaluate', 'sdk']
+tags: ['secure', 'mode', 'evaluate', 'sdk', 'securemodehash']
 ---
 
 ## Overview
@@ -135,7 +135,7 @@ client.SecureModeHash(user)
 
 <Details summary="Expand Java code sample">
 
-The [`secureModeHash`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#secureModeHash-com.launchdarkly.sdk.LDUser-) method computes an HMAC signature of a user signed with the client's SDK key.
+The [`secureModeHash`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#secureModeHash(com.launchdarkly.sdk.LDContext)) method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
@@ -191,20 +191,28 @@ client.secureModeHash(user);
 
 <Details summary="Expand PHP code sample">
 
-The `secureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
+The `secureModeHash` method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
 
 ```php
-$client->secureModeHash(user);
+$hash = $client->secureModeHash($context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
+
+```php
+$hash = $client->secureModeHash(user);
 ```
 
 </CodeTabItem>
@@ -215,19 +223,27 @@ $client->secureModeHash(user);
 
 <Details summary="Expand Python code sample">
 
-The `SecureModeHash` method computes an HMAC signature of a user signed with the client's SDK key.
+The `SecureModeHash` method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
+```python
+hash = ldclient.get().secure_mode_hash(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-7">
+
+```python
 hash = ldclient.get().secure_mode_hash(user)
 ```
 
@@ -239,17 +255,25 @@ hash = ldclient.get().secure_mode_hash(user)
 
 <Details summary="Expand Ruby code sample">
 
-The `secure_mode_hash` method computes an HMAC signature of a user signed with the client's SDK key.
+The `secure_mode_hash` method computes an HMAC signature of a context signed with the client's SDK key.
 
 Here is the method:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+client.secure_mode_hash(context)
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 client.secure_mode_hash(user)

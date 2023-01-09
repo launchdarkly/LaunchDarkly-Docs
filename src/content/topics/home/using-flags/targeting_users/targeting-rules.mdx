@@ -34,7 +34,7 @@ To create a rule that serves `true` to all users whose email address ends with `
 7. (Optional) If you need to undo the changes you just made, click the **undo arrow** icon to discard all changes.
 8. Click **Review and save**.
 
-If a targeting rule references any custom attributes with `null` values, then the flag skips that rule.
+If a targeting rule references any custom attributes with `null` values, or that do not exist for a given user, then the flag skips that rule. For example, in a rule that checks "region is one of Canada," any user whose region attribute is not set or is set to null does not match the rule. Similarly, in a rule that checks "region is not one of Canada," any user whose region attribute is not set or is set to null does not match the rule. This behavior ensures that your rules only target users for whom you explicitly have attribute information.
 
 You can add multiple conditions to a rule. Here is how rules handle multiple conditions and values:
 

@@ -37,7 +37,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell><a href="http://launchdarkly.github.io/java-server-sdk/">SDK API docs</a></TableCell>
+      <TableCell><a href="https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/index.html">SDK API docs</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
@@ -128,7 +128,7 @@ import com.launchdarkly.sdk.server.*;
 </CodeTabItem>
 </CodeTabs>
 
-After you install and import the SDK, create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
+After you install and import the SDK, create a single, shared instance of [`LDClient`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
@@ -151,7 +151,9 @@ LDClient client = new LDClient("sdk-key-123abc");
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
 <CalloutDescription>
 
-It's important to make `LDClient` a singleton. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
+
+If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
 
 </CalloutDescription>
 </Callout>

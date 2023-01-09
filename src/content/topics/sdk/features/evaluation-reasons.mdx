@@ -3,7 +3,7 @@ path: /sdk/features/evaluation-reasons
 title: Flag evaluation reasons
 description: This topic explains how to use the flag evaluation reason feature to get more information about the flag variations LaunchDarkly serves to contexts or users.
 published: true
-tags: ['flag', 'evaluation', 'reason', 'sdk']
+tags: ['flag', 'evaluation', 'reason', 'sdk', 'variationdetail', 'boolvariationdetail', 'stringvariationdetail', 'jsonvariationdetail']
 ---
 
 ## Overview
@@ -61,14 +61,15 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-The `VariationDetail` methods, such as `BoolVariationDetail`, work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `VariationDetail` methods, such as `BoolVariationDetail`, work the same as `Variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -76,14 +77,34 @@ Here is an example:
 ```csharp
 
 Configuration config = Configuration
-  .Builder("mobile-key-123abc")
-  .EvaluationReasons(true)
-  .Build();
+    .Builder("mobile-key-123abc")
+    .EvaluationReasons(true)
+    .Build();
+LdClient client = LdClient.Init(config, context);
+
+EvaluationDetail<bool> detail =
+    client.BoolVariationDetail("bool-flag-key-123abc", false);
+    // or StringVariationDetail for a string-valued flag, and so on.
+
+bool value = detail.Value;
+int? index = detail.VariationIndex;
+EvaluationReason reason = detail.Reason;
+```
+
+</CodeTabItem>
+<CodeTabItem value="csharp-2.x">
+
+```csharp
+
+Configuration config = Configuration
+    .Builder("mobile-key-123abc")
+    .EvaluationReasons(true)
+    .Build();
 LdClient client = LdClient.Init(config, user);
 
 EvaluationDetail<bool> detail =
-  client.BoolVariationDetail("flag-key", false);
-  // or StringVariationDetail for a string-valued flag, and so on.
+    client.BoolVariationDetail("bool-flag-key-123abc", false);
+    // or StringVariationDetail for a string-valued flag, and so on.
 
 bool value = detail.Value;
 int? index = detail.VariationIndex;
@@ -938,7 +959,7 @@ For specific information on the `EvaluationDetail` structure, inspect the `Launc
 
 <Details summary="Expand Java code sample">
 
-The `variationDetail` methods, such as [`boolVariationDetail`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)), work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods, such as [`boolVariationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)), work the same as `variation`, but also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
@@ -982,7 +1003,7 @@ EvaluationReason reason = detail.getReason();
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)).
+To learn more, read [`EvaluationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)).
 
 Here is an example of how to access the details of a reason object:
 
@@ -1029,7 +1050,7 @@ void printReason(EvaluationReason reason) {
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/EvaluationReason.html).
+To learn more, read [`EvaluationReason`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationReason.html).
 
 </Details>
 
@@ -1185,17 +1206,30 @@ To learn more, read [`variationDetail`](https://launchdarkly.github.io/cloudflar
 
 The `variationDetail` method lets you evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for example, if the context was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0', value: 'php', },
+    { label: 'PHP SDK v4.x', value: 'php-4', }
   ]
 }>
 <CodeTabItem value="php">
+
+```php
+
+$detail = $client->variationDetail("flag-key-123abc", $myContext, false);
+
+$value = $detail->getValue();
+$index = $detail->getVariationIndex();
+$reason = $detail->getReason();
+```
+
+</CodeTabItem>
+<CodeTabItem value="php-4">
 
 ```php
 
@@ -1216,7 +1250,7 @@ Here is an example of how to access the details of a reason object:
 <CodeTabs
   defaultValue="php"
   values={[
-    { label: 'PHP', value: 'php', },
+    { label: 'PHP SDK v5.0 and earlier', value: 'php', },
   ]
 }>
 <CodeTabItem value="php">
@@ -1245,7 +1279,7 @@ function printReason($reason) {
       break;
   }
   // or, if all you want is a simple descriptive string:
-  echo($reason);
+  echo $reason;
 }
 ```
 
@@ -1262,20 +1296,31 @@ To learn more, read [`EvaluationReason`](https://launchdarkly.github.io/php-serv
 
 The `variation_detail` method lets you evaluate a feature flag with the same parameters as you would for `variation`. You can use this method to receive more information about how the value was calculated.
 
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the context was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
-  defaultValue="py"
+  defaultValue="python"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v8.0', value: 'python', },
+    { label: 'Python SDK v7.x', value: 'python-v7', },
   ]
 }>
-<CodeTabItem value="py">
+<CodeTabItem value="python">
 
-```py
-detail = client.variation_detail("flag-key", my_user, False)
+```python
+detail = client.variation_detail("flag-key-123abc", my_context, False)
+value = detail.value
+index = detail.variation_index
+reason = detail.reason
+```
+
+</CodeTabItem>
+<CodeTabItem value="python-v7">
+
+```python
+detail = client.variation_detail("flag-key-123abc", my_user, False)
 value = detail.value
 index = detail.variation_index
 reason = detail.reason
@@ -1284,7 +1329,7 @@ reason = detail.reason
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationDetail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.flag.EvaluationDetail) and [`variation_detail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.variation_detail).
+To learn more, read [`EvaluationDetail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.evaluation.EvaluationDetail) and [`variation_detail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.variation_detail).
 
 Here is an example of how to access the details of a reason object:
 
@@ -1296,7 +1341,7 @@ Here is an example of how to access the details of a reason object:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 def print_reason(reason):
   kind = reason["kind"]
   if kind == "OFF":
@@ -1316,7 +1361,7 @@ def print_reason(reason):
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`EvaluationDetail.reason`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.flag.EvaluationDetail.reason).
+To learn more, read [`EvaluationDetail.reason`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.evaluation.EvaluationDetail.reason).
 
 </Details>
 
@@ -1326,17 +1371,28 @@ To learn more, read [`EvaluationDetail.reason`](https://launchdarkly-python-sdk.
 
 The `variation_detail` method lets you evaluate a feature flag (using the same parameters as you would for `variation`) and receive more information about how the value was calculated.
 
-The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the user was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The variation detail is returned in an object that contains both the result value and a "reason" object which will tell you, for instance, if the context was individually targeted for the flag or was matched by one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v7.0', value: 'ruby', },
+    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
   ]
 }>
 <CodeTabItem value="ruby">
+
+```ruby
+detail = client.variation_detail("flag-key", my_context, false)
+value = detail.value
+index = detail.variation_index
+reason = detail.reason
+```
+
+</CodeTabItem>
+<CodeTabItem value="ruby-v6">
 
 ```ruby
 detail = client.variation_detail("flag-key", my_user, false)

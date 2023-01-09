@@ -3,7 +3,7 @@ path: /sdk/features/logging
 title: Logging configuration
 description: This topic explains how to configure the logging feature. Logging is available for both client-side and server-side SDKs.
 published: true
-tags: ['log', 'sdk']
+tags: ['log', 'sdk', 'logger']
 ---
 
 ## Overview
@@ -38,7 +38,7 @@ The client-side .NET SDK uses the `Common.Logging` framework. For an example con
 There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 </Details>
 
@@ -584,7 +584,7 @@ There are two things to consider if you enable the `Debug` log level:
 
 <Details summary="Expand Java code sample">
 
-In version 5.10.0 and higher, the Java SDK allows you to specify a destination for logging using the [`LDConfig.Builder.logging`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/LDConfig.Builder.html#logging(com.launchdarkly.sdk.server.interfaces.LoggingConfigurationFactory)) method and the [`com.launchdarkly.logging`](https://github.com/launchdarkly/java-logging/) API.
+In version 5.10.0 and higher, the Java SDK allows you to specify a destination for logging using the [`LDConfig.Builder.logging`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html#logging(com.launchdarkly.sdk.server.subsystems.ComponentConfigurer)) method and the [`com.launchdarkly.logging`](https://github.com/launchdarkly/java-logging/) API.
 
 If you do not specify a destination, the default behavior depends on the version of the SDK:
 * In versions 5.10.0 and earlier, the default destination is [SLF4J](https://www.slf4j.org/). SLF4J has its own configuration mechanisms for determining where output will go, and for filtering by level and/or logger name. It will not generate any output unless you have provided a configuration. For an example of using SLF4J with a simple console logging configuration, visit an SLF4J-specific version of [hello-java](https://github.com/launchdarkly/hello-java/tree/slf4j-logging).
@@ -701,7 +701,7 @@ The PHP SDK uses [Monolog](https://github.com/Seldaek/monolog). All loggers are 
 There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 You can pass a custom logger to the SDK by using the configurable `logger` property:
 
@@ -714,7 +714,7 @@ You can pass a custom logger to the SDK by using the configurable `logger` prope
 <CodeTabItem value="php">
 
 ```php
-$client = new LaunchDarkly\LDClient("sdk-key-123abc", array("logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Logger::DEBUG)])));
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", ["logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Level::Debug)])]);
 ```
 
 </CodeTabItem>
@@ -737,7 +737,7 @@ Here's how to enable the debug log level:
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 ld_logger = logging.getLogger("ldclient")
 ld_logger.setLevel(logging.DEBUG)
 ```
@@ -761,7 +761,7 @@ The Ruby SDK uses Ruby's built-in [Logger class](https://ruby-doc.org/stdlib-2.4
 There are two important things to consider before you enable the DEBUG log level:
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
-2. Debug-level logs include sensitive information, including LaunchDarkly users you create when you use this SDK.
+2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
 You can pass a custom logger to the SDK by using the configurable `logger` property:
 

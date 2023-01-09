@@ -48,7 +48,9 @@ Here is an image of a flag's targeting rule with 20% of users included in the ex
 
 ![The user targeting section of a flag's "Targeting" tab with an active experiment.](experiment-flag-targeting-tab.png)
 
-If you decide to start a new iteration of your experiment and increase or decrease the number of users in your experiment audience, LaunchDarkly will automatically add or remove users to or from the variations using variation reassignment. To learn how to change the audience for a running experiment, read [Managing experiment audiences](/home/analyzing-experiments/managing#managing-experiment-audiences).
+If you decide to start a new iteration of your experiment and increase or decrease the amount of traffic in your experiment audience, LaunchDarkly will automatically add or remove users to or from the variations using variation reassignment. To learn how to change the audience for a running experiment, read [Changing an experiment's audience](/home/analyzing-experiments/managing#changing-an-experiments-audience).
+
+If you start a new iteration of your experiment but don't change the amount of traffic in your experiment audience, LaunchDarkly will not reassign users to different variations.
 
 ## Understanding variation reassignment
 
@@ -56,29 +58,23 @@ Experiments are subject to day-of-week or hour-of-day effects. For example, a us
 
 For example, say you allocated 6% of your traffic to your experiment and it included traffic from weekdays only, and later when you increase your allocated traffic to 30%, it also included traffic from weekends. Because you had more traffic on weekends, the data would overrepresent that traffic and you would get a biased result. You can avoid this by allowing "variation reassignment."
 
-Here is an example of audience allocation using variation reassignment:
+Here is an example of audience allocation using variation reassignment: first, you add an experiment to a flag with three variations: A, B, and C. You roll out the three variations to 6% of the users, while the remaining 94% receives the control, variation A. The control traffic is not part of the experiment nor its analysis.
 
-First, you add an experiment to a flag with three variations: A, B, and C. You roll out the three variations to 6% of the users, while the remainder receives variation A.
+Here is a visualization of the starting traffic allocation, with the control group on the right:
 
-An example starting traffic allocation appears below:
+![An experiment audience with 6% in the experiment and 94% in the control group.](experiment-allocation-six-percent.png)
 
-![Audience allocation at 6%](experiment-allocation-six-percent.png)
+Next, you ramp up your experiment to 30% of traffic. This creates a new iteration of the experiment. In the new iteration, the 6% that were receiving variations A, B, and C have reverted to the control, variation A. The 30% allocated to the experiment is from new traffic.
 
-The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
+Here is an example of the modified allocation, with the control group on both the left and right:
 
-Next, you ramp up your experiment to 30% of traffic. This creates a new iteration of the experiment.
-
-Here is an example of the modified allocation:
-
-![Audience allocation at 30%](experiment-allocation-thirty-percent.png)
-
-In the new iteration, the traffic that was receiving variations A, B, and C, is now reverted back to A, and new traffic is used for the 30% allocated to the experiment.
+![An experiment audience with 30% in the experiment and 70% in the control group.](experiment-allocation-thirty-percent.png)
 
 Finally, you roll out variations A and B to 50% of traffic each. This creates another iteration of the experiment, and the entire audience is reallocated randomly. For example, 0%-1% partition will not have the exact same set of users as the previous 0%-1% partition.
 
-Here is an example image:
+Here is an example of the allocation with no control group:
 
-![Audience allocation at 50%](experiment-allocation-fifty-percent.png)
+![An experiment audience with 100% in the experiment.](experiment-allocation-fifty-percent.png)
 
 This new random assignment prevents carryover bias by ensuring that users from previous variations are evenly distributed between variations A and B.
 
@@ -103,20 +99,25 @@ Allowing variation reassignment should be the default for your experiments. If y
 
 You should only rarely prevent users from switching variations during an experiment by disabling variation reassignment. You may want to disable variation reassignment for substantial changes, such as major navigation menu or UI changes. You can disable variation reassignment by clicking **Advanced**, then checking the **Prevent variation reassignment when increasing traffic** checkbox.
 
-Here is an example of running an experiment with variation reassignment disabled:
+<Callout intent="warning">
+<CalloutTitle>Traffic will be assigned to new variations if you stop an experiment</CalloutTitle>
+<CalloutDescription>
 
-You add an experiment to a flag with three variations: A, B, and C. You roll out the three variations to 6% of the users, while the remainder receives variation A.
+Checking the **Prevent variation reassignment when increasing traffic** checkbox prevents variation reassignment only if you change the amount of traffic in your experiment audience by editing a running experiment using the experiment's **Edit** button. To learn more, read [Editing experiments](/home/analyzing-experiments/managing#editing-experiments).
 
-Here is an example starting traffic allocation:
+If you instead use the **Stop** button to stop an experiment iteration, change the amount of traffic in your experiment audience, then start a new iteration, LaunchDarkly will still reshuffle traffic into new variations.
 
-![Audience allocation at 6%](experiment-allocation-six-percent.png)
+</CalloutDescription>
+</Callout>
 
-The traffic on the right is receiving variation A, but is not part of the experiment nor its analysis.
+Here is an example of running an experiment with variation reassignment disabled: you add an experiment to a flag with three variations: A, B, and C. You roll out the three variations to 6% of the users, while the remaining 94% receives the control, variation A. The control traffic is not part of the experiment nor its analysis.
 
-Next, you increase the experiment to 30% of traffic.
+Here is a visualization of the starting traffic allocation, with the control group on the right:
 
-Here is an example experiment with increased traffic:
+![An experiment audience with 6% in the experiment and 94% in the control group.](experiment-allocation-six-percent.png)
 
-![Audience allocation at 30%](experiment-allocation-thirty-percent-no-reshuffle.png)
+Next, you ramp up your experiment to 30% of traffic. This creates a new iteration of the experiment. In the new iteration, the 6% that were receiving variations A, B, and C, continue to receive those variations, but are no longer included in the experiment nor its analysis. New traffic is used for the 30% allocated to the experiment.
 
-We suggest you reset your experiment results when you increase traffic to avoid time-varying effects.
+Here is an example of the modified allocation, with the control group on the right and the original experiment audience on the left:
+
+![An experiment audience with 6% no longer in the experiment, 30% in the experiment, and 64% in the control group.](experiment-allocation-thirty-percent-no-reshuffle.png)

@@ -300,7 +300,7 @@ The standard client-side JavaScript integration with Svelte requires no special 
 For example, the Svelte component below:
 
 1. Imports the JavaScript SDK.
-2. Initializes the client using the Client-side ID and an anonymous user key.
+2. Initializes the client using the client-side ID and an anonymous user key.
 3. When the client is initialized and ready, gets the value of the `show-button` boolean flag.
 4. Sets a listener on the change event for the flag so that any change to the flag value in LaunchDarkly will be immediately reflected on the client.
 5. If the flag variation is true, displays the button within the component. If it is false, does not display the button.

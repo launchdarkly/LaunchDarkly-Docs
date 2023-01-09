@@ -3,7 +3,7 @@ path: /sdk/features/monitoring
 title: Monitoring SDK status
 description: This topic explains how various SDKs monitor the connection to LaunchDarkly to determine the most recent flag values.
 published: true
-tags: ['monitor', 'flag', 'value', 'sdk']
+tags: ['monitor', 'flag', 'value', 'sdk', 'connection']
 ---
 
 ## Overview
@@ -195,7 +195,7 @@ ConnectionInformation.ConnectionMode connectionMode =
 Long lastSuccess = connectionInfo.getLastSuccessfulConnection();
 // Most recent unsuccessful flag cache update attempt in millis from the epoch
 // Or null if flag update has never been attempted
-Long lastSuccess = connectionInfo.getLastFailedConnection();
+Long lastError = connectionInfo.getLastFailedConnection();
 // Most recent failure or null
 LDFailure ldFailure = connectionInfo.getLastFailure();
 ```
@@ -214,7 +214,7 @@ val connectionMode: ConnectionInformation.ConnectionMode =
 val lastSuccess: Long? = connectionInfo.lastSuccessfulConnection
 // Most recent unsuccessful flag cache update attempt in millis from the epoch
 // Or null if flag update has never been attempted
-val lastSuccess: Long? = connectionInfo.lastFailedConnection
+val lastError: Long? = connectionInfo.lastFailedConnection
 // Most recent failure or null
 val ldFailure: LDFailure? = connectionInfo.lastFailure
 ```
@@ -921,5 +921,5 @@ client.getDataStoreStatusProvider().addStatusListener(
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`DataSourceStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://launchdarkly.github.io/java-server-sdk/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
+To learn more, read [`DataSourceStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
 </Details>

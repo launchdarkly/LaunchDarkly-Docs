@@ -46,14 +46,16 @@ This feature is available in the following client-side SDKs:
 
 ### .NET (client-side)
 
-<Details summary="Expand .NET (client-side) code sample">
+In version 3 and newer of the .NET (client-side) SDK, aliasing is no longer supported or required. To learn more, read [.NET (client-side) SDK 2.x to 3.0 migration guide](/sdk/client-side/dotnet/migration-2-to-3).
+
+<Details summary="Expand .NET (client-side) code sample for older versions">
 
 To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="csharp"
   values={[
-    { label: 'C#', value: 'csharp', },
+    { label: 'C#, .NET SDK 2.x', value: 'csharp', },
   ]
 }>
 <CodeTabItem value="csharp">
@@ -515,7 +517,9 @@ client.alias(newUser, previousUser);
 
 ### PHP
 
-<Details summary="Expand PHP code sample">
+In version 5.0 and newer of the PHP SDK, aliasing is no longer supported or required. To learn more, read [PHP SDK 4.x to 5.0 migration guide](/sdk/server-side/php/migration-4-to-5).
+
+<Details summary="Expand PHP code sample for older versions">
 
 To manually send an `alias` event:
 
@@ -537,19 +541,21 @@ $client->alias($user, $previousUser);
 
 ### Python
 
-<Details summary="Expand Python code sample">
+In version 8 and newer of the Python SDK, aliasing is no longer supported or required. To learn more, read [Python SDK 7.x to 8.0 migration guide](/sdk/server-side/python/migration-7-to-8).
+
+<Details summary="Expand Python code sample for older versions">
 
 To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="py"
   values={[
-    { label: 'Python', value: 'py', },
+    { label: 'Python SDK v7.x and older', value: 'py', },
   ]
 }>
 <CodeTabItem value="py">
 
-```py
+```python
 ldclient.get().alias(new_user, previous_user)
 ```
 
@@ -559,14 +565,16 @@ ldclient.get().alias(new_user, previous_user)
 
 ### Ruby
 
-<Details summary="Expand Ruby code sample">
+In version 7 and newer of the Ruby SDK, aliasing is no longer supported or required. To learn more, read [Ruby SDK 6.x to 7.0 migration guide](/sdk/server-side/ruby/migration-6-to-7).
+
+<Details summary="Expand Ruby code sample for older versions">
 
 To manually send an `alias` event:
 
 <CodeTabs
   defaultValue="ruby"
   values={[
-    { label: 'Ruby', value: 'ruby', },
+    { label: 'Ruby SDK v6.x and older', value: 'ruby', },
   ]
 }>
 <CodeTabItem value="ruby">
