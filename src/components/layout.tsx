@@ -152,6 +152,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
           { name: 'twitter:data1', content: `${timeToRead} ${pluralize('minute', timeToRead)} ` },
           { name: 'twitter:label2', content: 'Last edited' },
           { name: 'twitter:data2', content: `${modifiedDate}` },
+          // Zendesk for support team
+          { name: 'zd-site-verification', content: '692vywu6ikflunpvddz3ko' },
         ]}
       >
         {enableUserWayAccessibilityWidget && (
