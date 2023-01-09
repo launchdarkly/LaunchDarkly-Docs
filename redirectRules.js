@@ -225,6 +225,13 @@ module.exports = [
     fromPath: '/guides/best-practices/bayesian',
     toPath: '/guides/experimentation/bayesian',
   },
+
+  // Redirects for external sites
+  {
+    fromPath: '/docs/teams/managing',
+    toPath: '/home/teams/managing',
+  },
+
   // Redirects within docs site
 
   {
