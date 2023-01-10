@@ -516,6 +516,10 @@
             "path": "/home/analyzing-experiments/managing"
           },
           {
+            "label": "Reading experiment results",
+            "path": "/home/analyzing-experiments/results"
+          },
+          {
             "label": "Understanding sample ratios",
             "path": "/home/analyzing-experiments/sample-ratios"
           },
@@ -1221,7 +1225,7 @@
             "path": "/sdk/client-side/javascript",
             "items": [
               {
-                "label": "Default values on page load",
+                "label": "Eliminating flicker when using default flag values",
                 "path": "/sdk/client-side/javascript/default-values"
               },
               {

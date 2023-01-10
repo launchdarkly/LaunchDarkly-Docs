@@ -59,3 +59,13 @@ You can also cache when you call track to ensure you call it only once per user.
 To reduce evaluation events, cache or persist the response from the SDK, so that you only call the variation method when when you want to register an impression, or when you don't have the response cached or persisted.
 
 You can also decrease the number of users in an experiment using audience allocation. To learn how, read [Allocating experiment audiences](/home/creating-experiments/allocation).
+
+## Correlating variations and conversions
+
+A conversion is when a user action provides a measurable value for a metric. For example, if a metric is tracking clicks on a checkout button, LaunchDarkly registers a conversion each time an end user clicks the button. The SDK sends a track call to register the conversion in LaunchDarkly.
+
+LaunchDarkly uses variation calls to correlate the variation an end user received to a conversion within a 90-day window. If there are more than 90 days between the time of a variation call and a track call on a user key, then LaunchDarkly does not register the metric in the experiment.
+
+To learn more about variation calls, read [Evaluating flags](/sdk/features/evaluating). To learn more about track calls, read [Sending custom events](/sdk/features/events).
+
+In rare cases, unexpected behavior may cause an end user to receive multiple variations in the 90 days prior to a conversion. In these cases, LaunchDarkly attributes the conversion to the first variation the end user received in that 90-day period.

@@ -32,29 +32,29 @@ LaunchDarkly renders square SVGs in a 40x40 container, and horizontal SVGs with 
 
 The steps required to build an integration include:
 
-1. [Forking the LaunchDarkly Integration Framework repository](#1-fork-the-launchdarkly-integration-framework-repository)
-2. [Creating a new directory](#2-create-a-new-directory)
-3. [Creating an integration manifest](#3-create-an-integration-manifest)
-4. [Collecting integration configuration data](#4-collect-integration-configuration-data)
-5. [Defining the integration's capabilities](#5-define-the-integrations-capabilities)
-6. [Validating the integration](#6-validate-the-integration)
-7. [Creating integration user documentation and README](#7-create-your-integration-user-documentation-and-readme)
-8. [Submitting the integration](#8-submit-the-integration)
+1. [Forking the LaunchDarkly Integration Framework repository](#fork-the-launchdarkly-integration-framework-repository)
+2. [Creating a new directory](#create-a-new-directory)
+3. [Creating an integration manifest](#create-an-integration-manifest)
+4. [Collecting integration configuration data](#collect-integration-configuration-data)
+5. [Defining the integration's capabilities](#define-the-integrations-capabilities)
+6. [Validating the integration](#validate-the-integration)
+7. [Creating end-user documentation and README](#create-end-user-documentation-and-readme)
+8. [Submitting the integration](#submit-the-integration)
 
 
-### 1. Fork the LaunchDarkly Integration Framework repository
+### Fork the LaunchDarkly Integration Framework repository
 
 First, fork the [LaunchDarkly Integration Framework repository](https://github.com/launchdarkly/integration-framework) to your own GitHub account.
 
-After you finish building your integration, you will submit a pull request to LaunchDarkly to have it approved and deployed. To learn more about submitting a pull request, read [Submitting your integration](#8-submit-the-integration).
+After you finish building your integration, you will submit a pull request to LaunchDarkly to have it approved and deployed. To learn more about submitting a pull request, read [Submit the integration](#submit-the-integration).
 
-### 2. Create a new directory
+### Create a new directory
 
 Next, create a new directory inside the [integrations](https://github.com/launchdarkly/integration-framework/tree/main/integrations) directory. Name it after your organization or give it the integration's name. For example, `your-company-name-dot-com`. The directory name must not have any spaces and must use [kebab-casing](https://wiki.c2.com/?KebabCase).
 
 Only change files and directories inside your new directory. Our validation process rejects any pull requests with modified content outside of your directory.
 
-### 3. Create an integration manifest
+### Create an integration manifest
 
 Each integration contains a manifest defining basic concepts about your integration and organization. Manifests also instruct LaunchDarkly in how to interact with your integration.
 
@@ -62,7 +62,7 @@ Defining your manifest is the single most important step in contributing your in
 
 To learn more, read [Defining an integration manifest](/integrations/partner-integrations/manifest).
 
-### 4. Collect integration configuration data
+### Collect integration configuration data
 
 Most integrations need to collect one or more pieces of configuration data that support the integration. For example, your integration may collect API tokens or webhook endpoints.
 
@@ -70,13 +70,13 @@ You can describe a set of `formVariables` that define these configuration proper
 
 To learn more, read [Using form variables](/integrations/partner-integrations/form-variables).
 
-### 5. Define the integration's capabilities
+### Define the integration's capabilities
 
 The next step to define your LaunchDarkly integration is describing its `capabilities`. Your integration's `capabilities` are how it interacts with LaunchDarkly.
 
 To learn more, read [Using integration framework capabilities](/integrations/partner-integrations/capabilities).
 
-### 6. Validate the integration
+### Validate the integration
 
 Validating your integration ensures that it is running as intended. Any submitted integration must pass validation before we will accept it.
 
@@ -91,15 +91,15 @@ Additionally, we recommend you install [pre-commit hooks](https://pre-commit.com
 
 Some of the capabilities have their own validation tools. To learn more, read [Using integration framework capabilities](/integrations/partner-integrations/capabilities).
 
-### 7. Create your integration user documentation and README
+### Create end-user documentation and README
 
 Now that your integration is built and validated, you must provide documentation for end users and integration maintainers.
 
 Submit a pull request to the [LaunchDarkly-Docs repository](https://github.com/launchdarkly/LaunchDarkly-Docs) with instructions for how to use your integration. Follow the pattern and language used by the other integration topics.
 
-In addition to end user documentation, you must also provide guidance on how to maintain and test your integration. Specify this developer-focused documentation in an integration README (`README.md`) in your integration's directory. The README should also link to the end user documentation you provide.
+In addition to end-user documentation, you must also provide guidance on how to maintain and test your integration. Specify this developer-focused documentation in an integration README (`README.md`) in your integration's directory. The README should also link to the end-user documentation you provide.
 
-### 8. Submit the integration
+### Submit the integration
 
 After you've built your integration, submit a pull request against the [LaunchDarkly Integration Framework repository](https://github.com/launchdarkly/integration-framework/pull/new/main). When you submit a pull request, your branch will run through some automated validations and be reviewed by our team. 
 
