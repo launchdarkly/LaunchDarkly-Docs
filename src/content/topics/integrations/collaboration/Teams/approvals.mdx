@@ -1,0 +1,37 @@
+---
+path: /integrations/microsoft-teams/approvals
+title: Receiving approval notifications in Microsoft Teams
+description: This topic explains how approval notifications are displayed in Microsoft Teams.
+published: true
+tags: ['microsoft teams', 'approval']
+site: launchDarklyOnly
+---
+
+<Callout intent="primary">
+<CalloutTitle>Approvals is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Approvals is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how approval notifications are displayed in Microsoft Teams. Approvals let you request review for changes you plan to make to a flag. You can view approval requests from within the LaunchDarkly Microsoft Teams app.
+
+To use this feature, you must have installed and configured the LaunchDarkly Microsoft Teams app. To learn more, read [Setting up the Microsoft Teams app](/integrations/microsoft-teams/setting-up).
+
+To learn more about approvals, read [Approvals](/home/feature-workflows/approvals).
+
+## Viewing approvals in Microsoft Teams
+
+Here's how to create approval requests and view them with the Microsoft Teams app:
+
+1. In the LaunchDarkly user interface, navigate to a feature flag, and update the flag's targeting.
+2. Request approval for your changes by clicking the **dropdown icon** and choosing **Request approval**. For more details, read [Requesting approvals](/home/feature-workflows/approvals#requesting-approvals).
+3. In Microsoft Teams, click the new notification the LaunchDarkly app creates. Click **Open in LaunchDarkly** to view the flag details in the LaunchDarkly user interface.
+
+   ![A Microsoft Teams notification from the LaunchDarkly app.](teams-ld-approval-notification.png)
+
+Any reviewers that you added to the approval request also receive a Microsoft Teams notification if they have authorized the LaunchDarkly app.
