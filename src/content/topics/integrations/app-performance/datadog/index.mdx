@@ -8,7 +8,7 @@ tags: ['datadog', 'integration', 'pro', 'enterprise']
 
 ## Overview
 
-This topic explains the LaunchDarkly Datadog integrations available, including events, the dashboard widget, and triggers.
+This topic explains the LaunchDarkly Datadog integrations available, including events, the dashboard widget, triggers, and Real User Monitoring (RUM).
 
 [Datadog](https://www.datadoghq.com/) is a infrastructure & application monitoring service that offers [application performance management (APM)](https://en.m.wikipedia.org/wiki/Application_performance_management) and analytics.
 
@@ -50,3 +50,16 @@ Flag triggers is available to customers on an Enterprise plan. To learn more, [r
 </Callout>
 
 LaunchDarkly supports using flag triggers with Datadog. You can use flag triggers to automate flag changes. For example, you can create an alert in Datadog that toggles a flag on or off if a performance metric drops below a certain threshold. To learn how, read [Using flag triggers with Datadog](/integrations/datadog/triggers).
+
+## Datadog RUM
+
+<Callout intent="primary">
+<CalloutTitle>The Datadog RUM integration is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+The Datadog RUM integration is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+Datadog's LaunchDarkly RUM integration allows you to send feature flag evaluation data from the LaunchDarkly [JavaScript SDK](/sdk/client-side/javascript) to Datadog as event properties. To learn how, read [Datadog RUM](/integrations/datadog/rum).
