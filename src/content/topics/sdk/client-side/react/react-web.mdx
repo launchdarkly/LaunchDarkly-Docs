@@ -141,6 +141,15 @@ Both functions rely on React's `Context` API, which lets you access your flags f
 
 When you use `asyncWithLDProvider`, it initializes the React SDK and returns a provider which is a React component. If you use the `asyncWithLDProvider` function with `await`, the rendering of your React app is delayed until SDK initialization completes. Depending on your network conditions, this may take a couple hundred milliseconds. After initialization is complete, your flags and the LaunchDarkly client become available at the start of your React app lifecycle. This ensures that your app does not flicker due to flag changes at startup time. To learn more, read [Initializing using the `asyncWithLDProvider` function](#initializing-using-asyncwithldprovider).
 
+<Callout intent="info">
+<CalloutTitle>Preventing flicker on page load</CalloutTitle>
+<CalloutDescription>
+
+Initializing with `asyncWithLDProvider` can help prevent a flicker on page load if you are using default flag values. To learn more, read [Eliminating flicker when using default flag values](/sdk/client-side/javascript/default-values).
+
+</CalloutDescription>
+</Callout>
+
 When you use `withLDProvider`, it initializes the underlying JavaScript SDK at `componentDidMount`. This means your flags and the LaunchDarkly client only become available after your app has mounted. Use this method if you prefer to render your app first, and then process flag updates after rendering is complete. You can also optionally defer initialization further, until after you define a context. Because your app renders before initialization, using `withLDProvider` can result in a flicker due to flag changes at startup time. To learn more, read [Initializing using the `withLDProvider` function](#initializing-using-withldprovider).
 
 ### Initializing using `asyncWithLDProvider`

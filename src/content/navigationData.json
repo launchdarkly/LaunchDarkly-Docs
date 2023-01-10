@@ -1215,7 +1215,7 @@
             "path": "/sdk/client-side/javascript",
             "items": [
               {
-                "label": "Default values on page load",
+                "label": "Eliminating flicker when using default flag values",
                 "path": "/sdk/client-side/javascript/default-values"
               },
               {
