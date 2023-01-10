@@ -763,6 +763,10 @@
               {
                 "label": "Receiving approvals in Microsoft Teams",
                 "path": "/integrations/microsoft-teams/approvals"
+              },
+              {
+                "label": "Receiving flag notifications in Microsoft Teams",
+                "path": "/integrations/microsoft-teams/notifications"
               }
             ]
           },
