@@ -968,6 +968,11 @@
     "name": "Node.js (client-side)",
     "versions": [
       {
+        "versionMajorMinor": "3.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-12"
+      },
+      {
         "versionMajorMinor": "2.2",
         "releaseYear": 2022,
         "releaseMonthDay": "10-18"
