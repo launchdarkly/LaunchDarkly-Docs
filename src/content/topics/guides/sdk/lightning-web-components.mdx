@@ -1,0 +1,164 @@
+---
+path: /guides/sdk/lightning-web-components
+title: Using the JavaScript SDK in Salesforce Lightning Web Components
+description: This guide explains how to configure your Salesforce environment to use the LaunchDarkly JavaScript or React Web client-side SDKs in Lightning Web Components (LWCs).
+published: true
+tags: ['salesforce', 'lightning web components', 'javascript', 'react']
+---
+
+## Overview
+
+This guide explains how to configure your Salesforce environment to use the LaunchDarkly JavaScript or React Web client-side SDKs in Lightning Web Components (LWCs).
+
+Salesforce Lightning Web Components are an implementation of standard web components that allow you to leverage HTML, CSS, and JavaScript in a lightweight framework. To learn more, read [Introducing Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/en/lwc).
+
+The example code in this guide is extracted snippets. We show it here as if it is being used in a JavaScript class.
+
+## Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+* Basic working knowledge of the LaunchDarkly [JavaScript client-side SDK](/sdk/client-side/javascript) or [React Web client-side SDK](/sdk/client-side/react/react-web)
+* Basic working knowledge of [Salesforce Lightning Web Components](https://developer.salesforce.com/docs/component-library/documentation/en/lwc)
+
+## Download the LaunchDarkly JavaScript Client
+
+To begin, find the latest version under [Releases](https://github.com/launchdarkly/js-client-sdk/releases) in the JavaScript SDK GitHub repository. Then download the desired version from `https://unpkg.com/launchdarkly-js-client-sdk@<VERSION>/dist/ldclient.min.js`.
+
+## Set up your Salesforce environment
+
+Next, set up your Salesforce environment. To do this:
+
+1. Upload the file to your Salesforce organization as a static resource in your org
+2. [Enable Lightning Web Security](https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.security_lwsec_enable) in your org
+3. Add `https://*.launchdarkly.com` as a CSP Trusted Site, under [Manage CSP Trusted Sites](https://help.salesforce.com/s/articleView?id=sf.csp_trusted_sites.htm&type=5)
+
+## Using the LaunchDarkly client in a Lightning Web Component
+
+In the Javascript file of your Lightning Web Component, import the static resource:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Import LD Client', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+import ldclient from '@salesforce/resourceUrl/ldclient';
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Then, load the imported script for usage in the file, using the Lightning Web Component [Platform Resource Loader](https://developer.salesforce.com/docs/component-library/bundle/lightning-platform-resource-loader/documentation):
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Load script', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+Promise.all([
+	loadScript(this, ldclient)
+])
+.then(() => {
+// Post Script Load Code Here
+})
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+Finally, initialize the LaunchDarkly Client:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Initializing LaunchDarkly client', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'context-key-123abc'
+};
+this.LDClient = ldclient.initialize('client-side-id-123abc', context);
+
+await this.LDClient.waitUntilReady();
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+You can access the flag value using a Javascript `getter` method:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'Example flag getter method', value: 'js', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+get exampleFlag() {
+    return await this.LDClient.variation['example-flag', false];
+}
+
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [LWC Data Binding](https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.js_props_getter)
+You can then use HTML to allow feature flags to control your user interface (UI) display.
+
+Here is an example of an LWC HTML snippet:
+
+<CodeTabs
+  defaultValue="html"
+  values={[
+    { label: 'LWC HTML snippet', value: 'html', },
+  ]
+}>
+<CodeTabItem value="html">
+
+```html
+<template if:true={exampleFlag}>
+     Flag evaluation is TRUE
+</template>
+<template if:false={exampleFlag}>
+     Flag evaluation is FALSE
+</template>
+
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+## Conclusion
+
+In this guide, we discussed how to use the LaunchDarkly JavaScript and React Web client-side SDKs in Lightning Web Components. This allows you to leverage HTML, CSS, and JavaScript in a lightweight framework.
+
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>
