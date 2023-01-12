@@ -1238,6 +1238,10 @@
             "svg": "nodejs",
             "items": [
               {
+                "label": "Node.js (client-side) SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/node-js/migration-2-to-3"
+              },
+              {
                 "label": "Node.js (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/node-js/migration-1-to-2"
               }

@@ -327,11 +327,38 @@ This code sample shows you how to create a custom configuration object to pass c
 
 <CodeTabs defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js' },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'Node.js SDK v3 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v3 (TypeScript)', value: 'ts'},
+    { label: 'Node.js SDK v2.x (JavaScript)', value: 'js-v2', },
+    { label: 'Node.js SDK v2.x (TypeScript)', value: 'ts-v2'},
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+const options = {
+  flushInterval: 10000, // milliseconds
+  allAttributesPrivate: true
+};
+
+const client = LDClient.initialize('client-side-id-123abc', context, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDClient from 'launchdarkly-node-client-sdk';
+
+const options: LDClient.LDOptions = {
+  flushInterval: 10000, // milliseconds
+  allAttributesPrivate: true,
+};
+const client = LDClient.initialize('client-side-id-123abc', context, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v2">
 
 ```js
 const options = {
@@ -343,7 +370,7 @@ const client = LDClient.initialize('client-side-id-123abc', user, options);
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
+<CodeTabItem value="ts-v2">
 
 ```ts
 import * as LDClient from 'launchdarkly-node-client-sdk';
@@ -358,7 +385,7 @@ const client = LDClient.initialize('client-side-id-123abc', user, options);
 </CodeTabItem>
 </CodeTabs>
 
-For a full guide to the available configuration options, read `LDOptions` in the [TypeScript reference](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html).
+For a full guide to the available configuration options, read `LDOptions` in the [TypeScript reference](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html).
 </Details>
 
 ### React Native
