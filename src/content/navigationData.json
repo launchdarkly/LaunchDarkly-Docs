@@ -757,11 +757,11 @@
             "path": "/integrations/microsoft-teams",
             "items": [
               {
-                "label": "Setting up Microsoft Teams integration",
+                "label": "Setting up the Microsoft Teams integration",
                 "path": "/integrations/microsoft-teams/setting-up"
               },
               {
-                "label": "Receiving approvals in Microsoft Teams",
+                "label": "Receiving approval notifications in Microsoft Teams",
                 "path": "/integrations/microsoft-teams/approvals"
               },
               {
