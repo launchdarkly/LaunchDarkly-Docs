@@ -1,7 +1,7 @@
 ---
 path: /integrations/microsoft-teams/flag-links
 title: Unfurling and linking flags in Microsoft Teams
-description: This topic explains how approval notifications are displayed in Microsoft Teams.
+description: This topic explains how flag links work in Microsoft Teams.
 published: true
 tags: ['microsoft teams', 'flag links', 'unfurling']
 site: launchDarklyOnly
@@ -15,20 +15,24 @@ To use this feature, you must have installed and configured the LaunchDarkly Mic
 
 ## Unfurling flag and segment links
 
-When you paste a flag link in a public channel, the LaunchDarkly app unfurls the flag link to display a preview of the flag.
+When you paste a flag link in a public channel, the LaunchDarkly app unfurls the flag link to display a preview of the flag:
 
-![Unfurling a flag link in Microsoft Teams](teams-ld-unfurl.png)
+![Unfurling a flag link in Microsoft Teams.](teams-ld-unfurl.png)
 
-When a flag link is unfurled in Microsoft Teams, the message will be saved within LaunchDarkly. These saved messages can be viewed in the LaunchDarkly user interface. This is a great way to keep track of conversations about flags to provide up to date context on it's usage. To learn more about flag links, read [Flag links](/home/flags/links).
+When a flag link is unfurled in Microsoft Teams, LaunchDarkly saves the message on the flag's **Links** tab. This helps track conversations about flags and provide up-to-date information on the flag's usage. To learn more, read [Flag links](/home/flags/links).
 
 ## Manually linking chat messages to a flag
 
-You can manually link a chat message to a feature flag. This is useful if you want to link a chat message to a flag when a link has not been pasted. To manually link a chat message to a flag, follow these steps:
+You can manually link a chat message to a feature flag. This is useful if you want to link a chat message to a flag when a link has not been pasted.
+
+To manually link a chat message to a flag:
 
 1. In Microsoft Teams, navigate to a public channel.
-2. Click the three-dot **expand icon** next to a message, choose **More actions**, and click **Create flag link**.
+2. Click the three-dot **expand icon** next to a message and choose **More actions**.
+3. Click **Create flag link**.
    ![Creating a flag link in Microsoft Teams](teams-ld-creating-flag-link.png)
 
-3. A modal will appear to link the message to a flag. Select project by typing into the project field. Click **Select project** to continue.
-4. Select a flag by typing into the flag field. Click **Create** to finish linking the message to your selected flag.
+4. A modal will appear to link the message to a flag. Select project by typing into the project field. Click **Select project** to continue.
+5. Select a flag by typing into the flag field.
+6. Click **Create** to finish linking the message.
    ![Modal to link a chat message to a flag](teams-ld-create-flag-link-modal.png)
