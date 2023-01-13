@@ -1,0 +1,43 @@
+---
+path: /home/accelerate/accelerate-metrics
+title: Accelerate dashboard metrics
+description: This category contains documentation topics about LaunchDarkly's Accelerate dashboard and its metric views.
+published: true
+tags: ['dora', 'dora metrics', 'accelerate']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+  <CalloutDescription>
+
+Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This category contains documentation topics about LaunchDarkly's Accelerate dashboard and its metric views.
+
+The Accelerate dashboard provides an overview of four important metrics that help you track and optimize your deployments and releases.
+
+These metrics include:
+
+- [Deployment frequency](/home/accelerate/accelerate-metrics/deployment)
+- [Release frequency](/home/accelerate/accelerate-metrics/release)
+- [Lead time](/home/accelerate/accelerate-metrics/lead-time)
+- [Flag coverage](/home/accelerate/accelerate-metrics/flag-coverage)
+
+![The Accelerate dashboard](accelerate.png)
+
+## Accelerate definitions and metric views
+
+Accelerate defines a **deployment** as a new code change your team has introduced to an environment, and defines a **release** as when you change how customers experience your application. These metrics are often significantly different for teams that have adopted feature flagging, so you need to track both to fully understand how and when changes are going out to your customers.
+
+To provide insight on speed and stability for both deployments and releases, Accelerate defines the following metrics and associated views:
+
+- **Deployment frequency**: The number of deployments per time period. This metric view also includes a table of recent deployments, their details, and their statuses. To learn more, read [Deployment frequency](/home/accelerate/accelerate-metrics/deployment).
+- **Release frequency**: The number of flag changes per time period. This metric view also includes a table of recent flag changes by change type and flag key. To learn more, read [Release frequency](/home/accelerate/accelerate-metrics/release).
+- **Lead time**: The time from first code commit to deployment. This metric view breaks the total lead time into steps, including coding time, pull request (PR) lifespan, deployment wait time, and deployment duration. It also includes a table of recent PRs and the environments you deployed them to. To learn more, read [Lead time](/home/accelerate/accelerate-metrics/lead-time).
+- **Flag coverage**: The ratio of PRs that contain flag changes to the total number of PRs for the selected applications. This metric view also includes a table of recent PRs that contained flag changes. To learn more, read [Flag coverage](/home/accelerate/accelerate-metrics/flag-coverage).

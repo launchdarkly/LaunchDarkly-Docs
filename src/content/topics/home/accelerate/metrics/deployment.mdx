@@ -1,0 +1,84 @@
+---
+path: /home/accelerate/accelerate-metrics/deployment
+title: Deployment frequency
+description: This topic explains how to use LaunchDarkly's deployment frequency metric view.
+published: true
+tags: ['dora', 'dora metrics', 'deployment frequency', 'deploy', 'accelerate']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use LaunchDarkly's deployment frequency metric view.
+
+Accelerate defines a **deployment** as a new code change your team has introduced to an environment. For example, a deployment occurs when your team merges one or more pull requests (PRs) into your main or release branch and all code from that branch is put into your production environment.
+
+However, a deployment lacks information on which code paths are enabled for different customers. To fully understand how and when changes are going out to your customers, you need to track both deployments and releases. To learn more about how deployment and release metrics work together, read [Release frequency](/home/accelerate/accelerate-metrics/release).
+
+The deployment frequency metric view displays the number of deployments per day, as well as the total for the selected time range. It also includes a table of recent deployments, their details, and their statuses.
+
+## Understanding the deployments summary
+
+The deployments summary includes the following information:
+
+- Average deployments per day
+- Total deployments
+- Average deployment duration
+
+![The deployment frequency summary.](accelerate-deployment-frequency-summary.png)
+
+You can use the selection menus to narrow your view to a specific LaunchDarkly project, environment, or application. You can also change the selected time range to the last 7, 14, or 28 days, or a custom range.
+
+## Reading the deployment frequency chart
+
+Each data point on the deployment frequency chart includes the number of deployments on that date.
+
+![The deployment frequency chart.](accelerate-deployment-frequency-chart.png)
+
+You can use the "Group by" menu to group the results by application or environment.
+
+## Using the deployments list
+
+The deployments list displays the following information:
+
+- The application name and application version deployed
+- The environment deployed to
+- How long ago the deployment occurred
+- The deployment status, which is either "In progress," "Completed," or "Failed"
+
+![The deployments list.](accelerate-deployment-deployments-list.png)
+
+To hide a deployment from the list, click on the **overflow menu** and choose "Hide deployment."
+
+### The deployment details screen
+
+Click on the title of a deployment to open a details screen with more information.
+
+The details screen includes:
+
+- Deployment duration
+- Lead time
+- Number of lines added in the included PRs
+- Number of lines removed in the included PRs
+- Number of contributors to the included PRs
+- A list of PRs included in the deployment
+- A list of flags included in the deployment, if applicable
+
+![The deployment details screen.](accelerate-deployment-deployment-details.png)
+
+### Editing deployments
+
+There may be times when your deployment pipeline doesn't send completed deployment information to LaunchDarkly due to a pipeline interruption or error. If a deployment has completed, but LaunchDarkly hasn't received the final deployment information, the deployment will appear as "In progress" in Accelerate. You can edit the deployment entry manually to correct this.
+
+To edit the deployment entry, from the details screen, click on the deployment's **overflow menu** and choose "Edit deployment."
+
+![The "Edit deployment" dialog.](accelerate-deploy-edit-deployment.png)

@@ -93,6 +93,7 @@ function isActiveNodeOrAncestor(pathname: string, node: SideNavItem): boolean {
 }
 
 const groupLabels: Readonly<Record<string, string>> = {
+  accelerate: 'accelerate',
   'feature-flags': 'feature flags',
   'platform-config': 'platform configuration',
   experimentation: 'experimentation',

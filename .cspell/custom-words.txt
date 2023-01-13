@@ -131,6 +131,7 @@ ldcontext
 lddynamodb
 ldfiledata
 ldfilewatch
+ldflags
 ldhttp
 ldignore
 LDJSON
@@ -144,6 +145,7 @@ ldvariations
 libcurl
 libldserverapi
 libpthread
+lifecycles
 localstorage
 logdna
 lookback
@@ -158,6 +160,7 @@ Millis
 misconfiguring
 Mockbin
 mparticle
+MTTR
 multithreading
 mycert
 myproduct

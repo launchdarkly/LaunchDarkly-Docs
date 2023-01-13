@@ -452,6 +452,52 @@
         ]
       },
       {
+        "group": "accelerate",
+        "label": "Accelerate",
+        "path": "/home/accelerate",
+        "svg": "swap-horiz"
+      },
+      {
+        "group": "accelerate",
+        "label": "Getting started with Accelerate",
+        "path": "/home/accelerate/get-started-accelerate",
+        "svg": "checkbox-marked-circle",
+        "items": [
+          {
+            "label": "Applications",
+            "path": "/home/accelerate/get-started-accelerate/applications"
+          },
+          {
+            "label": "Deployment events API",
+            "path": "/home/accelerate/get-started-accelerate/deployment-events-api"
+          }
+        ]
+      },
+      {
+        "group": "accelerate",
+        "label": "Accelerate dashboard metrics",
+        "path": "/home/accelerate/accelerate-metrics",
+        "svg": "clock-start",
+        "items": [
+          {
+            "label": "Deployment frequency",
+            "path": "/home/accelerate/accelerate-metrics/deployment"
+          },
+          {
+            "label": "Release frequency",
+            "path": "/home/accelerate/accelerate-metrics/release"
+          },
+          {
+            "label": "Lead time",
+            "path": "/home/accelerate/accelerate-metrics/lead-time"
+          },
+          {
+            "label": "Flag coverage",
+            "path": "/home/accelerate/accelerate-metrics/flag-coverage"
+          }
+        ]
+      },
+      {
         "group": "experimentation",
         "label": "About Experimentation",
         "path": "/home/about-experimentation",
@@ -1055,7 +1101,7 @@
           {
             "label": "Inspectors",
             "path": "/sdk/features/inspectors"
-          },          
+          },
           {
             "label": "Logging configuration",
             "path": "/sdk/features/logging"

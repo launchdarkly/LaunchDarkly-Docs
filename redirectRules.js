@@ -68,6 +68,11 @@ module.exports = [
   // Redirects within the docs site
 
   {
+    fromPath: '/accelerate-eap/home/about-accelerate',
+    toPath: '/home/accelerate/',
+    // This is from the merged Accelerate EAP branch staging site into main, so it's technically within the docs site.
+  },
+  {
     fromPath: '/guides/infrastructure/unit-tests',
     toPath: '/guides/sdk/unit-tests',
   },

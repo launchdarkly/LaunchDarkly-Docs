@@ -1,0 +1,69 @@
+---
+path: /home/accelerate/accelerate-metrics/lead-time
+title: Lead time
+description: This topic explains how to use LaunchDarkly's lead time metric view.
+published: true
+tags: ['dora', 'dora metrics', 'lead time', 'accelerate']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use LaunchDarkly's lead time metric view.
+
+Accelerate defines lead time as the time between first code commit and successful deployment to an environment. This metric view breaks the total lead time into steps, including coding time, pull request (PR) lifespan, deployment wait time, and deployment duration. It also includes a table of recent PRs and the environments they were deployed to. Lead time allows you to analyze how efficiently your team is delivering code changes, and find where the bottlenecks are in your code delivery lifecycle.
+
+## Understanding the lead time summary
+
+The lead time summary includes the following information:
+
+- Average lead time
+- Total pull requests
+
+![The lead time summary.](accelerate-lead-time-summary.png)
+
+You can use the selection menus to narrow your view to a specific LaunchDarkly project, environment, or application. You can also change the time period to display the last 7, 14, or 28 days, or a custom range.
+
+## Reading the lead time chart
+
+The lead time chart includes information about total lead time, deploy time, wait time, review time, and coding time. Hover over a date on the chart to view how long your team spent on each of those tasks for a given day. For an explanation of each of these data points, read [Reading the lead time breakdown chart](#reading-the-lead-time-breakdown-chart).
+
+![The lead time chart.](accelerate-lead-time-chart.png)
+
+You can use the "Group by" menu to group the results by application or environment.
+
+## Reading the lead time breakdown chart
+
+The lead time breakdown chart includes the average time spent on each of these steps for the time period selected:
+
+- Coding time, which measures the time between when you made your first commit and when you opened a PR containing that commit
+- PR lifespan, which measures the time between when you opened the PR and when you merged the PR
+- Waiting for deploy time, which measures the time between when you merged the PR and when you started the deploy
+- Deploy duration, which measures the time between when you started the deploy and when the deploy finished
+
+![The lead time breakdown chart.](accelerate-lead-time-breakdown-chart.png)
+
+Each step also displays a percentage showing the increase or decrease in time spent on the activity over the preceding equivalent time period. For example, if you're viewing lead time for the last seven days, a coding time percentage change of -4.5% means your team spent 4.5% less time coding last week than they did the week prior.
+
+## Using the pull requests list
+
+The pull requests list displays the following information:
+
+- The PR title. Click on the PR title to view the PR within your GitHub repository.
+- How long ago the PR was merged.
+- The environments the PR has been deployed to.
+- The total time the PR was open.
+- The number of flags referenced in the PR, if any. Hover over the "N flags updated" element to view the list of referenced flags. Click on a flag name to view the flag in your LaunchDarkly **Feature flags** list.
+
+You can filter the pull requests list by title, PR number, or author.
+
+![The pull requests list.](accelerate-lead-time-pull-requests-list.png)

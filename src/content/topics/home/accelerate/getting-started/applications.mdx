@@ -1,0 +1,57 @@
+---
+path: /home/accelerate/get-started-accelerate/applications
+title: Applications
+description: This topic explains how to work with applications in Accelerate.
+published: true
+tags: ['application', 'accelerate']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+  <CalloutDescription>
+
+Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to work with applications in Accelerate.
+
+Applications are a part of your code base for which you want to track deployments. Applications often correspond to a single repository in your version control system. However, if you are using monorepos, then a single repository may contain several applications. Generally, if you independently deploy a codebase or portion of a codebase, it's considered an application in Accelerate.
+
+## Creating applications
+
+Applications are created automatically when you send a deployment event to Accelerate. Deployment events must include the application key and version. If the application key does not correspond to an existing application, Accelerate will create a new application for you using that key.
+
+To learn how to send a deployment event to Accelerate, read [Deployment events API](/home/accelerate/get-started-accelerate/deployment-events-api).
+
+## Editing applications
+
+You can change the display name or description for an application. The application key cannot be edited.
+
+To edit an application:
+
+1. Find the **Filter applications** menu either on the **Overview** page or on any of the metric view pages.
+2. Select "Manage applications" from the bottom of the menu. The **Applications** list appears.
+
+![The "Filter applications" menu.](accelerate-applications-menu.png)
+
+3. Select the application you want to edit from the list. The **Edit application** page appears:
+
+![The "Edit application" page.](accelerate-application-edit.png)
+
+4. Edit the **Name** or **Description**.
+5. Select **Save application**.
+
+## Deleting applications
+
+To delete an application:
+
+1. Find the **Filter applications** menu either on the **Overview** page or on any of the metric view pages.
+2. Select "Manage applications" from the bottom of the menu. The **Applications** list appears.
+3. Find the application you want to delete in the list.
+4. Click the **overflow menu** and choose "Delete application."
+5. Click **Delete** on the confirmation dialog to confirm deletion of the application.

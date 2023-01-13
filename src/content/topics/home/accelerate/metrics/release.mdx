@@ -1,0 +1,69 @@
+---
+path: /home/accelerate/accelerate-metrics/release
+title: Release frequency
+description: This topic explains how to use LaunchDarkly's release frequency metric view.
+published: true
+tags: ['dora', 'dora metrics', 'release frequency', 'release', 'accelerate']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use LaunchDarkly's release frequency metric view.
+
+Accelerate defines a **release** as when you change how customers experience your application. For example, a release occurs when you turn on a feature flag that targets a large subset of your customers, or when you update the targeting rules for a flag that's already on.
+
+One of the four traditional DevOps Research and Assessment (DORA) metrics is deployment frequency. However, feature flags give you the power to decouple deployments from releases, which means traditional DORA metrics give you an incomplete picture after you've adopted feature flagging.
+
+If you want to fully understand how and when changes are going out to your customers, you need to track both deployments and releases. Tracking deployments lets you know when code changes are going out to customers, while tracking releases lets you know when changes to experiences controlled by flags are taking place.
+
+Deployment and release metrics together still can't give you a full picture of engineering team effectiveness. But, if you’re not deploying and releasing at a regular, predictable cadence then it could be an indication of an inefficient process or other problem that is impacting your organization's productivity.
+
+## Understanding the releases summary
+
+The releases summary includes the following information:
+
+- Average flag changes per day
+- Total flag changes
+
+![The releases summary.](accelerate-releases-summary.png)
+
+You can use the selection menus to narrow your view to a specific LaunchDarkly project or environment. You can also change the selected time range to the last 7, 14, or 28 days, or a custom range.
+
+## Reading the flag change frequency chart
+
+The flag change frequency chart tracks the number of impactful flag changes per day. Accelerate considers "impactful" flag changes to be those that affect flag evaluation. This includes creating a flag, toggling it on or off, or updating a flag's prerequisites, rules, targets, or variations. Changes that cannot affect evaluation, such as updating the name, description, or tags on a flag, are not included. Hover on a data point on the flag change frequency chart to display the number of flag changes on that date.
+
+![The flag change frequency chart.](accelerate-release-flag-changes-frequency-chart.png)
+
+## Using the flag changes list
+
+The flag changes list displays the following information:
+
+- The flag name.
+- A tag indicating whether the change was recent, global, or high impact:
+  - A "Recent change" tag indicates that Accelerate hasn't yet evaluated the change for its impact level. The "Recent change" tag will update after Accelerate evaluates the change.
+  - A "Global change" can impact any of your environments.
+  - A "High impact" change created a significant change in the proportion of end users receiving one or more flag variations. Hover over the "High impact" tag to view how the variations changed.
+
+  ![A high impact flag change and its affected flag variations.](accelerate-release-flag-changes-high-impact.png)
+
+- Who changed the flag.
+- The changes made to the flag.
+
+You can click on a flag name to view the the full flag details in your LaunchDarkly **Feature flags** list.
+
+![The flag changes list.](accelerate-release-flag-changes-list.png)
+
+Solid flag icons indicate significant changes. Outlined flag icons indicate less important changes. Individual flags may also be marked with lozenges signifying high impact or global changes.
+
+The "Changes" column lists actions you have taken on the flag. Some examples of flag actions include "Updated flag variations," "Updated targets," and "Archived flag." To learn more about flag actions, read [Feature flag actions](/home/members/role-actions#feature-flag-actions).
