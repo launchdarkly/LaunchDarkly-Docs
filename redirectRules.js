@@ -417,7 +417,11 @@ module.exports = [
   },
   {
     fromPath: '/home/account-security/custom-roles/policies',
-    toPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
+  },
+  {
+    fromPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
   },
   {
     fromPath: '/home/account-security/custom-roles/tags',
