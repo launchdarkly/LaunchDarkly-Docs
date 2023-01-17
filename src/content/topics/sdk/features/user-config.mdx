@@ -3039,7 +3039,7 @@ You can also mark attributes as private when building the context object by call
 <CodeTabItem value="java">
 
 ```java
-LDContext context = new LDContext.Builder("context-key-123abc")
+LDContext context = LDContext.builder("context-key-123abc")
   .set("email", "sandy@example.com")
   .private("email")
   .build();
@@ -3076,7 +3076,7 @@ Here's how:
 <CodeTabItem value="java">
 
 ```java
-LDContext context = new LDContext.Builder("context-key-123abc")
+LDContext context = LDContext.builder("context-key-123abc")
   .anonymous(true)
   .build();
 ```
