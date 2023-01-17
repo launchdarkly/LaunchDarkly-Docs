@@ -12,44 +12,36 @@ export function CodeTabs2({ children }: PropsWithChildren<TabsItemProps2>) {
   const selectedChild = validChildren.find((_child, index) => {
     return index === selectedIndex
   })
-
-  const MAX_CHARACTERS_FOR_LABELS = 50
-  const labelLength = validChildren.map((child: { props: { languageKey: string; label: string } }) => {
-    const labelCharCount = child.props.label.length
-    return labelCharCount
-  })
-
-  const sumOfLabelCharacters = labelLength.reduce(
-    (accumulator: number, currentValue: number) => accumulator + currentValue,
-  )
-
-  if (sumOfLabelCharacters > MAX_CHARACTERS_FOR_LABELS) {
-    console.warn(
-      `This exceeds the character limit for labels to fit in one row. Sum of Character Count is ${sumOfLabelCharacters}`,
-    )
-    return null
-  } else {
-    return (
-      <Card variant="code">
-        <Flex sx={{ flexDirection: 'column' }}>
-          <Box sx={{ marginBottom: 4 }}>
-            {validChildren.map((child: { props: { languageKey: string; label: string } }, index) => {
-              const { label } = child.props
-              return (
-                <Button
-                  aria-label="label"
-                  variant={`code.${index === selectedIndex ? 'languageActive' : 'language'}`}
-                  key={index}
-                  onClick={() => setSelectedIndex(index)}
+  return (
+    <Card variant="code">
+      <Flex sx={{ flexDirection: 'column' }}>
+        <Box sx={{ marginBottom: 4 }}>
+          {validChildren.map((child: { props: { languageKey: string; label: string } }, index) => {
+            const { label } = child.props
+            return (
+              <Button
+                aria-label="label"
+                variant={`code.${index === selectedIndex ? 'languageActive' : 'language'}`}
+                key={index}
+                onClick={() => setSelectedIndex(index)}
+                title={label}
+              >
+                <div
+                  sx={{
+                    maxWidth: '200px',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                  }}
                 >
                   {label}
-                </Button>
-              )
-            })}
-          </Box>
-          {selectedChild}
-        </Flex>
-      </Card>
-    )
-  }
+                </div>
+              </Button>
+            )
+          })}
+        </Box>
+        {selectedChild}
+      </Flex>
+    </Card>
+  )
 }
