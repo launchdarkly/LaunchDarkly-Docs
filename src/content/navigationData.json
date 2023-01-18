@@ -800,25 +800,7 @@
         "items": [
           {
             "label": "Microsoft Teams",
-            "path": "/integrations/microsoft-teams",
-            "items": [
-              {
-                "label": "Setting up the Microsoft Teams integration",
-                "path": "/integrations/microsoft-teams/setting-up"
-              },
-              {
-                "label": "Receiving approval notifications in Microsoft Teams",
-                "path": "/integrations/microsoft-teams/approvals"
-              },
-              {
-                "label": "Receiving flag notifications in Microsoft Teams",
-                "path": "/integrations/microsoft-teams/notifications"
-              },
-              {
-                "label": "Flag links in Microsoft Teams",
-                "path": "/integrations/microsoft-teams/flag-links"
-              }
-            ]
+            "path": "/integrations/microsoft-teams"
           },
           {
             "label": "Slack app",
