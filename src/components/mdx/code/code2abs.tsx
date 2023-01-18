@@ -2,12 +2,13 @@
 import { Children, PropsWithChildren, useState } from 'react'
 import { Box, Button, Card, Flex, jsx } from 'theme-ui'
 
-import { CodeTabItem2, TabsItemProps2 } from './code2abItem'
+import { TabsItemProps2 } from './code2abItem'
 
 export function CodeTabs2({ children }: PropsWithChildren<TabsItemProps2>) {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const validChildren = Children.toArray(children).filter((child: { props: { mdxType?: string } }) => {
-    return child.props.mdxType === CodeTabItem2.name
+    // TODO: update the following line when the components are renamed.
+    return child.props.mdxType === 'CodeTabItem2'
   })
   const selectedChild = validChildren.find((_child, index) => {
     return index === selectedIndex
