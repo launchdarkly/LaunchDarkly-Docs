@@ -26,13 +26,13 @@ The SDK no longer has a dependency on the `winston` logging package. You can sti
 
 ## Understanding changes to logging
 
-Previously, if you did not specify your own logger in the [`logger`](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html#logger) property, the SDK used [`winston`](https://www.npmjs.com/package/winston) to create a logger.
+Previously, if you did not specify your own logger in the [`logger`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#logger) property, the SDK used [`winston`](https://www.npmjs.com/package/winston) to create a logger.
 
 In versions 2.0 and higher of the SDK, if you do not specify your own logger, the SDK writes log output directly to the console. It uses the same format that it was previously using with `winston`, so you may not notice any difference.
 
 If you want to use `winston`, you can still create a `winston` logger and put it in the SDK's `logger` property. This works exactly the same as before. The only difference is that you must make sure `winston` exists as a dependency in your project, instead of the dependency being provided automatically by the SDK.
 
-The SDK also has a new option to allow configuring a simple logger without using `winston`. To learn more, read [`basicLogger`](https://launchdarkly.github.io/node-client-sdk/index.html#basiclogger). This replaces the previous `createConsoleLogger`, which had slightly different parameters. If you were calling `ld.createConsoleLogger('warn')`, you would change that to `ld.basicLogger({ level: 'warn' })`.
+The SDK also has a new option to allow configuring a simple logger without using `winston`. To learn more, read [`basicLogger`](https://launchdarkly.github.io/node-client-sdk/functions/basicLogger.html). This replaces the previous `createConsoleLogger`, which had slightly different parameters. If you were calling `ld.createConsoleLogger('warn')`, you would change that to `ld.basicLogger({ level: 'warn' })`.
 
 ## Understanding what was deprecated
 

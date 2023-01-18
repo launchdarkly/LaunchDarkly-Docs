@@ -1551,11 +1551,47 @@ Here's an example of a user:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'Node.js SDK v3 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v3 (TypeScript)', value: 'ts'},
+    { label: 'Node.js SDK v2.x (JavaScript)', value: 'js-v2', },
+    { label: 'Node.js SDK v2.x (TypeScript)', value: 'ts-v2'},
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft']
+  }
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft'],
+  },
+};
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v2">
 
 ```js
 const user = {
@@ -1570,7 +1606,7 @@ const user = {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
+<CodeTabItem value="ts-v2">
 
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
@@ -1595,12 +1631,14 @@ The `key` property is the user's key. The key should uniquely identify each user
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
+The kind and name attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects.
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use / as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use <code>/address/city</code> in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 </CalloutDescription>
 </Callout>
 
-#### Private user attributes in the Node.js SDK
+#### Private attributes in the Node.js SDK
 ---
 
 You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/contexts/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
@@ -1610,11 +1648,46 @@ To mark all user attributes except the key as private in the JavaScript SDK, you
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'Node.js SDK v3 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v3 (TypeScript)', value: 'ts'},
+    { label: 'Node.js SDK v2.x (JavaScript)', value: 'js-v2', },
+    { label: 'Node.js SDK v2.x (TypeScript)', value: 'ts-v2'},
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com'
+};
+
+const client = ld.initialize('client-side-id-123abc', context, {
+  allAttributesPrivate: true
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const context: ld.LDcontext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
+};
+const options: ld.LDOptions = { allAttributesPrivate: true };
+
+const client = ld.initialize('client-side-id-123abc', context, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v2">
 
 ```js
 const user = {
@@ -1629,7 +1702,7 @@ const client = ld.initialize('client-side-id-123abc', user, {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
+<CodeTabItem value="ts-v2">
 
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
@@ -1656,11 +1729,48 @@ This option is configured in both the user object and the configuration object:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'Node.js SDK v3 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v3 (TypeScript)', value: 'ts'},
+    { label: 'Node.js SDK v2.x (JavaScript)', value: 'js-v2', },
+    { label: 'Node.js SDK v2.x (TypeScript)', value: 'ts-v2'},
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com'
+  privateAttributeNames: ['email']
+};
+
+const client = ld.initialize('client-side-id-123abc', context, {
+  privateAttributeNames: ['email']
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy Smith',
+  email: 'sandy@example.com',
+  privateAttributeNames: ['email'],
+};
+const options: ld.LDOptions = { allAttributesPrivate: ['email'] };
+
+const client = ld.initialize('client-side-id-123abc', context, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v2">
 
 ```js
 const user = {
@@ -1676,7 +1786,7 @@ const client = ld.initialize('client-side-id-123abc', user, {
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
+<CodeTabItem value="ts-v2">
 
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
@@ -1697,7 +1807,7 @@ const client = ld.initialize('client-side-id-123abc', user, options);
 
 In the above example, the SDK sends only the user's key and name back to LaunchDarkly.
 
-#### Anonymous users in the Node.js SDK
+#### Anonymous contexts in the Node.js SDK
 ---
 
 If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
@@ -1707,11 +1817,42 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'Node.js SDK v3 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v3 (TypeScript)', value: 'ts'},
+    { label: 'Node.js SDK v2.x (JavaScript)', value: 'js-v2', },
+    { label: 'Node.js SDK v2.x (TypeScript)', value: 'ts-v2'},
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+// To create an anonymous user with an auto-generated key, specify
+// the "anonymous" property and omit the "key" property. The LaunchDarkly
+// client creates a unique key for this user and caches it locally.
+const anonymousContext = { kind: 'user', anonymous: true };
+
+// You can also specify any key you want:
+const anonymousContext2 = { kind: 'user', key: "user-key-123abc", anonymous: true };
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+// To create an anonymous user with an auto-generated key, specify
+// the "anonymous" property and omit the "key" property. The LaunchDarkly
+// client creates a unique key for this user and caches it locally.
+const anonymousContext: ld.LDContext = { kind: 'user', anonymous: true };
+
+// You can also specify any key you want:
+const anonymousContext2: ld.LDUser = { kind: 'user', key: 'user-key-123abc', anonymous: true };
+
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v2">
 
 ```js
 // To create an anonymous user with an auto-generated key, specify
@@ -1724,7 +1865,7 @@ const anonymousUser2 = { key: "user-key-123abc", anonymous: true };
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
+<CodeTabItem value="ts-v2">
 
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
@@ -1769,7 +1910,7 @@ Here is a complete user configuration object utilizing all available fields:
 ```js
 let user = {
   key: '2fbfa269b78e24c8e967f482b89c939b',
-  name: 'grace_hopper',
+  name: 'Sandy Smith',
   firstName: 'Sandy',
   lastName: 'Smith',
   email: 'sandy@example.net',
@@ -1791,7 +1932,7 @@ import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let user: ld.LDUser = {
   key: '2fbfa269b78e24c8e967f482b89c939b',
-  name: 'sandy_smith',
+  name: 'Sandy Smith',
   firstName: 'Sandy',
   lastName: 'Smith',
   email: 'sandy@example.net',
@@ -2898,7 +3039,7 @@ You can also mark attributes as private when building the context object by call
 <CodeTabItem value="java">
 
 ```java
-LDContext context = new LDContext.Builder("context-key-123abc")
+LDContext context = LDContext.builder("context-key-123abc")
   .set("email", "sandy@example.com")
   .private("email")
   .build();
@@ -2935,7 +3076,7 @@ Here's how:
 <CodeTabItem value="java">
 
 ```java
-LDContext context = new LDContext.Builder("context-key-123abc")
+LDContext context = LDContext.builder("context-key-123abc")
   .anonymous(true)
   .build();
 ```

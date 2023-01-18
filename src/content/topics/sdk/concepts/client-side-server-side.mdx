@@ -211,7 +211,7 @@ Here is an example of the differences in flag evaluation between the client-side
 
   LDClient ldClient = new LDClient("sdk-key-123abc", config);
 
-  LDContext context = new LDContext.Builder("context-key-123abc").build();
+  LDContext context = LDContext.builder("context-key-123abc").build();
 
   boolean flagValue = ldClient.boolVariation("flag-key-123abc", context, false);
 

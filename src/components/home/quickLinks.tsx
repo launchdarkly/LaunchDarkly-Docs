@@ -60,22 +60,22 @@ const QuickLinks = () => (
         ]}
       />
       <QuickLink
+        iconName="swap-horiz"
+        heading="Accelerate"
+        blurp="Measure and improve your team's deployment and release metrics."
+        navItems={[
+          { path: '/home/accelerate', label: 'About Accelerate' },
+          { path: '/home/accelerate/get-started-accelerate', label: 'Getting started' },
+          { path: '/home/accelerate/accelerate-metrics', label: 'Accelerate dashboard metrics' },
+        ]}
+      />
+      <QuickLink
         iconName="chart-areaspline"
         heading="Experimentation"
         blurp="Test frontend and backend changes in real time, on real users."
         navItems={[
           { path: '/home/creating-experiments', label: 'Creating experiments' },
           { path: '/home/analyzing-experiments', label: 'Analyzing experiments' },
-        ]}
-      />
-      <QuickLink
-        iconName="puzzle-variation"
-        heading="Connect to your toolchain"
-        blurp="Make LaunchDarkly a seamless part of your workflow."
-        navItems={[
-          { path: '/integrations/webhooks', label: 'Webhooks' },
-          { path: '/integrations/code-references', label: 'Code references' },
-          { path: '/integrations/data-export', label: 'Data Export' },
         ]}
       />
     </ul>

@@ -46,6 +46,7 @@ export type IconName =
   | 'people'
   | 'search'
   | 'security'
+  | 'swap-horiz'
   | 'toggles-multiple-solid'
   | 'window-close'
   | 'arrow-down'

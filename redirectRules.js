@@ -68,6 +68,11 @@ module.exports = [
   // Redirects within the docs site
 
   {
+    fromPath: '/accelerate-eap/home/about-accelerate',
+    toPath: '/home/accelerate/',
+    // This is from the merged Accelerate EAP branch staging site into main, so it's technically within the docs site.
+  },
+  {
     fromPath: '/guides/infrastructure/unit-tests',
     toPath: '/guides/sdk/unit-tests',
   },
@@ -412,7 +417,11 @@ module.exports = [
   },
   {
     fromPath: '/home/account-security/custom-roles/policies',
-    toPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
+  },
+  {
+    fromPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
   },
   {
     fromPath: '/home/account-security/custom-roles/tags',

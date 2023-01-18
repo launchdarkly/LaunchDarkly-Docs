@@ -330,7 +330,7 @@ import (
 var config ld.Config
 config.DataSource = ldfiledata.DataSource().
     FilePaths("file1.json", "file2.json").
-    UseReloader(ldfilewatch.WatchFiles)
+    Reloader(ldfilewatch.WatchFiles)
 config.Events = ldcomponents.NoEvents()
 
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
@@ -350,7 +350,7 @@ import (
 var config ld.Config
 config.DataSource = ldfiledata.DataSource().
     FilePaths("file1.json", "file2.json").
-    UseReloader(ldfilewatch.WatchFiles)
+    Reloader(ldfilewatch.WatchFiles)
 config.Events = ldcomponents.NoEvents()
 
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)

@@ -238,7 +238,7 @@ Here is how to specify your mobile key:
 // to the start method that takes a maximum time to wait for flag values.
 // This variant notifies the completion whether the operation timed out.
 let config = LDConfig(mobileKey: "mobile-key-123abc")
-let context = LDContext(key: "context-key-123abc")
+let context = LDContextBuilder(key: "context-key-123abc")
 LDClient.start(config: config, context: context, startWaitSeconds: 5) { timedOut in
     if timedOut {
         // The SDK may not have the most recent flags for the configured context
@@ -319,7 +319,7 @@ Here's how:
 
 ```swift
 let config = LDConfig(mobileKey: "mobile-key-123abc")
-let context = LDContext(key: "context-key-123abc")
+let context = LDContextBuilder(key: "context-key-123abc")
 
 LDClient.start(config: config, context: context)
 
