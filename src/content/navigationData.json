@@ -1605,16 +1605,16 @@
         "svg": "arrows",
         "items": [
           {
+            "label": "About LaunchDarkly integrations",
+            "path": "/guides/integrations/using-integrations"
+          },
+          {
             "label": "Integrations use cases",
             "path": "/guides/integrations/integrations-use-cases"
           },
           {
             "label": "Using flag triggers with Dynatrace",
             "path": "/guides/integrations/triggers-dynatrace"
-          },
-          {
-            "label": "Using LaunchDarkly integrations",
-            "path": "/guides/integrations/using-integrations"
           },
           {
             "label": "Building an audit log event hook integration",
