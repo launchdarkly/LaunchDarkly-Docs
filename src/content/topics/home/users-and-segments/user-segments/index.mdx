@@ -17,7 +17,7 @@ User segments are lists of users that you can use to manage flag targeting behav
 There are some differences between flag and segment targeting that you should be aware of:
 
 - Unlike flags, segments are environment-specific. They do not populate in environments other than the one you created them in.
-- Segment targeting cannot reference another user segment.
+- Segment targeting can reference another segment if both segments exist in the same environment. You cannot create a circular reference, for example, having segment A target segment B and segment B target segment A.
 
 LaunchDarkly supports two types of segments:
 
