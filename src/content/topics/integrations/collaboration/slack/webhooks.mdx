@@ -1,0 +1,69 @@
+---
+path: /integrations/slack/webhooks
+title: Slack Incoming Webhooks
+description: This topic explains how to use the Slack webhook integration to set up Slack Incoming Webhooks to receive any activities in LaunchDarkly.
+published: true
+tags: ['webhook', 'slack', 'integration', 'filter']
+site: launchDarklyOnly
+---
+
+## Overview
+
+This topic explains how to use the Slack webhook integration to set up [Slack Incoming Webhooks](https://api.slack.com/incoming-webhooks) to receive any activities in LaunchDarkly. When something is changed (e.g. when a feature flag is updated, when a new account member is invited to LaunchDarkly, and more) we'll send an incoming webhook to Slack.
+
+<Callout intent="info">
+  <CalloutTitle>New Slack app is now available</CalloutTitle>
+  <CalloutDescription>
+
+LaunchDarkly has developed a [new Slack app](/integrations/slack) which is more powerful and easier to use than the Slack
+webhooks integration.
+
+  </CalloutDescription>
+</Callout>
+
+The content below describes the older webhook-based integration.
+
+## Creating a Slack incoming hook
+
+First, create an incoming hook in Slack. To do this, go to the [Incoming Webhooks](https://my.slack.com/services/new/incoming-webhook/) page in Slack, select a channel, and click Add Incoming WebHooks integration.
+
+![The Incoming Webhooks page.](slack-webhooks-add.png)
+
+
+Copy the Webhook URL, and in LaunchDarkly, navigate to the [Integrations page](https://app.launchdarkly.com/integrations), and click **+ Integration** in the chat integrations section.
+
+## Adding a policy filter
+
+LaunchDarkly sends all flag change events in the production environment to a webhook by default. To customize the events LaunchDarkly sends to your Slack room, use the policy editor in the webhook creation panel. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
+
+For example, if you want to receive an event only when a change is made to one of your production feature flags, you can add the following policy to your room notification:
+
+<CodeTabs
+  defaultValue="json"
+  values={[
+    { label: 'Policy', value: 'json', },
+  ]
+}>
+<CodeTabItem value="json">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/production:flag/*"]
+  }
+]
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+![The configuration panel with a policy written.](integrations-slack-webhook-create-with-policy.png)
+
+
+## Disabling a Slack incoming webhook
+
+You can temporarily disable a Slack incoming webhook by clicking the **edit** icon and toggling the switch **Off** from the [Integrations](https://app.launchdarkly.com/integrations) page.
+
+![The Slack webhook with the "edit" button called out.](slack-webhooks-toggle-callout.png)

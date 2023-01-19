@@ -1,0 +1,69 @@
+---
+path: /integrations/slack/approvals
+title: Managing approvals in Slack
+description: This topic explains how to manage approvals for flag changes using the Slack app.
+published: true
+tags: ['slack', 'approval']
+site: launchDarklyOnly
+---
+
+<Callout intent="primary">
+<CalloutTitle>Approvals is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Approvals is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to manage approvals for flag changes using the Slack app. Approvals let you request review for changes you plan to make to a flag. You can view and act on approval requests from within the LaunchDarkly Slack app.
+
+To use this feature, you must have installed and configured the LaunchDarkly Slack app. To learn more, read [Setting up the Slack app](/integrations/slack/setting-up?site=federal#setting-up-the-slack-app).
+
+To learn more about approvals, read [Approvals](/home/feature-workflows/approvals).
+
+## Viewing approvals in Slack
+
+Here's how to create approval requests and view them with the Slack app:
+
+1. In the LaunchDarkly user interface, navigate to a feature flag, and update the flag's targeting.
+2. Request approval for your changes by clicking the **dropdown icon** on the **Review and save** button and choosing **Request approval**. For more details, read [Requesting approvals](/home/feature-workflows/approvals#requesting-approvals).
+3. In Slack, click the new notification the LaunchDarkly app creates. The notification contains a link to the approval request.
+
+  ![A Slack notification from the LaunchDarkly app.](slack-ld-app-notification.png)
+
+Any reviewers that you added to the approval request also receive a Slack notification if they have authorized the LaunchDarkly app.
+
+## Reviewing approvals in Slack
+
+Here's how to manage approval requests that ask for your review:
+
+1. Click the Slack notification that you receive from the LaunchDarkly app.
+2. Click **Review** to create your review on the request.
+
+  ![The Review button on the Slack notification.](slack-approval-click-review.png)
+
+3. Review the targeting changes, and then choose an action for your review.
+
+- **Approve and apply changes**: Approve the changes and apply them immediately.
+- **Approve changes**: Approve the changes without applying them. The original requester, or any account member with a Writer, Admin, Owner, or appropriate custom role can apply the changes you approved.
+- **Decline changes**: Deny the changes.
+- **Comment only**: Leave a comment on the requested flag changes.
+
+  ![The review actions.](slack-choose-a-review-setting.png)
+
+4. (Optional) Add a comment if you want to include a comment with your review.
+5. Click **Submit** to submit your review.
+
+## Viewing replies on approval requests in Slack
+
+You receive threaded replies to the original approval request for each review others submit.
+
+Here's how to view updates to the approval request:
+
+1. Go to the LaunchDarkly app in your Slack account.
+2. Click into a thread to view comments, approvals, and declines on the approval request.
+
+  ![A reply thread on a review request.](slack-app-reply-thread.png)
