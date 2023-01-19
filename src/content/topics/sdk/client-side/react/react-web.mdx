@@ -592,7 +592,7 @@ The React SDK (version 2.27 and later) sends flag evaluation events only when a 
 
 Versions 2.26 and earlier of the React SDK send an evaluation event when a user reads a flag evaluation using `allFlags` and `variation`. To recreate this behavior in version 2.27 and later, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`. Version 3 only sends events when a context receives a flag evaluation.
 
-<Callout intent="alert">
+<Callout intent="info">
 <CalloutTitle>Experimentation events</CalloutTitle>
 <CalloutDescription>
 
