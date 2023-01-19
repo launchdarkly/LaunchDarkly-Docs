@@ -1,0 +1,57 @@
+---
+path: /integrations/webhooks
+title: MS Teams incoming webhooks
+description: This topic explains how to use the LaunchDarkly Microsoft Teams incoming webhooks integration, which sends alerts to your Teams space when LaunchDarkly resources change.
+published: true
+tags: ['microsoft teams', 'integration']
+site: launchDarklyOnly
+---
+
+## Overview
+
+This topic explains how to use the LaunchDarkly Microsoft Teams incoming webhooks integration.
+
+The Microsoft Teams incoming webhooks integration sends you alerts when the LaunchDarkly resources you care about, such as feature flags, projects, and account members, change. This notification appears in your Teams space.
+
+## Setting up a Connector in Microsoft Teams
+
+In order to add LaunchDarkly to a Teams workspace, you must configure an incoming webhook by setting up Connectors within Microsoft Teams. Then, you'll add the webhook URL to LaunchDarkly.
+
+1. Log into Microsoft Teams.
+2. Navigate to "Connectors."
+
+![The Microsoft Teams dashboard with the "Connectors" option called out.](ms-teams-connectors-callout.png)
+
+3. Configure an incoming webhook and create a webhook URL.
+4. When Teams prompts you to upload a logo, right-click the image below, save it locally, and upload it to Teams.
+
+![The LaunchDarkly logo.](ms-teams-ld-logo.png)
+
+5. Click **Configure** to add an Incoming Webhook.
+
+![The "Incoming Webhook" option with the "Configure" button called out.](ms-teams-incoming-webhook-callout.png)
+
+6. Enter information for your webhook.
+
+![The "Connectors" screen, configured for a new connection with LaunchDarkly.](ms-teams-webhook-connectors-screen.png)
+
+7. Copy the URL provided to your clipboard and click **Save**.
+
+![The webhook URL.](ms-teams-connectors-url.png)
+
+## Configuring LaunchDarkly to work with Teams
+
+To configure LaunchDarkly to connect with the Microsoft Teams webhook:
+
+1. Navigate to the **Integrations** screen and find "Microsoft Teams":
+
+![The Microsoft Teams section of the Integrations page.](ms-teams-add-integration.png)
+
+2. Click **Add integration**. The "Create Microsoft Teams configuration" panel appears.
+3. Paste your **Incoming webhook URL** into the field.
+4. Set any filters for sending notifications to Teams by configuring a policy. LaunchDarkly sends all flag change events in the production environment to Teams by default. To learn more about creating a policy, read [Example policies and templates](/home/members/example-policies).
+5. Save your configuration.
+
+![The "Create Microsoft Teams configuration" panel.](ms-teams-ld-integration-config.png)
+
+Now you are notified in your Teams workspace when someone updates a flag.

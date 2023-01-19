@@ -817,6 +817,10 @@
               {
                 "label": "Flag links in Microsoft Teams",
                 "path": "/integrations/microsoft-teams/flag-links"
+              },
+              {
+                "label": "MS Teams incoming webhooks",
+                "path": "/integrations/microsoft-teams/webhooks"
               }
             ]
           },
