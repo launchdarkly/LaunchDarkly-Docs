@@ -587,6 +587,10 @@ module.exports = [
     fromPath: '/integrations/code-references/bitbucket-pipes',
     toPath: '/home/code/bitbucket',
   },
+  {
+    fromPath: '/home/getting-started/your-team',
+    toPath: '/home/members/managing',
+  },
 
   // Redirects from the readme-hosted docs site
   {
