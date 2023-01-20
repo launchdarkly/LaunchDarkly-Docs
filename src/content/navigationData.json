@@ -857,10 +857,6 @@
                 "path": "/integrations/slack/toggle"
               },
               {
-                "label": "Viewing and monitoring flags",
-                "path": "/integrations/slack/managing"
-              },
-              {
                 "label": "Slack Incoming Webhooks",
                 "path": "/integrations/slack/webhooks"
               }
