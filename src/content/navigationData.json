@@ -1052,6 +1052,10 @@
             "path": "/sdk/concepts/data-stores"
           },
           {
+            "label": "Sample applications",
+            "path": "/sdk/concepts/sample-applications"
+          },
+          {
             "label": "Server-side SDK bandwidth usage",
             "path": "/sdk/concepts/server-side-bandwidth"
           },

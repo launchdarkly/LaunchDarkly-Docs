@@ -54,7 +54,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="/sdk/client-side/react/react-web#example-app">example</a></TableCell>
+      <TableCell><a href="/sdk/client-side/react/react-web#example-app">React Web</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
@@ -531,7 +531,7 @@ Both `useFlags` and `useLDClient` use the Hooks API, which requires React versio
 
 `useLDClient` is a custom hook which returns the underlying LaunchDarkly JavaScript SDK client object. Like the `useFlags` custom hook, `useLDClient` also uses the `useContext` primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component to initialize the React SDK to use this custom hook.
 
-For an example of how to use a custom hook, read [HooksDemo](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/hooksDemo.js).
+For an example of how to use a custom hook, read [HooksDemo](https://github.com/launchdarkly/react-client-sdk/blob/main/examples/hoc/src/universal/hooksDemo.js).
 
 ## Flag keys
 
@@ -576,7 +576,7 @@ If you enable the automatic camel-case feature and you want to use LaunchDarkly'
 
 ## Example app
 
-Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/master/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your flags list before running the example.
+Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/main/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/main/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your flags list before running the example.
 
 ## Importing types
 
