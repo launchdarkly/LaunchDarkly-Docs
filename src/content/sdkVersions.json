@@ -118,6 +118,11 @@
     "name": "Android",
     "versions": [
       {
+        "versionMajorMinor": "4.2",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-11"
+      },
+      {
         "versionMajorMinor": "4.1",
         "releaseYear": 2022,
         "releaseMonthDay": "12-22"
@@ -126,6 +131,11 @@
         "versionMajorMinor": "4.0",
         "releaseYear": 2022,
         "releaseMonthDay": "12-07"
+      },
+      {
+        "versionMajorMinor": "3.6",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-11"
       },
       {
         "versionMajorMinor": "3.5",
