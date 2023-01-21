@@ -115,7 +115,7 @@ You can mark the flag **permanent** when you create it, but it is also useful to
 
 ### Automated segments
 
-LaunchDarkly lets you add individual users from the UI, but depending on how much user information you want to share and how often your users change, that can be inefficient. You can also target user segments if you can provide that targeting data to the LaunchDarkly client evaluating the rules.
+You can add and remove individual targets to and from entitlement flags as needed, but depending on how often your customers change, this can be inefficient. Instead, you can target segments if you can provide that targeting data to the LaunchDarkly client evaluating the rules.
 
 For users on Enterprise plans, targeting segments defined in SAML are dynamically generated and updated, and are a good source of truth for who your users are and what level of entitlement and access they should have. It’s better to use those SAML-defined segments as the target of your rule than to try to maintain a correct listing in more than one place.
 
