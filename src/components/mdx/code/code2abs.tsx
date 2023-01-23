@@ -1,10 +1,14 @@
 /** @jsx jsx */
-import { Children, PropsWithChildren, useState } from 'react'
+import { Children, ReactNode, useState } from 'react'
 import { Box, Button, Card, Flex, jsx } from 'theme-ui'
 
-import { TabsItemProps2 } from './code2abItem'
+import { CodeTabItem2, TabsItemProps2 } from './code2abItem'
 
-export function CodeTabs2({ children }: PropsWithChildren<TabsItemProps2>) {
+type CodeTabProps = {
+  children: ReactNode
+}
+
+export function CodeTabs2({ children }: CodeTabProps) {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const validChildren = Children.toArray(children).filter((child: { props: { mdxType?: string } }) => {
     // TODO: update the following line when the components are renamed.
@@ -12,6 +16,9 @@ export function CodeTabs2({ children }: PropsWithChildren<TabsItemProps2>) {
   })
   const selectedChild = validChildren.find((_child, index) => {
     return index === selectedIndex
+  })
+  validChildren.forEach((codeTabItem: { props: TabsItemProps2 }, index) => {
+    throwErrorIfLabelMissing(codeTabItem, index)
   })
   return (
     <Card variant="code">
@@ -45,4 +52,10 @@ export function CodeTabs2({ children }: PropsWithChildren<TabsItemProps2>) {
       </Flex>
     </Card>
   )
+}
+
+function throwErrorIfLabelMissing(codeTabItem: { props: TabsItemProps2 }, index: number) {
+  if (!codeTabItem.props.label) {
+    throw new Error(`Error: ${CodeTabItem2.name} is missing a label, tab ${index + 1}`)
+  }
 }
