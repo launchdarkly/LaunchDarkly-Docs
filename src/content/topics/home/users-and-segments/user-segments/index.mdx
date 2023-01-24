@@ -14,11 +14,6 @@ This topic explains how to build and manage user segments. User segments let you
 
 User segments are lists of users that you can use to manage flag targeting behavior in bulk. Segments are useful for keeping groups of users, like `beta-users` or `enterprise-customers`, up to date. They allow you to more quickly turn features on or off for certain groups with confidence.
 
-There are some differences between flag and segment targeting that you should be aware of:
-
-- Unlike flags, segments are environment-specific. They do not populate in environments other than the one you created them in.
-- Segment targeting can reference another segment if both segments exist in the same environment. You cannot create a circular reference, for example, having segment A target segment B and segment B target segment A.
-
 LaunchDarkly supports two types of segments:
 
 - [Standard segments](/home/users/standard-segments)
@@ -82,6 +77,26 @@ This table explains the differences between standard segments and Big Segments:
     </TableRow>
   </TableBody>
 </Table>
+
+### Targeting with segments
+
+There are some differences between flag targeting and segment targeting:
+
+- Segments are environment-specific. They do not populate in environments other than the one you created them in.
+- Segment targeting can reference another segment only if both segments exist in the same environment, and if you're using a version of an SDK that supports contexts. To learn more, read [SDKs](/sdk). 
+
+<Callout intent="primary">
+<CalloutTitle>Not all SDKs support targeting segments within segments</CalloutTitle>
+<CalloutDescription>
+
+To target a segment within another segment, you must be using the latest version of an SDK that supports the feature. To find out which versions of which SDKs support this feature, read the [list of SDKs that support contexts](/sdk).
+
+If you target a segment within another segment but aren't using an updated SDK, the flag will skip the segment targeting rule and evaluate contexts against the next subsequent rule.
+
+</CalloutDescription>
+</Callout>
+
+Like flags, you cannot create a circular reference between two segments, for example, where segment A targets segment B and segment B targets segment A.
 
 ## Using the Segments list
 
