@@ -36,13 +36,13 @@ Applications are a part of your code base for which you want to track deployment
 
 ## Getting started
 
-You can get started with Accelerate by following the instructions in the "Let's get you set up" section at the top of the overview page.
+You can get started with Accelerate by following the instructions in the "Welcome to Accelerate" dialog on the overview page.
 
 The setup instructions guide you through configuring deployment information, installing the GitHub app, and setting up code references:
 
-![The "Let's get you set up" section of Accelerate.](accelerate-set-up.png)
+![The "Welcome to Accelerate" dialog in Accelerate.](accelerate-set-up.png)
 
-You can click the **arrow** icon next to each step to expand detailed instructions. Alternatively, you can follow the instructions below.
+You can click the **arrow** icon next to each step to view detailed instructions. Alternatively, you can follow the instructions below.
 
 Here's how to get started using Accelerate:
 
@@ -58,15 +58,17 @@ Reach out to your Early Access Program (EAP) account contact and confirm that Ac
 
 From your feature flag list, click the product switcher menu and choose **Accelerate**:
 
-![The product switcher menu, with "Accelerate" called out.](accelerate-product-switcher.png)
+![The product switcher menu, with "Accelerate" highlighted.](accelerate-product-switcher.png)
 
 ### Step 2: Configure your application to send deployment information
 
 Configuring your application to send deployment information to Accelerate lets Accelerate track the frequency and timing of your deployments. We calculate deployment frequency by receiving deployment start and end times from your pipeline.
 
-Until you configure it, the application will prompt you to connect to your deployment pipeline:
+Until you configure it, the application will prompt you to set up your deployment pipeline:
 
-![The deployment frequency metric prompting you to connect to your deployment pipeline.](accelerate-connect-to-deployment.png)
+![The deployment frequency metric prompting you to set up to your deployment pipeline.](accelerate-deployment-frequency-setup.png)
+
+Click **Set up** to view the instructions or **Dismiss** to hide the prompt. If you dismiss the prompt, you can still read the instructions for setting up your deployment pipeline using the **Get started** button at the bottom of the screen.
 
 There are two options for sending deployment information:
 
@@ -112,7 +114,7 @@ The following server-side SDKs support the application identifier and applicatio
 
 We recommend option 2, configuring webhooks, in the following scenarios:
 
-* You are not using an SDK that supports the application identifier and version configuration options.
+* You are using an SDK that does not support the application identifier and version configuration options.
 * You anticipate having a large number of application versions reporting at once. For example, if you have a large front-end application, especially a single-page application, you might have dozens of application versions being reported, because you have end users working from long-running versions. It may simplify your [deployment frequency metrics](/home/accelerate/accelerate-metrics/deployment) to send information directly from your deployment pipeline rather than relying on SDK calls.
 * You want to monitor how long your deployments take to complete. If you use application identifier and version configuration options, then Accelerate will report when a deployment occurred. If you use webhooks to send separate events for each deployment's start and finish, then Accelerate will report on deployment duration as well.
 
@@ -128,27 +130,37 @@ Everyone's deployment pipeline is different. We recommend sending deployment eve
 
 Adding the LaunchDarkly GitHub app to your existing GitHub organization lets Accelerate track pull request and commit frequency and timing. Accelerate uses this information to calculate deployment lead time and other metrics.
 
-If you haven't installed the LaunchDarkly GitHub app yet, you'll be prompted to when you log in to Accelerate. Follow the OAuth workflow to install the app automatically. After you accept the installation, you'll be redirected back to Accelerate.
+Until you configure it, the application will prompt you to connect to GitHub:
+
+![The lead time metric prompting you to connect to GitHub.](accelerate-lead-time-setup.png)
+
+Click **Set up** to view the instructions or **Dismiss** to hide the prompt. If you dismiss the prompt, you can still read the instructions for connecting to GitHub using the **Get started** button at the bottom of the screen.
+
+Follow the OAuth workflow to install the app automatically. After you accept the installation, you'll be redirected back to Accelerate.
 
 After you install the app, activity data for the repositories you chose will flow into Accelerate. Historical data from the repositories will populate in Accelerate automatically.
 
 ### Step 4: Set up code references
 
-Set up code references for each code base in which you use flags. This allows Accelerate to correlate changes to flags in code with PRs and deployments. To learn more, read [Code references](/home/code/code-references).
+Set up code references for each code base in which you use flags. This allows Accelerate to correlate changes to flags in code with PRs and deployments.
 
-Until you configure it, the application will prompt you to configure code references:
+Until you configure it, the application will prompt you to set up code references:
 
-![The flag coverage metric prompting you to configure code references.](accelerate-configure-code-references.png)
+![The flag coverage metric prompting you to set up code references.](accelerate-flag-coverage-setup.png)
+
+Click **Set up** to view the instructions or **Dismiss** to hide the prompt. If you dismiss the prompt, you can still read the instructions for setting up code references using the **Get started** button at the bottom of the screen.
+
+To learn how to set up code references, read [Code references](/home/code/code-references).
 
 ### Step 5: Confirm your setup
 
 To confirm you have set up everything correctly:
 
-- Check for data on the [Deployment frequency](/home/accelerate/accelerate-metrics/deployment) metric view. After you have successfully set up and sent at least one deployment event, the deployment frequency chart and the deployments table will start filling with data.
+- Check for data on the [Deployment frequency](/home/accelerate/accelerate-metrics/deployment) metric view. After you have set up and sent at least one deployment event, the deployment frequency chart and the deployments table will start filling with data.
 
-- Check for data on the [Lead time](/home/accelerate/accelerate-metrics/lead-time) metric view. After you have set up the GitHub app, Accelerate will start receiving commit and PR information for all future PRs. Accelerate will also backfill events for the last 90 days, although this can take up to 24 hours to complete. If the GitHub app is set up properly, the lead time chart and the pull requests list will start filling with data.
+- Check for data on the [Lead time](/home/accelerate/accelerate-metrics/lead-time) metric view. After you have set up the GitHub app, Accelerate will start receiving commit and PR information for all future PRs. Accelerate will also backfill events for the last 90 days, although this can take up to 24 hours to complete. The lead time chart and the pull requests list will start filling with data.
 
-- Check for code reference data on the pull requests list in the [Lead time](/home/accelerate/accelerate-metrics/lead-time) metric view. After code references are set up, future PRs that add, remove, or change a flag in code will show the flags modified in the "Flag changes" column.
+- Check for code reference data on the pull requests list on the [Flag coverage](/home/accelerate/accelerate-metrics/flag-coverage) metric view. After you set up code references, future PRs that add, remove, or change a flag in code will show the flags modified in the "Flags" column.
 
 ## Learn more
 
