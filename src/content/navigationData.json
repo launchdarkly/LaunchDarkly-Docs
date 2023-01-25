@@ -342,7 +342,7 @@
                 "path": "/home/account-security/adfs"
               },
               {
-                "label": "Azure",
+                "label": "Azure Active Directory",
                 "path": "/home/account-security/azure"
               },
               {
@@ -883,7 +883,7 @@
             "path": "/integrations/jira"
           },
           {
-            "label": "ServiceNow",
+            "label": "ServiceNow approvals",
             "path": "/integrations/servicenow",
             "items": [
               {

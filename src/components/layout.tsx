@@ -11,6 +11,7 @@ import { Card, jsx, ThemeProvider } from 'theme-ui'
 import { SiteFrontmatter } from '../types/siteType'
 
 import Homepage from './home/landingPage'
+import AllIntegrations from './home/sdks/allIntegrations'
 import ClientSideSdks from './home/sdks/clientSideSdks'
 import { AllSdks } from './home/sdks/exploreSdks'
 import ReactSdks from './home/sdks/reactSdks'
@@ -76,6 +77,7 @@ const components = {
   ChildPageList,
   Feature,
   Details,
+  AllIntegrations,
 }
 
 const theme = {}

@@ -6,8 +6,6 @@ published: true
 tags: ['integration']
 ---
 
-LaunchDarkly supports third-party integrations to let you configure the product to your specific needs. You can also connect various destinations to receive LaunchDarkly events, or use triggers to perform actions on feature flags from third-party tools.
-
 <Callout intent="primary">
 <CalloutTitle>Some integrations are Pro and Enterprise features</CalloutTitle>
 <CalloutDescription>
@@ -17,7 +15,16 @@ Some integrations are only available to customers on a Pro or Enterprise plan. T
 </CalloutDescription>
 </Callout>
 
-To learn how to create your own, read [Using the LaunchDarkly integration framework](/integrations/building-integrations).
+## Overview
+
+LaunchDarkly supports third-party integrations to let you configure the product to your specific needs. You can also connect various destinations to receive LaunchDarkly events, or use triggers to perform actions on feature flags from third-party tools.
+
+We provide the following integrations:
+
+<AllIntegrations />
+<br />
+
+To learn about our available SDKs, read [SDKs](/sdk).
 
 ## Featured integrations
 
@@ -29,56 +36,97 @@ Here are some of our most popular integrations:
 
 To learn about common problems integrations can help solve, read [Integrations use cases](/guides/integrations/integrations-use-cases).
 
-## All integrations
+## Building your own integration
 
-LaunchDarkly supports the following integrations.
+LaunchDarkly's integration framework lets you use a standard configuration to build two-way integrations from LaunchDarkly to third-party services. To learn how to create your own integration, read [Using the LaunchDarkly integration framework](/integrations/building-integrations).
 
-### Application performance management (APM) tools
+## Application performance management (APM) tools
+
+<Details summary="Expand APM tools">
 
 LaunchDarkly integrates with the following APM tools:
 
 <ChildPageList path="/integrations/app-performance" />
 
-### Code references
+</Details>
 
-LaunchDarkly offers code references integrations:
+## Code references
+
+<Details summary="Expand code references integrations">
+
+LaunchDarkly offers the following code references integrations:
 
 <ChildPageList path="/home/code/code-references" omit="/home/code/custom-config" />
 
 To learn more, read [Code references](/home/code/code-references).
 
-### Collaboration tools
+</Details>
+
+## Collaboration tools
+
+<Details summary="Expand collaboration tools">
 
 LaunchDarkly integrates with the following collaboration tools:
 
 <ChildPageList path="/integrations/collaboration" />
 
-### Data Export destinations
+</Details>
 
-You can export events from LaunchDarkly to a third party Data Export destination. To learn more, read [Data Export](/home/data-export).
+## Data Export destinations
 
-LaunchDarkly's Data Export supports the following destinations:
+<Details summary="Expand Data Export destinations">
+
+You can export events from LaunchDarkly to the following third party Data Export destinations:
 
 <ChildPageList path="/home/data-export" omit="/home/data-export/schema-reference" />
 
-### Integrated development environment (IDE) connectors
+To learn more, read [Data Export](/home/data-export).
+
+</Details>
+
+## Integrated development environment (IDE) connectors
+
+<Details summary="Expand IDE connectors">
 
 LaunchDarkly integrates with the following IDE connectors:
 
 <ChildPageList path="/integrations/ide" />
 
-### Workflow management tools
+</Details>
+
+## Single sign-on (SSO) integrations
+
+<Details summary="Expand single sign-on integrations">
+
+LaunchDarkly integrates with the following SSO integrations:
+
+<ChildPageList path="/home/account-security/sso" omit="/home/account-security/sso/scim,/home/account-security/sso/saml" />
+
+To learn more, read [Single sign-on](/home/account-security/sso).
+
+</Details>
+
+## Workflow management tools
+
+<Details summary="Expand workflow management tools">
 
 LaunchDarkly integrates with the following workflow management tools:
 
 <ChildPageList path="/integrations/workflow" />
 
-### More integrations
+</Details>
+
+## More integrations
+
+<Details summary="Expand more integrations">
 
 LaunchDarkly integrates with several other productivity and management applications:
 
 <ChildPageList path="/integrations/more" />
 
+</Details>
+
 ## Demonstration videos
 
 We provide video demonstrations of many of our integrations. They are available on [LaunchDarkly's YouTube channel](https://www.youtube.com/@LaunchDarkly/videos).
+

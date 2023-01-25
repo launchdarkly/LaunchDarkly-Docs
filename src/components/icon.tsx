@@ -61,7 +61,7 @@ export type IconName =
   | 'federal-tag'
 
 export type IconProps = {
-  name: IconName
+  name: IconName | string
   onClick?: () => void
   fill?: string
 } & BoxOwnProps &
