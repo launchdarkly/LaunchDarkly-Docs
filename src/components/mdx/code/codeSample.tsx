@@ -2,29 +2,28 @@
 import { Children, ReactNode, useState } from 'react'
 import { Box, Button, Card, Flex, jsx } from 'theme-ui'
 
-import { CodeTabItem2, TabsItemProps2 } from './code2abItem'
+import { CSTab, CSTabProps } from './csTab'
 
-type CodeTabProps = {
+type CodeSampleProps = {
   children: ReactNode
 }
 
-export function CodeTabs2({ children }: CodeTabProps) {
+export function CodeSample({ children }: CodeSampleProps) {
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const validChildren = Children.toArray(children).filter((child: { props: { mdxType?: string } }) => {
-    // TODO: update the following line when the components are renamed.
-    return child.props.mdxType === 'CodeTabItem2'
+    return child.props.mdxType === 'CSTab'
   })
   const selectedChild = validChildren.find((_child, index) => {
     return index === selectedIndex
   })
-  validChildren.forEach((codeTabItem: { props: TabsItemProps2 }, index) => {
-    throwErrorIfLabelMissing(codeTabItem, index)
+  validChildren.forEach((CSTabItem: { props: CSTabProps }, index) => {
+    throwErrorIfLabelMissing(CSTabItem, index)
   })
   return (
     <Card variant="code">
       <Flex sx={{ flexDirection: 'column' }}>
         <Box sx={{ marginBottom: 4 }}>
-          {validChildren.map((child: { props: { languageKey: string; label: string } }, index) => {
+          {validChildren.map((child: { props: { label: string } }, index) => {
             const { label } = child.props
             return (
               <Button
@@ -54,8 +53,8 @@ export function CodeTabs2({ children }: CodeTabProps) {
   )
 }
 
-function throwErrorIfLabelMissing(codeTabItem: { props: TabsItemProps2 }, index: number) {
-  if (!codeTabItem.props.label) {
-    throw new Error(`Error: ${CodeTabItem2.name} is missing a label, tab ${index + 1}`)
+function throwErrorIfLabelMissing(CSTabItem: { props: CSTabProps }, index: number) {
+  if (!CSTabItem.props.label) {
+    throw new Error(`Error: ${CSTab.name} is missing a label, tab ${index + 1}`)
   }
 }

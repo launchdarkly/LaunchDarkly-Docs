@@ -4,11 +4,11 @@ import qs from 'qs'
 import { errorOnInvalidSite } from '../../../utils/siteAwareUtils'
 import useSite from '../../siteSelector/useSite'
 
-export type TabsItemProps2 = {
+export type CSTabProps = {
   label: string
 }
 
-export function CodeTabItem2({ children }: PropsWithChildren<TabsItemProps2>) {
+export function CSTab({ children }: PropsWithChildren<CSTabProps>) {
   const [site] = useSite()
   const childrenArray = Children.toArray(children)
 
