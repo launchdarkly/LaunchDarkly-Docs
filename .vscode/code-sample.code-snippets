@@ -1,0 +1,18 @@
+{
+  "Create Code Sample": {
+    "scope": "markdown, mdx",
+    "prefix": "cs",
+    "body": [
+      "<CodeSample>",
+      "<CSTab label=\"$1\">",
+      "",
+      "```$2",
+      "$3",
+      "```",
+      "",
+      "</CSTab>",
+      "</CodeSample>"
+    ],
+    "description": "Add a Code Sample"
+  }
+}
