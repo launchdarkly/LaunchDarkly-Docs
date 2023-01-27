@@ -1,0 +1,119 @@
+---
+path: /home/getting-started/vocabulary
+title: LaunchDarkly vocabulary
+description: This topic defines common words used in the LaunchDarkly application and documentation.
+published: true
+tags: ['vocabulary', 'glossary', 'definition']
+---
+
+## Overview
+
+This topic defines common words used in the LaunchDarkly application and documentation. While many of these words may be familiar to you, in some cases they have nuances specific to LaunchDarkly.
+
+The following definitions may be useful as you work in LaunchDarkly:
+
+
+## C
+
+### Context
+
+A `context` is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+To learn more, read [Contexts and segments](/home/contexts).
+
+### Context kind
+
+A `context kind` is a conceptual grouping of information that you may know about different contexts. Each context includes a `kind` that describes the type of attributes it contains.
+
+To learn more, read [Understanding contexts and context kinds](/home/contexts#understanding-contexts-and-context-kinds).
+
+### Context instance
+
+A `context instance` is a particular individual context that has encountered a feature flag in your product.
+
+To learn more, read [Understanding context instances](/home/contexts#understanding-context-instances).
+
+## E
+
+### Environment
+
+An `environment` is an organizational unit contained within a [project](#project). You can create multiple environments within each project. All environments in a single project contain the same [flags](#flag). However, the flags can have different states, targets, and rules in each environment.
+
+To learn more, read [Environments](/home/organize/environments).
+
+### Evaluation
+
+An `evaluation` is what happens when your application's code sends the [LaunchDarkly SDK](#launchdarkly-sdk) information about a particular [flag](#flag) and a particular [context](#context) that has encountered that flag, and the SDK sends back the value of the [flag variation](#variation) that the context should receive. We say that the SDK evaluates the flag, or that the flag has been evaluated for a particular context or customer.
+
+To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+
+## F
+
+### Flag
+
+A `flag` is the basic unit of feature management. It describes the different variations of a feature and the rules that allow different entities to access them. Different entities that access your features could be a percentage of your application's traffic, individuals, or people or software entities who share common characteristics like location, email domain, or type of mobile device. The entities that encounter feature flags in your product are called [contexts](#context).
+
+To learn more, read [Using feature management](/home/getting-started#using-feature-management).
+
+## L
+
+### LaunchDarkly SDK
+
+The `LaunchDarkly SDK` is the software development kit that you use to integrate LaunchDarkly with your application's code. We provide more than two dozen LaunchDarkly SDKs, in different languages and frameworks.
+
+When your application starts, your code should initialize the LaunchDarkly SDK you're working with. When a customer encounters a feature flag in your application, your code should use the SDK to evaluate the feature flag and retrieve the appropriate flag variation for that customer.
+
+To learn more, read [Setting up an SDK](/home/getting-started/setting-up). For more information about the differences between the LaunchDarkly SDK and the LaunchDarkly REST API, read [Comparing LaunchDarkly's SDKs and REST API](/guide/api/comparing-sdk-rest-api).
+
+## M
+
+### Member
+
+A `member` or `account member` is a person who uses LaunchDarkly at your organization. These people work at your organization or have access rights to your organization's LaunchDarkly environment for another reason, such as contractors or part-time employees.
+
+To learn more, read [LaunchDarkly account members](/home/members/managing).
+
+## P
+
+### Project
+
+A `project` is an organizational unit for flags in your LaunchDarkly account. You can define projects in any way you like. A common pattern is to create one project in your LaunchDarkly account for each product your company makes.
+
+To learn more, read [Projects](/home/organize/projects).
+
+## R
+
+### Role, custom role
+
+A `role` is a description of the access that a member has to information within LaunchDarkly. Every LaunchDarkly account has four built-in roles: Reader, Writer, Admin, and Owner.
+
+A `custom role` is also a description of the access that a member has to information within LaunchDarkly. With custom roles, you create the description of the access using a set of statements called a policy.
+
+Every member must have at least one role or custom role assigned to them, even if the role explicitly prohibits them from accessing any information within LaunchDarkly.
+
+To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles), [Custom roles](/home/members/custom-roles), and [Custom role concepts](/home/members/role-concepts).
+
+## T
+
+### Team
+
+A `team` is a group of members in your LaunchDarkly account. To learn more, read [Teams](/home/teams).
+
+## U
+
+### User
+
+A `user` is a person, service, machine, or other resource that encounters feature flags in your product.
+
+Newer versions of the LaunchDarkly SDKs replace users with [contexts](#context).
+
+## V
+
+### Variation
+
+A `variation` is a description of a possible value that a flag can have. Each variation must contain the possible flag value. It may also contain a name and description.
+
+When you create a flag, you must decide whether it is a boolean flag or a multivariate flag. Boolean flags have exactly two variations, with values of "true" and "false." Multivariate flags can have more than two variations. Each of the variations must have a value of the same type, for example, a string.
+
+To learn more, read [Creating flag variations](/home/flags/variations).

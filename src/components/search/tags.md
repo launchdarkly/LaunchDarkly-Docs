@@ -94,6 +94,7 @@ datasource
 debt
 debugger
 default
+definition
 delete
 dependent
 deploy
@@ -148,6 +149,7 @@ frequentist
 
 gatsby
 github actions
+glossary
 google
 grafana
 graph
@@ -367,6 +369,7 @@ variation
 variationdetail
 version
 viewproject
+vocabulary
 vue
 vscode
 
