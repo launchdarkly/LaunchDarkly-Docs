@@ -22,7 +22,7 @@ export function CodeSample({ children }: CodeSampleProps) {
   return (
     <Card variant="code">
       <Flex sx={{ flexDirection: 'column' }}>
-        <Box sx={{ marginBottom: 4 }}>
+        <Box sx={{ marginBottom: 4, display: 'flex' }}>
           {validChildren.map((child: { props: { label: string } }, index) => {
             const { label } = child.props
             return (
@@ -35,7 +35,6 @@ export function CodeSample({ children }: CodeSampleProps) {
               >
                 <div
                   sx={{
-                    maxWidth: '200px',
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
