@@ -613,6 +613,11 @@
     "name": "Haskell",
     "versions": [
       {
+        "versionMajorMinor": "3.1",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-27"
+      },
+      {
         "versionMajorMinor": "3.0",
         "releaseYear": 2022,
         "releaseMonthDay": "06-27"
