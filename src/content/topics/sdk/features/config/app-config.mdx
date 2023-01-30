@@ -3,12 +3,12 @@ path: /sdk/features/app-config
 title: Application metadata configuration
 description: This topic explains how to configure LaunchDarkly SDKs to send application metadata to LaunchDarkly.
 published: true
-tags: ['configure', 'metadata', 'sdk', 'application id', 'application version']
+tags: ['configure', 'metadata', 'sdk', 'application id', 'application version', 'accelerate']
 ---
 
 ## Overview
 
-This topic explains how to configure LaunchDarkly SDKs to send application metadata to LaunchDarkly. This feature is available for both client-side and server-side SDKs. 
+This topic explains how to configure LaunchDarkly SDKs to send application metadata to LaunchDarkly. This feature is available for both client-side and server-side SDKs.
 
 Sending application metadata to LaunchDarkly allows you to populate the "From source" field on Context details pages with information about the SDK or application that sent the context attributes. To learn more, read [The context details page](/home/contexts/context-details).
 
@@ -27,12 +27,31 @@ If you are using the latest version of an SDK and are not part of the EAP, your 
 </CalloutDescription>
 </Callout>
 
+## Customizing application identifiers and application versions
+
+Some LaunchDarkly SDKs support application identifier and application version configuration options. These options allow you to send this metadata to LaunchDarkly. You can use this metadata for things like flag targeting and configuring our Accelerate product offering. To learn more, read [Getting started with Accelerate](/home/accelerate/get-started-accelerate).
+
 For the SDKs that support this feature, you can send the following metadata:
 
 - Application identifier (string): A unique identifier representing the application where the LaunchDarkly SDK is running. The value can use only alphanumeric characters and hyphens `-`, periods `.`, and underscores `_`. For example, `authentication-service`.
-- Application version (string): A unique identifier representing the version of the application where the LaunchDarkly SDK is running. The value can use only alphanumeric characters and hyphens `-`, periods `.`, and underscores `_`. For example, you could use a standard version string, such as `1.0.0`.
+- Application version (string): A unique identifier representing the version of the application where the LaunchDarkly SDK is running. The value can use only alphanumeric characters and hyphens `-`, periods `.`, and underscores `_`. For example, you could use a standard version string, such as `1.0.0`, or a secure hash algorithm (SHA), such as `abc123def456`.
 
 You can set these values when you configure the SDK. All connections to LaunchDarkly from a client will send the same value to LaunchDarkly, whether the connection is through streaming, polling, or events. You cannot change the value after you configure the client.
+
+## Configuring application metadata for Accelerate
+
+<Callout intent="info">
+<CalloutTitle>Accelerate is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+</CalloutDescription>
+</Callout>
+
+Configuring your application metadata to send deployment information lets Accelerate track the frequency and timing of your deployments. If you set the application version to a deployment Git SHA, Accelerate will also link the SHAs to your pull requests (PRs) and track which PRs are in your deployment.
+
+To learn how to retrieve the SHA for your deployment, read [Configure your application to send deployment information](/home/accelerate/get-started-accelerate#step-2-configure-your-application-to-send-deployment-information).
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -43,8 +62,56 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 This feature is available in the following client-side SDKs:
 
-* [iOS](#ios)
-* [JavaScript](#javascript)
+- [Android](#android)
+- [iOS](#ios)
+- [JavaScript](#javascript)
+- [Node.js (client-side)](#nodejs-client-side)
+- [React](#javascript): The React SDK relies on the JavaScript SDK for this functionality. 
+
+### Android
+
+<Details summary="Expand Android code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeTabs
+  defaultValue="java"
+  values={[
+    { label: 'Java', value: 'java'},
+    { label: 'Kotlin', value: 'kotlin', },
+  ]
+}>
+<CodeTabItem value="java">
+
+```java
+LDConfig config = new LDConfig.Builder()
+    .applicationInfo(
+        Components.applicationInfo()
+            .applicationId("authentication-service")
+            .applicationVersion("1.0.0")
+    )
+    .build();
+```
+
+</CodeTabItem>
+<CodeTabItem value="kotlin">
+
+```kotlin
+val ldConfig: LDConfig = LDConfig.Builder()
+    .applicationInfo(
+        Components.applicationInfo()
+            .applicationId("authentication-service")
+            .applicationVersion("1.0.0")
+    )
+    .build()
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`ApplicationInfoBuilder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/integrations/ApplicationInfoBuilder.html).
+
+</Details>
 
 ### iOS
 
@@ -132,6 +199,54 @@ const client = LDClient.initialize('client-side-id-123abc', context, options);
 </CodeTabs>
 
 To learn more about the specific configuration options that are available in this SDK, read the [`LDOptions`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html).
+</Details>
+
+### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeTabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js'},
+    { label: 'TypeScript', value: 'ts', },
+  ]
+}>
+<CodeTabItem value="js">
+
+```js
+const options = {
+  application: {
+    id: "authentication-service",
+    version: "1.0.0"
+  }
+};
+
+const client = LDClient.initialize('client-side-id-123abc', context, options);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+import * as LDClient from 'launchdarkly-node-client-sdk';
+
+const options: LDClient.LDOptions = {
+  application: {
+    id: "authentication-service",
+    version: "1.0.0"
+  }
+};
+const client = LDClient.initialize('client-side-id-123abc', context, options);
+```
+
+</CodeTabItem>
+</CodeTabs>
+
+To learn more, read [`application`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#application).
+
 </Details>
 
 ## Server-side SDKs

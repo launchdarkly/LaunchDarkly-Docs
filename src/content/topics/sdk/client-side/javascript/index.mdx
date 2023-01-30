@@ -45,7 +45,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/hello-js">hello-js</a></TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-js">JavaScript</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
@@ -326,6 +326,8 @@ const client = LDClient.initialize('client-side-id-123abc', user);
 <CalloutDescription>
 
 Initializing the client makes a remote request to LaunchDarkly. Depending on your network conditions, it may take a couple hundred milliseconds before the SDK emits the ready event. If you require feature flag values before rendering the page, we recommend bootstrapping the client. If you bootstrap the client, it will emit the ready event immediately. To learn more, read [Bootstrapping](/sdk/features/bootstrapping#javascript).
+
+To learn about best practices when using other default flag value methods, read [Eliminating flicker when using default flag values](/sdk/client-side/javascript/default-values).
 
 </CalloutDescription>
 </Callout>

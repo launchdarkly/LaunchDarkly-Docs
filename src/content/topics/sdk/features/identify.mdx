@@ -492,10 +492,54 @@ Here's how:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
+    { label: 'Node.js SDK 3.0, single context', value: "js" },
+    { label: 'Node.js SDK 3.0, multi-context', value: "js-multi" },
+    { label: 'Node.js SDK 2.x', value: "js-2.x" },
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+client.identify(newContext, () => {
+  console.log("New context's flags available");
+});
+
+// or, with a Promise:
+client.identify(newContext).then(() => {
+  console.log("New context's flags available");
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-multi">
+
+```js
+
+const newMultiContext = {
+  kind: 'multi',
+  user: {
+    key: 'aa0ceb',
+    name: 'Anna',
+    role: 'doctor'
+  },
+  device: {
+    key: 'device-key',
+    platform: 'Android'
+  }
+}
+
+client.identify(newMultiContext, () => {
+  console.log("New context's flags available");
+});
+
+// or, with a Promise:
+client.identify(newMultiContext).then(() => {
+  console.log("New context's flags available");
+});
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-2.x">
 
 ```js
 client.identify(newUser, () => {
@@ -511,7 +555,7 @@ client.identify(newUser).then(() => {
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`identify`](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldclient.html#identify).
+To learn more, read [`identify`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDClient.html#identify).
 
 </Details>
 

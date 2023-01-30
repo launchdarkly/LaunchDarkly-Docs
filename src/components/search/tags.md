@@ -5,6 +5,7 @@
 # A
 
 ab testing
+accelerate
 access
 account
 adfs
@@ -28,6 +29,7 @@ application id
 application version
 api
 apple
+application
 approval
 attribute
 audience
@@ -62,6 +64,7 @@ china
 circleci orb
 click
 client-side
+client libraries
 clone
 close
 cloudflare
@@ -91,12 +94,16 @@ datasource
 debt
 debugger
 default
+definition
 delete
 dependent
 deploy
+deployment frequency
 destination
 docker
 domain
+dora
+dora metrics
 dynamodb
 dynatrace
 
@@ -129,6 +136,7 @@ federal
 file
 filter
 flag
+flag coverage
 flag lifecycle
 flag name
 flag status
@@ -141,6 +149,7 @@ frequentist
 
 gatsby
 github actions
+glossary
 google
 grafana
 graph
@@ -197,6 +206,7 @@ ld-find-code-refs
 ldconfig
 ldconfigbuilder
 lduser
+lead time
 link
 listener
 log
@@ -239,6 +249,7 @@ notification
 
 oauth
 offline
+outlier
 
 # P
 
@@ -273,10 +284,12 @@ reason
 redis
 relay proxy
 release
+release frequency
 reset
 resource
 rest
 result
+rest api
 roku
 role
 ruby
@@ -296,6 +309,7 @@ security
 segment
 server-side
 serverless
+service
 serviceendpoints
 servicenow
 session
@@ -355,6 +369,7 @@ variation
 variationdetail
 version
 viewproject
+vocabulary
 vue
 vscode
 

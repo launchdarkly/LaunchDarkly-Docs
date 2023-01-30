@@ -3,6 +3,8 @@ import { PropsWithChildren, useEffect, useLayoutEffect, useRef, useState } from 
 import { keyframes } from '@emotion/react'
 import { jsx, ThemeUIStyleObject } from 'theme-ui'
 
+import { getQueryParams } from '../../utils/queryUtils'
+
 export function findMatch(content: string, terms: string[]): boolean {
   for (const t of terms) {
     if (content.includes(t)) {
@@ -11,18 +13,6 @@ export function findMatch(content: string, terms: string[]): boolean {
   }
 
   return false
-}
-
-export function getQueryParams(location: Location, param: string): string {
-  // If there's a hash in url, it doesn't
-  // properly parse query params
-  // this could happen for section headers in search
-  const query = location.search ? location.search : ''
-
-  const searchParams = new URLSearchParams(query)
-
-  const q = searchParams.get(param)
-  return q
 }
 
 type DetailsProps = {

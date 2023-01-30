@@ -45,7 +45,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>Sample applications</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/hello-java">hello-java</a> (Java)<br/> <a href="https://github.com/launchdarkly/hello-scala">hello-scala</a> (Scala) <br/> <a href="https://github.com/launchdarkly/hello-clojure">hello-clojure</a> (Clojure) <br/> You can also use this SDK with <a href="https://kotlinlang.org/">Kotlin</a></TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-java">Java</a><br/> <a href="https://github.com/launchdarkly/hello-scala">Scala</a><br/> <a href="https://github.com/launchdarkly/hello-clojure">Clojure</a><br/> You can also use this SDK with <a href="https://kotlinlang.org/">Kotlin</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
@@ -172,7 +172,7 @@ In the v6 example, the context key is the string "context-key-123abc". In the v5
 <CodeTabItem value="java">
 
 ```java
-LDContext context = new LDContext.Builder("context-key-123abc")
+LDContext context = LDContext.builder("context-key-123abc")
   .name("Sandy")
   .build();
 

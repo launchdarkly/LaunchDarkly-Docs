@@ -6,6 +6,19 @@ tags: ['node', 'node.js', 'sdk', 'client-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 3 of the Node.js SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Node.js SDK 2.x to 3.0 migration guide](/sdk/client-side/node-js/migration-2-to-3).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the client-side Node.js SDK, and links to reference information on all of the supported features.
@@ -32,7 +45,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/hello-node-client">hello-node-client</a></TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/hello-node-client">Node.js (client-side)</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
@@ -151,11 +164,36 @@ Here's how to initialize the client:
 <CodeTabs
   defaultValue="js"
   values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
+    { label: 'Node.js SDK v3 (JavaScript)', value: 'js', },
+    { label: 'Node.js SDK v3 (TypeScript)', value: 'ts'},
+    { label: 'Node.js SDK v2.x (JavaScript)', value: 'js-v2', },
+    { label: 'Node.js SDK v2.x (TypeScript)', value: 'ts-v2'},
   ]
 }>
 <CodeTabItem value="js">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc'
+};
+
+const client = LaunchDarkly.initialize('client-side-id-123abc', context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="ts">
+
+```ts
+const context: LaunchDarkly.LDcontext = {
+  kind: 'user',
+  key: 'user-key-123abc'
+};
+const client: LaunchDarkly.initialize('client-side-id-123abc', context);
+```
+
+</CodeTabItem>
+<CodeTabItem value="js-v2">
 
 ```js
 const user = {
@@ -166,7 +204,7 @@ const client = LaunchDarkly.initialize('client-side-id-123abc', user);
 ```
 
 </CodeTabItem>
-<CodeTabItem value="ts">
+<CodeTabItem value="ts-v2">
 
 ```ts
 const user: LaunchDarkly.LDUser = {
@@ -243,9 +281,10 @@ Shut down the client when your application terminates. To learn more, read [Shut
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#nodejs-client-side)
 * [Bootstrapping](/sdk/features/bootstrapping#nodejs-client-side)
-* [Configuration](/sdk/features/config#nodejs-client-side)
+* [Configuration](/sdk/features/config#nodejs-client-side), including
+  * [Application metadata configuration](/sdk/features/app-config#nodejs-client-side)
+  * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#nodejs-client-side)
 * [Evaluating flags](/sdk/features/evaluating#nodejs-client-side)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#nodejs-client-side)
 * [Flushing events](/sdk/features/flush#nodejs-client-side)
@@ -254,7 +293,6 @@ This SDK supports the following features:
 * [Logging configuration](/sdk/features/logging#nodejs-client-side)
 * [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#nodejs-client-side)
 * [Sending custom events](/sdk/features/events#nodejs-client-side)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#nodejs-client-side)
 * [Shutting down](/sdk/features/shutdown#nodejs-client-side)
 * [Subscribing to flag changes](/sdk/features/flag-changes#nodejs-client-side)
 * [User and context configuration](/sdk/features/user-context-config#nodejs-client-side)

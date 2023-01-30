@@ -67,9 +67,9 @@ module.exports = {
 
 The jest-launchdarkly-mock package contains three exports to help unit test LaunchDarkly in your app:
 
-* `mockFlags`, to mock flags at the start of each test case
-* `resetLDMocks`, to reset
-* `ldClientMock`, to mock the `ldClient` in the React SDK
+* `mockFlags`, to mock flags at the start of each test case. This only mocks flags returned by the `useFlags` hook.
+* `resetLDMocks`, to reset.
+* `ldClientMock`, to mock the `ldClient` in the React SDK.
 
 To learn more, read the [Readme](https://github.com/launchdarkly/jest-launchdarkly-mock#usage).
 
@@ -89,7 +89,7 @@ import { mockFlags, resetLDMocks, ldClientMock } from 'jest-launchdarkly-mock'
 
 ## Mocking flags
 
-Use the `mockFlags` function to mock flags. Pass an [LDFlagSet](https://launchdarkly.github.io/js-client-sdk/interfaces/LDFlagSet.html) containing the flag keys and values you want to mock. You can use camelCase, snake_case, kebab-case, or unchanged flag keys when mocking flags.
+Use the `mockFlags` function to mock flags. This only mocks flags returned by the `useFlags` hook. Pass an [LDFlagSet](https://launchdarkly.github.io/js-client-sdk/interfaces/LDFlagSet.html) containing the flag keys and values you want to mock. You can use camelCase, snake_case, kebab-case, or unchanged flag keys when mocking flags.
 
 Here's how:
 

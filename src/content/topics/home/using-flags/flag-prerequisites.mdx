@@ -19,25 +19,34 @@ Flag prerequisites is available to customers on an Enterprise plan. To learn mor
 
 This topic explains how to use feature flag prerequisites to enable or disable features based on different states.
 
-## Understanding flag prerequisite relationships
+Prerequisites allow you to control feature dependencies in LaunchDarkly. You can make flags depend on other flags being enabled to take effect.
 
-Prerequisites allow you to control feature dependencies in LaunchDarkly. You can make flags depend on other flags being enabled to take effect themselves, making them prerequisites to enable a feature. To meet a prerequisite, the prerequisite flag must be **On**, and the user must receive the variation you specify.
+## Using prerequisite and dependent flags
+
+ To meet a prerequisite, the prerequisite flag must be **On**, and the target must be receiving the variation of the prerequisite flag you specify.
 
 You can manage prerequisites in the feature flag's **Targeting** tab:
 
-![The flag's "Targeting" tab.](flag-targeting-prerequisite.png)
+![A dependent flag's "Targeting" tab with the "prerequisites" section called out.](flag-targeting-prerequisite.png)
 
-
-In the example above, the "Pricing tier" flag is a prerequisite of the "Markdown List" flag. The "Markdown List" flag will not be evaluated for a user unless the "Pricing tier" flag is **On** and the user receives the `true` variation. If a user receives the `false` variation of the "Pricing tier" flag, LaunchDarkly does not consider the prerequisite met.
+In the example above, for a target to receive the "true" variation of the dependent flag, the prerequisite flag must be **On**, and the target must be receiving the "Blue" variation of the prerequisite flag.
 
 <Callout intent="info">
 <CalloutTitle>Prerequisite flags must be on</CalloutTitle>
 <CalloutDescription>
 
-To meet a prerequisite, the prerequisite flag must be **On**. LaunchDarkly considers the prerequisite unfulfilled if the prerequisite flag is **Off**, regardless of the value being served.
+To meet a prerequisite, the prerequisite flag must be **On**. LaunchDarkly considers the prerequisite unmet if the prerequisite flag is **Off**, no matter what variation of the prerequisite flag the target is receiving.
+
+For example, if a prerequisite flag serves "false" when targeting is **Off**, even if the variation specified in the prerequisite section is "false," LaunchDarkly still considers the prerequisite unmet when the flag is **Off**.
 
 </CalloutDescription>
 </Callout>
+
+### Behavior when prerequisites are unmet
+
+If the prerequisite flag is **Off**, or if the target isn't receiving the specified variation of the prerequisite flag, the target will receive the "If targeting is off, serve" variation of the dependent flag.
+
+## Using multiple prerequisite flags
 
 Flags can be dependent on multiple prerequisite flags. If a dependent flag has multiple prerequisite flags, then all of the prerequisite flag requirements must be met for LaunchDarkly to evaluate the dependent flag for a user.
 
@@ -54,7 +63,7 @@ You can also use the REST API: [List dependent feature flags](https://apidocs.la
 LaunchDarkly automatically prevents you from saving changes that would introduce circular dependencies between prerequisites. For example, you cannot make Flag A a prerequisite of Flag B and also make Flag B a prerequisite of Flag A.
 
 <Callout intent="alert">
-<CalloutTitle>Deleting flags with prerequisites</CalloutTitle>
+<CalloutTitle>Deleting flags with dependents</CalloutTitle>
 <CalloutDescription>
 
 You cannot delete a flag that is a prerequisite for other flags. You must remove the dependency before you can delete the prerequisite flag.

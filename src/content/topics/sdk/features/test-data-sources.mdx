@@ -179,7 +179,7 @@ To configure the SDK to use a test data source:
 }>
 <CodeTabItem value="android">
 
-```android
+```java
 using com.launchdarkly.sdk.*;
 using com.launchdarkly.sdk.server.*;
 using com.launchdarkly.sdk.server.integrations.*;
@@ -207,7 +207,7 @@ To set a flag to a specific value:
 }>
 <CodeTabItem value="android">
 
-```android
+```java
 td.update(td.flag("flag-key-123abc").variation(false));
 ```
 
@@ -224,7 +224,7 @@ There are other ways you can configure flag behavior using a test data source. H
 }>
 <CodeTabItem value="android">
 
-```android
+```java
 // This flag is true for the context with the key "context-key-123abc" and kind of "organization",
 // and false for everyone else
 td.update(td.flag("flag-key-123abc")

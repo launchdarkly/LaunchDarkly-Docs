@@ -214,12 +214,9 @@ yarn cypress --env skip_external=true
 
 ### CI
 
-All of our tests are integrated into out CI/CI pipeline and most are guaranteed to run on every PR, except **Internal link validation** which only runs on `main` branch, because it can takes between 20-30 minutes.
+All of our tests are integrated into out CI/CI pipeline and most are guaranteed to run on every PR.
 
-To run **Internal link validation** on a branch:
-
-1. Navigate to the [Workflow page](https://github.com/launchdarkly/ld-docs-private/actions/workflows/cypressProd.yml)
-2. Select **Run workflow** and choose the branch you would like to run the validation tests on.
+Local link checking and spellcheck run as part of the [Testing](https://github.com/launchdarkly/ld-docs-private/actions/workflows/main.yml) GitHub action. External link link validation runs once per day as part of the [Scheduled link check](https://github.com/launchdarkly/ld-docs-private/actions/workflows/scheduled-link-check.yml) GitHub action.
 
 ## 🔨 Navigation data
 
@@ -233,19 +230,15 @@ You can also flag navigation items. To learn more, please refer the section [Fla
 
 Please reach out to @scribblingfox if you need to log in to Algolia. She will be able to send you an invite.
 
-To index mdx content and send to Algolia, create a local `.env.development` file that contains the following:
+To index mdx content and send to Algolia, add the following to your `.env.development` file:
 
 ```dotenv
-GATSBY_ALGOLIA_APP_ID=insertValue
-GATSBY_ALGOLIA_SEARCH_KEY=insertValue
 ALGOLIA_ADMIN_KEY=insertValue
-GATSBY_ALGOLIA_INDEX=insertValue
+BUILD_DEV_ALGOLIA_INDEX=true
 ```
-
-`GATSBY_ALGOLIA_INDEX` is the index name that will be used to create the algolia index for your content.
-For example, if you set `GATSBY_ALGOLIA_INDEX=Pages` and you run `yarn build-dev`, this will crawl
-all mdx files under src/content/topics and create an algolia index called `Pages_development`.
-The convention is `{GATSBY_ALGOLIA_INDEX}_{ENVIRONMENT}`. The environment variable can be set via
+You can get an admin key in the Algolia settings.
+If no special environment is set, this will use the `Docs_development` index.
+The convention for index names is `{GATSBY_ALGOLIA_INDEX}_{ENVIRONMENT}`. The environment variable can be set via
 cli param `GATSBY_ACTIVE_ENV`. For example, for staging, you would run the following command:
 
 ```bash

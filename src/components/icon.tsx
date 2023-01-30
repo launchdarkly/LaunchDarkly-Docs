@@ -46,6 +46,7 @@ export type IconName =
   | 'people'
   | 'search'
   | 'security'
+  | 'swap-horiz'
   | 'toggles-multiple-solid'
   | 'window-close'
   | 'arrow-down'
@@ -60,7 +61,7 @@ export type IconName =
   | 'federal-tag'
 
 export type IconProps = {
-  name: IconName
+  name: IconName | string
   onClick?: () => void
   fill?: string
 } & BoxOwnProps &

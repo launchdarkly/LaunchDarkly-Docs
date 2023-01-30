@@ -1,14 +1,14 @@
 ---
 path: /home/analyzing-experiments
 title: Analyzing experiments
-description: This topic explains how to read an experiment's results in the flag's Experimentation tab and apply its findings to your product.
+description: This topic explains how to interpret an experiment's results and apply its findings to your product.
 published: true
 tags: ['analyze', 'result', 'experiment', 'experimentation', 'enterprise']
 ---
 
 ## Overview
 
-This topic explains how to read an experiment's results in the flag's Experimentation tab and apply its findings to your product.
+This topic explains how to interpret an experiment's results and apply its findings to your product.
 
 ## Understanding experiments as they run
 
@@ -26,67 +26,11 @@ Here are some things you can do with each experiment:
 
 The data an experiment has collected is represented in a results graph and table:
 
-![An experiment's results graph and table.](experiment-results-table.png)
+![An experiment's results graph and table.](experiment-results-table-graph.png)
 
-The horizontal X-axis displays the unit of the primary metric included in the experiment. For example, if the metric is measuring revenue, the unit might be dollars, or if the metric is measuring website latency, the unit might be milliseconds. The vertical Y-axis measures probability.
+The horizontal x-axis displays the unit of the primary metric included in the experiment. For example, if the metric is measuring revenue, the unit might be dollars, or if the metric is measuring website latency, the unit might be milliseconds. The vertical y-axis measures probability.
 
-To hide any of the variations from the results graph, uncheck the box next to the variation's name:
-
-![An experiment's results graph with two variations unchecked.](experiment-results-graph-unchecked.png)
-
-All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling). LaunchDarkly automatically performs checks on the results data, to make sure that actual user traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
-
-Imagine you want to test offering a discount for your online store, to see if more users complete their purchase when you offer a discount. You run an experiment using a click conversion metric on user behavior when you offer various discounts, with no discount serving as your control variation. The sections below explain what each column means.
-
-### Probability to be best
-
-The probability to be best is the likelihood that a variation had the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is the best option to choose as a winner. In this example, the "15% off" variation has the highest probability to be best.
-
-### Relative difference from [the control]
-
-The relative difference from the control variation is the range that contains 90% of the variation's probable values. It is written as a percentage of the values from the control variation.
-
-This means the effect of the variation on the metric you're measuring, compared to the control variation, has a 90% probability of falling within this range. In the above example, the "15% off" variation has a relative difference of [0.61%, 101.96%]. You can have 90% confidence that the effect of the variation on the metric, for any given user who encounters it, will be between 0.61% and 101.96% higher than the control variation.
-
-To summarize this column, you can have 90% confidence that offering a 15% discount in your store will result in users checking out between about 1% to about 102% more often than those who receive no discount.
-
-The longer you run an experiment, the width of this interval decreases. This is because the more data you gather, the more confidence you can have because the range of plausible values is smaller.
-
-### Credible interval
-
-The credible interval is the range that contains 90% of probable values.
-
-This means the effect of the variation on the metric you're measuring has a 90% probability of falling between these two numbers. In the above example, the "15% off" variation has a credible interval of [43.12%, 86.55%]. This means you can have 90% confidence that the probable values of the metric, for any given user who encounters it, will be between 43.12% and 86.55%. 
-
-To summarize this column, you can have 90% confidence that offering a 15% discount in your store will result in users checking out between about 43% to 87% of the time.
-
-If you view metric event values per unique user as a sum instead of an average, the credible interval will be expressed in values rather than percentages. To learn more, read [Viewing metric event values](#viewing-metric-event-values).
-
-The longer you run an experiment, the width of this interval decreases. This is because the more data you gather, the more confidence you can have because the range of plausible values is smaller.
-
-### Mean
-
-The mean is the average value of the posterior distribution of the variation. This means, if you were to continue collecting data, it’s the future average numeric value for the variation that you should expect. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
-
-In the above example, if you continued to run the experiment, you could expect that offering a 15% discount in your store will result in users checking out about 71% of the time.
-
-<LearnMore>
-
-You can also use the REST API: [Get experiment results](https://apidocs.launchdarkly.com/tag/Experiments-(beta)#operation/getExperimentResults)
-
-</LearnMore>
-
-### Viewing metric event values
-
-In each metrics results table you can view metric event values per unique user as an average or a sum, depending on your needs.
-
-Here's the **View metric event values per unique user as** option in a metric results table:
-
-![A metric results table with "View metric event values per unique user as" called out.](experiment-card-view-metric-event-callout.png)
-
-Imagine you are tracking purchases made by users using a new checkout flow. A user makes three purchases for $15 each. If you view metric event values as an average, the average of their purchases is $15. If you view metric event values as a sum, the sum of their purchases is $45. If your goal is to increase revenue per user, viewing metric event values as a sum makes the most sense.
-
-Alternatively, imagine you want to decrease the time to checkout per transaction. If a user takes two minutes for their first purchase, four minutes for their second purchase, and three minutes for their third purchase, their average checkout time is three minutes, but their total checkout time is nine minutes. In this case, viewing metric event values as an average makes the most sense.
+To learn more about interpreting an experiment's results, read [Reading results graphs](/home/analyzing-experiments/results).
 
 ## Choosing a winning variation
 
@@ -106,13 +50,3 @@ If you're done with an experiment and have rolled out the winning variation to y
 If you're using Data Export, you can find experiment data in your Data Export destinations to further analyze it using third-party tools of your own.
 
 To learn more, read [Data Export](/home/data-export).
-
-## Correlating variations and conversions
-
-A conversion is when a user action provides a measurable value for a metric. For example, if a metric is tracking clicks on a checkout button, LaunchDarkly registers a conversion each time a user clicks the button. The SDK sends a track call to register the conversion in LaunchDarkly.
-
-LaunchDarkly uses variation calls to correlate the variation a user received to a conversion within a 90-day window. If there are more than 90 days between the time of a variation call and a track call on a user key, then LaunchDarkly does not register the metric in the experiment.
-
-To learn more about variation calls, read [Evaluating flags](/sdk/features/evaluating). To learn more about track calls, read [Sending custom events](/sdk/features/events).
-
-In rare cases, unexpected behavior may cause a user to receive multiple variations in the 90 days prior to a conversion. In these cases, LaunchDarkly attributes the conversion to the first variation the user received in that 90-day period.

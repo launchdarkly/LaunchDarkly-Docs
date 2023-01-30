@@ -11,12 +11,13 @@ import { Card, jsx, ThemeProvider } from 'theme-ui'
 import { SiteFrontmatter } from '../types/siteType'
 
 import Homepage from './home/landingPage'
+import AllIntegrations from './home/sdks/allIntegrations'
 import ClientSideSdks from './home/sdks/clientSideSdks'
 import { AllSdks } from './home/sdks/exploreSdks'
 import ReactSdks from './home/sdks/reactSdks'
 import ServerSideSdks from './home/sdks/serverSideSdks'
 import Callout, { CalloutDescription, CalloutTitle } from './mdx/callout'
-import { Code, CodeTabItem, CodeTabs } from './mdx/code'
+import { Code, CodeSample, CodeTabs, CSTab } from './mdx/code'
 import Details from './mdx/details'
 import Feature from './mdx/feature'
 import Figure, { FigCaption } from './mdx/figure'
@@ -59,7 +60,8 @@ const components = {
   LearnMore,
   Link,
   CodeTabs,
-  CodeTabItem,
+  CodeSample,
+  CSTab,
   Homepage,
   AllSdks,
   ClientSideSdks,
@@ -74,6 +76,7 @@ const components = {
   ChildPageList,
   Feature,
   Details,
+  AllIntegrations,
 }
 
 const theme = {}
@@ -152,6 +155,8 @@ const Layout: FunctionComponent<LayoutProps> = ({
           { name: 'twitter:data1', content: `${timeToRead} ${pluralize('minute', timeToRead)} ` },
           { name: 'twitter:label2', content: 'Last edited' },
           { name: 'twitter:data2', content: `${modifiedDate}` },
+          // Zendesk for support team
+          { name: 'zd-site-verification', content: '692vywu6ikflunpvddz3ko' },
         ]}
       >
         {enableUserWayAccessibilityWidget && (

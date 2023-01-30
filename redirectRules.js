@@ -68,12 +68,13 @@ module.exports = [
   // Redirects within the docs site
 
   {
-    fromPath: '/guides/infrastructure/unit-tests',
-    toPath: '/guides/sdk/unit-tests',
+    fromPath: '/accelerate-eap/home/about-accelerate',
+    toPath: '/home/accelerate/',
+    // This is from the merged Accelerate EAP branch staging site into main, so it's technically within the docs site.
   },
   {
-    fromPath: '/guides/flags/rules-and-targeting',
-    toPath: '/guides/flags',
+    fromPath: '/guides/infrastructure/unit-tests',
+    toPath: '/guides/sdk/unit-tests',
   },
   {
     fromPath: '/guides/flags/sdk-flag',
@@ -119,7 +120,7 @@ module.exports = [
   },
   {
     fromPath: '/guides/tutorials/rules-and-targeting',
-    toPath: '/guides/flags/rules-and-targeting',
+    toPath: '/guides/flags',
   },
   {
     fromPath: '/guides/best-practices/creating-flags',
@@ -225,6 +226,13 @@ module.exports = [
     fromPath: '/guides/best-practices/bayesian',
     toPath: '/guides/experimentation/bayesian',
   },
+
+  // Redirects for external sites
+  {
+    fromPath: '/docs/teams/managing',
+    toPath: '/home/teams/managing',
+  },
+
   // Redirects within docs site
 
   {
@@ -377,43 +385,87 @@ module.exports = [
   },
   {
     fromPath: '/home/account-security/managing-your-team',
-    toPath: '/home/team/managing',
+    toPath: '/home/members',
   },
   {
     fromPath: '/home/account-security/account-owners',
-    toPath: '/home/team/account-owners',
+    toPath: '/home/members/account-owners',
   },
   {
     fromPath: '/home/account-security/custom-roles',
-    toPath: '/home/team/custom-roles',
+    toPath: '/home/members/custom-roles',
   },
   {
     fromPath: '/home/account-security/custom-roles/concepts',
-    toPath: '/home/team/role-concepts',
+    toPath: '/home/members/role-concepts',
   },
   {
     fromPath: '/home/account-security/custom-roles/create',
-    toPath: '/home/team/role-create',
+    toPath: '/home/members/role-create',
   },
   {
     fromPath: '/home/account-security/custom-roles/actions',
-    toPath: '/home/team/role-actions',
+    toPath: '/home/members/role-actions',
   },
   {
     fromPath: '/home/account-security/custom-roles/resources',
-    toPath: '/home/team/role-resources',
+    toPath: '/home/members/role-resources',
   },
   {
     fromPath: '/home/account-security/custom-roles/policies',
-    toPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
   },
   {
     fromPath: '/home/account-security/custom-roles/tags',
-    toPath: '/home/team/role-tags',
+    toPath: '/home/members/role-tags',
   },
   {
     fromPath: '/home/account-security/custom-roles/example-policies',
-    toPath: '/home/team/example-policies',
+    toPath: '/home/members/example-policies',
+  },
+  {
+    fromPath: '/home/team',
+    toPath: '/home/members',
+  },
+  {
+    fromPath: '/home/team/managing',
+    toPath: '/home/members',
+  },
+  {
+    fromPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
+  },
+  {
+    fromPath: '/home/team/account-owners',
+    toPath: '/home/members/account-owners',
+  },
+  {
+    fromPath: '/home/team/custom-roles',
+    toPath: '/home/members/custom-roles',
+  },
+  {
+    fromPath: '/home/team/role-concepts',
+    toPath: '/home/members/role-concepts',
+  },
+  {
+    fromPath: '/home/team/role-create',
+    toPath: '/home/members/role-create',
+  },
+  {
+    fromPath: '/home/team/role-actions',
+    toPath: '/home/members/role-actions',
+  },
+  {
+    fromPath: '/home/team/role-resources',
+    toPath: '/home/members/role-resources',
+  },
+  {
+    fromPath: '/home/team/role-tags',
+    toPath: '/home/members/role-tags',
+  },
+  {
+    fromPath: '/home/team/example-policies',
+    toPath: '/home/members/example-policies',
   },
   {
     fromPath: '/home/account-security/custom-roles/private-projects',
@@ -571,6 +623,10 @@ module.exports = [
     fromPath: '/integrations/code-references/bitbucket-pipes',
     toPath: '/home/code/bitbucket',
   },
+  {
+    fromPath: '/home/getting-started/your-team',
+    toPath: '/home/members/managing',
+  },
 
   // Redirects from the readme-hosted docs site
   {
@@ -595,7 +651,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/new-members',
-    toPath: '/home/account-security/managing-your-team',
+    toPath: '/home/members',
   },
   {
     fromPath: '/docs/creating-a-feature-flag',
@@ -611,19 +667,19 @@ module.exports = [
   },
   {
     fromPath: '/docs/the-dashboard',
-    toPath: '/home/managing-flags/dashboard',
+    toPath: '/home/organize/flags-list',
   },
   {
     fromPath: '/docs/the-kill-switch',
-    toPath: '/home/managing-flags/dashboard',
+    toPath: '/home/organize/flags-list',
   },
   {
     fromPath: '/docs/compare-and-copy-flag-settings',
-    toPath: '/home/managing-flags/flag-compare-copy',
+    toPath: '/home/code/flag-compare-copy',
   },
   {
     fromPath: '/docs/managing-variations',
-    toPath: '/home/managing-flags/flag-variations',
+    toPath: '/home/flags/variations',
   },
   {
     fromPath: '/docs/flag-archive-delete',
@@ -631,47 +687,47 @@ module.exports = [
   },
   {
     fromPath: '/docs/projects',
-    toPath: '/home/managing-flags/projects',
+    toPath: '/home/organize/projects',
   },
   {
     fromPath: '/docs/environments',
-    toPath: '/home/managing-flags/environments',
+    toPath: '/home/organize/environments',
   },
   {
     fromPath: '/docs/targeting-users',
-    toPath: '/home/managing-flags/targeting-users',
+    toPath: '/home/flags/targeting-users',
   },
   {
     fromPath: '/docs/bulk-user-targeting',
-    toPath: '/home/managing-flags/bulk-user-targeting',
+    toPath: '/home/flags/bulk-targeting',
   },
   {
     fromPath: '/docs/other-flag-settings',
-    toPath: '/home/managing-flags/flag-settings',
+    toPath: '/home/flags/settings',
   },
   {
     fromPath: '/docs/prerequisites',
-    toPath: '/home/managing-flags/flag-prerequisites',
+    toPath: '/home/flags/prerequisites',
   },
   {
     fromPath: '/docs/the-audit-log',
-    toPath: '/home/managing-flags/audit-log-history',
+    toPath: '/home/flags/audit-log-history',
   },
   {
     fromPath: '/docs/debugger',
-    toPath: '/home/managing-flags/debugger',
+    toPath: '/home/flags/debugger',
   },
   {
     fromPath: '/docs/users-index',
-    toPath: '/home/managing-users',
+    toPath: '/home/users',
   },
   {
     fromPath: '/docs/the-user-dashboard',
-    toPath: '/home/managing-users/users-dashboard',
+    toPath: '/home/users/users-list',
   },
   {
     fromPath: '/docs/private-user-attributes',
-    toPath: '/home/managing-users/user-attributes',
+    toPath: '/home/users/attributes',
   },
   {
     fromPath: '/docs/segmenting-users',
@@ -691,39 +747,39 @@ module.exports = [
   },
   {
     fromPath: '/docs/teams',
-    toPath: '/home/account-security/managing-your-team',
+    toPath: '/home/members',
   },
   {
     fromPath: '/docs/custom-roles',
-    toPath: '/home/account-security/custom-roles',
+    toPath: '/home/members/custom-roles',
   },
   {
     fromPath: '/docs/configuring-custom-roles',
-    toPath: '/home/account-security/custom-roles/create',
+    toPath: '/home/members/role-create',
   },
   {
     fromPath: '/docs/resources-in-custom-roles',
-    toPath: '/home/account-security/custom-roles/resources',
+    toPath: '/home/members/role-resources',
   },
   {
     fromPath: '/docs/tags-in-custom-roles',
-    toPath: '/home/account-security/custom-roles/tags',
+    toPath: '/home/members/role-tags',
   },
   {
     fromPath: '/docs/actions-in-custom-roles',
-    toPath: '/home/account-security/custom-roles/actions',
+    toPath: '/home/members/role-actions',
   },
   {
     fromPath: '/docs/policies-in-custom-roles',
-    toPath: '/home/account-security/custom-roles/policies',
+    toPath: '/home/members/role-policies',
   },
   {
     fromPath: '/docs/example-policies',
-    toPath: '/home/account-security/custom-roles/example-policies',
+    toPath: '/home/members/example-policies',
   },
   {
     fromPath: '/docs/configuring-private-projects-with-custom-roles',
-    toPath: '/home/account-security/custom-roles/private-projects',
+    toPath: '/home/members/example-policies',
   },
   {
     fromPath: '/docs/multi-factor-authentication',
@@ -879,55 +935,55 @@ module.exports = [
   },
   {
     fromPath: '/integrations/git-code-references',
-    toPath: '/integrations/code-references',
+    toPath: '/home/code/code-references',
   },
   {
     fromPath: '/docs/git-code-references',
-    toPath: '/integrations/code-references',
+    toPath: '/home/code/code-references',
   },
   {
     fromPath: '/docs/bitbucket-pipes-coderefs',
-    toPath: '/integrations/code-references/bitbucket-pipes',
+    toPath: '/home/code/bitbucket',
   },
   {
     fromPath: '/docs/circleci-orbs',
-    toPath: '/integrations/code-references/circleci-orbs',
+    toPath: '/home/code/circleci',
   },
   {
     fromPath: '/docs/github-actions',
-    toPath: '/integrations/code-references/github-actions',
+    toPath: '/home/code/github-actions',
   },
   {
     fromPath: '/docs/gitlab-ci',
-    toPath: '/integrations/code-references/gitlab-ci',
+    toPath: '/home/code/gitlab',
   },
   {
     fromPath: '/docs/custom-configuration-via-cli',
-    toPath: '/integrations/code-references/custom-config',
+    toPath: '/home/code/custom-config',
   },
   {
     fromPath: '/docs/data-export',
-    toPath: '/integrations/data-export',
+    toPath: '/home/data-export',
   },
   {
     fromPath: '/docs/google-cloud-pubsub',
-    toPath: '/integrations/data-export/google-pubsub',
+    toPath: '/home/data-export/google-pubsub',
   },
   {
     fromPath: '/docs/kinesis-destination',
-    toPath: '/integrations/data-export/kinesis',
+    toPath: '/home/data-export/kinesis',
   },
   {
     fromPath: '/docs/mparticle-destination',
-    toPath: '/integrations/data-export/mparticle',
+    toPath: '/home/data-export/mparticle',
   },
   {
     fromPath: '/docs/segment-destination',
-    toPath: '/integrations/data-export/segment',
+    toPath: '/home/data-export/segment',
   },
   {
     fromPath: '/docs/data-export-schema-reference',
-    toPath: '/integrations/data-export/schema-reference',
+    toPath: '/home/data-export/schema-reference',
   },
   {
     fromPath: '/integrations/gatsby',
@@ -935,7 +991,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/custom-properties',
-    toPath: '/home/advanced/custom-properties',
+    toPath: '/home/connecting/custom-properties',
   },
   {
     fromPath: '/docs/public-ip-list',
@@ -943,15 +999,15 @@ module.exports = [
   },
   {
     fromPath: '/docs/the-relay-proxy',
-    toPath: '/home/advanced/relay-proxy',
+    toPath: '/home/relay-proxy',
   },
   {
     fromPath: '/docs/using-the-relay-proxy',
-    toPath: '/home/advanced/relay-proxy/using',
+    toPath: '/home/relay-proxy/using',
   },
   {
     fromPath: '/docs/monitoring-relay-proxy',
-    toPath: '/home/advanced/relay-proxy/monitoring',
+    toPath: '/home/relay-proxy/monitoring',
   },
   {
     fromPath: '/docs/evaluation-reasons',
@@ -959,11 +1015,11 @@ module.exports = [
   },
   {
     fromPath: '/docs/reading-flags-from-a-file',
-    toPath: '/sdk/concepts/flags-from-files',
+    toPath: '/sdk/features/flags-from-files',
   },
   {
     fromPath: '/docs/using-a-persistent-feature-store',
-    toPath: '/sdk/concepts/feature-store',
+    toPath: '/sdk/concepts/data-stores',
   },
   {
     fromPath: '/home/advanced/flag-evaluations',
@@ -975,7 +1031,7 @@ module.exports = [
   },
   {
     fromPath: '/home/advanced/flags-from-files',
-    toPath: '/sdk/concepts/flags-from-files',
+    toPath: '/sdk/features/flags-from-files',
   },
   {
     fromPath: '/home/advanced/feature-store',
@@ -1079,7 +1135,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/default-variations-shown-before-page-is-completely-loaded',
-    toPath: '/sdk/client-side/javascript/default-variations',
+    toPath: '/sdk/client-side/javascript/default-values',
   },
   {
     fromPath: '/docs/js-sdk-requirements-and-polyfills',

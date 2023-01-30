@@ -1,4 +1,6 @@
 export { CodeSnippet } from './codeSnippet'
 export { CodeTabs } from './codeTabs'
+export { CodeSample } from './codeSample'
+export { CSTab } from './csTab'
 export { CodeTabItem } from './codeTabItem'
 export { Code } from './code'

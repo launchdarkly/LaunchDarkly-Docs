@@ -394,7 +394,7 @@ To activate this mode, use the special string `"localStorage"`:
 ```js
 const client = LaunchDarkly.initialize(
   'client-side-id-123abc',
-  user,
+  context,
   {
     bootstrap: 'localStorage'
   }
@@ -409,7 +409,7 @@ import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 
 const options: LaunchDarkly.LDOptions = { bootstrap: 'localStorage' };
 
-const client = LaunchDarkly.initialize('client-side-id-123abc', user, options);
+const client = LaunchDarkly.initialize('client-side-id-123abc', context, options);
 
 ```
 

@@ -3,7 +3,7 @@ path: /guide/api/comparing-sdk-rest-api
 title: Comparing LaunchDarkly's SDKs and REST API
 description: This guide explains the differences between LaunchDarkly's SDKs and REST API, and when you should use each.
 published: true
-tags: ['guide', 'rest', 'api', 'sdk']
+tags: ['guide', 'rest', 'api', 'sdk', 'client libraries']
 ---
 
 ## Overview
@@ -22,11 +22,11 @@ To get started, read [Setting up an SDK](/home/getting-started/setting-up). To d
 
 ### Access and documentation for the LaunchDarkly SDK
 
-To configure a LaunchDarkly SDK, you need either an SDK key, a mobile key, or client-side ID for your SDK. These keys are specific to each project and environment. They are listed on the [**Account settings**](https://app.launchdarkly.com/settings/projects) page, under the **Environments** tab for each project. They provide access to get the flag data needed for evaluations, and to send analytics events. Which type of SDK you use in your application determines which key you need when you configure the SDK.
+To configure a LaunchDarkly SDK, you need either an SDK key, a mobile key, or client-side ID for your SDK. These keys are specific to each project and environment. They are listed on the [**Account settings**](https://app.launchdarkly.com/settings/projects) page, under the **Environments** tab for each project. They provide access to retrieve the flag data needed for evaluations, and to send analytics events. Which type of SDK you use in your application determines which key you need when you configure the SDK.
 
 LaunchDarkly SDKs are updated periodically. To learn more, read [Versioning policy](/sdk/concepts/versioning).
 
-To learn more about a particular LaunchDarkly SDK, read the SDK reference guides at [Client-side SDKs](/sdk/client-side) and [Server-side SDKs](/sdk/server-side). Each reference guide documents how to get started with the SDK, and links to information on the supported features, the SDK API documentation, the SDK's GitHub repository, and sample applications that use the SDK.
+To learn more about a particular LaunchDarkly SDK, read the SDK reference guide for the SDK at [Client-side SDKs](/sdk/client-side) or [Server-side SDKs](/sdk/server-side). Each reference guide documents how to get started with the SDK, and links to information on the supported features, the SDK API documentation, the SDK's GitHub repository, and sample applications that use the SDK.
 
 ## Using the LaunchDarkly REST API
 
@@ -50,9 +50,11 @@ To use the REST API, you need an API access token. You can generate an access to
 
 The LaunchDarkly REST API is updated frequently, to support the latest features in the LaunchDarkly product. If breaking changes to the API are required, we release a new version. To set the API version for each request, add an `LD-API-Version` header to the request. To learn more, read [Versioning](https://apidocs.launchdarkly.com/#section/Overview/Versioning).
 
-Periodically, we auto-generate client libraries in several common languages based on the OpenAPI specification of our REST API. To learn more, read [OpenAPI and client libraries](https://apidocs.launchdarkly.com/#section/Overview/OpenAPI-(Swagger)-and-client-libraries).
-
 To get started using the LaunchDarkly API, read the tutorial [Using the LaunchDarkly REST API](/guides/api/rest-api). To learn more, read the [API documentation](https://apidocs.launchdarkly.com/).
+
+### Client libraries
+
+Periodically, we auto-generate client libraries in several common languages based on the OpenAPI specification of our REST API. The client libraries allow you to make calls to the LaunchDarkly REST API endpoints directly from the language you're already working in. To learn more, read [OpenAPI and client libraries](https://apidocs.launchdarkly.com/#section/Overview/OpenAPI-(Swagger)-and-client-libraries). To access the client libraries directly, visit the [collection of client libraries on GitHub](https://github.com/search?q=topic%3Alaunchdarkly-api+org%3Alaunchdarkly&type=Repositories).
 
 ## Using other LaunchDarkly public APIs
 
@@ -68,7 +70,7 @@ To learn more about the currently available supplemental public APIs, read:
 
 ## Conclusion
 
-This guide discussed several ways you can interact with LaunchDarkly, including through the LaunchDarkly SDK, the LaunchDarkly REST API, and other publicly available APIs. Understanding which of these options to use when helps you streamline the implementation of your application.
+This guide discussed several ways you can interact with LaunchDarkly, including through the LaunchDarkly SDK, the LaunchDarkly REST API, client libraries, and other publicly available APIs. Understanding which of these options to use when helps you streamline the implementation of your application.
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

@@ -342,7 +342,7 @@
                 "path": "/home/account-security/adfs"
               },
               {
-                "label": "Azure",
+                "label": "Azure Active Directory",
                 "path": "/home/account-security/azure"
               },
               {
@@ -452,6 +452,52 @@
         ]
       },
       {
+        "group": "accelerate",
+        "label": "Accelerate",
+        "path": "/home/accelerate",
+        "svg": "swap-horiz"
+      },
+      {
+        "group": "accelerate",
+        "label": "Getting started with Accelerate",
+        "path": "/home/accelerate/get-started-accelerate",
+        "svg": "checkbox-marked-circle",
+        "items": [
+          {
+            "label": "Applications",
+            "path": "/home/accelerate/get-started-accelerate/applications"
+          },
+          {
+            "label": "Deployment events API",
+            "path": "/home/accelerate/get-started-accelerate/deployment-events-api"
+          }
+        ]
+      },
+      {
+        "group": "accelerate",
+        "label": "Accelerate dashboard metrics",
+        "path": "/home/accelerate/accelerate-metrics",
+        "svg": "clock-start",
+        "items": [
+          {
+            "label": "Deployment frequency",
+            "path": "/home/accelerate/accelerate-metrics/deployment"
+          },
+          {
+            "label": "Release frequency",
+            "path": "/home/accelerate/accelerate-metrics/release"
+          },
+          {
+            "label": "Lead time",
+            "path": "/home/accelerate/accelerate-metrics/lead-time"
+          },
+          {
+            "label": "Flag coverage",
+            "path": "/home/accelerate/accelerate-metrics/flag-coverage"
+          }
+        ]
+      },
+      {
         "group": "experimentation",
         "label": "About Experimentation",
         "path": "/home/about-experimentation",
@@ -516,12 +562,20 @@
             "path": "/home/analyzing-experiments/managing"
           },
           {
-            "label": "Understanding sample ratios",
-            "path": "/home/analyzing-experiments/sample-ratios"
+            "label": "Reading experiment results",
+            "path": "/home/analyzing-experiments/results"
           },
           {
             "label": "Winning variations",
             "path": "/home/analyzing-experiments/winning-variation"
+          },
+          {
+            "label": "Understanding sample ratios",
+            "path": "/home/analyzing-experiments/sample-ratios"
+          },
+          {
+            "label": "How Experimentation handles outliers",
+            "path": "/home/analyzing-experiments/outliers"
           }
         ]
       },
@@ -750,7 +804,29 @@
         "items": [
           {
             "label": "Microsoft Teams",
-            "path": "/integrations/microsoft-teams"
+            "path": "/integrations/microsoft-teams",
+            "items": [
+              {
+                "label": "Setting up the Microsoft Teams integration",
+                "path": "/integrations/microsoft-teams/setting-up"
+              },
+              {
+                "label": "Receiving approval notifications in Microsoft Teams",
+                "path": "/integrations/microsoft-teams/approvals"
+              },
+              {
+                "label": "Receiving flag notifications in Microsoft Teams",
+                "path": "/integrations/microsoft-teams/notifications"
+              },
+              {
+                "label": "Flag links in Microsoft Teams",
+                "path": "/integrations/microsoft-teams/flag-links"
+              },
+              {
+                "label": "MS Teams incoming webhooks",
+                "path": "/integrations/microsoft-teams/webhooks"
+              }
+            ]
           },
           {
             "label": "Slack app",
@@ -807,7 +883,7 @@
             "path": "/integrations/jira"
           },
           {
-            "label": "ServiceNow",
+            "label": "ServiceNow approvals",
             "path": "/integrations/servicenow",
             "items": [
               {
@@ -980,6 +1056,10 @@
             "path": "/sdk/concepts/data-stores"
           },
           {
+            "label": "Sample applications",
+            "path": "/sdk/concepts/sample-applications"
+          },
+          {
             "label": "Server-side SDK bandwidth usage",
             "path": "/sdk/concepts/server-side-bandwidth"
           },
@@ -1051,7 +1131,7 @@
           {
             "label": "Inspectors",
             "path": "/sdk/features/inspectors"
-          },          
+          },
           {
             "label": "Logging configuration",
             "path": "/sdk/features/logging"
@@ -1215,7 +1295,7 @@
             "path": "/sdk/client-side/javascript",
             "items": [
               {
-                "label": "Default values on page load",
+                "label": "Eliminating flicker when using default flag values",
                 "path": "/sdk/client-side/javascript/default-values"
               },
               {
@@ -1233,6 +1313,10 @@
             "path": "/sdk/client-side/node-js",
             "svg": "nodejs",
             "items": [
+              {
+                "label": "Node.js (client-side) SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/node-js/migration-2-to-3"
+              },
               {
                 "label": "Node.js (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/node-js/migration-1-to-2"
@@ -1551,16 +1635,16 @@
         "svg": "arrows",
         "items": [
           {
+            "label": "About LaunchDarkly integrations",
+            "path": "/guides/integrations/using-integrations"
+          },
+          {
             "label": "Integrations use cases",
             "path": "/guides/integrations/integrations-use-cases"
           },
           {
             "label": "Using flag triggers with Dynatrace",
             "path": "/guides/integrations/triggers-dynatrace"
-          },
-          {
-            "label": "Using LaunchDarkly integrations",
-            "path": "/guides/integrations/using-integrations"
           },
           {
             "label": "Building an audit log event hook integration",
@@ -1600,6 +1684,10 @@
           {
             "label": "Using the Lua SDK with NGINX",
             "path": "/guides/sdk/nginx"
+          },
+          {
+            "label": "Using the JavaScript SDK in Salesforce Lightning Web Components",
+            "path": "/guides/sdk/lightning-web-components"
           }
         ]
       },

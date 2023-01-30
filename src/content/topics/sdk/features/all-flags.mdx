@@ -119,7 +119,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/andro
 
 The `allFlags()` method produces a map of feature flag keys to their values. The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
-Unlike most of our SDKs, our Electron SDK's `allFlags()` method sends analytics events to LaunchDarkly. If you do not want `allFlags()` to generate any analytics events, you can turn this off by setting the configuration option [`sendEventsOnlyForVariation`](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html#sendeventsonlyforvariation) to `true`.
+Unlike most of our SDKs, our Electron SDK's `allFlags()` method sends analytics events to LaunchDarkly. If you do not want `allFlags()` to generate any analytics events, you can turn this off by setting the configuration option [`sendEventsOnlyForVariation`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation) to `true`.
 
 To use the all flags feature:
 
@@ -238,7 +238,7 @@ The `allFlags` method produces a map of feature flag keys to their values.
 
 The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
-Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldoptions.html#sendeventsonlyforvariation).
+Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation).
 
 To use the all flags feature:
 
@@ -257,7 +257,7 @@ let allFlagsResult = client.allFlags();
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read the [API documentation](https://launchdarkly.github.io/node-client-sdk/interfaces/_launchdarkly_node_client_sdk_.ldclient.html#allflags).
+To learn more, read the [API documentation](https://launchdarkly.github.io/node-client-sdk/interfaces/LDClient.html#allFlags).
 </Details>
 
 ### React

@@ -118,6 +118,11 @@
     "name": "Android",
     "versions": [
       {
+        "versionMajorMinor": "4.2",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-11"
+      },
+      {
         "versionMajorMinor": "4.1",
         "releaseYear": 2022,
         "releaseMonthDay": "12-22"
@@ -126,6 +131,11 @@
         "versionMajorMinor": "4.0",
         "releaseYear": 2022,
         "releaseMonthDay": "12-07"
+      },
+      {
+        "versionMajorMinor": "3.6",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-11"
       },
       {
         "versionMajorMinor": "3.5",
@@ -297,6 +307,11 @@
   {
     "name": "C/C++ (server-side)",
     "versions": [
+      {
+        "versionMajorMinor": "2.9",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-27"
+      },
       {
         "versionMajorMinor": "2.8",
         "releaseYear": 2022,
@@ -602,6 +617,11 @@
   {
     "name": "Haskell",
     "versions": [
+      {
+        "versionMajorMinor": "3.1",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-27"
+      },
       {
         "versionMajorMinor": "3.0",
         "releaseYear": 2022,
@@ -967,6 +987,11 @@
   {
     "name": "Node.js (client-side)",
     "versions": [
+      {
+        "versionMajorMinor": "3.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-12"
+      },
       {
         "versionMajorMinor": "2.2",
         "releaseYear": 2022,

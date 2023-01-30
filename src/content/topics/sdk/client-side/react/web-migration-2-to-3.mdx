@@ -35,7 +35,7 @@ LaunchDarkly no longer supports earlier React Web versions, as stated in the [En
 
 ## Understanding changes to provider configuration
 
-In version 3 of the SDK, the `user` provider configuration option has been deprecated. Replace this with `context`.
+Version 3 of this SDK lets you use contexts. When you migrate from version 2.x, replace the `user` provider configuration option with `context`. If you do not replace it, version 3 of the React SDK will look for the `user` configuration option as a fallback. This fallback may be removed in a future major release.
 
 Here's how with `asyncWithLDProvider`:
 

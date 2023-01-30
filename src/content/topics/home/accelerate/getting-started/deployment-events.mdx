@@ -1,0 +1,130 @@
+---
+path: /home/accelerate/get-started-accelerate/deployment-events-api
+title: Deployment events API
+description: This topic describes the deployment events REST API.
+published: true
+tags: ['rest api', 'deploy', 'accelerate']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+  <CalloutDescription>
+
+  Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic describes the deployment events REST API.
+
+Accelerate defines a **deployment** as a new code change your team has introduced to an environment. Each time a deployment starts, finishes, or fails, your deployment pipeline should send a deployment event to Accelerate. Accelerate combines these events with data from your feature management to provide release and deployment metrics.
+
+If you are unable to send separate start and finish events, you can send a single `finished` event. In this case, Accelerate will set the deployment start and finish times to the same time, and will not have accurate deployment duration data.
+
+If you prefer not to instrument your deployment pipeline, you can send deployment information in your LaunchDarkly SDK configuration instead. To learn more, read [Configuring your application to send deployment information](/home/accelerate/get-started-accelerate/#step-2-configure-your-application-to-send-deployment-information).
+
+## Making a deployment event request
+
+Here's how to structure a deployment event request using the Accelerate REST API:
+
+<Table>
+    <TableHeader>
+      <TableHeadCell>Request element</TableHeadCell>
+      <TableHeadCell>Description</TableHeadCell>
+    </TableHeader>
+    <TableBody>
+    <TableRow>
+      <TableCell>Required headers</TableCell>
+      <TableCell>
+        <ul>
+          <li><code>Authorization: &lt;Access token with Writer role&gt;</code><br/>To learn more, read <a href="/home/account-security/api-access-tokens">API access tokens</a>.</li>
+          <li><code>Content-Type: application/json</code></li>
+        </ul>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>REST method</TableCell>
+      <TableCell><code>POST</code></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Resource</TableCell>
+      <TableCell><code>/api/v2/accelerate/deployment-events</code></TableCell>
+    </TableRow>
+    </TableBody>
+    </Table>
+
+Here are the request body parameters for the deployment events API:
+
+<Table>
+    <TableHeader>
+      <TableHeadCell>Request body parameter</TableHeadCell>
+      <TableHeadCell>Description</TableHeadCell>
+    </TableHeader>
+    <TableBody>
+    <TableRow>
+      <TableCell><code>projectKey</code></TableCell>
+      <TableCell>The project key</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>environmentKey</code></TableCell>
+      <TableCell>The environment key</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>applicationKey</code></TableCell>
+      <TableCell>The application key. This defines the granularity at which you want to view your Accelerate metrics. Typically it is the name of one of the GitHub repositories that you use in this project.<br/><br/> Accelerate automatically creates a new application each time you send a unique application key.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>version</code></TableCell>
+      <TableCell>The application version</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>eventType</code></TableCell>
+      <TableCell>One of <code>started</code>, <code>finished</code>, <code>failed</code></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>eventTime</TableCell>
+      <TableCell>The time, in Unix milliseconds, when the event occurred</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>eventMetadata</code></TableCell>
+      <TableCell>A JSON object containing metadata about the event</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell><code>deploymentMetadata</code></TableCell>
+      <TableCell>A JSON object containing metadata about the deployment</TableCell>
+    </TableRow>
+    </TableBody>
+</Table>
+
+Here's an example deployment event request:
+
+<CodeTabs
+  defaultValue="curl"
+  values={[
+    { label: 'Example deployment event request', value: 'curl', },
+  ]
+}>
+<CodeTabItem value="curl">
+
+```bash
+curl -i -X POST \
+  'https://app.launchdarkly.com/api/v2/accelerate/deployment-events' \
+  -H 'Authorization: EXAMPLE-API-ACCESS-TOKEN' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "projectKey": "{{yourProjectKey}}",
+    "environmentKey": "test",
+    "applicationKey": "application-key-123abc",
+    "version": "12345",
+    "eventType": "started",
+    "eventTime": {{epochMilliseconds}},
+    "eventMetadata": {"approver": "test-user"},
+    "deploymentMetadata": {"deploymentInfo": "example-deployment-info"}
+  }'
+```
+
+</CodeTabItem>
+</CodeTabs>

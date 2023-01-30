@@ -3,6 +3,8 @@ const { queries } = require('./src/utils/algolia')
 const isStaging = process.env.GATSBY_ACTIVE_ENV === 'staging'
 const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
 
+const buildDevIndex = !!process.env.BUILD_DEV_ALGOLIA_INDEX
+
 // These are useful to debug build issues
 console.log(`
   GATSBY_ACTIVE_ENV=${process.env.GATSBY_ACTIVE_ENV}
@@ -115,7 +117,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-google-gtag',
     options: {
-      trackingIds: ['UA-44750782-3', 'G-P12DWV2SBZ'],
+      trackingIds: ['UA-44750782-3', 'G-P12DWV2SBZ', 'G-31EH4XPW51'],
       pluginConfig: {
         head: true,
       },
@@ -173,33 +175,35 @@ if (process.env.DEV_FAST !== 'true') {
   })
 }
 
+if (isStaging || isProd || buildDevIndex) {
+  plugins.push({
+    // Only build algolia indexes in staging and production, or if a special
+    // env var is set
+    resolve: 'gatsby-plugin-algolia',
+    options: {
+      appId: process.env.GATSBY_ALGOLIA_APP_ID,
+      apiKey: process.env.ALGOLIA_ADMIN_KEY,
+      queries,
+      chunkSize: 10000, // default: 1000
+      continueOnFailure: !isProd,
+      enablePartialUpdates: true,
+    },
+  })
+}
+
 if (isStaging || isProd) {
-  plugins.push(
-    {
-      // Only build algolia indexes in staging and production
-      resolve: 'gatsby-plugin-algolia',
-      options: {
-        appId: process.env.GATSBY_ALGOLIA_APP_ID,
-        apiKey: process.env.ALGOLIA_ADMIN_KEY,
-        queries,
-        chunkSize: 10000, // default: 1000
-        continueOnFailure: isStaging,
-        enablePartialUpdates: true,
-      },
+  plugins.push({
+    resolve: 'gatsby-plugin-s3',
+    options: {
+      bucketName: process.env.AWS_S3_BUCKET,
+      bucketPrefix: process.env.GATSBY_BUCKET_PREFIX,
+      protocol: 'https',
+      hostname: process.env.AWS_HOSTNAME,
+      generateRedirectObjectsForPermanentRedirects: true,
+      generateIndexPageForRedirect: isProd, // this is on by default, but should should be off in staging
+      enableS3StaticWebsiteHosting: false,
     },
-    {
-      resolve: 'gatsby-plugin-s3',
-      options: {
-        bucketName: process.env.AWS_S3_BUCKET,
-        bucketPrefix: process.env.GATSBY_BUCKET_PREFIX,
-        protocol: 'https',
-        hostname: process.env.AWS_HOSTNAME,
-        generateRedirectObjectsForPermanentRedirects: true,
-        generateIndexPageForRedirect: isProd, // this is on by default, but should should be off in staging
-        enableS3StaticWebsiteHosting: false,
-      },
-    },
-  )
+  })
 }
 
 const { SEGMENT_KEY } = process.env

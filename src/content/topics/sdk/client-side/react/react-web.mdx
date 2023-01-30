@@ -54,7 +54,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="/sdk/client-side/react/react-web#example-app">example</a></TableCell>
+      <TableCell><a href="/sdk/client-side/react/react-web#example-app">React Web</a></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
@@ -140,6 +140,15 @@ After you install the dependency, your code must initialize the React SDK before
 Both functions rely on React's `Context` API, which lets you access your flags from any level of your component hierarchy.
 
 When you use `asyncWithLDProvider`, it initializes the React SDK and returns a provider which is a React component. If you use the `asyncWithLDProvider` function with `await`, the rendering of your React app is delayed until SDK initialization completes. Depending on your network conditions, this may take a couple hundred milliseconds. After initialization is complete, your flags and the LaunchDarkly client become available at the start of your React app lifecycle. This ensures that your app does not flicker due to flag changes at startup time. To learn more, read [Initializing using the `asyncWithLDProvider` function](#initializing-using-asyncwithldprovider).
+
+<Callout intent="info">
+<CalloutTitle>Preventing flicker on page load</CalloutTitle>
+<CalloutDescription>
+
+Initializing with `asyncWithLDProvider` can help prevent a flicker on page load if you are using default flag values. To learn more, read [Eliminating flicker when using default flag values](/sdk/client-side/javascript/default-values).
+
+</CalloutDescription>
+</Callout>
 
 When you use `withLDProvider`, it initializes the underlying JavaScript SDK at `componentDidMount`. This means your flags and the LaunchDarkly client only become available after your app has mounted. Use this method if you prefer to render your app first, and then process flag updates after rendering is complete. You can also optionally defer initialization further, until after you define a context. Because your app renders before initialization, using `withLDProvider` can result in a flicker due to flag changes at startup time. To learn more, read [Initializing using the `withLDProvider` function](#initializing-using-withldprovider).
 
@@ -522,7 +531,7 @@ Both `useFlags` and `useLDClient` use the Hooks API, which requires React versio
 
 `useLDClient` is a custom hook which returns the underlying LaunchDarkly JavaScript SDK client object. Like the `useFlags` custom hook, `useLDClient` also uses the `useContext` primitive to access the LaunchDarkly context set up by `asyncWithLDProvider` or `withLDProvider`. You still must use the `asyncWithLDProvider` or the `withLDProvider` higher-order component to initialize the React SDK to use this custom hook.
 
-For an example of how to use a custom hook, read [HooksDemo](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/hooksDemo.js).
+For an example of how to use a custom hook, read [HooksDemo](https://github.com/launchdarkly/react-client-sdk/blob/main/examples/hoc/src/universal/hooksDemo.js).
 
 ## Flag keys
 
@@ -567,7 +576,7 @@ If you enable the automatic camel-case feature and you want to use LaunchDarkly'
 
 ## Example app
 
-Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/master/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/master/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your flags list before running the example.
+Run this [example](https://github.com/launchdarkly/react-client-sdk/tree/main/examples/hoc) for a fully working single page app with React and react-router. You must enter your `clientSideId` in the [client root app file](https://github.com/launchdarkly/react-client-sdk/blob/main/examples/hoc/src/universal/app.js) and create a flag with key `dev-test-flag` in your flags list before running the example.
 
 ## Importing types
 
@@ -579,8 +588,17 @@ If you use eslint, the SDK requires that you add `launchdarkly-js-client-sdk` as
 
 ## Events
 
-The React SDK (version 2.27+) sends flag evaluation events only when a context receives a flag evaluation. The React SDK calls the JavaScript SDK's `allFlags` method on load to cache flag values. It uses the JavaScript SDK's `sendEventsOnlyForVariation` option, set to `true`, to prevent `allFlags` from sending evaluation events for every flag.
+The React SDK (version 2.27 and later) sends flag evaluation events only when a context receives a flag evaluation, not when `allFlags` is called. The React SDK calls the JavaScript SDK's `allFlags` method on load to cache flag values. It uses the JavaScript SDK's `sendEventsOnlyForVariation` option, set to `true`, to prevent `allFlags` from sending evaluation events for every flag.
 
-Versions 2.28 and earlier of the React SDK send an evaluation event when a user reads a flag evaluation. To recreate this behavior in version 2.28 and later, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`. Version 3 sends events when a context receives a flag evaluation.
+Versions 2.26 and earlier of the React SDK send an evaluation event when a user reads a flag evaluation using `allFlags` and `variation`. To recreate this behavior in version 2.27 and later, explicitly set `options.sendEventsOnlyForVariation: false` and set `reactOptions.sendEventsOnFlagRead: false`. Version 3 only sends events when a context receives a flag evaluation.
+
+<Callout intent="info">
+<CalloutTitle>Experimentation events</CalloutTitle>
+<CalloutDescription>
+
+Setting `reactOptions.sendEventsOnFlagRead: false` could prevent experimentation events from recording correctly. Always confirm that this option is disabled when troubleshooting experiments.
+  
+</CalloutDescription>
+</Callout>
 
 To learn more about the `sendEventsOnlyForVariation` option, read the [JavaScript SDK API documentation](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation). To learn more about the `sendEventsOnFlagRead` option, read the [React SDK API documentation](https://launchdarkly.github.io/react-client-sdk/interfaces/LDReactOptions.html#sendEventsOnFlagRead).

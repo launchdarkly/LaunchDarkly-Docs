@@ -1,6 +1,6 @@
 ---
 path: /integrations/elastic-stack
-title: The Elastic (ELK) Stack
+title: Elastic (ELK) Stack
 description: This topic explains how to use the LaunchDarkly Elastic (ELK) Stack integration. The Elastic Stack, formerly referred to as the ELK stack, is a search platform used widely as an observability and security platform.
 published: true
 tags: ['elastic', 'elk', 'integration', 'pro', 'enterprise']
@@ -32,18 +32,18 @@ Development teams could also build data visualizations around their LaunchDarkly
 
 To configure the Elastic integration, you must have the following prerequisites:
 
-* **Your Elasticsearch endpoint URL**: This is the destination to which LaunchDarkly sends its data. It must include the socket number. If you are using the Elastic Search Service from Elastic Cloud, you can find your endpoint URL by clicking your deployment name and selecting **Copy Endpoint URL** just below the Elasticsearch logo.
+- **Your Elasticsearch endpoint URL**: This is the destination to which LaunchDarkly sends its data. It must include the socket number. If you are using the Elastic Search Service from Elastic Cloud, you can find your endpoint URL by clicking your deployment name and selecting **Copy Endpoint URL** just below the Elasticsearch logo.
 
-* **API Key credentials**: To learn more about getting an API key, read [Elastic's API Key Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/security-api-create-api-key.html). Ensure this key gives permission to write to the appropriate Elasticsearch index.
+- **API Key credentials**: To learn more about getting an API key, read [Elastic's API Key Documentation](https://www.elastic.co/guide/en/elasticsearch/reference/7.10/security-api-create-api-key.html). Ensure this key gives permission to write to the appropriate Elasticsearch index.
 
-* **Elasticsearch index**: The Elasticsearch index indicates which index the LaunchDarkly data should be written to in your cluster. You can use the default or choose your own.
+- **Elasticsearch index**: The Elasticsearch index indicates which index the LaunchDarkly data should be written to in your cluster. You can use the default or choose your own.
 
 ## Configuring the Elastic Stack integration
 
 Here's how to configure the Elastic Stack integration:
 
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find "Elastic (ELK) Stack."
-3. Click **Add integration**. The "Create Elastic (ELK) Stack configuration" panel appears.
+2. Click **Add integration**. The "Create Elastic (ELK) Stack configuration" panel appears.
 
 ![The "Create Elastic (ELK) Stack configuration" panel.](elastic-integration.png)
 
@@ -61,41 +61,31 @@ After you configure the integration, LaunchDarkly sends flag, environment, and p
 
 The "Policy" configuration field allows you to control which kinds of LaunchDarkly events are sent to Elasticsearch. The default policy value restricts it to flag changes in production environments:
 
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
+<CodeSample>
 
-<CodeTabItem value="txt">
+<CSTab label="Policy example">
 
 ```txt
 proj/*:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You may want to override the default policy if you wanting to restrict the integration to a specific combination of LaunchDarkly projects and environments or to a specific action or set of actions.
 
 In the example below, the policy restricts LaunchDarkly to only send changes from the `web-app` project's production environment to Elasticsearch:
 
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
+<CodeSample>
 
-<CodeTabItem value="txt">
+<CSTab label="Policy example">
 
 ```txt
 proj/web-app:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Sending more data to Elasticsearch
 
@@ -109,7 +99,7 @@ To send more data to Elasticsearch:
 4. Enter a statement for the resources you would like to send to Elasticsearch. For example, `proj/*` will send all project data and `proj/*:env/*` will send all environment data from all projects.
 5. Click **Update**.
 6. Repeat steps 3 and 4 for each additional category of data you'd like to send to Elasticsearch.
-6. When you've added all the policies you wish, click **Save configuration**.
+7. When you've added all the policies you wish, click **Save configuration**.
 
 To learn more about setting custom policies, read [Policies in custom roles](/home/members/role-policies).
 
@@ -138,5 +128,5 @@ Now you can use your LaunchDarkly data alongside everything else in Kibana.
 
 You can continue reading Elastic's documentation to learn more about these products:
 
-* To learn more about visualizations in Kibana, read [Kibana's documentation](https://www.elastic.co/guide/en/kibana/7.10/monitoring-data.html).
-* To learn more about index patterns, read the [Elastic Kibana guide](https://www.elastic.co/guide/en/kibana/7.10/index-patterns.html).
+- To learn more about visualizations in Kibana, read [Kibana's documentation](https://www.elastic.co/guide/en/kibana/7.10/monitoring-data.html).
+- To learn more about index patterns, read the [Elastic Kibana guide](https://www.elastic.co/guide/en/kibana/7.10/index-patterns.html).

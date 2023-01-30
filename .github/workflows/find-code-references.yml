@@ -16,12 +16,12 @@ jobs:
           events-uri: 'https://events.ld.catamorphic.com'
           stream-uri: 'https://stream.ld.catamorphic.com'
           sdk-key: ${{ secrets.LD_SDK_KEY_PROD }}
-          flag-keys: |
-            gha-code-references
-            gha-code-references-context-lines
-            gha-code-references-debug
-            gha-code-references-ignore-service-errors
-            gha-code-references-lookback
+          flags: |
+            gha-code-references, true
+            gha-code-references-context-lines, 5
+            gha-code-references-debug, false
+            gha-code-references-ignore-service-errors, false
+            gha-code-references-lookback, 2
       - name: Checkout current repo
         if: steps.flags.outputs.gha-code-references == 'true'
         uses: actions/checkout@v3
