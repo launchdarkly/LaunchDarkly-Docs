@@ -436,9 +436,10 @@ To configure the client:
 <CodeTabItem value="js">
 
 ```js
-const ld = require('ldclient-node');
+const ld = require('launchdarkly-node-server-sdk');
+const { FileDataSource } = require('launchdarkly-node-server-sdk/integrations');
 
-const dataSource = ld.FileDataSource({
+const dataSource = FileDataSource({
   paths: [ 'file1.json', 'file2.json' ]
 });
 
@@ -454,8 +455,9 @@ const client = ld.init('sdk-key-123abc', options);
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
+const { FileDataSource } = require('launchdarkly-node-server-sdk/integrations');
 
-const dataSource = ld.FileDataSource({
+const dataSource = FileDataSource({
   paths: [ 'file1.json', 'file2.json' ],
 });
 
@@ -469,7 +471,7 @@ const client = ld.init('sdk-key-123abc', options);
 </CodeTabItem>
 </CodeTabs>
 
-To learn more, read [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_.html#FileDataSource).
+To learn more, read [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_integrations_.html#FileDataSource).
 </Details>
 
 ### Python
