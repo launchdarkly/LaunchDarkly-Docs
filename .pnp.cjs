@@ -144,7 +144,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-loader", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:9.3.0"],\
             ["ts-node", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:10.7.0"],\
             ["typescript", "patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=f456af"],\
-            ["ua-parser-js", "npm:1.0.2"],\
+            ["ua-parser-js", "npm:1.0.33"],\
             ["use-local-storage-state", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:17.2.0"],\
             ["web-vitals", "npm:2.1.4"],\
             ["webpack", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.72.1"],\
@@ -19510,7 +19510,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ts-loader", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:9.3.0"],\
             ["ts-node", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:10.7.0"],\
             ["typescript", "patch:typescript@npm%3A4.5.5#~builtin<compat/typescript>::version=4.5.5&hash=f456af"],\
-            ["ua-parser-js", "npm:1.0.2"],\
+            ["ua-parser-js", "npm:1.0.33"],\
             ["use-local-storage-state", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:17.2.0"],\
             ["web-vitals", "npm:2.1.4"],\
             ["webpack", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:5.72.1"],\
@@ -30812,10 +30812,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["ua-parser-js", [\
-        ["npm:1.0.2", {\
-          "packageLocation": "./.yarn/cache/ua-parser-js-npm-1.0.2-c3376785e2-ff7f6d79a9.zip/node_modules/ua-parser-js/",\
+        ["npm:1.0.33", {\
+          "packageLocation": "./.yarn/cache/ua-parser-js-npm-1.0.33-60ab7da777-460adef512.zip/node_modules/ua-parser-js/",\
           "packageDependencies": [\
-            ["ua-parser-js", "npm:1.0.2"]\
+            ["ua-parser-js", "npm:1.0.33"]\
           ],\
           "linkType": "HARD"\
         }]\

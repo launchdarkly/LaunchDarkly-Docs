@@ -55,7 +55,7 @@
     "slug": "^5.3.0",
     "theme-ui": "^0.14.5",
     "trackjs": "^3.10.1",
-    "ua-parser-js": "^1.0.2",
+    "ua-parser-js": "^1.0.33",
     "use-local-storage-state": "17",
     "web-vitals": "^2.1.4",
     "yarn": "^1.22.18"
