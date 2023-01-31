@@ -38,6 +38,12 @@ const AllIntegrations = () => {
       svg: 'integrations/appdynamics',
     },
     {
+      label: 'AWS CloudTrail Lake',
+      shortLabel: 'AWS CloudTrail Lake',
+      path: '/integrations/cloudtrail',
+      svg: 'integrations/aws-cloudtrail',
+    },
+    {
       label: 'AWS CloudWatch RUM',
       shortLabel: 'AWS CloudWatch RUM',
       path: '/integrations/aws-cloudwatch-rum',

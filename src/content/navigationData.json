@@ -919,6 +919,10 @@
             "path": "/integrations/ansible"
           },
           {
+            "label": "AWS CloudTrail Lake",
+            "path": "/integrations/cloudtrail"
+          },
+          {
             "label": "AWS CloudWatch RUM",
             "path": "/integrations/aws-cloudwatch-rum"
           },

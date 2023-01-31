@@ -1,0 +1,158 @@
+---
+path: /integrations/cloudtrail
+title: AWS CloudTrail Lake
+description: This topic explains how to configure the AWS CloudTrail Lake integration for LaunchDarkly.
+published: true
+tags: ['aws', 'cloudtrail', 'integration', 'enterprise']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+  <CalloutTitle>The AWS CloudTrail Lake integration is an Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+The AWS CloudTrail Lake integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to configure and use CloudTrail Lake integration for LaunchDarkly.
+
+The CloudTrail Lake integration lets you configure [CloudTrail](https://aws.amazon.com/cloudtrail/) to receive any activity from LaunchDarkly and then store data in a [CloudTrail Lake](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-lake.html). When something changes, such as a feature flag updates or a new account member is added to LaunchDarkly, LaunchDarkly sends an event to CloudTrail. 
+
+In a few steps, you can consolidate your LaunchDarkly activity events together with AWS activity events in CloudTrail without having to build or manage the event data pipeline.
+
+## Setting up the CloudTrail integration in LaunchDarkly
+
+To connect CloudTrail Lake to LaunchDarkly, you need to configure the LaunchDarkly CloudTrail Lake integration to send events to a CloudTrail Channel to be stored in a CloudTrail Lake.
+
+To configure the integration:
+
+1. Navigate to the [**Integrations** page](https://app.launchdarkly.com/default/integrations) and find "AWS CloudTrail Lake."
+2. Click **Add integration**. The "Create AWS CloudTrail Lake configuration" panel appears.
+3. (Optional) Give your integration a human-readable **Name**.
+4. Click on the auto generated **External Id** value to copy it. 
+5. Navigate to [Configuring LaunchDarkly integration in AWS](#configuring-launchdarkly-integration-in-aws) section in this documentation and follow the steps to create a "Channel ARN" with the external ID.
+6. Enter the channel ARN into the **Channel ARN** field. You created this channel ARN in the previous step.
+7. (Optional) Configure a custom policy to control which events LaunchDarkly sends to CloudTrail. To learn more, read [Filtering the events you send to CloudTrail](#filtering-the-events-you-send-to-cloudtrail).
+
+![The "Create AWS CloudTrail Lake integration" panel.](cloudtrail-launchdarkly-integration-config.png)
+<br />
+
+8. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+9. Click **Save configuration**. 
+
+The new integration appears on the Integrations page. It is switched **On** by default.
+
+![CloudTrail Lake integration in the integrations section.](cloudtrail-ld-integration.png)
+
+
+## Configuring LaunchDarkly integration in AWS
+
+<Callout intent="info">
+<CalloutTitle>Prerequisite</CalloutTitle>
+<CalloutDescription>
+
+An external ID is required to configure the integration in AWS. Follow the steps outlined in the [setting up the CloudTrail integration in LaunchDarkly](#setting-up-the-cloudtrail-integration-in-launchdarkly) section to obtain an external ID from LaunchDarkly.
+
+</CalloutDescription>
+</Callout>
+
+1. In the AWS Console, go to the **CloudTrail** dashboard and expand the **Lake** section on the side navigation.
+2. Click on **Integrations**.
+3. Click the **Add integration** button. The **Add integration** page appears.
+4. Enter your integration name and select the "LaunchDarkly" option from the **Source** menu.
+
+![The "Add CloudTrail Integration" form.](cloudtrail-add-integration-form.png)
+
+5. Scroll down to the **Event delivery location** and select a destination for your events from LaunchDarkly. You can choose to use an existing data store or select "Create new event data store".
+
+![The "Event delivery location" form.](cloudtrail-event-delivery-location.png)
+
+6. Scroll down to the **Resource Policy** section and enter the LaunchDarkly external ID into the "External ID" field. LaunchDarkly created the external ID automatically when you [set up the CloudTrail integration in LaunchDarkly](#setting-up-the-cloudtrail-integration-in-launchdarkly).
+
+![The "CloudTrail Resource Policy" form.](cloudtrail-resource-policy.png)
+
+7. Click the **Add integration** button. The Console navigates to the created integration's detail page. 
+8. Copy the **Channel ARN**. You need this ARN to create to complete configuring the integration in LaunchDarkly. 
+9. Follow the steps outlined in the [setting up the CloudTrail integration in LaunchDarkly](#setting-up-the-cloudtrail-integration-in-launchdarkly) section to complete your setup.
+
+For detailed instructions on how to set up CloudTrail, read the [AWS CloudTrail documentation](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html).
+
+## Filtering the events you send to CloudTrail
+
+By default, LaunchDarkly sends events to CloudTrail for changes made to any feature flag in a production environment. If you have a more limited use case, or you wish to expand or restrict which data you send to CloudTrail, you can filter which events LaunchDarkly sends.
+
+To filter events, write a policy using the same syntax as the custom roles feature to filter the events sent to CloudTrail.
+
+For more information about writing policies, read [Policies in custom roles](/home/members/role-policies).
+
+For example, if you only want to receive an event when a change is made to one of the feature flags in your testing environment, you can add the following policy to your events stream:
+
+<CodeSample>
+<CSTab label="Example CloudTrail policy">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/your-test-environment:flag/*"]
+  }
+]
+```
+
+</CSTab>
+</CodeSample>
+
+To add a custom filter:
+
+1. Navigate to the [**Integrations** page](https://app.launchdarkly.com/default/integrations).
+2. Find the integration you wish to modify and click **Edit integration configuration**. The "Edit AWS CloudTrail Lake configuration" panel appears.
+
+![The "AWS CloudTrail Lake" section with the "Edit integration configuration" option called out.](cloudtrail-integration-edit-callout.png)
+
+3. Click **Advanced editor**. The Advanced editor appears.
+4. Enter your custom policy.
+
+![The "Edit AWS CloudTrail Lake configuration" panel with the Advanced editor open and a policy inside it.](cloudtrail-custom-policy.png)
+
+5. Click **Save configuration**.
+6. Verify that LaunchDarkly is sending a customized set of events by viewing the events in CloudTrail Lake.
+
+## Disabling the CloudTrail Lake integration
+
+<Callout intent="info">
+<CalloutTitle>Deleting AWS resources</CalloutTitle>
+<CalloutDescription>
+
+The steps below only disable the integration in your LaunchDarkly account. To learn how to delete the integration in your AWS account, read the [AWS CloudTrail documentation](https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html).
+
+</CalloutDescription>
+</Callout> 
+
+You can either disable or delete the CloudTrail Lake integration:
+
+- **Disable the integration** to pause the flow of events to CloudTrail, but leave the connection between CloudTrail and LaunchDarkly intact.
+- **Delete the integration** to cease all event export and break the connection between CloudTrail and LaunchDarkly.
+
+To temporarily disable the CloudTrail Lake integration:
+
+1. Navigate to the [**Integrations** page](https://app.launchdarkly.com/default/integrations).
+2. Find the CloudTrail Lake integration you wish to disable.
+
+![The CloudTrail Lake integration on the Integrations page.](cloudtrail-ld-integration.png)
+
+3. Click the **Edit integration configuration** button. The "Edit AWS CloudTrail Lake configuration" panel appears.
+4. Toggle to turn the integration **Off**.
+
+To permanently delete the CloudTrail Lake integration:
+
+1. Navigate to the [**Integrations** page](https://app.launchdarkly.com/default/integrations).
+2. Find the integration you wish to modify and click **Edit integration configuration**. The "Edit AWS CloudTrail Lake configuration" panel appears.
+3. Click **Delete** in the "Delete configuration" section. A confirmation dialog appears.
+4. Click **Delete**.
+
+![The "Delete configuration" dialog.](cloudtrail-delete.png)
