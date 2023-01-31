@@ -423,6 +423,11 @@
     "name": "Erlang",
     "versions": [
       {
+        "versionMajorMinor": "1.6",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-30"
+      },
+      {
         "versionMajorMinor": "1.5",
         "releaseYear": 2022,
         "releaseMonthDay": "6-23"
