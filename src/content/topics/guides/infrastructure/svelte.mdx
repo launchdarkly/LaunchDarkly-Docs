@@ -12,7 +12,7 @@ This guide explains how to connect LaunchDarkly with Svelte and SvelteKit on bot
 
 [Svelte](https://svelte.dev/) is a JavaScript tool set similar to React. It changes user interfaces (UIs) by using document object model (DOM) updates and by managing state. However, while React performs its updates with client-side script that runs in the browser, Svelte does much of its processing at build-time. This lets it minimize the JavaScript bundle size and limit the amount of JavaScript required to perform DOM updates. This can make your application lighter and potentially faster than a comparable React or Vue-based application.
 
-[SvelteKit](https://kit.svelte.dev/) is full-stack framework for building web applications based on Svelte. It is officially supported by the Svelte project. It provides a similar full-stack JavaScript client and server architecture to what Next.js provides in relation to React. SvelteKit lets you write server-side code using Node.js and add file-based routing to a Svelte application.
+[SvelteKit](https://kit.svelte.dev/) is full-stack framework for building web applications based on Svelte. It is officially supported by the Svelte project and recently reached a 1.0 stable milestone. It provides a similar full-stack JavaScript client and server architecture to what Next.js provides in relation to React. SvelteKit lets you write server-side code using Node.js and add file-based routing to a Svelte application.
 
 Using LaunchDarkly with Svelte lets you toggle features in the UI without needing to reload the page, modify the text on the page, or even test new styles and layout in production. Combining LaunchDarkly with SvelteKit also offers the ability to modify and test server-side logic in your code using feature flags.
 
@@ -39,57 +39,44 @@ Server-side code in SvelteKit runs in a Node.js environment, so you need to use 
 
 The SDK is included in the project's dependencies, but you can also install it with `npm`:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 npm install launchdarkly-node-server-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 However, client-side code must use the client-side JavaScript SDK. You do not need a framework-specific client-side SDK for Svelte. To learn more, read [JavaScript SDK reference](/sdk/client-side/javascript).
 
 This SDK is also included in the project's dependencies, but you can also install it with `npm`:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 npm install launchdarkly-js-client-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding the relationship between server- and client-side code in SvelteKit
 
-One of the unique aspects of SvelteKit is that JavaScript within a component can often run on both the client and the server. This lets it rehydrate the client (that is, update the page with new data) without reloading the full page from the server. However, this behavior can cause build errors if you are using both the client-side JavaScript and server-side Node.js SDKs. You can avoid these errors by isolating your usage of the two different kinds of SDKs.
+One of the unique aspects of SvelteKit is the concept of universal load components. This means that JavaScript within a component is, by default, run on both the client and the server. This lets it "rehydrate" the client, updating the page with new data, without reloading the full page from the server. However, this behavior can cause build errors if you are using both the client-side JavaScript and server-side Node.js SDKs. You can avoid these errors by isolating your usage of the two different kinds of SDKs.
 
-If the server-side Node.js SDK loads in an environment that also runs in the browser, it will cause build errors because the environment lacks modules like `util`, `fs`, and others. To prevent this, isolate usage of the server-side Node.js SDK to server-side only code in SvelteKit. The example application isolates usage of the server-side Node.js SDK to endpoints, which are SvelteKit modules for reading and writing data that's only available on the server. To learn more about endpoints, read the SvelteKit [Endpoints](https://kit.svelte.dev/docs/routing#endpoints) documentation.
+If the server-side Node.js SDK loads in an environment that also runs in the browser, it will cause build errors because the environment lacks modules like `util`, `fs`, and others. To prevent this, isolate usage of the server-side Node.js SDK to server-side only code in SvelteKit.
 
-If the client-side JavaScript SDK loads in an environment that also runs on the server, it will cause errors because the Node.js environment lacks browser defaults like `window`. To prevent this, isolate browser-specific code. SvelteKit provides a default `$app/env` module that includes a `browser` value to indicate whether the app is running in the browser or the server.
+The example application isolates usage of the server-side Node.js SDK to server load components, which are typically identified by the `-server` in their name, and only run on the server. To learn more about universal versus server load components, read the SvelteKit [Universal vs server](https://kit.svelte.dev/docs/load#universal-vs-server) documentation.
+
+If the client-side JavaScript SDK loads in an environment that also runs on the server, it will cause errors because the Node.js environment lacks browser defaults like `window`. To prevent this, isolate browser-specific code. SvelteKit provides a default `$app/environment` module that includes a `browser` value to indicate whether the app is running in the browser or the server.
 
 Use the module to isolate browser code, as shown below:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 if (browser) {
@@ -97,14 +84,14 @@ if (browser) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Setting up server-side rendering (SSR)
 
-A typical SvelteKit route or page has a `.svelte` file extension and is paired with a JavaScript file (`.js`) that provides the server-side data for the page. For example, the example site's home page is in `/src/routes/index.svelte`. This file contains route-specific UI code, JavaScript code that runs on both the client and server, and CSS. It is paired with an endpoint file called `/src/api/index.js` that provides the data backend for this page, supplying it with whatever data it needs from the server. The endpoint file runs entirely on the server-side.
+A typical SvelteKit route or page is a `+page.svelte` file and is paired with a JavaScript `+page.js` file that provides the  data for the page. Because we need to isolate our server-side usage, the data file is named `+page.server.js`, which tells SvelteKit to only run this on the server. For example, the example site's home page is in `/src/routes/+page.svelte`. This file contains route-specific UI code, JavaScript code that runs on both the client and server, and CSS. It is paired with a data loading file called `/src/api/+page.server.js` that provides the data backend for this page, supplying it with whatever data it needs from the server. The data loading file runs entirely on the server-side.
 
-A `.svelte` file does not require a matching `.js` endpoint, but, unless the page requires no data, you'll typically need one. You can read more about endpoints in the [SvelteKit documentation](https://kit.svelte.dev/docs/routing#endpoints).
+A `.svelte` file does not require a matching `.js` file, but, unless the page requires no data, you'll typically need one. You can read more about loading data in the [SvelteKit documentation](https://kit.svelte.dev/docs/load).
 
 ### Creating a server-side wrapper
 
@@ -118,13 +105,8 @@ The server-side wrapper is in `/src/lib/launchdarkly/server.js`. The wrapper doe
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import LaunchDarkly from 'launchdarkly-node-server-sdk'
@@ -156,47 +138,37 @@ export async function getFlagValue(key, user) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In the example, any server-side logic that requires a flag value imports the `getFlagValue()` function and passes it the key and user data:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { getFlagValue } from "../../lib/launchdarkly/server";
 
 ...
 
-const myFlag = await getFlagValue("my-flag");
+const myFlag = await getFlagValue("flag-key-123abc");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You do not need to initialize the client. The wrapper does that as needed. The `getFlagValue()` function is asynchronous, so it returns a JavaScript Promise. You can use the `await` keyword if you're using it within an `async` function or use `.then()` otherwise.
 
 ### Using server-side flag values
 
-The example application includes several routes that use LaunchDarkly flags to alter server-side logic in the application. The server-side logic that calls the Node.js SDK is kept within SvelteKit endpoints to ensure that the code runs only on the server.
+The example application includes several routes that use LaunchDarkly flags to alter server-side logic in the application. The server-side logic that calls the Node.js SDK is kept within server-side-only data loading components to ensure that the code runs only on the server.
 
 In this first example, the application evaluates a multivariate flag, and loads data based on its value.
 
 The following example code imports the server-side wrapper and uses the `getFlagValue()` function to load the value of the `featured-username` flag. This is a string flag that contains the username of the person whose posts the application home page loads. These posts come from [DEV API](https://developers.forem.com/api). The posts and the featured username are passed back from the endpoint to display on the page.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { getFlagValue } from '../../lib/launchdarkly/server'
@@ -221,53 +193,31 @@ export async function get() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-Consume the data from this endpoint in the `index.svelte` file. You can do this by loading it with Svelte's `fetch` command.
+Data from this file is automatically available within the page component, in the `data` variable.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
-<script context="module">
-  export async function load({ fetch }) {
-    const res = await fetch("/api");
-
-    if (res.ok) {
-      let data = await res.json();
-      return {
-        props: { posts: data.posts, featuredUsername: data.featuredUsername },
-      };
-    }
-
-    return {
-      status: res.status,
-      error: new Error(),
-    };
-  }
+<script>
+  export let data;
+  export let posts = data.posts;
+  export let featuredCategory = data.featuredCategory;
 </script>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In this second example, the application evaluates another multivariate flag and displays content based on the value.
 
-In the following example code, the endpoint uses the value of a string flag to determine which version of Markdown content to load. This example could be easily modified to pass in user data to `getFlagValue()`. The `new-about-us` flag could then be targeted to only internal users. For example, you could allow the marketing team to test new copy in production without impacting external users.
+In the following example code, the data load component uses the value of a string flag to determine which version of Markdown content to load. You could easily modify this example to pass in end-user data to `getFlagValue()`. Then you could use the `new-about-us` flag to target only internal end users. For example, you could allow the marketing team to test new copy in production without impacting external end users.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { processMarkdown } from '../../lib/markdown'
@@ -286,8 +236,8 @@ export async function get() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Setting up client-side rendering
 
@@ -305,13 +255,8 @@ For example, the Svelte component below:
 4. Sets a listener on the change event for the flag so that any change to the flag value in LaunchDarkly will be immediately reflected on the client.
 5. If the flag variation is true, displays the button within the component. If it is false, does not display the button.
 
-<CodeTabs
-  defaultValue="html"
-  values={[
-    { label: 'Svelte Component', value: 'html', },
-  ]
-}>
-<CodeTabItem value="html">
+<CodeSample>
+<CSTab label="Svelte component">
 
 ```html
 <script>
@@ -346,8 +291,8 @@ For example, the Svelte component below:
 </main>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Although it doesn't require any special set up to implement LaunchDarkly in a Svelte application, there can be advantages to creating a wrapper around the JavaScript SDK interaction, especially when you use the SDK in a SvelteKit application.
 
@@ -361,13 +306,8 @@ The client-side wrapper is in the file `/src/lib/launchdarkly/client.js`. The wr
 - `getClient()` checks if the client has already been initialized and, if not, initializes it. In either case, it returns an instance of the SDK client.
 - `getFlagValue()` returns the value of a LaunchDarkly flag based upon the flag's key. If a callback function is passed, it adds that as a change listener specific to the passed flag key, meaning that the passed function will only be called on a change to that specific flag rather than a change to any flag in the connected environment.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import * as LaunchDarkly from 'launchdarkly-js-client-sdk'
@@ -403,43 +343,33 @@ export async function getFlagValue(key, fnChangeListener) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In the example code, any client-side logic that requires a flag value imports the `getFlagValue()` function. You also need to import the `browser` value to perform a check and verify that your code is running in the browser environment.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { browser } from '$app/env'
 import { getFlagValue } from '../launchdarkly/client'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Before you can use the function, you must wrap it in a `browser` check. Use a `.then()` to properly set the value, unless the call to `getFlagValue()` exists within an `async` function. A simple solution for this is to create a setter function for the value.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let myFlag
 if (browser) {
-  getFlagValue('my-flag').then(setMyFlag)
+  getFlagValue('flag-key-123abc').then(setMyFlag)
 }
 
 function setMyFlag(val) {
@@ -447,25 +377,20 @@ function setMyFlag(val) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The wrapper initializes the client as needed. The `getFlagValue()` function is asynchronous, so it returns a JavaScript Promise.
 
 If you want to set a change listener for this particular flag key, pass the setter as a secondary argument to `getFlagValue()`.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let myFlag
 if (browser) {
-  getFlagValue('my-flag', setMyFlag).then(setMyFlag)
+  getFlagValue('flag-key-123abc', setMyFlag).then(setMyFlag)
 }
 
 function setMyFlag(val) {
@@ -473,8 +398,8 @@ function setMyFlag(val) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If a change to the flag within LaunchDarkly is detected, the setter function is called and your application's UI will automatically update accordingly.
 
@@ -488,17 +413,12 @@ The second example, `featured-category`, is a string flag that is used both serv
 
 Here are the examples:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 <script>
-  import { browser } from "$app/env";
+  import { browser } from "$app/environment";
   import { getFlagValue } from "../launchdarkly/client";
 
   let showAboutUs;
@@ -520,8 +440,8 @@ Here are the examples:
 </script>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Using client-side flag values in markup
 
@@ -529,13 +449,8 @@ You do not need complex markup or even the use of an [`await` block](https://sve
 
 Here's how:
 
-<CodeTabs
-  defaultValue="html"
-  values={[
-    { label: 'Svelte Component', value: 'html', },
-  ]
-}>
-<CodeTabItem value="html">
+<CodeSample>
+<CSTab label="Svelte component">
 
 ```html
 <header>
@@ -557,19 +472,19 @@ Here's how:
 </header>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are two important things to note here:
 
-1. After values are defined, Svelte manages the DOM updates necessary for rendering. There is no need for any JavaScript code to update these values.
-2. Values will update immediately on the client if a change is made in LaunchDarkly. As soon as a new value is received, Svelte updates the UI accordingly without requiring a page refresh. This is because change listeners exist for each flag key.
+- After values are defined, Svelte manages the DOM updates necessary for rendering. There is no need for any JavaScript code to update these values.
+- Values will update immediately on the client if a change is made in LaunchDarkly. As soon as a new value is received, Svelte updates the UI accordingly without requiring a page refresh. This is because change listeners exist for each flag key.
 
 ## Conclusion
 
-Svelte continues to grow in popularity, jumping from 8% usage in 2019 to 20% in 2021 while remaining the frontend framework JavaScript developers are most interested in, according to the latest [State of JavaScript survey](https://2021.stateofjs.com/en-US/libraries/front-end-frameworks). As it becomes an integral part of more companies' website infrastructure, it becomes increasingly important that they can integrate feature management into Svelte web applications.
+Svelte continues to grow in popularity, jumping from 8% usage in 2019 to 21% in 2022 while remaining the frontend framework JavaScript developers are most interested in, according to the latest [State of JavaScript survey](https://2022.stateofjs.com/en-US/libraries/front-end-frameworks/). As it becomes an integral part of more companies' website infrastructure, it becomes increasingly important that they can integrate feature management into Svelte web applications.
 
-The great news is that, because Svelte is just JavaScript, you can use LaunchDarkly to succeed with Svelte today, without any specialized SDKs. This makes it easy to integrate LaunchDarkly however you prefer – by including directly on a page using Svelte or by wrapping the SDK in a JavaScript wrapper that centralizes all your application's interactions with feature flags.
+The great news is that, because Svelte is just JavaScript, you can use LaunchDarkly to succeed with Svelte today, without any specialized SDKs. This makes it easy to integrate LaunchDarkly however you prefer, either by including directly on a page using Svelte, or by wrapping the SDK in a JavaScript wrapper that centralizes all your application's interactions with feature flags.
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
