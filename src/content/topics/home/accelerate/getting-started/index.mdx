@@ -85,11 +85,13 @@ You can set application identifier and application version configuration options
 
 Accelerate assumes the application identifier is the application key. Typically this is the name of one of the GitHub repositories that you use in this project. Accelerate automatically creates a new application each time you send a unique application identifier.
 
-You can set the application version to any string that includes only letters, numbers, period (`.`), hyphen (`-`), or underscore (`_`). For example, you could set this to the semantic version of your application. We recommend setting this to the commit ID or SHA of the GitHub commit for this deployment. Accelerate automatically detects and reports which pull requests (PRs) are part of a deployment if you set the application version to a SHA.
+You can set the application version to any string that includes only letters, numbers, periods (`.`), hyphens (`-`), or underscores (`_`). For example, you could set this to the semantic version of your application.
+
+We recommend setting the application version to the full SHA of the GitHub commit for this deployment. When you use the SHA, Accelerate automatically detects and reports which pull requests (PRs) are part of a deployment. Otherwise, Accelerate cannot associate deployments with PRs or commits.
 
 To retrieve the SHA for your deployment:
 
-1. From the branch you are deploying, run `git rev-parse HEAD | cut -c1-9`.
+1. From the branch you are deploying, run `git rev-parse HEAD`.
 2. Add an environment variable, such as `APPLICATION_VERSION`.
 3. Use that environment variable when you initialize your SDK.
 

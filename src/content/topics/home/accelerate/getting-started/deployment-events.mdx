@@ -78,7 +78,7 @@ Here are the request body parameters for the deployment events API:
     </TableRow>
     <TableRow>
       <TableCell><code>version</code></TableCell>
-      <TableCell>The application version</TableCell>
+      <TableCell>The application version. You can set the application version to any string that includes only letters, numbers, periods (<code>.</code>), hyphens (<code>-</code>), or underscores (<code>_</code>).<br/><br/> We recommend setting the application version to the full SHA of the GitHub commit for this deployment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell><code>eventType</code></TableCell>
@@ -118,7 +118,7 @@ curl -i -X POST \
     "projectKey": "{{yourProjectKey}}",
     "environmentKey": "test",
     "applicationKey": "application-key-123abc",
-    "version": "12345",
+    "version": "a12bcde3f45ab6c789123456d78efabcde91234f",
     "eventType": "started",
     "eventTime": {{epochMilliseconds}},
     "eventMetadata": {"approver": "test-user"},
