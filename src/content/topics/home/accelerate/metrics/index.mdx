@@ -3,7 +3,7 @@ path: /home/accelerate/accelerate-metrics
 title: Accelerate dashboard metrics
 description: This category contains documentation topics about LaunchDarkly's Accelerate dashboard and its metric views.
 published: true
-tags: ['dora', 'dora metrics', 'accelerate']
+tags: ['dora', 'dora metrics', 'accelerate', 'archive', 'stale']
 site: launchDarklyOnly
 ---
 
@@ -28,6 +28,7 @@ These metrics include:
 - [Release frequency](/home/accelerate/accelerate-metrics/release)
 - [Lead time](/home/accelerate/accelerate-metrics/lead-time)
 - [Flag coverage](/home/accelerate/accelerate-metrics/flag-coverage)
+- [Flag health](/home/accelerate/accelerate-metrics/flag-health)
 
 ![The Accelerate dashboard](accelerate.png)
 
@@ -41,3 +42,4 @@ To provide insight on speed and stability for both deployments and releases, Acc
 - **Release frequency**: The number of flag changes per time period. This metric view also includes a table of recent flag changes by change type and flag key. To learn more, read [Release frequency](/home/accelerate/accelerate-metrics/release).
 - **Lead time**: The time from first code commit to deployment. This metric view breaks the total lead time into steps, including coding time, pull request (PR) lifespan, deployment wait time, and deployment duration. It also includes a table of recent PRs and the environments you deployed them to. To learn more, read [Lead time](/home/accelerate/accelerate-metrics/lead-time).
 - **Flag coverage**: The ratio of PRs that contain flag changes to the total number of PRs for the selected applications. This metric view also includes a table of recent PRs that contained flag changes. To learn more, read [Flag coverage](/home/accelerate/accelerate-metrics/flag-coverage).
+- **Flag health** The number of stale flags to the total number of temporary flags for the selected environment. This metric view includes a summary of stale flags and recommendations for which flags can be removed. To learn more, read [Flag health](/home/accelerate/accelerate-metrics/flag-health). 
