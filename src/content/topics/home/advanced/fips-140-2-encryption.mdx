@@ -8,11 +8,13 @@ tags: ['federal', 'relay proxy', 'sdk', 'encryption']
 
 ## Overview
 
-In some customer environments, notably those serving the US government community, there may be compliance requirements to use 
-[FIPS 140-2](https://csrc.nist.gov/publications/detail/fips/140/2/final) validated encryption modules.
+In some customer environments, notably those serving the US government community, there may be compliance requirements to use
+[FIPS 140-2](https://csrc.nist.gov/publications/detail/fips/140/2/final) validated encryption modules. This topic explains how customers can use LaunchDarkly in environments that require that all data is encrypted in transit using FIPS 140-2 validated encryption modules.
 
-One such module is [BoringCrypto](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp3678.pdf).
-It is a fork of OpenSSL that is maintained by Google, and allows for Golang applications to use FIPS 140-2 validated encryption, in place of the standard Golang crypto libraries.
+To comply with these requirements, customers must:
+
+* Use the [LaunchDarkly federal environment](/home/advanced/federal).
+* Use FIPS 140-2 validated encryption modules for any data transmission. One such module is [BoringCrypto](https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp3678.pdf). It is a fork of OpenSSL that is maintained by Google, and allows for Golang applications to use FIPS 140-2 validated encryption, in place of the standard Golang crypto libraries.
 
 <Callout intent="alert">
   <CalloutTitle>Complying with regulatory requirements is the customer's responsibility</CalloutTitle>
@@ -27,72 +29,53 @@ While this topic guides you in meeting your compliance needs, it is up to you to
 
 Because the LaunchDarkly SDKs are bundled into your applications, they should inherit the encryption modules used by your application.
 
-For example, in Golang, you can use the 
-`boringcrypto` [experiment flag](https://pkg.go.dev/internal/goexperiment) when building your Go (1.19+) code. The [Relay Proxy](/home/relay-proxy) is a great example of such an application, written in Go, using the 
-LaunchDarkly Go SDK.
+For example, in Golang, you can use the `boringcrypto` [experiment flag](https://pkg.go.dev/internal/goexperiment) when building your Go (1.19+) code. The [Relay Proxy](/home/relay-proxy) is a great example of such an application, written in Go, using the LaunchDarkly Go SDK.
 
 ## Relay Proxy
 
 To build the [LaunchDarkly Relay Proxy](https://github.com/launchdarkly/ld-relay) using BoringCrypto, run:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Shell', value: 'bash', },
-  ]
-}>
-
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 GOEXPERIMENT=boringcrypto go build .
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Use this instead of running `make` or `go build .` to build the Relay Proxy with FIPS 140-2 encryption.
+
 ### Verification
 
-To verify that a Go binary was indeed build with BoringCrypto, there are two methods you can use. 
+To verify that a Go binary was indeed build with BoringCrypto, there are two methods you can use.
 
 One method is to call `go version` and check the experiments list. For example, here's how to check a binary called `ld-relay`:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Shell', value: 'bash', },
-  ]
-}>
-
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 $ go version ld-relay
 ld-relay: go1.19 X:boringcrypto
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `X:boringcrypto` indicates that this binary includes the FIPS 140-2 validated encryption modules.
 
 The other method is to examine the symbol table in the binary, looking for BoringCrypto symbols:
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Shell', value: 'bash', },
-  ]
-}>
 
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 $ go tool nm ld-relay | grep _Cfunc__goboringcrypto_
 ```
-</CodeTabItem>
-
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If this command returns results and a `0` exit code, then the binary includes the FIPS 140-2 validated encryption modules.
 
