@@ -93,6 +93,31 @@ You can now accept an invitation from your organization owner using the email ad
 
 To learn how to invite other members to LaunchDarkly as an Admin, read [Adding members to LaunchDarkly](/home/members/managing#adding-members-to-launchdarkly).
 
+## Logging in using SSO
+
+If your organization has enabled single sign-on (SSO), you will log in to LaunchDarkly using your SSO provider. Your SSO login experience will differ slightly depending on whether your organization initiates the login through LaunchDarkly or through your identity provider (IdP).
+
+### Initiating login through LaunchDarkly
+
+To log in through LaunchDarkly:
+
+1. Navigate to https://app.launchdarkly.com/login.
+2. Enter your work email address.
+3. Click **Continue**. You are automatically logged in through your SSO provider.
+
+### Initiating login through your IdP
+
+To log in through your IdP:
+
+1. Navigate to your IdP, such as Google, Okta, or OneLogin.
+2. Click on the LaunchDarkly button or tile. You are automatically logged in through your IdP.
+
+Here is an example of the LaunchDarkly tile in Okta:
+
+![The LaunchDarkly tile in Okta.](account-sso-login-okta.png)
+
+For a list of SSO providers LaunchDarkly supports, read [Supported external identity providers](/home/account-security/sso#supported-external-identity-providers).
+
 ## Understanding LaunchDarkly's user entity types
 
 In LaunchDarkly, it is important to distinguish between **account members** and **users**. Here is a table explaining the difference:
