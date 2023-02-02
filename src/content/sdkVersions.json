@@ -1,6 +1,7 @@
 [
   {
     "name": ".NET (client-side)",
+    "u2cVersion": "3.0",
     "versions": [
       {
         "versionMajorMinor": "3.0",
@@ -31,6 +32,7 @@
   },
   {
     "name": ".NET (server-side)",
+    "u2cVersion": "7.0",
     "versions": [
       {
         "versionMajorMinor": "7.0",
@@ -116,6 +118,7 @@
   },
   {
     "name": "Android",
+    "u2cVersion": "4.0",
     "versions": [
       {
         "versionMajorMinor": "4.2",
@@ -217,6 +220,11 @@
   {
     "name": "Apex",
     "versions": [
+      {
+        "versionMajorMinor": "1.2",
+        "releaseYear": 2022,
+        "releaseMonthDay": "09-27"
+      },
       {
         "versionMajorMinor": "1.1",
         "releaseYear": 2021,
@@ -481,6 +489,7 @@
   },
   {
     "name": "Go",
+    "u2cVersion": "6.0",
     "versions": [
       {
         "versionMajorMinor": "6.0",
@@ -656,6 +665,7 @@
   },
   {
     "name": "iOS",
+    "u2cVersion": "8.0",
     "versions": [
       {
         "versionMajorMinor": "8.0",
@@ -751,6 +761,7 @@
   },
   {
     "name": "Java",
+    "u2cVersion": "6.0",
     "versions": [
       {
         "versionMajorMinor": "6.0",
@@ -871,7 +882,13 @@
   },
   {
     "name": "JavaScript",
+    "u2cVersion": "3.0",
     "versions": [
+      {
+        "versionMajorMinor": "3.1",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-18"
+      },
       {
         "versionMajorMinor": "3.0",
         "releaseYear": 2022,
@@ -991,6 +1008,7 @@
   },
   {
     "name": "Node.js (client-side)",
+    "u2cVersion": "3.0",
     "versions": [
       {
         "versionMajorMinor": "3.0",
@@ -1046,6 +1064,7 @@
   },
   {
     "name": "Node.js (server-side)",
+    "u2cVersion": "7.0",
     "versions": [
       {
         "versionMajorMinor": "7.0",
@@ -1136,6 +1155,7 @@
   },
   {
     "name": "PHP",
+    "u2cVersion": "5.0",
     "versions": [
       {
         "versionMajorMinor": "5.1",
@@ -1201,6 +1221,7 @@
   },
   {
     "name": "Python",
+    "u2cVersion": "8.0",
     "versions": [
       {
         "versionMajorMinor": "8.1",
@@ -1301,6 +1322,7 @@
   },
   {
     "name": "React",
+    "u2cVersion": "3.0",
     "versions": [
       {
         "versionMajorMinor": "3.0",
@@ -1418,6 +1440,11 @@
     "name": "React Native",
     "versions": [
       {
+        "versionMajorMinor": "6.3",
+        "releaseYear": 2023,
+        "releaseMonthDay": "01-30"
+      },
+      {
         "versionMajorMinor": "6.2",
         "releaseYear": 2022,
         "releaseMonthDay": "05-17"
@@ -1516,6 +1543,7 @@
   },
   {
     "name": "Ruby",
+    "u2cVersion": "7.0",
     "versions": [
       {
         "versionMajorMinor": "7.0",
@@ -1586,6 +1614,7 @@
   },
   {
     "name": "Rust",
+    "u2cVersion": "1.0",
     "versions": [
       {
         "versionMajorMinor": "1.0",
