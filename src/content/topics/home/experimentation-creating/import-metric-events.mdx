@@ -67,6 +67,7 @@ Here's how to structure your import metric request:
         <li><code>X-LaunchDarkly-Event-Schema: 4</code>, required</li>
         <li><code>LD-API-Version: beta</code>, required</li>
         <li><code>X-LaunchDarkly-Payload-ID: YOUR_PAYLOAD_ID</code>, optional. Use this to send a unique ID for the payload, which you can use to <a href="#retrying-failed-requests">retry failed requests</a>.</li>
+        <li><code>User-Agent: MetricImport-YOUR_COMPANY_NAME-int/VERSION</code>, required. This helps us identify the source of traffic and debug issues. <code>VERSION</code> can be any format, but you should update it if you make major changes to your implementation.</li>
       </ul>
     </TableCell>
   </TableRow>
@@ -79,28 +80,29 @@ Here's how to structure your import metric request:
 
 ### Request body format
 
-The request body must consist of a JSON array of `custom` events.
-
-Each `custom` event is a JSON object with the following shape:
+The request body must consist of a <strong>JSON array</strong> of `custom` events, which are JSON objects with the following shape:
 
 <CodeTabs
   defaultValue="json"
   values={[
-    { label: 'Custom event', value: 'json', },
+    { label: 'Array of custom events', value: 'json', },
   ]
 }>
 <CodeTabItem value="json">
 
 ```json
-{
-  "kind": "custom",
-  "key": "custom-metric",
-  "creationDate": 16420388151234,
-  "metricValue": 32.0,
-  "contextKeys": {
-    "user": "jim",
-  }
-}
+[
+  {
+    "kind": "custom",
+    "key": "custom-metric",
+    "creationDate": 16420388151234,
+    "metricValue": 32.0,
+    "contextKeys": {
+      "user": "jim",
+    }
+  },
+  // ... more events
+]
 ```
 
 </CodeTabItem>
