@@ -55,6 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/body-scroll-lock", "npm:3.1.0"],\
             ["@types/chai", "npm:4.3.1"],\
             ["@types/chai-string", "npm:1.4.2"],\
+            ["@types/enzyme", "npm:3.10.12"],\
             ["@types/github-slugger", "npm:1.3.0"],\
             ["@types/jest", "npm:27.5.0"],\
             ["@types/lodash.debounce", "npm:4.0.7"],\
@@ -9589,6 +9590,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.8"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.22.31", {\
+          "packageLocation": "./.yarn/cache/@types-cheerio-npm-0.22.31-63e46da0e3-8d73d22fdd.zip/node_modules/@types/cheerio/",\
+          "packageDependencies": [\
+            ["@types/cheerio", "npm:0.22.31"],\
+            ["@types/node", "npm:17.0.8"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/common-tags", [\
@@ -9641,6 +9650,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-debug-npm-0.0.30-0fa4eb1306-61365bfd31.zip/node_modules/@types/debug/",\
           "packageDependencies": [\
             ["@types/debug", "npm:0.0.30"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/enzyme", [\
+        ["npm:3.10.12", {\
+          "packageLocation": "./.yarn/cache/@types-enzyme-npm-3.10.12-eae4c96ec1-356e914256.zip/node_modules/@types/enzyme/",\
+          "packageDependencies": [\
+            ["@types/enzyme", "npm:3.10.12"],\
+            ["@types/cheerio", "npm:0.22.31"],\
+            ["@types/react", "npm:17.0.38"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15863,7 +15883,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["enzyme-to-json", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:3.6.2"],\
             ["@types/cheerio", "npm:0.22.30"],\
-            ["@types/enzyme", null],\
+            ["@types/enzyme", "npm:3.10.12"],\
             ["enzyme", "npm:3.11.0"],\
             ["lodash", "npm:4.17.21"],\
             ["react-is", "npm:16.13.1"]\
@@ -19421,6 +19441,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/body-scroll-lock", "npm:3.1.0"],\
             ["@types/chai", "npm:4.3.1"],\
             ["@types/chai-string", "npm:1.4.2"],\
+            ["@types/enzyme", "npm:3.10.12"],\
             ["@types/github-slugger", "npm:1.3.0"],\
             ["@types/jest", "npm:27.5.0"],\
             ["@types/lodash.debounce", "npm:4.0.7"],\
