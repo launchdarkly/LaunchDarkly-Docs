@@ -25,6 +25,25 @@ This topic explains the changes in the JavaScript SDK 3.0 release and how to ada
 
 Before you migrate to version 3.0, update to the latest 2.x version. If you update to the latest 2.x version, deprecation warnings appear in areas of your code that need to be changed for 3.0. You can update them at your own pace while still using 2.x, rather than migrating everything simultaneously. To learn more about updating to the latest 2.x version, visit the [SDK's GitHub repository](https://github.com/launchdarkly/js-client-sdk).
 
+## Dependencies for the v3 SDK
+
+The LaunchDarkly JavaScript SDK versions 3.0 and higher use optional chaining. You can ensure support for optional chaining by using Webpack 5. If you are using Webpack 4, you must update your `package.json` file to include a version of `acorn` that transpiles the optional chaining operator.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="package.json">
+
+```json
+"resolutions": {
+    "acorn": "npm:acorn-with-stage3"
+  }
+```
+</CSTab>
+</CodeSample>
+
+If you are not using Webpack, you will need to ensure that your bundler is configured correctly to transpile optional chaining.
+
 ## Understanding contexts
 
 Many LaunchDarkly customers create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. In previous versions of the LaunchDarkly SDK, you could define this information in a user object, using a combination of built-in and custom attributes. Now you can define this information in a more structured way, using **contexts**.
