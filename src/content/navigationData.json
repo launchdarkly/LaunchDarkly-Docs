@@ -28,6 +28,10 @@
           {
             "label": "Using the learning center",
             "path": "/home/getting-started/in-app-options"
+          },
+          {
+            "label": "LaunchDarkly vocabulary",
+            "path": "/home/getting-started/vocabulary"
           }
         ]
       },
