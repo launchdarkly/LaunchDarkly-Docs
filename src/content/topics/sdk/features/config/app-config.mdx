@@ -10,8 +10,6 @@ tags: ['configure', 'metadata', 'sdk', 'application id', 'application version', 
 
 This topic explains how to configure LaunchDarkly SDKs to send application metadata to LaunchDarkly. This feature is available for both client-side and server-side SDKs.
 
-Sending application metadata to LaunchDarkly allows you to populate the "From source" field on Context details pages with information about the SDK or application that sent the context attributes. To learn more, read [The context details page](/home/contexts/context-details).
-
 <Callout intent="info">
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
 <CalloutDescription>
@@ -29,7 +27,9 @@ If you are using the latest version of an SDK and are not part of the EAP, your 
 
 ## Customizing application identifiers and application versions
 
-Some LaunchDarkly SDKs support application identifier and application version configuration options. These options allow you to send this metadata to LaunchDarkly. You can use this metadata for things like flag targeting and configuring our Accelerate product offering. To learn more, read [Getting started with Accelerate](/home/accelerate/get-started-accelerate).
+Some LaunchDarkly SDKs support application identifier and application version configuration options. These options allow you to send this application metadata to LaunchDarkly. The metadata will appear in the "From source" field on Context details pages. To learn more, read [The context details page](/home/contexts/context-details).
+
+You can also use this metadata for configuring the Accelerate product offering. To learn more, read [Getting started with Accelerate](/home/accelerate/get-started-accelerate).
 
 For the SDKs that support this feature, you can send the following metadata:
 
