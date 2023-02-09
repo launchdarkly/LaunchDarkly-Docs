@@ -9,7 +9,7 @@ site: launchDarklyOnly
 
 ## Overview
 
-This topic explains how to subscribe to notifications in Slack channels. You can receive notifications for when resources are created, updated, deleted, or ready for removal.
+This topic explains how to subscribe to notifications in Slack channels. You can receive notifications when resources are created, updated, deleted, or are ready for removal.
 
 It can be useful to let an entire channel know when a flag changes or is ready to remove. You can receive notifications when someone toggles a flag on or off, when someone creates new resources in a certain environment, and when flags are ready for removal from your codebase.
 
@@ -30,13 +30,13 @@ To subscribe using the modal:
 ![The create subscription dialog.](slack-project-select-modal.png)
 
 3. Select the project and environment you'd like to receive notifications for.
-4. (Optional) You can further define your subscription by giving it a specific flag or flag regex, a status, an action, or a tag. You'll only receive updates for flags that match these parameters.
+4. (Optional) You can further refine your subscription defining specific flag, status, action, or tag. You can use `*` as a wildcard in your flag key. You'll only receive updates for flags that match these parameters.
 
 ![The modal to select subscription parameters.](slack-subscription-parameter-select-modal.png)
+<br />
 
-4. Click **Preview** to view the list of flags that your parameters include. Your subscription will include any newly created flags that match the parameters.
+4. Click **Preview** to view the list of flags that your parameters include.
 5. Click **Create subscription** to subscribe the channel to flag notifications. A confirmation message appears in the channel after you close the dialog.
-
 
 ### Subscribing using the command
 
@@ -60,11 +60,17 @@ Here's how:
    - `-t` or `--tag=`
 3. Press **Enter**.
 
-For example, the following command creates a subscription for all flags in the 'qa' environment of the 'chatbot' project, with status 'active' and tag 'production'
+For example, the following command creates a subscription for all flags in the `qa` environment of the `chatbot` project, with status `active` and tag `production`:
+
+<CodeSample>
+<CSTab label="Example subscription">
+
 ```
 /launchdarkly subscribe -p chatbot -e qa -s active -t production
 ```
 
+</CSTab>
+</CodeSample>
 
 ### Subscribing with positional arguments
 ---
@@ -77,10 +83,17 @@ Here's how:
 2. Run `/launchdarkly subscribe` and provide in order the project, environment, and flag key of the flag you would like to subscribe to.
 3. Press **Enter**.
 
-For example, the following command will create a subscription for the 'chat-response' flag in the 'qa' environment of the 'chatbot' project.
+For example, the following command creates a subscription for the `chat-response` flag in the `qa` environment of the `chatbot` project:
+
+<CodeSample>
+<CSTab label="Example subscription">
+
 ```
 /launchdarkly subscribe chatbot qa chat-response
 ```
+
+</CSTab>
+</CodeSample>
 
 ## Managing subscriptions
 
@@ -89,7 +102,7 @@ You can view and remove subscriptions in a Slack channel using the `/launchdarkl
 1. Open the Slack channel where you would like to remove notifications.
 2. Type `/launchdarkly list` and press **Enter**. A list of subscriptions for the channel appears.
 3. Locate the subscription you wish to remove from the channel.
-4. Click the **Remove** button.
+4. Click **Remove**.
 
 ![The output of the `/launchdarkly list` command.](slack-manage-subscriptions.png)
 
@@ -122,7 +135,7 @@ The table below explains the different subscription parameters:
     </TableRow>
     <TableRow>
       <TableCell>Environment</TableCell>
-      <TableCell>Optional (but required in Modal creation)</TableCell>
+      <TableCell>Optional, but required in modal creation</TableCell>
       <TableCell>
         All subscriptions must include a project and environment to get flag notifications for.
       </TableCell>
@@ -139,18 +152,14 @@ The table below explains the different subscription parameters:
       <TableCell>Optional</TableCell>
       <TableCell>
         Filter by flag status. Available statuses are:
-        <br />
-        Any
-        <br />
-        Active
-        <br />
-        Inactive
-        <br />
-        Archived
-        <br />
-        Launched
-        <br />
-        New
+        <ul>
+        <li>Any</li>
+        <li>Active</li>
+        <li>Inactive</li>
+        <li>Archived</li>
+        <li>Launched</li>
+        <li>New</li>
+        </ul>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -158,18 +167,14 @@ The table below explains the different subscription parameters:
       <TableCell>Optional</TableCell>
       <TableCell>
         Filter by action. Available actions are:
-        <br />
-        Any
-        <br />
-        Created
-        <br />
-        Updated
-        <br />
-        Deleted
-        <br />
-        Ready for removal
-        <br />
-        New
+        <ul>
+        <li>Any</li>
+        <li>Created</li>
+        <li>Updated</li>
+        <li>Deleted</li>
+        <li>Ready for removal</li>
+        <li>New</li>
+        </ul>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -184,13 +189,11 @@ The table below explains the different subscription parameters:
 
 ## Receiving alerts when flags are ready to remove
 
-In the Slack app, you can subscribe to notifications when it’s time to remove flags from code. Removing from code is a necessary step before archiving flags.
+You can subscribe to notifications when it’s time to remove flags from code. Removing from code is a necessary step before archiving flags. To learn more, read about [Archiving and deleting flags](/home/code/flag-archive).
 
-Read about [deleting and archiving flags](/home/code/flag-archive) to learn how to keep your codebase clean. The Slack app makes it easy to receive notifications once flags are ready to remove.
+You will be served a “ready to remove” notification when any flags that you subscribe to become “inactive” or “launched” in status code.
 
-You will get served a “ready to remove” notification when any flags that you subscribe to become “inactive” or “launched” in status code.
-
-To set up a "ready to remove" flag alert, create a subscription that includes the flag you want to receive the alert for. See [Subscribing to flag notifications](/integrations/slack/notifications#subscribing-to-flag-notifications) for how to create a subscription.
+To set up a "ready to remove" flag alert, create a subscription that includes the flag you want to receive the alert for. To learn how to create a subscription, read [Subscribing to flag notifications](#subscribing-to-notifications).
 
 ## Receiving approval request notifications
 
@@ -203,7 +206,7 @@ Approvals is available to customers on a Pro or Enterprise plan. To learn more, 
 </CalloutDescription>
 </Callout>
 
-If your company uses feature workflows and the Slack app, you receive a direct message in Slack when someone requests an approval from you, or when an approval request you made is approved, denied, or receives a comment.
+If your organization uses feature workflows and the Slack app, you receive a direct message in Slack when someone requests an approval from you, or when an approval request you made is approved, denied, or receives a comment.
 
 You cannot interact with an approval from these notifications. They are indicators that you should log into LaunchDarkly and review your approval requests.
 
