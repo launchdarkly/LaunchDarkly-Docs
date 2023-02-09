@@ -20,21 +20,15 @@ We recommend that you use the prebuilt releases if they exist for your platform 
 
 You can produce a simple build on Linux or OSX by using the following command:
 
-<CodeTabs
-  defaultValue="1.x"
-  values={[
-    { label: '1.x syntax', value: '1.x', },
-    { label: '2.0 syntax', value: '2.0', },
-  ]
-}>
-<CodeTabItem value="1.x">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```bash
 make
 ```
 
-</CodeTabItem>
-<CodeTabItem value="2.0">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```bash
 mkdir build && cd build
@@ -42,8 +36,8 @@ cmake ..
 make
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For more advanced `cmake` usage, or if you use another platform, read this [cmake guide](http://preshing.com/20170511/how-to-build-a-cmake-based-project). The SDK is exported as the `ldclientapi` target.
 
@@ -53,40 +47,28 @@ You should not consider the repository organization of source files stable. If y
 
 In version 1.x, the SDK required you to import `uthash.h`, and `ldapi.h`. Now, similarly to the C/C++ server-side SDK, you should import the SDK with the following command:
 
-<CodeTabs
-  defaultValue="1.x"
-  values={[
-    { label: '1.x syntax', value: '1.x', },
-    { label: '2.0 syntax', value: '2.0', },
-  ]
-}>
-<CodeTabItem value="1.x">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```c
 #include "ldapi.h"
 #include "uthash.h"
 ```
 
-</CodeTabItem>
-<CodeTabItem value="2.0">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```c
 #include <launchdarkly/api.h>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The types `LDClient`, `LDConfig`, and `LDUser` are no longer typedefs. They require the `struct` prefix:
 
-<CodeTabs
-  defaultValue="1.x"
-  values={[
-    { label: '1.x syntax', value: '1.x', },
-    { label: '2.0 syntax', value: '2.0', },
-  ]
-}>
-<CodeTabItem value="1.x">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```c
 LDClient *client;
@@ -94,8 +76,8 @@ LDUser *user;
 LDConfig *config;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="2.0">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```c
 struct LDClient *client;
@@ -103,8 +85,8 @@ struct LDUser *user;
 struct LDConfig *config;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In version 1.x of the SDK, when you compiled it with C++, `LDClient` was defined as a class instead of a C struct. We removed this system in version 2.0, and now `LDClient` is always a C style struct.
 
@@ -118,28 +100,22 @@ We have removed the logging interface from the 1.x versions, which was specific 
 
 For example, to configure the SDK to use the default included logger:
 
-<CodeTabs
-  defaultValue="1.x"
-  values={[
-    { label: '1.x syntax', value: '1.x', },
-    { label: '2.0 syntax', value: '2.0', },
-  ]
-}>
-<CodeTabItem value="1.x">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```c
 LDSetLogFunction(LD_LOG_INFO, yourLogger);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="2.0">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```c
 LDConfigureGlobalLogger(LD_LOG_INFO, LDBasicLogger);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## JSON representation changes
 
@@ -147,14 +123,8 @@ The C/C++ client-side SDK 1.x used a JSON representation utilizing the `uthash.h
 
 For example, to create a basic array, use:
 
-<CodeTabs
-  defaultValue="1.x"
-  values={[
-    { label: '1.x syntax', value: '1.x', },
-    { label: '2.0 syntax', value: '2.0', },
-  ]
-}>
-<CodeTabItem value="1.x">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```c
 LDNode *names;
@@ -167,8 +137,8 @@ LDNodeAppendString(&names, "bob");
 LDNodeFree(names);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="2.0">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```c
 struct LDJSON *names, *tmp;
@@ -184,7 +154,7 @@ LDArrayPush(names, tmp);
 LDJSONFree(names);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For complete documentation on manipulating JSON, read our [API docs on GitHub](https://launchdarkly.github.io/c-client-sdk/json_8h.html).

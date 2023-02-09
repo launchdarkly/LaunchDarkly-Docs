@@ -26,21 +26,15 @@ You can specify actions in bulk using glob syntax and wildcards. For example, yo
 
 `acct` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Account resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Account resource">
 
 ```json
 acct
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This table explains available account actions:
 
@@ -208,21 +202,15 @@ This table explains available account ownership actions:
 
 `code-reference-repository` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Code references resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Code references resource">
 
 ```json
 code-reference-repository/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Code references](/home/code/code-references).
 
@@ -293,21 +281,15 @@ This table explains available code reference actions:
 
 `destination` is a child of both a project and environments. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Destination resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Destination resource">
 
 ```json
 proj/*:env/*:destination/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Data Export](/home/data-export).
 
@@ -370,21 +352,15 @@ This table explains available destinations actions:
 
 `env` is a child resource of projects. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Environment resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Environment resource">
 
 ```json
 proj/*:env/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Environments](/home/organize/environments).
 
@@ -502,21 +478,15 @@ The `deny` effect in the `viewSdkKey` action hides the server-side SDK key you s
 
 `experiment` is a child of both a project and environments. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Experiment resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Experiment resource">
 
 ```json
 proj/*:env/*:experiment/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [About Experimentation](/home/about-experimentation).
 
@@ -561,21 +531,15 @@ This table explains available experiment actions:
 
 `flag` is a child of both a project and environments. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Flag resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Flag resource">
 
 ```json
 proj/*:env/*:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Your first feature flag](/home/getting-started/feature-flags).
 
@@ -1001,21 +965,15 @@ Most third-party integrations use a shared set of custom role actions.
 
 `integration` is a top-level resource. A code sample is below:
 
-  <CodeTabs
-    defaultValue="json"
-    values={[
-      { label: 'Integration resource', value: 'json', },
-    ]
-  }>
-
-  <CodeTabItem value="json">
+  <CodeSample>
+  <CSTab label="Integration resource">
 
   ```json
   integration/*
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
   To learn more, read [Integrations](/integrations).
 
@@ -1086,21 +1044,15 @@ Most third-party integrations use a shared set of custom role actions.
 
 `member` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Member resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Member resource">
 
 ```json
 member/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [LaunchDarkly account members](/home/members/managing).
 
@@ -1159,21 +1111,15 @@ This table explains available member actions:
 
 `metric` is a child resource of projects. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Metric resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Metric resource">
 
 ```json
 proj/*:metric/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [About Experimentation](/home/about-experimentation).
 
@@ -1274,21 +1220,15 @@ This table explains available metric actions:
 
 `token` is a child resource of members. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Token resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Token resource">
 
 ```json
 member/*:token/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
@@ -1347,21 +1287,15 @@ This table explains available personal access token actions:
 
 `proj` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Project resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Project resource">
 
 ```json
 proj/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Projects](/home/organize/projects).
 
@@ -1441,21 +1375,15 @@ To learn more, read <a href="/home/organize/private-projects">Configuring privat
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Relay Proxy configuration resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Relay Proxy configuration resource">
 
 ```json
 relay-proxy-config/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
 
@@ -1508,21 +1436,15 @@ This table explains available Relay Proxy automatic configuration actions:
 
 `role` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Role resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Role resource">
 
 ```json
 role/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Custom roles](/home/members/custom-roles).
 
@@ -1583,21 +1505,15 @@ This table explains available role actions:
 
 `segment` is a child of both a project and environments. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Segment resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Segment resource">
 
 ```json
 proj/*:env/*:segment/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [User segments](/home/users/segments).
 
@@ -1708,21 +1624,15 @@ This table explains available segments actions:
 
 `service-token` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Service token resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Service token resource">
 
 ```json
 service-token/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [API access tokens](/home/account-security/api-access-tokens).
 
@@ -1775,21 +1685,15 @@ This table explains available service access token actions:
 
 `team` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Team resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Team resource">
 
 ```json
 team/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Teams](/home/teams).
 
@@ -1865,21 +1769,15 @@ To learn more, read [Creating private teams](/guides/teams-roles/teams#creating-
 
 `template` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'template resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Template resource">
 
 ```json
 template/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Workflow templates](/home/feature-workflows/workflow-templates).
 
@@ -1920,21 +1818,15 @@ This table explains available template actions:
 
 `user` is a child of both a project and environments. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'User resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="User resource">
 
 ```json
 proj/*:env/*:user/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [The Users list](/home/users/users-list).
 
@@ -1965,21 +1857,15 @@ This table explains available users actions:
 
 `webhook` is a top-level resource. A code sample is below:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Webhook resource', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Webhook resource">
 
 ```json
 webhook/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Webhooks](/home/connecting/webhooks).
 

@@ -92,20 +92,15 @@ The methods for [evaluating flags](/sdk/features/evaluating) and determining [fl
 
 Here's how to evaluate a flag using a context:
 
-<CodeTabs
-  defaultValue="variation"
-  values={[
-    { label: 'Y.0 syntax', value: 'variation', },
-  ]
-}>
-<CodeTabItem value="variation">
+<CodeSample>
+<CSTab label="Y.0 syntax">
 
 ```LANGUAGE-NAME
 TKTK - example call to variation, e.g.
 boolean value = client.boolVariation('flag-key-123abc', context, false);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding differences between users and contexts
 
@@ -113,26 +108,20 @@ Where you previously created users, now you can create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: 'X.x syntax, user with key', value: 'user', },
-    { label: 'Y.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="X.x syntax, user with key">
 
 ```LANGUAGE-NAME
 TKTK - example building a user in the previous version of the SDK, with just a key
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="Y.0 syntax, context with key">
 
 ```LANGUAGE-NAME
 TKTK - example building a single context, with a "kind" of "user" and a key
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <!-- Include the following callout only for JavaScript-based SDKs (JS Client, Vue, React, Node Server, Node Client, Electron) -->
 
@@ -157,35 +146,25 @@ We strongly recommend upgrading your SDK to take advantage of the context functi
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: 'Y.0 syntax, single context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="Y.0 syntax, single context with key">
 
 ```LANGUAGE-NAME
 TKTK - example building a single context, with a "kind" of "organization" and a key
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: 'Y.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="Y.0 syntax, multi-context">
 
 ```LANGUAGE-NAME
 TKTK - example building a multi-context; one context can have a "kind" of user, the other can have a "kind" of device
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -203,27 +182,20 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: 'X.x syntax, user with attributes', value: 'user', },
-    { label: 'Y.0 syntax, context with attributes', value: 'context', },
-
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="X.x syntax, user with attributes">
 
 ```LANGUAGE-NAME
 TKTK - example building a user in the previous version of the SDK, with a key, name, and email
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="Y.0 syntax, context with attributes">
 
 ```LANGUAGE-NAME
 TKTK - example building a single context, with a "kind" of "user" and a key, name, and email
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -233,20 +205,15 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's how to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: 'Y.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="Y.0 syntax, context with object attributes">
 
 ```LANGUAGE-NAME
 TKTK - example of constructing a context with:
   - an attribute that is the JSON object `"address": { "street": "Main St", "city": "Springfield" }`
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -271,44 +238,33 @@ In version Y.0, there are two scopes for which you can mark attributes as privat
 
   In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
-  <CodeTabs
-    defaultValue="private-all"
-    values={[
-      { label: 'Y.0 syntax, all attributes marked private', value: 'private-all', },
-      { label: 'Y.0 syntax, two attributes marked private', value: 'private-some', },
-    ]
-  }>
-  <CodeTabItem value="private-all">
+  <CodeSample>
+  <CSTab label="Y.0 syntax, all attributes marked private">
 
   ```LANGUAGE-NAME
   TKTK - example setting the the `allAttributesPrivate` SDK configuration option.
   ```
-  </CodeTabItem>
-  <CodeTabItem value="private-some">
+  </CSTab>
+  <CSTab label="Y.0 syntax, two attributes marked private">
 
   ```LANGUAGE-NAME
   TKTK - example setting the `privateAttributes` SDK configuration option for "email" and "address".
   ```
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 To learn more, read [TKTK](/LINK/TO/SDK/API/DOCS).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: 'Y.0 syntax, attribute marked private for one context', value: 'private', },
-  ]
-}>
-<CodeTabItem value="private">
+<CodeSample>
+<CSTab label="Y.0 syntax, attribute marked private for one context">
 
 ```LANGUAGE-NAME
 TKTK - example setting the `privateAttributes` `_meta` attribute.
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -330,19 +286,14 @@ If you currently have feature flags that target these attributes, you will need 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="device"
-  values={[
-    { label: 'Y.0 syntax, setting device and OS', value: 'device', },
-  ]
-}>
-<CodeTabItem value="device">
+<CodeSample>
+<CSTab label="Y.0 syntax, setting device and OS">
 
 ```LANGUAGE-NAME
 TKTK - example setting the `device` and `os` properties of a context with `kind` of `device`
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to anonymous users
 
@@ -356,19 +307,14 @@ If you currently have feature flags that target the device ID, you will need to 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="deviceid"
-  values={[
-    { label: 'Y.0 syntax, setting the device ID', value: 'deviceid', },
-  ]
-}>
-<CodeTabItem value="deviceid">
+<CodeSample>
+<CSTab label="Y.0 syntax, setting the device ID">
 
 ```LANGUAGE-NAME
 TKTK - example setting the `deviceID` attribute of a context that has a `kind` of `device`
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to alias events
 
@@ -382,19 +328,14 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: 'Y.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="Y.0 syntax, associating two contexts">
 
 ```LANGUAGE-NAME
 TKTK - example defining two different context kinds (device, user), and then calling identify with a multi-context with both individual contexts
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [TKTK](/LINK/TO/SDK/API/DOCS).
 

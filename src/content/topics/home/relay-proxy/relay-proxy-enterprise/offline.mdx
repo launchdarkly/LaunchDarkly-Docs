@@ -79,45 +79,34 @@ To get your flag rules and make them accessible to the Relay Proxy:
 
 1. `curl /relay/latest-all`. This generates a file containing all your flag rules.
 
-An example `curl` is below:
+  An example `curl` is below:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+    <CodeSample>
+    <CSTab label="Curl">
 
-```bash
-curl https://sdk.launchdarkly.com/relay/latest-all \
-  -H "Authorization: rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY" \
-  -o EXAMPLE-NAME-OF-OUTPUTTED-FILE.tar.gz
-```
+    ```bash
+    curl https://sdk.launchdarkly.com/relay/latest-all \
+      -H "Authorization: rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY" \
+      -o EXAMPLE-NAME-OF-OUTPUTTED-FILE.tar.gz
+    ```
 
-</CodeTabItem>
-</CodeTabs>
+    </CSTab>
+    </CodeSample>
 
 2. Copy that file to your local host.
 3. The next step varies depending on whether you're using a configuration file or environment variables:
  * If you're using a **configuration file**, configure it to read the file you saved in step 2. In the file, specify an `OfflineMode` section with the `fileDataSource` key and a value of the file's path.
  * If you're using **environment variables**, specify the file with the `FILE_DATA_SOURCE` environment variable.
-  <CodeTabs
-    defaultValue="file"
-    values={[
-      { label: 'Configuration file', value: 'file', },
-      { label: 'Environment variables', value: 'env-var', },
-    ]
-  }>
-  <CodeTabItem value="file">
+  <CodeSample>
+  <CSTab label="Configuration file">
 
   ```bash
 [OfflineMode]
    fileDataSource = "/path/to/file.tar.gz"
   ```
 
-  </CodeTabItem>
-  <CodeTabItem value="env-var">
+  </CSTab>
+  <CSTab label="Environment variables">
 
   ```bash
 docker run --name ld-relay           \
@@ -125,8 +114,8 @@ docker run --name ld-relay           \
    launchdarkly/ld-relay
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 4. Start the Relay Proxy.
 
 From now on, the Relay Proxy will serve flag values based on the contents of the file you downloaded, not by contacting LaunchDarkly for updates.

@@ -58,20 +58,15 @@ This feature is available in the following client-side SDKs:
 
 To shut down:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.Dispose();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Android
@@ -80,28 +75,22 @@ client.Dispose();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 client.close();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 client.close()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (client-side)
@@ -112,30 +101,22 @@ To fully uninitialize the C/C++ SDK resources, you must use `close`. The operati
 
 To shut down:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C', value: 'c' },
-    { label: 'C++', value: 'cpp' }
-  ]
-}>
-
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 LDClientClose(client);
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="cpp">
+</CSTab>
+<CSTab label="C++">
 
 ```cpp
 client->close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Electron
@@ -144,20 +125,15 @@ client->close();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 await client.close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Flutter
@@ -166,20 +142,15 @@ await client.close();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 await LDClient.close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### iOS
@@ -188,28 +159,22 @@ await LDClient.close();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 client.close()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 [client close];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### JavaScript
@@ -218,20 +183,15 @@ client.close()
 
 To shut down:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 await client.close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (client-side)
@@ -240,20 +200,15 @@ await client.close();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 await client.close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native
@@ -262,20 +217,15 @@ await client.close();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 await client.close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -301,20 +251,15 @@ This feature is available in the following server-side SDKs:
 
 To shut down:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.Dispose();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (server-side)
@@ -325,20 +270,15 @@ client.Dispose();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientClose(client);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Erlang
@@ -349,13 +289,8 @@ LDClientClose(client);
 
 To shut down:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 ldclient:stop_all_instances()
@@ -367,8 +302,8 @@ ldclient:stop_instance()
 ldclient:stop_instance(my_instance)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -379,20 +314,15 @@ When your application is about to terminate, shut down the `LDClient` with [`Clo
 
 To shut down:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 client.Close()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Haskell
@@ -401,20 +331,15 @@ client.Close()
 
 To shut down:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 close client
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -425,20 +350,15 @@ close client
 
 To shut down:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 client.close()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -447,20 +367,15 @@ client.close()
 
 To shut down:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -469,20 +384,15 @@ client.close();
 
 To shut down:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 ldclient.get().close()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -491,20 +401,15 @@ ldclient.get().close()
 
 To shut down:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 client.close
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Rust
@@ -513,18 +418,13 @@ client.close
 
 To shut down:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 client.close();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

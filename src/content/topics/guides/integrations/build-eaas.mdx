@@ -28,13 +28,8 @@ Environments are nested under projects and contain environment-specific metadata
 
 Here's a visualization:
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'Project Layout', value: 'text', },
-  ]
-}>
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="Project layout">
 
 ```text
 project - My test project
@@ -44,8 +39,8 @@ project - My test project
     └── test
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Building an integration
 
@@ -70,20 +65,15 @@ For an EaaS integration, include requests to create and delete a LaunchDarkly en
 
 All API calls from LaunchDarkly partners should include a custom User-Agent: 
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="JSON">
 
 ```json
 {launchdarkly product}-{source product}-int/{version}
 ```
-</CodeTabItem>
-</CodeTabs>
 
+</CSTab>
+</CodeSample>
 
 ### Authentication
 
@@ -111,7 +101,7 @@ As a partner you will have to provide support for your users to provide a Launch
 
 <LearnMore>
 
-Learn more: [Create a LaunchDarkly environment](https://apidocs.launchdarkly.com/tag/Environments#operation/postEnvironment)
+You can also use the REST API: [Create a LaunchDarkly environment](https://apidocs.launchdarkly.com/tag/Environments#operation/postEnvironment)
 
 </LearnMore>
 
@@ -121,23 +111,16 @@ In your EaaS integration, you should clean up any LaunchDarkly environments that
 
 <LearnMore>
 
-Learn more: [Delete a LaunchDarkly environment](https://apidocs.launchdarkly.com/tag/Environments#operation/deleteEnvironment)
+You can also use the REST API: [Delete a LaunchDarkly environment](https://apidocs.launchdarkly.com/tag/Environments#operation/deleteEnvironment)
 
 </LearnMore>
-
-
 
 ### Manifest.json example
 
 This manifest is required for an integration. It renders your integration metadata inside of the LaunchDarkly UI.
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="JSON">
 
 ```json
 {
@@ -161,8 +144,8 @@ This manifest is required for an integration. It renders your integration metada
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 
 ## Conclusion

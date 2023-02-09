@@ -41,18 +41,12 @@ This feature is available in the following client-side SDKs:
 
 All `LDClient` instances evaluate against the same `LDContext`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java for Android SDK v4.0', value: 'java' },
-    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
-    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
-    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
 
 ```java
+// Android SDK v4.0 (Java)
+
 Map<String, String> otherKeys = new HashMap<String, String>();
 otherKeys.put("platform", "platform-mobile-key-456def");
 otherKeys.put("core", "core-mobile-key-789ghi");
@@ -69,10 +63,12 @@ LDContext context = LDContext.builder("context-key-123abc")
 LDClient.init(this.getApplication(), ldConfig, context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
+// Android SDK v4.0 (Kotlin)
+
 val otherKeys: Map<String, String> = HashMap()
 otherKeys.put("platform", "platform-mobile-key-123abc")
 otherKeys.put("core", "core-mobile-key-123abc")
@@ -89,10 +85,12 @@ val context: LDContext = LDContext.builder("context-key-123abc")
 LDClient.init(application, ldConfig, context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
 
 ```java
+// Android SDK v3.x (Java)
+
 Map<String, String> otherKeys = new HashMap<String, String>();
 otherKeys.put("platform", "platform-mobile-key-123abc");
 otherKeys.put("core", "core-mobile-key-123abc");
@@ -109,10 +107,12 @@ LDUser user = new LDUser.Builder("user-key-123abc")
 LDClient.init(this.getApplication(), ldConfig, user);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
+// Android SDK v3.x (Kotlin)
+
 val otherKeys: Map<String, String> = HashMap()
 otherKeys.put("platform", "platform-mobile-key-456def")
 otherKeys.put("core", "core-mobile-key-789ghi")
@@ -129,50 +129,38 @@ val user: LDUser = LDUser.Builder("user-key-123abc")
 LDClient.init(application, ldConfig, user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
  To access the secondary mobile key instances, use the `getForMobileKey` method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDClient coreInstance = LDClient.getForMobileKey("core");
 coreInstance.boolVariation("core-flag", false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val coreInstance: LDClient = LDClient.getForMobileKey("core")
 coreInstance.boolVariation("core-flag", false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 As all the client instances use the same LDContext object, some calls affect all instances.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java for Android SDK v4.0', value: 'java' },
-    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
-    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
-    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
 
 ```java
+// Android SDK v4.0 (Java)
+
 LDClient coreInstance = LDClient.getForMobileKey("core");
 
 // Calls affect all LDClient Instances
@@ -183,10 +171,12 @@ coreInstance.setOnline();
 coreInstance.close();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
+// Android SDK v4.0 (Kotlin)
+
 val coreInstance: LDClient = LDClient.getForMobileKey("core")
 
 // Calls affect all LDClient Instances
@@ -197,10 +187,12 @@ coreInstance.setOnline()
 coreInstance.close()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
 
 ```java
+// Android SDK v3.x (Java)
+
 LDClient coreInstance = LDClient.getForMobileKey("core");
 
 // Calls affect all LDClient Instances
@@ -211,10 +203,12 @@ coreInstance.setOnline();
 coreInstance.close();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
+// Android SDK v3.x (Kotlin)
+
 val coreInstance: LDClient = LDClient.getForMobileKey("core")
 
 // Calls affect all LDClient Instances
@@ -225,8 +219,8 @@ coreInstance.setOnline()
 coreInstance.close()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
 </Details>
@@ -237,18 +231,12 @@ Track calls, listeners, and flag evaluation are all tied to the client instance 
 
 All `LDClient` instances evaluate against the same `LDContext`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
-    { label: 'Objective-C for iOS SDK v7.x', value: 'objc-v7', }
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
+// iOS SDK v8.0 (Swift)
+
 let context = try LDContextBuilder(key: "context-key-123abc").build().get()
 var config = LDConfig(mobileKey: "mobile-key-123abc")
 // Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
@@ -256,10 +244,12 @@ try! config.setSecondaryMobileKeys(["platform": "platform-mobile-key-123abc", "c
 LDClient.start(config: config, context: context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
+// iOS SDK v8.0 (Objective-C)
+
 LDContext *context = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"].build.success;
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 NSDictionary *otherMobileKeys = @{@"platform": @"platform-mobile-key-123abc", @"core": @"core-mobile-key-123abc"};
@@ -270,10 +260,12 @@ NSError *err = nil;
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="swift-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
+// iOS SDK v7.x (Swift)
+
 let user = LDUser(key: "user-key-123abc")
 var config = LDConfig(mobileKey: "mobile-key-123abc")
 // Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
@@ -281,10 +273,12 @@ try! config.setSecondaryMobileKeys(["platform": "platform-mobile-key-456def", "c
 LDClient.start(config: config, user: user)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
+// iOS SDK v7.x (Objective-C)
+
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 NSDictionary *otherMobileKeys = @{@"platform": @"platform-mobile-key-456def", @"core": @"core-mobile-key-789ghi"};
@@ -294,46 +288,34 @@ NSError *err = nil;
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To access the secondary mobile key instances, use the `LDClient.get` static method, passing the identifier assigned to your environment key in the `secondaryMobileKeys` map.
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 var coreInstance = LDClient.get(environment: "core")
 let coreFlagValue = coreInstance?.variation(forKey: "core-flag-key-123abc", defaultValue: false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 LDClient *coreInstance = [LDClient getEnvironment:@"core"];
 let coreFlagValue = [coreInstance boolVariationForKey:@"core-flag-key-123abc" defaultValue:NO];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 As all the client instances use the same `LDContext` object, some SDK functionality affects all instances.
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 coreInstance.identify(/*Context Object*/)
@@ -342,8 +324,8 @@ coreInstance.setOnline(true)
 coreInstance.close()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 [coreInstance identifyWithContext:/*Context Object*/];
@@ -352,8 +334,8 @@ coreInstance.close()
 [coreInstance close];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
 </Details>
@@ -366,14 +348,8 @@ All `LDClient` instances evaluate against the same `LDUser`. The environment nam
 
 You do not need to manage `LDClient` instances. Instead, access an instance by passing the environment name to a method that supports multiple environments.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let config = {
@@ -387,8 +363,8 @@ let user = {key: 'minimal_user'};
 await client.configure(config, user);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
@@ -405,8 +381,8 @@ let user: ld.LDUser = { key: 'minimal_user' };
 await client.configure(config, user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use functionality with a secondary environment, provide the name of desired secondary environment as the `environment` parameter value to many `LDClient` methods. Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments. To learn more, read [`LDClient`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html).
 </Details>

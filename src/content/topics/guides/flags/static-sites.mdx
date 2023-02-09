@@ -134,14 +134,8 @@ To initialize the client, you must first define a user.
 
 For example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Initializing the LaunchDarkly client', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Initializing the LaunchDarkly client">
 
 ```js
 const user = {
@@ -150,8 +144,9 @@ const user = {
 const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 The only required property of the user is the `key`. The client requires a `user`, but your web app does not actually need to have a signed-in user.
 
@@ -159,22 +154,16 @@ The `user` property is a unique property that LaunchDarkly uses to keep track of
 
 If your user is anonymous, use the `anonymous` property:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Initializing with an anonymous user', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Initializing with an anonymous user">
 
 ```js
 const user = {"anonymous": true};
 const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 By omitting the `key` property and adding the `anonymous` property, the LaunchDarkly client auto-generates a unique identifier for the anonymous user, and this identifier remains constant across browser sessions.
 
@@ -201,14 +190,8 @@ While truly static sites don't have the flag values available before the JavaScr
 
 This technique uses the browser's local storage:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Bootstrapping with local storage', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Bootstrapping with local storage">
 
 ```js
 const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
@@ -216,8 +199,8 @@ const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The local storage cache updates when new values arrive. On subsequent page loads, it fetches the most recently cached flag values from local storage and emits the `ready` event immediately.
 
@@ -255,14 +238,8 @@ If your back end passes values to your front end on page load, you can call your
 
 Here's an example of how to bootstrap from a server:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Bootstrapping from a server', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Bootstrapping from a server">
 
 ```js
 // If your server passes values to your front end on page load,
@@ -295,8 +272,8 @@ onPageLoad({
 <script>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 All LaunchDarkly server-side SDKs can evaluate all flags on a user's behalf. These flags can then be combined with the HTML response.
 
@@ -327,15 +304,8 @@ If a flag changes after the page renders, the LaunchDarkly client is not notifie
 
 To enable this, subscribe to flag changes in your app:
 
-<CodeTabs
-  defaultValue="1"
-  values={[
-    { label: 'Subscribe to all flag changes', value: '1', },
-    { label: 'Subscribe to a specific flag', value: '2', },
-  ]
-}>
-
-<CodeTabItem value="1">
+<CodeSample>
+<CSTab label="Subscribe to all flag changes">
 
 ```js
 ldclient.on('change', function(flags) {
@@ -344,8 +314,8 @@ ldclient.on('change', function(flags) {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="2">
+</CSTab>
+<CSTab label="Subscribe to a specific flag">
 
 ```js
 ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
@@ -354,8 +324,8 @@ ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Use this technique to release features to your clients in real-time.
 
@@ -367,14 +337,8 @@ To learn more, read [Subscribing to flag changes](/sdk/features/flag-changes#jav
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Initializing LaunchDarkly React SDK', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Initializing LaunchDarkly React SDK">
 
 ```js
 import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
@@ -401,8 +365,8 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 })();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Use this provider so your app does not flicker due to the client's initialization delay. However, the page may render more slowly while the initial flag values are retrieved. You can alleviate this by using the bootstrapping techniques described above.
 
@@ -410,14 +374,8 @@ The `asyncWithLDProvider` automatically subscribes to changes to flags in your e
 
 After the flags load, you can access those flags from any component in your app:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Accessing the LaunchDarkly client from React components using hooks', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Accessing the LaunchDarkly client from React components using hooks">
 
 ```js
 
@@ -438,19 +396,13 @@ const HooksDemo = () => {
 export default HooksDemo;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This example uses [React hooks](https://reactjs.org/docs/hooks-intro.html). If you are using a version of React without hooks support, you can use the higher-order component [`withLDConsumer`](/sdk/client-side/react/react-web##using-withldconsumer) instead:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Accessing the LaunchDarkly client using a higher-order component', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Accessing the LaunchDarkly client using a higher-order component">
 
 ```js
 import { withLDConsumer } from 'launchdarkly-react-client-sdk';
@@ -465,8 +417,8 @@ const Home = ({ flags, client /*, ...otherProps */ }) => {
 export default withLDConsumer()(Home);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [React SDK](/sdk/client-side/react).
 
@@ -480,14 +432,8 @@ Using the LaunchDarkly Gatsby plugin is very similar to the React SDK. The only 
 
 From `gatsby-config.js`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'LaunchDarkly Gatsby plugin configuration', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="LaunchDarkly Gatsby plugin configuration">
 
 ```js
 // gatsby-config.js
@@ -509,27 +455,21 @@ From `gatsby-config.js`:
 ...
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After it's configured, you can access all of the methods of the React SDK through `gatsby-launchdarkly-plugin`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'How to import the LaunchDarkly SDK', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="How to import the LaunchDarkly SDK">
 
 ```js
 // gatsby-plugin-launchdarkly exposes launchdarkly-react-client-sdk
 import { useFlags, useLDClient } from 'gatsby-plugin-launchdarkly';
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This plugin assumes that the user viewing your site is anonymous. In this case, the LaunchDarkly SDK tracks your client so it remembers what variation of the flag the client received. This behavior happens automatically.
 
@@ -537,14 +477,8 @@ If you have a signed-in user, you may want LaunchDarkly to know that in order to
 
 You can do this by accessing the `client` object directly:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Example with signed-in user', value: 'js', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Example with signed-in user">
 
 ```js
 import React from 'react';
@@ -572,8 +506,8 @@ const HooksDemo = () => {
 export default HooksDemo;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Gatsby plugin](https://www.gatsbyjs.com/plugins/gatsby-plugin-launchdarkly/?=launchdarkly).
 

@@ -18,42 +18,30 @@ LaunchDarkly uses a resource specifier syntax to name resources or collections o
 
 The pattern to specify a resource looks like this:
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'Resource specifier syntax', value: 'text', },
-  ]
-}>
-
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="Resource specifier syntax">
 
 ```text
 resource-type/name;tag1,tag2
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The example above shows two tags separated by a comma. Tags are optional. If you don't need to use any tags, you can omit the semicolon (`;`) and all content following.
 
 In the example below, we create a resource that names all of the projects in an account:
 
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'Resource showing all projects', value: 'text', },
-  ]
-}>
-
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="Resource showing all projects">
 
 ```text
 proj/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>Syntax supports wildcards</CalloutTitle>
@@ -66,42 +54,29 @@ The resource syntax accepts globs and wildcards, so you can name collections of 
 
 In the example below, we name a project by the `default` ID.
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'Project ID is `default`', value: 'text', },
-  ]
-}>
-
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="Project ID is `default`">
 
 ```text
 proj/default
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can name sets of resources down to the tag level.
 
 In the example below, we name all projects with the `mobile` tag.
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'All projects tagged `mobile`', value: 'text', },
-  ]
-}>
-
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="All projects tagged `mobile`">
 
 ```text
 proj/*;mobile
 ```
 
-</CodeTabItem>
-</CodeTabs>
-
+</CSTab>
+</CodeSample>
 
 ## Scoping resources
 
@@ -111,41 +86,27 @@ Resources can be scoped within parent resources. For example, metrics are scoped
 
 Name scoped resources by using the resource syntax structure depicted below:
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'Scoped resources', value: 'text', },
-  ]
-}>
-
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="Scoped resources">
 
 ```text
 resource-type/name;tag1,tag2:resource-type/name;tag3,tag4,tag5
 ```
 
-</CodeTabItem>
-</CodeTabs>
-
+</CSTab>
+</CodeSample>
 
 In the following example, we name all feature flags across all environments:
 
-
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'All feature flags', value: 'text', },
-  ]
-}>
-
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="All feature flags">
 
 ```text
 proj/*:env/*:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In the example above, `proj/*:`includes all named projects in the list of results. `env/*:` includes all environments in the list of results. `flag/*:` includes all flags in the list of results. This example will return very broad results because of how comprehensive its permissions are.
 
@@ -160,21 +121,15 @@ User permissions are specific to each resource type, and different types do not 
 
 For a more refined example, we could name all feature flags whose keys start with `ops_`:
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'All feature flags with keys that begin with `ops_`', value: 'text', },
-  ]
-}>
-
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="All feature flags with keys that begin with `ops_`">
 
 ```text
 proj/*:env/*:flag/ops_*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding resource types and scopes
 
@@ -373,7 +328,7 @@ Here is a reference list of all the supported resources in LaunchDarkly and thei
     <TableCell>
       <code>team/*</code>
     </TableCell>
-  </TableRow> 
+  </TableRow>
    <TableRow>
     <TableCell>
       <code>template</code>

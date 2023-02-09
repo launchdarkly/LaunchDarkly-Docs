@@ -39,89 +39,64 @@ To create a new Cloudflare Worker project with the LaunchDarkly Cloudflare Edge 
 
 2. Authenticate Wrangler:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 wrangler login
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `wrangler login` command, read [`login`](https://developers.cloudflare.com/workers/cli-wrangler/commands#login).
 
 3. Create a new project using the LaunchDarkly Cloudflare Worker template. Replace `my-project` with the name of the project you wish to create:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 wrangler generate my-project https://github.com/launchdarkly/launchdarkly-cloudflare-worker-template
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `wrangler generate` command, read [`generate`](https://developers.cloudflare.com/workers/cli-wrangler/commands#generate).
 
 4. Add your Cloudflare account ID to your `wrangler.toml` file:
 
-<CodeTabs
-  defaultValue="toml"
-  values={[
-    { label: 'wrangler.toml', value: 'toml', },
-  ]
-}>
-<CodeTabItem value="toml">
+<CodeSample>
+<CSTab label="wrangler.toml">
 
 ```toml
 account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you do not know your Cloudflare account ID, use the command `wrangler whoami`.
 
 5. Create a new Cloudflare Workers KV namespace:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 wrangler kv:namespace create "LD_KV"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Wrangler responds with the namespace ID of the newly created namespace.
 
 6. Bind your Worker with the new KV namespace by adding the code Wrangler returned in step 5 to the `kv_namespaces` array in your Worker's `wrangler.toml` file:
 
-<CodeTabs
-  defaultValue="toml"
-  values={[
-    { label: 'wrangler.toml', value: 'toml', },
-  ]
-}>
-<CodeTabItem value="toml">
+<CodeSample>
+<CSTab label="wrangler.toml">
 
 ```toml
 kv_namespaces = [
@@ -129,35 +104,25 @@ kv_namespaces = [
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 7. (Optional) If you intend to use `wrangler dev` for local development, you can also create a preview namespace:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 wrangler kv:namespace create "LD_KV" --preview
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Wrangler responds with the updated IDs for your `kv_namespaces` array. Replace the existing array entry created above with the value returned by Wrangler.
 
-<CodeTabs
-  defaultValue="toml"
-  values={[
-    { label: 'wrangler.toml', value: 'toml', },
-  ]
-}>
-<CodeTabItem value="toml">
+<CodeSample>
+<CSTab label="wrangler.toml">
 
 ```toml
 kv_namespaces = [
@@ -165,46 +130,36 @@ kv_namespaces = [
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Each LaunchDarkly Cloudflare integration only populates one KV namespace. If you are using a preview KV namespace, it will require its own integration. To learn more, read [Configuring the LaunchDarkly Cloudflare integration](#configuring-the-launchdarkly-cloudflare-integration).
 
 8. (Optional) If you set up a preview namespace, you may run your worker locally:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 wrangler dev
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `wrangler dev` command, read [`dev`](https://developers.cloudflare.com/workers/cli-wrangler/commands#dev).
 
 9. Publish your Worker to Cloudflare:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 wrangler publish
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `wrangler publish` command, read [`publish`](https://developers.cloudflare.com/workers/cli-wrangler/commands#publish).
 
@@ -235,13 +190,8 @@ You can use the LaunchDarkly Cloudflare integration with Workers Sites to serve 
 
 To serve HTML injected with feature flags:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'index.js', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="index.js">
 
 ```js
 const { getAssetFromKV } = require('@cloudflare/kv-asset-handler')
@@ -286,20 +236,15 @@ async function handleRequest(event) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This uses `HTMLRewriter` to inject a script tag into the head of your document that saves your set of feature flags to `window.ldFlags`. To learn more about `HTMLRewriter`, read [Cloudflare's documentation](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter).
 
 These flag values can then be used to bootstrap your client-side SDK. For example, if you are using the React client SDK:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'App.js', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="App.js">
 
 ```js
 import React from 'react';
@@ -317,7 +262,7 @@ export default withLDProvider({
 })(App);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about bootstrapping client-side feature flags from the server, read [Bootstrapping using server-rendered content](/guides/flags/static-sites#bootstrapping-using-server-rendered-content).

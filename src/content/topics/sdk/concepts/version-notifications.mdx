@@ -24,13 +24,8 @@ For the particular SDK you are interested in, you can subscribe to the RSS feed 
 
 The location of the RSS feed is:
 
-<CodeTabs
-  defaultValue="rss"
-  values={[
-    { label: 'RSS feed', value: 'rss', },
-  ]
-}>
-<CodeTabItem value="rss">
+<CodeSample>
+<CSTab label="RSS feed">
 
 ```bash
 # general format
@@ -40,20 +35,15 @@ https://github.com/:organization/:repo/releases.atom
 https://github.com/launchdarkly/js-client-sdk/releases.atom
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If your team uses Slack as a collaboration tool, you can also subscribe a Slack channel to the release RSS feed. In your Slack channel, type `/feed subscribe <RSS feed>` to subscribe.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rss"
-  values={[
-    { label: 'Slack channel subscription', value: 'rss', },
-  ]
-}>
-<CodeTabItem value="rss">
+<CodeSample>
+<CSTab label="Slack channel subscription">
 
 ```bash
 # general format
@@ -63,8 +53,8 @@ Here's how:
 /feed subscribe https://github.com/launchdarkly/js-client-sdk/releases.atom
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Getting notifications in the LaunchDarkly web application
 

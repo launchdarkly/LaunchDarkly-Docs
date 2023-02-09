@@ -28,41 +28,36 @@ The code below can be modified to fit your setup.
 
 Here's how to get started:
 
-* Install and [configure the AWS CloudWatch RUM client](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-get-started.html)
-* Use the `recordEvent` API to send the evaluated flags to [CloudWatch RUM using custom events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-custom-events.html)
+- Install and [configure the AWS CloudWatch RUM client](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-get-started.html)
+- Use the `recordEvent` API to send the evaluated flags to [CloudWatch RUM using custom events](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-RUM-custom-events.html)
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Inspector Setup', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Inspector Setup">
 
 ```js
 inspectors: [
-	{
-		type: 'flag-used',
-		name: 'cloudwatch-rum',
-		method: (key, detail) => {
-			const flagEvent = {
-			flagKey: key,
-			value: detail.value
-			}
-			if (detail.variationIndex) {
-			flagEvent["variationIndex"] = detail.variationIndex
-			}
-			if (detail.reason) {
-			flagEvent["reason"] = detail.reason
-			}
+  {
+    type: 'flag-used',
+    name: 'cloudwatch-rum',
+    method: (key, detail) => {
+      const flagEvent = {
+        flagKey: key,
+        value: detail.value,
+      }
+      if (detail.variationIndex) {
+        flagEvent['variationIndex'] = detail.variationIndex
+      }
+      if (detail.reason) {
+        flagEvent['reason'] = detail.reason
+      }
 
-			awsRum.recordEvent('com.launchdarkly.flag.evaluation', flagEvent)
-		}
-	}
+      awsRum.recordEvent('com.launchdarkly.flag.evaluation', flagEvent)
+    },
+  },
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

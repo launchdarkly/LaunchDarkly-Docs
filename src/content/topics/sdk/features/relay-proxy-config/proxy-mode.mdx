@@ -46,23 +46,17 @@ This feature is available in the following client-side SDKs:
 
 To connect the SDK to the Relay Proxy, use the `ServiceEndpoints` builder method and `Components.ServiceEndpoints().RelayProxy` to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(Components.ServiceEndpoints()
       .RelayProxy("https://your-relay-proxy.com:8030"))
     .Build();
-
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Android
@@ -71,14 +65,8 @@ var config = Configuration.Builder("mobile-key-123abc")
 
 To connect the SDK to the Relay Proxy, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -89,11 +77,10 @@ LDConfig ldConfig = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
-
 val ldConfig: LDConfig = LDConfig.Builder()
   .setMobileKey("mobile-key-123abc")
   .streamUri(Uri.parse("https://your-relay-proxy.com:8030"))
@@ -102,8 +89,8 @@ val ldConfig: LDConfig = LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Electron
@@ -112,14 +99,8 @@ val ldConfig: LDConfig = LDConfig.Builder()
 
 To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` options to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -129,8 +110,8 @@ const options = {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
@@ -142,8 +123,8 @@ const options: LDElectron.LDOptions = {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Flutter
@@ -152,13 +133,8 @@ const options: LDElectron.LDOptions = {
 
 To connect the SDK to the Relay Proxy, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
@@ -168,8 +144,8 @@ LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### iOS
@@ -178,14 +154,8 @@ LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
 
 To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift'},
-    { label: 'Objective-C', value: 'objc'},
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
@@ -194,8 +164,8 @@ ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8030")
 ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
@@ -204,8 +174,8 @@ ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8030")
 ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### JavaScript
@@ -214,14 +184,8 @@ ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
 
 To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js' },
-    { label: 'TypeScript', value: 'ts' },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -232,8 +196,8 @@ const options = {
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
@@ -243,11 +207,10 @@ const options: ld.LDOptions = {
   baseUrl: 'https://your-relay-proxy.com:8030',
   eventsUrl: 'https://your-relay-proxy.com:8030',
 };
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (client-side)
@@ -256,13 +219,8 @@ const options: ld.LDOptions = {
 
 To connect the SDK to the Relay Proxy, set the `streamUrl`, `baseUrl`, and `eventsUrl` properties to the base URI of your Relay Proxy:
 
-<CodeTabs defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js' },
-    { label: 'TypeScript', value: 'ts' },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -270,11 +228,10 @@ const options = {
   baseUrl: 'https://your-relay-proxy.com:8030',
   eventsUrl: 'https://your-relay-proxy.com:8030'
 };
-
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
@@ -286,8 +243,8 @@ const options: ld.LDOptions = {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native
@@ -296,14 +253,8 @@ const options: ld.LDOptions = {
 
 To connect the SDK to the Relay Proxy, set the `streamUri`, `pollUri`, and `eventsUri` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js' },
-    { label: 'TypeScript', value: 'ts' },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let config = {
@@ -314,8 +265,8 @@ let config = {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
@@ -328,8 +279,8 @@ let config: ld.LDConfig = {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Roku
@@ -338,13 +289,8 @@ let config: ld.LDConfig = {
 
 To connect the SDK to the Relay Proxy, use the `setStreamURI`, `setAppURI`, and `setEventsURI` methods to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript' },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 REM for a legacy Roku application
@@ -356,11 +302,10 @@ config = LaunchDarklyConfig("mobile-key-123abc", CLIENT_SCENEGRAPH_NODE)
 config.setStreamURI("https://your-relay-proxy.com:8030")
 config.setAppURI("https://your-relay-proxy.com:8030")
 config.setEventsURI("https://your-relay-proxy.com:8030")
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -386,14 +331,8 @@ This feature is available for the following server-side SDKs:
 
 To connect the SDK to the Relay Proxy, use the `ServiceEndpoints` builder method and `Components.ServiceEndpoints().RelayProxy` to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp' },
-    { label: 'C# (.NET SDK versions 6.2.x and earlier)', value: 'dotnet-pre-6.3' },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v6.3 and later (C#)">
 
 ```csharp
 var config = Configuration.Builder("sdk-key-123abc")
@@ -401,8 +340,9 @@ var config = Configuration.Builder("sdk-key-123abc")
       .RelayProxy("https://your-relay-proxy.com:8030"))
     .Build();
 ```
-</CodeTabItem>
-<CodeTabItem value="dotnet-pre-6.3">
+
+</CSTab>
+<CSTab label=".NET SDK v6.2.x and earlier (C#)">
 
 ```csharp
 // Prior to version 6.3.0, the base URI had to be specified for each service,
@@ -425,8 +365,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (server-side)
@@ -435,13 +375,8 @@ var config = Configuration.Builder("sdk-key-123abc")
 
 To connect the SDK to the Relay Proxy, use `LDConfigSetStreamURI`, `LDConfigSetBaseURI`, and `LDConfigSetEventsURI` to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label:'C/C++', value: 'c' },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 struct LDConfig *config = LDConfigNew("sdk-key-123abc");
@@ -450,8 +385,8 @@ LDConfigSetBaseURI(config, "https://your-relay-proxy.com:8030");
 LDConfigSetEventsURI(config, "https://your-relay-proxy.com:8030");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Erlang
@@ -460,25 +395,19 @@ LDConfigSetEventsURI(config, "https://your-relay-proxy.com:8030");
 
 To connect the SDK to the Relay Proxy, set the `stream_uri`, `base_uri`, and `events_uri` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', }
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
-```
+```erlang
 ldclient:start_instance("sdk-key-123abc", #{
   stream_uri => "https://your-relay-proxy.com:8030",
   base_uri => "https://your-relay-proxy.com:8030",
   events_uri => "https://your-relay-proxy.com:8030"
 })
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -487,17 +416,10 @@ ldclient:start_instance("sdk-key-123abc", #{
 
 To connect the SDK to the Relay Proxy, use the `Config.ServiceEndpoints` property and `ldcomponents.RelayProxyEndpoints()` to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-    { label: 'Go SDK versions 5.7.x and earlier', value: 'go-pre-5.8', }
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v5.8 and later">
 
 ```go
-
 // To use the Replay Proxy in proxy mode for both streaming and events:
 
 config := ld.Config{
@@ -511,14 +433,12 @@ config := ld.Config{
     ServiceEndpoints: ldcomponents.RelayProxyEndpointsWithoutEvents(
         "https://your-relay-proxy.com:8030"),
 }
-
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-pre-5.8">
+</CSTab>
+<CSTab label="Go SDK v5.7.x and earlier">
 
 ```go
-
 // Prior to version 5.8.0, the base URI had to be specified for each service,
 // depending on which services you were actually using.
 // To use the Relay Proxy in proxy mode for both streaming and events:
@@ -540,8 +460,8 @@ config := ld.Config{
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Haskell
@@ -550,13 +470,8 @@ config := ld.Config{
 
 To connect the SDK to the Relay Proxy, use `configSetStreamURI`, `configSetBaseURI`, and `configSetEventsURI` to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', }
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
@@ -572,8 +487,8 @@ config = (makeConfig "sdk-key-123abc")
     & configSetEventsURI "https://your-relay-proxy.com:8030"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -582,14 +497,8 @@ config = (makeConfig "sdk-key-123abc")
 
 To connect the SDK to the Relay Proxy, use the `serviceEndpoints` builder method and `Components.serviceEndpoints().relayProxy` to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Java (SDK versions 5.8.x and earlier)', value: 'java-pre-5.9' },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v5.9 and later">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -597,8 +506,9 @@ LDConfig config = new LDConfig.Builder()
     .relayProxy("https://your-relay-proxy.com:8030"))
   .build();
 ```
-</CodeTabItem>
-<CodeTabItem value="java-pre-5.9">
+
+</CSTab>
+<CSTab label="Java SDK v5.8.x and earlier">
 
 ```java
 // Prior to version 5.9.0, the base URI had to be specified for each service,
@@ -621,8 +531,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Lua
@@ -631,13 +541,8 @@ LDConfig config = new LDConfig.Builder()
 
 To connect the SDK to the Relay Proxy, set the `streamURI`, `baseURI`, and `eventsURI` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local config = {
@@ -646,11 +551,10 @@ local config = {
     baseUri = "https://your-relay-proxy.com:8030",
     eventsURI = "https://your-relay-proxy.com:8030",
 }
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -659,14 +563,8 @@ local config = {
 
 To connect the SDK to the Relay Proxy, set the `streamUri`, `baseUri`, and `eventsUri` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -676,8 +574,8 @@ const options = {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -689,10 +587,9 @@ const options ld.LDOptions = {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
-
 
 ### PHP
 
@@ -700,13 +597,8 @@ const options ld.LDOptions = {
 
 To connect the SDK to the Relay Proxy, set the `base_uri` and `events_uri` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc",
@@ -714,8 +606,8 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc",
       "events_uri" => "https://your-relay-proxy.com:8030" ]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There is not a streaming service for the PHP SDK.
 </Details>
@@ -726,13 +618,8 @@ There is not a streaming service for the PHP SDK.
 
 To connect the SDK to the Relay Proxy, set the `stream_uri`, `base_uri`, and `events_uri` properties to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python', value: 'python' },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 config = Config(sdk_key='sdk-key-123abc',
@@ -741,8 +628,8 @@ config = Config(sdk_key='sdk-key-123abc',
   events_uri="https://your-relay-proxy.com:8030")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -751,13 +638,8 @@ config = Config(sdk_key='sdk-key-123abc',
 
 To connect the SDK to the Relay Proxy, set the service endpoints to the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', }
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 config = LaunchDarkly::Config.new(
@@ -766,8 +648,8 @@ config = LaunchDarkly::Config.new(
   events_uri: "https://your-relay-proxy.com:8030")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Rust
@@ -776,13 +658,8 @@ config = LaunchDarkly::Config.new(
 
 To connect the SDK to the Relay Proxy, use the `ConfigBuilder` and `ServiceEndpointsBuilder` to specify the base URI of your Relay Proxy:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 let config = ConfigBuilder::new("sdk-key-123abc")
@@ -792,7 +669,7 @@ let config = ConfigBuilder::new("sdk-key-123abc")
     .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>

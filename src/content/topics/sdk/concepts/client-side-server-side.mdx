@@ -181,14 +181,8 @@ The client-side SDK requires context information in order to initialize the clie
 
 Here is an example of the differences in flag evaluation between the client-side and server-side SDKs:
 
-<CodeTabs
-  defaultValue="Client-side"
-  values={[
-    { label: 'Client-side', value: 'Client-side', },
-    { label: 'Server-side', value: 'Server-side' }
-  ]
-}>
-<CodeTabItem value="Client-side">
+<CodeSample>
+<CSTab label="Client-side">
 
 ```js
 
@@ -202,8 +196,8 @@ Here is an example of the differences in flag evaluation between the client-side
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="Server-side">
+</CSTab>
+<CSTab label="Server-side">
 
 ```java
 
@@ -217,21 +211,15 @@ Here is an example of the differences in flag evaluation between the client-side
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The client-side flag data does not include sensitive data, so no personally identifiable information (PII) is exposed on the client side if the code is unpacked or inspected. Additionally, bandwidth requirements are lower for the client-side SDKs, because LaunchDarkly sends less data to client-side SDKs.
 
 Here is an example of the differences in flag data received by the client-side and server-side SDKs:
 
-<CodeTabs
-  defaultValue="Client-side"
-  values={[
-    { label: 'Client-side', value: 'Client-side', },
-    { label: 'Server-side', value: 'Server-side' }
-  ]
-}>
-<CodeTabItem value="Client-side">
+<CodeSample>
+<CSTab label="Client-side">
 
 ```json
 
@@ -247,8 +235,8 @@ Here is an example of the differences in flag data received by the client-side a
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="Server-side">
+</CSTab>
+<CSTab label="Server-side">
 
 ```json
 
@@ -282,8 +270,8 @@ Here is an example of the differences in flag data received by the client-side a
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Private attributes
 
@@ -298,14 +286,8 @@ You can use private attributes with both client-side and server-side SDKs, altho
 
 Here is an example of setting all attributes as private:
 
-<CodeTabs
-  defaultValue="client-side"
-  values={[
-    { label: 'Client-side', value: 'client-side', },
-    { label: 'Server-side', value: 'server-side' }
-  ]
-}>
-<CodeTabItem value="client-side">
+<CodeSample>
+<CSTab label="Client-side">
 
 ```js
 
@@ -316,8 +298,8 @@ Here is an example of setting all attributes as private:
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="server-side">
+</CSTab>
+<CSTab label="Server-side">
 
 ```java
 
@@ -332,21 +314,15 @@ Here is an example of setting all attributes as private:
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Note that the context `key` attribute can never be private.
 
 Here is an example of setting just the end user's email address as private:
 
-<CodeTabs
-  defaultValue="Client-side"
-  values={[
-    { label: 'Client-side', value: 'Client-side', },
-    { label: 'Server-side', value: 'Server-side' }
-  ]
-}>
-<CodeTabItem value="Client-side">
+<CodeSample>
+<CSTab label="Client-side">
 
 ```js
 
@@ -357,8 +333,8 @@ Here is an example of setting just the end user's email address as private:
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="Server-side">
+</CSTab>
+<CSTab label="Server-side">
 
 ```java
 
@@ -373,8 +349,8 @@ Here is an example of setting just the end user's email address as private:
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Using private context attributes](/home/contexts/attributes#using-private-context-attributes). For specifics on implementing private context attributes in a particular SDK, read [User and context configuration](/sdk/features/user-context-config).
 

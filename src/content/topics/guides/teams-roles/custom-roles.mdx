@@ -85,14 +85,8 @@ Policies can be direct or inverse. A direct policy allows or denies access to th
 
 This policy denies all actions within the production environment:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Direct policy', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Direct policy">
 
 ```json
 [
@@ -104,23 +98,17 @@ This policy denies all actions within the production environment:
 ]
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+</CSTab>
+</CodeSample>
 
-  </Details>
+</Details>
 
 <Details summary="Expand inverse policy example">
 
 This policy allows all actions across all environments except production:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Inverse policy', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Inverse policy">
 
 ```json
 [
@@ -132,8 +120,8 @@ This policy allows all actions across all environments except production:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -275,14 +263,8 @@ To create a role with the same permissions as the built-in Reader role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Reader', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Reader">
 
 ```json
 [
@@ -294,8 +276,8 @@ To create a role with the same permissions as the built-in Reader role:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 7. Click **Save role**.
 
@@ -316,14 +298,8 @@ To create a role with the same permissions as the built-in Writer role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Writer', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Writer">
 
 ```json
 [
@@ -335,8 +311,8 @@ To create a role with the same permissions as the built-in Writer role:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 7. Click **Save role**.
 
@@ -360,92 +336,86 @@ To create a role with the same permissions as the built-in Admin role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Administrator', value: 'json', },
+  <CodeSample>
+  <CSTab label="Administrator">
+
+  ```json
+  [
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*:env/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*:metric/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["member/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["member/*:token/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["role/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*:env/*:flag/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["integration/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*:env/*:segment/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["webhook/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*:env/*:user/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["code-reference-repository/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/*:env/*:destination/*"]
+    },
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["acct"]
+    }
   ]
-}>
+  ```
 
-<CodeTabItem value="json">
-
-```json
-[
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:metric/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["member/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["member/*:token/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["role/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*:flag/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["integration/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*:segment/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["webhook/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*:user/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["code-reference-repository/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*:destination/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["acct"]
-  }
-]
-```
-
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 7. Click "Simple editor." You are returned to the simple editor displaying the policy details. The details should look like the following:
 
@@ -473,27 +443,21 @@ To create a role with the same permissions as the built-in No access role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'No access', value: 'json', },
+  <CodeSample>
+  <CSTab label="No access">
+
+  ```json
+  [
+    {
+      "effect": "deny",
+      "actions": ["viewProject"],
+      "resources": ["proj/*"]
+    }
   ]
-}>
+  ```
 
-<CodeTabItem value="json">
-
-```json
-[
-  {
-    "effect": "deny",
-    "actions": ["viewProject"],
-    "resources": ["proj/*"]
-  }
-]
-```
-
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 7. Click "Simple editor." You are returned to the simple editor displaying the policy details.
 8. Click **Save role**.
@@ -533,14 +497,8 @@ One way to organize access to resources is by tagging individual resources, and 
 
 Here is the code sample to build a custom role that can access resources with a `dev` tag:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Dev-tagged resources', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Dev-tagged resources">
 
 ```json
 [
@@ -562,8 +520,8 @@ Here is the code sample to build a custom role that can access resources with a 
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Anyone with this custom role can edit resources with a `dev` tag. This role is useful for a developer or quality assurance (QA) role if you tag your non-production environments with `dev`.
 
@@ -577,14 +535,8 @@ In this example, you will create a "New checkout flow" custom role that has edit
 
 Here is the code sample:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'New checkout flow project', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="New checkout flow project">
 
 ```json
 [
@@ -595,8 +547,8 @@ Here is the code sample:
   }
 ]
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Anyone with this custom role can edit all resources within the `New-checkout-flow` project, and view all other projects. This role is useful for developers or project managers working only on specific projects, but who need visibility into other projects at your organization.
 
@@ -610,14 +562,8 @@ In this example, you will create a "New checkout flow" custom role that has edit
 
 Here is the code sample:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'New checkout flow project', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="New checkout flow project">
 
 ```json
 [
@@ -633,8 +579,8 @@ Here is the code sample:
   }
 ]
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Anyone with this custom role can edit all resources within the `new-checkout-flow` project, but view no other projects. This role is useful for developers working only on specific projects who don't need visibility into other projects at your organization.
 
@@ -809,14 +755,8 @@ There are two ways to approach writing your own custom roles:
 
 Here is an example of a custom role that explicitly allows actions only on certain resources:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'View-only by default', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="View-only by default">
 
 ```json
 [
@@ -841,19 +781,13 @@ Here is an example of a custom role that explicitly allows actions only on certa
   }
 ]
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here is an example of a custom role that allows all actions, then explicitly denies actions on certain resources in the last statement:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Allow all actions by default', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Allow all actions by default">
 
 ```json
 [
@@ -946,8 +880,8 @@ Here is an example of a custom role that allows all actions, then explicitly den
   }
 ]
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Using LaunchDarkly teams to manage permissions
 

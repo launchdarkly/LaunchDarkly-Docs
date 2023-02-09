@@ -83,19 +83,14 @@ The methods for [evaluating flags](/sdk/features/evaluating) and determining [fl
 
 Here's how to evaluate a flag using a context:
 
-<CodeTabs
-  defaultValue="variation"
-  values={[
-    { label: '6.0 syntax', value: 'variation', },
-  ]
-}>
-<CodeTabItem value="variation">
+<CodeSample>
+<CSTab label="6.0 syntax">
 
 ```java
 boolean value = client.boolVariation("flag-key-123abc", context, false);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding differences between users and contexts
 
@@ -103,52 +98,36 @@ Where you previously created users, now you must create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '5.x syntax, user with key', value: 'user', },
-    { label: '6.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="5.x syntax, user with key">
 
 ```java
 LDUser user = new LDUser("user-key-123abc");
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="6.0 syntax, context with key">
 
 ```java
 LDContext context = LDContext.create("context-key-123abc");
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '6.0 syntax, single context shortcut', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="6.0 syntax, single context shortcut">
 
 ```java
 LDContext context1 = LDContext.create(ContextKind.of("organization"), "org-key-123abc");
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '6.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="6.0 syntax, multi-context">
 
 ```java
 LDContext multiContext = LDContext.createMulti(
@@ -156,8 +135,8 @@ LDContext multiContext = LDContext.createMulti(
     LDContext.create(ContextKind.of("device"), "device-key-123abc")
 );
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -174,14 +153,8 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '5.x syntax, user with attributes', value: 'user', },
-    { label: '6.0 syntax, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="5.x syntax, user with attributes">
 
 ```java
 LDUser user = new LDUser.Builder("user-key-123abc")
@@ -189,8 +162,8 @@ LDUser user = new LDUser.Builder("user-key-123abc")
   .email("sandy@example.com")
   .build();
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="6.0 syntax, context with attributes">
 
 ```java
 LDContext context = LDContext.builder("user-key-123abc")
@@ -198,8 +171,8 @@ LDContext context = LDContext.builder("user-key-123abc")
   .set("email", "sandy@example.com")
   .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -209,13 +182,8 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's one way to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: '6.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="6.0 syntax, context with object attributes">
 
 ```java
 LDValue addressData = LDValue.buildObject()
@@ -226,8 +194,8 @@ LDContext context = LDContext.builder("user-key-123abc")
   .set("address", addressData)
   .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are multiple ways you can construct attribute values. To learn more about additional methods, read [LDValue](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/LDValue.html).
 
@@ -252,14 +220,8 @@ In version 6.0, there are two scopes for which you can mark attributes as privat
 
 In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
-<CodeTabs
-  defaultValue="private-all"
-  values={[
-    { label: '6.0 syntax, all attributes marked private', value: 'private-all', },
-    { label: '6.0 syntax, two attributes marked private', value: 'private-some', },
-  ]
-}>
-<CodeTabItem value="private-all">
+<CodeSample>
+<CSTab label="6.0 syntax, all attributes marked private">
 
 ```java
 LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
@@ -269,8 +231,8 @@ LDConfig configWithAllAttributesPrivate = new LDConfig.Builder()
   )
   .build();
 ```
-</CodeTabItem>
-<CodeTabItem value="private-some">
+</CSTab>
+<CSTab label="6.0 syntax, two attributes marked private">
 
 ```java
 LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
@@ -280,20 +242,15 @@ LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
   )
   .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`privateAttributes`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/server/integrations/EventProcessorBuilder.html#privateAttributes(java.lang.String...)).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: '6.0 syntax, attribute marked private for one context', value: 'private', },
-  ]
-}>
-<CodeTabItem value="private">
+<CodeSample>
+<CSTab label="6.0 syntax, attribute marked private for one context">
 
 ```java
 LDContext context = LDContext.builder("key")
@@ -302,8 +259,8 @@ LDContext context = LDContext.builder("key")
   .privateAttributes("email")
   .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -321,13 +278,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '6.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="6.0 syntax, associating two contexts">
 
 ```java
 LDContext context1 = LDContext.create("user-key-123abc");
@@ -335,8 +287,8 @@ LDContext context2 = LDContext.create(ContextKind.of("device"), "device-key123ab
 LDContext multiContext = LDContext.createMulti(context1, context2);
 client.identify(multiContext);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`ContextBuilder`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/ContextBuilder.html) and [`ContextMultiBuilder`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/6.0.0/com/launchdarkly/sdk/ContextMultiBuilder.html).
 

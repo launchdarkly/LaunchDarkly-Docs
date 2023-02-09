@@ -87,13 +87,8 @@ First, install the LaunchDarkly SDK as a dependency in your application using yo
 
 In this example, it uses version 6.0.0:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'XML', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="XML">
 
 ```xml
 <dependency>
@@ -107,45 +102,35 @@ implementation group: 'com.launchdarkly', name: 'launchdarkly-java-server-sdk', 
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly client in your application code.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.*;
 import com.launchdarkly.sdk.server.*;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of [`LDClient`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDClient client = new LDClient("sdk-key-123abc");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -162,14 +147,8 @@ You can use `client` to check which variation a particular context will receive 
 
 In the v6 example, the context key is the string "context-key-123abc". In the v5 example, the user key is the string "user-key-123abc":
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6', value: 'java', },
-    { label: 'Java SDK v5', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 LDContext context = LDContext.builder("context-key-123abc")
@@ -186,8 +165,8 @@ else {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 LDUser user = new LDUser.Builder("user-key-123abc")
@@ -205,8 +184,8 @@ else {
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Using the Java SDK in OSGi
 
@@ -218,13 +197,8 @@ However, there is also a distribution that includes Gson and SLF4j as part of th
 
 To do so, add the classifier "all":
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'XML', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="XML">
 
 ```xml
 <!-- in Maven -->
@@ -239,8 +213,8 @@ To do so, add the classifier "all":
 "com.launchdarkly:launchdarkly-java-server-sdk:6.0.0:all"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>

@@ -76,19 +76,14 @@ The methods for [evaluating flags](/sdk/features/evaluating) and determining [fl
 
 Here's how to evaluate a flag using a context:
 
-<CodeTabs
-  defaultValue="variation"
-  values={[
-    { label: '8.0 syntax', value: 'variation', },
-  ]
-}>
-<CodeTabItem value="variation">
+<CodeSample>
+<CSTab label="8.0 syntax">
 
 ```python
 value = client.variation("flag-key-123abc", context, false)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding differences between users and contexts
 
@@ -98,54 +93,38 @@ The new Context type represents a context. There is no special type for users in
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '7.x syntax, user with key', value: 'user', },
-    { label: '8.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="7.x syntax, user with key">
 
 ```python
 user = {"key": "user-key-123abc"}
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="8.0 syntax, context with key">
 
 ```python
 from ldclient import Context
 
 context = Context.create("context-key-123abc")
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '8.0 syntax, single context shortcut', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="8.0 syntax, single context shortcut">
 
 ```python
 context1 = Context.create("org-key-123abc", "organization")
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '8.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="8.0 syntax, multi-context">
 
 ```python
 multi_context = Context.create_multi(
@@ -153,8 +132,8 @@ multi_context = Context.create_multi(
     Context.create("device-key-123abc", "device")
 )
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -172,14 +151,8 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '7.x syntax, user with attributes', value: 'user', },
-    { label: '8.0 syntax, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="7.x syntax, user with attributes">
 
 ```python
 user = {
@@ -191,18 +164,18 @@ user = {
     }
 }
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="8.0 syntax, context with attributes">
 
 ```python
-context = Context.builder("user-key-123abc") \
-    .name("Sandy") \
-    .set("email", "sandy@example.com") \
-    .set("groups", ["admin"]) \
+context = Context.builder("user-key-123abc")
+    .name("Sandy")
+    .set("email", "sandy@example.com")
+    .set("groups", ["admin"])
     .build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -212,22 +185,17 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's how to add object attributes to a context. A JSON object is represented as a dictionary in Python.
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: '8.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="8.0 syntax, context with object attributes">
 
 ```python
 address_data = {"street": "Main St", "city": "Springfield"}
-context = Context.builder("user-key-123abc") \
-    .set("address", address_data) \
+context = Context.builder("user-key-123abc")
+    .set("address", address_data)
     .build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -250,39 +218,27 @@ In version 8.0, there are two scopes for which you can mark attributes as privat
 
 In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
-<CodeTabs
-  defaultValue="private-all"
-  values={[
-    { label: '8.0 syntax, all attributes marked private', value: 'private-all', },
-    { label: '8.0 syntax, two attributes marked private', value: 'private-some', },
-  ]
-}>
-<CodeTabItem value="private-all">
+<CodeSample>
+<CSTab label="8.0 syntax, all attributes marked private">
 
 ```python
 config = Config(all_attributes_private=True)
 ```
-</CodeTabItem>
-<CodeTabItem value="private-some">
+</CSTab>
+<CSTab label="8.0 syntax, two attributes marked private">
 
 ```python
 config = Config(private_attributes=["name", "email"])
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Config.all_attributes_private`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.config.Config.all_attributes_private)) [`Config.private_attributes`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.config.Config.private_attributes)).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: '7.x syntax, attribute marked private for one user', value: 'user-private', },
-    { label: '8.0 syntax, attribute marked private for one context', value: 'context-private', },
-  ]
-}>
-<CodeTabItem value="user-private">
+<CodeSample>
+<CSTab label="7.x syntax, attribute marked private for one user">
 
 ```python
 user = {
@@ -292,18 +248,18 @@ user = {
     "privateAttributeNames": ["email"]
 }
 ```
-</CodeTabItem>
-<CodeTabItem value="context-private">
+</CSTab>
+<CSTab label="8.0 syntax, attribute marked private for one context">
 
 ```python
-context = Context.builder("context-key-123abc") \
-    .name("Sandy") \
-    .set("email", "sandy@example.com") \
-    .private("email") \
+context = Context.builder("context-key-123abc")
+    .name("Sandy")
+    .set("email", "sandy@example.com")
+    .private("email")
     .build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -321,13 +277,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '8.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="8.0 syntax, associating two contexts">
 
 ```python
 context1 = Context.create("user-key-123abc")
@@ -335,8 +286,8 @@ context2 = Context.create("device-key123abc", "device")
 multi_context = Context.create_multi(context1, context2)
 client.identify(multi_context)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Context`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.context.Context).
 

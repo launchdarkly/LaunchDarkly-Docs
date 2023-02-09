@@ -57,21 +57,16 @@ The estimated bandwidth usage of each of these actions is as follows:
 
 You can fetch the size of your environment payload using the following curl:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Payload calculation', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Payload calculation">
 
 ```bash
 curl -sH "Authorization: sdk-key-123abc" \
 https://sdk.launchdarkly.com/sdk/latest-all | wc -c
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After fetching the size of your payload, here is the calculation you can use to estimate bandwidth usage for initialization:
 

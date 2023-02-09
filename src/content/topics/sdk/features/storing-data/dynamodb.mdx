@@ -80,13 +80,8 @@ This feature is available in the following server-side SDKs:
 
 If using the .NET SDK, you must install the additional package [`LaunchDarkly.ServerSdk.DynamoDB`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -99,23 +94,10 @@ var config = Configuration.Builder(sdkKey)
     )
     .Build();
 var client = new LDClient(config);
-
-
-// Before version 6.0, the syntax was different:
-
-using LaunchDarkly.Client;
-using LaunchDarkly.Client.DynamoDB;
-
-var store = DynamoDBComponents.DynamoDBFeatureStore("my-table")
-    .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(30));
-
-var config = Configuration.Default(sdkKey)
-    .WithFeatureStoreFactory(store);
-var client = new LDClient(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`dotnet-server-sdk-dynamodb`](https://github.com/launchdarkly/dotnet-server-sdk-dynamodb).
 </Details>
@@ -126,15 +108,8 @@ To learn more, read [`dotnet-server-sdk-dynamodb`](https://github.com/launchdark
 
 The Go integration is in [`github.com/launchdarkly/go-server-sdk-dynamodb`](https://github.com/launchdarkly/go-server-sdk-redis) for version 5.0.0 or higher of the SDK. In versions 4.5.1 and higher, but below 5.0.0, it is in the main SDK distribution as the subpackage `lddynamodb`.
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-   ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -150,8 +125,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -167,8 +142,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`go-server-sdk-dynamodb`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-dynamodb).
 </Details>
@@ -179,14 +154,8 @@ To learn more, read [`go-server-sdk-dynamodb`](https://pkg.go.dev/github.com/lau
 
 If using the Java SDK, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-dynamodb-store`](https://github.com/launchdarkly/java-server-sdk-dynamodb). You must also add `software.amazon.awssdk.dynamodb` if your application does not already use the AWS SDK.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.server.*;
@@ -202,8 +171,8 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`java-server-sdk-dynamodb`](https://github.com/launchdarkly/java-server-sdk-dynamodb).
 </Details>
@@ -214,15 +183,8 @@ To learn more, read [`java-server-sdk-dynamodb`](https://github.com/launchdarkly
 
 If using the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-dynamodb`](https://github.com/launchdarkly/node-server-sdk-dynamodb). As of the 2.0.0 release of that package, the `aws-sdk` package that it uses is _not_ automatically loaded as a transitive dependency. This saves space when running in AWS Lambda, where `aws-sdk` is built in. If you are not running in Lambda, you must separately install `aws-sdk`.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -236,8 +198,8 @@ const options = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -252,11 +214,10 @@ const options: ld.LDOptions = {
   featureStore: store,
 };
 const client = ld.init('sdk-key-123abc', options);
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### PHP
@@ -269,14 +230,8 @@ In versions 3.x and earlier, the DynamoDB integration is built into the main SDK
 
 To use the DynamoDB integration:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $fr = LaunchDarkly\Integrations\DynamoDb::featureRequester([
@@ -287,8 +242,8 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc", [
 ]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`php-server-sdk-dynamodb`](https://github.com/launchdarkly/php-server-sdk-dynamodb).
 </Details>
@@ -299,14 +254,8 @@ To learn more, read [`php-server-sdk-dynamodb`](https://github.com/launchdarkly/
 
 The Python integration is part of the main SDK distribution as of version 6.7.0, but you must also install the package `boto3`.
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 import ldclient
@@ -321,8 +270,8 @@ config = Config(feature_store=store)
 ldclient.set_config(config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -331,14 +280,8 @@ ldclient.set_config(config)
 
 The Ruby integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `aws-sdk-dynamodb`.
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 require 'ldclient-rb'
@@ -352,6 +295,6 @@ config = LaunchDarkly::Config.new(
 client = LaunchDarkly::Client.new(sdk_key, config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

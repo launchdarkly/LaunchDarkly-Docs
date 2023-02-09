@@ -157,13 +157,8 @@ The `debug` event is a variant on the `feature` event, with two differences. It 
 
 Here is an example `debug` event:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Debug event', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Debug event">
 
 ```json
  {
@@ -183,8 +178,8 @@ Here is an example `debug` event:
   }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ​The `context` has the same schema as `context` objects for feature flag evaluation. The `creationDate` is the time the feature flag was requested as UNIX epoch time in milliseconds. The `key` is the key of the feature flag requested. The `value` is the value of the feature flag returned by feature flag evaluation. Finally, the `default` field, which is optional, should be set to `true` if feature flag evaluation failed and the value returned was the default value passed to `variation`. If the default field is omitted, it is assumed to be `false`.
 

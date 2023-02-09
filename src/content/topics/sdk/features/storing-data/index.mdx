@@ -73,15 +73,8 @@ The .NET SDK can use [Consul](/sdk/features/storing-data/consul#net-server-side)
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-    { label: 'C# (.NET SDK versions 5.14.x and earlier)', value: 'dotnet5', },
-  ]
-}>
-
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -96,20 +89,8 @@ var config = Configuration.Builder(sdkKey)
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="dotnet5">
-
-```csharp
-using LaunchDarkly.Client;
-
-var store = createSomeKindOfFeatureStore();
-var config = Configuration.Builder(sdkKey)
-    .FeatureStoreFactory(store)
-    .Build();
-```
-
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`ConfigurationBuilder.DataStore`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.ConfigurationBuilder.html#DataStore).
 
@@ -124,14 +105,8 @@ The C/C++ SDK can use [Redis](/sdk/features/storing-data/redis#cc-server-side) t
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', }
-  ]
-}>
-
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 #include <launchdarkly/api.h>
@@ -143,8 +118,8 @@ struct LDStoreInterface *store = ConstructYourFeatureStoreInterface();
 LDConfigSetFeatureStoreBackend(config, store);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use a persistent feature store without connecting to LaunchDarkly, use `LDConfigSetFeatureStoreBackend` as above, and then use [`LDConfigSetUseLDD`](https://launchdarkly.github.io/c-server-sdk/config_8h.html#a1adabf587a063f4a2c97bb5927458963) to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#cc-server-side).
 </Details>
@@ -157,14 +132,8 @@ The Erlang SDK can use [Redis](/sdk/features/storing-data/redis#erlang) to hold 
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', }
-  ]
-}>
-
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 LdOptions = #{
@@ -173,8 +142,8 @@ LdOptions = #{
 ldclient:start_instance("sdk-key-123abc", LdOptions).
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` option to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#erlang).
 </Details>
@@ -187,15 +156,8 @@ The Go SDK can use [Consul](/sdk/features/storing-data/consul#go), [DynamoDB](/s
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -211,8 +173,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -228,8 +190,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`PersistentDataStore`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/ldcomponents#PersistentDataStore).
 
@@ -244,15 +206,8 @@ The Haskell SDK can use [Redis](/sdk/features/storing-data/redis#haskell) to hol
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', }
-  ]
-}>
-
-
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 import LaunchDarkly.Server
@@ -265,8 +220,8 @@ main = do
     client <- makeClient config
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use a persistent feature store without connecting to LaunchDarkly, use `configSetStoreBackend` as above, and then use `configSetUseLdd` to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#haskell).
 </Details>
@@ -279,14 +234,8 @@ The Java SDK can use [Consul](/sdk/features/storing-data/consul#java), [DynamoDB
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', }
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.server.*;
@@ -302,8 +251,8 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Components.persistentDataStore`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/Components.html#persistentDataStore(com.launchdarkly.sdk.server.subsystems.ComponentConfigurer)).
 
@@ -318,14 +267,8 @@ The module `launchdarkly_server_sdk_redis` allows feature flag data to be cached
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', }
-  ]
-}>
-
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local l = require("launchdarkly_server_sdk")
@@ -338,8 +281,8 @@ local c = l.clientInit({
 )}
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `featureStoreBackend` as above, and then set the `useLDD` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#lua).
 </Details>
@@ -352,15 +295,8 @@ The Node.js SDK can use [Consul](/sdk/features/storing-data/consul#nodejs-server
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -372,8 +308,8 @@ const options = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -386,8 +322,8 @@ const options: ld.LDOptions = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `featureStore` property as above, and then set the `useLdd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#nodejs-server-side).
 </Details>
@@ -404,15 +340,8 @@ Another difference from other SDKs is that the PHP SDK does not have an in-memor
 
 To read from a persistent feature store without connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-    { label: 'PHP SDK 3.4.x and earlier', value: 'php34', },
-  ]
-}>
-
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc", [
@@ -420,17 +349,8 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc", [
 ]);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php34">
-
-```php
-$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
-    'feature_requester_class' => 'LaunchDarkly\NameOfDatabaseFeatureRequester'
-]);
-```
-
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Prior to version 4.0, the database integrations were included in the main PHP SDK package. Starting in version 4.0, they are in separate packages.
 </Details>
@@ -443,15 +363,8 @@ The Python SDK can use [Consul](/sdk/features/storing-data/consul), [DynamoDB](/
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', }
-  ]
-}>
-
-
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 import ldclient
@@ -462,8 +375,8 @@ config = Config(feature_store=store)
 ldclient.set_config(config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#python).
 </Details>
@@ -478,14 +391,8 @@ These adapters are implemented in the `LaunchDarkly::Integrations::Redis`, `Laun
 
 To use a persistent feature store while connecting to LaunchDarkly:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', }
-  ]
-}>
-
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 require 'ldclient-rb'
@@ -497,8 +404,8 @@ config = LaunchDarkly::Config.new(
 client = LaunchDarkly::Client.new(sdk_key, config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use a persistent feature store without connecting to LaunchDarkly, set the `feature_store` property as above, and then set the `use_ldd` property to configure daemon mode. To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#ruby).
 </Details>

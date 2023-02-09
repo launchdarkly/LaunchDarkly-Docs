@@ -77,10 +77,10 @@ The following sections of the UI are new or have changed:
   - [Percentage rollouts](/home/flags/rollouts)
   - [Individual targeting](/home/flags/individual-targeting)
   - [Bulk targeting](/home/flags/bulk-targeting)
-- The [**Contexts**  list](/home/contexts/contexts-list), including:
+- The [**Contexts** list](/home/contexts/contexts-list), including:
   - The [Context details page](/home/contexts/context-details)
   - The [Context **Kinds** tab](/home/contexts/context-kinds)
-  
+
 Read about and learn how to navigate these sections before you update your flag targeting rules.
 
 ## Update the Relay Proxy, if applicable
@@ -105,11 +105,12 @@ One significant feature change is that SDKs that support contexts no longer supp
 
 ## Choose your context kinds
 
-First, consider how you want to track and target your customers. "User" is the default context kind, and is automatically available for use. In addition to users, decide if you need to target particular organizations, businesses, locations, or account types. These categories will be your context kinds. You can add specific attributes later. 
+First, consider how you want to track and target your customers. "User" is the default context kind, and is automatically available for use. In addition to users, decide if you need to target particular organizations, businesses, locations, or account types. These categories will be your context kinds. You can add specific attributes later.
 
 Some common context kinds include device, location, organization, and account type. You may already have a mental model of your "users" as stand-ins for other kinds of contexts. For example, if you have a custom user attribute of "organization" and you have many flags that target on that user attribute, you may want to create an "organization" context kind.
 
 If you use experimentation, think about what context kinds you may want to run experiments on. You can target any context kind when building your experiment audience. Currently, experiments can only randomize variations by the "user" context kind. When contexts are no longer part of the EAP and are generally available, experiments will be able to randomize on any context kind.
+
 <!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 ![The context "Kinds" tab.](contexts-kinds-tab.png)
@@ -136,9 +137,9 @@ Think about when you want to use multi-contexts. For example, you may want to as
 
 For example, these multi-contexts have three contexts each:
 
-* "user", with the attributes of "first name" and "last name" 
-* "organization" with an attribute of "name"
-* "location" with an attribute of "city"
+- "user", with the attributes of "first name" and "last name"
+- "organization" with an attribute of "name"
+- "location" with an attribute of "city"
 
 Here's an illustration:
 
@@ -152,7 +153,7 @@ To learn more, read [Understanding context attributes](/home/contexts/attributes
 
 Any user attributes that were previously built-in and are no longer built-in for contexts (such as `firstName`, `lastName`, `email`, and so on) have become custom attributes. For any context kind other than "user," you must add the context kind and its associated attributes to your code base. Then, map existing attributes to one or more contexts.
 
-For example: 
+For example:
 
 - `application-version` on the user object becomes `version` on the "application" context kind
 - `store-id` on the user object becomes `key` on the "store" context kind
@@ -161,18 +162,12 @@ Now, `application-version` and `store-id` are legacy attributes.
 
 Here is an example of a user object:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: 'Legacy user object', value: 'user', },
-  ]
-}>
-
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="Legacy user object">
 
 ```json
 {
-"user": {
+  "user": {
     "key": "user-key-abc123",
     "name": "Sandy S",
     "firstName": "Sandy",
@@ -189,22 +184,15 @@ Here is an example of a user object:
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 That user object, if translated into a multi-context with kinds of "account," "owner," "environment," "member," and "user" looks like this:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: ' Multi-context', value: 'context', },
-  ]
-}>
-
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="Multi-context">
 
 ```json
-
 {
   "kind": "multi",
   "account": {
@@ -243,12 +231,12 @@ That user object, if translated into a multi-context with kinds of "account," "o
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The legacy attributes are all retained under the "user" kind.
 
-Each of your application teams should modify their SDKs to send a multi-context, containing the "user" context kind and whatever other context kinds you’re using. 
+Each of your application teams should modify their SDKs to send a multi-context, containing the "user" context kind and whatever other context kinds you’re using.
 
 In the "user" context, include all of your legacy attributes. Pass any other contexts with their newly defined attributes. This ensures that your feature flags can still evaluate your contexts using the "user" context and its legacy attributes, in case there are any issues with the new context kinds during testing.
 
@@ -265,6 +253,7 @@ Here is an example of a flag targeting the "state" attribute of a "location" con
 ![A flag rule targeting the "state" attribute of a "location" context kind.](upgrading-contexts-flag-rule.png)
 
 If you have flags that target segments, your standard segments can target by multiple context kinds. Big Segments can target by only the "user" context kind. When contexts are no longer part of the EAP and are generally available, Big Segments will be able to target any context kind. To learn more, read [Segments](/home/contexts/segments).
+
 <!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 ## Review your experiments
@@ -272,6 +261,7 @@ If you have flags that target segments, your standard segments can target by mul
 If you have decided to add new context kinds, you should review your running experiments to determine if they need changes. LaunchDarkly automatically updates any running experiments to target user kinds. However, if you decide to edit a flag's targeting rule to target a different context kind, you must start a new iteration of that experiment.
 
 For new experiments, the flag can target any context kind when building your experimentation audience. However, currently you can only assign variations by the "user" context kind when you allocate your experiment’s traffic. When contexts are no longer part of the EAP and are generally available, experiments will be able to assign contexts to variations by any context kind. To learn more, read [Using targeting rules](/home/creating-experiments/allocation#using-targeting-rules).
+
 <!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 ## Confirm that your SDKs are sending contexts to LaunchDarkly
@@ -301,6 +291,7 @@ After you have confirmed that your SDKs and flag rules are working correctly, yo
 ## Conclusion
 
 In this guide, you learned about how to upgrade your SDKs and edit your feature flags to begin using contexts. Contexts give you greatly expanded flexibility to precisely target end users, devices, organizations, and other entities to meet your complex business needs. As you begin using contexts as part of our Early Access Program, don't hesitate to contact us with your feedback.
+
 <!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
 
 <Callout intent="primary" site="launchDarkly">

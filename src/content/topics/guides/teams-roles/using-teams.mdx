@@ -117,14 +117,8 @@ Sometimes a team and project should be kept private due to security or other org
 
 The following code sample restricts view and edit access to a project called `project-1` and a team called `team-1`:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Private project and team', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Private project and team">
 
 ```json
 [
@@ -141,8 +135,8 @@ The following code sample restricts view and edit access to a project called `pr
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Alternatively, to prevent members from viewing content in LaunchDarkly unless you give them access, you can uncheck the box below when you create a custom role. When this box is unchecked, you do not need to explicitly deny view access to projects because the custom role starts with no view or write access to anything in LaunchDarkly. Instead you must explicitly allow view or write access to relevant projects and other LaunchDarkly resources.
 

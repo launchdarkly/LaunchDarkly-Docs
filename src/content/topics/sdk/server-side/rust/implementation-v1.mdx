@@ -73,19 +73,14 @@ The methods for [evaluating flags](/sdk/features/evaluating) and determining [fl
 
 Here's how to evaluate a flag using a context:
 
-<CodeTabs
-  defaultValue="variation"
-  values={[
-    { label: '1.0 syntax', value: 'variation', },
-  ]
-}>
-<CodeTabItem value="variation">
+<CodeSample>
+<CSTab label="1.0 syntax">
 
 ```rust
 let value = client.bool_variation(&context, "flag-key-123abc", false);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding differences between users and contexts
 
@@ -93,54 +88,38 @@ Where you previously created users, now you must create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: 'Beta syntax, user with key', value: 'user', },
-    { label: '1.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="Beta syntax, user with key">
 
 ```rust
 let user1 = User::with_key("user-key-123abc").build();
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="1.0 syntax, context with key">
 
 ```rust
 let context = ContextBuilder::new("context-key-123abc").build()?;
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '1.0 syntax, single context builder', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="1.0 syntax, single context builder">
 
 ```rust
 let context = ContextBuilder::new("context-key-123abc")
     .kind("organization")
     .build()?;
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '1.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="1.0 syntax, multi-context">
 
 ```rust
 let user_context = ContextBuilder::new("user-key-123abc").build()?;
@@ -156,8 +135,8 @@ let multi_context = MultiContextBuilder::new()
 
 client.identify(multi_context);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -175,14 +154,8 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: 'Beta syntax, user with attributes', value: 'user', },
-    { label: '1.0 syntax, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="Beta syntax, user with attributes">
 
 ```rust
 // User with only a key
@@ -199,8 +172,8 @@ builder.email("sandy@example.com");
 builder.custom(custom);
 let user2 = builder.build();
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="1.0 syntax, context with attributes">
 
 ```rust
 let context = ContextBuilder::new("user-key-123abc")
@@ -208,8 +181,8 @@ let context = ContextBuilder::new("user-key-123abc")
     .set_value("email", "sandy@example.com".into())
     .build()?;
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -219,13 +192,8 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's how to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: '1.0 syntax', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="1.0 syntax">
 
 ```rust
 let context = ContextBuilder::new("context-key123abc")
@@ -238,8 +206,8 @@ let context = ContextBuilder::new("context-key123abc")
     )
     .build()?;
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -264,13 +232,8 @@ In version 1, you can make all attributes private with the same configuration as
 
 In this example, the "email" and "address" attributes are private for all contexts:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: '1.0 syntax, two attributes marked private for all contexts', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="1.0 syntax, two attributes marked private for all contexts">
 
 ```rust
 let config_builder = ConfigBuilder::new("sdk-key-123abc");
@@ -283,26 +246,21 @@ processor_builder.private_attributes(
 config_builder.event_processor(&processor_builder);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [the SDK's API documentation](https://docs.rs/launchdarkly-server-sdk/1.0.0).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: '1.0 syntax, attribute marked private for one context', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="1.0 syntax, attribute marked private for one context">
 
 ```rust
 ContextBuilder::new("context-key-123abc").add_private_attribute(Reference::new("/address/street"))
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -320,13 +278,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: '1.0 syntax', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="1.0 syntax">
 
 ```rust
 let user_context = ContextBuilder::new("user-key-123abc").build()?;
@@ -341,8 +294,8 @@ let multi_context = MultiContextBuilder::new()
     .build()?;
 client.identify(multi_context);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [the SDK's API documentation](https://docs.rs/launchdarkly-server-sdk/1.0.0).
 

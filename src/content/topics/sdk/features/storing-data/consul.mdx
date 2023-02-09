@@ -52,13 +52,8 @@ This feature is available in the following server-side SDKs:
 
 If using the .NET SDK, you must install the additional package [`LaunchDarkly.ServerSdk.Consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -71,21 +66,10 @@ var config = Configuration.Builder(sdkKey)
     )
     .Build();
 var client = new LDClient(config);
-// Before version 6.0, the syntax was different:
-
-using LaunchDarkly.Client;
-using LaunchDarkly.Client.Consul;
-
-var store = ConsulComponents.ConsulFeatureStore()
-    .WithAddress(new Uri("http://my-consul:8100"))
-    .WithCaching(FeatureStoreCacheConfig.Enabled.WithTtlSeconds(30));
-
-var config = Configuration.Default(sdkKey)
-    .WithFeatureStoreFactory(store);
-var client = new LDClient(config);
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 To learn more, read [`dotnet-server-sdk-consul`](https://github.com/launchdarkly/dotnet-server-sdk-consul).
 </Details>
@@ -96,15 +80,8 @@ To learn more, read [`dotnet-server-sdk-consul`](https://github.com/launchdarkly
 
 The Go integration is in [`github.com/launchdarkly/go-server-sdk-consul`](https://github.com/launchdarkly/go-server-sdk-consul) for version 5.0.0 or higher of the SDK. In versions 4.5.0 and higher, but below 5.0.0, it is in the main SDK distribution as the subpackage `ldconsul`.
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -122,8 +99,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -141,8 +118,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`go-server-sdk-consul`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-consul).
 </Details>
@@ -153,14 +130,8 @@ To learn more, read [`go-server-sdk-consul`](https://pkg.go.dev/github.com/launc
 
 If using the Java SDK, you must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-consul-store`](https://github.com/launchdarkly/java-server-sdk-consul).
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },,
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.server.*;
@@ -177,8 +148,8 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`java-server-sdk-consul`](https://github.com/launchdarkly/java-server-sdk-consul).
 </Details>
@@ -189,15 +160,8 @@ To learn more, read [`java-server-sdk-consul`](https://github.com/launchdarkly/j
 
 If using the Node.js SDK you must install the additional package [`launchdarkly-node-server-consul`](https://github.com/launchdarkly/node-server-sdk-consul).
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts' },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -218,8 +182,8 @@ const options = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -241,8 +205,8 @@ const options: ld.LDOptions = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### PHP
@@ -255,14 +219,8 @@ In versions 3.x and earlier, the Consul integration is built into the main SDK p
 
 To use the Consul integration:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $fr = LaunchDarkly\Integrations\Consul::featureRequester([
@@ -274,8 +232,8 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc", [
 ]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`php-server-sdk-consul`](https://github.com/launchdarkly/php-server-sdk-consul).
 </Details>
@@ -286,14 +244,8 @@ To learn more, read [`php-server-sdk-consul`](https://github.com/launchdarkly/ph
 
 The Python integration is part of the main SDK distribution as of version 6.8.1, but you must also install the package `python-consul`. Python 3.3 and 3.4 are not supported.
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 import ldclient
@@ -308,8 +260,8 @@ config = Config(feature_store=store)
 ldclient.set_config(config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -318,14 +270,8 @@ ldclient.set_config(config)
 
 The Ruby integration is part of the main SDK distribution as of version 5.1.1, but you must also install the gem `diplomat`.
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 require 'ldclient-rb'
@@ -339,6 +285,6 @@ config = LaunchDarkly::Config.new(
 client = LaunchDarkly::Client.new(sdk_key, config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

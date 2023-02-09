@@ -29,13 +29,8 @@ Make the source of the Lua SDK accessible to OpenRESTY. You can control imports 
 
 For example:
 
-<CodeTabs
-  defaultValue="nginx"
-  values={[
-    { label: 'NGINX', value: 'nginx', },
-  ]
-}>
-<CodeTabItem value="nginx">
+<CodeSample>
+<CSTab label="NGINX">
 
 ```nginx
 http {
@@ -44,8 +39,8 @@ http {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Preparing the C/C++ server-side SDK
 
@@ -68,13 +63,8 @@ Initialize each NGINX worker process exactly once for ideal operations. You can 
 
 Here is an example of initialization logic:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local ld = require("launchdarkly_server_sdk")
@@ -87,18 +77,13 @@ local config = {
 return ld.clientInit(config, 1000)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Later we can use the result of this initialization process in other directives.
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local ld     = require("launchdarkly_server_sdk")
@@ -116,8 +101,8 @@ else
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Example: Feature flagged reverse proxy
 
@@ -125,13 +110,8 @@ This [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) example demons
 
 The example follows:
 
-<CodeTabs
-  defaultValue="nginx"
-  values={[
-    { label: 'NGINX', value: 'nginx', },
-  ]
-}>
-<CodeTabItem value="nginx">
+<CodeSample>
+<CSTab label="NGINX">
 
 ```nginx
 location / {
@@ -154,8 +134,8 @@ location / {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

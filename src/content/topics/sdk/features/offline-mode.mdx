@@ -56,13 +56,8 @@ In some situations, you might want avoid remote calls to LaunchDarkly and use fa
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 Configuration config = Configuration.Builder("SDK_KEY")
@@ -71,8 +66,8 @@ Configuration config = Configuration.Builder("SDK_KEY")
 LdClient client = LdClient.Init(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Android
@@ -83,18 +78,12 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java for Android SDK v4.0', value: 'java' },
-    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
-    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
-    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
 
 ```java
+// Android SDK v4.0 (Java)
+
 LDConfig ldConfig = new LDConfig.Builder()
     .setMobileKey("mobile-key-123abc")
     .setOffline(true)
@@ -106,10 +95,12 @@ LDClient client = LDClient.init(this.getApplication(), ldConfig, context);
 client.setOffline();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
+// Android SDK v4.0 (Kotlin)
+
 val config: LDConfig = LDConfig.Builder()
     .setMobileKey("YOUR_MOBILE_KEY")
     .setOffline(true)
@@ -121,10 +112,12 @@ val client: LDClient = LDClient.init(application, ldConfig, context);
 client.setOffline()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
 
 ```java
+// Android SDK v3.x (Java)
+
 LDConfig ldConfig = new LDConfig.Builder()
     .setMobileKey("YOUR_MOBILE_KEY")
     .setOffline(true)
@@ -136,10 +129,12 @@ LDClient client = LDClient.init(this.getApplication(), ldConfig, user);
 client.setOffline();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
+// Android SDK v3.x (Kotlin)
+
 val config: LDConfig = LDConfig.Builder()
     .setMobileKey("mobile-key-123abc")
     .setOffline(true)
@@ -151,8 +146,8 @@ val client: LDClient = LDClient.init(application, ldConfig, user);
 client.setOffline()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Flutter
@@ -163,13 +158,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDConfig ldConfig = LDConfigBuilder('mobile-key-123abc')
@@ -182,8 +172,8 @@ await LDClient.start(ldConfig, user);
 await LDClient.setOnline(false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### iOS
@@ -204,14 +194,8 @@ Use `isOnline` to get the online/offline state.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 LDClient.get()!.setOnline(false)
@@ -221,8 +205,8 @@ LDClient.get()!.setOnline(true) {
 let connectionStatus = LDClient.get()!.isOnline
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 [[LDClient get] setOnline:NO];
@@ -231,8 +215,8 @@ let connectionStatus = LDClient.get()!.isOnline
 }];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native
@@ -243,13 +227,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let offlineResult = client.setOffline(); //true or false
@@ -257,8 +236,8 @@ let offlineStatus = client.isOffline(); //true or false
 let onlineResult = client.setOnline(); //true or false
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -287,13 +266,8 @@ In some situations, you might want avoid remote calls to LaunchDarkly and use fa
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 Configuration config = Configuration.Builder("SDK_KEY")
@@ -302,8 +276,8 @@ Configuration config = Configuration.Builder("SDK_KEY")
 LdClient client = new LdClient(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (server-side)
@@ -314,20 +288,15 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDConfigSetOffline(config, true);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Erlang
@@ -340,20 +309,15 @@ You can do this by setting offline mode in the config map with the `offline` key
 
 Here's how:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
-```
+```erlang
 ldclient:start_instance("sdk-key-123abc", #{offline => true})
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -364,14 +328,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' }
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 var config ld.Config
@@ -381,8 +339,8 @@ client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
 client.BoolVariation("any.feature.flag", context, false) // will always return the default value (false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 var config ld.Config
@@ -392,8 +350,8 @@ client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
 client.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Haskell
@@ -404,20 +362,15 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 config' = configSetOffline True config
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -428,14 +381,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -449,8 +396,8 @@ client.boolVariation("flag-key-123abc", context, false)
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -464,8 +411,8 @@ client.boolVariation("any.feature.flag", user, false)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -477,27 +424,23 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js SDK v7 (JavaScript)', value: 'js', },
-    { label: 'Node.js SDK v7 (TypeScript)', value: 'ts', },
-    { label: 'Node.js SDK v6.x and older (JavaScript)', value: 'js-old', },
-    { label: 'Node.js SDK v6.x and older (TypeScript)', value: 'ts-old', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
 
 ```js
+// Node.js SDK v7.0 (JavaScript)
+
 const options = { offline: true };
 client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="Node.js SDK v7.0 (TypeScript)">
 
 ```ts
+// Node.js SDK v7.0 (TypeScript)
+
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const options: ld.LDOptions = { offline: true };
@@ -505,20 +448,24 @@ const client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', context, false, cb); // cb will always be invoked with the default value (false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x and earlier (JavaScript)">
 
 ```js
+// Node.js SDK v6.x and earlier (JavaScript)
+
 const options = { offline: true };
 client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x and earlier (TypeScript)">
 
 ```ts
+// Node.js SDK v6.x and earlier (TypeScript)
+
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const options: ld.LDOptions = { offline: true };
@@ -526,8 +473,8 @@ const client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', user, false, cb); // cb will always be invoked with the default value (false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The default value you set in the variation method is returned in offline mode. This does not refer to the default rule set in your flag configuration.
 </Details>
@@ -540,30 +487,24 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc", ["offline" => true]);
 $client->variation("any.feature.flag", $context, false); // will always return the default value (false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc", ["offline" => true]);
 $client->variation("any.feature.flag", $user, false); // will always return the default value (false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -574,14 +515,8 @@ In some situations, you might want avoid remote calls to LaunchDarkly and use fa
 
 Here's how:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 # Initialization:
@@ -590,8 +525,8 @@ ldclient.get().variation("any.feature.flag", context, False) # will always retur
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 # Initialization:
@@ -600,8 +535,8 @@ ldclient.get().variation("any.feature.flag", context, False) # will always retur
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -612,14 +547,8 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 config = LaunchDarkly::Config.new({offline: true})
@@ -627,8 +556,8 @@ client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
 client.variation("any.feature.flag", context, false) # will always return the default value (false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 config = LaunchDarkly::Config.new({offline: true})
@@ -636,8 +565,8 @@ client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
 client.variation("any.feature.flag", user, false) # will always return the default value (false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Rust
@@ -648,28 +577,22 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust SDK v1', value: 'rust', },
-    { label: 'Rust SDK beta', value: 'rust-beta', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust SDK v1">
 
 ```rust
 let config = ConfigBuilder::new("sdk-key-123abc").offline(true).build();
 let ld_client = Client::build(config).unwrap();
 ld_client.bool_variation(&context, "flag-key-123abc", false); // will always return the default value (false)
 ```
-</CodeTabItem>
-<CodeTabItem value="rust-beta">
+</CSTab>
+<CSTab label="Rust SDK beta">
 
 ```rust
 let config = ConfigBuilder::new("sdk-key-123abc").offline(true).build();
 let ld_client = Client::build(config).unwrap();
 ld_client.bool_variation(&user, "flag-key-123abc", false); // will always return the default value (false)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

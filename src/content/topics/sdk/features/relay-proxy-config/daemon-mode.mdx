@@ -40,16 +40,10 @@ This feature is available for the following server-side SDKs:
 
 Use the `DataStore` builder method to set a persistent feature store. Then, use the `DataSource` builder method and `Components.ExternalUpdatesOnly` to configure daemon mode:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
-
 var config = Configuration.Builder("sdk-key-123abc")
     .DataStore(
         Components.PersistentDataStore(
@@ -60,8 +54,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (server-side)
@@ -70,13 +64,8 @@ var config = Configuration.Builder("sdk-key-123abc")
 
 Use `LDConfigSetFeatureStoreBackend` to set a persistent feature store. Then, use `LDConfigSetUseLDD` to configure daemon mode:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label:'C/C++', value: 'c' },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 struct LDConfig *config = LDConfigNew("sdk-key-123abc");
@@ -87,8 +76,8 @@ LDConfigSetFeatureStoreBackend(config, store);
 LDConfigSetUseLDD(config, true);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Erlang
@@ -97,24 +86,18 @@ LDConfigSetUseLDD(config, true);
 
 Set the `feature_store` property to use a persistent data store. Then set the `use_ldd` property to configure daemon mode:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', }
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
-```
+```erlang
 ldclient:start_instance("sdk-key-123abc", #{
   use_ldd => true,
   feature_store => your_feature_store
 })
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -123,13 +106,8 @@ ldclient:start_instance("sdk-key-123abc", #{
 
 Use `PersistentDataStore()` to set the persistent data store. Then, use `ExternalUpdatesOnly()` to configure daemon mode:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 config := ld.Config{
@@ -141,8 +119,8 @@ config := ld.Config{
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Haskell
@@ -151,13 +129,8 @@ config := ld.Config{
 
 Use `configSetStoreBackend` to set the persistent data store. Then, use `configSetUseLdd` to configure daemon mode:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', }
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
@@ -172,8 +145,8 @@ config = (makeConfig "sdk-key-123abc")
     & configSetStoreBackend backend
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -182,13 +155,8 @@ config = (makeConfig "sdk-key-123abc")
 
 Set the `dataStore` property to `persistentDataStore()` to use the persistent data store. Then, set the `dataSource` property to `externalUpdatesOnly()` to configure daemon mode:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -199,11 +167,10 @@ LDConfig config = new LDConfig.Builder()
   )
   .dataSource(Components.externalUpdatesOnly())
   .build();
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Lua
@@ -212,16 +179,10 @@ LDConfig config = new LDConfig.Builder()
 
 Set the `featureStoreBackend` property to use the persistent data store. Then, set the `useLDD` property to configure daemon mode:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
-
 local backend = makeYourBackendInterface()
 
 local config = {
@@ -229,11 +190,10 @@ local config = {
     featureStoreBackend = backend,
     useLDD = true
 }
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -242,17 +202,10 @@ local config = {
 
 Set the `featureStore` property to use a persistent feature store. Then, set the `useLdd` property to configure daemon mode:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
-
 const store = SomeKindOfFeatureStore(storeOptions);
 
 const options = {
@@ -261,8 +214,8 @@ const options = {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-node-server-sdk';
@@ -275,8 +228,8 @@ const options: LaunchDarkly.LDOptions = {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### PHP
@@ -285,21 +238,16 @@ const options: LaunchDarkly.LDOptions = {
 
 Set the `feature_requester` property to use a persistent data store and daemon mode:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc",
     [ 'feature_requester' => LaunchDarkly\Integrations\NameOfDatabase::featureRequester() ]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -308,13 +256,8 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc",
 
 Set the `feature_store` property to use a persistent data store. Then, set the `use_ldd` property to configure daemon mode:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python', value: 'python' },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 store = SomeKindOfFeatureStore(store_options)
@@ -324,8 +267,8 @@ config = Config(
   use_ldd=True)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -334,13 +277,8 @@ config = Config(
 
 Set the `feature_store` property to use a persistent feature store. Then, set the `use_ldd` property to configure daemon mode:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', }
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 
@@ -352,6 +290,6 @@ config = LaunchDarkly::Config.new(
 )
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

@@ -40,13 +40,14 @@ Flag targeting lets you control which users receive which variation of a feature
 
 <LearnMore>
 
-Learn more: [Creating flags using the API](https://apidocs.launchdarkly.com/tag/Feature-flags)
+You can also use the REST API: [Creating flags using the API](https://apidocs.launchdarkly.com/tag/Feature-flags)
 
 </LearnMore>
 
 ### Testing types
 
 This guide discusses the following test types:
+
 - **Unit tests:** unit tests break down testing into small, manageable chunks by automating tests on individual units of code. Unit tests run quickly and can be run while you’re still working on your code. You should parse your unit tests into the smallest pieces possible so you can test individual functions. Unit tests are a type of automated testing.
 - **Mock tests:** mock tests are a type of unit test that let you test your code within a simulated version of an internal or external service. The simulation isolates the behavior of your code so you can focus on the code being tested, and not on the behavior of the service. Any variables external to the mock, such as values coming from an SDK, should be as firmly controlled as possible. Mock tests are a type of automated testing.
 - **Integration and end-to-end tests:** integration and end-to-end tests assess multiple pieces of code working together. In contrast to mock testing, these test real components and services and how they interact with each other. Because of their increased complexity, integration and end-to-end tests are slower and more complex than unit and mock tests. Integration and end-to-end tests are types of automated testing.
@@ -79,14 +80,8 @@ The code for sending queries to each search engine is separated into dedicated f
 
 Here's the code we're testing:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example unit test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example unit test">
 
 ```js
 function newSearch(searchQuery) {
@@ -114,19 +109,13 @@ function search(searchQuery) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This unit test checks that the correct search function is being called depending on the flag variations of `true` for the new engine and `false` for the old engine:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example unit test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example unit test">
 
 ```js
 function testNewSearch() {
@@ -166,8 +155,8 @@ function testSearchWithNewSearchOff() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Mock testing
 
@@ -198,12 +187,14 @@ Using a dedicated LaunchDarkly environment with targeting is similar to the prev
 To learn more, read [Creating targeting rules](/home/flags/targeting-rules#creating-targeting-rules).
 
 To ensure the correct use of targeting in test runs, the test must meet these requirements:
+
 - The code must supply a distinct but predictable user object for each test.
 - Each flag used in a test must have a targeting configuration that returns the correct flag variation for that test’s user object.
 
 There are many options for setting up a user object to reflect the needed flag values for the current test.
 
 Here are some examples:
+
 - Perform each test as a distinct app user. Send the user’s ID as the `key` in the user object, which LaunchDarkly matches in flags’ individual user targeting.
 - Specify the name of the test in a custom attribute that LaunchDarkly matches in the test’s targeting rules.
 - Specify a separate custom attribute for each flag and the variation required of that flag.
@@ -229,69 +220,57 @@ Cypress tests can fail if you don’t have the right flag settings in your testi
 To begin, create the following custom Cypress command: `setUserFlags(flags: LDFlagSet)`.
 
 This command:
+
 - Accepts an argument that maps flag keys to variation values, and adds the configured user to the variation with the specified value for each flag included in the argument.
 - Turns each flag on so the user targeting can take effect. If the user is already targeted to receive a variation of a flag other than the requested variation, this command will remove the user from the current variation and add them to the requested variation.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example Cypress test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example Cypress test">
 
 ```js
 // target the configured user to receive the 'true' value of the specified flags
 cy.setUserFlags({
-      'flag-key-1': true,
-      'flag-key-2': true,
-      'flag-key-3': true,
-    });
-
+  'flag-key-1': true,
+  'flag-key-2': true,
+  'flag-key-3': true,
+})
 
 // target the configured user to receive the 'false' value of the specified flags
 cy.setUserFlags({
-      'flag-key-1': false,
-      'flag-key-2': false,
-      'flag-key-3': false,
-    });
+  'flag-key-1': false,
+  'flag-key-2': false,
+  'flag-key-3': false,
+})
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, create `clearUserFlags(flags: LDFlagSet)`.
 
 This command:
+
 - Accepts an argument that maps flag keys to variation values.
 - Removes the configured user from the variation with the specified value for each flag included in the argument.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example Cypress test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example Cypress test">
 
 ```js
 // remove the configured user from the 'true' variation of the specified flags
- cy.clearUserFlags({
-      'flag-key-1': true,
-      'flag-key-2': true,
-      'flag-key-3': true,
-    });
+cy.clearUserFlags({
+  'flag-key-1': true,
+  'flag-key-2': true,
+  'flag-key-3': true,
+})
 ```
 
-</CodeTabItem>
-</CodeTabs>
-
+</CSTab>
+</CodeSample>
 
 You can use this plugin to write Cypress tests that cover all configurations of your LaunchDarkly instance, instead of running Cypress tests against fixed configurations.
 

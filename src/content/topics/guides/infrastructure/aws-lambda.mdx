@@ -137,21 +137,16 @@ After you download the function locally, install the [LaunchDarkly Node SDK](/sd
 
     Use this code:
 
-    <CodeTabs
-    defaultValue="js"
-    values={[
-        { label: 'JavaScript', value: 'js', }
-    ]
-    }>
-    <CodeTabItem value="js">
+    <CodeSample>
+    <CSTab label="JavaScript">
 
     ```js
     const LaunchDarkly = require('launchdarkly-node-server-sdk')
     const client = LaunchDarkly.init('sdk-key-123abc')
     ```
 
-   </CodeTabItem>
-   </CodeTabs>
+   </CSTab>
+   </CodeSample>
 
    <Callout intent="info">
    <CalloutTitle>Lambda@Edge does not support environment variables.</CalloutTitle>
@@ -166,13 +161,8 @@ After you download the function locally, install the [LaunchDarkly Node SDK](/sd
 
 4. Test your setup by initializing LaunchDarkly and returning a response indicating whether it has succeeded or failed.
 
-    <CodeTabs
-    defaultValue="js"
-    values={[
-        { label: 'JavaScript', value: 'js', }
-    ]
-    }>
-    <CodeTabItem value="js">
+    <CodeSample>
+    <CSTab label="JavaScript">
 
     ```js
     exports.handler = async (event) => {
@@ -189,8 +179,8 @@ After you download the function locally, install the [LaunchDarkly Node SDK](/sd
     };
     ```
 
-    </CodeTabItem>
-    </CodeTabs>
+    </CSTab>
+    </CodeSample>
 
 5. To update the Lambda function, including uploading the npm dependencies, open the AWS panel in VS Code. Right-click the function and select "Upload." When prompted, choose "Directory" and then select the directory that the Lambda function is in. When it asks you whether to build with SAM, choose "No."
 
@@ -222,13 +212,8 @@ Now that you've created a flag, you can use it in your function. First, you'll a
 
 Replace the existing handler code with the code below:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-      { label: 'JavaScript', value: 'js', }
-  ]
-  }>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
   ```js
   exports.handler = async event => {
@@ -242,8 +227,8 @@ Replace the existing handler code with the code below:
   }
   ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Open the AWS panel in VSCode. Right-click to upload. When the upload finishes, right-click the function and invoke it again. You do not need a payload.
 
@@ -265,13 +250,8 @@ First, update your function to use this event. You can use the user's IP address
 
 Here is the event code:
 
-<CodeTabs
-defaultValue="js"
-values={[
-     { label: 'JavaScript', value: 'js', }
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 exports.handler = async (event) => {
@@ -303,8 +283,8 @@ exports.handler = async (event) => {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Use the AWS panel in VSCode to upload it again by right-clicking on the function and choosing "Upload Lambda."
 
@@ -316,13 +296,8 @@ Open the AWS panel in VS Code. Right-click on the function and select "Invoke on
 
 You should get a response like:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON', value: 'json', }
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="JSON">
 
 ```json
 {
@@ -339,8 +314,8 @@ You should get a response like:
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ![Invoking the Lambda with a sample payload.](aws-invoke-lambda-edge.png)
 
@@ -426,93 +401,68 @@ Here are the steps to set this up:
 
 1. Clone the GitHub repository, change directory into the project, and install the project dependencies:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Clone and install', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Clone and install">
 
-```bash
-git clone https://github.com/halex5000/launchdarkly-relay-proxy-aws-serverless-cdk
-cd launchdarkly-relay-proxy-aws-serverless-cdk
-npm install
-```
+  ```bash
+  git clone https://github.com/halex5000/launchdarkly-relay-proxy-aws-serverless-cdk
+  cd launchdarkly-relay-proxy-aws-serverless-cdk
+  npm install
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 2. Copy the example environment file and then edit it with your own environment variables, including your LaunchDarkly SDK keys:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Copy and edit', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Copy and edit">
 
-```bash
-cp .env.example .env
-```
+  ```bash
+  cp .env.example .env
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 3. Install the [AWS CLI](https://aws.amazon.com/cli/) if you don't already have it.
 4. Set up your account and region to use the AWS CDK, making sure to replace the account number and region placeholders below with your own details:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Set account and region', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Set account and region">
 
-```bash
-npm run cdk bootstrap aws://{ACCOUNT-NUMBER}/{REGION}
-```
+  ```bash
+  npm run cdk bootstrap aws://{ACCOUNT-NUMBER}/{REGION}
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 5. Finally, deploy the stack to AWS:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Deploy', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Deploy">
 
-```bash
-npm run cdk deploy
-```
+  ```bash
+  npm run cdk deploy
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 The deployment should take about two minutes to run and it will deploy to the account and region that you configured using the credentials from your CLI. During the process, you'll be prompted to approve new roles and permissions created by this stack.
 
 If you prefer to use CloudFormation, you can easily convert this CDK project to a cloud formation template (CFT) with the following command after completing steps one and two above:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'CFT', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="CFT">
 
 ```bash
 npm run cdk synth > cloud-formation-template.yaml
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This will generate a CloudFormation template and save it locally in your machine.
 
@@ -532,23 +482,18 @@ One solution is to manually flush analytics events on every invocation of the La
 
 Here's how to flush events:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Flushing events', value: 'json', }
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Flushing events">
 
 ```js
 exports.handler = async (event) => {
   await client.waitForInitialization();
 
   const apiVersion = await client.variation("flag-key-123abc", {key: "anonymous"}, "");
-  
-  // flush the analytics events 
+
+  // flush the analytics events
   await client.flush();
-  
+
   const response = {
     statusCode: 200,
     body: JSON.stringify("Hello world"),
@@ -557,8 +502,8 @@ exports.handler = async (event) => {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Flushing events](/sdk/features/flush).
 
@@ -577,13 +522,8 @@ After you add the extension, you can listen for the `SIGTERM` event that indicat
 
 Here's how:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Closing and listening', value: 'json', }
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Closing and listening">
 
 ```js
 const LaunchDarkly = require("launchdarkly-node-server-sdk");
@@ -611,8 +551,8 @@ process.on('SIGTERM', async () => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you'd like to watch this process run, go to the "Monitor" tab in the AWS Lambda console and choose "View logs in CloudWatch." You can view the logs for a recent run of your function and see that you triggered the cleanup script. In our tests, this happened approximately six minutes after the last call of the function.
 

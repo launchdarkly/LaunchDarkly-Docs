@@ -85,58 +85,43 @@ First, install the LaunchDarkly SDK as a dependency in your application using yo
 
 If you are using Bundler, you can add `gem "launchdarkly-server-sdk"` to your Gemfile and run `bundle install`. Otherwise, you can install the gem directly:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Shell', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 gem install launchdarkly-server-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly client in your application code. This step may not be necessary if you are using a framework that automatically loads all dependencies, as Rails does.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 require 'ldclient-rb'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 client = LaunchDarkly::LDClient.new("sdk-key-123abc")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -153,14 +138,8 @@ You can use `client` to check which variation a particular context will receive 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 context = LaunchDarkly::LDContext.with_key("user@test.com")
@@ -171,8 +150,8 @@ else
   # the code to run if the feature is off
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 show_feature = client.variation("your.flag.key", {key: "user@test.com"}, false)
@@ -182,37 +161,27 @@ else
   # the code to run if the feature is off
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Initializing LDClient in a Rails Application
 
 To use LaunchDarkly in a Rails application, initialize the client in `config/initializers/launchdarkly.rb`:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 Rails.configuration.client = LaunchDarkly::LDClient.new("sdk-key-123abc")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use LaunchDarkly with the Rails application preloader [Spring](https://github.com/rails/spring), we recommend using an `after_fork` callback in the config/spring.rb file:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby - Spring initialization', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby Spring initialization">
 
 ```ruby
 Spring.after_fork do
@@ -220,18 +189,13 @@ Spring.after_fork do
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Similarly, with [Unicorn](https://bogomips.org/unicorn/), you'll need to specify an `after_fork` hook in your unicorn.rb config file:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby - Unicorn initialization', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby Unicorn initialization">
 
 ```ruby
 after_fork do |server,worker|
@@ -239,18 +203,13 @@ after_fork do |server,worker|
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you use the [Puma](https://github.com/puma/puma) web server, we recommend initializing the client in `on_worker_boot`, as well as initializing in the Rails app:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby - Puma initialization', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby Puma initialization">
 
 ```ruby
 on_worker_boot do
@@ -258,18 +217,13 @@ on_worker_boot do
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you use the [Passenger](https://www.phusionpassenger.com/library/indepth/ruby/spawn_methods/#smart-spawning-hooks) web server, we recommend initializing the client in `config.ru`, or from any code called while loading `config.ru`:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 if defined?(PhusionPassenger)
@@ -279,8 +233,8 @@ if defined?(PhusionPassenger)
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Lastly, shut down the client when your application terminates. This frees the resources the worker threads were using and provides an explicit signal for the Ruby SDK to send the remaining event data back to LaunchDarkly. To learn more, read [Shutting down](/sdk/features/shutdown#ruby).
 

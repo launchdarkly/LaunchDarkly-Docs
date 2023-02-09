@@ -43,13 +43,8 @@ Here's how to set up the GitLab code references:
 5. Open your `.gitlab-ci.yml` file. This file defines your project's CI/CD pipeline. To learn more about getting started with GitLab code references, read [GitLab's documentation](https://docs.gitlab.com/ee/ci/#getting-started).
 6. Copy and paste the following into `.gitlab-ci.yml`. No changes to the script are needed if your pipeline runs on Alpine Linux. If `apk` is unavailable in your environment then you'll need to modify the first three steps to use a different package manager:
 
-<CodeTabs
- defaultValue="yaml"
- values={[
-   { label: 'YAML', value: 'yaml', },
- ]
-}>
-<CodeTabItem value="yaml">
+<CodeSample>
+<CSTab label="YAML">
 
 ```yaml
 find-launchdarkly-code-refs:
@@ -70,8 +65,8 @@ find-launchdarkly-code-refs:
        --userAgent gitlab-pipeline
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## How the script works
 
@@ -83,13 +78,8 @@ The `find-launchdarkly-code-refs` script runs in GitLab's `deploy` phase. As wri
 
 In the example `.gitlab-ci.yml` below, the `find-launchdarkly-code-refs` script runs as a part of a project's pipeline:
 
-<CodeTabs
- defaultValue="yaml"
- values={[
-   { label: 'YAML', value: 'yaml', },
- ]
-}>
-<CodeTabItem value="yaml">
+<CodeSample>
+<CSTab label="YAML">
 
 ```yaml
 image: alpine:latest
@@ -127,13 +117,12 @@ find-launchdarkly-code-refs:
        --userAgent gitlab-pipeline
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 When the jobs run in the pipeline, they display like this:
 
 ![A screenshot of the jobs running.](gitlab-ci-jobs.png)
-
 
 ## Additional configuration options
 

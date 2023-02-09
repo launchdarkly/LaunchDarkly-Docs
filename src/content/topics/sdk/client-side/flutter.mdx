@@ -59,37 +59,27 @@ After you complete the [Getting started](/home/getting-started) process, follow 
 
 First, declare a dependency on the LaunchDarkly Flutter SDK:
 
-<CodeTabs
-  defaultValue="yaml"
-  values={[
-    { label: 'pubspec.yaml', value: 'yaml', },
-  ]
-}>
-<CodeTabItem value="yaml">
+<CodeSample>
+<CSTab label="pubspec.yaml">
 
 ```yaml
   launchdarkly_flutter_client_sdk: ^1.0.0
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Then, import the package in your application code:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart' },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 import 'package:launchdarkly_flutter_client_sdk/launchdarkly_flutter_client_sdk.dart';
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install the SDK, initialize the single shared instance of `LDClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
@@ -104,13 +94,8 @@ Mobile keys are not secret and you can expose them in your client-side code with
 
 The following example shows the simplest way to create the client:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart' },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDConfig config = LDConfigBuilder('mobile-key-123abc').build();
@@ -121,20 +106,15 @@ LDUser user = LDUserBuilder('user-key-123abc')
 await LDClient.start(config, user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This method of initializing the client lets you use the SDK as soon as it is ready to return evaluated flags.
 
 To block until the SDK receives the most recent feature flag values, use the `LDClient.startFuture` method with `await` and an optional `timeLimit`:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart' },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDConfig config = LDConfigBuilder('mobile-key-123abc').build();
@@ -146,8 +126,8 @@ await LDClient.start(config, user);
 await LDClient.startFuture(timeLimit: Duration(seconds: 5));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you have configured the SDK not to make network requests, or if the device does not have a network connection, `LDClient.startFuture` returns a `Future` that  will complete immediately to avoid blocking the application indefinitely.
 
@@ -166,13 +146,8 @@ You can use `LDClient` to check which variation a particular user will receive f
 
 Here's how:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 bool showFeature = await LDClient.boolVariation(flagKey, false);
@@ -184,8 +159,8 @@ else {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

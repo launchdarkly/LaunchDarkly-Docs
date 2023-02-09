@@ -74,13 +74,8 @@ Here's an example to demonstrate this factoring tactic. The example code is take
 
 Here is an example:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'pseudocode', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="pseudocode">
 
 ```js
 function getSearchResults(query, user) {
@@ -104,8 +99,8 @@ function getSearchResults(query, user) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The app's engineering team is preparing to migrate to a new, improved search engine. To prepare for the migration, the team has created the flag `use-new-search-engine` to tell the app which search back-end to use. The code needs to include code for querying both the old and the new search engines.
 
@@ -113,13 +108,8 @@ Inserting the flag logic in the middle of `getSearchResults` would make it even 
 
 The team moves these lines of code, along with code for the new search engine and code to check the flag, into their own functions:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'pseudocode', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="pseudocode">
 
 ```js
 // This new version of the main function is much shorter,
@@ -174,8 +164,8 @@ function queryNewEngine(query, user) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The migration is expected to last a few weeks. Because the new feature is wrapped in a feature flag, the team can integrate the new search engine code before it's been fully tested and optimized. Now, they can spend time improving the code with real production data. Because the new and old search engine code is separated into different functions, they can make those improvements without changing shared code. In addition, it's easier to add unit tests for the new code because they can call it directly without needing to create mock flag states.
 
@@ -216,13 +206,8 @@ Consider the `executeSearch` function we used as an example earlier. It calls `l
 
 If we moved that call out to `getSearchResults` and sent the flag value to `executeSearch` as an argument, the abbreviated code would look like this:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'pseudocode', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="pseudocode">
 
 ```js
 function getSearchResults(query, user) {
@@ -246,8 +231,8 @@ function executeSearch(query, user, useNewEngine) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The purpose of our flag-oriented refactoring was to reduce merge conflicts by separating out the code that would need to change, and keeping it contained in dedicated functions. Unfortunately, putting the flag evaluation code in `getSearchResults` has given it more responsibility that it didn't need, and removed the benefits of the refactoring.
 
