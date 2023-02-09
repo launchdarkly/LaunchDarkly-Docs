@@ -11,39 +11,46 @@ site: launchDarklyOnly
 
 This topic explains how to subscribe to notifications in Slack channels. You can receive notifications for when resources are created, updated, deleted, or ready for removal.
 
-It can be useful to let an entire channel know when a flag changes or is ready to remove. You can see when flags are toggled, when new resources are created in a certain environment, or archive flags and remove them for your codebase once they're ready for removal.
+It can be useful to let an entire channel know when a flag changes or is ready to remove. You can receive notifications when someone toggles a flag on or off, when someone creates new resources in a certain environment, and when flags are ready for removal from your codebase.
 
 ## Subscribing to notifications
 
 You can subscribe to updates for flags, segments, metrics, projects, or environments. When someone updates a resource, either directly in LaunchDarkly or through the Slack app, LaunchDarkly sends a notification of the change to all channels subscribed to updates for that resource. Subscriptions must have a project, and can optionally include parameters like a specific environment, flag name, status, or tag that will filter the notifications you receive.
 
-There are two ways to create a subscription to flag notifications: the Slack modal workflow, or the `/launchdarkly subscribe` command. Note that subscriptions created through the modal must specify a **project** and **environment**.
+There are two ways to create a subscription to flag notifications: the Slack modal workflow or the `/launchdarkly subscribe` command. Subscriptions created through the modal must specify a project and environment.
 
 ### Subscribing using the modal
 
+To subscribe using the modal:
+
+
 1. Open the Slack channel you want notifications in.
-2. Type `/launchdarkly subscribe` in your Slack client's text bar and press **Enter**. The "Create subscription" dialog should pop up.
+2. Type `/launchdarkly subscribe` in your Slack client's text bar and press **Enter**. The "Create subscription" dialog appears.
 
-![The create subscription modal](slack-project-select-modal.png)
+![The create subscription dialog.](slack-project-select-modal.png)
 
-3. Select the project you'd like to receive notifications for, and then the environment.
-4. You can further define your subscription by giving it a specific flag or flag regex, a status, an action, or a tag. You'll only receive updates for flags that match these parameters.
+3. Select the project and environment you'd like to receive notifications for.
+4. (Optional) You can further define your subscription by giving it a specific flag or flag regex, a status, an action, or a tag. You'll only receive updates for flags that match these parameters.
 
-![The modal to select subscription parameters](slack-subscription-parameter-select-modal.png)
+![The modal to select subscription parameters.](slack-subscription-parameter-select-modal.png)
 
-4. Click **Preview** to see the list of flags that your parameters will include. Your subscription will include any newly created flags that match the parameters as well.
-5. Click **Create subscription** to subscribe the channel to flag notifications. You should see a confirmation message in the channel once the pop up closes.
+4. Click **Preview** to view the list of flags that your parameters include. Your subscription will include any newly created flags that match the parameters.
+5. Click **Create subscription** to subscribe the channel to flag notifications. A confirmation message appears in the channel after you close the dialog.
 
 
 ### Subscribing using the command
 
-There are two ways to subscribe to updates using the command: with keyword arguments (recommended), or with positional arguments. To see more information and examples of the subscribe command run `/launchdarkly help subscribe` in a channel or DM that the LaunchDarkly bot is in.
+There are two ways to subscribe to updates using the command: with keyword arguments (recommended), or with positional arguments. To view more information and examples of the subscribe command, run `/launchdarkly help subscribe` in a channel or direct message that the LaunchDarkly bot is in.
 
-### With keyword arguments
+#### Subscribing with keyword arguments
+---
 
 You can use keyword arguments to create a subscription with any combination of parameters. At least one parameter is required.
 
-1. Open the Slack channel you want notified about flag updates to appear.
+Here's how:
+
+
+1. Open the Slack channel you want notifications in.
 2. Run `/launchdarkly subscribe` and pass in any combination of the following arguments:
    - `-p` or `--project=`
    - `-e` or `--environment=`
@@ -51,35 +58,38 @@ You can use keyword arguments to create a subscription with any combination of p
    - `-s` or `--status=`
    - `-a` or `--action=`
    - `-t` or `--tag=`
-3. Hit **Enter**
+3. Press **Enter**.
 
-For example, the following command will create a subscription for all flags in the 'jelly' environment of the 'peanut-butter' project, with status 'active' and tag 'production'
+For example, the following command creates a subscription for all flags in the 'qa' environment of the 'chatbot' project, with status 'active' and tag 'production'
 ```
-/launchdarkly subscribe -p peanut-butter -e jelly -s active -t production
+/launchdarkly subscribe -p chatbot -e qa -s active -t production
 ```
 
 
-### With positional arguments
+### Subscribing with positional arguments
+---
 
-You can use positional arguments to create a subscription for a single flag. All three arguments must be provided.
+You can use positional arguments to create a subscription for a single flag. You must provide all three arguments.
 
-1. Open the Slack channel you want notified about flag updates to appear.
-2. Run `/launchdarkly subscribe` and provide *in order* the project, environment, and flag key of the flag you would like to subscribe to.
-3. Hit **Enter**
+Here's how:
 
-For example, the following command will create a subscription for the 'sandwich' flag in the 'jelly' environment of the 'peanut-butter' project.
+1. Open the Slack channel you want notifications in.
+2. Run `/launchdarkly subscribe` and provide in order the project, environment, and flag key of the flag you would like to subscribe to.
+3. Press **Enter**.
+
+For example, the following command will create a subscription for the 'chat-response' flag in the 'qa' environment of the 'chatbot' project.
 ```
-/launchdarkly subscribe peanut-butter jelly sandwich
+/launchdarkly subscribe chatbot qa chat-response
 ```
 
 ## Managing subscriptions
 
-You can view and remove subscriptions in a Slack channel using the `/launchdarkly list` command.
+You can view and remove subscriptions in a Slack channel using the `/launchdarkly list` command:
 
 1. Open the Slack channel where you would like to remove notifications.
 2. Type `/launchdarkly list` and press **Enter**. A list of subscriptions for the channel appears.
 3. Locate the subscription you wish to remove from the channel.
-4. Click the **Remove** button to remove notifications matching the subscription from the Slack channel.
+4. Click the **Remove** button.
 
 ![The output of the `/launchdarkly list` command.](slack-manage-subscriptions.png)
 
