@@ -22,7 +22,7 @@ export function CodeSample({ children }: CodeSampleProps) {
   return (
     <Card variant="code">
       <Flex sx={{ flexDirection: 'column' }}>
-        <Box sx={{ marginBottom: 4, display: 'flex' }}>
+        <Box sx={{ marginBottom: 4 }}>
           {validChildren.map((child: { props: { label: string } }, index) => {
             const { label } = child.props
             return (
