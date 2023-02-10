@@ -8,11 +8,14 @@ tags: ['federal', 'sdk', 'domain', 'configure', 'serviceendpoints']
 
 ## Overview
 
-This topic explains how to configure LaunchDarkly SDKs to connect to alternate service endpoints. Typically this is only required for customers working with the LaunchDarkly federal instance.
+This topic explains how to configure LaunchDarkly SDKs to connect to alternate service endpoints.
 
-Each SDK connects to several LaunchDarkly web services. These include services for getting feature flag data using streaming or polling, and a service for storing analytics events.
+Each SDK connects to several LaunchDarkly web services. These include services for getting feature flag data using streaming or polling, and a service for storing analytics events. Optionally, you can configure LaunchDarkly to connect to alternate service endpoints.
 
-Each SDK is configured by default to connect these services. Most customers do not need to configure service endpoints.
+Most customers do not need to configure service endpoints. You may need to configure service endpoints in the following situations:
+
+* You are working with the LaunchDarkly federal instance. If you are using the [federal instance of LaunchDarkly](/home/advanced/federal), you must configure the SDK so that it connects to the federal instance for these services instead.
+* You are using the Relay Proxy in proxy mode. To learn more, read [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode).
 
 <Callout intent="info">
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
@@ -29,20 +32,7 @@ If you are using the latest version of an SDK and are not part of the EAP, your 
 </CalloutDescription>
 </Callout>
 
-If you are using the [federal instance of LaunchDarkly](/home/advanced/federal), you must configure the SDK so that it connects to the federal instance for these services instead.
-
 The examples below show how to configure the SDK for each service. In most SDKs, you then need to pass the configuration in as a parameter when you initialize the client. To learn more, read [Configuration](/sdk/features/config).
-
-<Callout intent="info">
-<CalloutTitle>The example code uses endpoint values specific to the LaunchDarkly federal instance</CalloutTitle>
-<CalloutDescription>
-
-You can use the methods and options described on this page to configure any alternate service endpoints.
-
-The code samples all use URIs from the federal instance of LaunchDarkly, because working with a federal instance is the most common use case for setting alternate service endpoints.
-
-</CalloutDescription>
-</Callout>
 
 Details about each SDK's configuration are available in the SDK-specific sections below:
 
@@ -71,7 +61,7 @@ This feature is available in the following client-side SDKs:
 To configure an alternate service endpoint for the SDK, use the `ServiceEndpoints` builder method to specify the base URIs:
 
 <CodeSample>
-<CSTab label="C#">
+<CSTab label="C#, connecting to federal instance">
 
 ```csharp
 var config = Configuration.Builder("mobile-key-123abc")
@@ -80,7 +70,16 @@ var config = Configuration.Builder("mobile-key-123abc")
       .Polling("https://clientsdk.launchdarkly.us")
       .Events("https://events.launchdarkly.us"))
     .Build();
+```
 
+</CSTab>
+<CSTab label="C#, connecting to Relay Proxy">
+
+```csharp
+var config = Configuration.Builder("mobile-key-123abc")
+    .ServiceEndpoints(Components.ServiceEndpoints()
+      .RelayProxy("https://your-relay-proxy.com:8030"))
+    .Build();
 ```
 
 </CSTab>
@@ -94,7 +93,7 @@ var config = Configuration.Builder("mobile-key-123abc")
 To configure an alternate service endpoint for the SDK, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Java">
+<CSTab label="Java, connecting to federal instance">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -106,15 +105,38 @@ LDConfig ldConfig = new LDConfig.Builder()
 ```
 
 </CSTab>
-<CSTab label="Kotlin">
+<CSTab label="Java, connecting to Relay Proxy">
+
+```java
+LDConfig ldConfig = new LDConfig.Builder()
+  .mobileKey("mobile-key-123abc")
+  .streamUri(Uri.parse("https://your-relay-proxy.com:8030"))
+  .pollUri(Uri.parse("https://your-relay-proxy.com:8030"))
+  .eventsUri(Uri.parse("https://your-relay-proxy.com:8030"))
+  .build();
+```
+
+</CSTab>
+<CSTab label="Kotlin, connecting to federal instance">
 
 ```kotlin
-
 val ldConfig: LDConfig = LDConfig.Builder()
   .setMobileKey("mobile-key-123abc")
   .streamUri(Uri.parse("https://clientstream.launchdarkly.us"))
   .pollUri(Uri.parse("https://clientsdk.launchdarkly.us"))
   .eventsUri(Uri.parse("https://events.launchdarkly.us"))
+  .build();
+```
+
+</CSTab>
+<CSTab label="Kotlin, connecting to Relay Proxy">
+
+```kotlin
+val ldConfig: LDConfig = LDConfig.Builder()
+  .setMobileKey("mobile-key-123abc")
+  .streamUri(Uri.parse("https://your-relay-proxy.com:8030"))
+  .pollUri(Uri.parse("https://your-relay-proxy.com:8030"))
+  .eventsUri(Uri.parse("https://your-relay-proxy.com:8030"))
   .build();
 ```
 
@@ -129,7 +151,7 @@ val ldConfig: LDConfig = LDConfig.Builder()
 To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamURI`, `LDConfigSetAppURI`, and `LDConfigSetEventsURI` to specify the base URIs:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C/C++, connecting to federal instance">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -149,7 +171,7 @@ LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
 To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` options to specify the base URIs:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="JavaScript, connecting to federal instance">
 
 ```js
 const options = {
@@ -160,7 +182,7 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="TypeScript, connecting to federal instance">
 
 ```ts
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
@@ -169,6 +191,30 @@ const options: LDElectron.LDOptions = {
   streamUrl: 'https://clientstream.launchdarkly.us',
   baseUrl: 'https://app.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us'
+};
+```
+
+</CSTab>
+<CSTab label="JavaScript, connecting to Relay Proxy">
+
+```js
+const options = {
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  baseUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030'
+};
+```
+
+</CSTab>
+<CSTab label="TypeScript, connecting to Relay Proxy">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const options: LDElectron.LDOptions = {
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  baseUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030',
 };
 ```
 
@@ -183,13 +229,24 @@ const options: LDElectron.LDOptions = {
 To configure an alternate service endpoint for the SDK, use the `streamUri`, `pollUri`, and `eventsUri` builder methods to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Dart">
+<CSTab label="Dart, connecting to federal instance">
 
 ```dart
 LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
   .streamUri("https://clientstream.launchdarkly.us")
   .pollUri("https://clientsdk.launchdarkly.us")
   .eventsUri("https://events.launchdarkly.us")
+  .build();
+```
+
+</CSTab>
+<CSTab label="Dart, connecting to Relay Proxy">
+
+```dart
+LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
+  .streamUri("https://your-relay-proxy.com:8030")
+  .pollUri("https://your-relay-proxy.com:8030")
+  .eventsUri("https://your-relay-proxy.com:8030")
   .build();
 ```
 
@@ -204,7 +261,7 @@ LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
 To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` properties to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Swift">
+<CSTab label="Swift, connecting to federal instance">
 
 ```swift
 var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
@@ -214,13 +271,33 @@ ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
 ```
 
 </CSTab>
-<CSTab label="Objective-C">
+<CSTab label="Objective-C, connecting to federal instance">
 
 ```objectivec
 LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.us")
 ldConfig.baseUrl = URL(string: "https://app.launchdarkly.us")
 ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
+```
+
+</CSTab>
+<CSTab label="Swift, connecting to Relay Proxy">
+
+```swift
+var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
+ldConfig.streamUrl = URL(string: "https://your-relay-proxy.com:8030")
+ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8030")
+ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
+```
+
+</CSTab>
+<CSTab label="Objective-C, connecting to Relay Proxy">
+
+```objectivec
+LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
+ldConfig.streamUrl = URL(string: "https://your-relay-proxy.com:8030")
+ldConfig.baseUrl = URL(string: "https://your-relay-proxy.com:8030")
+ldConfig.eventsUrl = URL(string: "https://your-relay-proxy.com:8030")
 ```
 
 </CSTab>
@@ -234,7 +311,7 @@ ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
 To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` properties to specify the base URIs:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="JavaScript, connecting to federal instance">
 
 ```js
 const options = {
@@ -242,11 +319,10 @@ const options = {
   baseUrl: 'https://app.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us'
 };
-
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="TypeScript, connecting to federal instance">
 
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
@@ -256,7 +332,30 @@ const options: ld.LDOptions = {
   baseUrl: 'https://app.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us',
 };
+```
 
+</CSTab>
+<CSTab label="JavaScript, connecting to Relay Proxy">
+
+```js
+const options = {
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  baseUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030'
+};
+```
+
+</CSTab>
+<CSTab label="TypeScript, connecting to Relay Proxy">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const options: ld.LDOptions = {
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  baseUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030',
+};
 ```
 
 </CSTab>
@@ -270,7 +369,7 @@ const options: ld.LDOptions = {
 To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` properties to set the base URIs:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="JavaScript, connecting to federal instance">
 
 ```js
 const options = {
@@ -282,7 +381,7 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="TypeScript, connecting to federal instance">
 
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
@@ -291,6 +390,30 @@ const options: ld.LDOptions = {
   streamUrl: 'https://clientstream.launchdarkly.us',
   baseUrl: 'https://app.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us',
+};
+```
+
+</CSTab>
+<CSTab label="JavaScript, connecting to Relay Proxy">
+
+```js
+const options = {
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  baseUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030'
+};
+```
+
+</CSTab>
+<CSTab label="TypeScript, connecting to Relay Proxy">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const options: ld.LDOptions = {
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  baseUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030',
 };
 ```
 
@@ -305,7 +428,7 @@ const options: ld.LDOptions = {
 To configure an alternate service endpoint for the SDK, use the `streamUri`, `pollUri`, and `eventsUri` properties to set the base URIs:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="JavaScript, connecting to federal instance">
 
 ```js
 let config = {
@@ -317,7 +440,7 @@ let config = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="TypeScript, connecting to federal instance">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
@@ -327,6 +450,32 @@ let config: ld.LDConfig = {
   streamUri: 'https://clientstream.launchdarkly.us',
   pollUri: 'https://clientsdk.launchdarkly.us',
   eventsUri: 'https://events.launchdarkly.us',
+};
+```
+
+</CSTab>
+<CSTab label="JavaScript, connecting to Relay Proxy">
+
+```js
+let config = {
+  mobileKey: 'mobile-key-123abc',
+  streamUri: 'https://your-relay-proxy.com:8030',
+  pollUri: 'https://your-relay-proxy.com:8030',
+  eventsUri: 'https://your-relay-proxy.com:8030',
+};
+```
+
+</CSTab>
+<CSTab label="TypeScript, connecting to Relay Proxy">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+let config: ld.LDConfig = {
+  mobileKey: 'mobile-key-123abc',
+  streamUri: 'https://your-relay-proxy.com:8030',
+  pollUri: 'https://your-relay-proxy.com:8030',
+  eventsUri: 'https://your-relay-proxy.com:8030',
 };
 ```
 
@@ -341,13 +490,24 @@ let config: ld.LDConfig = {
 To configure an alternate service endpoint for the SDK, use the `streamUrl`, `baseUrl`, and `eventsUrl` options to specify the base URIs:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="JavaScript, connecting to federal instance">
 
 ```js
 const options: {
   baseUrl:"https://clientsdk.launchdarkly.us",
   streamUrl:"https://clientstream.launchdarkly.us",
   eventsUrl:"https://events.launchdarkly.us"
+};
+ ```
+
+</CSTab>
+<CSTab label="JavaScript, connecting to Relay Proxy">
+
+```js
+const options = {
+  baseUrl: 'https://your-relay-proxy.com:8030',
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030'
 };
  ```
 
@@ -383,7 +543,7 @@ This feature is available for the following server-side SDKs:
 To configure an alternate service endpoint for the SDK, use the `ServiceEndpoints` builder method to specify the base URIs:
 
 <CodeSample>
-<CSTab label="C#">
+<CSTab label="C#, connecting to federal instance">
 
 ```csharp
 var config = Configuration.Builder("sdk-key-123abc")
@@ -391,6 +551,15 @@ var config = Configuration.Builder("sdk-key-123abc")
       .Streaming("https://stream.launchdarkly.us")
       .Polling("https://sdk.launchdarkly.us")
       .Events("https://events.launchdarkly.us"))
+    .Build();
+```
+</CSTab>
+<CSTab label="C#, connecting to Relay Proxy">
+
+```csharp
+var config = Configuration.Builder("sdk-key-123abc")
+    .ServiceEndpoints(Components.ServiceEndpoints()
+      .RelayProxy("https://your-relay-proxy.com:8030"))
     .Build();
 ```
 </CSTab>
@@ -440,13 +609,23 @@ export LD_EVENTS_URL='https://events.launchdarkly.us'
 To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamURI`, `LDConfigSetBaseURI`, and `LDConfigSetEventsURI` to specify the base URIs:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C/C++, connecting to federal instance">
 
 ```c
 struct LDConfig *config = LDConfigNew("sdk-key-123abc");
 LDConfigSetStreamURI(config, "https://stream.launchdarkly.us");
 LDConfigSetBaseURI(config, "https://app.launchdarkly.us");
 LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
+```
+
+</CSTab>
+<CSTab label="C/C++, connecting to Relay Proxy">
+
+```c
+struct LDConfig *config = LDConfigNew("sdk-key-123abc");
+LDConfigSetStreamURI(config, "https://your-relay-proxy.com:8030");
+LDConfigSetBaseURI(config, "https://your-relay-proxy.com:8030");
+LDConfigSetEventsURI(config, "https://your-relay-proxy.com:8030");
 ```
 
 </CSTab>
@@ -460,7 +639,7 @@ LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
 To configure an alternate service endpoint for the SDK, use the `stream_uri`, `base_uri`, and `events_uri` properties to set the base URIs:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang, connecting to federal instance">
 
 ```
 ldclient:start_instance("sdk-key-123abc", #{
@@ -468,7 +647,17 @@ ldclient:start_instance("sdk-key-123abc", #{
   base_uri => "https://sdk.launchdarkly.us",
   events_uri => "https://events.launchdarkly.us"
 })
+```
 
+</CSTab>
+<CSTab label="Erlang, connecting to Relay Proxy">
+
+```
+ldclient:start_instance("sdk-key-123abc", #{
+  stream_uri => "https://your-relay-proxy.com:8030",
+  base_uri => "https://your-relay-proxy.com:8030",
+  events_uri => "https://your-relay-proxy.com:8030"
+})
 ```
 
 </CSTab>
@@ -482,7 +671,7 @@ ldclient:start_instance("sdk-key-123abc", #{
 To configure an alternate service endpoint for the SDK, use the `Config.ServiceEndpoints` property and `interfaces.ServiceEndpoints()` to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Go">
+<CSTab label="Go, connecting to federal instance">
 
 ```go
 
@@ -493,7 +682,25 @@ config := ld.Config{
       Events: "https://events.launchdarkly.us",
     },
 }
+```
 
+</CSTab>
+<CSTab label="Go, connecting to Relay Proxy">
+
+```go
+// To use the Replay Proxy in proxy mode for both streaming and events:
+
+config := ld.Config{
+    ServiceEndpoints: ldcomponents.RelayProxyEndpoints(
+      "https://your-relay-proxy.com:8030"),
+}
+
+// Alternatively, to use the Relay Proxy in proxy mode for streaming,
+// but send events directly to LaunchDarkly, use:
+config := ld.Config{
+    ServiceEndpoints: ldcomponents.RelayProxyEndpointsWithoutEvents(
+        "https://your-relay-proxy.com:8030"),
+}
 ```
 
 </CSTab>
@@ -507,7 +714,7 @@ config := ld.Config{
 To configure an alternate service endpoint for the SDK, use `configSetStreamURI`, `configSetBaseURI`, and `configSetEventsURI` to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell, connecting to federal instance">
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
@@ -524,6 +731,23 @@ config = (makeConfig "sdk-key-123abc")
 ```
 
 </CSTab>
+<CSTab label="Haskell, connecting to Relay Proxy">
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import LaunchDarkly.Server.Config
+
+import Data.Function ((&))
+
+config :: Config
+config = (makeConfig "sdk-key-123abc")
+    & configSetStreamURI "https://your-relay-proxy.com:8030"
+    & configSetBaseURI "https://your-relay-proxy.com:8030"
+    & configSetEventsURI "https://your-relay-proxy.com:8030"
+```
+
+</CSTab>
 </CodeSample>
 </Details>
 
@@ -534,7 +758,7 @@ config = (makeConfig "sdk-key-123abc")
 To configure an alternate service endpoint for the SDK, use the `serviceEndpoints` builder method to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Java">
+<CSTab label="Java, connecting to federal instance">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -545,7 +769,7 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 </CSTab>
-<CSTab label="Java SDK v5.8.x and earlier">
+<CSTab label="Java SDK v5.8.x and earlier, connecting to federal instance">
 
 ```java
 // Prior to version 5.9.0, the base URI had to be specified for each service,
@@ -561,6 +785,15 @@ LDConfig config = new LDConfig.Builder()
 ```
 
 </CSTab>
+<CSTab label="Java, connecting to Relay Proxy">
+
+```java
+LDConfig config = new LDConfig.Builder()
+  .serviceEndpoints(Components.serviceEndpoints()
+    .relayProxy("https://your-relay-proxy.com:8030"))
+  .build();
+```
+</CSTab>
 </CodeSample>
 </Details>
 
@@ -571,7 +804,7 @@ LDConfig config = new LDConfig.Builder()
 To configure an alternate service endpoint for the SDK, use the `streamURI`, `baseURI`, and `eventsURI` properties to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Lua">
+<CSTab label="Lua, connecting to federal instance">
 
 ```lua
 local config = {
@@ -580,7 +813,18 @@ local config = {
     baseUri = "https://app.launchdarkly.us",
     eventsURI = "https://events.launchdarkly.us",
 }
+```
 
+</CSTab>
+<CSTab label="Lua, connecting to Relay Proxy">
+
+```lua
+local config = {
+    key = sdk-key-123abc,
+    streamURI = "https://your-relay-proxy.com:8030",
+    baseUri = "https://your-relay-proxy.com:8030",
+    eventsURI = "https://your-relay-proxy.com:8030",
+}
 ```
 
 </CSTab>
@@ -594,7 +838,7 @@ local config = {
 To configure an alternate service endpoint for the SDK, use the `streamUri`, `baseUri`, and `eventsUri` properties to specify the base URIs:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="JavaScript, connecting to federal instance">
 
 ```js
 const options = {
@@ -605,7 +849,7 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="TypeScript, connecting to federal instance">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -614,6 +858,30 @@ const options ld.LDOptions = {
   streamUri: 'https://stream.launchdarkly.us',
   baseUri: 'https://app.launchdarkly.us',
   eventsUri: 'https://events.launchdarkly.us',
+};
+```
+
+</CSTab>
+<CSTab label="JavaScript, connecting to Relay Proxy">
+
+```js
+const options = {
+  streamUri: 'https://your-relay-proxy.com:8030',
+  baseUri: 'https://your-relay-proxy.com:8030',
+  eventsUri: 'https://your-relay-proxy.com:8030',
+};
+```
+
+</CSTab>
+<CSTab label="TypeScript, connecting to Relay Proxy">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const options ld.LDOptions = {
+  streamUri: 'https://your-relay-proxy.com:8030',
+  baseUri: 'https://your-relay-proxy.com:8030',
+  eventsUri: 'https://your-relay-proxy.com:8030',
 };
 ```
 
@@ -628,12 +896,21 @@ const options ld.LDOptions = {
 To configure an alternate service endpoint for the SDK, use the `base_uri` and `events_uri` properties to specify the base URIs:
 
 <CodeSample>
-<CSTab label="PHP">
+<CSTab label="PHP, connecting to federal instance">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc",
     [ "base_uri" => "https://sdk.launchdarkly.us",
       "events_uri" => "https://events.launchdarkly.us" ]);
+```
+
+</CSTab>
+<CSTab label="PHP, connecting to Relay Proxy">
+
+```php
+$client = new LaunchDarkly\LDClient("sdk-key-123abc",
+    [ "base_uri" => "https://your-relay-proxy.com:8030",
+      "events_uri" => "https://your-relay-proxy.com:8030" ]);
 ```
 
 </CSTab>
@@ -649,13 +926,23 @@ There is not a streaming service for the PHP SDK.
 To configure an alternate service endpoint for the SDK, use the `stream_uri`, `base_uri`, and `events_uri` properties to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Python">
+<CSTab label="Python, connecting to federal instance">
 
 ```python
 config = Config(sdk_key='sdk-key-123abc',
   stream_uri="https://stream.launchdarkly.us",
   base_uri="https://app.launchdarkly.us",
   events_uri="https://events.launchdarkly.us")
+```
+
+</CSTab>
+<CSTab label="Python, connecting to Relay Proxy">
+
+```python
+config = Config(sdk_key='sdk-key-123abc',
+  stream_uri="https://your-relay-proxy.com:8030",
+  base_uri="https://your-relay-proxy.com:8030",
+  events_uri="https://your-relay-proxy.com:8030")
 ```
 
 </CSTab>
@@ -669,13 +956,23 @@ config = Config(sdk_key='sdk-key-123abc',
 To configure an alternate service endpoint for the SDK, use the `stream_uri`, `base_uri`, and `events_uri` properties to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Ruby">
+<CSTab label="Ruby, connecting to federal instance">
 
 ```ruby
 config = LaunchDarkly::Config.new(
   stream_uri: "https://stream.launchdarkly.us",
   base_uri: "https://sdk.launchdarkly.us",
   events_uri: "https://events.launchdarkly.us")
+```
+
+</CSTab>
+<CSTab label="Ruby, connecting to Relay Proxy">
+
+```ruby
+config = LaunchDarkly::Config.new(
+  stream_uri: "https://your-relay-proxy.com:8030",
+  base_uri: "https://your-relay-proxy.com:8030",
+  events_uri: "https://your-relay-proxy.com:8030")
 ```
 
 </CSTab>
@@ -689,13 +986,24 @@ config = LaunchDarkly::Config.new(
 To configure an alternate service endpoint for the SDK, use the `ConfigBuilder` and `ServiceEndpointsBuilder` to specify the base URIs:
 
 <CodeSample>
-<CSTab label="Rust">
+<CSTab label="Rust, connecting to federal instance">
 
 ```rust
 let config = ConfigBuilder::new("sdk-key-123abc").service_endpoints(ServiceEndpointsBuilder::new()
   .streaming_base_url("https://stream.launchdarkly.us")
   .polling_base_url("https://sdk.launchdarkly.us")
   .events_base_url("https://events.launchdarkly.us"));
+```
+
+</CSTab>
+<CSTab label="Rust, connecting to Relay Proxy">
+
+```rust
+let config = ConfigBuilder::new("sdk-key-123abc")
+    .service_endpoints(
+        ServiceEndpointsBuilder::new().relay_proxy("https://your-relay-proxy.com:8030"),
+    )
+    .build();
 ```
 
 </CSTab>
