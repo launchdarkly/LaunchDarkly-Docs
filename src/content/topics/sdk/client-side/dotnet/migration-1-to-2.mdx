@@ -68,14 +68,8 @@ For each data source type, there is a factory method whose name ends in `DataSou
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk1"
-  values={[
-    { label: '1.x syntax', value: 'sdk1', },
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk1">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```csharp
 // 1.x model: setting custom options for streaming mode
@@ -91,8 +85,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```csharp
 // 2.0 model: setting custom options for streaming mode
@@ -112,8 +106,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The default is to use streaming mode. Unlike the earlier model, you can no longer construct a meaningless configuration such as "use streaming mode, but set the polling interval to 1 minute" or "disable events, but set the flush interval to 10 seconds."
 
@@ -127,13 +121,8 @@ On Android and iOS, the default mechanism for persistent storage is the native p
 
 Previously, the SDK would copy flag data to persistent storage for every user key that it had ever obtained flags for. Now, you can set a limit on this with `MaxCachedUsers`:
 
-<CodeTabs
-  defaultValue="sdk2"
-  values={[
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk2">
+<CodeSample>
+<CSTab label="2.0 syntax">
 
 ```csharp
 // Keep flags for the most recent 2 users in persistent storage
@@ -144,18 +133,13 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also turn off persistent storage entirely with `NoPersistence`:
 
-<CodeTabs
-  defaultValue="sdk2"
-  values={[
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk2">
+<CodeSample>
+<CSTab label="2.0 syntax">
 
 ```csharp
 var config = Configuration.Builder("mobile-key-123abc")
@@ -163,8 +147,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to events
 
@@ -176,14 +160,8 @@ If you use private user attributes and are configuring private attributes for th
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk1"
-  values={[
-    { label: '1.x syntax', value: 'sdk1', },
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk1">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```csharp
 // 1.x model: disabling events
@@ -200,8 +178,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```csharp
 // 2.0 model: disabling events
@@ -221,8 +199,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 It is no longer possible to construct a meaningless configuration like "disable events, but set the flush interval to 10 seconds."
 
@@ -234,14 +212,8 @@ Some of the methods have changed slightly in terms of the type or number of para
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk1"
-  values={[
-    { label: '1.x syntax', value: 'sdk1', },
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk1">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```csharp
 // 1.x model: setting connection and read timeouts
@@ -251,8 +223,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```csharp
 // 2.0 model: setting connection and read timeouts
@@ -273,8 +245,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to custom URI configuration
 
@@ -284,14 +256,8 @@ Both of these are now configured with the `ServiceEndpoints` method of `Configur
 
 When connecting to a Relay Proxy instance, previously you needed to set the Relay Proxy base URI in multiple places. Now, you only need to set it once:
 
-<CodeTabs
-  defaultValue="sdk1"
-  values={[
-    { label: '1.x syntax', value: 'sdk1', },
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk1">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```csharp
 var config = Configuration.Builder("mobile-key-123abc")
@@ -301,8 +267,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```csharp
 var config = Configuration.Builder("mobile-key-123abc")
@@ -311,19 +277,13 @@ var config = Configuration.Builder("mobile-key-123abc")
     )
     .Build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 When connecting to a private LaunchDarkly instance, you still need to specify separate URIs, using whatever values were provided to you by LaunchDarkly:
 
-<CodeTabs
-  defaultValue="sdk1"
-  values={[
-    { label: '1.x syntax', value: 'sdk1', },
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk1">
+<CodeSample>
+<CSTab label="1.x syntax">
 
 ```csharp
 var config = Configuration.Builder("mobile-key-123abc")
@@ -340,8 +300,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2">
+</CSTab>
+<CSTab label="2.0 syntax">
 
 ```csharp
 var config = Configuration.Builder("mobile-key-123abc")
@@ -363,8 +323,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     )
     .Build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 All of the `ServiceEndpoints` setter methods allow you to specify the URI as either the `Uri` type or a string.
 
@@ -390,12 +350,8 @@ The new package provides some basic built-in logging implementations suitable fo
 
 Here is an example of configuring the .NET SDK to send log output to the console, and to enable only log messages of `Warn` level or higher:
 
-<CodeTabs
-  values={[
-    { label: '2.0 syntax', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk2">
+<CodeSample>
+<CSTab label="2.0 syntax">
 
 ```csharp
 using LaunchDarkly.Logging;
@@ -406,8 +362,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 It also has an adapter system for connecting it to other logging frameworks, or implementing your own integration. To learn more, read the [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging) documentation.
 
@@ -449,12 +405,8 @@ However, this means that if you want to convert LaunchDarkly SDK types such as `
 
 If you want to make Json.NET work correctly with these types, you must add the package `LaunchDarkly.CommonSdk.JsonNet`, and then create Json.NET's `JsonSerializerSettings` as follows:
 
-<CodeTabs
-  values={[
-    { label: '2.0 only', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk2">
+<CodeSample>
+<CSTab label="2.0 only">
 
 ```csharp
     var settings = new JsonSerializerSettings
@@ -465,19 +417,15 @@ If you want to make Json.NET work correctly with these types, you must add the p
         }
     };
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can then use `settings` in any call to `JsonConvert.SerializeObject` or `JsonConvert.DeserializeObject`, or use it globally by modifying `JsonConvert.DefaultSettings`, and Json.NET will correctly handle the LaunchDarkly SDK types.
 
 Alternately, if you would rather not install this extra package, you can use `LaunchDarkly.Sdk.Json.LdJsonSerialization` and add an extra step to convert the JSON string to Json.NET's `JRaw` type:
 
-<CodeTabs
-  values={[
-    { label: '2.0 only', value: 'sdk2', },
-  ]
-}>
-<CodeTabItem value="sdk2">
+<CodeSample>
+<CSTab label="2.0 only">
 
 ```csharp
     struct ValuesBeingPassedToJavaScriptCode
@@ -493,8 +441,8 @@ Alternately, if you would rather not install this extra package, you can use `La
     }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Miscellaneous API changes
 

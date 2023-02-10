@@ -89,22 +89,16 @@ Next you must specify the key in a Relay Proxy configuration file so it includes
  * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property.
  * If you configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable. Here's how:
 
-  <CodeTabs
-    defaultValue="file"
-    values={[
-      { label: 'Configuration file', value: 'file', },
-      { label: 'Environment variables', value: 'env-var', },
-    ]
-  }>
-  <CodeTabItem value="file">
+  <CodeSample>
+  <CSTab label="Configuration file">
 
   ```bash
 [AutoConfig]
    key = "rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY"
   ```
 
-  </CodeTabItem>
-  <CodeTabItem value="env-var">
+  </CSTab>
+  <CSTab label="Environment variables">
 
   ```bash
 docker run --name ld-relay           \
@@ -112,8 +106,8 @@ docker run --name ld-relay           \
    launchdarkly/ld-relay
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 2. Start the Relay Proxy.
 
@@ -188,14 +182,8 @@ You can give members access to the Relay Proxy using the `relay-proxy-config` re
 
 You can copy and paste this custom role policy into the advanced editor to grant access to all Relay Proxy actions:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Relay Proxy access', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Relay Proxy access">
 
 ```json
 [
@@ -207,7 +195,7 @@ You can copy and paste this custom role policy into the advanced editor to grant
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about creating custom roles, read [Custom roles](/home/members/custom-roles).

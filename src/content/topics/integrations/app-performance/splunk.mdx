@@ -87,18 +87,15 @@ Now that your integration is configured, you can view LaunchDarkly events in Spl
 
 Access those events with the following Splunk search query:
 
-<CodeTabs defaultValue="sql" values={[{
-  label: 'Splunk Query Language',
-  value: 'sql',
-}]}>
-<CodeTabItem value="sql">
+<CodeSample>
+<CSTab label="Splunk Query Language">
 
 ```sql
 sourcetype="<NAME-OF-HTTP-EVENT-COLLECTOR>"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ![LaunchDarkly events in Splunk](launchdarkly-in-splunk.png)
 
@@ -122,11 +119,8 @@ If you configure the LaunchDarkly integration and events in Splunk do not appear
 
 Use this command to recreate the request:
 
-<CodeTabs defaultValue="curl" values={[{
-  label: 'curl',
-  value: 'curl',
-}]}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="curl">
 
 ```bash
 curl -k \
@@ -136,8 +130,8 @@ curl -k \
      https://<HTTP_EVENT_COLLECTOR_BASE_URL>/services/collector/event
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 - Splunk Enterprise URLs format: `<protocol>://<host>:<port>/<endpoint>`.
 - Self-service Splunk Cloud URLs format: `<protocol>://input-<host>:<port>/<endpoint>`.

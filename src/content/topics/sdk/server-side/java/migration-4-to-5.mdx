@@ -67,14 +67,8 @@ For each data source type, there is a factory method whose name ends in `dataSou
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```java
 // 4.x model: setting custom options for streaming mode
@@ -90,8 +84,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```java
 // 5.0 model: setting custom options for streaming mode
@@ -111,8 +105,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The default is to use streaming mode. Unlike the earlier model, it is no longer possible to construct a meaningless configuration such as "use streaming mode, but set the polling interval to 1 minute" or "disable events, but set the flush interval to 10 seconds."
 
@@ -128,14 +122,8 @@ To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The following examples use the Redis integration:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```java
 // 4.x model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
@@ -148,8 +136,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```java
 // 5.0 model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
@@ -164,8 +152,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to events
 
@@ -177,14 +165,8 @@ If you use private user attributes and are configuring private attributes for th
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```java
 // 4.x model: disabling events
@@ -200,8 +182,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```java
 // 5.0 model: disabling events
@@ -221,8 +203,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 It is no longer possible to construct a meaningless configuration like "disable events, but set the flush interval to 10 seconds."
 
@@ -234,14 +216,8 @@ Some of the methods have changed slightly in terms of the type or number of para
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```java
 // 4.x model: setting connection and socket timeouts
@@ -259,8 +235,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```java
 // 5.0 model: setting connection and socket timeouts
@@ -282,8 +258,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to the JSON value type
 
@@ -298,14 +274,8 @@ Version 4.9.0 added the immutable class [`LDValue`](https://javadoc.io/static/co
 
 Here is an example of setting a user custom attribute to a list of strings:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```java
 // 4.x way: set user's "groups" to ["cats", "dogs"]
@@ -322,8 +292,8 @@ LDUser user = new LDUser.Builder("key")
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```java
 // 5.0 way: set user's "groups" to ["cats", "dogs"]
@@ -333,8 +303,8 @@ LDUser user = new LDUser.Builder("key")
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to EvaluationDetail
 
@@ -345,14 +315,8 @@ The [`EvaluationDetail`](https://javadoc.io/static/com.launchdarkly/launchdarkly
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```java
 // 4.x model: create an EvaluationDetail instance, maybe for testing
@@ -370,8 +334,8 @@ if (variation == null) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```java
 // 5.x model: create an EvaluationDetail instance, maybe for testing
@@ -389,8 +353,8 @@ if (variation == EvaluationDetail.NO_VARIATION) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to add-on integration packages
 
@@ -429,14 +393,8 @@ A new syntax for configuring these was added in version 4.12.0, and in version 5
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```java
 // 4.x model: proxy mode with streaming
@@ -464,8 +422,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```java
 // 5.0 model: proxy mode with streaming
@@ -493,8 +451,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Converting objects to or from JSON data
 
@@ -512,13 +470,8 @@ However, this also means that if you want to convert LaunchDarkly SDK objects su
 
 To make this work correctly, you must add an extra step to the setup of your Gson instance:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: 'Java', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.google.gson.*;
@@ -530,8 +483,8 @@ Gson gson = new GsonBuilder()
   .create();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you have registered [`LDGson.typeAdapters()`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/json/LDGson.html#typeAdapters--) in the Gson instance you're using, `toJson()` and `fromJson()` will work as expected with LaunchDarkly types.
 
@@ -539,13 +492,8 @@ If you have registered [`LDGson.typeAdapters()`](https://javadoc.io/static/com.l
 
 Previously, it was not possible to convert LaunchDarkly SDK classes to or from JSON using Jackson. This is now possible as long as you configure your Jackson `ObjectMapper` with [`LDJackson.module()`](https://javadoc.io/static/com.launchdarkly/launchdarkly-java-server-sdk/5.0.0/com/launchdarkly/sdk/json/LDJackson.html#module--) as follows:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: 'Java', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.google.jackson.databind.*;
@@ -555,8 +503,8 @@ ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(LDJackson.module());
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Using other third-party dependencies
 

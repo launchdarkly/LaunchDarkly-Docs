@@ -63,37 +63,27 @@ After you complete the [Getting Started process](/home/getting-started), follow 
 
 First, install the LaunchDarkly SDK as a dependency in your application.
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Shell', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 cargo add launchdarkly-server-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly client in your application code:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 use launchdarkly_server_sdk::{Client, ConfigBuilder, ContextBuilder, ServiceEndpointsBuilder};
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of the LaunchDarkly client. Specify your SDK key here so that your application is authorized to connect to LaunchDarkly, your application, and your environment.
 
@@ -103,13 +93,8 @@ Only create one instance of `client`.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 #[tokio::main]
@@ -125,8 +110,8 @@ async fn main () {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>client must be a singleton</CalloutTitle>
@@ -143,13 +128,8 @@ You can use `client` to check which variation a particular context will receive 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 let context = ContextBuilder::new("specific.context.key").build();
@@ -162,8 +142,8 @@ if show_feature {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Supported features
 

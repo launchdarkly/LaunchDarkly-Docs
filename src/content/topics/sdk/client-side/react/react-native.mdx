@@ -74,48 +74,37 @@ First, install the LaunchDarkly SDK as a dependency. Add the LaunchDarkly npm de
 
 To add the LaunchDarkly npm dependency:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Installing with npm', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install --save launchdarkly-react-native-client-sdk
 npx pod-install
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must have a `Podfile` in your `ios/` directory. After you write the `Podfile`, run `pod install` in the `ios/` directory. This SDK requires Xcode 12.2 or higher and compiles against Swift 5.
 
 After setting up the SDK, import the SDK into your project:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import LDClient from 'launchdarkly-react-native-client-sdk';
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page.
 
@@ -141,14 +130,8 @@ If you have multiple LaunchDarkly projects, you can create one `LDClient` for ea
 
 The following example shows the simplest way to create a shared instance of `LDClient`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let client = new LDClient();
@@ -158,8 +141,8 @@ let user = { key: 'user-key-123abc' };
 await client.configure(config, user);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 let client = new LDClient();
@@ -169,21 +152,15 @@ let user: ld.LDUser = { key: 'user-key-123abc' };
 await client.configure(config, user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can give `.configure` a timeout parameter. If it receives flag values before the timeout, the returned promise will resolve. Otherwise, it will be rejected.
 
 Here is an example with a timeout of five seconds:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let client = new LDClient();
@@ -193,8 +170,8 @@ let user = { key: 'user-key-123abc' };
 client.configure(config, user, 5.0)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 let client = new LDClient();
@@ -204,8 +181,8 @@ let user: ld.LDUser = { key: 'user-key-123abc' };
 client.configure(config, user, 5.0);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>

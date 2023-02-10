@@ -75,61 +75,49 @@ Where you previously created users, now you must create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '3.x syntax, user with key', value: 'user', },
-    { label: '4.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="3.x syntax, user with key">
 
 ```java
 LDUser user = new LDUser("user-key-123abc");
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+
+</CSTab>
+<CSTab label="4.0 syntax, context with key">
 
 ```java
 LDContext context = LDContext.create("context-key-123abc");
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '4.0 syntax, context shortcut', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="4.0 syntax, context shortcut">
 
 ```java
-LDContext context1 = LDContext.create(ContextKind.of("organization"), "org1-key");
+LDContext context1 = LDContext.create(ContextKind.of("organization"), "org-key-123abc");
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '4.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="4.0 syntax">
 
 ```java
 LDContext multiContext = LDContext.createMulti(
-    LDContext.create("user1-key"),
-    LDContext.create(ContextKind.of("device"), "key-of-device")
+    LDContext.create("user-key-123abc"),
+    LDContext.create(ContextKind.of("device"), "device-key-123abc")
 );
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -147,14 +135,8 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '3.x syntax, user with attributes', value: 'user', },
-    { label: '4.0 syntax, context with attributes', value: 'context', },    
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="3.x syntax, user with attributes">
 
 ```java
 LDUser user = new LDUser.Builder("user-key-123abc")
@@ -162,8 +144,9 @@ LDUser user = new LDUser.Builder("user-key-123abc")
   .email("sandy@example.com")
   .build();
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+
+</CSTab>
+<CSTab label="4.0 syntax, context with attributes">
 
 ```java
 LDContext context = LDContext.builder("user-key-123abc")
@@ -171,8 +154,9 @@ LDContext context = LDContext.builder("user-key-123abc")
   .set("email", "sandy@example.com")
   .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -182,13 +166,8 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's one way to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: '4.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="4.0 syntax, context with object attributes">
 
 ```java
 LDValue addressData = LDValue.buildObject()
@@ -199,8 +178,9 @@ LDContext context = LDContext.builder("user-key-123abc")
   .set("address", addressData)
   .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 There are multiple ways you can construct attribute values. To learn more about additional methods, read [LDValue](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html)).
 
@@ -220,51 +200,42 @@ As in previous versions of the SDK, you can mark specific attributes of a contex
 
 In version 4.0, there are two scopes for which you can mark attributes as private:
 
-  * Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
-  * Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+* Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
+* Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
 
-  In the first example, all attributes are marked private for all contexts. In the second example, the "email" and "address" attributes are private for all contexts:
+In the first example, all attributes are marked private for all contexts. In the second example, the "email" and "address" attributes are private for all contexts:
 
-  <CodeTabs
-    defaultValue="private-all"
-    values={[
-      { label: '4.0 syntax, all attributes private', value: 'private-all', },
-      { label: '4.0 syntax, two attributes private', value: 'private-some', },
-    ]
-  }>
-  <CodeTabItem value="private-all">
+<CodeSample>
+<CSTab label="4.0 syntax, all attributes private">
 
-  ```java
+```java
 LDConfig config = new LDConfig.Builder()
-  .events(
-    Components.sendEvents().allAttributesPrivate(true)
-  )
-  .build();
-  ```
-  </CodeTabItem>
-  <CodeTabItem value="private-some">
+.events(
+  Components.sendEvents().allAttributesPrivate(true)
+)
+.build();
+```
 
-  ```java
+</CSTab>
+<CSTab label="4.0 syntax, two attributes private">
+
+```java
 LDConfig config = new LDConfig.Builder()
-  .events(
-    Components.sendEvents().privateAttributes("email", "address")
-  )
-  .build();
-  ```
-  </CodeTabItem>
-  </CodeTabs>
+.events(
+  Components.sendEvents().privateAttributes("email", "address")
+)
+.build();
+```
+
+</CSTab>
+</CodeSample>
 
 To learn more, read [EventProcessorBuilder](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/integrations/EventProcessorBuilder.html).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: '4.0 syntax, attribute marked private for one context', value: 'private', },
-  ]
-}>
-<CodeTabItem value="private">
+<CodeSample>
+<CSTab label="4.0 syntax, attribute marked private for one context">
 
 ```java
 LDContext context = LDContext.builder("key")
@@ -273,8 +244,9 @@ LDContext context = LDContext.builder("key")
   .privateAttributes("email")
   .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -290,22 +262,18 @@ If you currently have feature flags that target these attributes, you will need 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="device"
-  values={[
-    { label: '4.0 syntax, setting device and os', value: 'device', },
-  ]
-}>
-<CodeTabItem value="device">
+<CodeSample>
+<CSTab label="4.0 syntax, setting device and os">
 
 ```java
-LDContext context = LDContext.builder("aa0ceb")
+LDContext context = LDContext.builder("context-key-123abc")
     .set("os", "25")
     .set("device", "Pixel XL marlin")
     .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to anonymous users
 
@@ -315,53 +283,40 @@ In the 4.0 version of the SDK, this behavior works differently. The SDK will not
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: '4.0 syntax, configuring the SDK to generate keys', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="4.0 syntax, configuring the SDK to generate keys">
 
 ```java
 LDConfig config = new LDConfig.Builder()
     .generateAnonymousKeys(true)
     .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 If you set this option, the SDK will generate a key for any context whose `anonymous` attribute is `true`. You must still specify a non-null key as a placeholder when you construct the `LDContext`, because the SDK does not allow an `LDContext` to exist with a null key. When you pass this context to SDK methods like `init` or `identify`, the SDK replaces the placeholder key with a generated key.
 
 In this example, the placeholder key is "unknown-context-key", but it could be any non-empty string:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: '4.0 syntax, building an anonymous context', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="4.0 syntax, building an anonymous context">
 
 ```java
 LDContext context = LDContext.builder("unknown-context-key")
     .anonymous(true)
     .build();
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 If you use multi-contexts, this feature applies to each individual context separately. Only the contexts that have the `anonymous` attribute set to `true` will receive a generated key, and there will be a different generated key for each context kind.
 
 In this example, `userContext` will receive a generated key, but `orgContext` will still have the key `"org-key-123abc":
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: '4.0 syntax, anonymous context in a multi-context', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="4.0 syntax, anonymous context in a multi-context">
 
 ```java
 LDContext userContext = LDContext.builder("unknown-context-key")
@@ -370,8 +325,9 @@ LDContext userContext = LDContext.builder("unknown-context-key")
 LDContext orgContext = LDContext.create(ContextKind.of("organization"), "org-key-123abc");
 LDContext multiContext = LDContext.createMulti(userContext, orgContext);
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to alias events
 
@@ -385,13 +341,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '4.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="4.0 syntax, associating two contexts">
 
 ```java
 LDContext context1 = LDContext.create("user-key-123abc");
@@ -399,8 +350,9 @@ LDContext context2 = LDContext.create(ContextKind.of("device"), "device-key-123a
 LDContext multiContext = LDContext.createMulti(context1, context2);
 client.identify(multiContext);
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 To learn more, read [`ContextMultiBuilder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/ContextMultiBuilder.html).
 
@@ -420,14 +372,8 @@ For each data source type, there is a factory method whose name ends in `DataSou
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk3"
-  values={[
-    { label: '3.x syntax', value: 'sdk3', },
-    { label: '4.0 syntax', value: 'sdk4', },
-  ]
-}>
-<CodeTabItem value="sdk3">
+<CodeSample>
+<CSTab label="3.x syntax">
 
 ```java
 // Setting custom options for streaming mode
@@ -444,8 +390,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4">
+</CSTab>
+<CSTab label="4.0 syntax">
 
 ```java
 // Setting custom options for streaming mode
@@ -466,8 +412,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The default is to use streaming mode. Unlike the earlier model, it is no longer possible to construct a meaningless configuration such as "use streaming mode, but set the polling interval to 1 minute."
 
@@ -483,14 +429,8 @@ To completely disable events, set [`LDConfig.Builder.events()`](https://launchda
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk3"
-  values={[
-    { label: '3.x syntax', value: 'sdk3', },
-    { label: '4.0 syntax', value: 'sdk4', },
-  ]
-}>
-<CodeTabItem value="sdk3">
+<CodeSample>
+<CSTab label="3.x syntax">
 
 ```java
 // Customizing event behavior
@@ -503,8 +443,8 @@ LDConfig config = new LDConfig.Builder()
 // Disabling events is not possible in 3.x
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4">
+</CSTab>
+<CSTab label="4.0 syntax">
 
 ```java
 // Customizing event behavior
@@ -523,8 +463,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 It is no longer possible to construct a meaningless configuration like "disable events, but set the flush interval to 10 seconds."
 
@@ -538,14 +478,8 @@ To learn more, read [`HttpConfigurationBuilder`](https://launchdarkly.github.io/
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk3"
-  values={[
-    { label: '3.x syntax', value: 'sdk3', },
-    { label: '4.0 syntax', value: 'sdk4', },
-  ]
-}>
-<CodeTabItem value="sdk3">
+<CodeSample>
+<CSTab label="3.x syntax">
 
 ```java
 // Setting connection timeout
@@ -554,8 +488,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4">
+</CSTab>
+<CSTab label="4.0 syntax">
 
 ```java
 // Setting connection timeout
@@ -567,8 +501,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to service URI configuration
 
@@ -578,14 +512,8 @@ To customize these options in the new SDK, call [`Components.serviceEndpoints()`
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk3"
-  values={[
-    { label: '3.x syntax', value: 'sdk3', },
-    { label: '4.0 syntax', value: 'sdk4', },
-  ]
-}>
-<CodeTabItem value="sdk3">
+<CodeSample>
+<CSTab label="3.x syntax">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -595,8 +523,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4">
+</CSTab>
+<CSTab label="4.0 syntax">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -609,8 +537,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding what was deprecated
 

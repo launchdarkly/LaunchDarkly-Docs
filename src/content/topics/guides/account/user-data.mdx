@@ -82,22 +82,17 @@ Using the REPORT HTTP verb requires an additional option when configuring the Ja
 
 Here is an example where the `useReport` parameter is enabled:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
-var client = LDClient.initialize(‘YOUR-ENVIRONMENT-ID’, user, options = {
+var client = LDClient.initialize(‘environment-id-123abc’, user, options = {
   useReport: true
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Evaluating flags against a Relay Proxy
 
@@ -111,46 +106,38 @@ To learn more, read [The Relay Proxy](/home/relay-proxy).
 
 Here is an example configuration for the client:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
-var ldclient = LDClient.initialize(‘YOUR_CLIENT_SIDE_ID’,
+var ldclient = LDClient.initialize(‘client-side-id-123abc’,
 user, options = {
   allAttributesPrivate: true,
-  baseUrl: "RELAY-PROXY-INSTANCE-URL",
-  streamUrl: "RELAY-PROXY-INSTANCE-URL"
+  baseUrl: "https://your-relay-proxy.com:8030",
+  streamUrl: "https://your-relay-proxy.com:8030"
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here is an example configuration for the Relay Proxy:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Relay Proxy configuration', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Relay Proxy configuration">
 
 ```js
 [environment "production"]
- prefix = "ld:support-service:production"
- sdkKey = "YOUR-SDK-KEY"
- envId = "YOUR-ENVIRONMENT-ID"
- allowedOrigin = "YOUR-APPLICATION-URL"
+ prefix = "acme:example:production" // added to database keys if you use a feature store
+ sdkKey = "sdk-key-123abc" // your SDK key
+ envId = "63056cdba4884310c8a9bc14" // your client-side ID
+ allowedOrigin = "https://example.com" // accepted headers for CORS requests, comma-separated
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
+
+To learn more, read [Relay Proxy - Configuration](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md).
 
 ### Bootstrapping flag values against a server-side SDK
 

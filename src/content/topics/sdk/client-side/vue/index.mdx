@@ -99,38 +99,27 @@ Client-side IDs are not secret and you can expose them in your client-side code 
 
 Install the Vue SDK using either `npm` or `yarn`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Installing with npm', value: 'js', },
-    { label: 'Installing with yarn', value: 'yarn', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install --save launchdarkly-vue-client-sdk
 ```
 
-</CodeTabItem>
-<CodeTabItem value="yarn">
+</CSTab>
+<CSTab label="Installing with yarn">
 
 ```bash
 yarn add launchdarkly-vue-client-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install the dependency, add the LaunchDarkly plugin to your Vue app. Typically you do this in `main.js`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { createApp } from 'vue'
@@ -144,8 +133,8 @@ app.use(LDPlugin, { clientSideID })
 app.mount('#app')
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Configuring the Vue SDK
 
@@ -163,14 +152,8 @@ For example, if you do not know your user at plugin load time and need to defer 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="main"
-  values={[
-    { label: 'main.js', value: 'main', },
-    { label: 'App.vue', value: 'app', },
-  ]
-}>
-<CodeTabItem value="main">
+<CodeSample>
+<CSTab label="main.js">
 
 ```js
 import { createApp } from 'vue'
@@ -182,8 +165,8 @@ app.use(LDPlugin, { clientSideID: 'client-side-id-123abc', deferInitialization: 
 app.mount('#app')
 ```
 
-</CodeTabItem>
-<CodeTabItem value="app">
+</CSTab>
+<CSTab label="App.vue">
 
 ```html
 <script setup>
@@ -198,8 +181,8 @@ const [ldReady] = ldInit({ user: { key: 'user-key-123abc', name: 'Sandy' } })
 </template>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [the API documentation for ldInit](https://launchdarkly.github.io/vue-client-sdk/index.html#ldInit).
 
@@ -207,13 +190,8 @@ Use `ldReady` to check when the LaunchDarkly client has finished initializing. T
 
 Here's how:
 
-<CodeTabs
-  defaultValue="vue"
-  values={[
-    { label: 'Vue', value: 'vue', },
-  ]
-}>
-<CodeTabItem value="vue">
+<CodeSample>
+<CSTab label="Vue">
 
 ```html
 <script setup lang="ts">
@@ -228,8 +206,8 @@ Here's how:
 </template>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Retrieving flag values with the client
 
@@ -237,13 +215,8 @@ Use `useLDFlag` to access a single flag value by key. It returns a readonly ref 
 
 Example usage:
 
-<CodeTabs
-  defaultValue="vue"
-  values={[
-    { label: 'Vue', value: 'vue', },
-  ]
-}>
-<CodeTabItem value="vue">
+<CodeSample>
+<CSTab label="Vue">
 
 ```html
 <script setup lang="ts">
@@ -257,8 +230,8 @@ Example usage:
 </template>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The Vue SDK automatically subscribes to flag change events with `useLDFlag`, and your component re-renders automatically when flag changes occur. This is a benefit of `useLDFlag` as compared with getting flag values using the underlying JavaScript SDK, for example with `ldClient.variant()` or `ldClient.allFlags()`. If you do not want flag updates streamed to your application, you can disable this by including the `streaming: false` option when loading the plugin or calling `ldInit`.
 
@@ -268,13 +241,8 @@ You may also access the LaunchDarkly client with `useLDClient`, the [LDClient](h
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { useLDClient } from 'launchdarkly-vue-client-sdk'
@@ -283,20 +251,15 @@ const ldClient = useLDClient()
 const allFlags = ldClient.allFlags()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Example app
 
 An example app is included in [launchdarkly/vue-client-sdk](https://github.com/launchdarkly/vue-client-sdk/tree/main/example).
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'bash', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="bash">
 
 ```bash
 git clone git@github.com:launchdarkly/vue-client-sdk.git
@@ -305,5 +268,5 @@ npm i
 npm start
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

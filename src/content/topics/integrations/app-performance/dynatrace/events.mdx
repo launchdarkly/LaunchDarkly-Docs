@@ -34,8 +34,8 @@ To send flag change events to Dynatrace:
 
 To use the LaunchDarkly Dynatrace integration successfully, you must meet the following prerequisites:
 
-* You must know the URL of your Dynatrace service. Find it by loading your Dynatrace dashboard and looking at the URL in your browser's address bar. For example: `https://csd50042.live.dynatrace.com`. Copy this URL and save it.
-* You must have an API token from your Dynatrace account. To learn more, read [Creating a Dynatrace API token](#creating-a-dynatrace-api-token).
+- You must know the URL of your Dynatrace service. Find it by loading your Dynatrace dashboard and looking at the URL in your browser's address bar. For example: `https://csd50042.live.dynatrace.com`. Copy this URL and save it.
+- You must have an API token from your Dynatrace account. To learn more, read [Creating a Dynatrace API token](#creating-a-dynatrace-api-token).
 
 ## Creating a Dynatrace API token
 
@@ -72,47 +72,35 @@ To find the application entity type, navigate to the Dynatrace page for the enti
 
 The "Policy" field lets you control which LaunchDarkly events are sent to Dynatrace. The Resource specifier in the default policy value allows Production environments across all projects to send events:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Production environments across all projects', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label= "Production environments across all projects">
 
 ```text
 proj/*:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the Resource configuration fields, read [Resources in custom roles](/home/members/role-resources).
 
 You may want to override the default policy for various reasons, including restricting how the integration receives and exports events. Using the policy editor, you can restrict the integration to:
 
-* a specific set of LaunchDarkly projects/environments
-* a specific set of flags
-* a specific set of actions
+- a specific set of LaunchDarkly projects/environments
+- a specific set of flags
+- a specific set of actions
 
 For example, to restrict the policy to a single project called `cool-app`, set the policy configuration's Resource field to the following Resource specifier:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Access restricted to one project', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Access restricted to one project">
 
 ```text
 proj/cool-app:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The policy above makes it so that the only events the integrations sends to Dynatrace are flag events from the `cool-app` project's Production environment.
 

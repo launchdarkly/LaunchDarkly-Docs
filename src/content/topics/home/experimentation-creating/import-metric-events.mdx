@@ -82,13 +82,8 @@ Here's how to structure your import metric request:
 
 The request body must consist of a <strong>JSON array</strong> of `custom` events, which are JSON objects with the following shape:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Array of custom events', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Array of custom events">
 
 ```json
 [
@@ -105,8 +100,8 @@ The request body must consist of a <strong>JSON array</strong> of `custom` event
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here are the details of each `custom` event field:
 
@@ -143,13 +138,8 @@ Here are the details of each `custom` event field:
 
 Here is an example `curl` invocation that sends two metric events for different users to the same metric. Replace `YOUR_CLIENT_SIDE_ID` with your client-side ID.
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Example curl', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -i -X POST \
@@ -160,8 +150,8 @@ curl -i -X POST \
   https://events.launchdarkly.com/import/environments/YOUR_CLIENT_SIDE_ID/metrics
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Responses and error handling
 

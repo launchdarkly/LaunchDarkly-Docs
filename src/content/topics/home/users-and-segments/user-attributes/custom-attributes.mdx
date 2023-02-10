@@ -38,13 +38,8 @@ Custom attributes are environment-specific. They are not shared between environm
 
 Here is an example user object which contains custom user attributes:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'User object with custom attributes', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="User object with custom attributes">
 
 ```json
 {
@@ -59,8 +54,8 @@ Here is an example user object which contains custom user attributes:
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There is no limit to the number of custom attributes. However, adding custom attributes does increase the size of the user object. JavaScript-based client-side SDKs send the user object during initialization, so a large number of custom attributes may mean it takes longer for the SDK to finish initializing. To learn more, read [Initializing the client](/sdk/client-side/javascript#initializing-the-client).
 

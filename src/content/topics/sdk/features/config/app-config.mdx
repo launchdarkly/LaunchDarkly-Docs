@@ -66,7 +66,7 @@ This feature is available in the following client-side SDKs:
 - [iOS](#ios)
 - [JavaScript](#javascript)
 - [Node.js (client-side)](#nodejs-client-side)
-- [React](#javascript): The React SDK relies on the JavaScript SDK for this functionality. 
+- [React](#javascript): The React SDK relies on the JavaScript SDK for this functionality.
 
 ### Android
 
@@ -74,14 +74,8 @@ This feature is available in the following client-side SDKs:
 
 This code sample shows you how to configure the application identifier and application version:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java'},
-    { label: 'Kotlin', value: 'kotlin', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -93,8 +87,8 @@ LDConfig config = new LDConfig.Builder()
     .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
@@ -106,8 +100,8 @@ val ldConfig: LDConfig = LDConfig.Builder()
     .build()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`ApplicationInfoBuilder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/integrations/ApplicationInfoBuilder.html).
 
@@ -119,14 +113,8 @@ To learn more, read [`ApplicationInfoBuilder`](https://launchdarkly.github.io/an
 
 This code sample shows you how to configure the application identifier and application version:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift'},
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 var applicationInfo = ApplicationInfo()
@@ -137,8 +125,8 @@ var config = LDConfig(mobileKey: mobileKey)
 config.applicationInfo = applicationInfo
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objc
 LDApplicationInfo *applicationInfo = [[LDApplicationInfo alloc] init];
@@ -149,8 +137,8 @@ LDConfig *config = [[LDConfig alloc] initWithMobileKey:mobileKey];
 config.applicationInfo = applicationInfo;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ios-client-sdk/Structs/LDConfig.html).
 </Details>
@@ -161,14 +149,8 @@ To learn more about the specific configuration options that are available in thi
 
 This code sample shows you how to configure the application identifier and application version:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js' },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -180,8 +162,8 @@ const options = {
 const client = LDClient.initialize('client-side-id-123abc', context, options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDClient from 'launchdarkly-js-client-sdk';
@@ -195,8 +177,8 @@ const options: LDClient.LDOptions = {
 const client = LDClient.initialize('client-side-id-123abc', context, options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the specific configuration options that are available in this SDK, read the [`LDOptions`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html).
 </Details>
@@ -207,14 +189,8 @@ To learn more about the specific configuration options that are available in thi
 
 This code sample shows you how to configure the application identifier and application version:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js'},
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -227,8 +203,8 @@ const options = {
 const client = LDClient.initialize('client-side-id-123abc', context, options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDClient from 'launchdarkly-node-client-sdk';
@@ -242,8 +218,8 @@ const options: LDClient.LDOptions = {
 const client = LDClient.initialize('client-side-id-123abc', context, options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`application`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#application).
 
@@ -267,13 +243,8 @@ This code sample shows you how to pass custom parameters to the client by creati
 
 The code in this sample configures the application identifier and application version:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 var config ld.Config
@@ -281,8 +252,8 @@ config.ApplicationInfo.ApplicationID = "authentication-service"
 config.ApplicationInfo.ApplicationVersion = "1.0.0"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the configuration options, read [`Config`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#Config).
 </Details>
@@ -295,13 +266,8 @@ This code sample shows you how to pass custom parameters to the client by creati
 
 To pass custom parameters:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -312,8 +278,8 @@ LDConfig config = new LDConfig.Builder()
   ).build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html).
 </Details>
@@ -326,14 +292,8 @@ This code sample shows you how to pass custom parameters to the client by creati
 
 To pass custom parameters:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 var options = {
@@ -345,8 +305,8 @@ var options = {
 client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -359,8 +319,8 @@ const options: ld.LDOptions = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html).
 </Details>
@@ -373,13 +333,8 @@ This code sample shows you how to pass custom parameters to the client by creati
 
 To pass custom parameters:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 LaunchDarkly::Config.new({
@@ -390,8 +345,8 @@ LaunchDarkly::Config.new({
 })
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/ruby-server-sdk).
 </Details>
@@ -402,13 +357,8 @@ To learn more about the specific configuration options that are available in thi
 
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', }
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 let mut application_info = ApplicationInfo::new();
@@ -420,8 +370,8 @@ let config = ConfigBuilder::new(&sdk_key)
     .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `Config` type lets you specify a variety of options. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Config.html).
 </Details>

@@ -53,14 +53,8 @@ The client uses an event pattern which allows your app to subscribe to feature f
 
 To subscribe to feature flag changes, register listeners for change events from the SDK:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-    { label: 'C# (.NET SDK versions 1.x)', value: 'dotnet-client-pre-2.0', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v2.0 (C#)">
 
 ```csharp
 client.FlagTracker.FlagChanged += (sender, eventArgs) => {
@@ -70,8 +64,8 @@ client.FlagTracker.FlagChanged += (sender, eventArgs) => {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="dotnet-client-pre-2.0">
+</CSTab>
+<CSTab label=".NET SDK v1.x (C#)">
 
 ```csharp
 client.FlagChanged += (sender, eventArgs) => {
@@ -81,8 +75,8 @@ client.FlagChanged += (sender, eventArgs) => {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`IFlagTracker`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Interfaces.IFlagTracker.html).
 </Details>
@@ -95,14 +89,8 @@ The client uses a listener pattern which allows your app to subscribe to feature
 
 To subscribe to feature flag changes, register listeners for change events from the SDK:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 String flagKey = "yourFlagKey";
@@ -117,8 +105,8 @@ FeatureFlagChangeListener listener = new FeatureFlagChangeListener() {
 LDClient.get().registerFeatureFlagListener(flagKey, listener);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val flagKey = "yourFlagKey"
@@ -130,35 +118,29 @@ val listener = FeatureFlagChangeListener {
 LDClient.get().registerFeatureFlagListener(flagKey, listener)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The flag key passed to `onFeatureFlagChange` is the key of the updated flag, which lets a single listener be registered for multiple flags.
 
 You can also disable listeners by unregistering them:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDClient.get().unregisterFeatureFlagListener(flagKey, listener);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 LDClient.get().unregisterFeatureFlagListener(flagKey, listener)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ---
 
@@ -179,14 +161,8 @@ Additionally, we provide an update listener interface for when you want to be no
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDAllFlagsListener listener = new LDAllFlagsListener() {
@@ -202,8 +178,8 @@ LDClient.get().registerAllFlagsListener(listener);
 LDClient.get().unregisterAllFlagsListener(listener);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val listener = LDAllFlagsListener {
@@ -216,8 +192,8 @@ LDClient.get().registerAllFlagsListener(listener)
 LDClient.get().unregisterAllFlagsListener(listener)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Electron
@@ -228,13 +204,8 @@ The client uses an event emitter pattern which allows your app to subscribe to f
 
 To subscribe to feature flag changes, register listeners for change events from the SDK:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change:flag-key-123abc', (newValue, oldValue) => {
@@ -242,19 +213,14 @@ client.on('change:flag-key-123abc', (newValue, oldValue) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Or, you can listen for all feature flag changes:
 
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change', (allFlagChanges) => {
@@ -264,8 +230,8 @@ client.on('change', (allFlagChanges) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Subscribing to `change` events automatically turns on streaming mode, unless you have explicitly set `streaming` to `false`.
 
@@ -279,13 +245,8 @@ The client uses an observer pattern which allows your app to subscribe to featur
 
 To subscribe to feature flag changes, register listeners for change events from the SDK:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDFlagUpdatedCallback listener = (String flagKey) {
@@ -297,37 +258,27 @@ LDFlagUpdatedCallback listener = (String flagKey) {
 await LDClient.registerFeatureFlagListener('yourFlagKey', listener);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The flag key passed to your `LDFlagUpdatedCallback` is the key of the updated flag, which allows a single listener to be registered for multiple flags.
 
 You can also disable listeners by unregistering them:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 await LDClient.unregisterFeatureFlagListener(flagKey, listener);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Additionally, we provide a listener interface if you want to be notified any time the flag cache is updated. The application provides a callback that is activated whenever the SDK receives new flag data from the service. It calls with a list of flag keys that were updated. If no flag values changed, this list is empty.
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDFlagsReceivedCallback listener = (List<String> flagKeys) {
@@ -338,8 +289,8 @@ await LDClient.registerFlagsReceivedListener(listener);
 await LDClient.unregisterFlagsReceivedListener(listener);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### iOS
@@ -365,14 +316,8 @@ The lifetime of the `LDObserverOwner` must extend for at least as long as you wa
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 let flagKey = "flag-key-123abc"
@@ -397,8 +342,8 @@ client.observeAll(owner: self) {_ in
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 __weak typeof(self) weakSelf = self;
@@ -414,8 +359,8 @@ __weak typeof(self) weakSelf = self;
 }];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### JavaScript
@@ -426,13 +371,8 @@ The client uses an event emitter pattern which allows your app to subscribe to f
 
 To subscribe to all feature flag changes, register listeners for change events from the SDK:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change', (settings) => {
@@ -440,20 +380,15 @@ client.on('change', (settings) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `settings` object contains a map of updated feature flag keys and values. The map only contains the keys to flags that have changed. You can also subscribe to specific flags.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change:flag-key-123abc', (value, previous) => {
@@ -461,8 +396,8 @@ client.on('change:flag-key-123abc', (value, previous) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (client-side)
@@ -473,13 +408,8 @@ The client uses an event emitter pattern which allows your app to subscribe to f
 
 To subscribe to all feature flag changes, register listeners for change events from the SDK:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change', allChanges => {
@@ -487,20 +417,15 @@ client.on('change', allChanges => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `allChanges` object contains a map of updated feature flag keys and values. The map only contains the keys to flags that have changed. You can also subscribe to specific flags.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change:flag-key-123abc', (value, previous) => {
@@ -508,8 +433,8 @@ client.on('change:flag-key-123abc', (value, previous) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native
@@ -520,13 +445,8 @@ For an app to perform real-time updates, it must register listeners for updates 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 if (this.state.listeners.hasOwnProperty(key)) {
@@ -537,18 +457,13 @@ client.registerFeatureFlagListener('flag-key-123abc', listener);
 this.setState({listeners: {...this.state.listeners, ...{['flag-key-123abc']: listener}}});
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also disable listeners by unregistering them:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 this.state.client.unregisterFeatureFlagListener('flag-key-123abc', this.state.listeners['flag-key-123abc']);
@@ -556,8 +471,8 @@ let {['flag-key-123abc']: omit, ...newListeners} = this.state.listeners;
 this.setState({listeners: newListeners});
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -592,13 +507,8 @@ The listener method is called synchronously from a background task.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 void LogWheneverAnyFlagChanges(LdClient client) {
@@ -609,19 +519,13 @@ void LogWheneverAnyFlagChanges(LdClient client) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To listen for changes in flag values for a specific flag key and context, use [`IFlagTracker.FlagValueChangeHandler()`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.IFlagTracker.html#LaunchDarkly_Sdk_Server_Interfaces_IFlagTracker_FlagValueChangeHandler_). It calls your code with a [`FlagValueChangeEvent`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Interfaces.FlagValueChangeEvent.html). This is equivalent to re-evaluating the flag for that context whenever there is a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html).
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 void LogWheneverOneFlagChangesForOneContext(LdClient client, string flagKey, Context context) {
@@ -641,8 +545,8 @@ void LogWheneverOneFlagChangesForOneContext(LdClient client, string flagKey, Con
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 void LogWheneverOneFlagChangesForOneUser(LdClient client, string flagKey, User user) {
@@ -662,8 +566,8 @@ void LogWheneverOneFlagChangesForOneUser(LdClient client, string flagKey, User u
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -685,14 +589,8 @@ Calling `GetFlagTracker().AddFlagChangeListener()` provides a channel that recei
 
 The event data consists only of the flag key. It does not contain a flag value, because in server-side SDKs, flags only have values when they are evaluated for a specific evaluation context.
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -710,8 +608,8 @@ func logWheneverAnyFlagChanges(client *ld.LDClient) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -729,19 +627,13 @@ func logWheneverAnyFlagChanges(client *ld.LDClient) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To listen for changes in flag values for a specific flag key and context, use `GetFlagTracker().AddFlagValueChangeListener()`, which provides [`FlagValueChangeEvent`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/interfaces#FlagValueChangeEvent)s. This is equivalent to re-evaluating the flag for that context whenever `AddFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value).
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -762,8 +654,8 @@ func logWheneverOneFlagChangesForOneUser(client *ld.LDClient, flagKey string, co
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -784,8 +676,8 @@ func logWheneverOneFlagChangesForOneUser(client *ld.LDClient, flagKey string, us
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 With both of these methods, it is the caller's responsibility to consume values from the channel. Letting values accumulate in the channel can cause an SDK goroutine to be blocked.
 </Details>
@@ -813,13 +705,8 @@ The listener method is called from a worker thread.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 void logWheneverAnyFlagChanges(LDClient client) {
@@ -829,19 +716,13 @@ void logWheneverAnyFlagChanges(LDClient client) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To listen for changes in flag values for a specific flag key and context, use [`getFlagTracker().addFlagValueChangeListener`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagTracker.html#addFlagValueChangeListener(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.server.interfaces.FlagValueChangeListener)), which provides [`FlagValueChangeEvent`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/FlagValueChangeEvent.html)s. This is equivalent to re-evaluating the flag for that context whenever `addFlagChangeListener()` reports a change in that flag. Because flag values can have different data types, the value is reported using the general type [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 void logWheneverOneFlagChangesForOneContext(LDClient client, string flagKey, LDContext context) {
@@ -852,8 +733,8 @@ void logWheneverOneFlagChangesForOneContext(LDClient client, string flagKey, LDC
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 void logWheneverOneFlagChangesForOneUser(LDClient client, string flagKey, LDUser user) {
@@ -864,8 +745,8 @@ void logWheneverOneFlagChangesForOneUser(LDClient client, string flagKey, LDUser
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -891,13 +772,8 @@ To find out what the effect, if any, of the configuration change was, call `vari
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('update', (param) => {
@@ -909,6 +785,6 @@ client.on('update:flag-key-123abc', () => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

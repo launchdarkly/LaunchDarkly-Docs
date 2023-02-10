@@ -33,14 +33,8 @@ When you recreate this custom role, keep the **By default, members can view all 
 
 Copy this role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'QA team policy', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="QA team policy">
 
 ```json
 [
@@ -57,8 +51,8 @@ Copy this role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -72,14 +66,8 @@ When you recreate this custom role, keep the **By default, members can view all 
 
 Copy this role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Dev-tagged resources', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Dev-tagged resources">
 
 ```json
 [
@@ -101,8 +89,8 @@ Copy this role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Anyone with this custom role can edit resources that have a `dev` tag.
 
@@ -129,14 +117,8 @@ Policies require you to use project and environment keys, not names. If you use 
 
 Copy this role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Ops team', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Ops team">
 
 ```json
 [
@@ -148,8 +130,8 @@ Copy this role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -163,14 +145,8 @@ For a complete list of flag actions, read [Feature flag actions](/home/members/r
 
 Copy this role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'One flag', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="One flag">
 
 ```json
 [
@@ -182,8 +158,8 @@ Copy this role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -197,14 +173,8 @@ When you recreate this custom role, keep the **By default, members can view all 
 
 Copy this role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'One flag', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="One flag">
 
 ```json
 [
@@ -221,8 +191,8 @@ Copy this role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In the example above, we use `notResources` to allow role recipients to view and modify `project-1` exclusively. We do this by specifying which projects the user cannot view, with one exception.
 
@@ -243,14 +213,8 @@ This means they can take all other actions in any other non-production environme
 
 Copy this role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Non-prod environments', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Non-prod environments">
 
 ```json
 [
@@ -275,8 +239,8 @@ Copy this role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The second statement in the code snippet above allows all actions in all environments and to all flags in the project named `project-1`. You must specifically allow access, or the roles default to the Reader role.
 
@@ -292,14 +256,8 @@ When you recreate this custom role, keep the **By default, members can view all 
 
 Copy this role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Flags, metrics, and segments', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Flags, metrics, and segments">
 
 ```json
 [
@@ -333,8 +291,8 @@ Copy this role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -346,14 +304,8 @@ When you recreate this custom role, keep the **By default, members can view all 
 
 Copy this Reader role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Reader role', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Reader role">
 
 ```json
 [
@@ -425,8 +377,8 @@ Copy this Reader role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -440,14 +392,8 @@ If you compare the code snippet below to the [Reader role replication](#template
 
 Copy this Writer role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Writer role', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Writer role">
 
 ```json
 [
@@ -509,8 +455,8 @@ Copy this Writer role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -522,14 +468,8 @@ Because permissions are set to `deny` by default, you must explicitly allow acti
 
 Copy this Admin role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Admin role', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Admin role">
 
 ```json
 
@@ -607,8 +547,8 @@ Copy this Admin role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -620,14 +560,8 @@ Permissions are set to `deny` by default except for the `viewProject` and `creat
 
 Copy this No access role and make any modifications to it to suit your needs:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'No access role', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="No access role">
 
 ```json
 [
@@ -639,6 +573,6 @@ Copy this No access role and make any modifications to it to suit your needs:
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

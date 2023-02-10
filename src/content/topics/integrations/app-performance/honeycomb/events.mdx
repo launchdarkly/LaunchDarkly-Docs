@@ -43,7 +43,7 @@ To send flag change events to Honeycomb:
 
 To use the LaunchDarkly Honeycomb integration successfully, you must meet the following prerequisites:
 
-* You must have an API key from your Honeycomb account. To learn more, read [Creating a Honeycomb API key](#creating-a-honeycomb-api-key).
+- You must have an API key from your Honeycomb account. To learn more, read [Creating a Honeycomb API key](#creating-a-honeycomb-api-key).
 
 ## Creating a Honeycomb API key
 
@@ -75,43 +75,35 @@ The "Policy" field in the integration configuration panel lets you control which
 
 The resource specifier in the default policy value allows production environments across all projects to send events:
 
-<CodeTabs
-  defaultValue="json" values={[
-    { label: 'Production environments across all projects', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label= "Production environments across all projects">
 
 ```text
 proj/*:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Resources in custom roles](/home/members/role-resources).
 
 You can use the policy editor to restrict the integration to:
 
-* a specific set of LaunchDarkly projects/environments
-* a specific set of flags
-* a specific set of actions
+- a specific set of LaunchDarkly projects/environments
+- a specific set of flags
+- a specific set of actions
 
 For example, to restrict the policy to a single project called `cool-app`, set the policy configuration's `resource` field to the following resource specifier:
 
-<CodeTabs
-  defaultValue="json" values={[
-    { label: 'Restrict to a single project', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label= "Restrict to a single project">
 
 ```text
 proj/cool-app:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The policy above makes the integration only send flag events from the `cool-app` project's Production environment to Honeycomb.
 

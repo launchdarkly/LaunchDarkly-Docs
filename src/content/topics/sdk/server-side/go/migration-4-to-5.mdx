@@ -88,14 +88,8 @@ For each data source type, there is a factory method whose name ends in `DataSou
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```go
 import (
@@ -112,8 +106,8 @@ config.StreamInitialReconnectDelay = 500 * time.Millisecond
 config.Stream = false
 config.PollInterval = 60 * time.Second
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -131,8 +125,8 @@ config.DataSource = ldcomponents.StreamingDataSource().
 config.DataSource = ldcomponents.PollingDataSource().
     PollInterval(60 * time.Second)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Streaming mode is the default. Unlike the earlier model, it is no longer possible to construct a meaningless configuration such as "use streaming mode, but set the polling interval to 1 minute" or "disable events, but set the flush interval to 10 seconds."
 
@@ -154,14 +148,8 @@ To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The following examples use the Redis integration:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```go
 import (
@@ -177,8 +165,8 @@ config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
     ldredis.Prefix("my-key-prefix"),
     ldredis.CacheTTL(45 * time.Second))
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -196,8 +184,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
         Prefix("my-key-prefix"),
 ).CacheSeconds(45)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to events
 
@@ -207,14 +195,8 @@ To completely disable events, set [`Config.Events`](https://pkg.go.dev/gopkg.in/
 
 Here's how:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```go
 import (
@@ -235,8 +217,8 @@ config.PrivateAttributeNames = []string{
     "myCustomAttribute",
 }
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -260,8 +242,8 @@ config.Events = ldcomponents.SendEvents().
         lduser.UserAttribute("myCustomAttribute"),
     )
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can no longer construct a meaningless configuration like "disable events, but set the flush interval to 10 seconds."
 
@@ -273,14 +255,8 @@ However, for basic logging configuration, such as specifying the minimum log lev
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```go
 import (
@@ -299,8 +275,8 @@ config.Loggers.SetMinLevel(ldlog.Warn)
 // 4.x model: specifying that evaluation errors should be logged
 config.LogEvaluationErrors = true
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -320,8 +296,8 @@ config.Logging = ldcomponents.Logging().MinLevel(ldlog.Warn)
 // 5.0 model: specifying that evaluation errors should be logged
 config.Logging = ldcomponents.Logging().LogEvaluationErrors(true)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to networking configuration
 
@@ -329,14 +305,8 @@ Options in this category affect how the SDK communicates with LaunchDarkly over 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```go
 import (
@@ -355,8 +325,8 @@ config.HTTPClientFactory = ld.NewHTTPClientFactory(
     ldhttp.CACertOption("mycert.crt"),
 )
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -375,8 +345,8 @@ config.HTTP = ldcomponents.HTTPConfiguration().
     ProxyURL(proxyURL).
     CACertFile("mycert.crt")
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Using the user builder
 
@@ -388,15 +358,8 @@ The 5.0 [`User`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/lduse
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk400"
-  values={[
-    { label: 'before 4.16', value: 'sdk400', },
-    { label: '4.16+ syntax', value: 'sdk416', },
-    { label: '5.0 syntax', value: 'sdk500', },
-  ]
-}>
-<CodeTabItem value="sdk400">
+<CodeSample>
+<CSTab label="before 4.16">
 
 ```go
 import (
@@ -418,8 +381,8 @@ user := ld.NewUser("key")
 custom := make(map[string]interface{})
 custom["team"] = "admin"
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk416">
+</CSTab>
+<CSTab label="4.16+ syntax">
 
 ```go
 import (
@@ -441,8 +404,8 @@ user := ld.NewUserBuilder("key").
     Custom("team", ldvalue.String("admin")).
     Build()
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk500">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -464,8 +427,8 @@ user := lduser.NewUserBuilder("key").
     Custom("team", ldvalue.String("admin")).
     Build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Using the Value type for JSON values
 
@@ -486,15 +449,8 @@ The [`Value`](https://pkg.go.dev/gopkg.in/launchdarkly/go-sdk-common.v2/ldvalue#
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk400"
-  values={[
-    { label: 'before 4.16', value: 'sdk400', },
-    { label: '4.16+ syntax', value: 'sdk416', },
-    { label: '5.0 syntax', value: 'sdk500', },
-  ]
-}>
-<CodeTabItem value="sdk400">
+<CodeSample>
+<CSTab label="before 4.16">
 
 ```go
 import (
@@ -516,8 +472,8 @@ user := ld.NewUser("key")
 custom := make(map[string]interface{})
 custom["team"] = []interface{}{"admin", "foosball"}
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk416">
+</CSTab>
+<CSTab label="4.16+ syntax">
 
 ```go
 import (
@@ -541,8 +497,8 @@ user := ld.NewUserBuilder("key").
         Add(ldvalue.String("admin")).Add(ldvalue.String("foosball")).Build()).
     Build()
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk500">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -566,8 +522,8 @@ user := lduser.NewUserBuilder("key").
         Add(ldvalue.String("admin")).Add(ldvalue.String("foosball")).Build()).
     Build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to EvaluationDetail and EvaluationReason
 
@@ -580,14 +536,8 @@ We have modified them in two ways:
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```go
 import (
@@ -606,8 +556,8 @@ if pf, ok := detail.Reason.(ld.EvaluationReasonPrerequisiteFailed); ok {
     log.Printf("the prerequisite %s failed", pf.PrerequisiteKey)
 }
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -626,8 +576,8 @@ if detail.Reason.GetKind() == ldreason.EvalReasonPrerequisiteFailed {
     log.Printf("the prerequisite %s failed", detail.Reason.GetPrerequisiteKey())
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to AllFlagsState
 
@@ -656,14 +606,8 @@ You can use it in:
 
 The syntax for configuring these has changed in version 5.x.
 
-<CodeTabs
-  defaultValue="sdk4"
-  values={[
-    { label: '4.x syntax', value: 'sdk4', },
-    { label: '5.0 syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk4">
+<CodeSample>
+<CSTab label="4.x syntax">
 
 ```go
 import (
@@ -685,8 +629,8 @@ config.FeatureStoreFactory = ldredis.NewRedisFeatureStoreWithDefaults(
     ldredis.URI("redis://my-redis-host"),
     ldredis.Prefix("my-key-prefix"))
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label="5.0 syntax">
 
 ```go
 import (
@@ -708,8 +652,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
         URI("redis://my-redis-host").
         Prefix("my-key-prefix"))
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Implementing custom components
 

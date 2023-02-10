@@ -60,7 +60,6 @@ The code reference count displays when there is at least one code reference for 
 </CalloutDescription>
 </Callout>
 
-
 The screenshot below shows the **Code references** tab displaying an active code reference:
 
 ![The "Code references" tab of a feature flag.](flag-code-references.png)
@@ -118,7 +117,6 @@ The disabling and delete options appear below:
 
 ![The "Code reference" section of the "Integrations" page.](integrations-code-references.png)
 
-
 ## Configuring context lines
 
 The [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) utility sends two lines of surrounding source context to LaunchDarkly.
@@ -131,7 +129,6 @@ The screenshot below shows code references with context lines:
 
 Having a few lines of context can make it easier to understand references to a feature flag. However, these lines are optional. You can disable this feature when you configure `ld-find-code-refs`.
 
-
 The following screenshot shows code references without context lines:
 
 ![Code references with no context lines.](flag-code-references-no-context.png)
@@ -141,16 +138,18 @@ The following screenshot shows code references without context lines:
 You can disable `contextLines` as shown in [Configuring context lines](#configuring-context-lines). When you disable `contextLines` no snippets of code leave your repository. All code scanning always happens within infrastructure your team manages as outlined in [Integrating ld-find-code-refs with your toolchain](#integrating-ld-find-code-refs-with-your-toolchain)
 
 Metadata sent to LaunchDarkly:
- * Organization name, if applicable
- * Repository name
- * Commit ID
- * Synced time
- * File name
- * Line number
+
+- Organization name, if applicable
+- Repository name
+- Commit ID
+- Synced time
+- File name
+- Line number
 
 Metadata sent to LaunchDarkly if [`extinctions`](#understanding-extinction-events) are enabled and an extinction is found:
- * All of the metadata listed in the section above
- * Commit message when extinction was recorded
+
+- All of the metadata listed in the section above
+- Commit message when extinction was recorded
 
 [`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) is open source and available for review. Code reference give your team additional insights, such as surfacing flag usage in the code base to provide additional safety checks when archiving flags, during the lifecycle of the flag while still maintaining a secure SDLC.
 
@@ -160,34 +159,26 @@ Aliases help you find indirect references to feature flags, such as flag keys st
 
 Here's how to find references to `firstFeatureFlag` throughout your code base:
 
-<CodeTabs
-  defaultValue="json" values={[
-    { label: 'Example flag variable', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example flag variable">
 
 ```text
 var firstFeatureFlag = 'first-flag-key'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-<CodeTabs
-  defaultValue="json" values={[
-    { label: 'coderefs.yaml', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="coderefs.yaml">
 
 ```yaml
 aliases:
   - type: camelcase
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This identifies all references to `firstFeatureFlag` in your code base.
 

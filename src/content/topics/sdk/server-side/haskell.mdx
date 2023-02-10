@@ -52,40 +52,30 @@ The root module of the SDK `LaunchDarkly.Server` re-exports the entire project.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 import LaunchDarkly.Server
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you import and install the SDK, create a single shared instance of `Client`. Specify your SDK key to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 client :: IO Client
 client = makeClient $ makeConfig "sdk-key-123abc"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Client must be a singleton</CalloutTitle>
@@ -102,20 +92,15 @@ You can use `client` to check which variation a particular user will receive for
 
 Here's how:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 boolVariation client "flag-key-123abc" (makeUser "user-key-123abc") False
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

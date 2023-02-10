@@ -135,13 +135,8 @@ For all requests that include a request body, the API requires a `Content-Type` 
 
 To include the required headers for your requests in curl, use the `-H` option:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -X GET 'https://app.launchdarkly.com/api/v2/projects/MY-PROJECT-KEY' \
@@ -149,8 +144,8 @@ curl -X GET 'https://app.launchdarkly.com/api/v2/projects/MY-PROJECT-KEY' \
   -H 'Content-Type: application/json'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In this example, the `-X` option specifies the type of request, `PATCH`. The URL specifies the resource that the request is acting on. Each `-H` option specifies a header that will be included in the request. You must include the `-X`, request type, URL, and headers each time you use curl to make a request.
 
@@ -166,13 +161,8 @@ The API documentation indicates if a feature is in beta. Resources that are in b
 
 To set the optional `LD-API-Version` header for your requests in curl, use the `-H` option:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -X GET 'https://app.launchdarkly.com/api/v2/projects' \
@@ -183,8 +173,8 @@ curl -X GET 'https://app.launchdarkly.com/api/v2/projects' \
   -H 'LD-API-Version: beta'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Exercise: Reading flag and user information
 
@@ -214,21 +204,16 @@ To review the API documentation for this request, read [Get feature flag](https:
 
 To read the "my-first-flag" flag from your default project:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -X GET 'https://app.launchdarkly.com/api/v2/flags/default/my-first-flag' \
   -H 'Authorization: EXAMPLE-API-ACCESS-TOKEN'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The response to this request is a `200` success code and a JSON object containing everything LaunchDarkly knows about the requested flag. In the request documentation, the "Responses" section expands to describe the JSON schema for the response object. Fields that are always present in the response are marked as required in this schema. Fields that are read-only are named beginning with an underscore (`_`).
 
@@ -254,21 +239,16 @@ To review the API documentation for this request, read [Find users](https://apid
 
 To find all users in your default project in the Production environment:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -X GET 'https://app.launchdarkly.com/api/v2/user-search/default/production' \
   -H 'Authorization: EXAMPLE-API-ACCESS-TOKEN'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If no users have encountered your flag, the `totalCount` is zero.
 
@@ -285,13 +265,8 @@ The documentation for each request describes the available query parameters. To 
 
 To find limited sets of users in your default project in the Production environment:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 # full-text search, returns all users with 'smith' in the email address
@@ -308,8 +283,8 @@ curl -X GET 'https://app.launchdarkly.com/api/v2/user-search/default/production?
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must URL-encode any non-alphanumeric characters before you can use them in your request. This means you must convert characters such as punctuation marks to a different string, based on their ASCII encoding. In the example, the company name "Acme Inc." is written as "Acme%20Inc." because `%20` is the encoding for a space. To learn more about URL-encoding, read [HTML URL Encoding Reference](https://www.w3schools.com/tags/ref_urlencode.ASP).
 
@@ -344,13 +319,8 @@ To review the API documentation for this request, read [Create a feature flag](h
 
 To add a new flag in your default project:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -X POST 'https://app.launchdarkly.com/api/v2/flags/default' \
@@ -362,8 +332,8 @@ curl -X POST 'https://app.launchdarkly.com/api/v2/flags/default' \
   }'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The response to this request is `201` success code and a JSON object containing everything LaunchDarkly knows about the newly created flag. In the request documentation, the "Responses" section expands to describe the JSON schema for the response object.
 
@@ -400,13 +370,8 @@ In the LaunchDarkly API documentation for each request:
 
 To update the flag you just created using JSON Patch:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -X PATCH 'https://app.launchdarkly.com/api/v2/flags/default/my-new-flag' \
@@ -421,8 +386,8 @@ curl -X PATCH 'https://app.launchdarkly.com/api/v2/flags/default/my-new-flag' \
       ]'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The response to this request is `200` success code and a JSON representation of the updated object. In the request documentation, the "Responses" section expands to describe the JSON schema for the response object.
 
@@ -445,13 +410,8 @@ When a request supports semantic patch, the API documentation lists the supporte
 
 For feature flags, a common use of semantic patch is to issue an instruction to toggle a flag on or off. To update your feature flag's targeting state:
 
-<CodeTabs
-  defaultValue="curl"
-  values={[
-    { label: 'Example curl', value: 'curl', },
-  ]
-}>
-<CodeTabItem value="curl">
+<CodeSample>
+<CSTab label="Example curl">
 
 ```bash
 curl -X PATCH 'https://app.launchdarkly.com/api/v2/flags/default/my-new-flag' \
@@ -465,8 +425,8 @@ curl -X PATCH 'https://app.launchdarkly.com/api/v2/flags/default/my-new-flag' \
     }'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The response to this request is `200` success code and a JSON representation of the updated object. In the request documentation, the "Responses" section expands to describe the JSON schema for the response object.
 

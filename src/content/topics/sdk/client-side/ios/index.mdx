@@ -92,13 +92,8 @@ To add a package dependency to your Xcode project, select `File > Swift Packages
 
 Including the SDK as a dependency in a `Package.swift` file looks like this:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Package.swift', value: 'swift', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Package.swift">
 
 ```swift
 //...
@@ -113,8 +108,8 @@ Including the SDK as a dependency in a `Package.swift` file looks like this:
     ],
 //...
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Using CocoaPods
 ---
@@ -124,13 +119,8 @@ If you use [CocoaPods](https://cocoapods.org/), you can install the SDK by addin
 
 Here is the code to add to your `Podfile`:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Podfile', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Podfile">
 
 ```ruby
 use_frameworks!
@@ -139,8 +129,8 @@ target 'YourTargetName' do
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Using Carthage
 ---
@@ -150,20 +140,15 @@ If you use [Carthage](https://github.com/Carthage/Carthage), you can install the
 
 Here is the code to include in your `Cartfile`:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Cartfile', value: 'swift', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Cartfile">
 
 ```swift
 github "launchdarkly/ios-client" ~> 8.0
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Installing the SDK manually
 ---
@@ -181,28 +166,22 @@ This is a brief overview of using the SDK. Read the detailed sections below for 
 
 First import the LaunchDarkly client in your application code:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 import LaunchDarkly
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 @import LaunchDarkly;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Initializing the SDK
 ---
@@ -221,18 +200,11 @@ Mobile keys are not secret and you can expose them in your client-side code with
 
 Here is how to specify your mobile key:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift, iOS SDK v8', value: 'swift', },
-    { label: 'Objective-C, iOS SDK v8', value: 'objc', },
-    { label: 'Swift, iOS SDK v7', value: 'swift-v7', },
-    { label: 'Objective-C, iOS SDK v7', value: 'objc-v7', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
+// iOS SDK v8.0 (Swift)
 // If you would like the completion to be called even in cases where
 // the SDK is unable to retrieve flags for the context, there is a variant
 // to the start method that takes a maximum time to wait for flag values.
@@ -248,10 +220,11 @@ LDClient.start(config: config, context: context, startWaitSeconds: 5) { timedOut
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
+// iOS SDK v8.0 (Objective-C)
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 LDContext *context = [[LDContext alloc] initWithKey:@"context-key-123abc"];
 
@@ -264,10 +237,11 @@ LDContext *context = [[LDContext alloc] initWithKey:@"context-key-123abc"];
 }];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="swift-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
+// iOS SDK v7.x (Swift)
 // If you would like the completion to be called even in cases where
 // the SDK is unable to retrieve flags for the context, there is a variant
 // to the start method that takes a maximum time to wait for flag values.
@@ -283,10 +257,11 @@ LDClient.start(config: config, user: user, startWaitSeconds: 5) { timedOut in
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
+// iOS SDK v7.x (Objective-C)
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 
@@ -299,25 +274,18 @@ LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 }];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 However, calling blocking code from the main thread in a mobile app is not considered a best practice. The preferred method is loading the client asynchronously.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift, iOS SDK v8', value: 'swift', },
-    { label: 'Objective-C, iOS SDK v8', value: 'objc', },
-    { label: 'Swift, iOS SDK v7', value: 'swift-v7', },
-    { label: 'Objective-C, iOS SDK v7', value: 'objc-v7', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
+// iOS SDK v8.0 (Swift)
 let config = LDConfig(mobileKey: "mobile-key-123abc")
 let context = LDContextBuilder(key: "context-key-123abc")
 
@@ -331,10 +299,11 @@ LDClient.start(config: config, context: context) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
+// iOS SDK v8.0 (Objective-C)
 [LDClient startWithConfiguration:config context:context startWaitSeconds:5.0 completion:^(bool timedOut) {
     if(timedOut) {
         // The SDK may not have the most recent flags for the configured context
@@ -344,10 +313,11 @@ LDClient.start(config: config, context: context) {
 }];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="swift-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
+// iOS SDK v7.x (Swift)
 let config = LDConfig(mobileKey: "mobile-key-123abc")
 let user = LDUser(key: "context-key-123abc")
 
@@ -361,10 +331,11 @@ LDClient.start(config: config, user: user) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
+// iOS SDK v7.x (Objective-C)
 [LDClient startWithConfiguration:config user:user startWaitSeconds:5.0 completion:^(bool timedOut) {
     if(timedOut) {
         // The SDK may not have the most recent flags for the configured user
@@ -374,8 +345,8 @@ LDClient.start(config: config, user: user) {
 }];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -394,31 +365,26 @@ If you have multiple LaunchDarkly projects, you can create one `LDClient` for ea
 
 After calling `start`, you can retrieve the `LDClient` instance with the static method `LDClient.get()`:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 let client = LDClient.get()!
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 LDClient *client = [LDClient get];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Getting the variation to serve the configured context
 ---
+
 <br/>
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
@@ -435,14 +401,8 @@ You can use `client` to check which variation a particular context will receive 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 let showFeature = client.boolVariation(forKey: "flag-key", defaultValue: false)
@@ -454,8 +414,8 @@ else {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 BOOL showFeature = [client boolVariationForKey:@"flag-key" defaultValue:NO];
@@ -466,8 +426,8 @@ if (showFeature) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Background fetch
 
@@ -477,30 +437,24 @@ Unlike other mobile SDKs, the iOS SDK does not support background fetch, so devi
 
 To change the background polling default for flags in your app, add the following code in your `LDConfig`:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
 ldConfig.backgroundFlagPollingInterval = 3600
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 config.backgroundFlagPollingInterval = 3600
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

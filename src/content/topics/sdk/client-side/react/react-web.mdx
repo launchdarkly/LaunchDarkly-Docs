@@ -109,28 +109,22 @@ Client-side IDs are not secret and you can expose them in your client-side code 
 
 Install the React SDK using either `npm` or `yarn`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Installing with npm', value: 'js', },
-    { label: 'Installing with yarn', value: 'yarn', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install launchdarkly-react-client-sdk
 ```
 
-</CodeTabItem>
-<CodeTabItem value="yarn">
+</CSTab>
+<CSTab label="Installing with yarn">
 
 ```bash
 yarn add launchdarkly-react-client-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Initializing the React SDK
 
@@ -162,14 +156,8 @@ The `asyncWithLDProvider` function accepts an `AsyncProviderConfig` object, whic
 
 Here's how to initialize using `asyncWithLDProvider`:
 
-<CodeTabs
-  defaultValue="react"
-  values={[
-    { label: 'React Web SDK, v3.0', value: 'react', },
-    { label: 'React Web SDK, v2.x', value: 'react-v2', },
-  ]
-}>
-<CodeTabItem value="react">
+<CodeSample>
+<CSTab label="React Web SDK v3.0">
 
 ```js
 import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
@@ -195,8 +183,8 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 })();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="react-v2">
+</CSTab>
+<CSTab label="React Web SDK v2.x">
 
 ```js
 import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
@@ -219,11 +207,10 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
     document.getElementById('reactDiv'),
   );
 })();
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Omitting the <code>kind</code> creates a user object, not a context</CalloutTitle>
@@ -250,14 +237,8 @@ If your app does not yet have the context when you call `asyncWithLDProvider`, y
 
 Here's how to identify the context after initialization:
 
-<CodeTabs
-  defaultValue="app"
-  values={[
-    { label: 'JavaScript: app.js', value: 'app', },
-    { label: 'JavaScript: index.js', value: 'index', },
-  ]
-}>
-<CodeTabItem value="app">
+<CodeSample>
+<CSTab label="JavaScript: app.js">
 
 ```js
 // app.js
@@ -276,8 +257,8 @@ export default function App {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="index">
+</CSTab>
+<CSTab label="JavaScript: index.js">
 
 ```js
 // index.js
@@ -302,8 +283,8 @@ const renderApp = async () => {
 renderApp();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Identifying and changing contexts](/sdk/features/identify#react).
 
@@ -324,14 +305,8 @@ The `withLDProvider` function accepts a `ProviderConfig` object, which provides 
 
 Here's how to initialize using `withLDProvider`:
 
-<CodeTabs
-  defaultValue="react"
-  values={[
-    { label: 'React Web SDK, v3.0', value: 'react', },
-    { label: 'React Web SDK, v2.x', value: 'react-v2', },
-  ]
-}>
-<CodeTabItem value="react">
+<CodeSample>
+<CSTab label="React Web SDK v3.0">
 
 ```js
 import { render } from 'react-dom';
@@ -354,8 +329,8 @@ const rootElement = document.getElementById("root");
 render(<LDProvider />, rootElement);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="react-v2">
+</CSTab>
+<CSTab label="React Web SDK v2.x">
 
 ```js
 import { render } from 'react-dom';
@@ -375,11 +350,10 @@ const LDProvider = withLDProvider({
 
 const rootElement = document.getElementById("root");
 render(<LDProvider />, rootElement);
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After initialization is complete, your flags and the client are only available after your app has mounted. Use this method if you prefer to render your app first, and then process flag updates after rendering is complete.
 
@@ -406,13 +380,8 @@ After your code has initialized the React SDK, use `withLDConsumer` to access fl
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { withLDConsumer } from 'launchdarkly-react-client-sdk';
@@ -427,8 +396,8 @@ const Home = ({ flags, ldClient /*, ...otherProps */ }) => {
 export default withLDConsumer()(Home);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Configuring the React SDK
 
@@ -456,14 +425,8 @@ These are the properties:
 
 The following is an example `ProviderConfig` object including each of the above properties:
 
-<CodeTabs
-defaultValue="react"
-values={[
-  { label: 'React Web SDK, v3.0', value: 'react', },
-  { label: 'React Web SDK, v2.x', value: 'react-v2', },
-]
-}>
-<CodeTabItem value="react">
+<CodeSample>
+<CSTab label="React Web SDK v3.0">
 
 ```js
 {
@@ -488,8 +451,8 @@ values={[
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="react-v2">
+</CSTab>
+<CSTab label="React Web SDK v2.x">
 
 ```js
 {
@@ -513,8 +476,8 @@ values={[
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Hooks
 
@@ -552,13 +515,8 @@ To disable the React SDK's automatic camel-case feature, provide `asyncWithLDPro
 
 Here's how to configure the automatic camel-case feature:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 export default withLDProvider({
@@ -569,8 +527,8 @@ export default withLDProvider({
 })(App);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 With this configuration option in place, you can access your `dev-flag-test` flag using bracket notation, for example, `flag['dev-flag-test']`.
 

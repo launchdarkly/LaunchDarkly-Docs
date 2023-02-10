@@ -56,14 +56,8 @@ Version 3 of this SDK lets you use contexts. When you migrate from version 2.x, 
 
 Here's how with `asyncWithLDProvider`:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '2.x syntax, user with key', value: 'user', },
-    { label: '3.0 syntax, context with key', value: 'single-context', },
-  ]
-  }>
-<CodeTabItem value='user'>
+<CodeSample>
+<CSTab label='2.x syntax, user with key'>
 
 ```js
 const user = {
@@ -76,8 +70,8 @@ const LDProvider = await asyncWithLDProvider({
 })
 ```
 
-</CodeTabItem>
-<CodeTabItem value='single-context'>
+</CSTab>
+<CSTab label='3.0 syntax, context with key'>
 
 ```js
 const context = {
@@ -91,19 +85,13 @@ const LDProvider = await asyncWithLDProvider({
 })
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how with `withLDProvider`:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '2.x syntax, user with key', value: 'user', },
-    { label: '3.0 syntax, context with key', value: 'single-context', },
-  ]
-  }>
-<CodeTabItem value='user'>
+<CodeSample>
+<CSTab label='2.x syntax, user with key'>
 
 ```js
 const user = {
@@ -116,8 +104,8 @@ export default withLDProvider({
 })(App)
 ```
 
-</CodeTabItem>
-<CodeTabItem value='single-context'>
+</CSTab>
+<CSTab label='3.0 syntax, context with key'>
 
 ```js
 const context = {
@@ -131,8 +119,8 @@ export default withLDProvider({
 })(App)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you use the jest-launchdarkly-mock package, update it to version 2.0.
 

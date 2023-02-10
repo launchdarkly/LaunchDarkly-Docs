@@ -65,32 +65,21 @@ Get the flags from `https://sdk.launchdarkly.com/sdk/latest-all`. Pass your SDK 
 
 For instance, in Linux, you could use this command:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 curl -H "Authorization: sdk-key-123abc" https://sdk.launchdarkly.com/sdk/latest-all >flagdata.json
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The output looks like this, but with many more properties:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON Output', value: 'json', },
-  ]
-}>
+<CodeSample>
 
-<CodeTabItem value="json">
+<CSTab label="JSON output">
 
 ```json
 {
@@ -110,8 +99,8 @@ The output looks like this, but with many more properties:
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Data in this format lets the SDK exactly duplicate all the kinds of flag behavior LaunchDarkly supports. However, in most cases you do not need this level of complexity. You may want to simply set specific flag keys to specific values.
 
@@ -119,15 +108,8 @@ For that, you can use a much simpler format.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON', value: 'json', },
-    { label: 'YAML', value: 'yaml', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="JSON">
 
 ```json
 {
@@ -139,8 +121,8 @@ Here's how:
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="yaml">
+</CSTab>
+<CSTab label="YAML">
 
 ```yaml
 flagValues:
@@ -149,8 +131,8 @@ flagValues:
   my-integer-flag-key: 3
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you want some flags to have simple values and others to have complex behavior, you can specify both `flags` and `flagValues`. However, it generates an error if you use the same flag key or segment key more than once, either in a single file or across multiple files.
 
@@ -187,14 +169,8 @@ This feature is available in the following server-side SDKs:
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-    { label: 'C# (.NET SDK 5.x and earlier)', value: 'dotnet-pre-6.0', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -212,8 +188,8 @@ var config = Configuration.Builder("sdk key")
 var client = new LDClient(config);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="dotnet-pre-6.0">
+</CSTab>
+<CSTab label=".NET SDK v5.x and earlier (C#)">
 
 ```csharp
 using LaunchDarkly.Client;
@@ -231,8 +207,8 @@ var config = Configuration.Builder("sdk key")
 var client = new LDClient(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you want to use YAML instead of JSON, you must [provide a YAML parser](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.FileDataSourceBuilder.html#LaunchDarkly_Sdk_Server_Integrations_FileDataSourceBuilder_Parser_).
 
@@ -245,13 +221,8 @@ To learn more, read [`FileData`](https://launchdarkly.github.io/dotnet-server-sd
 
 To configure the client:
 
-<CodeTabs
-defaultValue="c"
-values={[
-    { label: 'C/C++', value: 'c', },
-]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 #include <launchdarkly/integrations/file_data.h>
@@ -266,8 +237,8 @@ LDConfigSetSendEvents(config, LDBooleanFalse);
 // Call LDClientInit with config as usual.
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LDFileDataInit`](https://launchdarkly.github.io/c-server-sdk/file__data_8h.html).
 </Details>
@@ -278,13 +249,8 @@ To learn more, read [`LDFileDataInit`](https://launchdarkly.github.io/c-server-s
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
   ldclient:start_instance("sdk key", #{
@@ -301,23 +267,16 @@ To configure the client:
   %% the file_poll_interval configuration.
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
 
 <Details summary="Expand Go code sample">
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -336,8 +295,8 @@ config.Events = ldcomponents.NoEvents()
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -356,8 +315,8 @@ config.Events = ldcomponents.NoEvents()
 client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Haskell
@@ -366,21 +325,16 @@ client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 let config = LD.configSetDataSourceFactory (Just $ FileData.dataSourceFactory ["./testData/flags.json"]) $ LD.makeConfig "sdk-key-123abc"
 client <- LD.makeClient config
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -389,13 +343,8 @@ client <- LD.makeClient config
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.server.*;
@@ -413,8 +362,8 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient("sdk key", config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`FileData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/FileData.html).
 </Details>
@@ -425,15 +374,8 @@ To learn more, read [`FileData`](https://javadoc.io/doc/com.launchdarkly/launchd
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -450,8 +392,8 @@ const options = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -468,8 +410,8 @@ const options: ld.LDOptions = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_integrations_.html#FileDataSource).
 </Details>
@@ -480,14 +422,8 @@ To learn more, read [`FileDataSource`](https://launchdarkly.github.io/node-serve
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 import ldclient
@@ -503,8 +439,8 @@ ldclient.set_config(config)
 client = ldclient.get()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In the Python SDK, if you want to use YAML files instead of JSON you must install the `pyyaml` package. Also, automatic reloading uses an inefficient file-polling mechanism. We recommend installing the `watchdog` package.
 
@@ -517,14 +453,8 @@ To learn more, read [`Files`](https://launchdarkly-python-sdk.readthedocs.io/en/
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 // Automatic reloading is not supported in PHP, because normally in PHP
@@ -540,8 +470,8 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc", [
 ]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Files`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-Files.html).
 </Details>
@@ -552,14 +482,8 @@ To learn more, read [`Files`](https://launchdarkly.github.io/php-server-sdk/clas
 
 To configure the client:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-    { label: 'Ruby SDK 6.2.x and earlier', value: 'ruby-pre-6.3', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 require 'ldclient-rb'
@@ -577,8 +501,8 @@ config = LaunchDarkly::Config.new(
 client = LaunchDarkly::LDClient.new("sdk key", config)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-pre-6.3">
+</CSTab>
+<CSTab label="Ruby SDK v6.2.x and earlier">
 
 ```ruby
 require 'ldclient-rb'
@@ -596,8 +520,8 @@ config = LaunchDarkly::Config.new(
 client = LaunchDarkly::LDClient.new("sdk key", config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In the Ruby SDK, automatic reloading uses an inefficient file-polling mechanism unless you install the `listen` gem.
 

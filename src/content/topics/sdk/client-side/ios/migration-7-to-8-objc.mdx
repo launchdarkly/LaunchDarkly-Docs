@@ -75,20 +75,14 @@ Where you previously created users, now you must create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '7.x syntax, user with key', value: 'user', },
-    { label: '8.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="7.x syntax, user with key">
 
 ```objectivec
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="8.0 syntax, context with key">
 
 ```objectivec
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
@@ -98,18 +92,13 @@ if (result.success) {
   LDContext *context = result.success;
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '8.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="8.0 syntax, multi-context">
 
 ```objectivec
 LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"USER_CONTEXT_KEY"];
@@ -122,8 +111,9 @@ LDMultiContextBuilder *multiBuilder = [[LDMultiContextBuilder alloc] init];
 
 LDContext *multiContext = multiBuilder.build.success;
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -141,22 +131,17 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '7.x syntax, user with attributes', value: 'user', },
-    { label: '8.0 syntax, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="7.x syntax, user with attributes">
 
 ```objectivec
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.name = @"Sandy Smith";
 user.email = @"sandy@example.com";
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+
+</CSTab>
+<CSTab label="8.0 syntax, context with attributes">
 
 ```objectivec
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
@@ -166,8 +151,9 @@ LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-
 
 LDContext *context = builder.build.success;
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -177,13 +163,8 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's how to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: '8.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="8.0 syntax, context with object attributes">
 
 ```objectivec
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
@@ -196,8 +177,8 @@ NSDictionary<NSString *, LDValue *> *address = @{
 LDContext *context = builder.build.success;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -215,27 +196,22 @@ As in previous versions of the SDK, you can mark specific attributes of a contex
 
 In version 8.0, there are two scopes for which you can mark attributes as private:
 
-  * Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
-  * Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+* Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
+* Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
 
 In the first example, all attributes are marked private for all contexts. In the second example, the "email" and "address" attributes are private for all contexts:
 
-<CodeTabs
-  defaultValue="private-all"
-  values={[
-    { label: '8.0 syntax, all attributes marked private', value: 'private-all', },
-    { label: '8.0 syntax, two attributes marked private', value: 'private-some', },
-  ]
-}>
-<CodeTabItem value="private-all">
+<CodeSample>
+<CSTab label="8.0 syntax, all attributes marked private">
 
 ```objectivec
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"MOBILE_KEY"];
 [config setAllContextAttributesPrivate:YES];
 [LDClient startWithConfiguration:config context:context completion:nil];
 ```
-</CodeTabItem>
-<CodeTabItem value="private-some">
+
+</CSTab>
+<CSTab label="8.0 syntax, two attributes marked private">
 
 ```objectivec
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
@@ -251,20 +227,15 @@ LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"MOBILE_KEY"];
 [config setPrivateContextAttributes:@[@"email", @"address"]];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [privateAttributes](https://launchdarkly.github.io/ios-client-sdk/Structs/LDUser.html#/s:12LaunchDarkly6LDUserV17privateAttributesSayAA13UserAttributeCGvp).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: '8.0 syntax, attribute marked private for one context', value: 'private', },
-  ]
-}>
-<CodeTabItem value="private">
+<CodeSample>
+<CSTab label="8.0 syntax, attribute marked private for one context">
 
 ```objectivec
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
@@ -278,8 +249,9 @@ NSDictionary<NSString *, LDValue *> *address = @{
 [builder addPrivateAttributeWithReference:[[Reference alloc] initWithValue:@"address"]];
 LDContext *context = builder.build.success;
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -295,13 +267,8 @@ If you currently have feature flags that target these attributes, you will need 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="device"
-  values={[
-    { label: '8.0 syntax, setting the device and operating system', value: 'device', },
-  ]
-}>
-<CodeTabItem value="device">
+<CodeSample>
+<CSTab label="8.0 syntax, setting the device and operating system">
 
 ```objectivec
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
@@ -310,8 +277,9 @@ LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-
 [builder trySetValueWithName:@"os" value:[LDValue ofString:@"os"]];
 LDContext *context = builder.build.success;
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to anonymous users
 
@@ -323,13 +291,8 @@ If you currently have feature flags that target the device ID, you will need to 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="deviceid"
-  values={[
-    { label: '8.0 syntax, setting the device ID', value: 'deviceid', },
-  ]
-}>
-<CodeTabItem value="deviceid">
+<CodeSample>
+<CSTab label="8.0 syntax, setting the device ID">
 
 ```objectivec
 NSString *key = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
@@ -337,8 +300,9 @@ LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:key];
 [builder kindWithKind:@"device"];
 LDContext *context = builder.build.success;
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to alias events
 
@@ -352,13 +316,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '8.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="8.0 syntax, associating two contexts">
 
 ```objectivec
 LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"USER_CONTEXT_KEY"];
@@ -373,8 +332,9 @@ LDContext *multiContext = multiBuilder.build.success;
 
 [[LDClient get] identifyWithContext:multiContext];
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/c:@M@LaunchDarkly@objc(cs)LDClient(im)identifyWithContext:).
 

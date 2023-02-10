@@ -34,18 +34,13 @@ The inspector `type` defines when in the SDK lifecycle it calls the `method` cal
 
 To configure a `Flag Used` inspector, set type to `flag-used` and pass in a method that matches the expected signature:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const client = LDClient.initialize(
   'client-side-id-123abc',
-  user,
+  context,
   options = {
     inspectors: [
       {
@@ -62,8 +57,8 @@ const client = LDClient.initialize(
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native

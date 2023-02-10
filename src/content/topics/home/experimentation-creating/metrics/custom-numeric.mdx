@@ -33,14 +33,8 @@ To add a custom numeric metric in LaunchDarkly, you must identify it with a code
 
 To add a `custom` event:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Example event', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Example event">
 
 ```java
 client.track("Example event name", user, null, numericValue);
@@ -48,8 +42,8 @@ client.track("Example event name", user, null, numericValue);
 /* The `user` parameter is omitted in client-side SDKs */
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Like conversion metrics, numeric metrics also require you to create an event name and insert it into your application's code to track metric data. The area of your code you should put custom conversion metric information into, and the type of information you should include, varies based on which SDKs you use.
 

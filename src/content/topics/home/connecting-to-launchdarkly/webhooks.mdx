@@ -59,13 +59,8 @@ LaunchDarkly sends all flag change events in the production environment to a web
 
 For example, to receive an event only when a change is made to one of your production feature flags, add the following policy to your webhook:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example policy for your webhook', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example webhook policy">
 
 ```json
 [
@@ -77,8 +72,8 @@ For example, to receive an event only when a change is made to one of your produ
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here is an image of the webhook configuration panel, configured with a policy:
 

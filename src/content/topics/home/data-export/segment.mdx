@@ -30,7 +30,6 @@ To find the write key:
 
 ![The API Keys section of Segment's UI.](integrations-segment-write-key.png)
 
-
 ## Creating a Segment destination in LaunchDarkly
 
 To create the Segment destination:
@@ -42,7 +41,6 @@ To create the Segment destination:
 5. Enter the Segment **Write key**:
 
 ![The "Create a destination" panel.](integrations-segment-create.png)
-
 
 6. Click **Save destination**. The new integration appears in the list of integrations.
 
@@ -59,7 +57,6 @@ To send a test event:
 
 ![The "Send a test event" section of the "Edit destination" panel.](integrations-segment-test-event.png)
 
-
 4. Verify the event appears in the Segment **Debugger**.
 
 ## Example events
@@ -68,14 +65,8 @@ These example events display the structure of the events LaunchDarkly sends to S
 
 LaunchDarkly sends events in the following formats:
 
-<CodeTabs
-  defaultValue="feature-event"
-  values={[
-    { label: 'Feature event', value: 'feature-event', },
-  ]
-}>
-
-<CodeTabItem value="feature-event">
+<CodeSample>
+<CSTab label="Feature event">
 
 ```json
 {
@@ -100,22 +91,15 @@ LaunchDarkly sends events in the following formats:
   "sentAt": "2019-09-13T21:20:19.366Z",
   "timestamp": "2019-09-13T21:20:18.153Z",
   "type": "track",
-  "userId": "EXAMPLE-USER-ID",
+  "userId": "EXAMPLE-USER-ID"
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-
-<CodeTabs
-  defaultValue="click-event"
-  values={[
-    { label: 'Click event', value: 'click-event', },
-  ]
-}>
-
-<CodeTabItem value="click-event">
+<CodeSample>
+<CSTab label="Click event">
 
 ```json
 {
@@ -136,21 +120,15 @@ LaunchDarkly sends events in the following formats:
   "sentAt": "2019-09-13T21:21:46.375Z",
   "timestamp": "2019-09-13T21:21:43.154Z",
   "type": "track",
-  "userId": "EXAMPLE-USER-ID",
+  "userId": "EXAMPLE-USER-ID"
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-
-<CodeTabs
-  defaultValue="custom-event"
-  values={[
-    { label: 'Custom event', value: 'custom-event', },
-  ]
-}>
-<CodeTabItem value="custom-event">
+<CodeSample>
+<CSTab label="Custom event">
 
 ```json
 {
@@ -169,21 +147,15 @@ LaunchDarkly sends events in the following formats:
   "sentAt": "2019-09-13T21:22:00.393Z",
   "timestamp": "2019-09-13T21:21:58.393Z",
   "type": "track",
-  "userId": "EXAMPLE-USER-ID",
+  "userId": "EXAMPLE-USER-ID"
 }
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-<CodeTabs
-  defaultValue="page-event"
-  values={[
-    { label: 'Page view event', value: 'page-event', },
-  ]
-}>
-<CodeTabItem value="page-event">
+<CodeSample>
+<CSTab label="Page view event">
 
 ```json
 {
@@ -202,20 +174,15 @@ LaunchDarkly sends events in the following formats:
   "sentAt": "2019-09-13T21:19:45.331Z",
   "timestamp": "2019-09-13T21:19:43.154Z",
   "type": "page",
-  "userId": "EXAMPLE-USER-ID",
+  "userId": "EXAMPLE-USER-ID"
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-<CodeTabs
-  defaultValue="alias-event"
-  values={[
-    { label: 'Alias event', value: 'alias-event', },
-  ]
-}>
-<CodeTabItem value="alias-event">
+<CodeSample>
+<CSTab label="Alias event">
 
 ```json
 {
@@ -229,12 +196,12 @@ LaunchDarkly sends events in the following formats:
   "receivedAt": "2019-09-13T21:19:45.371Z",
   "sentAt": "2019-09-13T21:19:45.331Z",
   "timestamp": "2019-09-13T21:19:43.154Z",
-  "type": "alias",
+  "type": "alias"
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Enabling Data Export for flags and environments
 
@@ -250,7 +217,7 @@ To delete a destination:
 
 1. Navigate to the **Integrations** page and find "Segment."
 2. Click into the "Segment" section to display a list of destinations.
-2. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
-3. Click **Delete destination**:
+3. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
+4. Click **Delete destination**:
 
 ![The "Delete destination" section of the "Edit destination" panel.](destination-delete.png)

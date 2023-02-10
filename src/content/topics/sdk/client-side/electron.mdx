@@ -63,13 +63,8 @@ To make this transition easier, the LaunchDarkly Electron SDK provides an option
 
 Here's how to create the wrapper:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const realClient = LDElectron.initializeInMain('client-side-id-123abc', user, options);
@@ -83,8 +78,8 @@ wrappedClient.waitForInitialization().then(function() {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The underlying implementation is still the client-side SDK, which has a single-current-user model. Therefore, when you call `client.variation(flagKey, user, defaultValue)` it is really calling `client.identify(user)` first, obtaining flag values for that user, and then evaluating the flag. This performs poorly if you attempt to evaluate flags for a variety of different users in rapid succession.
 
@@ -103,13 +98,8 @@ After you complete the [Getting started](/home/getting-started) process, follow 
 
 You can install the SDK into your Electron project using `npm`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Installing with npm', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install launchdarkly-electron-client-sdk
@@ -117,8 +107,8 @@ npm install launchdarkly-electron-client-sdk
 # In earlier versions, the package name was ldclient-electron
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Initializing the client
 
@@ -139,14 +129,8 @@ Client-side IDs are not secret and you can expose them in your client-side code 
 
 To initialize the client:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const LDElectron = require('launchdarkly-electron-client-sdk');
@@ -156,8 +140,8 @@ const options = {};
 const client = LDElectron.initializeInMain('client-side-id-123abc', user, options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
@@ -167,8 +151,8 @@ const options: LDElectron.LDOptions = {};
 const client = LDElectron.initializeInMain('client-side-id-123abc', user, options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Instantiate a single instance</CalloutTitle>
@@ -181,14 +165,8 @@ It's important to use `initializeInMain()` to instantiate a single instance. The
 
 To create a client object that uses the same feature flag data in a renderer process, use this:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const LDElectron = require('launchdarkly-electron-client-sdk');
@@ -196,8 +174,8 @@ const LDElectron = require('launchdarkly-electron-client-sdk');
 const client = LDElectron.initializeInRenderer();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
@@ -205,8 +183,8 @@ import * as LDElectron from 'launchdarkly-electron-client-sdk';
 const client = LDElectron.initializeInRenderer();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This gives you an object with the same interface so you can do things like evaluate feature flags, listen for flag change events, and so on in the same way for both the main process and the renderer process. However, only the main-process client is actually communicating with LaunchDarkly. The renderer-process clients are delegating to the main-process client. This means that the overhead per application window is minimal, although you should retain a single client instance per window, rather than creating them ad-hoc when you need to evaluate a flag.
 
@@ -223,13 +201,8 @@ To make a flag available to this SDK, check the **SDKs using Client-side ID** ch
 
 The SDK initializes both types of client asynchronously, so if you want to determine when the client is ready to evaluate feature flags, use the `ready` event or `waitForInitialization()`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 // Using an event listener:
@@ -243,8 +216,8 @@ client.waitForInitialization().then(function() {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you try to evaluate feature flags before the client is ready, it will behave as it would if no flags existed. For example,`variation` will return a default value.
 

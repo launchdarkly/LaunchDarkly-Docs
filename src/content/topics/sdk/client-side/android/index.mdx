@@ -72,20 +72,15 @@ After you complete the [Getting started](/home/getting-started) process, follow 
 
 First, declare a dependency on the LaunchDarkly Android SDK:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Gradle', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Gradle">
 
 ```java
 implementation 'com.launchdarkly:launchdarkly-android-client-sdk:4.0.0'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The SDK uses [AndroidX from Jetpack](https://developer.android.com/jetpack/androidx). If your project does not use AndroidX, read [Android's migration guide](https://developer.android.com/jetpack/androidx/migrate).
 
@@ -100,30 +95,24 @@ If you use ProGuard or R8, the `aar` artifact should automatically include the c
 
 Next, import the LaunchDarkly client in your application code:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.*;
 import com.launchdarkly.sdk.android.*;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 import com.launchdarkly.sdk.*
 import com.launchdarkly.sdk.android.*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
@@ -149,20 +138,15 @@ If you have multiple LaunchDarkly projects, you can create one `LDClient` for ea
 
 The following example shows the simplest way to create the client. It will block for up to five seconds until the latest feature flags are retrieved from LaunchDarkly.
 
-In the v4 example, the context key is "context-key-123abc". In the v3 example, the user key is "user-key-123abc". Here is how to create the client:
+In the v4 example, the context key is "context-key-123abc". In the v3 example, the user key is "user-key-123abc". 
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java, Android SDK v4.0', value: 'java' },
-    { label: 'Kotlin, Android SDK v4.0', value: 'kotlin' },
-    { label: 'Java, Android SDK v3.x', value: 'java-v3' },
-    { label: 'Kotlin, Android SDK v3.0', value: 'kotlin-v3' },
-  ]
-}>
-<CodeTabItem value="java">
+Here is how to create the client:
+
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
 
 ```java
+// Android SDK v4.0 (Java)
 LDConfig ldConfig = new LDConfig.Builder()
     .mobileKey("mobile-key-123abc")
     .build();
@@ -172,11 +156,11 @@ LDContext context = LDContext.create("context-key-123abc");
 LDClient client = LDClient.init(this.getApplication(), ldConfig, context, 5);
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
+// Android SDK v4.0 (Kotlin)
 val ldConfig: LDConfig = LDConfig.Builder()
     .mobileKey("mobile-key-123abc")
     .build()
@@ -186,10 +170,11 @@ val context = LDContext.create("context-key-123abc")
 val client: LDClient = LDClient.init(application, ldConfig, context, 5)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
 
 ```java
+// Android SDK v3.x (Java)
 LDConfig ldConfig = new LDConfig.Builder()
     .mobileKey("mobile-key-123abc")
     .build();
@@ -198,14 +183,13 @@ LDUser user = new LDUser.Builder("user-key-123abc")
     .build();
 
 LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 5);
-
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="kotlin-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
+// Android SDK v3.x (Kotlin)
 val ldConfig: LDConfig = LDConfig.Builder()
     .mobileKey("mobile-key-123abc")
     .build()
@@ -214,11 +198,10 @@ val user: LDUser = LDUser.Builder("user-key-123abc")
     .build()
 
 val client: LDClient = LDClient.init(application, ldConfig, user, 5)
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 However, calling blocking code from the main thread in an Android app is not a best practice. The preferred method allows you to use the client immediately. The app stores flags from the previous launch on the device and retrieves them for immediate use. The client still connects in the background and continually updates itself with the latest flags.
 
@@ -235,59 +218,47 @@ To make a flag available to this SDK, check the **SDKs using Mobile key** checkb
 
 Here is the preferred method:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java, Android SDK v4.0', value: 'java' },
-    { label: 'Kotlin, Android SDK v4.0', value: 'kotlin' },
-    { label: 'Java, Android SDK v3.x', value: 'java-v3' },
-    { label: 'Kotlin, Android SDK v3.0', value: 'kotlin-v3' },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
 
 ```java
+// Android SDK v4.0 (Java)
 LDClient client = LDClient.init(this.getApplication(), ldConfig, context, 0);
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
+// Android SDK v4.0 (Kotlin)
 val client: LDClient = LDClient.init(application, ldConfig, context, 0)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
 
 ```java
+// Android SDK v3.x (Java)
 LDClient client = LDClient.init(this.getApplication(), ldConfig, user, 0);
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="kotlin-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
+// Android SDK v3.x (Kotlin)
 val client: LDClient = LDClient.init(application, ldConfig, user, 0)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can use `client` to check which variation a particular context will receive for a feature flag.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 boolean showFeature = client.boolVariation(flagKey, true);
@@ -299,9 +270,8 @@ else {
 }
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val showFeature: Boolean = client.boolVariation(flagKey, true)
@@ -313,8 +283,8 @@ else {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

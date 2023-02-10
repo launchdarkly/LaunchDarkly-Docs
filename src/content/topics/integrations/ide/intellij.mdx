@@ -42,8 +42,10 @@ To complete this procedure, you must have the following prerequisites:
 To set up the IntelliJ IDEA plugin, you must complete the following steps:
 
 1. Give your API access token the required permissions:
-  - You can [create a custom role with appropriate permissions, then add the custom role to a personal or service access token](#create-a-custom-role-and-add-it-to-an-api-access-token), or
-  - you can [add the built-in Writer role to your personal access token](#add-the-built-in-writer-role-to-your-personal-access-token).
+
+- You can [create a custom role with appropriate permissions, then add the custom role to a personal or service access token](#create-a-custom-role-and-add-it-to-an-api-access-token), or
+- you can [add the built-in Writer role to your personal access token](#add-the-built-in-writer-role-to-your-personal-access-token).
+
 2. [Configure the LaunchDarkly extension in IntelliJ IDEA](#set-up-the-intellij-idea-plugin) with the API access token.
 
 ## Give your API access token the required permissions
@@ -71,17 +73,11 @@ To create a custom role for the API access token:
 2. Click into the **Roles** tab.
 3. Click **Create role**. The "Create custom role" panel appears.
 4. Give the custom role a human-readable name.
-5. Click **Advanced editor**. 
+5. Click **Advanced editor**.
 6. Enter this policy in the "Role policy" field:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Read access to all and write access to some projects', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Read access to all and write access to some projects">
 
 ```json
 [
@@ -92,18 +88,14 @@ To create a custom role for the API access token:
   },
   {
     "effect": "allow",
-    "actions": [
-      "updateOn",
-      "updateFallthrough",
-      "updateOffVariation"
-    ],
+    "actions": ["updateOn", "updateFallthrough", "updateOffVariation"],
     "resources": ["proj/*:env/*:flag/*"]
   }
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 7. Click **Save role**.
 

@@ -16,13 +16,8 @@ Sections in this topic address different changes and updates between versions 5.
 
 The 6.0 release of the iOS client-side SDK introduces a new type that represents a value of any valid JSON type: `LDValue`. To learn more about the new type, read the  [generated documentation](https://launchdarkly.github.io/ios-client-sdk/Enums/LDValue.html). The `LDValue` `enum` implements several `ExpressibleBy` protocols allowing constants to be created the same as other Swift types, as shown below.
 
-<CodeTabs
-  defaultValue="sdk6"
-  values={[
-    { label: '6.0', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk6">
+<CodeSample>
+<CSTab label="6.0 syntax">
 
 ```swift
 let nullValue: LDValue = nil
@@ -32,8 +27,8 @@ let stringValue: LDValue = "abc"
 let complexValue: LDValue = ["abc": 123, "def": [false, true]]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding the changes to configuration
 
@@ -41,30 +36,24 @@ The `LDConfig` class only requires changes if the application specifies the `pri
 
 Here is an example that highlights the changes:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```swift
 var config = LDConfig(mobileKey: "mobile-key-123abc")
 config.privateUserAttributes = ["name", "premium"]
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```swift
 var config = LDConfig(mobileKey: "mobile-key-123abc")
 config.privateUserAttributes = [UserAttribute.BuiltIn.name, UserAttribute.forName("premium")]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Setting `"custom"` as a private attribute no longer sets all custom attributes private. Only the custom attribute with the key `"custom"` would be considered private by the SDK.
 
@@ -74,14 +63,8 @@ Similarly to `LDConfig.privateUserAttributes`, `LDUser.privateAttributes` has be
 
 Here is an example that highlights the changes:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```swift
 let privateAttributes: [String] = ["name", "jobFunction"]
@@ -89,8 +72,8 @@ let customAttributes: [String: Any] = ["jobFunction": ["doctor"]]
 let user = LDUser(key: "user-key-123abc", custom: customAttributes, privateAttributes: privateAttributes)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```swift
 let privateAttributes: [UserAttribute] = [UserAttribute.BuiltIn.name, UserAttribute.forName("jobFunction")]
@@ -98,19 +81,13 @@ let customAttributes: [String: LDValue] = ["jobFunction": ["doctor"]]
 let user = LDUser(key: "user-key-123abc", custom: customAttributes, privateAttributes: privateAttributes)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `Equatable` instance for `LDUser` has also changed. It now compares all properties, rather than only the `key` property.
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```swift
 let user1 = LDUser(key: "user-key-123abc", name: "Sandy Smith")
@@ -119,8 +96,8 @@ let user2 = LDUser(key: "user-key-123abc", name: "Jesse Smith")
 user1 == user2
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```swift
 let user1 = LDUser(key: "user-key-123abc", name: "Sandy Smith")
@@ -129,8 +106,8 @@ let user2 = LDUser(key: "user-key-123abc", name: "Jesse Smith")
 user1 == user2
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Changes to variation functions
 
@@ -138,30 +115,24 @@ The iOS SDK now provides functions per-type for retrieving the variation for a g
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```swift
 let boolValue: Bool = LDClient.get()!.variation(forKey: "boolFlag", defaultValue: false)
 let arrayValue: [Any] = LDClient.get()!.variation(forKey: "arrayFlag", defaultValue: ["abc", "def"] as [Any])
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```swift
 let boolValue = LDClient.get()!.boolVariation(forKey: "boolFlag", defaultValue: false)
 let arrayValue = LDClient.get()!.jsonVariation(forKey: "arrayFlag", defaultValue: ["abc", "def"])
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Changes to variationDetail functions
 
@@ -169,14 +140,8 @@ The iOS SDK now provides function per-type for retrieving the detailed variation
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```swift
 let boolValue: LDEvaluationDetail<Bool> = LDClient.get()!.variationDetail(forKey: "boolFlag", defaultValue: false)
@@ -184,8 +149,8 @@ let arrayValue: LDEvaluationDetail<[Any]> = LDClient.get()!.variationDetail(forK
 let arrayReason: [String: Any]? = arrayValue.reason
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```swift
 let boolValue: LDEvaluationDetail<Bool> = LDClient.get()!.boolVariationDetail(forKey: "boolFlag", defaultValue: false)
@@ -193,8 +158,8 @@ let arrayValue: LDEvaluationDetail<LDValue> = LDClient.get()!.jsonVariationDetai
 let arrayReason: [String: LDValue]? = arrayValue.reason
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Recording custom events
 
@@ -202,14 +167,8 @@ If your application uses `track` to record `custom` events, remove `try` stateme
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```swift
 do {
@@ -220,13 +179,13 @@ do {
 } catch {}
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```swift
 let customData: LDValue = ["abc": 123]
 LDClient.get()!.track(key: "key", data: customData)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

@@ -76,20 +76,15 @@ The `Variation` method determines whether a flag is enabled or not for a specifi
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.BoolVariation("flag-key-123abc", false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -105,28 +100,22 @@ In Android, there is  a `variation` method for each type, such as `boolVariation
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 boolean variationResult = client.boolVariation(flagKey, false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val variationResult: Boolean = client.boolVariation(flagKey, false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -142,14 +131,8 @@ There are variation methods for each type, such as `LDBoolVariation`/`boolVariat
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C', value: 'c' },
-    { label: 'C++', value: 'cpp' }
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 bool show_feature = LDBoolVariation(client, "flag-key-123abc", false);
@@ -160,9 +143,9 @@ if (show_feature) {
 }
 ```
 
-</CodeTabItem>
+</CSTab>
 
-<CodeTabItem value="cpp">
+<CSTab label="C++">
 
 ```cpp
 bool show_feature = client->boolVariation("flag-key-123abc", false);
@@ -174,8 +157,8 @@ if (show_feature) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -187,14 +170,8 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 To evaluate any feature flag for the current user, call `variation`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const flagValue = client.variation('flag-key-123abc', false);
@@ -208,8 +185,8 @@ if (flagValue)  {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 const boolFlagValue = client.variation('bool-flag-key-123abc', false) as boolean;
@@ -226,8 +203,8 @@ if (boolFlagValue)  {
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -237,21 +214,16 @@ You can also fetch all flags for the current user.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const flags = client.allFlags();
 const flagValue = flags['flag-key-123abc'];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This returns a key-value map of all your feature flags. It contains `null` values for any flags that could not be evaluated.
 
@@ -268,20 +240,15 @@ In Flutter, there is  a `variation` method for each type, such as `boolVariation
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 bool variationResult = await LDClient.boolVariation(flagKey, false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -297,30 +264,24 @@ In the iOS SDK, there is a variation method for each type, such as `boolVariatio
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 let boolFlagValue = LDClient.get()!.boolVariation(forKey: "bool-flag-key", defaultValue: false)
 let jsonFlagValue = LDClient.get()!.jsonVariation(forKey: "json-flag-key", defaultValue: ["enabled": false, "special": "none"])
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 BOOL boolFlagValue = [[LDClient get] boolVariationForKey:@"bool-flag-key" defaultValue:NO];
 LDValue* jsonFlagValue = [[LDClient get] jsonVariationForKey:@"json-flag-key" defaultValue:[LDValue ofNull]];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -334,21 +295,15 @@ The `variation` method determines which variation of a feature flag a context re
 
 Here is an example of the `variation` method:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.variation('flag-key-123abc', false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 const boolFlagValue = client.variation('bool-flag-key-123abc', false) as boolean;
@@ -356,8 +311,8 @@ const numberFlagValue = client.variation('numeric-flag-key-123abc', 2) as number
 const stringFlagValue = client.variation('string-flag-key-123abc', 'default') as string;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -371,21 +326,15 @@ The `variation` method determines which variation of a feature flag a user recei
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const value = client.variation('flag-key-123abc', false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 const boolFlagValue = client.variation('flag-key-123abc', false) as boolean;
@@ -394,8 +343,8 @@ const stringFlagValue = client.variation('flag-key-123abc', 'default') as string
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -411,13 +360,8 @@ Variation calls take the feature flag key and a fallback value. When `LDClient` 
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let boolResult = await client.boolVariation('bool-flag-key-123abc', false);
@@ -426,8 +370,8 @@ let stringResult = await client.stringVariation('string-flag-key-123abc', '');
 let jsonResult = await client.jsonVariation('json-flag-key-123abc', {});
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -441,13 +385,8 @@ The `*variation` methods determine which variation of a feature flag a user rece
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 REM typed variations
@@ -464,8 +403,8 @@ myValue = launchDarkly.variation("flag-key-123abc", false)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -506,28 +445,22 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 var value = client.BoolVariation("your.feature.key", context, false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 var value = client.BoolVariation("your.feature.key", user, false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -552,20 +485,15 @@ We recommend calling `client.identify(user)` with each of your users to generate
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Apex">
 
 ```java
 Boolean value = client.boolVariation(user, 'your.feature.key', false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -581,20 +509,15 @@ The functions take an `LDClient`, `LDUser`, feature flag key, default value, and
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 bool value = LDBoolVariation(client, user, "your.feature.key", false, NULL);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -606,20 +529,15 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 The `variation` function determines whether a flag is enabled or not for a specific user. The functions take a flag key, user, default value and an instance tag. The instance tag is optional.
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```
 Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>,}, false, my_instance)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -642,14 +560,8 @@ The `Variation` call generates analytics events to tell LaunchDarkly about the f
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 result, _ := client.BoolVariation("your.feature.key", context, false)
@@ -657,8 +569,8 @@ result, _ := client.BoolVariation("your.feature.key", context, false)
 // result is now true or false depending on the setting of this boolean feature flag
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 result, _ := client.BoolVariation("your.feature.key", user, false)
@@ -666,8 +578,8 @@ result, _ := client.BoolVariation("your.feature.key", user, false)
 // result is now true or false depending on the setting of this boolean feature flag
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -681,20 +593,15 @@ The `variation` family of functions determine whether a flag is enabled or not f
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 myBoolVariation <- boolVariation client user "flag-key-123abc" False
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -704,7 +611,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand Java code sample">
 
-The `variation` methods determine which variation of a feature flag a context receives. 
+The `variation` methods determine which variation of a feature flag a context receives.
 
 In Java, there is a `variation` method for each type:
 
@@ -718,28 +625,22 @@ The `variation` methods take the feature flag key, an [`LDContext`](https://java
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 boolean value = client.boolVariation("flag-key-123abc", context, false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 boolean value = client.boolVariation("your.feature.key", user, false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -755,20 +656,15 @@ To learn more about configuration options, read the [API docs](https://launchdar
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local value = client:boolVariation(user, "flag-key-123abc", false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -785,14 +681,8 @@ The `variation` method determines which variation of a feature flag a context re
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js SDK v7', value: 'js', },
-    { label: 'Node.js SDK v6.x and older', value: 'js-old', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v7.0">
 
 ```js
 client.variation('flag-key-123abc', context, false,
@@ -801,8 +691,8 @@ client.variation('flag-key-123abc', context, false,
   });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x and earlier">
 
 ```js
 client.variation('flag-key-123abc', user, false,
@@ -811,8 +701,8 @@ client.variation('flag-key-123abc', user, false,
   });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -830,28 +720,22 @@ The `variation` method determines which variation of a feature flag a context re
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 $value = $client->variation($key, $context, false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 $value = $client->variation($key, $user, false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -865,28 +749,22 @@ The `variation` method determines which variation of a feature flag a context re
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python SDK v8.0', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-v7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 show_feature = ldclient.get().variation("your.feature.key", context, False)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-v7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 show_feature = ldclient.get().variation("your.feature.key", user, False)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -902,28 +780,22 @@ The `variation` method determines which variation of a feature flag a context re
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 value = client.variation("your.feature.key", context, false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 value = client.variation("your.feature.key", user, false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
@@ -944,28 +816,22 @@ The `variation` methods determine whether a flag is enabled or not for a specifi
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust SDK v1', value: 'rust', },
-    { label: 'Rust SDK beta', value: 'rust-beta', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust SDK v1">
 
 ```rust
 let result = client.bool_variation(&context, "your.feature.key", false);
 // result is now true or false depending on the setting of this boolean feature flag
 ```
-</CodeTabItem>
-<CodeTabItem value="rust-beta">
+</CSTab>
+<CSTab label="Rust SDK beta">
 
 ```rust
 let result = client.bool_variation(&user, "your.feature.key", false);
 // result is now true or false depending on the setting of this boolean feature flag
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
