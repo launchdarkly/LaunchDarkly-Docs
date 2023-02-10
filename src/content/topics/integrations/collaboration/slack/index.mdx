@@ -11,7 +11,7 @@ site: launchDarklyOnly
 
 This topic explains how to set up and use the [LaunchDarkly Slack app](https://slack.com/apps/AKEEF9DTM-launchdarkly).
 
-You can use the LaunchDarkly Slack app to view, monitor, and control feature flags for your organization from your team's Slack workspace. You can use the app to find feature flags, subscribe to notifications about flag changes, be notified about approval requests, and toggle flags on or off.
+You can use the LaunchDarkly Slack app to view and monitor feature flags and approval requests from your team's Slack workspace. You can use the app to subscribe to notifications about flag changes, interact with approval requests, create flag links, and more.
 
 <Callout intent="alert">
 <CalloutTitle>Slack app permissions</CalloutTitle>
@@ -22,16 +22,14 @@ The actions you can perform in Slack are limited by your LaunchDarkly role. To l
 </CalloutDescription>
 </Callout>
 
-The LaunchDarkly Slack app lets you view the feature flags associated with a project, monitor updates to existing flags, and make changes to flag targeting when you need to from within your Slack workspace.
-
 You can use the Slack integration to:
 
-- Call up and view flag details from within Slack for reference or debugging
-- Subscribe to all flags within a Slack channel associated with a project to monitor change notifications
-- Create a changelog channel by subscribing to all flag changes in an entire LaunchDarkly project or environment
-- Subscribe to a single flag that controls a key feature to Slack for continuous monitoring
-- Turn flag targeting on or off from within Slack
-- Subscribe to notifications when a flag is ready to remove from code
+- Subscribe a Slack channel to updates for a set of flags to monitor changes to those flags
+- Approve, deny, or comment on approval requests directly in Slack
+- Subscribe to a single flag that controls a key feature for continuous monitoring
+- See flag details in Slack and create a flag link to a Slack conversation
+- Turn flag targeting on or off from Slack
+- Get notified when a flag is ready to remove from code
 - Receive notifications about changes to flags you followed within the LaunchDarkly user interface (UI)
 
 To learn how to authorize the app, read [Setting up Slack accounts and permissions](/integrations/slack/setting-up).

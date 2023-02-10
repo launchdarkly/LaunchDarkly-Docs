@@ -853,12 +853,8 @@
                 "path": "/integrations/slack/approvals"
               },
               {
-                "label": "Turning flag targeting on and off",
+                "label": "Toggling flag targeting on and off",
                 "path": "/integrations/slack/toggle"
-              },
-              {
-                "label": "Viewing and monitoring flags",
-                "path": "/integrations/slack/managing"
               },
               {
                 "label": "Slack Incoming Webhooks",
