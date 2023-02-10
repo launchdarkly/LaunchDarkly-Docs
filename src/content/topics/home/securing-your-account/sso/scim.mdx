@@ -32,7 +32,7 @@ You cannot deactivate an account member using SCIM deprovisioning if you added t
 
 ## Configuring SCIM
 
-We have a SCIM API available to allow for user provisioning of account members from IdPs. The SCIM API is only supported for the OAuth2 authorization type. Not all supported third-party providers support user provisioning through SCIM. To learn more about how LaunchDarkly treats users imported from the IdP, read [Understanding default roles](/home/account-security/sso#understanding-default-roles).
+LaunchDarkly has a SCIM API available to allow for user provisioning of account members from IdPs. The SCIM API is only supported for the OAuth2 authorization type. Not all supported third-party providers support user provisioning through SCIM. To learn more about how LaunchDarkly treats users imported from the IdP, read [Understanding default roles](/home/account-security/sso#understanding-default-roles).
 
 We have pre-built integrations with the following providers:
 
@@ -85,6 +85,7 @@ After you turn on team sync:
 * You can only create new teams through Group Push in Okta, and not from the LaunchDarkly UI.
 * You can only make changes to your synced teams' names and memberships through Okta. You can still maintain unsynced teams in the LaunchDarkly UI.
 * You will still manage team permissions from within LaunchDarkly. To learn how to add custom roles to a team, read [Managing team permissions](/home/teams/managing#managing-team-permissions). Team maintainers and team description will also be managed from the LaunchDarkly UI.
+* A member's individual built-in or custom roles will aggregate with the custom roles that you apply to their teams.
 * LaunchDarkly will not delete any existing teams.
 
 To use team sync, you must have administrator access in LaunchDarkly and you must have configured SCIM for your LaunchDarkly account.
