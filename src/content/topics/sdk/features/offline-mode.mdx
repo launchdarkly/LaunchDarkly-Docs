@@ -82,8 +82,6 @@ Here's how:
 <CSTab label="Android SDK v4.0 (Java)">
 
 ```java
-// Android SDK v4.0 (Java)
-
 LDConfig ldConfig = new LDConfig.Builder()
     .setMobileKey("mobile-key-123abc")
     .setOffline(true)
@@ -99,8 +97,6 @@ client.setOffline();
 <CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
-// Android SDK v4.0 (Kotlin)
-
 val config: LDConfig = LDConfig.Builder()
     .setMobileKey("YOUR_MOBILE_KEY")
     .setOffline(true)
@@ -116,8 +112,6 @@ client.setOffline()
 <CSTab label="Android SDK v3.x (Java)">
 
 ```java
-// Android SDK v3.x (Java)
-
 LDConfig ldConfig = new LDConfig.Builder()
     .setMobileKey("YOUR_MOBILE_KEY")
     .setOffline(true)
@@ -133,8 +127,6 @@ client.setOffline();
 <CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
-// Android SDK v3.x (Kotlin)
-
 val config: LDConfig = LDConfig.Builder()
     .setMobileKey("mobile-key-123abc")
     .setOffline(true)
@@ -428,8 +420,6 @@ Here's how:
 <CSTab label="Node.js SDK v7.0 (JavaScript)">
 
 ```js
-// Node.js SDK v7.0 (JavaScript)
-
 const options = { offline: true };
 client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
@@ -439,8 +429,6 @@ client.variation('any.feature.flag', user, false, cb) // cb will always be invok
 <CSTab label="Node.js SDK v7.0 (TypeScript)">
 
 ```ts
-// Node.js SDK v7.0 (TypeScript)
-
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const options: ld.LDOptions = { offline: true };
@@ -452,8 +440,6 @@ client.variation('any.feature.flag', context, false, cb); // cb will always be i
 <CSTab label="Node.js SDK v6.x and earlier (JavaScript)">
 
 ```js
-// Node.js SDK v6.x and earlier (JavaScript)
-
 const options = { offline: true };
 client = ld.init('sdk-key-123abc', options);
 client.variation('any.feature.flag', user, false, cb) // cb will always be invoked with the default value (false)
@@ -464,8 +450,6 @@ client.variation('any.feature.flag', user, false, cb) // cb will always be invok
 <CSTab label="Node.js SDK v6.x and earlier (TypeScript)">
 
 ```ts
-// Node.js SDK v6.x and earlier (TypeScript)
-
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const options: ld.LDOptions = { offline: true };

@@ -98,8 +98,6 @@ Here's how to construct a basic context, as compared with constructing a user:
 <CSTab label="6.x syntax, user with key">
 
 ```js
-// 6.x syntax, user with key
-
 const user = {
   key: 'user-key-123abc'
 };
@@ -109,8 +107,6 @@ const user = {
 <CSTab label="7.0 syntax, context with key, JavaScript">
 
 ```js
-// 7.0 syntax, context with key, JavaScript
-
 const context = {
   kind: 'user',
   key: 'user-key-123abc'
@@ -121,8 +117,6 @@ const context = {
 <CSTab label="7.0 syntax, context with key, TypeScript">
 
 ```ts
-// 7.0 syntax, context with key, TypeScript
-
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const context: ld.LDContext = {
@@ -215,8 +209,6 @@ Here's how to construct a context with additional attributes, as compared with c
 <CSTab label="6.x syntax, user with attributes">
 
 ```js
-// 6.x syntax, user with attributes
-
 const user = {
   key: 'user-key-123abc',
   firstName: 'Sandy',
@@ -229,8 +221,6 @@ const user = {
 <CSTab label="7.0 syntax, JavaScript: context with attributes">
 
 ```js
-// 7.0 syntax, JavaScript: context with attributes
-
 const context = {
   kind: 'user',
   key: 'user-key-123abc',
@@ -244,8 +234,6 @@ const context = {
 <CSTab label="7.0 syntax, Typescript: context with attributes">
 
 ```ts
-// 7.0 syntax, Typescript: context with attributes
-
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const context: ld.LDContext = {

@@ -45,8 +45,6 @@ All `LDClient` instances evaluate against the same `LDContext`. The mobile keys 
 <CSTab label="Android SDK v4.0 (Java)">
 
 ```java
-// Android SDK v4.0 (Java)
-
 Map<String, String> otherKeys = new HashMap<String, String>();
 otherKeys.put("platform", "platform-mobile-key-456def");
 otherKeys.put("core", "core-mobile-key-789ghi");
@@ -67,8 +65,6 @@ LDClient.init(this.getApplication(), ldConfig, context);
 <CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
-// Android SDK v4.0 (Kotlin)
-
 val otherKeys: Map<String, String> = HashMap()
 otherKeys.put("platform", "platform-mobile-key-123abc")
 otherKeys.put("core", "core-mobile-key-123abc")
@@ -89,8 +85,6 @@ LDClient.init(application, ldConfig, context)
 <CSTab label="Android SDK v3.x (Java)">
 
 ```java
-// Android SDK v3.x (Java)
-
 Map<String, String> otherKeys = new HashMap<String, String>();
 otherKeys.put("platform", "platform-mobile-key-123abc");
 otherKeys.put("core", "core-mobile-key-123abc");
@@ -111,8 +105,6 @@ LDClient.init(this.getApplication(), ldConfig, user);
 <CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
-// Android SDK v3.x (Kotlin)
-
 val otherKeys: Map<String, String> = HashMap()
 otherKeys.put("platform", "platform-mobile-key-456def")
 otherKeys.put("core", "core-mobile-key-789ghi")
@@ -159,8 +151,6 @@ As all the client instances use the same LDContext object, some calls affect all
 <CSTab label="Android SDK v4.0 (Java)">
 
 ```java
-// Android SDK v4.0 (Java)
-
 LDClient coreInstance = LDClient.getForMobileKey("core");
 
 // Calls affect all LDClient Instances
@@ -175,8 +165,6 @@ coreInstance.close();
 <CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
-// Android SDK v4.0 (Kotlin)
-
 val coreInstance: LDClient = LDClient.getForMobileKey("core")
 
 // Calls affect all LDClient Instances
@@ -191,8 +179,6 @@ coreInstance.close()
 <CSTab label="Android SDK v3.x (Java)">
 
 ```java
-// Android SDK v3.x (Java)
-
 LDClient coreInstance = LDClient.getForMobileKey("core");
 
 // Calls affect all LDClient Instances
@@ -207,8 +193,6 @@ coreInstance.close();
 <CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
-// Android SDK v3.x (Kotlin)
-
 val coreInstance: LDClient = LDClient.getForMobileKey("core")
 
 // Calls affect all LDClient Instances
@@ -235,8 +219,6 @@ All `LDClient` instances evaluate against the same `LDContext`. The mobile keys 
 <CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
-// iOS SDK v8.0 (Swift)
-
 let context = try LDContextBuilder(key: "context-key-123abc").build().get()
 var config = LDConfig(mobileKey: "mobile-key-123abc")
 // Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
@@ -248,8 +230,6 @@ LDClient.start(config: config, context: context)
 <CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
-// iOS SDK v8.0 (Objective-C)
-
 LDContext *context = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"].build.success;
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 NSDictionary *otherMobileKeys = @{@"platform": @"platform-mobile-key-123abc", @"core": @"core-mobile-key-123abc"};
@@ -264,8 +244,6 @@ NSError *err = nil;
 <CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
-// iOS SDK v7.x (Swift)
-
 let user = LDUser(key: "user-key-123abc")
 var config = LDConfig(mobileKey: "mobile-key-123abc")
 // Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
@@ -277,8 +255,6 @@ LDClient.start(config: config, user: user)
 <CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
-// iOS SDK v7.x (Objective-C)
-
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 NSDictionary *otherMobileKeys = @{@"platform": @"platform-mobile-key-456def", @"core": @"core-mobile-key-789ghi"};

@@ -305,7 +305,6 @@ You should send the computed secure mode hash for your user as the [`hash` attri
 <CSTab label="JavaScript SDK v3.0">
 
 ```js
-// JavaScript SDK v3.0
 // client initialization
 const client = LDClient.initialize('client-side-id-123abc', context, options = {
   hash: 'server-generated-hash-123abc'
@@ -321,7 +320,6 @@ client.identify(newContext, hash, function() {
 <CSTab label="JavaScript SDK v3.0 (TypeScript)">
 
 ```ts
-// JavaScript SDK v3.0 (TypeScript)
 // client initialization
 const context: ld.LDContext = { kind: 'user', key: 'context-key-123abc' };
 const options: ld.LDOptions = { hash: 'server-generated-hash-123abc' };
@@ -338,7 +336,6 @@ client.identify(newContext, hash, function () {
 <CSTab label="JavaScript SDK v2.x">
 
 ```js
-// JavaScript SDK v2.x
 // client initialization
 const client = LDClient.initialize('client-side-id-123abc', user, options = {
   hash: 'server-generated-hash-123abc'
@@ -354,7 +351,6 @@ client.identify(newUser, hash, function() {
 <CSTab label="JavaScript SDK v2.x (TypeScript)">
 
 ```ts
-// JavaScript SDK v2.x (TypeScript)
 // client initialization
 const user: ld.LDUser = { key: 'user-key-123abc' };
 const options: ld.LDOptions = { hash: 'server-generated-hash-123abc' };

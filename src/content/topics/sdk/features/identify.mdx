@@ -122,8 +122,6 @@ Here's how:
 <CSTab label="Android SDK v4.0 (Java)">
 
 ```java
-// Android SDK v4.0 (Java)
-
 LDContext updatedContext = LDContext.builderFromContext(context)
     .email("sandy@example.com")
     .build();
@@ -135,8 +133,6 @@ client.identify(updatedContext);
 <CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
-// Android SDK v4.0 (Kotlin)
-
 val updatedContext: LDContext = LDContext.builderFromContext(context)
     .email("sandy@example.com")
     .build()
@@ -148,8 +144,6 @@ client.identify(updatedContext)
 <CSTab label="Android SDK v3.x (Java)">
 
 ```java
-// Android SDK v3.x (Java)
-
 LDUser updatedUser = new LDUser.Builder(user)
     .email("sandy@example.com")
     .build();
@@ -161,8 +155,6 @@ client.identify(updatedUser);
 <CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
-// Android SDK v3.x (Kotlin)
-
 val updatedUser: LDUser = LDUser.Builder(user)
     .email("sandy@example.com")
     .build()
@@ -310,8 +302,6 @@ Here's how:
 <CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
-// iOS SDK v8.0 (Swift)
-
 let newContext = try LDContextBuilder(key: "context-key-123abc").build().get();
 
 // You can also call identify with a completion
@@ -324,8 +314,6 @@ LDClient.get()!.identify(context: newContext) {
 <CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
-// iOS SDK v8.0 (Objective-C)
-
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
 ContextBuilderResult *result = builder.build;
 
@@ -344,8 +332,6 @@ if (result.success) {
 <CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
-// iOS SDK v7.x (Swift)
-
 let newUser = LDUser(key: "user-key-123abc")
 LDUser.get()!.identify(user: newUser)
 
@@ -359,8 +345,6 @@ LDClient.get()!.identify(user: newUser) {
 <CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
-// iOS SDK v7.x (Objective-C)
-
 LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [[LDClient get] identifyWithUser:newUser];
 
@@ -395,8 +379,6 @@ Here's how:
 <CSTab label="JavaScript SDK v3.0, single context">
 
 ```js
-// JavaScript SDK v3.0, single context
-
 client.identify(newContext, hash, function() {
   console.log("New context's flags available");
 });
@@ -406,8 +388,6 @@ client.identify(newContext, hash, function() {
 <CSTab label="JavaScript SDK v3.0, multi-context">
 
 ```js
-// JavaScript SDK v3.0, multi-context
-
 const newMultiContext = {
   kind: 'multi',
   user: {
@@ -430,8 +410,6 @@ client.identify(newMultiContext, hash, function() {
 <CSTab label="JavaScript SDK v2.x">
 
 ```js
-// JavaScript SDK v2.x
-
 client.identify(newUser, hash, function() {
   console.log("New user's flags available");
 });
@@ -468,8 +446,6 @@ Here's how:
 <CSTab label="Node.js SDK v3.0, single context">
 
 ```js
-// Node.js SDK v3.0, single context
-
 client.identify(newContext, () => {
   console.log("New context's flags available");
 });
@@ -484,8 +460,6 @@ client.identify(newContext).then(() => {
 <CSTab label="Node.js SDK v3.0, multi-context">
 
 ```js
-// Node.js SDK v3.0, multi-context
-
 const newMultiContext = {
   kind: 'multi',
   user: {
@@ -513,8 +487,6 @@ client.identify(newMultiContext).then(() => {
 <CSTab label="Node.js SDK v2.x">
 
 ```js
-// Node.js SDK v2.x
-
 client.identify(newUser, () => {
   console.log("New user's flags available");
 });

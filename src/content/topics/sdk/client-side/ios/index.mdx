@@ -204,7 +204,6 @@ Here is how to specify your mobile key:
 <CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
-// iOS SDK v8.0 (Swift)
 // If you would like the completion to be called even in cases where
 // the SDK is unable to retrieve flags for the context, there is a variant
 // to the start method that takes a maximum time to wait for flag values.
@@ -224,7 +223,6 @@ LDClient.start(config: config, context: context, startWaitSeconds: 5) { timedOut
 <CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
-// iOS SDK v8.0 (Objective-C)
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 LDContext *context = [[LDContext alloc] initWithKey:@"context-key-123abc"];
 
@@ -241,7 +239,6 @@ LDContext *context = [[LDContext alloc] initWithKey:@"context-key-123abc"];
 <CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
-// iOS SDK v7.x (Swift)
 // If you would like the completion to be called even in cases where
 // the SDK is unable to retrieve flags for the context, there is a variant
 // to the start method that takes a maximum time to wait for flag values.
@@ -261,7 +258,6 @@ LDClient.start(config: config, user: user, startWaitSeconds: 5) { timedOut in
 <CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
-// iOS SDK v7.x (Objective-C)
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 
@@ -285,7 +281,6 @@ Here's how:
 <CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
-// iOS SDK v8.0 (Swift)
 let config = LDConfig(mobileKey: "mobile-key-123abc")
 let context = LDContextBuilder(key: "context-key-123abc")
 
@@ -303,7 +298,6 @@ LDClient.start(config: config, context: context) {
 <CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
-// iOS SDK v8.0 (Objective-C)
 [LDClient startWithConfiguration:config context:context startWaitSeconds:5.0 completion:^(bool timedOut) {
     if(timedOut) {
         // The SDK may not have the most recent flags for the configured context
@@ -317,7 +311,6 @@ LDClient.start(config: config, context: context) {
 <CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
-// iOS SDK v7.x (Swift)
 let config = LDConfig(mobileKey: "mobile-key-123abc")
 let user = LDUser(key: "context-key-123abc")
 
@@ -335,7 +328,6 @@ LDClient.start(config: config, user: user) {
 <CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
-// iOS SDK v7.x (Objective-C)
 [LDClient startWithConfiguration:config user:user startWaitSeconds:5.0 completion:^(bool timedOut) {
     if(timedOut) {
         // The SDK may not have the most recent flags for the configured user
