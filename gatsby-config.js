@@ -124,6 +124,14 @@ const plugins = [
     },
   },
   {
+    // Google tag manager was requested by MOps. They are working with a vendor to set up site tagging to give us more
+    // granular engagement tracking. sc-188749
+    resolve: 'gatsby-plugin-google-tagmanager',
+    options: {
+      id: 'GTM-M4F7FSC',
+    },
+  },
+  {
     resolve: 'gatsby-plugin-launchdarkly',
     options: {
       clientSideID: process.env.LAUNCHDARKLY_CLIENT_SIDE_ID,
