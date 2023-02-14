@@ -207,7 +207,7 @@ function onPageLoad(flags: LDClient.LDFlagSet) {
   ...
 }
 ```
-label="
+
 </CSTab>
 <CSTab label="JavaScript SDK v2.x">
 
@@ -225,7 +225,7 @@ function onPageLoad(flags) {
 
   ...
 }
-```label="
+```
 
 </CSTab>
 <CSTab label="JavaScript SDK v2.x (TypeScript)">
@@ -246,7 +246,7 @@ function onPageLoad(flags: LDClient.LDFlagSet) {
 </CodeSample>
 
 If you can invoke your backend dynamically, such as in Ruby with a template directory, you can inline the function invocation and request that the SDK return only the client-side flags.
-label="
+
 Here is an example of how to bootstrap flags into the JavaScript client, if you acquire the flags from a Ruby template directive:
 
 <CodeSample>
@@ -267,7 +267,7 @@ const ldclient = LDClient.initialize(
 
 </CSTab>
 </CodeSample>
-label="
+
 Alternatively, you can bootstrap feature flags from local storage:
 
 <CodeSample>
@@ -276,7 +276,7 @@ Alternatively, you can bootstrap feature flags from local storage:
 ```js
 const client = LDClient.initialize('client-side-id-123abc', user, options = {
   bootstrap: 'localStorage'
-});label="
+});
 ```
 
 </CSTab>
@@ -303,7 +303,7 @@ You can still subscribe to flag changes if you use local storage.
 <Details summary="Expand Node.js (client-side) code sample">
 
 You can use bootstrapping on the Node.js SDK with values provided by LaunchDarkly-enabled code on the backend.
-label="
+
 You can use it to set the feature flags to any values you want:
 
 <CodeSample>
@@ -319,7 +319,7 @@ const client = LaunchDarkly.initialize(
       flagKey2: flagValue2
     }
   }
-);label="
+);
 ```
 
 </CSTab>
@@ -342,7 +342,7 @@ const client = LaunchDarkly.initialize('client-side-id-123abc', user, options);
 </CodeSample>
 
 A more useful mode in a client-side Node application is to bootstrap from locally cached values. In this mode, if no values have been cached yet, the SDK obtains flags from LaunchDarkly and then caches them in persistent storage. The next time you start, the cached flags are immediately available, and the SDK also contacts LaunchDarkly in the background to obtain updated values.
-label="
+
 To activate this mode, use the special string `"localStorage"`:
 
 <CodeSample>
@@ -355,7 +355,7 @@ const client = LaunchDarkly.initialize(
   {
     bootstrap: 'localStorage'
   }
-);label="
+);
 ```
 
 </CSTab>
@@ -367,7 +367,6 @@ import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 const options: LaunchDarkly.LDOptions = { bootstrap: 'localStorage' };
 
 const client = LaunchDarkly.initialize('client-side-id-123abc', context, options);
-
 ```
 
 </CSTab>
@@ -384,7 +383,7 @@ You can bootstrap flags into the React SDK the same way you bootstrap flags into
 You can also use the optional `flags` property to bootstrap the React SDK. If you specify `flags`, the React SDK only subscribes for updates to those flags, and sets the fallback values for those flags. If you do not specify this property, the React SDK subscribes to all flags. This property is optional.
 
 Specify the `flags` property as a JSON object containing flag metadata derived from calling the server-side SDK's [all flags](/sdk/features/all-flags) method. The flag keys must be in their original form, as known to LaunchDarkly, rather than in their camel-cased form. Each flag's value is passed along to the resulting JavaScript SDK [`variation`](/sdk/features/evaluating) invocation and used as the flag's default value in the case of an error.
-label="
+
 Here is an example:
 
 <CodeSample>
