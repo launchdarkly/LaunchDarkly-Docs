@@ -229,17 +229,45 @@ To learn more, read [`application`](https://launchdarkly.github.io/node-client-s
 
 This feature is available for the following server-side SDKs:
 
+* [Erlang](#erlang)
 * [Go](#go)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
 * [Ruby](#ruby)
 * [Rust](#rust)
+
+### Erlang
+
+<Details summary="Expand Erlang code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeSample>
+<CodeTabs label="Erlang">
+
+```erlang
+
+ldclient:start_instance("sdk-key-123abc", #{
+  application => #{
+    id => <<"authentication-service">>,
+    version => <<"1.0.0">>
+  }
+})
+
+```
+
+</CodeTabs>
+</CodeSample>
+
+For a complete list of configuration options, read the documentation for the [`ldclient_config` module](https://hexdocs.pm/launchdarkly_server_sdk/ldclient_config.html).
+
+</Details>
 
 ### Go
 
 <Details summary="Expand Go code sample">
-
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object.
 
 The code in this sample configures the application identifier and application version:
 
@@ -262,9 +290,7 @@ To learn more about the configuration options, read [`Config`](https://pkg.go.de
 
 <Details summary="Expand Java code sample">
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. In this example, we've configured two properties for the application identifier and application version.
-
-To pass custom parameters:
+This code sample shows you how to configure the application identifier and application version:
 
 <CodeSample>
 <CSTab label="Java">
@@ -288,9 +314,7 @@ For a complete list of configuration options for the client, including proxy set
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. In this example, we've configured two properties for the application identifier and application version.
-
-To pass custom parameters:
+This code sample shows you how to configure the application identifier and application version:
 
 <CodeSample>
 <CSTab label="JavaScript">
@@ -325,13 +349,59 @@ const client = ld.init('sdk-key-123abc', options);
 To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html).
 </Details>
 
+### PHP
+
+<Details summary="Expand PHP code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeSample>
+<CodeTabs label="PHP">
+
+```php
+$appInfo = (new ApplicationInfo())->withId('authentication-service')->withVersion('1.0.0');
+$config = [
+  "application_info" => $appInfo
+];
+
+$client = new LaunchDarkly\LDClient("sdk-key-123abc", $config);
+```
+
+</CodeTabs>
+</CodeSample>
+
+To learn more, read [`ApplicationInfo`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Types-ApplicationInfo.html). For a complete list of configuration options, read the documentation for the [LDClient constructor](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method___construct).
+
+</Details>
+
+### Python
+
+<Details summary="Expand Python code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeSample>
+<CodeTabs label="Python">
+
+```py
+config = Config(sdk_key='sdk-key-123abc',
+  application = {"id": "authentication-service", "version": "1.0.0"})
+ldclient.set_config(config)
+
+```
+
+</CodeTabs>
+</CodeSample>
+
+To learn more, read [`application`](https://launchdarkly-python-sdk.readthedocs.io/en/7.6.1/api-main.html#ldclient.config.Config.application). For a complete list of configuration options, read the documentation for the [`ldclient.config` module](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#module-ldclient.config).
+
+</Details>
+
 ### Ruby
 
 <Details summary="Expand Ruby code sample">
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. In this example, we've configured two properties for the application identifier and application version.
-
-To pass custom parameters:
+This code sample shows you how to configure the application identifier and application version:
 
 <CodeSample>
 <CSTab label="Ruby">
@@ -355,7 +425,7 @@ To learn more about the specific configuration options that are available in thi
 
 <Details summary="Expand Rust code sample">
 
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
+This code sample shows you how to configure the application identifier and application version:
 
 <CodeSample>
 <CSTab label="Rust">
