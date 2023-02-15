@@ -317,9 +317,7 @@ In this example, the "email" and "address" attributes are private for all contex
 
 ```js
 const options = {
-  _meta: {
-      privateAttributes: ['email', 'address']
-  }
+  privateAttributes: ['email', 'address']
 };
 client = ld.init('sdk-key-123abc', options);
 ```
@@ -330,9 +328,7 @@ client = ld.init('sdk-key-123abc', options);
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 const options: ld.LDOptions {
-  _meta: {
-      privateAttributes: ['email', 'address']
-  }
+  privateAttributes: ['email', 'address']
 }
 
 const client = ld.init('sdk-key-123abc', options);
@@ -341,7 +337,7 @@ const client = ld.init('sdk-key-123abc', options);
 </CSTab>
 </CodeSample>
 
-To learn more, read [the SDK's API documentation](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDUser.html#privateAttributeNames).
+To learn more, read the SDK's API documentation for [`allAttributesPrivate`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#allAttributesPrivate) and [`privateAttributes`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#privateAttributes).
 
 Here's how to mark an attribute as private for a particular context:
 

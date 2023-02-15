@@ -144,7 +144,7 @@ In the client-side .NET SDK there are two ways to define private attributes for 
 - When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all context attributes except the kind and key for all contexts are removed before the SDK sends the context to LaunchDarkly.
 - When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributes` method, which takes any number of attribute names or slash-delimited paths to designated a JSON property within an attribute, such as `/address/street`. If any context has a custom or built-in attribute that matches one of these names, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also mark attributes as private when building the user object by calling `Private()` on the context builder.
+You can also mark attributes as private when building the context object by calling `Private()` on the context builder.
 
 For example:
 
@@ -323,7 +323,7 @@ If an attribute is an object, then in your flag or segment targeting, you can us
 
 You can optionally configure the Android SDK to treat some or all attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private attributes can be used for targeting purposes, but are removed from the context data sent back to LaunchDarkly.
 
-In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any context has a custom or built-in attribute named in this set, the SDK removes it before sending the context to LaunchDarkly.
+In the Android SDK you can define private attributes for the entire LaunchDarkly client. When creating the `LDConfig` object, call the `privateAttributes` method, which takes in a set of custom or built-in attributes as a parameter. If any context has a custom or built-in attribute named in this set, the SDK removes it before sending the context to LaunchDarkly.
 
 Here's how to configure private attributes:
 
@@ -522,7 +522,6 @@ In the C/C++ SDK there are two ways to define private attributes for the LaunchD
 
 - When creating the `LDConfig` object, you can set the `allAttributesPrivate` value to `true`. When you do this, all user attributes except the key are removed before the SDK sends the user to LaunchDarkly.
 - When creating the `LDConfig` object, you can configure a map of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
-
 
 <CodeSample>
 <CSTab label="C/C++">
@@ -785,7 +784,7 @@ Most of the built-in attributes, like names and email addresses, expect string v
 
 Optionally, you can configure the Flutter SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting purposes. They are removed from the user data sent back to LaunchDarkly.
 
-In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `setPrivateAttributeNames` method, which which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
+In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `privateAttributeNames` method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
 
 <CodeSample>
 <CSTab label="Dart">
@@ -797,7 +796,7 @@ Set<String> privateAttributes =
   };
 
 LDConfig ldConfig = new LDConfigBuilder()
-    .setPrivateAttributeNames(privateAttributes)
+    .privateAttributeNames(privateAttributes)
     .build();
 ```
 
@@ -933,6 +932,9 @@ LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-
 
 NSArray *groups = [NSArray arrayWithObjects:[LDValue ofString:@"microsoft"], nil];
 [builder trySetValueWithName:@"group" value:[LDValue ofArray:groups]];
+
+[builder addPrivateAttributeWithReference:[[Reference alloc] initWithValue:@"email"]];
+[builder addPrivateAttributeWithReference:[[Reference alloc] initWithValue:@"group"]];
 
 LDContext *context = builder.build.success;
 ```
@@ -1179,7 +1181,7 @@ const client = ld.initialize('client-side-id-123abc', user, options);
 
 In the above example, the `name` and `email` attributes are removed.
 
-You can configure this option either in the context object or in the configuration object, by specifying an array of attributes that should be private. In the context object, specify your array of attributes in the `privateNames` field of the reserved `_meta` property. In the configuration object, specify your array of attributes in the `privateAttributeNames` configuration option.
+You can configure this option either in the context object or in the configuration object, by specifying an array of attributes that should be private. In the context object, specify your array of attributes in the `privateNames` field of the reserved `_meta` property. In the configuration object, specify your array of attributes in the `privateAttributes` configuration option.
 
 Here's how:
 
@@ -1527,9 +1529,9 @@ const client = ld.initialize('client-side-id-123abc', user, options);
 
 In the above example, the `name` and `email` attributes are removed.
 
-You can also specify an array of which attributes should be private with the `privateAttributeNames` option. You can configure this option on a per-user basis by specifying which attributes should be private in your user object.
+You can also specify an array of which attributes should be private with the `privateAttributes` option. You can configure this option on a per-context basis by specifying which attributes should be private in your context object.
 
-This option is configured in both the user object and the configuration object:
+You can configure this option in both the context object and the configuration object:
 
 <CodeSample>
 <CSTab label="Node.js SDK v3.0 (JavaScript)">
@@ -1540,11 +1542,13 @@ const context = {
   key: 'user-key-123abc',
   name: 'Sandy Smith',
   email: 'sandy@example.com'
-  privateAttributeNames: ['email']
+  _meta: {
+    privateAttributes: ['email']
+  }
 };
 
 const client = ld.initialize('client-side-id-123abc', context, {
-  privateAttributeNames: ['email']
+  privateAttributes: ['email']
 });
 ```
 
@@ -1559,9 +1563,11 @@ const context: ld.LDContext = {
   key: 'user-key-123abc',
   name: 'Sandy Smith',
   email: 'sandy@example.com',
-  privateAttributeNames: ['email'],
+  _meta: {
+    privateAttributes: ['email'],
+  }
 };
-const options: ld.LDOptions = { allAttributesPrivate: ['email'] };
+const options: ld.LDOptions = { privateAttributes: ['email'] };
 
 const client = ld.initialize('client-side-id-123abc', context, options);
 ```
@@ -2320,7 +2326,7 @@ You can optionally configure the Go SDK to treat some or all context attributes 
 In the Go SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
 - You can set the configuration option `AllAttributesPrivate` to true. If you enable this, the SDK removes all attributes for all contexts before it sends the context to LaunchDarkly, except the key and kind.
-- You can set the configuration option `PrivateAttributeNames` to a list of attribute names. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- You can set the configuration option `PrivateAttributes` to a list of attribute names. If any context has an attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
 Here's how to to define private attributes:
 
@@ -2340,7 +2346,7 @@ config.Events = ldcomponents.SendEvents().AllAttributesPrivate(true)
 
 // Or, make just the email and address attributes private for all contexts
 config.Events = ldcomponents.SendEvents().
-    PrivateAttributes("email", "address")
+    PrivateAttributes("name", "email")
 ```
 
 </CSTab>
@@ -2365,7 +2371,7 @@ config.Events = ldcomponents.SendEvents().
 </CSTab>
 </CodeSample>
 
-You can also define a set of private attributes on the context object itself. In this example, "email" and the "street" field of the "address" attribute are private for this context, in addition to any private attributes that were specified globally:
+You can also define a set of private attributes on the context object itself. In the following example, "email" and the "street" field of the "address" attribute are private for this context, in addition to any private attributes that were specified globally:
 
 <CodeSample>
 <CSTab label="Go SDK v6.0">
@@ -2644,7 +2650,7 @@ LDConfig configWithSpecificAttributesPrivate = new LDConfig.Builder()
 </CSTab>
 </CodeSample>
 
-You can also mark attributes as private when building the context object by calling the `private` builder method. For example:
+You can also mark attributes as private when building the context object by calling the `privateAttributes` builder method. For example:
 
 <CodeSample>
 <CSTab label="Java SDK v6.0">
@@ -2652,7 +2658,7 @@ You can also mark attributes as private when building the context object by call
 ```java
 LDContext context = LDContext.builder("context-key-123abc")
   .set("email", "sandy@example.com")
-  .private("email")
+  .privateAttributes("email")
   .build();
 ```
 
@@ -2822,8 +2828,8 @@ You can optionally configure the Node.js SDK to treat some or all attributes as 
 
 In the Node.js SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly `config`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
-- In the LaunchDarkly `config` object, you can define a list of `privateAttributes`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- In the LaunchDarkly `LDOptions`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
+- In the LaunchDarkly `LDOptions` object, you can define a list of `privateAttributes`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
 
 You can also define a set of `privateAttributes` on the context object. For example:
 
@@ -2835,7 +2841,9 @@ const context = {
   kind: 'user',
   key: 'user-key-123abc',
   email: 'sandy@example.com',
-  privateAttributes: ['email'],
+  _meta: {
+    privateAttributes: ['email'],
+  }
 };
 ```
 
@@ -3380,10 +3388,10 @@ You can optionally configure the Rust SDK to treat some or all attributes as [Pr
 
 In the Rust SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly `config`, you can set `all_attributes_private` to true. If you enable this, the SDK removes all attributes for all contexts before sending the context to LaunchDarkly, except the key and kind.
-- In the LaunchDarkly config object, you can define a list of `private_attribute_names`. If any contexts has an attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
+- In the LaunchDarkly config object, you can set `all_attributes_private` to true. If you enable this, the SDK removes all attributes for all contexts before sending the context to LaunchDarkly, except the key and kind.
+- In the LaunchDarkly config object, you can define a list of `private_attributes`. If any contexts has an attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
-You can also define a set of `privateAttributeNames` on the context object. For example:
+You can also define private attributes on the context object. For example:
 
 <CodeSample>
 <CSTab label="Rust SDK v1">

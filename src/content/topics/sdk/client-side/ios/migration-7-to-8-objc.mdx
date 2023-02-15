@@ -230,7 +230,7 @@ LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"MOBILE_KEY"];
 </CSTab>
 </CodeSample>
 
-To learn more, read [privateAttributes](https://launchdarkly.github.io/ios-client-sdk/Structs/LDUser.html#/s:12LaunchDarkly6LDUserV17privateAttributesSayAA13UserAttributeCGvp).
+To learn more, read [`privateContextAttributes`](https://launchdarkly.github.io/ios-client-sdk/Structs/LDConfig.html#/s:12LaunchDarkly8LDConfigV24privateContextAttributesSayAA9ReferenceVGvp).
 
 Here's how to mark an attribute as private for a particular context:
 
@@ -257,7 +257,7 @@ For attributes that are objects, you can mark specific fields private, using the
 
 For example, for the attribute `"address": { "street": "Main St", "city": "Springfield" }`, you could set just the `/address/street` as private.
 
-The `privateAttributeNames` attribute that existed in a user object in versions 6.x and 7.x has been removed in version 8.0. In 8.0, you must use `addPrivateAttribute` and `removePrivateAttribute` within the builder. To learn more, read [privateAttributes](https://launchdarkly.github.io/ios-client-sdk/Structs/LDUser.html#/s:12LaunchDarkly6LDUserV17privateAttributesSayAA13UserAttributeCGvp).
+The `privateAttributeNames` attribute that existed in a user object in versions 6.x and 7.x has been removed in version 8.0. In 8.0, you must use `addPrivateAttribute` and `removePrivateAttribute` within the builder. To learn more, read [`addPrivateAttribute`](https://launchdarkly.github.io/ios-client-sdk/Structs/LDContextBuilder.html#/s:12LaunchDarkly16LDContextBuilderV19addPrivateAttributeyyAA9ReferenceVF).
 
 ### Understanding changes to automatic custom property population
 
