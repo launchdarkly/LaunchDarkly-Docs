@@ -32,9 +32,9 @@ The asynchronous initialization process is different for each SDK.
 
 <Details summary="Expand .NET (client-side) initialization process">
 
-We recommend using `LdClient.InitAsync(key, user)` to initialize the SDK, as it runs asynchronously.
+We recommend using `LdClient.InitAsync(key, context)` to initialize the SDK, as it runs asynchronously.
 
-The alternative method, `LdClient.Init(key, user, timeout)` blocks until either it has retrieved flag data or it has exceeded the timeout period.
+The alternative method, `LdClient.Init(key, context, timeout)` blocks until either it has retrieved flag data or it has exceeded the timeout period.
 
 To learn more, read [Getting started](/sdk/client-side/dotnet#getting-started) in the [.NET (client-side) SDK reference](/sdk/client-side/dotnet) topic.
 
