@@ -57,14 +57,8 @@ To fix this, we strongly recommend upgrading your SDK version. If you can't upgr
 
 Here's how to set the `allowFrequentDuplicateEvents` option in your JavaScript SDK to `true`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = { allowFrequentDuplicateEvents: true };
@@ -72,8 +66,8 @@ const client = LDClient.initialize('client-side-id-123abc', user, options);
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDClient from 'launchdarkly-js-client-sdk';
@@ -82,8 +76,8 @@ const options: LDClient.LDOptions = { allowFrequentDuplicateEvents: true };
 const client = LDClient.initialize('client-side-id-123abc', user, options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 

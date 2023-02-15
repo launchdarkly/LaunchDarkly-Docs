@@ -30,14 +30,8 @@ The first part of your manifest should describe your organization, contacts, URL
 
 LaunchDarkly uses most of this information to render your integration card and configuration form in the LaunchDarkly user interface (UI).
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example manifest', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example manifest">
 
 ```json
 {
@@ -59,8 +53,9 @@ LaunchDarkly uses most of this information to render your integration card and c
   "requiresOAuth": false
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 Some properties in the manifest, such as `description`, can accept simple [Markdown](https://daringfireball.net/projects/markdown/). The LaunchDarkly UI converts Markdown to HTML. To get the best results, only use simple Markdown, such as links and basic text formatting.
 

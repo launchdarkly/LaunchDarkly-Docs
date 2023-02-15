@@ -50,13 +50,8 @@ After you complete the [Getting Started process](/home/getting-started), follow 
 
 The first step is deploying the SDK to Salesforce:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 git clone https://github.com/launchdarkly/apex-server-sdk.git
@@ -64,28 +59,22 @@ cd apex-server-sdk
 sfdx force:source:deploy --targetusername='YOUR TARGET ORG' --sourcepath='force-app'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Initializing the client
 
 Initialize the client as follows:
 
-<CodeTabs
-  defaultValue="defaultConfig"
-  values={[
-    { label: 'Default Config', value: 'defaultConfig', },
-    { label: 'Custom Config', value: 'customConfig', },
-  ]
-}>
-<CodeTabItem value="defaultConfig">
+<CodeSample>
+<CSTab label="Default Config">
 
 ```java
 LDClient client = new LDClient();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="customConfig">
+</CSTab>
+<CSTab label="Custom Config">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -94,20 +83,15 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can use `client` to check which variation a particular user will receive for a given feature flag.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Apex">
 
 ```java
 LDUser user = new LDUser.Builder('user-key-123abc')
@@ -122,8 +106,8 @@ if (value) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After the SDK is deployed to Salesforce, start the bridge to begin evaluating flags. The bridge must be running in order to receive flag updates and publish events to LaunchDarkly.
 
@@ -141,13 +125,8 @@ To build the bridge from source install Go 1.14 or higher. To install Go, read [
 
 Build and run the bridge like this:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Console', value: 'bash', },
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 cd bridge && go build .
@@ -162,8 +141,8 @@ export OAUTH_PASSWORD='Your Salesforce password + security token'
 ./bridge
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The logs indicate if the bridge is running. If it fails, the logs show the errors that occurred. You must deploy the SDK to Salesforce before you run the bridge.
 

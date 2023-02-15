@@ -54,20 +54,15 @@ To learn more, read [C/C++ SDK reference (server-side)](/sdk/server-side/c-c--).
 
 First, include the library:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local ld = require("launchdarkly_server_sdk")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
@@ -86,13 +81,8 @@ Calling `clientInit` initiates a remote call to the LaunchDarkly service to fetc
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local config = {
@@ -102,20 +92,15 @@ local config = {
 local client = ld.clientInit(config, 1000)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can use `client` to check which variation a particular user will receive for a given feature flag.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 if client:boolVariation(user, flag-key-123abc, false) then
@@ -125,8 +110,8 @@ else
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Supported features
 

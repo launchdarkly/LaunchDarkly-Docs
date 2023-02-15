@@ -89,23 +89,18 @@ Error messages on initialization, including messages saying an environment was n
 
 Alternatively, you can validate your Relay Proxy with `curl`. Note that you need to specify your Relay Proxy base URI, SDK key, and user details in the command:
 
-<CodeTabs
-  defaultValue="relay"
-  values={[
-    { label: 'Build and install the Relay Proxy', value: 'relay', },
-  ]
-}>
-<CodeTabItem value="relay">
+<CodeSample>
+<CSTab label="Build and install the Relay Proxy">
 
 ```bash
 curl -X REPORT localhost:8030/sdk/eval/user \
   -H "Authorization: YOUR_SDK_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"key": "a00ceb", "email":"barnie@example.org"}'
+  -d '{"key": "sdk-key-123abc", "email":"sandy@example.org"}'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Using the Relay Proxy in different modes
 
@@ -176,25 +171,19 @@ If you include the `HTTPS_PROXY` environment variable in your configuration, the
 
 To set the `HTTPS_PROXY` environment variable:
 
-<CodeTabs
-  defaultValue="mac-linux"
-  values={[
-    { label: 'Mac and Linux configuration', value: 'mac-linux', },
-    { label: 'Windows configuration', value: 'windows', },
-  ]
-}>
-<CodeTabItem value="mac-linux">
+<CodeSample>
+<CSTab label="Mac and Linux configuration">
 
 ```bash
 export HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
-</CodeTabItem>
-<CodeTabItem value="windows">
+</CSTab>
+<CSTab label="Windows configuration">
 
 ```bash
 set HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

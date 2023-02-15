@@ -50,13 +50,8 @@ Follow the steps below to get started using the LaunchDarkly SDK in your Erlang 
 
 First, download the dependency using [Rebar](https://www.rebar3.org/):
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 {deps, [
@@ -64,18 +59,13 @@ First, download the dependency using [Rebar](https://www.rebar3.org/):
 ]}.
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Then, add it to your `app.src` file:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 {applications,
@@ -85,18 +75,13 @@ Then, add it to your `app.src` file:
 ]},
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you use Elixir, you can download the dependency using [Mix](https://elixir-lang.org/getting-started/mix-otp/introduction-to-mix.html):
 
-<CodeTabs
-  defaultValue="elixir"
-  values={[
-    { label: 'Elixir', value: 'elixir', },
-  ]
-}>
-<CodeTabItem value="elixir">
+<CodeSample>
+<CSTab label="Elixir">
 
 ```erlang
 defp deps do
@@ -106,8 +91,8 @@ defp deps do
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install the SDK dependency, create an instance of the SDK.
 
@@ -122,13 +107,8 @@ The Erlang SDK supports starting multiple instances, but most use cases only nee
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 % This starts an instance with the default options
@@ -138,25 +118,20 @@ ldclient:start_instance("sdk-key-123abc")
 ldclient:start_instance("sdk-key-123abc", your_instance)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, check which flag variation a specific user should receive:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>}, false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 
 ## Transport Layer Security (TLS)
@@ -165,13 +140,8 @@ The SDK includes configuration options that allow you to set custom TLS options.
 
 If your application has existing TLS options, then you can pass them to the SDK:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
   ldclient:start_instance(SdkKey, #{
@@ -180,8 +150,8 @@ If your application has existing TLS options, then you can pass them to the SDK:
   }}),
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The SDK also provides helper methods to create TLS options. We recommend ensuring that the SDK is using a Certificate Authorities (CA) store that is regularly updated for production environments.
 
@@ -201,7 +171,9 @@ Lastly, shut down the client when your application terminates. To learn more, re
 
 This SDK supports the following features:
 
-* [Configuration](/sdk/features/config#erlang)
+* [Configuration](/sdk/features/config#erlang), including
+  * [Application metadata configuration](/sdk/features/app-config#erlang)
+  * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#erlang)
 * [Evaluating flags](/sdk/features/evaluating#erlang)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#erlang)
 * [Getting all flags](/sdk/features/all-flags#erlang)
@@ -212,7 +184,6 @@ This SDK supports the following features:
   * [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#erlang)
   * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#erlang)
 * [Sending custom events](/sdk/features/events#erlang)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#erlang)
 * [Shutting down](/sdk/features/shutdown#erlang)
 * [Storing data](/sdk/features/storing-data#erlang)
 * [Test data sources](/sdk/features/test-data-sources#erlang)

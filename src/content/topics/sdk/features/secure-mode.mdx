@@ -75,28 +75,22 @@ The [`SecureModeHash`](https://launchdarkly.github.io/dotnet-server-sdk/api/Laun
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 var hash = client.SecureModeHash(context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 var hash = client.SecureModeHash(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -107,28 +101,22 @@ The [`SecureModeHash`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' }
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 client.SecureModeHash(context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 client.SecureModeHash(user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -139,28 +127,22 @@ The [`secureModeHash`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 client.secureModeHash(context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 client.secureModeHash(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -171,20 +153,22 @@ The `secureModeHash` method computes an HMAC signature of a user signed with the
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
+
+```js
+client.secureModeHash(context);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v6.x (JavaScript)">
 
 ```js
 client.secureModeHash(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### PHP
@@ -195,28 +179,22 @@ The `secureModeHash` method computes an HMAC signature of a context signed with 
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 $hash = $client->secureModeHash($context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 $hash = $client->secureModeHash(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -227,28 +205,22 @@ The `SecureModeHash` method computes an HMAC signature of a context signed with 
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 hash = ldclient.get().secure_mode_hash(context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 hash = ldclient.get().secure_mode_hash(user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -259,28 +231,22 @@ The `secure_mode_hash` method computes an HMAC signature of a context signed wit
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 client.secure_mode_hash(context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 client.secure_mode_hash(user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Rust
@@ -291,26 +257,20 @@ The `secure_mode_hash` method computes an HMAC signature of a context signed wit
 
 Here is the method:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust SDK v1', value: 'rust', },
-    { label: 'Rust SDK beta', value: 'rust-beta', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust SDK v1">
 
 ```rust
 client.secure_mode_hash(&context);
 ```
-</CodeTabItem>
-<CodeTabItem value="rust-beta">
+</CSTab>
+<CSTab label="Rust SDK beta">
 
 ```rust
 client.secure_mode_hash(&user);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Computing the hash manually
@@ -319,13 +279,8 @@ To compute the hash manually, locate the server-side SDK key for your environmen
 
 Here is a .NET (server-side) example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using System;
@@ -339,23 +294,15 @@ var hashBytes = hmacSha256.ComputeHash(encoding.GetBytes("context-key-123abc"));
 var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Configuring secure mode in the JavaScript client-side SDK
 
 You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify) if subsequently identifying new contexts:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript SDK 3.0', value: 'js', },
-    { label: 'TypeScript, JS SDK 3.0', value: 'ts', },
-    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
-    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript SDK v3.0">
 
 ```js
 // client initialization
@@ -369,8 +316,8 @@ client.identify(newContext, hash, function() {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="JavaScript SDK v3.0 (TypeScript)">
 
 ```ts
 // client initialization
@@ -385,8 +332,8 @@ client.identify(newContext, hash, function () {
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-2.x">
+</CSTab>
+<CSTab label="JavaScript SDK v2.x">
 
 ```js
 // client initialization
@@ -400,8 +347,8 @@ client.identify(newUser, hash, function() {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts-2.x">
+</CSTab>
+<CSTab label="JavaScript SDK v2.x (TypeScript)">
 
 ```ts
 // client initialization
@@ -416,7 +363,7 @@ client.identify(newUser, hash, function () {
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use secure mode, context objects must contain a predefined `key` attribute. Secure mode is not compatible with the SDK's ability to [automatically generate keys for anonymous contexts](/sdk/features/user-context-config#anonymous-contexts-in-the-javascript-sdk) because the SDK needs a correctly calculated `hash` value.

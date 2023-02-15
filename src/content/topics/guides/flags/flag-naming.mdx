@@ -91,7 +91,7 @@ The subject describes the target and scope of the flag. Some example subjects ar
 
 You should be able to read the name as a sentence that describes the purpose and scope of a flag. For example:
 
-- "Release: a new feature"
+- "Rollout: a new feature"
 - "Configure: a setting"
 - "Allow: an action"
 - "Enable: an entitlement"
@@ -116,17 +116,19 @@ Here is an example of a feature flag with an effective name, description, tags, 
 
 ![A flag with an effective name, description, tags, and variation names.](creating-flag-names-example.png)
 
-### Flag kind examples
+## Flag kind examples
 
 This section includes examples of naming schemes and best practices for specific flag kinds, including temporary release flags and several types of long-lived operational flags. When naming a flag, use the most specific category that you can. This ensures that all flags within that category have similar semantics and variations. 
 
 Expand the sections below for examples of each kind, when you should use them, and how you might name them.
 
-<Details summary="Expand release flags example">
+<Details summary="Expand rollout flags example">
 
-Release flags are temporary flags that control the progressive release of a new feature or behavior. They are intended to be removed after general release.
+### Rollout flags
 
-Here is a table of release flag example names, keys, and human-language interpretations:
+Rollout flags are temporary flags that control the progressive release of a new feature or behavior. You should remove these flags after general release.
+
+Here is a table of rollout flag example names, keys, and human-language interpretations:
 
 <Table>
   <TableHeader>
@@ -136,14 +138,109 @@ Here is a table of release flag example names, keys, and human-language interpre
   </TableHeader>
   <TableBody>
   <TableRow>
-    <TableCell>Release: widget API</TableCell>
-    <TableCell><code>release-widget-api</code></TableCell>
-    <TableCell>"Release the Widget API"</TableCell>
+    <TableCell>Rollout: widget API</TableCell>
+    <TableCell><code>rollout-widget-api</code></TableCell>
+    <TableCell>Rollout the Widget API</TableCell>
   </TableRow>
   <TableRow>
-    <TableCell>Release Android: live-chat</TableCell>
-    <TableCell><code>release-android-live-chat</code></TableCell>
-    <TableCell>"Release live chat to Android customers"</TableCell>
+    <TableCell>Rollout Android: live-chat</TableCell>
+    <TableCell><code>rollout-android-live-chat</code></TableCell>
+    <TableCell>Rollout live chat to Android customers</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+You should create flag links for related APM dashboards, metrics, monitors, alerts, and application logs.
+
+To learn more, read [Percentage rollouts](/home/flags/rollouts).
+
+### Database rollout flags
+
+Database flags are a type of rollout flag used to coordinate releases with schema migrations.
+
+Here is a database flag example name, key, and human-language interpretation:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Database: widget table exists</TableCell>
+    <TableCell><code>db-widget-table-exists</code></TableCell>
+    <TableCell>In the database, the widget table exists</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+DBAs or automated tooling can update the flag after they create the table. You can use database flags primarily as a prerequisite in other flags to facilitate coordinations between work groups.
+
+You should create flag links for documentation for the application, service, or component that uses this configuration, related APM dashboards, metrics, monitors, alerts, and application logs.
+
+To learn more about database migrations, read [Using feature flags to mitigate risk in infrastructure migrations](/guides/infrastructure/infrastructure-migration).
+
+</Details>
+
+<Details summary="Expand experiment flags example">
+
+### Experiment flags
+
+Experiment flags are a type of temporary rollout flag that control the release of a new feature or behavior and are included in an attached experiment. You should remove these flags after the experiment yields results or after general release.
+
+Here is a table of experiment flag example names, keys, and human-language interpretations:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Experiment: one-button checkout flow</TableCell>
+    <TableCell><code>experiment-one-button-checkout-flow</code></TableCell>
+    <TableCell>Experiment on the new one-button checkout flow versus the current flow</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Experiment: notification opt-in</TableCell>
+    <TableCell><code>experiment-notification-opt-in</code></TableCell>
+    <TableCell>Experiment on notification opt in choices</TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+You should create flag links for documentation for the application, service, or component that is involved in the experiment.
+
+To learn more, read [About Experimentation](/home/about-experimentation).
+
+</Details>
+
+<Details summary="Expand kill switch flags example">
+
+### Kill switch flags
+
+Kill switch flags are permanent safety mechanisms used to shut off functionality or third-party tools in an emergency.
+
+Here is a table of kill switch flag example names, keys, and human-language interpretations:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Name</TableHeadCell>
+    <TableHeadCell>Key</TableHeadCell>
+    <TableHeadCell>Human-language interpretation</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>Kill switch: disable Acme integration</TableCell>
+    <TableCell><code>kill-switch-disable-acme-integration</code></TableCell>
+    <TableCell>Kill switch for the Acme integration</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Kill switch: social media auto posts</TableCell>
+    <TableCell><code>kill-switch-social-media-auto-posts</code></TableCell>
+    <TableCell>Kill switch for all automated social media posts</TableCell>
   </TableRow>
   </TableBody>
 </Table>
@@ -152,43 +249,13 @@ You should create flag links for related APM dashboards, metrics, monitors, aler
 
 </Details>
 
-<Details summary="Expand configuration flags example">
+<Details summary="Expand operational flags example">
 
-Configuration flags are long-lived operational flags that control the behavior of an application. They do not typically have a planned removal date.
+### Operational flags
 
-Here is a table of configuration flag example names, keys, and human-language interpretations:
+Operational flags are long-lived configuration flags that control the behavior of an application, such as showing the visibility of a component. They do not typically have a planned removal date.
 
-<Table>
-  <TableHeader>
-    <TableHeadCell>Name</TableHeadCell>
-    <TableHeadCell>Key</TableHeadCell>
-    <TableHeadCell>Human-language interpretation</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-  <TableRow>
-    <TableCell>Config: log verbosity</TableCell>
-    <TableCell><code>config-log-verbosity</code></TableCell>
-    <TableCell>"Configure the log verbosity"</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Config: API rate limit</TableCell>
-    <TableCell><code>config-api-rate-limit</code></TableCell>
-    <TableCell>"Configure the API rate limit"</TableCell>
-  </TableRow>
-  </TableBody>
-</Table>
-
-Use configuration flags when the flag's behavior and variations do not fit into a more specific category. Document any constraints on when the value can be safely changed and any potential side effects such as increased load on critical services.
-
-You should create flag links for documentation for the application, service, or component that uses this configuration, related APM dashboards, metrics, monitors, alerts, and application logs.
-
-</Details>
-
-<Details summary="Expand allow flags example">
-
-Allow flags are long-lived operational flags that control whether or not an action is allowed or denied.
-
-Here is an allow flag example name, key, and human-language interpretation:
+Here is a table of operational flag example names, keys, and human-language interpretations:
 
 <Table>
   <TableHeader>
@@ -198,22 +265,23 @@ Here is an allow flag example name, key, and human-language interpretation:
   </TableHeader>
   <TableBody>
   <TableRow>
-    <TableCell>Allow: member impersonation</TableCell>
-    <TableCell><code>allow-member-impersonation</code></TableCell>
-    <TableCell>"Allow use of member impersonation"</TableCell>
+    <TableCell>Configure: log verbosity</TableCell>
+    <TableCell><code>configure-log-verbosity</code></TableCell>
+    <TableCell>Configure the log verbosity</TableCell>
   </TableRow>
-  </TableBody>
-</Table>
+  <TableRow>
+    <TableCell>Configure: API rate limit</TableCell>
+    <TableCell><code>configure-api-rate-limit</code></TableCell>
+    <TableCell>Configure the API rate limit</TableCell>
+  </TableRow>
+   </TableBody>
+</Table> 
 
-Use allow flags when the deny or false variation would cause the application to return "Access denied" or a 403 error. Changing allow/deny should be safe and side effect-free unless otherwise documented.
+Use operational flags when the flag's behavior and variations do not fit into a more specific category. Document any constraints on when the value can be safely changed and any potential side effects such as increased load on critical services.
 
-Create flag links for documentation for the application, service, or component that uses this configuration, documentation describing risks associated with allowing or denying access to this feature, and documentation describing when you should change the targeting of this flag.
+### Operational show flags
 
-</Details>
-
-<Details summary="Expand show flags example">
-
-Show flags are long-lived operational flags that control the visibility of a component.
+Show flags are a type of long-lived operational flag that control the visibility of a component.
 
 Here is a show flag example name, key, and human-language interpretation:
 
@@ -227,22 +295,22 @@ Here is a show flag example name, key, and human-language interpretation:
   <TableRow>
     <TableCell>Show: unsupported browser warning</TableCell>
     <TableCell><code>show-unsupported-browser-warning</code></TableCell>
-    <TableCell>"Show unsupported browser warning"</TableCell>
+    <TableCell>Show the unsupported browser warning</TableCell>
   </TableRow>
   </TableBody>
 </Table>
 
 Use show flags when controlling the visibility of a component for a subset of end users, such as informational banners, alerts, and offers. Show flags must be side effect-free and safe to turn on and off for any end user.
 
-Create Flag links for documentation for the application, service, or component that uses this configuration, and screenshots or videos showing the application with the show/hide variations.
-
 </Details>
 
-<Details summary="Expand database flags example">
+<Details summary="Expand permission flags example">
 
-Database flags are long-lived operational flags used to coordinate releases with schema migrations.
+### Permission flags
 
-Here is a database flag example name, key, and human-language interpretation:
+Permission flags are long-lived operational flags that control whether or not an action is allowed or denied.
+
+Here is a permission flag example name, key, and human-language interpretation:
 
 <Table>
   <TableHeader>
@@ -252,14 +320,16 @@ Here is a database flag example name, key, and human-language interpretation:
   </TableHeader>
   <TableBody>
   <TableRow>
-    <TableCell>DB: widget table exists</TableCell>
-    <TableCell><code>db-widget-table-exists</code></TableCell>
-    <TableCell>"In the database, the widget table exists"</TableCell>
+    <TableCell>Allow: member impersonation</TableCell>
+    <TableCell><code>allow-member-impersonation</code></TableCell>
+    <TableCell>Allow use of member impersonation</TableCell>
   </TableRow>
   </TableBody>
 </Table>
 
-DBAs or automated tooling can update the flag after they create the table. You can use database flags primarily as a prerequisite in other flags to facilitate coordinations between work groups.
+Use permission flags when the deny or false variation would cause the application to return "Access denied" or a 403 error. Changing allow/deny should be safe and side effect-free unless otherwise documented.
+
+Create flag links for documentation for the application, service, or component that uses this configuration, documentation describing risks associated with allowing or denying access to this feature, and documentation describing when you should change the targeting of this flag.
 
 </Details>
 

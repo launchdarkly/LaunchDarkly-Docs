@@ -23,14 +23,13 @@ We recommend using flag triggers for Datadog alerts only, not recovery alerts. I
 
 To learn more about configuring your webhook without recovery alerts, read [Connecting the webhook to a Datadog event](#connecting-the-webhook-to-a-datadog-event).
 
-
 ## Prerequisites
 
 In order to complete this topic, you must meet the following prerequisites.
 
-* You must have a feature flag with a trigger. To learn more about creating triggers, read [Creating a new flag trigger](/home/feature-workflows/triggers#creating-a-new-flag-trigger).
-* You must have access to the trigger's URL, which you copied and saved during the trigger creation process. To learn more, read [Understanding flag triggers' security](/home/feature-workflows/triggers#understanding-flag-triggers-security).
-* You must have an existing [Datadog](https://www.datadoghq.com/) account.
+- You must have a feature flag with a trigger. To learn more about creating triggers, read [Creating a new flag trigger](/home/feature-workflows/triggers#creating-a-new-flag-trigger).
+- You must have access to the trigger's URL, which you copied and saved during the trigger creation process. To learn more, read [Understanding flag triggers' security](/home/feature-workflows/triggers#understanding-flag-triggers-security).
+- You must have an existing [Datadog](https://www.datadoghq.com/) account.
 
 ## Connecting a flag trigger to Datadog
 
@@ -52,25 +51,18 @@ To configure the template:
 3. Create a new webhook based on the **Installation** instructions and paste the LaunchDarkly trigger URL into the URL field.
 4. Copy this Datadog payload into the configuration field in Datadog:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="JSON">
 
 ```json
-
 {
   "title": "$EVENT_TITLE",
   "url": "$LINK"
 }
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>You must customize the payload to view trigger details in LaunchDarkly</CalloutTitle>
@@ -92,24 +84,17 @@ After you create the webhook in Datadog, you must connect it to an event in orde
 1. Navigate to **Monitors**.
 2. Choose the **Alert** you wish to connect to the trigger and add the webhook you created earlier to that alert.
 
- If you don't want Datadog to trigger when the alert recovers, wrap the webhook in the following template expression:
+If you don't want Datadog to trigger when the alert recovers, wrap the webhook in the following template expression:
 
- <CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Expression', value: 'json', },
-  ]
- }>
- <CodeTabItem value="json">
+ <CodeSample>
+ <CSTab label="Expression">
 
- ```json
+```json
+`{{#is_alert}} @webhook-<YOUR_WEBHOOK_NAME> {{/is_alert}}`
+```
 
- `{{#is_alert}} @webhook-<YOUR_WEBHOOK_NAME> {{/is_alert}}`
-
- ```
-
- </CodeTabItem>
- </CodeTabs>
+ </CSTab>
+ </CodeSample>
 
 3. Click **Save.**
 4. In the Datadog metric alert you want to activate the flag trigger, add `@webhook-<YOUR_WEBHOOK_NAME>`.
@@ -119,6 +104,7 @@ After you create the webhook in Datadog, you must connect it to an event in orde
 After you create a trigger in Datadog, you can verify that it has connected to LaunchDarkly correctly.
 
 To test the trigger:
+
 1. Navigate to Datadog and find the metric alert to which you added the webhook.
 2. Click **Test Notifications** at the bottom of the page.
 3. Select any single notification and click **Run Test**. This sends a test event to LaunchDarkly.

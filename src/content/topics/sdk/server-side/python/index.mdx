@@ -65,38 +65,28 @@ First, install the LaunchDarkly SDK as a dependency in your application using yo
 
 Here's how:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Shell', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 pip install launchdarkly-server-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly client in your application code:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 import ldclient
 from ldclient.config import Config
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of `ldclient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
@@ -117,34 +107,23 @@ Only create one instance of `client`.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 ldclient.set_config(Config("sdk-key-123abc"))
 client = ldclient.get()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can use `client` to check which variation a particular context will receive for a given feature flag. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Flag evaluation reasons](/sdk/features/evaluation-reasons). For more information about how contexts are specified, read [User and context configuration](/sdk/features/user-context-config).
 
 In the v8.0 example, the context key is the string "context-key-123abc". In the v7.x example, the user key is the string "user-key-123abc":
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python SDK v8.0', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-v7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 from ldclient import Context
@@ -158,8 +137,8 @@ else:
     # the code to run if the feature is off
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-v7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 user = {"key": "user-key-123abc"}
@@ -171,8 +150,8 @@ else:
     # the code to run if the feature is off
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Configuring uWSGI
 
@@ -184,13 +163,8 @@ Additionally, you should initialize a new client only after `uwsgi` has forked t
 
 Here's how:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python - uWSGI initialization', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python uWSGI initialization">
 
 ```python
 import uwsgidecorators
@@ -203,8 +177,8 @@ end
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## HTTPS proxy
 
@@ -212,54 +186,39 @@ Python's standard HTTP library provides a built-in HTTPS proxy. If the HTTPS_PRO
 
 Here's how to set the HTTPS_PROXY environment variable on Mac/Linux systems:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Shell', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 export HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to set the HTTPS_PROXY environment variable on Windows systems:
 
-<CodeTabs
-  defaultValue="windows"
-  values={[
-    { label: 'cmd', value: 'windows', },
-  ]
-}>
-<CodeTabItem value="windows">
+<CodeSample>
+<CSTab label="cmd">
 
 ```bash
 set HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to set the HTTPS_PROXY environment variable from within Python:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 os.environ["https_proxy"] = "https://web-proxy.domain.com:8080"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 
@@ -270,7 +229,9 @@ Lastly, shut down the client when your application terminates. To learn more, re
 This SDK supports the following features:
 
 * [Big Segments](/sdk/features/big-segments#python)
-* [Configuration](/sdk/features/config#python)
+* [Configuration](/sdk/features/config#python), including
+  * [Application metadata configuration](/sdk/features/app-config#python)
+  * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#python)
 * [Evaluating flags](/sdk/features/evaluating#python)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#python)
 * [Flushing events](/sdk/features/flush#python)
@@ -284,7 +245,6 @@ This SDK supports the following features:
   * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#python)
 * [Secure mode](/sdk/features/secure-mode#python)
 * [Sending custom events](/sdk/features/events#python)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#python)
 * [Shutting down](/sdk/features/shutdown#python)
 * [Storing data](/sdk/features/storing-data#python)
 * [Test data sources](/sdk/features/test-data-sources#python)

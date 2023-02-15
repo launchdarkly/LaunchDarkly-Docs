@@ -63,13 +63,8 @@ This feature is available in the following server-side SDKs:
 
 To use Redis with the .NET SDK you must install an additional package named [`LaunchDarkly.ServerSdk.Redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -84,25 +79,10 @@ var config = Configuration.Builder(sdkKey)
     )
     .Build();
 var client = new LDClient(config);
-
-
-// Before version 6.0, the syntax was different:
-
-using LaunchDarkly.Client;
-using LaunchDarkly.Client.Redis;
-
-var store = RedisComponents.RedisFeatureStore()
-    .WithRedisHostAndPort("my-redis", 6379)
-    .WithPrefix("my-key-prefix")
-    .WithCacheExpiration(TimeSpan.FromSeconds(30));
-
-var config = Configuration.Default(sdkKey)
-    .WithFeatureStoreFactory(store);
-var client = new LDClient(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`dotnet-server-sdk-redis`](https://github.com/launchdarkly/dotnet-server-sdk-redis).
 </Details>
@@ -113,14 +93,8 @@ To learn more, read [`dotnet-server-sdk-redis`](https://github.com/launchdarkly/
 
 The C/C++ integration is part of the main SDK distribution.
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 #include <launchdarkly/api.h>
@@ -133,22 +107,16 @@ struct LDStoreInterface *store = LDStoreInterfaceRedisNew(redisConfig);
 LDConfigSetFeatureStoreBackend(config, store);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Erlang
 
 <Details summary="Expand Erlang code sample">
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 LdOptions = #{
@@ -160,8 +128,8 @@ LdOptions = #{
 ldclient:start_instance("sdk-key-123abc", LdOptions).
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -170,15 +138,8 @@ ldclient:start_instance("sdk-key-123abc", LdOptions).
 
 The Go integration is in [`github.com/launchdarkly/go-server-sdk-redis`](https://github.com/launchdarkly/go-server-sdk-redis) for 5.0.0 or higher of the SDK. In earlier SDK versions, it is in the main SDK distribution as the subpackage `redis`.
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -196,8 +157,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -215,8 +176,8 @@ config.DataStore = ldcomponents.PersistentDataStore(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`go-server-sdk-redis`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk-redis).
 </Details>
@@ -227,14 +188,8 @@ To learn more, read [`go-server-sdk-redis`](https://pkg.go.dev/github.com/launch
 
 If using the Haskell SDK you must install an additional package named `launchdarkly-server-sdk-redis`.
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 import qualified Database.Redis as               R
@@ -250,8 +205,8 @@ main = do
     client <- makeClient config
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -260,14 +215,8 @@ main = do
 
 You must install the additional package [`com.launchdarkly.launchdarkly-java-server-sdk-redis-store`](https://github.com/launchdarkly/java-server-sdk-redis).
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.server.*;
@@ -284,8 +233,8 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`java-server-sdk-redis`](https://github.com/launchdarkly/java-server-sdk-redis).
 </Details>
@@ -294,14 +243,8 @@ To learn more, read [`java-server-sdk-redis`](https://github.com/launchdarkly/ja
 
 <Details summary="Expand Lua code sample">
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local l = require("launchdarkly_server_sdk")
@@ -319,8 +262,8 @@ local c = l.clientInit({
 )}
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -329,16 +272,8 @@ local c = l.clientInit({
 
 In version 6.0.0 and higher of the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-redis`](https://github.com/launchdarkly/node-server-sdk-redis). In Node.js SDK 5.x and earlier, this integration is part of the main SDK distribution.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'JavaScript (Node.js SDK versions 5.x and earlier)', value: 'nodesdk5', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -355,25 +290,8 @@ const options = {
 const client = LaunchDarkly.init(sdkKey, options);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="nodesdk5">
-
-```js
-const ld = require('launchdarkly-node-server-sdk');
-
-const redisOpts = {
-  url: 'redis://redis-host:6379'
-};
-const store = ld.RedisFeatureStore(redisOpts, 30, 'your-key-prefix');
-
-const options = {
-  featureStore: store
-};
-const client = ld.init('sdk-key-123abc', options);
-```
-
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -391,8 +309,8 @@ const options: ld.LDOptions = {
 const client = ld.init('sdk-key-123abc', options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### PHP
@@ -410,15 +328,8 @@ In versions 3.x and earlier, the Redis integrations are built into the main SDK 
 
 To use the Predis integration:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-    { label: 'PHP SDK 3.4.x and earlier', value: 'php34', },
-  ]
-}>
-
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $fr = LaunchDarkly\Integrations\Redis::featureRequester([
@@ -431,32 +342,13 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc", [
 ]);
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="php34">
-
-```php
-$client = new LaunchDarkly\LDClient("sdk-key-123abc", [
-    'feature_requester_class' => 'LaunchDarkly\LDDFeatureRequester',
-    'redis_host' => 'my-redis',
-    'redis_port' => 6379,
-    'redis_prefix' => 'my-key-prefix'
-]);
-```
-
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use the `phpredis` integration:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $fr = LaunchDarkly\Integrations\PHPRedis::featureRequester([
@@ -469,8 +361,8 @@ $client = new LaunchDarkly\LDClient("sdk-key-123abc", [
 ]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`php-server-sdk-redis-predis`](https://github.com/launchdarkly/php-server-sdk-redis-predis) or [`php-server-sdk-redis-phpredis`](https://github.com/launchdarkly/php-server-sdk-redis-phpredis).
 </Details>
@@ -481,14 +373,8 @@ To learn more, read [`php-server-sdk-redis-predis`](https://github.com/launchdar
 
 The Python integration is part of the main SDK distribution, but you must also install the package `redis`.
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 import ldclient
@@ -507,8 +393,8 @@ config = Config(feature_store=store)
 ldclient.set_config(config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -517,14 +403,8 @@ ldclient.set_config(config)
 
 The Ruby integration is part of the main SDK distribution, but you must also install the gems `redis` and `connection_pool`.
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 require 'ldclient-rb'
@@ -544,6 +424,6 @@ config = LaunchDarkly::Config.new(
 client = LaunchDarkly::Client.new(sdk_key, config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

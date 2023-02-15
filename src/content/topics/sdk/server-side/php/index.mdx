@@ -76,13 +76,8 @@ The first step is to install [Composer](https://getcomposer.org/) and the Launch
 
 To install Composer:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'Shell', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 php composer.phar require launchdarkly/server-sdk
@@ -90,25 +85,20 @@ php composer.phar require launchdarkly/server-sdk
 # In earlier versions, this was "launchdarkly/launchdarkly-php"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Then require Composer's autoloader:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 require 'vendor/autoload.php';
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of [`LDClient`](http://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
@@ -116,32 +106,22 @@ Only create one instance of `client`.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can use `$client` to check which variation a particular context will receive for a given feature flag.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $context = LDContext::builder("context-key-123abc")
@@ -155,8 +135,8 @@ if ($client->variation("your.flag.key", $context)) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In our [Getting Started guide](/home/getting-started) we recommend that users shut down the LaunchDarkly client on application termination. This step does not exist in PHP because the PHP SDK does not maintain long-lived network connections nor an event queue.
 
@@ -183,46 +163,38 @@ For the latest major version of the PHP SDK, use open-ended dependencies. For ol
 
 To require Guzzle as a dependency:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 php composer.phar require "guzzlehttp/guzzle:^6.3.0"
 php composer.phar require "kevinrob/guzzle-cache-middleware:^1.4.0"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Guzzle is then used to fetch flags. You can persist your cache somewhere other than the default in-memory store, like Memcached or Redis.
 
 You can then specify your cache when initializing the client with the cache option:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc", array("cache" => $cacheStorage));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Supported features
 
 This SDK supports the following features:
 
-* [Configuration](/sdk/features/config#php)
+* [Configuration](/sdk/features/config#php), including
+  * [Application metadata configuration](/sdk/features/app-config#php)
+  * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#php)
 * [Evaluating flags](/sdk/features/evaluating#php)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#php)
 * [Flushing events](/sdk/features/flush#php)
@@ -236,7 +208,6 @@ This SDK supports the following features:
   * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#php)
 * [Secure mode](/sdk/features/secure-mode#php)
 * [Sending custom events](/sdk/features/events#php)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#php)
 * [Storing data](/sdk/features/storing-data#nodejs-server-side)
 * [Test data sources](/sdk/features/test-data-sources#php)
 * [User and context configuration](/sdk/features/user-context-config#php)

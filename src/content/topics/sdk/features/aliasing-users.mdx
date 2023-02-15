@@ -51,20 +51,15 @@ In version 3 and newer of the .NET (client-side) SDK, aliasing is no longer supp
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 2.x', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK 2.x (C#)">
 
 ```csharp
 client.Alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LdClient.Alias`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Alias_) and [`ConfigurationBuilder.AutoAliasingOptOut`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_ConfigurationBuilder_AutoAliasingOptOut_).
 </Details>
@@ -77,27 +72,21 @@ In version 4.0 and newer of the Android SDK, aliasing is no longer supported or 
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 client.alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 client.alias(newUser, previousUser)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (client-side)
@@ -106,20 +95,15 @@ client.alias(newUser, previousUser)
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientAlias(client, newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Electron
@@ -128,20 +112,15 @@ LDClientAlias(client, newUser, previousUser);
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Flutter
@@ -150,20 +129,15 @@ client.alias(newUser, previousUser);
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 await LDClient.alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### iOS
@@ -174,27 +148,21 @@ In version 8 and newer of the iOS SDK, aliasing is no longer supported or requir
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 LDClient.get()!.alias(context: newUser, previousContext: previousUser)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 [[LDClient get] alias:newUser previousContext:previousUser];
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### JavaScript
@@ -207,21 +175,16 @@ Both `alias` parameters must have `key` attributes. If the LaunchDarkly client a
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript SDK 2.x', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript SDK v2.x">
 
 ```js
 const previousUser = client.getUser();
 client.alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (client-side)
@@ -232,20 +195,15 @@ In version 3 and newer of the Node.js SDK, aliasing is no longer supported or re
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native
@@ -254,13 +212,8 @@ client.alias(newUser, previousUser);
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.alias(user, previousUser);
@@ -270,8 +223,8 @@ client.alias(user, previousUser);
 client.alias(user, previousUser, environment);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Roku
@@ -280,20 +233,15 @@ client.alias(user, previousUser, environment);
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 client.alias(user, previousUser)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -318,20 +266,15 @@ In version 7.0 and newer of the .NET (server-side) SDK, aliasing is no longer su
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET (server-side) SDK pre-7.0', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 and earlier (C#)">
 
 ```csharp
 client.Alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Apex
@@ -340,20 +283,15 @@ client.Alias(newUser, previousUser);
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Apex">
 
 ```java
 client.alias(newUser, previousUser)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (server-side)
@@ -362,20 +300,15 @@ client.alias(newUser, previousUser)
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientAlias(client, newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Erlang
@@ -384,20 +317,15 @@ LDClientAlias(client, newUser, previousUser);
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 ldclient:alias(User, PreviousUser)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -408,20 +336,15 @@ In version 6.0 and newer of the Go SDK, aliasing is no longer supported or requi
 
 To manually send an `alias` event in older versions of the Go SDK:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go, v5.x and older', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v5.x and earlier">
 
 ```go
 client.Alias(newUser, previousUser)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Haskell
@@ -430,20 +353,15 @@ client.Alias(newUser, previousUser)
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 alias client newUser previousUser
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -454,20 +372,15 @@ In version 6 and newer of the Java SDK, aliasing is no longer supported or requi
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v5.x and older', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v5.x and earlier">
 
 ```java
 client.alias(user, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Lua
@@ -476,20 +389,15 @@ client.alias(user, previousUser);
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 client:alias(newUser, previousUser)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -500,20 +408,15 @@ In version 7.0 and newer of the Node.js (server-side) SDK, aliasing is no longer
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.alias(newUser, previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### PHP
@@ -524,20 +427,15 @@ In version 5.0 and newer of the PHP SDK, aliasing is no longer supported or requ
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $client->alias($user, $previousUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -548,20 +446,15 @@ In version 8 and newer of the Python SDK, aliasing is no longer supported or req
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python SDK v7.x and older', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python SDK v7.x and earlier">
 
 ```python
 ldclient.get().alias(new_user, previous_user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -572,20 +465,15 @@ In version 7 and newer of the Ruby SDK, aliasing is no longer supported or requi
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v6.x and older', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v6.x and earlier">
 
 ```ruby
 client.alias(new_user, previous_user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Rust
@@ -596,18 +484,13 @@ In version 1 and newer of the Rust SDK, aliasing is not supported or required. T
 
 To manually send an `alias` event:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 client.alias(user, previous_user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

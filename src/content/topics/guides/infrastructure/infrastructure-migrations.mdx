@@ -75,14 +75,8 @@ Use a set of four feature flags to control reading and writing to each database 
 
 For example, the function below will save an event to the appropriate database depending on the value of your feature flags (`events-dbA-write` and `events-dbB-write`):
 
-<CodeTabs
-  defaultValue="code"
-  values={[
-    { label: 'Saving to the data store', value: 'code', },
-  ]
-}>
-
-<CodeTabItem value="code">
+<CodeSample>
+<CSTab label="Saving to the data store">
 
 ```go
 func storeEvent(evt Event, account ld.User) {
@@ -95,8 +89,8 @@ func storeEvent(evt Event, account ld.User) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>This function accepts three parameters</CalloutTitle>
@@ -115,14 +109,8 @@ The code that reads the events is more complicated. Here, the strategy is to rea
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="code"
-  values={[
-    { label: 'Reading from the data store', value: 'code', },
-  ]
-}>
-
-<CodeTabItem value="code">
+<CodeSample>
+<CSTab label="Reading from the data store">
 
 ```go
 func findEventById(id string, account ld.User) Event {
@@ -151,8 +139,8 @@ func findEventById(id string, account ld.User) Event {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This implementation has a bias toward the incumbent data store, which in this example is `dbA`. It returns the value read from `dbA` when it reads from both stores, and it will also read from `dbA` any time the `dbB` flag is `false`.
 
@@ -173,13 +161,9 @@ The example up until this point assumed a data model that doesn't get updated, o
 </CalloutDescription>
 </Callout>
 
-After your data is copied to `dbB`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, pay attention for a “dbA and dbB events differ” message. That message does not indicate that something is wrong in production. Even if you receive that message, it hasn’t affected any users. They are still using the data from your old data store. If you receive that error message, you can fix any issues without impacting your users and move forward.
+After your data is copied to `dbB`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, pay attention for a “dbA and dbB events differ” message. That message does not indicate that something is wrong in production. Even if you receive that message, it hasn’t affected any users. They are still using the data from your old data store. If you receive that error message, you can fix any issues without impacting your users and move forward. 
 
-<LearnMore>
-
-Learn more: [Percentage rollouts](/home/flags/rollouts)
-
-</LearnMore>
+To learn more about rollouts, read [Percentage rollouts](/home/flags/rollouts).
 
 After you're comfortable with the performance metrics and error counts you're receiving with reads and writes, you can now turn off the read and write flags for `dbA`, remove all references to all four flags in your code, and you are left with just `dbB`.
 

@@ -46,13 +46,8 @@ This feature is available in the following client-side SDKs:
 
 To configure the client-side .NET SDK to connect to LaunchDarkly through a web proxy:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var handler = new System.Net.Http.HttpClientHandler();
@@ -63,18 +58,13 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To configure the client-side .NET SDK to connect to LaunchDarkly through a web proxy with authentication:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var handler = new System.Net.Http.HttpClientHandler();
@@ -90,8 +80,8 @@ var config = Configuration.Builder("mobile-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (client-side)
@@ -100,39 +90,29 @@ var config = Configuration.Builder("mobile-key-123abc")
 
 To configure the C/C++ SDK to connect to LaunchDarkly through a web proxy:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetProxyURI(config, "https://web-proxy.domain.com:8080");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To configure the client-side C/C++ SDK to connect to LaunchDarkly through a web proxy with authentication:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetProxyURI(config, "https://username:password@web-proxy.domain.com:8080");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -151,14 +131,8 @@ LDConfigSetProxyURI(config, "https://username:password@web-proxy.domain.com:8080
 
 To configure the server-side .NET SDK to connect to LaunchDarkly through a web proxy:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-    { label: 'C# (.NET SDK versions 5.14.x and earlier)', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
@@ -168,8 +142,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label=".NET SDK v5.14.x and earlier (C#)">
 
 ```csharp
 var handler = new System.Net.Http.HttpClientHandler();
@@ -180,19 +154,13 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To configure the server-side .NET SDK to connect to LaunchDarkly through a web proxy with authentication:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-    { label: 'C# (.NET SDK versions 5.14.x and earlier)', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var proxy = new System.Net.WebProxy("http://my-proxy-host:8080");
@@ -206,8 +174,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label=".NET SDK v5.14.x and earlier (C#)">
 
 ```csharp
 var handler = new System.Net.Http.HttpClientHandler();
@@ -223,8 +191,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Apex
@@ -237,28 +205,22 @@ Go's standard HTTP library recognizes the environment variables `HTTP_PROXY` and
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="linux"
-  values={[
-    { label: 'Console', value: 'linux', },
-    { label: 'cmd', value: 'windows', },
-  ]
-}>
-<CodeTabItem value="linux">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 export HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-<CodeTabItem value="windows">
+</CSTab>
+<CSTab label="cmd">
 
 ```batch
 set HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -271,39 +233,27 @@ Go's standard HTTP library recognizes the environment variables `HTTP_PROXY` and
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="linux"
-  values={[
-    { label: 'Console', value: 'linux', },
-    { label: 'cmd', value: 'windows', },
-  ]
-}>
-<CodeTabItem value="linux">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 export HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-<CodeTabItem value="windows">
+</CSTab>
+<CSTab label="cmd">
 
 ```
 set HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also specify a proxy programmatically through the SDK configuration:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -316,8 +266,8 @@ config.HTTP = ldcomponents.HTTPConfiguration().
     ProxyURL("https://my-proxy-host:8080")
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -330,8 +280,8 @@ config.HTTP = ldcomponents.HTTPConfiguration().
     ProxyURL("https://my-proxy-host:8080")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -340,13 +290,8 @@ config.HTTP = ldcomponents.HTTPConfiguration().
 
 To configure the Java SDK to connect to LaunchDarkly through a web proxy:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -354,18 +299,13 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To configure the Java SDK to connect to LaunchDarkly through a web proxy with authentication:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDConfig config = new LDConfig.Builder()
@@ -375,8 +315,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -385,14 +325,8 @@ LDConfig config = new LDConfig.Builder()
 
 To configure the server-side Node.js SDK to connect to LaunchDarkly through a web proxy:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -401,8 +335,8 @@ const options = {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -413,19 +347,13 @@ const options: ld.LDOptions = {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To configure the server-side Node.js SDK to connect to LaunchDarkly through a web proxy with authentication:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = {
@@ -435,8 +363,8 @@ const options = {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -448,8 +376,8 @@ const options: ld.LDOptions = {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -462,45 +390,34 @@ Python's standard HTTP library recognizes the environment variables `HTTP_PROXY`
 
 How to set the HTTPS_PROXY environment variable on Mac/Linux and Windows systems:
 
-<CodeTabs
-  defaultValue="linux"
-  values={[
-    { label: 'Console', value: 'linux', },
-    { label: 'cmd', value: 'windows', },
-  ]
-}>
-<CodeTabItem value="linux">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 export HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-<CodeTabItem value="windows">
+</CSTab>
+<CSTab label="cmd">
 
 ```bash
 set HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Or it can be set from within Python:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 os.environ["https_proxy"] = "https://my-proxy-host:8080"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -513,43 +430,32 @@ Ruby's standard HTTP library recognizes the environment variables `HTTP_PROXY` a
 
 To configure the Ruby SDK to connect to LaunchDarkly through a web proxy:
 
-<CodeTabs
-  defaultValue="linux"
-  values={[
-    { label: 'Console', value: 'linux', },
-    { label: 'cmd', value: 'windows', },
-  ]
-}>
-<CodeTabItem value="linux">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 export HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-<CodeTabItem value="windows">
+</CSTab>
+<CSTab label="cmd">
 
 ```batch
 set HTTPS_PROXY=https://my-proxy-host:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Or it can be set from within Ruby:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 ENV['HTTPS_PROXY'] = 'https://my-proxy-host:8080'
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

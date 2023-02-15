@@ -24,14 +24,8 @@ In the LaunchDarkly UI, you can only specify tags in custom roles from the advan
 
 For example, the below statement allows a member with this role to perform all actions at the flag level for flags tagged `tag1` *and* `tag2`:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Statement', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Statement">
 
 ```json
 [
@@ -42,22 +36,16 @@ For example, the below statement allows a member with this role to perform all a
   }
 ]
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also separate multiple tags for a resource with statements to create an "or" condition.
 
 In the example below, the two statements allow member access to flags tagged either `tag1` *or* `tag2`:
 
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Statements', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Statements">
 
 ```json
 [
@@ -74,19 +62,13 @@ In the example below, the two statements allow member access to flags tagged eit
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The following example gives a member access to all flags *except* those tagged either `tag1` or `tag2`:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Statements', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Statements">
 
 ```json
 [
@@ -103,5 +85,5 @@ The following example gives a member access to all flags *except* those tagged e
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

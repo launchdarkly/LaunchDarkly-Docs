@@ -18,13 +18,8 @@ The 6.0 release of the iOS client-side SDK introduces a new type that represents
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk6"
-  values={[
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk6">
+<CodeSample>
+<CSTab label="6.0 syntax">
 
 ```objectivec
 LDValue *nullValue = [LDValue ofNull];
@@ -34,8 +29,8 @@ LDValue *stringValue = [LDValue ofString:@"beta_testers"];
 LDValue *complexValue = [LDValue ofDict:@{@"groups": [LDValue ofArray:@[[LDValue ofBool:YES]]]}];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding the changes to creating users
 
@@ -43,41 +38,29 @@ The `LDUser.custom` property has changed in type from `NSDictionary<NSString*, i
 
 Here is an example of the change:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```objectivec
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.custom = @{@"group": @"beta"};
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```objectivec
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.custom = @{@"group": [LDValue ofString:@"beta"]};
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `isEqual` function on `LDUser` has changed. It no longer only compares the `key` property, and now compares all properties of the instance.
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```objectivec
 LDUser *user1 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
@@ -88,8 +71,8 @@ user2.name = @"John Smith";
 [user1 isEqual:user2]
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```objectivec
 LDUser *user1 = [[LDUser alloc] initWithKey:@"user-key-123abc"];
@@ -100,8 +83,8 @@ user2.name = @"John Smith";
 [user1 isEqual:user2]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Setting `"custom"` as a private attribute no longer sets all custom attributes as private. The SDK considers only the custom attribute with the key `"custom"` as private.
 
@@ -109,28 +92,22 @@ Setting `"custom"` as a private attribute no longer sets all custom attributes a
 
 The `LDClient` functions `arrayVariation` and `dictionaryVariation` have been removed. The new `jsonVariation` function lets you evaluate flags with any value type.
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```objectivec
 NSArray *result = [[LDClient get] arrayVariationForKey:@"flag-key-123abc" defaultValue:@[]];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```objectivec
 LDValue* result = [[LDClient get] jsonVariationForKey:@"flag-key-123abc" defaultValue:[LDValue ofArray:@[]]];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to variationDetail functions
 
@@ -138,14 +115,8 @@ The `LDClient` functions `arrayVariationDetail` and `dictionaryVariationDetail` 
 
 The `reason` property of the detailed evaluation result types has also changed from `NSDictionary<NSString*, id> * _Nullable` to `NSDictionary<NSString*, LDValue*> * _Nullable`.
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```objectivec
 LDArrayEvaluationDetail *result = [[LDClient get] arrayVariationDetailForKey:@"flag-key-123abc" defaultValue:@[]];
@@ -153,8 +124,8 @@ NSArray* resultValue = result.value;
 NSDictionary<NSString*, id> *reason = result.reason;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```objectivec
 LDJSONEvaluationDetail *result = [[LDClient get] jsonVariationDetailForKey:@"flag-key-123abc" defaultValue:[LDValue ofArray:@[]]];
@@ -162,21 +133,15 @@ LDValue* resultValue = result.value;
 NSDictionary<NSString*, LDValue*> *reason = result.reason;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding the changes to flag value observers
 
 The `LDClient` previously provided per-type functions for registering observers for flag values. These have been replaced with a single `observe` function you can use with flag variations of any JSON type.
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```objectivec
 [[LDClient get] observeBool:@"flag-key-123abc" owner:self handler:^(LDBoolChangedFlag * _Nonnull changedFlag) {
@@ -184,8 +149,8 @@ The `LDClient` previously provided per-type functions for registering observers 
 }];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```objectivec
 [[LDClient get] observe:@"flag-key-123abc" owner:self handler:^(LDChangedFlag * _Nonnull changedFlag) {
@@ -193,8 +158,8 @@ The `LDClient` previously provided per-type functions for registering observers 
 }];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Recording custom events
 
@@ -202,14 +167,8 @@ If your application uses `track` to record `custom` events, you must remove the 
 
 Here is an example of the required changes:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```objectivec
 NSError* err = nil;
@@ -220,13 +179,13 @@ if (err != nil) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```objectivec
 LDValue* data = [LDValue ofDict:@{@"abc": [LDValue ofNumber:@123]}];
 [[LDClient get] trackWithKey: @"key" data:data];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

@@ -80,53 +80,41 @@ First, install the LaunchDarkly SDK as a dependency in your application using yo
 
 Here's how:
 
-<CodeTabs
-  defaultValue="npm"
-  values={[
-    { label: 'Installing with npm', value: 'npm', },
-    { label: 'Installing with yarn', value: 'yarn', },
-  ]
-}>
-<CodeTabItem value="npm">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install launchdarkly-node-client-sdk
 ```
 
-</CodeTabItem>
-<CodeTabItem value="yarn">
+</CSTab>
+<CSTab label="Installing with yarn">
 
-```json
+```bash
 yarn add launchdarkly-node-client-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly client in your application code:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const LaunchDarkly = require('launchdarkly-node-client-sdk');
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of `LDClient`. To create a client instance, you need your environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly.
 
@@ -161,16 +149,8 @@ Feature flag targeting and rollouts are determined by the active user. You must 
 
 Here's how to initialize the client:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js SDK v3 (JavaScript)', value: 'js', },
-    { label: 'Node.js SDK v3 (TypeScript)', value: 'ts'},
-    { label: 'Node.js SDK v2.x (JavaScript)', value: 'js-v2', },
-    { label: 'Node.js SDK v2.x (TypeScript)', value: 'ts-v2'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v3 (JavaScript)">
 
 ```js
 const context = {
@@ -181,8 +161,8 @@ const context = {
 const client = LaunchDarkly.initialize('client-side-id-123abc', context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="Node.js SDK v3 (TypeScript)">
 
 ```ts
 const context: LaunchDarkly.LDcontext = {
@@ -192,8 +172,8 @@ const context: LaunchDarkly.LDcontext = {
 const client: LaunchDarkly.initialize('client-side-id-123abc', context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-v2">
+</CSTab>
+<CSTab label="Node.js SDK v2.x (JavaScript)">
 
 ```js
 const user = {
@@ -203,8 +183,8 @@ const user = {
 const client = LaunchDarkly.initialize('client-side-id-123abc', user);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts-v2">
+</CSTab>
+<CSTab label="Node.js SDK v2.x (TypeScript)">
 
 ```ts
 const user: LaunchDarkly.LDUser = {
@@ -213,21 +193,15 @@ const user: LaunchDarkly.LDUser = {
 const client: LaunchDarkly.initialize('client-side-id-123abc', user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The client emits a `ready` event when you have initialized it. You can also use the `waitForInitialization()` method, which returns a Promise. After you have initialized it, you can safely call `variation` to access your feature flags. The SDK emits the `ready` event only once, when the client first initializes. In a production application, your calls to `client.variation` would normally not be inside of this event handler.
 
 To emit a `ready` event:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('ready', () => {
@@ -237,8 +211,8 @@ client.on('ready', () => {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 client.on('ready', () => {
@@ -250,8 +224,8 @@ client.on('ready', () => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>Streaming updates</CalloutTitle>

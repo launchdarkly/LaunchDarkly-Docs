@@ -119,37 +119,27 @@ Here's how:
 3. Navigate to the **LaunchDarkly Labs** repo in GitHub and clone the [Project migrator script repo](https://github.com/launchdarkly-labs/project-migrator-script).
 4. Create a local copy of data from your source project:
 
-  <CodeTabs
-    defaultValue="source"
-    values={[
-      { label: 'Export from source project'}
-    ]
-  }>
-    <CodeTabItem value="source">
+  <CodeSample>
+  <CSTab label="Export from source project">
 
     ```bash
       deno run --allow-env --allow-read --allow-net --allow-write source.ts -p <SOURCE PROJECT> -k <LD API KEY>
     ```
 
-    </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 5. Migrate the source data to your destination project:
 
-  <CodeTabs
-    defaultValue="destination"
-    values={[
-      { label: 'Migrate to destination project'}
-    ]
-  }>
-    <CodeTabItem value="destination">
+  <CodeSample>
+  <CSTab label="Migrate to destination project">
 
     ```bash
       deno run --allow-env --allow-read --allow-net --allow-write migrate.ts -p <SOURCE PROJECT> -k <LD API KEY> -d <DESTINATION PROJECT>
     ```
 
-    </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 6. Verify that the migration completed successfully by checking in your destination project for data from your source project. For example, if you tagged objects in your source project that you wanted to merge into the destination project, verify that those tagged objects now appear in your destination project.
 

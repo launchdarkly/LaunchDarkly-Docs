@@ -70,14 +70,8 @@ You may want to wait until the flag values for the new context have been loaded 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
 
 ```csharp
 var updatedContext = Context.Builder("context-key-123abc")
@@ -91,8 +85,8 @@ client.Identify(updatedContext, TimeSpan.FromSeconds(5));
 await client.IdentifyAsync(updatedContext);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-2.x">
+</CSTab>
+<CSTab label=".NET SDK v2.x (C#)">
 
 ```csharp
 var updatedUser = LDUser.Builder("user-key-123abc")
@@ -106,8 +100,8 @@ client.Identify(updatedUser, TimeSpan.FromSeconds(5));
 await client.IdentifyAsync(updatedUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Identify_) and [`IdentifyAsync`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_IdentifyAsync_).
 </Details>
@@ -124,38 +118,30 @@ In other situations, the new context may be a multi-context, that is, a set of s
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java for Android SDK v4.0', value: 'java' },
-    { label: 'Kotlin for Android SDK v4.0', value: 'kotlin' },
-    { label: 'Java for Android SDK v3.x', value: 'java-v3' },
-    { label: 'Kotlin for Android SDK v3.x', value: 'kotlin-v3' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
 
 ```java
 LDContext updatedContext = LDContext.builderFromContext(context)
-    .email("fake2@example.com")
+    .email("sandy@example.com")
     .build();
 
 client.identify(updatedContext);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Android SDK v4.0 (Kotlin)">
 
 ```kotlin
 val updatedContext: LDContext = LDContext.builderFromContext(context)
-    .email("fake2@example.com")
+    .email("sandy@example.com")
     .build()
 
 client.identify(updatedContext)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
 
 ```java
 LDUser updatedUser = new LDUser.Builder(user)
@@ -165,8 +151,8 @@ LDUser updatedUser = new LDUser.Builder(user)
 client.identify(updatedUser);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Kotlin)">
 
 ```kotlin
 val updatedUser: LDUser = LDUser.Builder(user)
@@ -176,8 +162,8 @@ val updatedUser: LDUser = LDUser.Builder(user)
 client.identify(updatedUser)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `identify()` call loads any saved flag values for the new user context and immediately triggers an update of the latest flags from LaunchDarkly.
 
@@ -198,20 +184,15 @@ In some situations, the new user may be an updated version of the existing user.
 
 You can use the `LDClientIdentify` method to switch users:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientIdentify(client, newUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The `LDClientIdentify()` call loads any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, you should should not call it at high frequency. The intended use case for switching user contexts is the login/logout flow. To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#a7ee43b2353f00798979ba51cfebb1a53).
 </Details>
@@ -228,14 +209,8 @@ In some situations, the new user may be an updated version of the existing user.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const newUser = { key: 'user-key-123abc', name: 'Sandy' };
@@ -251,8 +226,8 @@ client.identify(newUser).then((newFlags) => {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDElectron from 'launchdarkly-electron-client-sdk';
@@ -272,8 +247,8 @@ client.identify(newUser).then((newFlags) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldelectronmainclient.html#identify).
 
@@ -291,13 +266,8 @@ In some situations, the new user may be an updated version of the existing user.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDUser updatedUser = LDUserBuilder('user key')
@@ -307,8 +277,8 @@ LDUser updatedUser = LDUserBuilder('user key')
 await LDClient.identify(updatedUser);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [identify method](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/identify.html).
 
@@ -328,16 +298,8 @@ If the client app does not identify an `LDContext`, `LDClient` creates an anonym
 
 Here's how:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
-    { label: 'Objective-C for iOS SDK v7.x', value: 'objc-v7', }
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
 let newContext = try LDContextBuilder(key: "context-key-123abc").build().get();
@@ -348,8 +310,8 @@ LDClient.get()!.identify(context: newContext) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
 LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
@@ -366,8 +328,8 @@ if (result.success) {
 }];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="swift-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
 let newUser = LDUser(key: "user-key-123abc")
@@ -379,8 +341,8 @@ LDClient.get()!.identify(user: newUser) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Objective-C)">
 
 ```objectivec
 LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
@@ -392,8 +354,8 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 }];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/c:@M@LaunchDarkly@objc(cs)LDClient(im)identifyWithContext:).
 
@@ -413,28 +375,19 @@ If you provide a callback function, it is called with a map of flag keys and val
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript SDK 3.0, single context', value: "js" },
-    { label: 'JavaScript SDK 3.0, multi-context', value: "js-multi" },
-    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript SDK v3.0, single context">
 
 ```js
-
 client.identify(newContext, hash, function() {
   console.log("New context's flags available");
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-multi">
+</CSTab>
+<CSTab label="JavaScript SDK v3.0, multi-context">
 
 ```js
-
 const newMultiContext = {
   kind: 'multi',
   user: {
@@ -453,8 +406,8 @@ client.identify(newMultiContext, hash, function() {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-2.x">
+</CSTab>
+<CSTab label="JavaScript SDK v2.x">
 
 ```js
 client.identify(newUser, hash, function() {
@@ -462,8 +415,8 @@ client.identify(newUser, hash, function() {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify).
 
@@ -485,19 +438,12 @@ The `identify()` method tells the client to change the current user and obtain t
 
 In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163940) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user information. You can call `identify()` with a multi-context that contains the "device" and "user" contexts for the end user.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js SDK 3.0, single context', value: "js" },
-    { label: 'Node.js SDK 3.0, multi-context', value: "js-multi" },
-    { label: 'Node.js SDK 2.x', value: "js-2.x" },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v3.0, single context">
 
 ```js
 client.identify(newContext, () => {
@@ -510,11 +456,10 @@ client.identify(newContext).then(() => {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-multi">
+</CSTab>
+<CSTab label="Node.js SDK v3.0, multi-context">
 
 ```js
-
 const newMultiContext = {
   kind: 'multi',
   user: {
@@ -538,8 +483,8 @@ client.identify(newMultiContext).then(() => {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-2.x">
+</CSTab>
+<CSTab label="Node.js SDK v2.x">
 
 ```js
 client.identify(newUser, () => {
@@ -552,8 +497,8 @@ client.identify(newUser).then(() => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDClient.html#identify).
 
@@ -571,13 +516,8 @@ In other situations, the new context may be a multi-context, that is, a set of s
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { useLDClient } from 'launchdarkly-react-client-sdk';
@@ -589,8 +529,8 @@ ldClient.identify(newContext, null, () => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html#identify).
 
@@ -606,14 +546,8 @@ In other situations, the new context may be a multi-context, that is, a set of s
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let user = {'key': 'minimal_user'};
@@ -621,8 +555,8 @@ await client.identify(user); //promise resolves to nil/null
 Alert.alert('identify', 'success');
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
@@ -632,8 +566,8 @@ await client.identify(user); //promise resolves to nil/null
 Alert.alert('identify', 'success');
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Roku
@@ -648,13 +582,8 @@ In some situations, the new user may be an updated version of the existing user.
 
 To do this:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 user = LaunchDarklyUser("abc")
@@ -663,8 +592,8 @@ launchDarkly.identify(user)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -695,28 +624,22 @@ In most cases, you do not need to call `Identify`. The `Variation` methods autom
 
 To use `Identify`:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 client.Identify(context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 client.Identify(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Identify_).
 </Details>
@@ -740,20 +663,15 @@ We recommend calling `client.identify(user)` with each of your users to generate
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Apex">
 
 ```java
 client.identify(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Other methods](https://github.com/launchdarkly/apex-server-sdk/blob/main/doc.md#other-methods-1).
 </Details>
@@ -768,20 +686,15 @@ In most cases, you do not need to call `LDClientIdentify`. The `variation` call 
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientIdentify(client, user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-server-sdk/client_8h.html#a696a5bebe952dc076488e9fb2562b091).
 </Details>
@@ -796,20 +709,15 @@ In most cases, you do not need to call `identify`. The `variation` methods autom
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
-```
+```erlang
 ldclient:identify(#{key => <<"user-key-123abc">>})
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://hexdocs.pm/launchdarkly_server_sdk/ldclient.html#identify-1).
 </Details>
@@ -824,28 +732,22 @@ In most cases, you do not need to call `Identify`. The `Variation` method automa
 
 To use `Identify`:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 client.Identify(context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 client.Identify(user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Identify).
 </Details>
@@ -858,20 +760,15 @@ In most cases, you do not need to call `identify`. The `Variation` methods autom
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 identify client user
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:identify).
 
@@ -887,28 +784,22 @@ In most cases, you do not need to call `identify`. The `variation` methods autom
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 client.identify(context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 client.identify(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#identify(com.launchdarkly.sdk.LDContext)).
 </Details>
@@ -923,20 +814,15 @@ In most cases, you do not need to call `identify`. The `variation` methods autom
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 client:identify(user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#identify).
 </Details>
@@ -951,28 +837,22 @@ In most cases, you do not need to call `identify`. The `variation` call automati
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js SDK v6', value: 'js', },
-    { label: 'Node.js SDK v5.x and older', value: 'js-v5', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v6">
 
 ```js
 client.identify(context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-v5">
+</CSTab>
+<CSTab label="Node.js SDK v5.x">
 
 ```js
 client.identify(user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#identify).
 </Details>
@@ -987,28 +867,22 @@ In most cases, you do not need to call `identify`. The `variation` call automati
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 $client->identify($context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 $client->identify($user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_identify).
 
@@ -1024,28 +898,22 @@ In most cases, you do not need to call `identify`. The `variation` method automa
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python SDK v8.0', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 ldclient.get().identify(context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-v7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 ldclient.get().identify(user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.identify).
 </Details>
@@ -1060,28 +928,22 @@ In most cases, you do not need to call `identify`. The `variation` call automati
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 client.identify(context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 client.identify(user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#identify-instance_method).
 </Details>
@@ -1096,26 +958,20 @@ In most cases, you do not need to call `identify`. The `variation` methods autom
 
 To use `identify`:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust SDK v1', value: 'rust', },
-    { label: 'Rust SDK beta', value: 'rust-beta', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust SDK v1">
 
 ```rust
 client.identify(context);
 ```
-</CodeTabItem>
-<CodeTabItem value="rust-beta">
+</CSTab>
+<CSTab label="Rust SDK beta">
 
 ```rust
 client.identify(user);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.identify).
 </Details>

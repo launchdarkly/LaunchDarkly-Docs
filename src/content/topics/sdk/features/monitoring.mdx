@@ -45,32 +45,22 @@ The client-side .NET SDK defines "data source status" as the status of the SDK's
 
 To check the data source status:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var dataSourceStatus = client.DataSourceStatusProvider.Status;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Alternatively, you can register an event handler that will receive a new status value whenever the status changes.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.DataSourceStatusProvider.StatusChanged +=
@@ -79,8 +69,8 @@ client.DataSourceStatusProvider.StatusChanged +=
     };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`IDataSourceStatusProvider`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Interfaces.IDataSourceStatusProvider.html).
 </Details>
@@ -175,14 +165,8 @@ This table describes the states:
 
 The SDK also internally stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure allowing retrieval of these fields.
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDClient client = LDClient.get();
@@ -200,8 +184,8 @@ Long lastError = connectionInfo.getLastFailedConnection();
 LDFailure ldFailure = connectionInfo.getLastFailure();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val client: LDClient = LDClient.get()
@@ -219,8 +203,8 @@ val lastError: Long? = connectionInfo.lastFailedConnection
 val ldFailure: LDFailure? = connectionInfo.lastFailure
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 `LDFailure` is a `LaunchDarklyException` with an associated `FailureType`. It may include a `.cause()`, which is propagated from an underlying exception associated with the update's failure. The cause itself should be considered unstable because it is dependent on internal implementation, though the mechanism to retrieve it will be maintained.
 
@@ -275,14 +259,8 @@ If matching on the `FailureType`, use a default case to handle any future cases 
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 LDClient client = LDClient.get();
@@ -325,8 +303,8 @@ if (ldFailure != null) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 val client: LDClient = LDClient.get()
@@ -367,8 +345,8 @@ if (ldFailure != null) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 A callback-based interface is also provided to allow notifying the application when the `ConnectionMode` changes, as well as whenever the `LDFailure` in `ConnectionStatus` changes. The application must provide a class instance implementing `LDStatusListener` to the SDK client instance method `registerStatusListener` to register the listeners with the SDK.
 
@@ -383,14 +361,8 @@ The SDK maintains only a weak reference to the registered `LDStatusListener`, so
 
 Here is a brief example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 class MainActivity extends Activity {
@@ -426,8 +398,8 @@ class MainActivity extends Activity {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 class MainActivity : Activity() {
@@ -459,8 +431,8 @@ class MainActivity : Activity() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Electron
@@ -475,13 +447,8 @@ If you want to be notified when a flag has changed, you can use an event listene
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change:flag-key-123abc', (newValue, oldValue) => {
@@ -489,20 +456,15 @@ client.on('change:flag-key-123abc', (newValue, oldValue) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Alternatively, you can listen for all feature flag changes.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('change', (allFlagChanges) => {
@@ -512,8 +474,8 @@ client.on('change', (allFlagChanges) => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Subscribing to `change` events automatically turns on streaming mode as well, unless you have explicitly set `streaming` to `false`.
 </Details>
@@ -526,13 +488,8 @@ The Flutter SDK exposes some of its internal status through APIs to let your app
 
 The SDK also stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure that lets you retrieve these fields.
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 LDConnectionInformation connectionInfo = await LDClient.getConnectionInformation();
@@ -546,8 +503,8 @@ DateTime? lastfailure = connectionInfo.lastFailedConnection;
 LDFailure? ldFailure = connectionInfo.lastFailure;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the connection status fields, read the [API docs](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDConnectionInformation-class.html).
 </Details>
@@ -638,13 +595,8 @@ You can listen to changes in `ConnectionInformation.ConnectionMode` in a similar
 
 Here is an example of the API:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 // Get current connection information
@@ -655,8 +607,8 @@ LDClient.get()!.observeCurrentConnectionMode(owner: self) { [weak self] connecti
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native
@@ -665,13 +617,8 @@ LDClient.get()!.observeCurrentConnectionMode(owner: self) { [weak self] connecti
 
 The React Native SDK exposes some of its internal status through the Connection Status API to allow your application to monitor the SDK's status. It provides this primarily as a mechanism for the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnose potential reasons for the flag cache to be out of date.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const connectionMode = await client.getConnectionMode();
@@ -680,8 +627,8 @@ const lastFailedConnection = await client.getLastFailedConnection();
 const lastFailureReason = await client.getLastFailure();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the return types, read the API documentation about [`LDConnectionMode`](https://launchdarkly.github.io/react-native-client-sdk/interfaces/LDConnectionMode.html) and [`LDFailureReason`](https://launchdarkly.github.io/react-native-client-sdk/interfaces/LDFailureReason.html).
 </Details>
@@ -718,49 +665,34 @@ This feature is available in the .NET SDK's versions 6.0.0 and later.
 
 To check the data source status:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var dataSourceStatus = client.DataSourceStatusProvider.Status;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To check the data store status:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var dataStoreStatus = client.DataStoreStatusProvider.Status;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Alternatively, you can register an event handler that will receive a new status value whenever the status changes.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.DataSourceStatusProvider.StatusChanged +=
@@ -774,8 +706,8 @@ client.DataStoreStatusProvider.StatusChanged +=
     };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -784,50 +716,32 @@ client.DataStoreStatusProvider.StatusChanged +=
 
 To check the data source status:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 dataSourceStatus := client.GetDataSourceStatusProvider().GetStatus()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To check the data store status:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 dataStoreStatus := client.GetDataStoreStatusProvider().GetStatus()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Alternatively, you can monitor a channel that provides a new status value whenever the status changes:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 dataSourceStatusChannel := client.GetDataSourceStatusProvider().AddStatusListener()
@@ -845,8 +759,8 @@ go func() {
 }()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`GetDataSourceStatusProvider`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.GetDataSourceStatusProvider) and [`GetDataStoreStatusProvider`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.GetDataStoreStatusProvider).
 </Details>
@@ -857,52 +771,34 @@ To learn more, read [`GetDataSourceStatusProvider`](https://pkg.go.dev/github.co
 
 To check the data source status:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 DataSourceStatusProvider.Status dataSourceStatus =
   client.getDataSourceStatusProvider().getStatus()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To check the data store status:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 DataStoreStatusProvider.Status dataStoreStatus =
   client.getDataStoreStatusProvider().getStatus()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Alternatively, you can register an event listener that receives a new status value whenever the status changes:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 client.getDataSourceStatusProvider().addStatusListener(
@@ -918,8 +814,8 @@ client.getDataStoreStatusProvider().addStatusListener(
 );
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`DataSourceStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
 </Details>

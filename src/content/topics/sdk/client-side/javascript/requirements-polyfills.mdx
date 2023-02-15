@@ -22,54 +22,39 @@ The first way is to load the polyfill script directly from a CDN that hosts the 
 
 Here is how to load a polyfill script directly from a CDN:
 
-<CodeTabs
-  defaultValue="html"
-  values={[
-    { label: 'HTML', value: 'html', },
-  ]
-}>
-<CodeTabItem value="html">
+<CodeSample>
+<CSTab label="HTML">
 
 ```html
 <script src="[URL of the polyfill script]"></script>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you are using a package manager such as NPM or Yarn, and using `require()` to load modules at runtime, you would first add the polyfill package to your project:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Shell', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 npm install package-name-of-polyfill@package.version.number
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Then, make sure that you `require` the polyfill module prior to initializing the LaunchDarkly client:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 require('package-name-of-polyfill');
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You only need to use one of these methods. You do not need to use both a CDN and a package manager.
 
@@ -83,39 +68,32 @@ The JavaScript SDK relies heavily on JavaScript Promises. [Browsers that do not 
 
 To install a polyfill for Promise:
 
-<CodeTabs
-  defaultValue="html"
-  values={[
-    { label: 'HTML', value: 'html', },
-    { label: 'Shell', value: 'shell', },
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="html">
+<CodeSample>
+<CSTab label="HTML">
 
 ```html
 <!-- loading polyfill from CDN -->
 <script src="https://unpkg.com/es6-promise@4.2.4/dist/es6-promise.auto.min.js"></script>
 ```
 
-</CodeTabItem>
-<CodeTabItem value="shell">
+</CSTab>
+<CSTab label="Shell">
 
 ```bash
 # installing polyfill as a package
 npm install es6-promise@4.2.4
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js">
+</CSTab>
+<CSTab label="JavaScript">
 
 ```js
 // loading polyfill as a package
 require('es6-promise/auto');
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### EventSource
 
@@ -127,40 +105,32 @@ EventSource is widely available in browsers, [except for Internet Explorer and M
 
 To install a polyfill for EventSource:
 
-<CodeTabs
-  defaultValue="html"
-  values={[
-    { label: 'HTML', value: 'html', },
-    { label: 'Shell', value: 'shell', },
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="html">
+<CodeSample>
+<CSTab label="HTML">
 
 ```html
 <!-- loading polyfill from CDN -->
 <script src="https://unpkg.com/event-source-polyfill@0.0.12/src/eventsource.min.js"></script>
 ```
 
-</CodeTabItem>
-<CodeTabItem value="shell">
+</CSTab>
+<CSTab label="Shell">
 
 ```bash
 # installing polyfill as a package
 npm install event-source-polyfill@1.0.5
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js">
+</CSTab>
+<CSTab label="JavaScript">
 
 ```js
 // loading polyfill as a package
 require('event-source-polyfill');
 ```
 
-</CodeTabItem>
-</CodeTabs>
-
+</CSTab>
+</CodeSample>
 
 ### `document.querySelectorAll()`
 
@@ -170,31 +140,24 @@ The JavaScript SDK uses `querySelectorAll` to support `click` events for Experim
 
 To install a polyfill for `querySelectorAll`:
 
-<CodeTabs
-  defaultValue="html"
-  values={[
-    { label: 'HTML', value: 'html', },
-    { label: 'Shell', value: 'shell', },
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="html">
+<CodeSample>
+<CSTab label="HTML">
 
 ```html
 <!-- loading polyfill from CDN -->
 <script src="https://unpkg.com/polyfill-queryselector@1.0.2/querySelector.js"></script>
 ```
 
-</CodeTabItem>
-<CodeTabItem value="shell">
+</CSTab>
+<CSTab label="Shell">
 
 ```bash
 # installing polyfill as a package
 npm install polyfill-queryselector@1.0.2
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js">
+</CSTab>
+<CSTab label="JavaScript">
 
 ```js
 // loading polyfill as a package
@@ -202,5 +165,5 @@ require('polyfill-queryselector')
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

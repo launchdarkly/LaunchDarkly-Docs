@@ -126,14 +126,8 @@ This feature is available in the listed versions and later of the following serv
 
 Big Segments is available in version 6.2.0 and later:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -152,8 +146,8 @@ var config = Configuration.Builder("sdk-key-123abc")
 var client = new LDClient(config);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 using LaunchDarkly.Sdk.Server;
@@ -172,8 +166,8 @@ var config = Configuration.Builder("sdk-key-123abc")
 var client = new LDClient(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the available Big Segments configuration options, read [`BigSegmentsConfigurationBuilder`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.BigSegmentsConfigurationBuilder.html).
 </Details>
@@ -184,14 +178,8 @@ To learn more about the available Big Segments configuration options, read [`Big
 
 Big Segments is available in version 5.5.0 and later:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-  }>
-  <CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -211,8 +199,8 @@ config.BigSegments = ldcomponents.BigSegments(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-  </CodeTabItem>
-  <CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -232,9 +220,8 @@ config.BigSegments = ldcomponents.BigSegments(
 client := ld.MakeCustomClient(sdkKey, config, waitTime)
 ```
 
-  </CodeTabItem>
-
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the available Big Segments configuration options, read [`BigSegmentsConfigurationBuilder`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/ldcomponents#BigSegmentsConfigurationBuilder).
 </Details>
@@ -245,13 +232,8 @@ To learn more about the available Big Segments configuration options, read [`Big
 
 Big Segments is available in version 5.7.0 and later:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-  }>
-  <CodeTabItem value="java">
+<CodeSample>
+  <CSTab label="Java">
 
 ```java
 import com.launchdarkly.sdk.server.*;
@@ -274,8 +256,8 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 ```
 
-  </CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use either the Redis integration, as shown above, or the DynamoDB integration in the Java SDK, you must also install additional packages. To learn more, read [Redis](/sdk/features/storing-data/redis#java) and [DynamoDB](/sdk/features/storing-data/dynamodb#java).
 
@@ -288,14 +270,8 @@ To learn more about the available Big Segments configuration options, read [`Big
 
 Big Segments is available in version 6.2.0 and later:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-  }>
-  <CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
@@ -316,8 +292,8 @@ const config = {
 const client = LaunchDarkly.init(sdkKey, config);
 ```
 
-  </CodeTabItem>
-  <CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-node-server-sdk';
@@ -338,8 +314,8 @@ const options: LaunchDarkly.LDOptions = {
 const client = LaunchDarkly.init('sdk-key-123abc', options);
 ```
 
-  </CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the available Big Segments configuration options, read [`LDBigSegmentsOptions`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDBigSegmentsOptions.html).
 
@@ -351,13 +327,8 @@ To learn more about the available Big Segments configuration options, read [`LDB
 
 Big Segments is available in version 7.3.0 and later:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python', value: 'python', }
-  ]
-  }>
-  <CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 import ldclient
@@ -373,8 +344,8 @@ ldclient.set_config(config)
 client = ldclient.get()
 ```
 
-  </CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use either the Redis integration, as shown above, or the DynamoDB integration in the Python SDK, you must also install additional packages. To learn more, read [Redis](/sdk/features/storing-data/redis#python) and [DynamoDB](/sdk/features/storing-data/dynamodb#python).
 
@@ -387,13 +358,8 @@ To learn more about the available Big Segments configuration options, read [`Big
 
 Big Segments is available in version 6.3.0 and later:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', }
-  ]
-  }>
-  <CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 store = LaunchDarkly::Integrations::Redis.new_big_segment_store(
@@ -408,8 +374,8 @@ config = LaunchDarkly::Config.new(
 client = LaunchDarkly::LDClient.new(sdk_key, config)
 ```
 
-  </CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use either the Redis integration, as shown above, or the DynamoDB integration in the Ruby SDK, you must also install additional gems. To learn more, read [Redis](/sdk/features/storing-data/redis#ruby) and [DynamoDB](/sdk/features/storing-data/dynamodb#ruby).
 

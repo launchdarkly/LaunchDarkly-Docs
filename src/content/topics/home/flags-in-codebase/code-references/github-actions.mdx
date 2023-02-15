@@ -37,13 +37,8 @@ To set up GitHub code references:
 - **If you already have an `action.yml` file**: Copy and paste the `launchDarklyCodeReferences` job declaration below into the jobs section in your `action.yml` file.
 - **If you don't already have a workflow file:** Create a new file titled `action.yml` in the `.github/workflows` directory of your repository. Paste the following code in the **Edit file** section:
 
-<CodeTabs
- defaultValue="yaml"
- values={[
-   { label: 'YAML', value: 'yaml', },
- ]
-}>
-<CodeTabItem value="yaml">
+<CodeSample>
+<CSTab label="YAML">
 
 ```yaml
 name: Find LaunchDarkly flag code references
@@ -68,8 +63,8 @@ jobs:
           projKey: YOUR_PROJECT_KEY
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>Best practices for configuring an Actions file</CalloutTitle>

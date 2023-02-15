@@ -30,15 +30,15 @@ With clear data markers representing feature flag changes, SignalFx users can mo
 
 To configure the SignalFx integration to send LaunchDarkly data to SignalFx, you must have the following prerequisites:
 
-* **SignalFx access token**: This token authenticates your LaunchDarkly account to send data to your SignalFx account. To learn more about about working with SignalFx access tokens, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens).
-* **SignalFx realm**: The realm identifies the self-contained deployment of SignalFx that hosts your organization. Find the name of your organization's realm on your SignalFx profile page.
+- **SignalFx access token**: This token authenticates your LaunchDarkly account to send data to your SignalFx account. To learn more about about working with SignalFx access tokens, read [SignalFx's documentation](https://docs.signalfx.com/en/latest/admin-guide/tokens.html#working-with-access-tokens).
+- **SignalFx realm**: The realm identifies the self-contained deployment of SignalFx that hosts your organization. Find the name of your organization's realm on your SignalFx profile page.
 
 ## Configuring the SignalFx integration
 
 Here's how to configure the SignalFx integration:
 
 1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) page and find "SignalFx."
-3. Click **Add integration**. The "Create SignalFx configuration" panel appears.
+2. Click **Add integration**. The "Create SignalFx configuration" panel appears.
 
 ![The "Create SignalFx configuration" panel.](signalfx-integration-panel.png)
 
@@ -55,45 +55,32 @@ When you configure the integration correctly, LaunchDarkly sends flag change dat
 
 The "Policy" configuration field allows you to control which kinds of LaunchDarkly events are sent to SignalFx. The default policy value restricts it to flag changes in production environments:
 
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
-
-<CodeTabItem value="txt">
+<CodeSample>
+<CSTab label="Policy example">
 
 ```txt
 proj/*:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Reasons to override the default policy include wanting to restrict the integration to:
 
 - a specific combination of LaunchDarkly projects/environments
 - a specific action (or set of actions)
 
-
 For example, setting the policy configuration to the following will restrict LaunchDarkly such that only changes from the `web-app` project's production environment are sent to SignalFx:
 
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
-
-<CodeTabItem value="txt">
+<CodeSample>
+<CSTab label="Policy example">
 
 ```txt
 proj/web-app:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about setting custom policies, read [Policies in custom roles](/home/members/role-policies).
 
@@ -105,9 +92,9 @@ To do this:
 
 1. Log into your SignalFx account.
 2. On the "Plot Editor" panel, click **Add Metric or Event**.
-2. Select **LaunchDarkly flag changed**.
-3. (Optional) Add a filter if you wish to filter by a specific LaunchDarkly attribute such as project or environment.
-4. Click **Save** to save your chart changes.
+3. Select **LaunchDarkly flag changed**.
+4. (Optional) Add a filter if you wish to filter by a specific LaunchDarkly attribute such as project or environment.
+5. Click **Save** to save your chart changes.
 
 SignalFx's "Chart Options" tab also lets you view LaunchDarkly events as small marks or lines. Click on the annotations in your chart for additional details.
 

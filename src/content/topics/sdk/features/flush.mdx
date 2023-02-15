@@ -49,20 +49,15 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.Flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Android
@@ -75,28 +70,22 @@ In some situations, such as when you're testing the SDK in a simulator, you may 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 client.flush();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 client.flush()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The flush interval is configurable.
 </Details>
@@ -107,20 +96,15 @@ The flush interval is configurable.
 
 The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, for example, if you're testing the SDK in a simulator, you may want to manually call flush to process events immediately.
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientFlush(client);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The flush interval is configurable. If you need to change the interval, you can do so via the configuration.
 </Details>
@@ -135,20 +119,15 @@ In some situations, such as when you're testing the SDK in a simulator, you may 
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 await LDClient.flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### iOS
@@ -161,29 +140,23 @@ In some situations, such as when you're testing the SDK in a simulator, you may 
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 LDClient.get()!.flush()
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 [[LDClient get] flush];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### JavaScript
@@ -198,20 +171,15 @@ This method is asynchronous. You can pass a callback or wait for the returned `P
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (client-side)
@@ -224,13 +192,8 @@ This method is asynchronous. You can pass a callback or wait for the returned `P
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.flush();
@@ -246,8 +209,8 @@ client.flush().then(() => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### React Native
@@ -260,20 +223,15 @@ In some situations, such as when you're testing the SDK in a simulator, you may 
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Roku
@@ -286,21 +244,16 @@ In some situations, such as when you're testing the SDK in a simulator, you may 
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 launchDarkly.flush()
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -327,49 +280,34 @@ The .NET (server-side) SDK supports asynchronous flushing with the [`Flush`](htt
 
 To call `flush`:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.Flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Starting in version 7.0.0, the SDK also supports synchronous flushing with the [`FlushAndWait`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_FlushAndWait_System_TimeSpan_) method. In this example, the `TimeSpan.FromSeconds(2)` value means that the application is willing to wait no more than two seconds for event delivery.
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.FlushAndWait(TimeSpan.FromSeconds(2));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The flush interval is configurable. If you need to change the interval, you can do so with the `Configuration` class.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 var config = Configuration.Builder("sdk-key-123abc")
@@ -381,8 +319,8 @@ var client = new LdClient(config);
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -396,20 +334,15 @@ This function will not block, but instead initiate a flush operation in the back
 
 Here's how:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientFlush(client);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -418,47 +351,32 @@ LDClientFlush(client);
 
 The Go SDK supports asynchronous flushing with the [`Flush`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.Flush) method.
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 client.Flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Starting in version 6.0.0, the SDK also supports synchronous flushing with the [`FlushAndWait`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.FlushAndWait) method. In this example, the `time.Second*2` value means that the application is willing to wait no more than two seconds for event delivery.
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 client.FlushAndWait(time.Second*2);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The interval for automatic event flushing is configurable. If you need to change the interval, you can do so by making a custom client configuration. Here's how:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 config := ld.Config{
@@ -466,8 +384,8 @@ config := ld.Config{
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Haskell
@@ -480,20 +398,15 @@ This function will not block, but instead initiate a flush operation in the back
 
 Here's how:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 flushEvents client
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Java
@@ -504,20 +417,15 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `track` and `identify
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 client.flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The flush interval is configurable. If you need to change the interval, you can do so with [`LDConfig.Builder`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html) and [`Components.sendEvents()`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/Components.html#sendEvents()).
 
@@ -533,20 +441,15 @@ This function will not block, but instead initiate a flush operation in the back
 
 Here's how:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 client:flush()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Node.js (server-side)
@@ -559,20 +462,15 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### PHP
@@ -583,20 +481,15 @@ Internally, the LaunchDarkly SDK keeps an event buffer for `variation`, `track`,
 
 Here's how:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 ldclient->flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -609,20 +502,15 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 ldclient.get().flush()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Ruby
@@ -635,20 +523,15 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 client.flush
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Rust
@@ -661,18 +544,13 @@ The flush interval is configurable. If you need to change the interval, you can 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust', value: 'rust', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust">
 
 ```rust
 let result = client.flush();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>

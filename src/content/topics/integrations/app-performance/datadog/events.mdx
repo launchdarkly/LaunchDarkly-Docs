@@ -89,14 +89,8 @@ For more information about writing policies, read [Policies in custom roles](/ho
 
 For example, if you only want to receive an event when a change is made to one of the feature flags in your testing environment, you can add the following policy to your events stream:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example Datadog policy', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example Datadog policy">
 
 ```json
 [
@@ -108,8 +102,8 @@ For example, if you only want to receive an event when a change is made to one o
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To add a custom filter:
 

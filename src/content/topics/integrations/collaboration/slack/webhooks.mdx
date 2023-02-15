@@ -29,7 +29,6 @@ First, create an incoming hook in Slack. To do this, go to the [Incoming Webhook
 
 ![The Incoming Webhooks page.](slack-webhooks-add.png)
 
-
 Copy the Webhook URL, and in LaunchDarkly, navigate to the [Integrations page](https://app.launchdarkly.com/integrations), and click **+ Integration** in the chat integrations section.
 
 ## Adding a policy filter
@@ -38,13 +37,8 @@ LaunchDarkly sends all flag change events in the production environment to a web
 
 For example, if you want to receive an event only when a change is made to one of your production feature flags, you can add the following policy to your room notification:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Policy', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Policy">
 
 ```json
 [
@@ -56,11 +50,10 @@ For example, if you want to receive an event only when a change is made to one o
 ]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ![The configuration panel with a policy written.](integrations-slack-webhook-create-with-policy.png)
-
 
 ## Disabling a Slack incoming webhook
 

@@ -32,14 +32,8 @@ The `auditLogEventsHook` has four properties:
 
 Here's an example of an audit log events hook capability that subscribes to flag events in a LaunchDarkly account:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Subscribes to flag events', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Subscribes to flag events">
 
 ```json
     "capabilities": {
@@ -72,8 +66,9 @@ Here's an example of an audit log events hook capability that subscribes to flag
         }
     }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 <LearnMore>
 
@@ -93,14 +88,8 @@ In your manifest, you can specify `templates` to execute when webhook events are
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Specifies a template', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Specifies a template">
 
 ```json
     "templates": {
@@ -111,19 +100,14 @@ Here is an example:
       "validation": "templates/default.json.hbs"
     },
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 If you don't provide one or more templates, LaunchDarkly sends you a default JSON payload that looks like this:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Default payload', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label= "Default payload">
 
 ```json
 {
@@ -183,8 +167,9 @@ If you don't provide one or more templates, LaunchDarkly sends you a default JSO
   }
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 If you choose to provide one or more templates, LaunchDarkly renders your template using the context data above. Your template can be any text-based format, but you must specify the appropriate `Content-Type` header in your `endpoint.headers` property to match the content type of your template body.
 
@@ -227,14 +212,8 @@ Assuming your integration only cares about flag activity, we recommend the follo
 
 Here is the policy:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Default policy', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label= "Default policy">
 
 ```json
       "defaultPolicy": [
@@ -245,8 +224,9 @@ Here is the policy:
         }
       ]
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### The include error response body property
 
@@ -254,14 +234,8 @@ A static domain is one in which the domain part of the endpoint is not a templat
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Includes error response body', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Includes error response body">
 
 ```json
     "includeErrorResponseBody": true,
@@ -270,8 +244,9 @@ Here is an example:
         "method": "POST"
     },
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### Previewing your webhook
 
@@ -302,14 +277,8 @@ If your webhooks' request bodies are non-empty, you can specify the optional `pa
 
 Here is an example `trigger` capability:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Trigger capability', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Trigger capability">
 
 ```json
     "trigger": {
@@ -321,8 +290,9 @@ Here is an example `trigger` capability:
       },
     }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 If an integration only has the trigger capability, the word "trigger" will be added to its name in the LaunchDarkly user interface (UI). For this reason, do not include the word "trigger" in the manifest name. For an example, read the [generic-trigger manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/generic-trigger/manifest.json).
 
@@ -337,6 +307,7 @@ Here is an image of a flag link:
 The `flagLink` capability is used to apply custom formatting and metadata to flag links that originate from your integration service. For complete examples, read the [Slack App manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/slack-app/manifest.json) and the [Jira integration manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json).
 
 The `flagLink` capability has the following properties:
+
 - [`header`](#the-header-property)
 - [`metadata`](#the-metadata-property)
 - [`uiBlocks`](#the-ui-blocks-property)
@@ -352,14 +323,8 @@ The `metadata` object specifies the shape of the data for the flag link POST bod
 
 For example, the [Jira integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json) has the following `metadata` object:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'A metadata object', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="A metadata object">
 
 ```json
 "metadata": {
@@ -378,14 +343,16 @@ For example, the [Jira integration](https://github.com/launchdarkly/integration-
 },
 
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### The UI blocks property
 
-The `uiBlocks` object specifies the look and feel of the integration's flag links in the LaunchDarkly UI. 
+The `uiBlocks` object specifies the look and feel of the integration's flag links in the LaunchDarkly UI.
 
 Any combination of the following properties can be specified:
+
 - `image`: An object specifying the icon or avatar used to represent the link. Handlebars templating can be utilized in the `sourceUrl` field to reference metadata submitted by the integration when the link is created.
 - `title`: An object specifying the flag link title. UI block `elements` are used to provide design flexibility.
 - `context`: An object specifying additional information about the flag link. UI block `elements` are used to shape the message.
@@ -393,9 +360,10 @@ Any combination of the following properties can be specified:
 #### UI block elements
 ---
 
-The `title` and `context` UI blocks take advantage of UI block `elements` to provide flexible formatting. 
+The `title` and `context` UI blocks take advantage of UI block `elements` to provide flexible formatting.
 
 A UI block element is an object comprised of a required `text` field and may contain one or more of the following properties:
+
 - `isBold` (boolean): Whether or not the text should be rendered in bold face
 - `isTimestamp` (boolean): Whether or not the text should be converted from Unix milliseconds to a human-readable format
 - `url` (string): If you provide this, the block element will link to the rendered URL
@@ -404,14 +372,8 @@ Both the `text` and `url` properties can include Handlebars template variables t
 
 For example, the [Slack App integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/slack-app/manifest.json) specifies the `context` UI block as follows:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'A context block', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="A context block">
 
 ```json
 "context": {
@@ -422,27 +384,23 @@ For example, the [Slack App integration](https://github.com/launchdarkly/integra
   ]
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ### The empty state property
 
-This `emptyState` object specifies the message used to assist members when there have not been any flag links created for the integration. 
+This `emptyState` object specifies the message used to assist members when there have not been any flag links created for the integration.
 
 The `emptyState` object contains two properties:
+
 - `title`: The title heading of the empty state message.
 - `leadText`: Text or markup content detailing how members can create flag links for this integration.
 
 For example, the [Jira integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/jira/manifest.json) specifies the `emptyState` object as follows:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'An emptyState object', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label= "An emptyState object">
 
 ```json
 "emptyState": {
@@ -450,8 +408,9 @@ For example, the [Jira integration](https://github.com/launchdarkly/integration-
   "leadText": "Jira issues connected to this feature flag will automatically appear here."
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ## Reserved custom properties
 
@@ -461,20 +420,14 @@ To learn more, read [Custom properties](/home/connecting/custom-properties).
 
 By default, members must specify a custom property name and key when they attach the custom property value to a feature flag. This step introduces the possibility of user error. To prevent this, developers can _reserve_ a custom property for their integration, which makes it much easier for members to correctly add the property's value to feature flags.
 
- `reservedCustomProperties` require a `name` and `key`. Adding a `description` is optional.
+`reservedCustomProperties` require a `name` and `key`. Adding a `description` is optional.
 
 After a member configures your integration, the custom property appears in the dropdown on the flag's **Settings** page.
 
 For example, the [Datadog integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/datadog/manifest.json) uses the following `reservedCustomProperties`:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'The reservedCustomProperties capability', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="The reservedCustomProperties capability">
 
 ```json
     "reservedCustomProperties": [
@@ -485,8 +438,9 @@ For example, the [Datadog integration](https://github.com/launchdarkly/integrati
       }
     ]
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ## Feature stores
 
@@ -495,6 +449,7 @@ Feature stores allow LaunchDarkly to write feature flag data to a given provider
 The feature store capability allows you to specify an endpoint that can receive a payload containing up-to-date flag data from LaunchDarkly.
 
 In addition to `formVariables`, the `featureStore` has two properties:
+
 - [`featureStoreRequest`](#the-feature-store-request-property)
 - [`validationRequest` (optional)](#the-validation-request-property)
 
@@ -514,14 +469,8 @@ The `parser` object allows LaunchDarkly to interpret the response of the validat
 
 Here is an example `parse` object:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'A parse object', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="A parse object">
 
 ```json
     "parser": {
@@ -529,21 +478,16 @@ Here is an example `parse` object:
       "error": "/error"
     },
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 Choose an endpoint with a response that will indicate that the specified form variables are correct, but has no side effects.
 
 Here is an example `featureStore` capability:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'The featureStore capability', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label='The featureStore capability'>
 
 ```json
     "featureStoreRequest": {
@@ -578,8 +522,9 @@ Here is an example `featureStore` capability:
       }
     }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 ## Approvals
 
@@ -607,7 +552,7 @@ The optional `flagFormVariables` property adds additional integration-specific f
 
 ### Lifecycle requests
 
-The approval capability makes several distinct requests to the third-party integration service throughout the lifecycle of a feature flag approval request. 
+The approval capability makes several distinct requests to the third-party integration service throughout the lifecycle of a feature flag approval request.
 
 These requests are as follows:
 
@@ -623,7 +568,7 @@ Here is a sequence diagram of the requests:
 
 ### The creation request property
 
-The `creationRequest` property describes the approval creation HTTP request and the parser it uses to process the JSON response. 
+The `creationRequest` property describes the approval creation HTTP request and the parser it uses to process the JSON response.
 
 The following fields specify the request and response parsing:
 
@@ -633,7 +578,7 @@ The following fields specify the request and response parsing:
 
 ### The status request property
 
-The `statusRequest` property describes the approval status check HTTP request and the parser it uses to determine if the approval should be considered approved or rejected. 
+The `statusRequest` property describes the approval status check HTTP request and the parser it uses to determine if the approval should be considered approved or rejected.
 
 The following fields specify the request and response parsing:
 
@@ -643,7 +588,7 @@ The following fields specify the request and response parsing:
 
 ### The post apply request property
 
-The `postApplyRequest` property describes the HTTP request to make after you have applied the changes applied in LaunchDarkly. 
+The `postApplyRequest` property describes the HTTP request to make after you have applied the changes applied in LaunchDarkly.
 
 The following fields specify the request and response parsing:
 
@@ -653,7 +598,7 @@ The following fields specify the request and response parsing:
 
 ### The deletion request property
 
-The `deletionRequest` property describes the HTTP request to make after you have rejected the changes in LaunchDarkly. 
+The `deletionRequest` property describes the HTTP request to make after you have rejected the changes in LaunchDarkly.
 
 The following fields specify the request and response parsing:
 
@@ -663,7 +608,7 @@ The following fields specify the request and response parsing:
 
 ### The member list request property
 
-The `memberListRequest` describes the HTTP request used to fetch third-party member IDs and map them to LaunchDarkly members. LaunchDarkly makes this request immediately after configuring the integration. 
+The `memberListRequest` describes the HTTP request used to fetch third-party member IDs and map them to LaunchDarkly members. LaunchDarkly makes this request immediately after configuring the integration.
 
 The following fields specify the request and response parsing:
 
@@ -685,7 +630,7 @@ The following properties specify this parser:
 - `statusValue`: The [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901) representation of a location in the HTTP response body that indicates the status of the approval request, typically numeric.
 - `statusDisplay` (optional): The [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901) representation of a location in the HTTP response body that indicates the human-readable status of the approval request. If you do not specify `statusDisplay`, the LaunchDarkly UI will display the `statusValue`.
 - `approvalMatcher`: A regex pattern LaunchDarkly uses to determine if it should consider the parsed `statusValue` "approved."
-- `rejectionMatcher` (optional): A regex pattern LaunchDarkly uses to determine if it should consider the parsed  `statusValue` "rejected."
+- `rejectionMatcher` (optional): A regex pattern LaunchDarkly uses to determine if it should consider the parsed `statusValue` "rejected."
 - `urlTemplate`: A template string representing the canonical URL hosted on the third-party service.
 
 #### Member list parser
@@ -702,14 +647,8 @@ The following properties specify this parser:
 
 Some capabilities require you to specify an endpoint that LaunchDarkly can make requests to. For example, you can specify an endpoint as follows:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Endpoint example', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Endpoint example">
 
 ```json
     "endpoint": {
@@ -727,8 +666,9 @@ Some capabilities require you to specify an endpoint that LaunchDarkly can make 
         ]
     },
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 This specification must include all appropriate request semantics including the URL, method, and headers.
 
@@ -738,14 +678,8 @@ The templating language LaunchDarkly uses is based off of a subset of the Handle
 
 This example uses the `endpointUrl` form variable as the URL of the endpoint and the `apiToken` as a `Bearer` token in the `Authorization` header:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Endpoint example', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Endpoint example">
 
 ```json
     "endpoint": {
@@ -763,19 +697,14 @@ This example uses the `endpointUrl` form variable as the URL of the endpoint and
         ]
     },
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 This example uses the `apiToken` form variable as a query parameter on the URL:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Endpoint example', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Endpoint example">
 
 ```json
     "endpoint": {
@@ -783,5 +712,6 @@ This example uses the `apiToken` form variable as a query parameter on the URL:
         "method": "POST"
     },
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>

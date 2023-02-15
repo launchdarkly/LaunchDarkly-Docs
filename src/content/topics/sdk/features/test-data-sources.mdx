@@ -59,14 +59,8 @@ This feature is available in the following client-side SDKs:
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
 
 ```csharp
 using LaunchDarkly.Sdk.Client.Integrations;
@@ -80,8 +74,8 @@ var config = Configuration.Builder("mobile-key-123abc")
 var client = LdClient.Init(config, context, startWaitTime);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-2.x">
+</CSTab>
+<CSTab label=".NET SDK v2.x (C#)">
 
 ```csharp
 using LaunchDarkly.Sdk.Client.Integrations;
@@ -95,36 +89,25 @@ var config = Configuration.Builder("mobile-key-123abc")
 var client = LdClient.Init(config, user, startWaitTime);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 td.Update(td.Flag("flag-key-123abc").Variation(false);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
 
 ```csharp
 // This flag is true for the context key "context-key-123abc" and false for everyone else
@@ -140,8 +123,8 @@ td.Update(td.Flag("flag-key-789ghi")
         context.GetValue("admin").AsBool ? 1 : 0);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-2.x">
+</CSTab>
+<CSTab label=".NET SDK v2.x (C#)">
 
 ```csharp
 // This flag is true for the user key "user-key-123abc" and false for everyone else
@@ -157,8 +140,8 @@ td.Update(td.Flag("flag-key-789ghi")
         user.GetAttribute(UserAttribute.ForName("admin")).AsBool ? 1 : 0);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [TestData](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Integrations.TestData.html).
 </Details>
@@ -171,13 +154,8 @@ This feature is available in versions 4.0 and higher of the Android SDK.
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="android"
-  values={[
-    { label: 'Android', value: 'android', },
-  ]
-}>
-<CodeTabItem value="android">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 using com.launchdarkly.sdk.*;
@@ -194,35 +172,25 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = LDClient.init(this.getApplication(), ldConfig, context, secondsToBlock);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="android"
-  values={[
-    { label: 'Android', value: 'android', },
-  ]
-}>
-<CodeTabItem value="android">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 td.update(td.flag("flag-key-123abc").variation(false));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="android"
-  values={[
-    { label: 'Android', value: 'android', },
-  ]
-}>
-<CodeTabItem value="android">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 // This flag is true for the context with the key "context-key-123abc" and kind of "organization",
@@ -239,8 +207,8 @@ td.update(td.flag("flag-key-123abc")
     context.getValue("admin").booleanValue() ? 1 : 0));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-android-client-sdk/latest/com/launchdarkly/sdk/android/integrations/TestData.html).
 </Details>
@@ -266,13 +234,8 @@ This feature is available in the following server-side SDKs:
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Sdk.Server.Integrations;
@@ -286,44 +249,32 @@ var config = Configuration.Builder("sdk-key-123abc")
 var client = new LdClient(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 td.Update(td.Flag("flag-key-123abc").VariationForAll(false));
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 td.Update(td.Flag("flag-key-123abc").VariationForAllUsers(false));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 // This flag is true for the context with the key "context-key-123abc" and kind of "organization",
@@ -341,8 +292,8 @@ td.Update(td.Flag("flag-key-789ghi")
     .ThenReturn(1));
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 // This flag is true for the user key "some-user-key" and false for everyone else
@@ -359,8 +310,8 @@ td.Update(td.Flag("flag-key-789ghi")
     .ThenReturn(1));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.Integrations.TestData.html).
 </Details>
@@ -371,13 +322,8 @@ To learn more, read [`TestData`](https://launchdarkly.github.io/dotnet-server-sd
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-defaultValue="c"
-values={[
-    { label: 'C/C++', value: 'c', },
-]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 #include <launchdarkly/integrations/test_data.h>
@@ -389,35 +335,26 @@ LDConfigSetDataSource(config, LDTestDataCreateDataSource(td));
 // Call LDClientInit with config as usual.
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Once you are finished using the client, ensure the test data source is freed:
-<CodeTabs
-defaultValue="c"
-values={[
-    { label: 'C/C++', value: 'c', },
-]
-}>
-<CodeTabItem value="c">
+
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 // After LDClientClose:
 LDTestDataFree(td)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-defaultValue="c"
-values={[
-    { label: 'C/C++', value: 'c', },
-]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 struct LDFlagBuilder *flag = LDTestDataFlag(td, "flag-key-123abc");
@@ -425,17 +362,13 @@ LDFlagBuilderVariationForAllUsersBoolean(flag, LDBooleanTrue);
 LDTestDataUpdate(td, flag);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
-<CodeTabs
-defaultValue="c"
-values={[
-    { label: 'C/C++', value: 'c', },
-]
-}>
-<CodeTabItem value="c">
+
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 // This flag is true for the user key "some-user-key"
@@ -464,8 +397,8 @@ LDFlagRuleBuilderThenReturn(rule, 1);
 LDTestDataUpdate(td, flag3);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LDTestData`](https://launchdarkly.github.io/c-server-sdk/structLDTestData.html).
 
@@ -477,13 +410,8 @@ To learn more, read [`LDTestData`](https://launchdarkly.github.io/c-server-sdk/s
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 Options = #{
@@ -494,36 +422,26 @@ Options = #{
 ldclient:start_instance(SdkKey, Options),
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 {ok, Flag} = ldclient_testdata:flag("flag-key-123abc"),
 ldclient_testdata:update(ldclient_flagbuilder:variation_for_all_users(true, Flag)),
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang">
 
 ```erlang
 %% This flag is true for the user key "some-user-key" and false for everyone else
@@ -541,8 +459,8 @@ UpdatedFlag = ldclient_flagbuilder:fallthrough_variation(0,
 ldclient_testdata:update(UpdatedFlag),
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -552,14 +470,8 @@ ldclient_testdata:update(UpdatedFlag),
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -578,8 +490,8 @@ config := ld.Config{
 client := ld.MakeCustomClient("sdk-key-123abc", config, 0)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -598,44 +510,32 @@ config := ld.Config{
 client := ld.MakeCustomClient("sdk-key-123abc", config, 0)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 td.Update(td.Flag("flag-key-123abc").VariationForAll(false))
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 td.Update(td.Flag("flag-key-123abc").VariationForAllUsers(false))
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 // This flag is true for the context with the key "context-key-123abc" and kind of "organization",
@@ -654,8 +554,8 @@ td.Update(td.Flag("flag-key-789ghi").
     ThenReturnIndex(1));
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 // This flag is true for the user key "context-key-123abc" and false for everyone else.
@@ -673,8 +573,8 @@ td.Update(td.Flag("flag-key-789ghi").
     ThenReturnIndex(1));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`ldtestdata`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6/testhelpers/ldtestdata).
 </Details>
@@ -685,13 +585,8 @@ To learn more, read [`ldtestdata`](https://pkg.go.dev/github.com/launchdarkly/go
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 import qualified LaunchDarkly.Server.Integrations.TestData as TestData
@@ -701,18 +596,13 @@ import qualified LaunchDarkly.Server.Integrations.TestData as TestData
  client <- LD.makeClient config
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 TestData.update td =<< ( TestData.flag td "flag-key-123abc"
@@ -721,18 +611,13 @@ TestData.update td =<< ( TestData.flag td "flag-key-123abc"
 )
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell">
 
 ```haskell
 -- This flag is true for the user key "some-user-key" and false for everyone else
@@ -752,8 +637,8 @@ TestData.update td =<< ( TestData.flag td "flag-key-456def"
 )
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -763,13 +648,8 @@ TestData.update td =<< ( TestData.flag td "flag-key-456def"
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 using com.launchdarkly.sdk.*;
@@ -785,44 +665,32 @@ LDConfig config = new LDConfig.Builder()
 LDClient client = new LDClient(sdkKey, config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 td.update(td.flag("flag-key-123abc").variationForAll(false));
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 td.update(td.flag("flag-key-123abc").variationForAllUsers(false));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 // This flag is true for the context with the key "context-key-123abc" and kind of "organization",
@@ -840,8 +708,8 @@ td.update(td.flag("flag-key-123abc")
   .thenReturn(1));
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 // This flag is true for the user key "user-key-123abc" and false for everyone else
@@ -858,8 +726,8 @@ td.update(td.flag("flag-key-123abc")
   .thenReturn(1));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/integrations/TestData.html).
 </Details>
@@ -870,13 +738,8 @@ To learn more, read [`TestData`](https://javadoc.io/doc/com.launchdarkly/launchd
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const { TestData } = require('launchdarkly-node-server-sdk/integrations');
@@ -892,8 +755,8 @@ td.update(td.flag('flag-key-456def')
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_integrations_.TestData.html).
 
@@ -905,13 +768,8 @@ To learn more, read [`TestData`](https://launchdarkly.github.io/node-server-sdk/
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 require 'vendor/autoload.php';
@@ -922,44 +780,32 @@ $td = new LaunchDarkly\Integrations\TestData();
 $client = new LaunchDarkly\LDClient($sdkKey, ['feature_requester' => $td]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 $td->update($td->flag("flag-key-123abc")->variationForAll(false));
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 $td->update($td->flag("flag-key-123abc")->variationForAllUsers(false));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 // This flag is true for the context with the key "context-key-123abc" and kind of "organization",
@@ -981,8 +827,8 @@ $td->update(
 );
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 // This flag is true for the user key "some-user-key" and false for everyone else
@@ -1003,8 +849,8 @@ $td->update(
 );
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-Integrations-TestData.html).
 
@@ -1016,13 +862,8 @@ To learn more, read [`TestData`](https://launchdarkly.github.io/php-server-sdk/c
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python', value: 'python', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 from ldclient.integrations.test_data import TestData
@@ -1033,44 +874,32 @@ td = TestData.data_source()
 client = LDClient(config=Config(sdk_key, update_processor_class = td))
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python SDK v8.0', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-v7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 td.update(td.flag("flag-key-123abc").variation_for_all(True))
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-v7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 td.update(td.flag("flag-key-123abc").variation_for_all_users(True))
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python SDK v8.0', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-v7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 # This flag is true for the context with the key "context-key-123abc" and kind
@@ -1094,8 +923,8 @@ td.update(
 )
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-v7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 # This flag is true for the user key "some-user-key" and false for everyone else.
@@ -1116,8 +945,8 @@ td.update(
 )
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`TestData`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-testing.html#ldclient-integrations-test-data-module).
 </Details>
@@ -1129,13 +958,8 @@ To learn more, read [`TestData`](https://launchdarkly-python-sdk.readthedocs.io/
 
 To configure the SDK to use a test data source:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 require 'ldclient-rb'
@@ -1147,44 +971,32 @@ config = LaunchDarkly::Config.new(data_source = td)
 client = LaunchDarkly::LDClient.new(sdk_key, config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To set a flag to a specific value:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 td.update(td.flag("flag-key-123abc").variation_for_all(false))
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 td.update(td.flag("flag-key-123abc").variation_for_all_users(false))
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 # This flag is true for the context key "some-context-key" and false for everyone else
@@ -1200,8 +1012,8 @@ td.update(td.flag("flag-key-789ghi").
     if_match_context("user", "admin", true).then_return(1))
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 # This flag is true for the user key "some-user-key" and false for everyone else
@@ -1217,8 +1029,8 @@ td.update(td.flag("flag-key-789ghi").
     if_match("admin", true).then_return(1))
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`TestData`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Integrations/TestData.html).
 </Details>

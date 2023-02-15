@@ -80,14 +80,8 @@ First, install the LaunchDarkly SDK as a dependency in your application. How you
 
 There are several packages that you can import, depending on which features you are using. You usually need the following:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6">
 
 ```go
 import (
@@ -102,8 +96,8 @@ import (
 )
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -118,8 +112,8 @@ import (
 )
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 It is good practice to pin your dependencies to a specific version. Refer to the [SDK releases page](https://github.com/launchdarkly/go-server-sdk/releases) to identify the latest version. When you update your version of `go-server-sdk`, you should also update `go-sdk-common`.
 
@@ -138,20 +132,15 @@ If you have multiple LaunchDarkly projects, you can create one `LDClient` for ea
 
 This example assumes you've imported the LaunchDarkly SDK package as `ld`, as shown above.
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go">
 
 ```go
 client, _ := ld.MakeClient("sdk-key-123abc", 5 * time.Second)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The second argument to `MakeClient` is a timeout parameter. In this example, you are telling the SDK that it can spend up to five seconds attempting to connect to LaunchDarkly services before returning to your application. For more details about what the timeout means and what happens if initialization fails, read [`MakeClient`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#MakeClient).
 
@@ -168,14 +157,8 @@ Using the `LDClient` methods, you can check which variation a particular context
 
 In the v6 example, the context key is the string "context-key-123abc". In the v5 example, the user key is the string "user-key-123abc":
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6">
 
 ```go
 import (
@@ -195,8 +178,8 @@ if showFeature {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -216,8 +199,8 @@ if showFeature {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## HTTPS Proxy
 
@@ -225,39 +208,27 @@ Go's standard HTTP library provides a built-in HTTPS proxy. If the `HTTPS_PROXY`
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="linux"
-  values={[
-    { label: 'Console', value: 'linux', },
-    { label: 'cmd', value: 'windows', },
-  ]
-}>
-<CodeTabItem value="linux">
+<CodeSample>
+<CSTab label="Console">
 
 ```bash
 export HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
-</CodeTabItem>
-<CodeTabItem value="windows">
+</CSTab>
+<CSTab label="cmd">
 
 ```
 set HTTPS_PROXY=https://web-proxy.domain.com:8080
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also specify a proxy programmatically through the SDK configuration:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5', },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6">
 
 ```go
 import (
@@ -270,8 +241,8 @@ config.HTTP = ldcomponents.HTTPConfiguration().
     ProxyURL("https://web-proxy.domain.com:8080")
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -284,8 +255,8 @@ config.HTTP = ldcomponents.HTTPConfiguration().
     ProxyURL("https://web-proxy.domain.com:8080")
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

@@ -42,7 +42,7 @@ The Go import path changes include:
 
 Many LaunchDarkly customers create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. In previous versions of the LaunchDarkly SDK, you could define this information in a user object, using a combination of built-in and custom attributes. Now you can define this information in a more structured way, using **contexts**.
 
-Each context has a required attribute called `kind` that describes the type of attributes it contains. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
+Each context has a required attribute called `kind` that you can use to categorize context instances for targeting and Experimentation. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
 
 When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you may know:
 
@@ -98,19 +98,14 @@ The methods for [evaluating flags](/sdk/features/evaluating) and determining [fl
 
 Here's how to evaluate a flag using a context:
 
-<CodeTabs
-  defaultValue="variation"
-  values={[
-    { label: '6.0 syntax', value: 'variation', },
-  ]
-}>
-<CodeTabItem value="variation">
+<CodeSample>
+<CSTab label="6.0 syntax">
 
 ```go
 client.BoolVariation("flag-key-123abc", context, false)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding differences between users and contexts
 
@@ -118,52 +113,36 @@ Where you previously created users, now you must create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '5.x syntax, user with key', value: 'user', },
-    { label: '6.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="5.x syntax, user with key">
 
 ```go
 user1 := lduser.NewUser("user-key-123abc")
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="6.0 syntax, context with key">
 
 ```go
 context1 := ldcontext.New("context-key-123abc")
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '6.0 syntax, single context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="6.0 syntax, single context with key">
 
 ```go
 context1 := ldcontext.NewWithKind("organization", "org-key-123abc")
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '6.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="6.0 syntax, multi-context">
 
 ```go
 multiContext := ldcontext.NewMulti(
@@ -171,20 +150,15 @@ multiContext := ldcontext.NewMulti(
     ldcontext.NewWithKind("device", "device-key-123abc")
 )
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Each individual context within a multi-context can have the same attributes as a basic context. The only restriction is that each context has to have a different context `kind` from the others within the multi-context.
 
 You can also use the context builder to create each of the individual contexts:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '6.0 syntax, multi-context builder', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="6.0 syntax, multi-context builder">
 
 ```go
 multiContext := ldcontext.NewMulti(
@@ -192,8 +166,8 @@ multiContext := ldcontext.NewMulti(
     ldcontext.NewBuilder("device-key-123abc").Kind("device").Name("iPad").Build(),
 )
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The Go 6.0 SDK retains the `UserBuilder` type, but modifies it to be a wrapper for `ldcontext.Builder`. This allows code that uses the older model for building users to continue to work, with minor adjustments.
 
@@ -211,14 +185,8 @@ In version 6.0, the only built-in attributes are `kind`, `key`, `name`, and `ano
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '5.x syntax, user with attributes', value: 'user', },
-    { label: '6.0 syntax, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="5.x syntax, user with attributes">
 
 ```go
 user2 := lduser.NewUserBuilder("user-key-123abc").
@@ -226,8 +194,8 @@ user2 := lduser.NewUserBuilder("user-key-123abc").
     Email("sandy@example.com").
     Build()
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="6.0 syntax, context with attributes">
 
 ```go
 context2 := ldcontext.NewBuilder("user-key-123abc").
@@ -235,8 +203,8 @@ context2 := ldcontext.NewBuilder("user-key-123abc").
     SetString("email", "sandy@example.com").
     Build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -246,13 +214,8 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's one way to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: '6.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="6.0 syntax, context with object attributes">
 
 ```go
 addressData := ldvalue.ObjectBuild().
@@ -263,8 +226,8 @@ context3 := ldcontext.NewBuilder("user-key-123abc").
     Set("address", addressData).
     Build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are multiple ways you can construct attribute values. To learn more about additional methods, read [`ldvalue`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3/ldvalue).
 
@@ -289,14 +252,8 @@ In version 6.0, there are two scopes for which you can mark attributes as privat
 
 In the first example, all attributes are marked private for all contexts. In the second example, the "email" and "address" attributes are private for all contexts:
 
-<CodeTabs
-  defaultValue="private-all"
-  values={[
-    { label: '6.0 syntax, all attributes marked private', value: 'private-all', },
-    { label: '6.0 syntax, two attributes marked private', value: 'private-some', },
-  ]
-}>
-<CodeTabItem value="private-all">
+<CodeSample>
+<CSTab label="6.0 syntax, all attributes marked private">
 
 ```go
 import (
@@ -306,8 +263,8 @@ import (
 var config ld.Config
 config.Events = ldcomponents.SendEvents().AllAttributesPrivate(true)
 ```
-</CodeTabItem>
-<CodeTabItem value="private-some">
+</CSTab>
+<CSTab label="6.0 syntax, two attributes marked private">
 
 ```go
 import (
@@ -318,20 +275,15 @@ var config ld.Config
 config.Events = ldcomponents.SendEvents().
     PrivateAttributes("email", "address")
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read the [API documentation](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#hdr-Designating_an_entire_attribute_as_private).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: '6.0 syntax, attribute marked private for one context', value: 'private', },
-  ]
-}>
-<CodeTabItem value="private">
+<CodeSample>
+<CSTab label="6.0 syntax, attribute marked private for one context">
 
 ```go
 context := ldcontext.NewBuilder("key").
@@ -340,8 +292,8 @@ context := ldcontext.NewBuilder("key").
     Private("email").
     Build()
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -359,13 +311,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '6.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="6.0 syntax, associating two contexts">
 
 ```go
 context1 := ldcontext.New("user-key-123abc")
@@ -373,8 +320,8 @@ context2 := ldcontext.NewWithKind("device", "device-key-123abc")
 multiContext := ldcontext.NewMulti(context1, context2)
 client.Identify(multiContext)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`NewMulti`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#NewMulti).
 

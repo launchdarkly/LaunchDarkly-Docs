@@ -34,39 +34,28 @@ Instead of being bundled in the main SDK package, it is now in its own package: 
 
 Add this dependency to your project by editing `package.json`, or with this command:
 
-<CodeTabs
-  defaultValue="npm"
-  values={[
-    { label: 'Installing with npm', value: 'npm', },
-  ]
-}>
-<CodeTabItem value="npm">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install launchdarkly-node-server-sdk-redis
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Then, in any JavaScript files where you were previously referring to `RedisFeatureStore`, change the reference as shown here:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```javascript
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
 
 const store = LaunchDarkly.RedisFeatureStore();
 ```
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```javascript
 
@@ -75,8 +64,8 @@ const RedisFeatureStore = require('launchdarkly-node-server-sdk-redis');
 
 const store = RedisFeatureStore();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to logging
 

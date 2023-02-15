@@ -78,13 +78,8 @@ First, install the LaunchDarkly SDK as a dependency in your application using yo
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'shell', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="shell">
 
 ```bash
 npm install launchdarkly-node-server-sdk
@@ -92,52 +87,41 @@ npm install launchdarkly-node-server-sdk
 # In earlier versions, the package name was ldclient-node
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly client in your application code:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const client = ld.init('sdk-key-123abc');
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -156,16 +140,8 @@ Using `client`, you can check which variation a particular context will receive 
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript, SDK v7', value: 'js', },
-    { label: 'TypeScript, SDK v7', value: 'ts', },
-    { label: 'JavaScript, SDK v6.x', value: 'js-old', },
-    { label: 'TypeScript, SDK v6.x', value: 'ts-old', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
 
 ```js
 const context = {
@@ -186,8 +162,8 @@ client.once('ready', () => {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="Node.js SDK v7.0 (TypeScript)">
 
 ```ts
 const context = {
@@ -208,9 +184,8 @@ client.on('ready', () => {
 });
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="js-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x (JavaScript)">
 
 ```js
 const user = {
@@ -231,8 +206,8 @@ client.once('ready', () => {
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x (TypeScript)">
 
 ```ts
 const user = {
@@ -252,9 +227,8 @@ client.on('ready', () => {
 });
 
 ```
-</CodeTabItem>
-
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Promises and async
 
@@ -262,16 +236,8 @@ All asynchronous SDK methods which accept a callback also return a `Promise`. Th
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript, SDK v7', value: 'js', },
-    { label: 'TypeScript, SDK v7', value: 'ts', },
-    { label: 'JavaScript, SDK v6.x', value: 'js-old', },
-    { label: 'TypeScript, SDK v6.x', value: 'ts-old', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
 
 ```js
 // Using the .then() method to add a continuation handler for a Promise
@@ -283,8 +249,8 @@ client.variation('flag-key-123abc', context, false).then((value) => {
 const value = await client.variation('flag-key-123abc', context, false);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="Node.js SDK v7.0 (TypeScript)">
 
 ```ts
 // Using the .then() method to add a continuation handler for a Promise
@@ -300,8 +266,8 @@ const value = await client.variation('flag-key-123abc', context, false);
 // if you know the type of your flag variations
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x (JavaScript)">
 
 ```js
 // Using the .then() method to add a continuation handler for a Promise
@@ -313,8 +279,8 @@ client.variation('flag-key-123abc', user, false).then((value) => {
 const value = await client.variation('flag-key-123abc', user, false);
 
 ```
-</CodeTabItem>
-<CodeTabItem value="ts-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x (TypeScript)">
 
 ```ts
 // Using the .then() method to add a continuation handler for a Promise
@@ -330,18 +296,13 @@ const value = await client.variation('flag-key-123abc', user, false);
 // if you know the type of your flag variations
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There is also an alternative to the `ready` event:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 // Using .then() and .catch() to add success and error handlers to a Promise
@@ -360,8 +321,8 @@ try {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 `allFlagsState` and `flush` also return a `Promise`.
 
