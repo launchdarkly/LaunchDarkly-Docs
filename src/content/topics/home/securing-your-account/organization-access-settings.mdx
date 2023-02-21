@@ -52,3 +52,14 @@ To enable matched seat provisioning:
 ![Organization access settings with matched seat provisioning enabled.](domain-matching-seat-provisioning-enabled.png)
 
 Matched seat provisioning is now enabled, and new members whose verified email domains match the Owner's email domain can automatically join your LaunchDarkly account if there are available seats.
+
+LaunchDarkly assigns the Reader role by default to new members who automatically join your account. To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles).
+
+<Callout intent="warning">
+<CalloutTitle>Accounts with SSO enabled do not support domain matching and matched seat provisioning</CalloutTitle>
+<CalloutDescription>
+
+SSO requires members to log in through their identity provider. New members will be able to discover, but not join, accounts with SSO enabled.
+
+</CalloutDescription>
+</Callout>
