@@ -60,6 +60,7 @@ You can use the following server-side SDKs to generate a secure mode hash:
 
 * [.NET (server-side)](#net-server-side)
 * [Go](#go)
+* [Haskell](#haskell)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
 * [PHP](#php)
@@ -118,6 +119,26 @@ client.SecureModeHash(user)
 </CSTab>
 </CodeSample>
 </Details>
+
+### Haskell
+
+<Details summary="Expand Haskell code sample">
+
+The `secureModeHash` method computes an HMAC signature of a context signed with the client's SDK key.
+
+Here is the method:
+
+<CodeSample>
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+secureModeHash client context
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
 
 ### Java
 
