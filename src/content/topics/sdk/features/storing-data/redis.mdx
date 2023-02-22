@@ -186,7 +186,11 @@ To learn more, read [`go-server-sdk-redis`](https://pkg.go.dev/github.com/launch
 
 <Details summary="Expand Haskell code sample">
 
-If using the Haskell SDK you must install an additional package named `launchdarkly-server-sdk-redis`.
+To use Redis with the Haskell SDK, you must install an additional package.
+
+If you are working with version 4.0 of the Haskell SDK, use [`launchdarkly-server-sdk-redis-hedis`](https://hackage.haskell.org/package/launchdarkly-server-sdk-redis-hedis), which is in a separate repository. It is compatible with version 4.0 and higher of the Haskell SDK.
+
+If you are working with versions 3.x and earlier, use [`launchdarkly-server-sdk-redis`](https://github.com/launchdarkly/haskell-server-sdk/tree/3.x/stores/launchdarkly-server-sdk-redis).
 
 <CodeSample>
 <CSTab label="Haskell">
