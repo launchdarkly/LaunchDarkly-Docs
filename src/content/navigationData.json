@@ -1414,7 +1414,13 @@
           },
           {
             "label": "Haskell SDK reference",
-            "path": "/sdk/server-side/haskell"
+            "path": "/sdk/server-side/haskell",
+            "items": [
+              {
+                "label": "Haskell SDK 3.x to 4.0 migration guide",
+                "path": "/sdk/server-side/haskell/migration-3-to-4"
+              }
+            ]
           },
           {
             "label": "Java SDK reference",
