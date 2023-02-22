@@ -2449,10 +2449,32 @@ You still need to generate a unique key for anonymous contexts. Session IDs or U
 
 <Details summary="Expand Haskell code sample">
 
-Here's an example of a user:
+Here's an example of a context:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import LaunchDarkly.Server.Context
+
+import Data.Function ((&))
+
+-- Context with key and kind
+context1 :: Context
+context1 = makeContext "context-key-123abc" "user"
+
+-- Context with a key plus other attributes
+context2 :: Context
+context2 = makeContext "context-key-456def" "organization"
+    & withAttribute "name" "Global Health Services"
+    & withAttribute "email" "info@globalhealthexample.com"
+    & withAttribute "address" $ Object $ fromList [("street", "123 Main St"), ("city", "Springfield")]
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 {-# LANGUAGE OverloadedStrings #-}
@@ -2461,8 +2483,12 @@ import LaunchDarkly.Server.User
 
 import Data.Function ((&))
 
-user :: User
-user = (makeUser "user-key-123abc")
+-- User with only a key
+user1 :: User
+user1 = (makeUser "user-key-123abc")
+
+user2 :: User
+user2 = (makeUser "user-key-456def")
     & setFirstName "Sandy"
     & setLastName "Smith"
     & setEmail "sandy@example.com"
@@ -2471,14 +2497,14 @@ user = (makeUser "user-key-123abc")
 </CSTab>
 </CodeSample>
 
-The argument to `makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `makeUser` is the context's key. The key is the only mandatory attribute. The combination of the key and kind should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
-#### Private user attributes in the Haskell SDK
+#### Private attributes in the Haskell SDK
 ---
 
-Optionally, you can configure the Haskell SDK to treat some or all user attributes as private user attributes. You can use private user attributes for targeting purposes without sending data about the user associated with them back to LaunchDarkly.
+Optionally, you can configure the Haskell SDK to treat some or all context attributes as [private attributes](/home/contexts/attributes#using-private-context-attributes). You can use private context attributes for targeting purposes, but the SDK removes private context attributes from the data it sends to LaunchDarkly.
 
-When you create the `Config` object, use `configSetAllAttributesPrivate` to set all user attributes as private. When you do this, all user attributes (except the key) are removed before the SDK sends the user to LaunchDarkly.
+When you create the `Config` object, use `configSetAllAttributesPrivate` to set all context attributes as private. When you do this, all context attributes, except the key and kind, are removed before the SDK sends the context to LaunchDarkly.
 
 Here's how:
 
@@ -2486,13 +2512,13 @@ Here's how:
 <CSTab label="Haskell">
 
 ```haskell
-config' = configSetAllAttributesPrivate True config
+makeConfig "sdk-key" & configSetAllAttributesPrivate True
 ```
 
 </CSTab>
 </CodeSample>
 
-When you create the `Config` object, you can list specific private attributes with `configSetPrivateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+When you create the `Config` object, you can list specific private attributes with `configSetPrivateAttributeNames`. If any context has attributes named in this list, the SDK removes them before sending the context to LaunchDarkly.
 
 Here's an example:
 
@@ -2500,31 +2526,44 @@ Here's an example:
 <CSTab label="Haskell">
 
 ```haskell
-import Data.Set (fromList)
+import qualified Data.Set as S
+import qualified LaunchDarkly.Server.Reference as R
 
-config' = configSetPrivateAttributeNames (fromList ["email"]) config
+makeConfig sdkKey
+  & configSetAllAttributesPrivate True
+  & configSetPrivateAttributeNames (S.fromList $ map R.makeLiteral ["name", "email"])
 ```
 
 </CSTab>
 </CodeSample>
 
-You can also define private attribute names on a per-user basis.
+You can also define private attribute names on a per-context basis.
 
 For example:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+makeContext "key" "user"
+  & withName "Sandy"
+  & withAttribute "email" "sandy@example.com"
+  & withPrivateAttributes (S.fromList $ map R.makeLiteral ["name", "email"])
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 import Data.Set (fromList)
 
-user' = userSetPrivateAttributeNames (fromList ["email"]) user
+user' = userSetPrivateAttributeNames (fromList ["name", "email"]) user
 ```
 
 </CSTab>
 </CodeSample>
 
-#### Anonymous users in the Haskell SDK
+#### Anonymous contexts in the Haskell SDK
 ---
 
 If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
@@ -2532,7 +2571,15 @@ If your application has both anonymous and logged-in states, you can distinguish
 Here's how:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+makeContext "user-key-123abc" "user"
+  & withAnonymous True
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 user` = userSetAnonymous True user
@@ -2541,7 +2588,7 @@ user` = userSetAnonymous True user
 </CSTab>
 </CodeSample>
 
-You still must generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
+You still must generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>
 
 ### Java

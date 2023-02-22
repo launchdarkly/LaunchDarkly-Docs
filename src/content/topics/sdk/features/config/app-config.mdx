@@ -232,6 +232,7 @@ This feature is available for the following server-side SDKs:
 * [Erlang](#erlang)
 * [Go](#go)
 * [Java](#java)
+* [Haskell](#haskell)
 * [Node.js (server-side)](#nodejs-server-side)
 * [PHP](#php)
 * [Python](#python)
@@ -308,6 +309,36 @@ LDConfig config = new LDConfig.Builder()
 </CodeSample>
 
 For a complete list of configuration options for the client, including proxy settings, timeouts, and streaming/polling options, read the Javadoc for [LDConfig.Builder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html).
+</Details>
+
+### Haskell
+
+<Details summary="Expand Haskell code sample">
+
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object.
+
+The code in this sample configures the application identifier and application version:
+
+<CodeSample>
+<CSTab label="Haskell">
+
+```haskell
+{-# LANGUAGE OverloadedStrings #-}
+
+import LaunchDarkly.Server.Config
+
+import Data.Function ((&))
+
+config :: Config
+config = makeConfig "sdk-key-123abc" & configSetApplicationInfo appInfo
+    where appInfo = makeApplicationInfo
+            & withApplicationValue "id" "authentication-service"
+            & withApplicationValue "version" "1.0.0"
+```
+
+</CSTab>
+</CodeSample>
+
 </Details>
 
 ### Node.js (server-side)

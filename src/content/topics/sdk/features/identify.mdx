@@ -756,12 +756,21 @@ To learn more, read [`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-ser
 
 <Details summary="Expand Haskell code sample">
 
-In most cases, you do not need to call `identify`. The `Variation` methods automatically create users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+
+In most cases, you do not need to call `identify`. The `Variation` methods automatically create contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+identify client context
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 identify client user

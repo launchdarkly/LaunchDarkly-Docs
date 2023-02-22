@@ -498,12 +498,18 @@ You can also attach custom data to your event by calling [`TrackData`](https://p
 
 <Details summary="Expand Haskell code sample">
 
-The `track` function lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` function lets you record actions customers take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+track client context "metric-key-123abc" Nothing Nothing
+```
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 track client user "metric-key-123abc" Nothing Nothing

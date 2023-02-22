@@ -430,12 +430,19 @@ To learn more, read the [API documentation](https://pkg.go.dev/github.com/launch
 
 <Details summary="Expand Haskell code sample">
 
-The `allFlags` function captures the state of all feature flag keys as evaluated for a specific user. This includes their values, as well as other metadata.
+The `allFlags` function captures the state of all feature flag keys as evaluated for a specific context. This includes their values, as well as other metadata.
 
 To use the all flags feature:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+state = allFlagsState client context False False False
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 state = allFlags client user

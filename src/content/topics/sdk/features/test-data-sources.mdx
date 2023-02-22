@@ -602,12 +602,22 @@ import qualified LaunchDarkly.Server.Integrations.TestData as TestData
 To set a flag to a specific value:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
 
 ```haskell
 TestData.update td =<< ( TestData.flag td "flag-key-123abc"
 	<&> TestData.booleanFlag
-	<&> TestData.variationForAllUsers True
+	<&> TestData.variationForAll True
+)
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
+
+```haskell
+TestData.update td =<< ( TestData.flag td "flag-key-123abc"
+    <&> TestData.booleanFlag
+    <&> TestData.variationForAllUsers True
 )
 ```
 
@@ -617,13 +627,34 @@ TestData.update td =<< ( TestData.flag td "flag-key-123abc"
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
 
 ```haskell
--- This flag is true for the user key "some-user-key" and false for everyone else
+-- This flag is true for the context with kind "context-kind" and key "context-key-123abc", and false for everyone else
 TestData.update td =<< ( TestData.flag td "flag-key-456def"
 	<&> TestData.booleanFlag
-	<&> TestData.variationForUser "some-user-key" (0 :: TestData.VariationIndex)
+	<&> TestData.variationForKey "context-kind" "context-key-123abc" (0 :: TestData.VariationIndex)
+	<&> TestData.fallthroughVariation (1 :: TestData.VariationIndex)
+)
+
+-- This flag returns the string variation "green" for contexts with kind "context-kind"
+-- that have the custom attribute "admin" with a value of true, and "red" for everyone else.
+TestData.update td =<< ( TestData.flag td "flag-key-456def"
+	<&> TestData.variations [toJSON "red", toJSON "green"]
+	<&> TestData.ifMatchContext "context-kind" "admin" [Aeson.Bool True]
+	<&> TestData.thenReturn (1 :: TestData.VariationIndex)
+	<&> TestData.fallthroughVariation (0 :: TestData.VariationIndex))
+)
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
+
+```haskell
+-- This flag is true for the user key "user-key-123abc" and false for everyone else
+TestData.update td =<< ( TestData.flag td "flag-key-456def"
+	<&> TestData.booleanFlag
+	<&> TestData.variationForUser "user-key-123abc" (0 :: TestData.VariationIndex)
 	<&> TestData.fallthroughVariation (1 :: TestData.VariationIndex)
 )
 

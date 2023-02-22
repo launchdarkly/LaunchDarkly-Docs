@@ -587,21 +587,36 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand Haskell code sample">
 
-The `variation` family of functions determine whether a flag is enabled or not for a specific user. The functions take a `Client`, `User`, feature flag key, and a default value.
+The `variation` family of functions determine whether a flag is enabled or not for a specific context. In Haskell, there is a `variation` function for each type:
+
+* [`boolVariation`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:boolVariation)
+* [`intVariation`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:intVariation)
+* [`doubleVariation`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:doubleVariation)
+* [`stringVariation`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:stringVariation)
+* [`jsonVariation`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:jsonVariation)
+
+The functions take a `Client`, `Context`, feature flag key, and a default value. In the example below, the default value is `False`.
 
 Here is an example:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
 
 ```haskell
-myBoolVariation <- boolVariation client user "flag-key-123abc" False
+myBoolVariation <- boolVariation client "flag-key-123abc" context False
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
+
+```haskell
+myBoolVariation <- boolVariation client "flag-key-123abc" user False
 ```
 
 </CSTab>
 </CodeSample>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 

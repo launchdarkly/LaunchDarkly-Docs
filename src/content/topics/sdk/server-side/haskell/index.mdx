@@ -101,12 +101,19 @@ If you have multiple LaunchDarkly projects, you can create one `LDClient` for ea
 </CalloutDescription>
 </Callout>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use `client` to check which variation a particular context will receive for a given feature flag. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Flag evaluation reasons](/sdk/features/evaluation-reasons). For more information about how contexts are specified, read [User and context configuration](/sdk/features/user-context-config).
 
 Here's how:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+boolVariation client "flag-key-123abc" (makeContext "context-key-123abc" "context-kind") False
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 boolVariation client "flag-key-123abc" (makeUser "user-key-123abc") False
@@ -123,8 +130,9 @@ Lastly, shut down the client when your application terminates. To learn more, re
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#haskell)
-* [Configuration](/sdk/features/config#haskell)
+* [Configuration](/sdk/features/config#haskell), including
+  * [Application metadata configuration](/sdk/features/app-config#haskell)
+  * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#haskell)
 * [Evaluating flags](/sdk/features/evaluating#haskell)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#haskell)
 * [Flushing events](/sdk/features/flush#haskell)
@@ -137,7 +145,6 @@ This SDK supports the following features:
   * [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode#haskell)
 * [Secure mode](/sdk/features/secure-mode#haskell)
 * [Sending custom events](/sdk/features/events#haskell)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#haskell)
 * [Shutting down](/sdk/features/shutdown#haskell)
 * [Storing data](/sdk/features/storing-data#haskell)
 * [Test data sources](/sdk/features/test-data-sources#haskell)

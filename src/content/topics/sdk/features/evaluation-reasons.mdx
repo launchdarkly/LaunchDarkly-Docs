@@ -835,17 +835,25 @@ The `variationDetail` functions are similar to the `variation` functions, but th
 Here is an example:
 
 <CodeSample>
-<CSTab label="Haskell">
+<CSTab label="Haskell SDK v4.0">
 
 ```haskell
 details :: IO (EvaluationDetail Bool)
-details = boolVariationDetail client user "flag-key-123abc" False
+details = boolVariationDetail client "flag-key-123abc" context False
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
+
+```haskell
+details :: IO (EvaluationDetail Bool)
+details = boolVariationDetail client "flag-key-123abc" user False
 ```
 
 </CSTab>
 </CodeSample>
 
-For specific information on the `EvaluationDetail` structure, inspect the `LaunchDarkly.Server.Details` module.
+To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#t:EvaluationDetail) and [`boolVariationDetail`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:boolVariationDetail).
 </Details>
 
 ### Java
