@@ -62,7 +62,7 @@ We generally recommend using DynamoDB for persistent storage with the Relay Prox
 
 If you use Redis with the Relay Proxy, each of your Redis hosts will need enough RAM to load the full set of segments and flag configurations, because the Relay Proxy doesn't support Redis in cluster mode or other sharding. The Relay Proxy will not realize that Redis is empty if it became empty after the Relay Proxy fully initialized. Redis’ default configuration empties the database on reboot, so you must put Redis in persistent storage mode.
 
-To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/users/big-segments).
+To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/contexts/big-segments).
 
 ### Server-side flag evaluation using Big Segments and the Relay Proxy
 
@@ -87,16 +87,26 @@ Error messages on initialization, including messages saying an environment was n
 3. In the LaunchDarkly UI, change the value of a feature flag so you will receive a different variation in production.
 4. Verify in your application that the flag value has changed.
 
-Alternatively, you can validate your Relay Proxy with `curl`. Note that you need to specify your Relay Proxy base URI, SDK key, and user details in the command:
+Alternatively, you can validate your Relay Proxy with `curl`. You must specify your Relay Proxy base URI, SDK key, and evaluation context in the command.
 
 <CodeSample>
-<CSTab label="Build and install the Relay Proxy">
+<CSTab label="Evaluate a feature flag, Relay Proxy v7.0">
+
+```bash
+curl -X REPORT localhost:8030/sdk/eval/context \
+  -H "Authorization: sdk-key-123abc" \
+  -H "Content-Type: application/json" \
+  -d '{"key": "context-key-123abc", "email":"sandy@example.com"}'
+```
+
+</CSTab>
+<CSTab label="Evaluate a feature flag, Relay Proxy v6.x">
 
 ```bash
 curl -X REPORT localhost:8030/sdk/eval/user \
-  -H "Authorization: YOUR_SDK_KEY" \
+  -H "Authorization: sdk-key-123abc" \
   -H "Content-Type: application/json" \
-  -d '{"key": "sdk-key-123abc", "email":"sandy@example.org"}'
+  -d '{"key": "user-key-123abc", "email":"sandy@example.com"}'
 ```
 
 </CSTab>
