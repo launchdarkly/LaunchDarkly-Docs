@@ -2167,10 +2167,20 @@ You still need to generate a unique key for anonymous users. Session IDs or UUID
 
 <Details summary="Expand Erlang code sample">
 
-Here's an example of a user:
+Here's an example of a context:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+    Context = ldclient_context:set(<<"name">>, <<"Sandy Smith">>,
+        ldclient_context:set(<<"email">>, <<"sandy@example.com">>,
+        ldclient_context:set(<<"group">>, [<<"microsoft">>, <<"google">>],
+        ldclient_context:new(<<"user-key">>, <<"user">>)))),
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```erlang
 Map = #{
@@ -2192,15 +2202,25 @@ User = ldclient_user:new_from_map(Map)
 </CSTab>
 </CodeSample>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The `key` property is the context's key. The key is the only mandatory context attribute. The combination of key and kind should uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
-#### Anonymous users in the Erlang SDK
+#### Anonymous contexts in the Erlang SDK
 ---
 
-Here's how to create anonymous users in the Erlang SDK:
+If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
+
+Here's how to create anonymous contexts in the Erlang SDK:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+    Context = ldclient_context:set(anonymous, true,
+        ldclient_context:new(<<"user-key-123abc">>))
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```erlang
 Key = <<"user-key-123abc">>,
@@ -2215,25 +2235,25 @@ User = ldclient_user:new_from_map(Map)
 </CSTab>
 </CodeSample>
 
-You must still generate a unique key for anonymous users. We recommend using Session IDs or UUIDs.
+You must still generate a unique key for anonymous contexts. We recommend using Session IDs or UUIDs.
 
-#### Private user attributes in the Erlang SDK
+#### Private attributes in the Erlang SDK
 ---
 
-You can configure the Erlang SDK to treat some or all user attributes as private user attributes. You can use private user attributes to target users without sending data associated with that user back to LaunchDarkly.
+You can configure the Erlang SDK to treat some or all context attributes as [private attributes](/home/contexts/attributes#using-private-context-attributes). You can use private attributes to target contexts without sending data associated with that context back to LaunchDarkly.
 
-When you create the Options map, use the `private_attributes` key to set private user attributes. When you do this, the SDK does not send the user attributes you specify to LaunchDarkly.
+When you create the Options map, use the `private_attributes` key to set private context attributes. When you do this, the SDK does not send the context attributes you specify to LaunchDarkly.
 
 <Callout>
-<CalloutTitle>The SDK always sends the user key</CalloutTitle>
+<CalloutTitle>The SDK always sends the context key and kind</CalloutTitle>
 <CalloutDescription>
 
-The user key is not optional. You cannot set it as a private user attribute.
+The context key is not optional. You cannot set either the context key or the context kind as a private attribute.
 
 </CalloutDescription>
 </Callout>
 
-Here's how to set user attributes as private:
+Here's how to set context attributes as private for all contexts:
 
 <CodeSample>
 <CSTab label="Erlang">
@@ -2244,6 +2264,28 @@ ldclient:start_instance("sdk-key-123abc", your_instance, #{private_attributes =>
 
 </CSTab>
 </CodeSample>
+
+Here's how to set context attributes as private for a specific context:
+
+<CodeSample>
+<CSTab label="Erlang">
+
+```erlang
+    ContextWithPrivateAttributes = ldclient_context:set_private_attributes([<<"name">>, <<"/address/street">>],
+        ldclient_context:set(<<"name">>, <<"Global Health Services">>,
+        ldclient_context:set(<<"email">>, <<"info@globalhealthexample.com">>,
+        ldclient_context:set(<<"address">>, #{
+            <<"street">> => <<"123 Main Street">>,
+            <<"city">> => <<"Springfield">>
+        },
+    ldclient_context:new(<<"context-key-456def">>, <<"organization">>))))),
+```
+
+</CSTab>
+</CodeSample>
+
+In the example, only the `name` and `/address/street` attributes are private for this context.
+
 </Details>
 
 ### Go
@@ -2303,7 +2345,7 @@ user2 := lduser.NewUserBuilder("user-key-456def").
 </CSTab>
 </CodeSample>
 
-The most common attribute is the context's key. In this case we used the strings `"context-key-123abc"` and `"context-key-456def"`. The key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, a hash, or some other value, as long as the same context always has the same context. We recommend using a hash if possible.
+The most common attribute is the context's key. In this case we used the strings `"context-key-123abc"` and `"context-key-456def"`. The key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, a hash, or some other value, as long as the same context always has the same key. We recommend using a hash if possible.
 
 To learn more about the available attributes, read [`Context`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#Context) and [`Builder`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#Builder).
 

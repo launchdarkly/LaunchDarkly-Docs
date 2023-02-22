@@ -1395,7 +1395,13 @@
           },
           {
             "label": "Erlang SDK reference",
-            "path": "/sdk/server-side/erlang"
+            "path": "/sdk/server-side/erlang",
+            "items": [
+              {
+                "label": "Erlang (server-side) SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/server-side/erlang/migration-1-to-2"
+              }
+            ]
           },
           {
             "label": "Go SDK reference",

@@ -706,7 +706,14 @@ The `variation_detail` function is similar to the variation function, but also r
 Here is an example:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
+
+```
+Flag = ldclient:variation_detail(<<"flag-key-123abc">>, #{key => <<"context-key-123abc">>}, false)
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```
 Flag = ldclient:variation_detail(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>}, false)

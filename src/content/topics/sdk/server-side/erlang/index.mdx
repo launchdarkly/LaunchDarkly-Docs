@@ -6,6 +6,19 @@ tags: ['erlang', 'sdk', 'server-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 2 of the Erlang SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Erlang SDK 1.x to 2.0 migration guide](/sdk/server-side/erlang/migration-1-to-2).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the Erlang SDK, and links to reference information on all of the supported features.
@@ -55,7 +68,7 @@ First, download the dependency using [Rebar](https://www.rebar3.org/):
 
 ```erlang
 {deps, [
-  {ldclient, "1.0.0", {pkg, launchdarkly_server_sdk}}
+  {ldclient, "2.0.0", {pkg, launchdarkly_server_sdk}}
 ]}.
 ```
 
@@ -86,7 +99,7 @@ If you use Elixir, you can download the dependency using [Mix](https://elixir-la
 ```erlang
 defp deps do
   [
-    {:ldclient, "~> 1.0.0", hex: :launchdarkly_server_sdk}
+    {:ldclient, "~> 2.0.0", hex: :launchdarkly_server_sdk}
   ]
 end
 ```
@@ -121,10 +134,17 @@ ldclient:start_instance("sdk-key-123abc", your_instance)
 </CSTab>
 </CodeSample>
 
-Next, check which flag variation a specific user should receive:
+Next, check which flag variation a specific context should receive:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"context-key-123abc">>}, false)
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```erlang
 Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>}, false)

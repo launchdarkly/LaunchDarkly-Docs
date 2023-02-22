@@ -444,12 +444,19 @@ You can also attach custom data to your event by calling [`LDClientTrackMetric()
 
 <Details summary="Expand Erlang code sample">
 
-The `track` function lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` function lets you record actions customers take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
+
+```
+ldclient:track(<<"metric-key-123abc">>, #{key => <<"context-key-123abc">>}, #{data => <<"example">>})
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```
 ldclient:track(<<"metric-key-123abc">>, #{key => <<"user-key-123abc">>}, #{data => <<"example">>})

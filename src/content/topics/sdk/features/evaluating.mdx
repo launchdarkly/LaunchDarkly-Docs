@@ -525,19 +525,26 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand Erlang code sample">
 
-The `variation` function determines whether a flag is enabled or not for a specific user. The functions take a flag key, user, default value and an instance tag. The instance tag is optional.
+The `variation` function determines whether a flag is enabled or not for a specific context. The functions take a flag key, context, default value, and an instance tag. In the example below, the default value is false. The instance tag is optional.
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
 
 ```
-Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>,}, false, my_instance)
+Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"context-key-123abc">>,}, false, your_instance)
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
+
+```
+Flag = ldclient:variation(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>,}, false, your_instance)
 ```
 
 </CSTab>
 </CodeSample>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 

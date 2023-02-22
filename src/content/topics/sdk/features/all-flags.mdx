@@ -371,12 +371,19 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/c-ser
 
 <Details summary="Expand Erlang code sample">
 
-The `all_flags_state` function captures the state of all feature flag keys as evaluated for a specific user. This includes their values and other metadata.
+The `all_flags_state` function captures the state of all feature flag keys as evaluated for a specific context. This includes their values and other metadata.
 
 To use the all flags feature:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang v2.0">
+
+```
+ldclient:all_flags_state(#{key => <<"context-key-123abc">>})
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```
 ldclient:all_flags_state(#{key => <<"user-key-123abc">>})

@@ -428,7 +428,15 @@ ldclient:start_instance(SdkKey, Options),
 To set a flag to a specific value:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+{ok, Flag} = ldclient_testdata:flag("flag-key-123abc"),
+ldclient_testdata:update(ldclient_flagbuilder:variation_for_all(true, Flag)),
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```erlang
 {ok, Flag} = ldclient_testdata:flag("flag-key-123abc"),
@@ -441,7 +449,27 @@ ldclient_testdata:update(ldclient_flagbuilder:variation_for_all_users(true, Flag
 There are other ways you can configure flag behavior using a test data source. Here is an example:
 
 <CodeSample>
-<CSTab label="Erlang">
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+%% This flag is true for the context key "user-key-123abc" and false for everyone else
+{ok, Flag2} = ldclient_testdata:flag("flag-key-456def"),
+UpdatedFlag2 = ldclient_flagbuilder:fallthrough_variation(false,
+  ldclient_flagbuilder:variation_for_context(true,  <<"user">>, <<"user-key-123abc">>, Flag2)
+),
+
+%% This flag returns the string variation "green" for contexts that have the custom
+%% attribute "admin" with a value of true, and "red" for everyone else.
+{ok, Flag} = ldclient_testdata:flag("flag-key-789ghi"),
+UpdatedFlag = ldclient_flagbuilder:fallthrough_variation(0,
+              ldclient_flagbuilder:then_return(1,
+              ldclient_flagbuilder:if_match(<<"user">>, <<"admin">>, [true],
+              ldclient_flagbuilder:variations([<<"red">>, <<"green">>], Flag)))),
+ldclient_testdata:update(UpdatedFlag),
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```erlang
 %% This flag is true for the user key "some-user-key" and false for everyone else
