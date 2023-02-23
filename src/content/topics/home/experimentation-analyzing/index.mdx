@@ -32,6 +32,18 @@ The horizontal x-axis displays the unit of the primary metric included in the ex
 
 To learn more about interpreting an experiment's results, read [Reading results graphs](/home/analyzing-experiments/results).
 
+## Determining how long an experiment should run
+
+When conducting an experiment, two factors are crucial in deciding when to make a decision:
+
+1. The current probability of the winning variation being the best, and how long it would take to improve your confidence.
+
+2. The level of risk involved in rolling out the winning option to all users.
+
+By both analyzing the results of the sample size estimator and weighing the risk of having possible negative impact on a metric, you can determine if it's worth waiting for more data to increase confidence or if the risk is low enough to proceed. Figuring out the risk of decision can be done by looking at the metrics being experimented on, and determining the business value that metric represents. Continuing to run an experiment with a low probability of positive impact and a high risk of negative impact would not make sense, for example.
+
+![An experiments sample size estimator results.](sample-size-estimator.png)
+
 ## Choosing a winning variation
 
 The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations tested. To learn more, read [Winning variations](/home/analyzing-experiments/winning-variation).
