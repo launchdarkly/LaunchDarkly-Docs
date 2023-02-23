@@ -29,26 +29,9 @@ If you update to the latest 2.28 version, deprecation warnings appear in areas o
 
 ## Identifying supported React versions and dependencies for the v3 SDK
 
-The minimum React version for the LaunchDarkly React Web v3 SDK is 16.3.3. If you want to use hooks, the minimum version is 16.8.
+The minimum React version for the LaunchDarkly React Web v3 SDK is 16.3.3. If you want to use hooks, the minimum version is 16.8. LaunchDarkly no longer supports earlier React Web versions, as stated in the [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
 
-The React Web SDK v3 uses optional chaining. You can ensure support for optional chaining by using Webpack 5. If you are using Webpack 4, you must update your `package.json` file to include a version of `acorn` that transpiles the optional chaining operator. The [React async provider example](https://github.com/launchdarkly/react-client-sdk/tree/main/examples/async-provider) uses this solution.
-
-Here's how:
-
-<CodeSample>
-<CSTab label="package.json">
-
-```json
-"resolutions": {
-    "acorn": "npm:acorn-with-stage3"
-  }
-```
-</CSTab>
-</CodeSample>
-
-If you are not using Webpack, you will need to ensure that your bundler is configured correctly to transpile optional chaining.
-
-LaunchDarkly no longer supports earlier React Web versions, as stated in the [End of Life policy](https://launchdarkly.com/policies/end-of-life-policy/).
+The React Web SDK version 3.0.0 uses optional chaining. If you encounter an error related to optional chaining during transpiling, bundling, or running tests, updating to version 3.0.2 should resolve the error.
 
 ## Understanding changes to provider configuration
 

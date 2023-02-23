@@ -92,7 +92,7 @@ The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. H
 
 The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, read [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
-Additionally, the JavaScript SDK versions 3 and higher use optional chaining. You can ensure support for optional chaining by using Webpack 5. If you are using Webpack 4, you must manually update your `package.json` file. To learn more, read [Dependencies for the v3 SDK](/sdk/client-side/javascript/migration-2-to-3#dependencies-for-the-v3-sdk).
+Additionally, the JavaScript SDK versions 3.0.0 and 3.1.0 use optional chaining. If you encounter an error related to optional chaining during transpiling, bundling, or running tests, updating to version 3.1.1 should resolve the error.
 
 <Callout intent="alert">
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>

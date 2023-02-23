@@ -27,22 +27,7 @@ Before you migrate to version 3.0, update to the latest 2.x version. If you upda
 
 ## Dependencies for the v3 SDK
 
-The LaunchDarkly JavaScript SDK versions 3.0 and higher use optional chaining. You can ensure support for optional chaining by using Webpack 5. If you are using Webpack 4, you must update your `package.json` file to include a version of `acorn` that transpiles the optional chaining operator.
-
-Here's how:
-
-<CodeSample>
-<CSTab label="package.json">
-
-```json
-"resolutions": {
-    "acorn": "npm:acorn-with-stage3"
-  }
-```
-</CSTab>
-</CodeSample>
-
-If you are not using Webpack, you will need to ensure that your bundler is configured correctly to transpile optional chaining.
+The JavaScript SDK versions 3.0.0 and 3.1.0 use optional chaining. If you encounter an error related to optional chaining during transpiling, bundling, or running tests, updating to version 3.1.1 should resolve the error.
 
 ## Understanding contexts
 
