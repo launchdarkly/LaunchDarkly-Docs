@@ -93,7 +93,7 @@ Alternatively, you can validate your Relay Proxy with `curl`. You must specify y
 <CSTab label="Evaluate a feature flag, Relay Proxy v7.0">
 
 ```bash
-curl -X REPORT localhost:8030/sdk/eval/context \
+curl -X REPORT localhost:8030/sdk/evalx/context \
   -H "Authorization: sdk-key-123abc" \
   -H "Content-Type: application/json" \
   -d '{"key": "context-key-123abc", "email":"sandy@example.com"}'
