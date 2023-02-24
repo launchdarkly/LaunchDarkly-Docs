@@ -82,8 +82,8 @@ Here are the configuration options for context and user entities in client-side 
 * [iOS](#ios)
 * [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
-* [React](#javascript): The React SDK relies on the JavaScript SDK for user-related functionality.
 * [React Native](#react-native)
+* [React Web](#javascript): The React SDK relies on the JavaScript SDK for context-related functionality.
 * [Roku](#roku)
 
 ### .NET (client-side)
@@ -1680,22 +1680,38 @@ const anonymousUser2: ld.LDUser = { key: 'user-key-123abc', anonymous: true };
 We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
 
-### React
-
-All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
-
-Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If you do not specify one, the React SDK uses an anonymous user by default.
-
 ### React Native
 
 <Details summary="Expand React Native code sample">
 
-Here is a complete user configuration object utilizing all available fields:
+Here is a context configuration object:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="React Native SDK v7.0 (JavaScript)">
 
 ```js
+// key and kind are the only required attributes
+
+let context = {
+  key: 'user-key-123abc',
+  kind: 'user',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  address: {
+    street: '123 Main St',
+    city: 'Springfield'
+  }
+};
+```
+
+</CSTab>
+<CSTab label="React Native SDK, v6.x (JavaScript)">
+
+```js
+// in v6.x and earlier, the user object has a set of built-in attributes
+// you can add additional attributes under 'custom'
+
 let user = {
   key: '2fbfa269b78e24c8e967f482b89c939b',
   name: 'Sandy Smith',
@@ -1713,10 +1729,33 @@ let user = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="React Native v7.0 (TypeScript)">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+// key and kind are the only required attributes
+
+let context: ld.LDContext = {
+  key: 'user-key-123abc',
+  kind: 'user',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  address: {
+    street: '123 Main St',
+    city: 'Springfield'
+};
+```
+
+</CSTab>
+<CSTab label="React Native v6.x (TypeScript)">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+// in v6.x and earlier, the user object has a set of built-in attributes
+// you can add additional attributes under 'custom'
 
 let user: ld.LDUser = {
   key: '2fbfa269b78e24c8e967f482b89c939b',
@@ -1737,21 +1776,120 @@ let user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-The first attribute in the object is the user's key. In this case we've used the value `2fbfa269b78e24c8e967f482b89c939b`. The user key is the only mandatory user attribute. The key should also uniquely identify each user. You can use any value such as a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible.
+The first attribute in the object is the `key`. In the example, the value is `user-key-123abc`. key and kind are the only mandatory attributes. The combination of `key` and `kind` should also uniquely identify each context. You can use any value such as a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible.
 
-#### Private user attributes in the React Native SDK
+Other attributes can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+#### Private attributes in the React Native SDK
 ---
 
-Private attributes allow you to specify keys you do not want to send to the LaunchDarkly servers. You can use private context attributes for targeting purposes, but the SDK removes private context attributes from the data it sends to LaunchDarkly. When the SDK sends this user back to LaunchDarkly, it removes the `name` attribute.
+You can optionally configure the React Native SDK to treat attributes as [private context attributes](/home/contexts/attributes#using-private-context-attributes). Private attributes can be used for targeting purposes, but are removed from the context data sent back to LaunchDarkly.
 
-#### Anonymous user attributes in the React Native SDK
+You can configure this option in the configuration object, to apply to all contexts, either for all attributes or some attributes. Here's how:
+
+<CodeSample>
+<CSTab label="Mark all attributes private in config object">
+
+```js
+const config = {
+  mobileKey: 'mobile-key-123abc',
+  allAttributesPrivate: true
+};
+await ldClient.configure(config, context);
+```
+
+</CSTab>
+<CSTab label="Mark some attributes private in config object">
+
+```js
+const config = {
+  mobileKey: 'mobile-key-123abc',
+  privateAttributes: ['email', 'address']
+};
+await ldClient.configure(config, context);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read `allAttributesPrivate` and `privateAttributes` on [`LDConfig`](https://launchdarkly.github.io/react-native-client-sdk/index.html#LDConfig).
+
+You can also mark an attribute as private for a particular context. Here's how:
+
+<CodeSample>
+<CSTab label="Mark attributes private for one context">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  address: {
+    street: '123 Main St',
+    city: 'Springfield'
+  },
+  _meta: {
+    privateAttributes: ['email', '/address/street']
+  }
+};
+```
+
+</CSTab>
+</CodeSample>
+
+For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value. In the example, the attribute `"address": { "street": "Main St", "city": "Springfield" }` has only the `/address/street` marked as private.
+
+#### Anonymous contexts in the React Native SDK
 ---
 
-The `anonymous` key lets you distinguish logged out or unregistered users while still using LaunchDarkly. Anonymous users work just like regular users, except that they do not appear on your Users page in LaunchDarkly. This prevents unauthenticated users from diluting useful data on the **Users** list.
+You can distinguish logged out or unregistered end users from logged-in end users in the SDK. Anonymous contexts are just like regular contexts, except that they do not appear on the **Contexts** list in LaunchDarkly. This prevents unauthenticated end users from diluting useful data on the **Contexts** list.
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+If you omit the context key when building an anonymous context, the SDK sets the context key to a generated UUID. If you omit the context key and do not mark the context as anonymous, the SDK gives a usage error.
+
+If you use [multi-contexts](/home/contexts#understanding-contexts-and-context-kinds), you can choose to make only some contexts anonymous.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="Working with anonymous contexts">
+
+```js
+// This user context is not anonymous
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc'
+}
+
+// This device context is anonymous
+// The key is omitted, and the SDK will automatically generate one
+const deviceContext = {
+  kind: 'device',
+  deviceId: '12345',
+  anonymous: true
+}
+
+// The multi-context contains one anonymous context
+// and one non-anonymous context
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+```
+
+</CSTab>
+</CodeSample>
+
+We recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the logged-in end user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
 
+### React Web
+
+All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
+
+Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If you do not specify one, the React SDK uses an anonymous user by default.
 
 ### Roku
 

@@ -66,7 +66,8 @@ This feature is available in the following client-side SDKs:
 - [iOS](#ios)
 - [JavaScript](#javascript)
 - [Node.js (client-side)](#nodejs-client-side)
-- [React](#javascript): The React SDK relies on the JavaScript SDK for this functionality.
+- [React Native](#react-native)
+- [React Web](#javascript): The React SDK relies on the JavaScript SDK for this functionality.
 
 ### Android
 
@@ -224,6 +225,37 @@ const client = LDClient.initialize('client-side-id-123abc', context, options);
 To learn more, read [`application`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#application).
 
 </Details>
+
+### React Native
+
+<Details summary="Expand React Native code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeSample>
+<CSTab label="JavaScript">
+
+```js
+let client = new LDClient();
+
+let config = {
+  mobileKey: 'mobile-key-123abc',
+  application: {
+	   id: 'authentication-service',
+	   version: '1.0.0',
+  },
+};
+let context = { key: 'user-key-123abc', 'kind': 'user' };
+
+await ldClient.configure(config, context);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more about the specific configuration options that are available in this SDK, read the [`LDConfig`](https://launchdarkly.github.io/react-native-client-sdk/index.html#LDConfig).
+</Details>
+
 
 ## Server-side SDKs
 

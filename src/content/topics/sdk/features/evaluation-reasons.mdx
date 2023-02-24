@@ -468,12 +468,30 @@ To learn more about the `variationDetail` method, read [`LDEvaluationDetail`](ht
 
 <Details summary="Expand React Native code sample">
 
-The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="React Native SDK v7.0 (JavaScript)">
+
+```js
+let config = {
+  mobileKey: 'mobile-key-123abc',
+  evaluationReasons: true
+};
+await client.configure(config, context);
+
+const detail =
+  client.boolVariationDetail('flag-key-123abc', false);
+
+const value = detail.value;
+const index = detail.variationIndex;
+const reason = detail.reason;
+```
+
+</CSTab>
+<CSTab label="React Native SDK v6.x (JavaScript)">
 
 ```js
 let config = {

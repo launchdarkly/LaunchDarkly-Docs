@@ -425,7 +425,7 @@ const options: ld.LDOptions = {
 
 <Details summary="Expand React Native code sample">
 
-To configure an alternate service endpoint for the SDK, use the `streamUri`, `pollUri`, and `eventsUri` properties to set the base URIs:
+To configure an alternate service endpoint for the SDK, use the `streamUrl`, `pollUrl`, and `eventsUrl` properties to set the base URIs:
 
 <CodeSample>
 <CSTab label="JavaScript, connecting to federal instance">
@@ -433,9 +433,9 @@ To configure an alternate service endpoint for the SDK, use the `streamUri`, `po
 ```js
 let config = {
   mobileKey: 'mobile-key-123abc',
-  streamUri: 'https://clientstream.launchdarkly.us',
-  pollUri: 'https://clientsdk.launchdarkly.us',
-  eventsUri: 'https://events.launchdarkly.us',
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  pollUrl: 'https://clientsdk.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us',
 };
 ```
 
@@ -447,9 +447,9 @@ import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let config: ld.LDConfig = {
   mobileKey: 'mobile-key-123abc',
-  streamUri: 'https://clientstream.launchdarkly.us',
-  pollUri: 'https://clientsdk.launchdarkly.us',
-  eventsUri: 'https://events.launchdarkly.us',
+  streamUrl: 'https://clientstream.launchdarkly.us',
+  pollUrl: 'https://clientsdk.launchdarkly.us',
+  eventsUrl: 'https://events.launchdarkly.us',
 };
 ```
 
@@ -459,9 +459,9 @@ let config: ld.LDConfig = {
 ```js
 let config = {
   mobileKey: 'mobile-key-123abc',
-  streamUri: 'https://your-relay-proxy.com:8030',
-  pollUri: 'https://your-relay-proxy.com:8030',
-  eventsUri: 'https://your-relay-proxy.com:8030',
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  pollUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030',
 };
 ```
 
@@ -473,14 +473,17 @@ import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let config: ld.LDConfig = {
   mobileKey: 'mobile-key-123abc',
-  streamUri: 'https://your-relay-proxy.com:8030',
-  pollUri: 'https://your-relay-proxy.com:8030',
-  eventsUri: 'https://your-relay-proxy.com:8030',
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  pollUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030',
 };
 ```
 
 </CSTab>
 </CodeSample>
+
+In version 6.x and earlier, the config properties were named `streamUri`, `pollUri`, and `eventsUri`. They have been renamed to `streamUrl`, `pollUrl`, and `eventsUrl` in version 7.0.
+
 </Details>
 
 ### React Web

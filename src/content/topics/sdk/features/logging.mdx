@@ -26,7 +26,7 @@ This feature is available in the following client-side SDKs:
 * [Electron](#electron)
 * [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
-* [React](#react)
+* [React Web](#react-web)
 * [Roku](#roku)
 
 ### .NET (client-side)
@@ -147,11 +147,11 @@ Be aware of two considerations when enabling debug-level logging:
 
 </Details>
 
-### React
+### React Web
 
 <Details summary="Expand React code sample">
 
-The React SDK relies on the JavaScript SDK for logging-related functionality. In the default configuration, the SDK sends the output to the console and enables all log levels except `debug`.
+The React Web SDK relies on the JavaScript SDK for logging-related functionality. In the default configuration, the SDK sends the output to the console and enables all log levels except `debug`.
 
 To change the logging configuration, set `LDOptions.logger` to any object that implements the `LDLogger` interface and performs logging for the client. The `basicLogger`, available in the JavaScript SDK, produces such an object.
 

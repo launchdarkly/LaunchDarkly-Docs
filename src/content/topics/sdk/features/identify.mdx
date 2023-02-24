@@ -540,23 +540,43 @@ To learn more, read [`identify`](https://launchdarkly.github.io/react-native-cli
 
 <Details summary="Expand React Native code sample">
 
-If multiple users use your app on a single device, you may want to change users and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, and supports switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new user and immediately triggers an update of the latest flags from LaunchDarkly.
+If multiple customers use your app on a single device, you may want to change contexts and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, and supports switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new context and immediately triggers an update of the latest flags from LaunchDarkly.
 
 In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="React Native SDK v7.0 (JavaScript)">
 
 ```js
-let user = {'key': 'minimal_user'};
+let context = {'key': 'user-key-123abc', 'kind': 'user'};
+await client.identify(context); // promise resolves to null
+Alert.alert('identify', 'success');
+```
+
+</CSTab>
+<CSTab label="React Native SDK, v6.x (JavaScript)">
+
+```js
+let user = {'key': 'user-key-123abc'};
 await client.identify(user); //promise resolves to nil/null
 Alert.alert('identify', 'success');
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="React Native SDK v7.0 (TypeScript)">
+
+```ts
+import { LDContext } from 'launchdarkly-react-native-client-sdk';
+
+let context: LDContext = {'key': 'user-key-123abc', 'kind': 'user'};
+await client.identify(context); // promise resolves to null
+Alert.alert('identify', 'success');
+```
+
+</CSTab>
+<CSTab label="React Native SDK, v6.x (TypeScript)">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';

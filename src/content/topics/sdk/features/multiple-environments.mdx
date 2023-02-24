@@ -320,12 +320,27 @@ Track calls, listeners, and flag evaluation are all tied to the client instance 
 
 <Details summary="Expand React Native code sample">
 
-All `LDClient` instances evaluate against the same `LDUser`. The environment names and their corresponding mobile keys are specified in a `secondaryMobileKeys` map passed to your `LDConfig` object.
+All `LDClient` instances evaluate against the same `LDContext`. The environment names and their corresponding mobile keys are specified in a `secondaryMobileKeys` map passed to your `LDConfig` object.
 
 You do not need to manage `LDClient` instances. Instead, access an instance by passing the environment name to a method that supports multiple environments.
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="React Native SDK v7.0 (JavaScript)">
+
+```js
+let config = {
+  mobileKey: 'mobile-key-123abc',
+  secondaryMobileKeys: {
+    'platform': 'platform-mobile-key-456def',
+    'core': 'core-mobile-key-789ghi'
+  },
+};
+let context = {'key': 'user-key-123abc', 'kind': 'user'};
+await client.configure(config, context);
+```
+
+</CSTab>
+<CSTab label="React Native SDK, v6.x (JavaScript)">
 
 ```js
 let config = {
@@ -340,7 +355,25 @@ await client.configure(config, user);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="React Native SDK v7.0 (TypeScript)">
+
+```ts
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+
+let config: ld.LDConfig = {
+  mobileKey: 'mobile-key-123abc',
+  secondaryMobileKeys: {
+    'platform': 'platform-mobile-key-456def',
+    'core': 'core-mobile-key-789ghi'
+  },
+};
+let context: ld.LDContext = { 'key': 'user-key-123abc', 'kind': 'user' };
+
+await client.configure(config, context);
+```
+
+</CSTab>
+<CSTab label="React Native SDK v6.x (TypeScript)">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
@@ -360,5 +393,5 @@ await client.configure(config, user);
 </CSTab>
 </CodeSample>
 
-To use functionality with a secondary environment, provide the name of desired secondary environment as the `environment` parameter value to many `LDClient` methods. Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments. To learn more, read [`LDClient`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html).
+To use functionality with a secondary environment, provide the name of the desired secondary environment as the `environment` parameter value to many `LDClient` methods. Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments. To learn more, read [`LDClient`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html).
 </Details>

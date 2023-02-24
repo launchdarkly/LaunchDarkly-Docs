@@ -252,7 +252,7 @@ const options: ld.LDOptions = {
 
 <Details summary="Expand React Native code sample">
 
-To connect the SDK to the Relay Proxy, set the `streamUri`, `pollUri`, and `eventsUri` properties to the base URI of your Relay Proxy:
+To connect the SDK to the Relay Proxy, set the `streamUrl`, `pollUrl`, and `eventsUrl` properties to the base URI of your Relay Proxy:
 
 <CodeSample>
 <CSTab label="JavaScript">
@@ -260,9 +260,9 @@ To connect the SDK to the Relay Proxy, set the `streamUri`, `pollUri`, and `even
 ```js
 let config = {
   mobileKey: 'mobile-key-123abc',
-  streamUri: 'https://your-relay-proxy.com:8030',
-  pollUri: 'https://your-relay-proxy.com:8030',
-  eventsUri: 'https://your-relay-proxy.com:8030',
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  pollUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030',
 };
 ```
 
@@ -274,14 +274,17 @@ import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
 let config: ld.LDConfig = {
   mobileKey: 'mobile-key-123abc',
-  streamUri: 'https://your-relay-proxy.com:8030',
-  pollUri: 'https://your-relay-proxy.com:8030',
-  eventsUri: 'https://your-relay-proxy.com:8030',
+  streamUrl: 'https://your-relay-proxy.com:8030',
+  pollUrl: 'https://your-relay-proxy.com:8030',
+  eventsUrl: 'https://your-relay-proxy.com:8030',
 };
 ```
 
 </CSTab>
 </CodeSample>
+
+In version 6.x and earlier, the config properties were named `streamUri`, `pollUri`, and `eventsUri`. They have been renamed to `streamUrl`, `pollUrl`, and `eventsUrl` in version 7.0.
+
 </Details>
 
 ### Roku
