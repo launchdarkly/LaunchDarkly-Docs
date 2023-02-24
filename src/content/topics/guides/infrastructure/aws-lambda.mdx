@@ -511,7 +511,7 @@ While this works, it has also effectively eliminated the buffer entirely since a
 
 ### Closing the client
 
-When the client closes, it automatically sends any pending analytics events to LaunchDarkly. You can handle this using a [Graceful shutdown with AWS Lambda](https://github.com/aws-samples/graceful-shutdown-with-aws-lambda). This requires that you add an extension to your Lambda. You can use the CloudWatch Lambda Insight extension as it is built in.
+Before closing the client, flush any pending analytics events to LaunchDarkly. You can handle this using a [Graceful shutdown with AWS Lambda](https://github.com/aws-samples/graceful-shutdown-with-aws-lambda). This requires that you add an extension to your Lambda. You can use the CloudWatch Lambda Insight extension as it is built in.
 
 Here are the steps:
 
@@ -543,7 +543,8 @@ process.on('SIGTERM', async () => {
     console.info('[runtime] SIGTERM received');
 
     console.info('[runtime] cleaning up');
-    await client.close();
+    await client.flush()
+    client.close();
     console.info('LaunchDarkly connection closed');
     
     console.info('[runtime] exiting');
