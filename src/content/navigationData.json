@@ -1348,6 +1348,10 @@
                 "path": "/sdk/client-side/react/react-native"
               },
               {
+                "label": "React Native SDK 6.x to 7.0 migration guide",
+                "path": "/sdk/client-side/react/react-native-migration-6-to-7"
+              },
+              {
                 "label": "Gatsby plugin",
                 "path": "/sdk/client-side/react/gatsby"
               }

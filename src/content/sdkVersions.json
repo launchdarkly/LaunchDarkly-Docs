@@ -1445,6 +1445,11 @@
     "name": "React Native",
     "versions": [
       {
+        "versionMajorMinor": "7.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "02-24"
+      },
+      {
         "versionMajorMinor": "6.3",
         "releaseYear": 2023,
         "releaseMonthDay": "01-30"
