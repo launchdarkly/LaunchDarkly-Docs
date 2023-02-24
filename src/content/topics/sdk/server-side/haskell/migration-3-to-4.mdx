@@ -86,19 +86,14 @@ The methods for [evaluating flags](/sdk/features/evaluating) and determining [fl
 
 Here's how to evaluate a flag using a context:
 
-<CodeTabs
-  defaultValue="variation"
-  values={[
-    { label: '4.0 syntax', value: 'variation', },
-  ]
-}>
-<CodeTabItem value="variation">
+<CodeSample>
+<CSTab label="4.0 syntax">
 
 ```haskell
 boolVariation client "flag-key-123abc" context False
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding differences between users and contexts
 
@@ -106,60 +101,44 @@ Where you previously created users, now you must create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '3.x syntax, user with key', value: 'user', },
-    { label: '4.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="3.x syntax, user with key">
 
 ```haskell
 makeUser "user-key-123abc"
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="4.0 syntax, context with key">
 
 ```haskell
 makeContext "context-key-123abc" "user"
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '4.0 syntax, single context shortcut', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="4.0 syntax, single context shortcut">
 
 ```haskell
 makeContext "context-key-123abc" "organization"
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '4.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="4.0 syntax, multi-context">
 
 ```haskell
 makeMultiContext [ makeContext "user-key-123abc" "user"
                  , makeContext "device-key-123abc" "device"
                  ]
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -177,30 +156,24 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '3.x syntax, user with attributes', value: 'user', },
-    { label: '4.0 syntax, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="3.x syntax, user with attributes">
 
 ```haskell
 makeUser "user-key-123abc"
  & userSetName (Just "Sandy")
  & userSetEmail (Just "sandy@example.com")
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="4.0 syntax, context with attributes">
 
 ```haskell
 makeContext "user-key-123abc" "user"
   & withName "Sandy"
   & withAttribute "email" "sandy@example.com"
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -210,21 +183,16 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's one way to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: '4.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="4.0 syntax, context with object attributes">
 
 ```haskell
 makeContext "user-key-123abc" "user"
   & withName "Sandy"
   & withAttribute "address" (Object $ fromList [("street", "Main St"), ("city", "Springfield")])
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -247,20 +215,14 @@ In version 4.0, there are two scopes for which you can mark attributes as privat
 
 In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
-<CodeTabs
-  defaultValue="private-all"
-  values={[
-    { label: '4.0 syntax, all attributes marked private', value: 'private-all', },
-    { label: '4.0 syntax, two attributes marked private', value: 'private-some', },
-  ]
-}>
-<CodeTabItem value="private-all">
+<CodeSample>
+<CSTab label="4.0 syntax, all attributes marked private">
 
 ```haskell
 makeConfig "sdk-key" & configSetAllAttributesPrivate True
 ```
-</CodeTabItem>
-<CodeTabItem value="private-some">
+</CSTab>
+<CSTab label="4.0 syntax, two attributes marked private">
 
 ```haskell
 import qualified Data.Set as S
@@ -271,18 +233,13 @@ makeConfig sdkKey
   & configSetPrivateAttributeNames (S.fromList $ map R.makeLiteral ["name", "email"])
 config = LaunchDarkly::Config.new({private_attributes: ["name", "email"]})
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: '4.0 syntax, attribute marked private for one context', value: 'private', },
-  ]
-}>
-<CodeTabItem value="private">
+<CodeSample>
+<CSTab label="4.0 syntax, attribute marked private for one context">
 
 ```haskell
 makeContext "key" "user"
@@ -290,8 +247,8 @@ makeContext "key" "user"
   & withAttribute "email" "sandy@example.com"
   & withPrivateAttributes (S.fromList $ map R.makeLiteral ["name", "email"])
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -309,13 +266,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '4.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="4.0 syntax, associating two contexts">
 
 ```haskell
 let context1 = makeContext "user-key-123abc" "user"
@@ -323,8 +275,8 @@ let context1 = makeContext "user-key-123abc" "user"
     multiContext = makeMultiContext [context1, context2]
  in identify client multiContext
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to configuration options
 
