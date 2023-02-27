@@ -61,15 +61,16 @@ You can also use the REST API: [Get contexts](https://apidocs.launchdarkly.com/t
 
 </LearnMore>
 
-### Filtering contexts
+## Filtering contexts
 
-You can filter contexts on the **Contexts** list by context kind, name, key, or attribute.
+You can filter contexts on the **Contexts** list by context kind, name, or attribute.
 
 To filter contexts:
 
-1. In the filter field, enter all or the beginning of a name, kind, or attribute. This example is filtering by the built-in "user" context kind:
+1. In the filter field, enter all or the beginning of a context kind, name, or attribute. 
+  - To filter by an attribute for a specific context kind, separate the context kind and its attribute with a period (`.`). For example, to search the "state" attribute of "user" contexts, use `user.state`.
 
-![A search query for "user" context kinds.](contexts-filter-context-kind.png)
+![A search query for "user" context kinds.](contexts-filter-context-kind.png)<br />
 
 2. Press enter. Only contexts with matching attribute values now display on the **Contexts** list.
 
@@ -81,29 +82,59 @@ You can also use the REST API: [Search for contexts](https://apidocs.launchdarkl
 
 ### Using advanced filter strings
 
-A filter is a string that you pass as the value of a query parameter, usually named `filter`. This is a common pattern in software and internet-based tools. 
+In addition to filtering by context kind, name, or attribute, you can create advanced filter strings to search for specific values in specific fields.
 
-Here is a basic example of a filter: `example.com/search?filter=field equals value`.
+This table contains examples of advanced filter strings and what they search for:
 
-The "Context filtering elements reference" below explains the elements of this filtering example in detail.
+<Table>
+  <TableHeader>
+    <TableHeadCell>Filter string</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>
+      <code>location equals Springfield</code>
+    </TableCell>
+    <TableCell>
+      Searches for all context kinds for a location attribute with the value of "Springfield"
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>organization.location anyOf ["Springfield","Midway"]</code>
+    </TableCell>
+    <TableCell>
+      Searches for all organization contexts that have a location attribute with the value of "Springfield" or "Midway"
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>device.type startsWith "Samsung"</code>
+    </TableCell>
+    <TableCell>
+      Searches for all device contexts that have a type attribute that starts with "Samsung"
+    </TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
 
-<Details summary="Click to expand the context filtering elements reference">
+Expand the advanced context filtering reference below to learn how to create filter strings on the **Contexts** list.
 
-A filter string can have characters that are not valid inside a URL, so when a filter string appears in a URL, LaunchDarkly always assumes that the filter is URL-encoded. 
+<Details summary="Click to expand the advanced context filtering reference">
 
-In the following examples the string is *not* URL-encoded.
+A filter string contains three elements:
 
-The filter string is the portion after `filter=`. It is split into three sections: `field,` `equals`, and `value`. These three sections each have their own name.
-
-**Field**: The field is the first part of the filter string. It is a field in the contexts that you want to filter based on. Separate the context kind and its attribute with a period (`.`). For example, to search the "name" attribute of "user" contexts, use `user.name`.
-**Operator**: The operator is the second part of the filter string. It describes the conditions by which the filter identifies the match value.
-**Match value**: The match value is the third part of the filter string. It describes the values that the filter will identify. 
-
-In the example above, the filter only allows contexts that contain a `field` field with values that exactly matches `value`.
+- **Field**: The field is the first part of the filter string. It is a field in the contexts that you want to filter based on.
+  - If you're searching an attribute for a specific context kind, separate the context kind and its attribute with a period (`.`). 
+  - Field names are always strings. If they appear within double quotes (`"`), then they are encoded as if they were a JSON string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
+- **Operator**: The operator is the second part of the filter string. It describes the conditions by which the filter identifies the match value. To learn about all of the available operators, view the ["Operators" table below](#operators).
+- **Match value**: The match value is the third part of the filter string. It describes the values that the filter will identify. 
+  - A match value must be in the same format as a JSON value or an unquoted string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
 
 ### Operators
 
-This table lists the available operators and examples:
+This table lists all of the available operators and related examples:
 
 <Table>
   <TableHeader>
@@ -162,7 +193,7 @@ This table lists the available operators and examples:
     </TableCell>
     <TableCell>
       <code>user.name startsWith San</code><br />
-      <code>device.type startsWith "iOS"</code>
+      <code>device.os startsWith "iOS"</code>
     </TableCell>
   </TableRow>
   <TableRow>
@@ -223,13 +254,6 @@ This table lists the available operators and examples:
   </TableBody>
 </Table>
 
-### Match values
-
-A match value must be in the same format as a JSON value or an unquoted string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
-
-### Field names
-
-Field names are always strings. If they appear within double quotes (`"`), then they are encoded as if they were a JSON string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
 </Details>
 
 ### Customizing the Contexts list
