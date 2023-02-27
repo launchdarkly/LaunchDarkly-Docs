@@ -1,64 +1,57 @@
 module.exports = [
-  // Temporary redirects for U2C EAP
+  // Redirects for users-to-contexts
+
   {
-    fromPath: '/home/flags/targeting',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/flags/targeting',
+    fromPath: '/home/flags/debugger',
+    toPath: '/home/flags/live-events',
   },
   {
-    fromPath: '/home/flags/live-events',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/flags/live-events',
+    fromPath: '/home/flags/targeting-users',
+    toPath: '/home/flags/targeting',
   },
   {
-    fromPath: '/home/contexts',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts',
+    fromPath: '/home/users',
+    toPath: '/home/contexts',
   },
   {
-    fromPath: '/home/contexts/contexts-list',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/contexts-list',
+    fromPath: '/home/users/users-list',
+    toPath: '/home/contexts/contexts-list',
   },
   {
-    fromPath: '/home/contexts/context-details',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/context-details',
+    fromPath: '/home/users/attributes',
+    toPath: '/home/contexts/attributes',
   },
   {
-    fromPath: '/home/contexts/attributes',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/attributes',
+    fromPath: '/home/users/built-in-attributes',
+    toPath: '/home/contexts/built-in-attributes',
   },
   {
-    fromPath: '/home/contexts/built-in-attributes',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/built-in-attributes',
+    fromPath: '/home/users/custom-attributes',
+    toPath: '/home/contexts/custom-attributes',
   },
   {
-    fromPath: '/home/contexts/custom-attributes',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/custom-attributes',
+    fromPath: '/home/users/segments',
+    toPath: '/home/contexts/segments',
   },
   {
-    fromPath: '/home/contexts/context-kinds',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/context-kinds',
+    fromPath: '/home/users/standard-segments',
+    toPath: '/home/contexts/standard-segments',
   },
   {
-    fromPath: '/home/contexts/segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/segments',
+    fromPath: '/home/users/big-segments',
+    toPath: '/home/contexts/big-segments',
   },
   {
-    fromPath: '/home/contexts/standard-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/standard-segments',
+    fromPath: '/home/users/synced-segments',
+    toPath: '/home/contexts/synced-segments',
   },
   {
-    fromPath: '/home/contexts/big-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/big-segments',
+    fromPath: '/home/users/bulk-edit-segments',
+    toPath: '/home/contexts/bulk-edit-segments',
   },
   {
-    fromPath: '/home/contexts/synced-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/synced-segments',
-  },
-  {
-    fromPath: '/home/contexts/bulk-edit-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/bulk-edit-segments',
-  },
-  {
-    fromPath: '/home/contexts/anonymous-contexts',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/anonymous-contexts',
+    fromPath: '/home/users/anonymous-users',
+    toPath: '/home/contexts/anonymous-contexts',
   },
   {
     fromPath: '/sdk/features/user-config',
