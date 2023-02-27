@@ -1,7 +1,7 @@
 ---
 path: /guides/teams-roles/custom-roles
 title: Creating custom roles
-description: This guide explains best practices for managing custom roles and how to use a single-sign-on (SSO) provider for cross-domain identity management (SCIM) provisioning.
+description: This guide explains best practices for managing custom roles and how to use a single-sign-on (SSO) provider for cross-domain identity management (SCIM) provisioning.<
 published: true
 tags: ['custom role', 'guide', 'enterprise', 'admin', 'sso', 'policy']
 ---
@@ -69,7 +69,7 @@ To learn more about built-in roles, read [LaunchDarkly’s built-in roles](/home
 
 ### Custom roles
 
-Custom roles enable organizations to define granular permissions of actions that a user is allowed to perform or blocked from performing in LaunchDarkly.
+Custom roles enable organizations to define granular permissions of actions that an account member is allowed to perform or is blocked from performing in LaunchDarkly.
 
 Many organizations prefer to use custom roles instead of LaunchDarkly's built-in roles to access this additional flexibility when they configure SSO or SCIM.
 
@@ -77,7 +77,7 @@ To learn more, read [Custom roles](/home/members/custom-roles).
 
 ### Policies
 
-A policy in LaunchDarkly is a set of actions a role can or cannot take. Each policy is a list of statements allowing or denying a user access to resources and actions within LaunchDarkly.
+A policy in LaunchDarkly is a set of actions a role can or cannot take. Each policy is a list of statements allowing or denying an account member access to resources and actions within LaunchDarkly.
 
 Policies can be direct or inverse. A direct policy allows or denies access to the resource defined. An inverse policy allows or denies actions for all resources except the one listed.
 
@@ -129,19 +129,19 @@ To learn more about policies, read [Using policies](/home/members/role-policies)
 
 ### Identity provider
 
-An identity provider (IdP) is a service that creates, maintains, and manages users’ digital identities and permissions to use applications and services. It functions as a directory, sharing credentials with digital services and devices. IdPs communicate over Security Assertion Markup Language (SAML) or Open Authorization (OAuth).
+An identity provider (IdP) is a service that creates, maintains, and manages members’ digital identities and permissions to use applications and services. It functions as a directory, sharing credentials with digital services and devices. IdPs communicate over Security Assertion Markup Language (SAML) or Open Authorization (OAuth).
 
 To learn more about IdP configuration, read [Configuring SAML SSO](/home/account-security/sso/saml).
 
 ### Single sign-on
 
-Single sign-on allows users to access multiple applications with a single set of login credentials. SSO can be deployed with an IdP to manage credentials and authentication to applications.
+Single sign-on allows members to access multiple applications with a single set of login credentials. SSO can be deployed with an IdP to manage credentials and authentication to applications.
 
 ### SCIM
 
 SCIM is a standard for automating the exchange of information between identity domains, or IT systems.
 
-The SSO workflow within LaunchDarkly creates a new user if they sign in with the IdP and can pass a role. SCIM allows you to pass a role when creating and managing users as an admin.
+The SSO workflow within LaunchDarkly creates a new member if they sign in with the IdP and the IdP can pass a role. SCIM allows you to pass a role when creating and managing members as an admin.
 
 To learn more about SCIM, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
 
@@ -464,7 +464,7 @@ To create a role with the same permissions as the built-in No access role:
 
 </Details>
 
-These policies can now be used as a starting point to create more custom roles, such as users who have write-access to only specific projects.
+These policies can now be used as a starting point to create more custom roles, such as members who have write-access to only specific projects.
 
 ## Creating custom roles
 
@@ -776,8 +776,8 @@ Here is an example of a custom role that explicitly allows actions only on certa
   },
   {
     "effect": "allow",
-    "actions": ["deleteUser"],
-    "resources": ["proj/public:env/*;sandbox,prod:user/*"]
+    "actions": ["deleteContextInstances"],
+    "resources": ["proj/public:env/*;sandbox,prod:context/*"]
   }
 ]
 ```
@@ -844,7 +844,7 @@ Here is an example of a custom role that allows all actions, then explicitly den
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:user/*"]
+    "resources": ["proj/*:env/*:context/*"]
   },
   {
     "effect": "allow",
@@ -903,10 +903,10 @@ To learn more about best practices when using teams, read [Building teams in Lau
 ## Using custom roles with your IdP
 
 <Callout intent="warning">
-<CalloutTitle>Using SCIM to provision users</CalloutTitle>
+<CalloutTitle>Using SCIM to provision members</CalloutTitle>
 <CalloutDescription>
 
-If you use SCIM to provision users, you will create the roles in LaunchDarkly, but you must configure and manage your account members in the IdP. To learn more, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
+If you use SCIM to provision members, you will create the roles in LaunchDarkly, but you must configure and manage your account members in the IdP. To learn more, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
 
 </CalloutDescription>
 </Callout>
@@ -949,13 +949,13 @@ After your `role` and `customRole` attributes are mapped, include the key of the
 
 <Details summary="Expand Okta details">
 
-You can assign custom roles that you created in LaunchDarkly to users through the Okta user interface (UI). To learn how, read [Assigning custom roles in Okta](/home/account-security/okta#assigning-custom-roles-in-okta).
+You can assign custom roles that you created in LaunchDarkly to members through the Okta user interface (UI). To learn how, read [Assigning custom roles in Okta](/home/account-security/okta#assigning-custom-roles-in-okta).
 
 </Details>
 
 <Details summary="Expand OneLogin details">
 
-You can assign custom roles that you created in LaunchDarkly to users through the OneLogin UI. To learn how, read [Adding Users and Setting Roles in OneLogin](/home/account-security/onelogin#adding-users-and-setting-roles-in-onelogin).
+You can assign custom roles that you created in LaunchDarkly to members through the OneLogin UI. To learn how, read [Adding users and setting roles in OneLogin](/home/account-security/onelogin#adding-users-and-setting-roles-in-onelogin).
 
 </Details>
 

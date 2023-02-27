@@ -44,6 +44,7 @@ An audit log event hook integration can use either API keys or OAuth for authent
 - Most integrations use API Keys. If you use API keys, configure them as outlined in the [Collecting integration configuration data step](/integrations/partner-integrations/getting-started#collect-integration-configuration-data) on the Getting started page. 
 - If you use OAuth, configure it in the root of the manifest. To learn more, read [Defining an integration manifest](/integrations/partner-integrations/manifest) and [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
 
+
 For an example OAuth integration, read [AppDynamics Manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/appdynamics/manifest.json) under `requiresOAuth`. Integrations with require OAuth can still request additional `formVariables`.
 
 The example below uses API Keys.

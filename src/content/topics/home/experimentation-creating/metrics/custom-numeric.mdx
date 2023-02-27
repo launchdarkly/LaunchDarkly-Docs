@@ -11,10 +11,10 @@ tags: ['metric', 'numeric', 'experiment', 'experimentation', 'enterprise']
 This topic explains how to create a custom numeric metric for an experiment in LaunchDarkly.
 
 <Callout intent="warning">
-<CalloutTitle>Call track and flush when a user is redirected</CalloutTitle>
+<CalloutTitle>Call track and flush when an end user is redirected</CalloutTitle>
 <CalloutDescription>
 
-SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call track and then flush when you know the browser will redirect a user to another page, such as on click.
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects an end user to another page, any events that occurred between when the SDK last sent events and when browser redirected the end user will be lost. To avoid this, call track and then flush when you know the browser will redirect an end user to another page, such as on click.
 
 </CalloutDescription>
 </Callout>
@@ -37,9 +37,9 @@ To add a `custom` event:
 <CSTab label="Example event">
 
 ```java
-client.track("Example event name", user, null, numericValue);
+client.track("Example event name", context, null, numericValue);
 
-/* The `user` parameter is omitted in client-side SDKs */
+/* The `context` parameter is omitted in client-side SDKs */
 ```
 
 </CSTab>
@@ -47,7 +47,7 @@ client.track("Example event name", user, null, numericValue);
 
 Like conversion metrics, numeric metrics also require you to create an event name and insert it into your application's code to track metric data. The area of your code you should put custom conversion metric information into, and the type of information you should include, varies based on which SDKs you use.
 
-Usually, the information you should put in your code includes the event key, user object, data field, or numeric value fields. To learn more, read [Sending custom events](/sdk/features/events).
+Usually, the information you should put in your code includes the event key, context object, data field, or numeric value fields. To learn more, read [Sending custom events](/sdk/features/events).
 
 <Callout intent="info">
 <CalloutTitle>Can't access numeric metrics options?</CalloutTitle>
@@ -66,10 +66,20 @@ To create a numeric metric:
 4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
 5. Enter a **Unit of measure** to track.
 6. Choose a **Success criteria** from the menu.
-7. Click **Save metric**:
+7. Choose one or more context kinds available for experiments for the metric to measure events from.
+
+<Callout intent="warning">
+<CalloutTitle>Metrics must use valid randomization units</CalloutTitle>
+<CalloutDescription>
+
+When creating a new metric, we recommend consulting with an Experimentation expert in your organization or with LaunchDarkly Support to be sure your context kind selection is valid. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
+
+</CalloutDescription>
+</Callout>
+
+8. Click **Save metric**:
 
 ![The "Event information" section of the "Create a new metric" panel with a numeric metric configured.](metrics-event-information-numeric.png)
-
 
 <Callout intent="info">
 <CalloutTitle>Choosing success criteria for numeric metrics</CalloutTitle>

@@ -44,7 +44,7 @@ A good naming convention should convey:
 
 Poorly-named flags can result in the following consequences:
 
-- Unclear or ambiguous flag impact and intent. For example, does a flag named "Dark mode" turn on dark mode, or allow users to choose dark mode?
+- Unclear or ambiguous flag impact and intent. For example, does a flag named "Dark mode" turn on dark mode, or allow end users to choose dark mode?
 - Flags used for multiple purposes in an application by mistake.
 - Difficulty remembering and adhering to the naming convention.
 - Difficulty discovering and searching for flags from the flags list.
@@ -53,7 +53,7 @@ Continue reading to learn how to avoid these pitfalls and create a useful, usabl
 
 ## Getting started
 
-If your organization has a coding style guide, you may want to build your flag naming convention off of your style guide, add your convention to the guide, or store them together. If your organization doesn't have a coding style guide, consider what information about a flag might be useful for later users of the flag to know.
+If your organization has a coding style guide, you may want to build your flag naming convention off of your style guide, add your convention to the guide, or store them together. If your organization doesn't have a coding style guide, consider what information about a flag might be useful for future contributors to know.
 
 You naming convention should include instructions on:
 
@@ -77,7 +77,7 @@ To learn more, read [Flag kind examples](#flag-kind-examples).
 
 When using a shared project architecture, all of your work groups should be able to adopt the naming convention easily. If you use feature flagging on multiple platforms, consider whether you use single flags for multiple platforms or a different flag for each platform. This can impact your flag naming convention by requiring more or less precise flag names.
 
-You may want to assign prefixes to flags to designate them as belonging to members with particular roles. For example, you could add the "DBA" prefix to the name of flags managed by database administrators (DBAs). Then, in your custom role permissions for DBAs, you can grant permission to flags with keys that begin with `dba`. 
+You may want to assign prefixes to flags to designate them as belonging to members with particular roles. For example, you could add the "DBA" prefix to the name of flags managed by database administrators (DBAs). Then, in your custom role permissions for DBAs, you can grant permission to flags with keys that begin with `dba`.
 
 However, we generally recommend using tags to manage flag access, rather than name prefixes. To learn more, read [Using tags](#using-tags).
 
@@ -118,7 +118,7 @@ Here is an example of a feature flag with an effective name, description, tags, 
 
 ## Flag kind examples
 
-This section includes examples of naming schemes and best practices for specific flag kinds, including temporary release flags and several types of long-lived operational flags. When naming a flag, use the most specific category that you can. This ensures that all flags within that category have similar semantics and variations. 
+This section includes examples of naming schemes and best practices for specific flag kinds, including temporary release flags and several types of long-lived operational flags. When naming a flag, use the most specific category that you can. This ensures that all flags within that category have similar semantics and variations.
 
 Expand the sections below for examples of each kind, when you should use them, and how you might name them.
 

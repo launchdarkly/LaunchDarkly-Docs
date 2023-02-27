@@ -42,6 +42,7 @@ classname
 classpath
 clientstream
 cmake
+cmci
 cocoapods
 codebases
 coderefs
@@ -65,7 +66,6 @@ eaas
 elif
 elsewhere
 emptystate
-Ernestina
 evalx
 eventhub
 eventsource
@@ -175,6 +175,7 @@ NRQL
 objc
 okhttp
 onelogin
+optin
 overrepresent
 packagename
 Packagist
@@ -261,8 +262,10 @@ subfeatures
 subpackage
 subproject
 subtab
+subtabs
 svelte
 sveltekit
+targetable
 targetusername
 templatable
 templating

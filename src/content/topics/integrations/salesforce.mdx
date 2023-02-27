@@ -103,11 +103,20 @@ Next, you must configure the LaunchDarkly component to bring your flag data into
     * **Project key**: The key of the LaunchDarkly project you wish to associate with the component.
     * **Environment key**: The key of the LaunchDarkly environment you wish to associate with the component.
     * **Tag**: (Optional) The feature flag tag filter you wish to associate with the component. If omitted, all of the project's feature flags are included in the component.
-    * **User key field**: The Salesforce API field name of the record field that maps to LaunchDarkly feature flag evaluation user keys. This can be a built-in field, such as `AccountId` or a custom field such as `LaunchDarkly_ID__c`.
+    * **User key field**: The Salesforce API field name of the record field that maps to LaunchDarkly feature flag evaluation context keys. This can be a built-in field, such as `AccountId`, or a custom field such as `LaunchDarkly_ID__c`.
 
 ![The LaunchDarkly component on the Lightning App Builder page, configured with sample settings.](salesforce-component-settings.png)
 
 12. Navigate back to the sample record page and confirm that the LaunchDarkly integration is visible on the record page.
+
+<Callout intent="warning">
+<CalloutTitle>Enter LaunchDarkly context keys in the Salesforce "User key field"</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly previously referred to context keys as "user keys." Where Salesforce asks for a "user key," you should provide a LaunchDarkly context key.
+
+</CalloutDescription>
+</Callout>
 
 ## Using the LaunchDarkly Salesforce integration
 
@@ -119,17 +128,17 @@ To learn more about adding tags to feature flags, read [Other flag settings](/ho
 
 ## Troubleshooting
 
-### There is a ⚠️ icon at the bottom of the integration
+### There is a warning icon at the bottom of the integration
 
 ![The LaunchDarkly Salesforce integration with a warning icon visible.](salesforce-integration-with-warning-icon-visible.png)
 
-The ⚠️ icon at the bottom of the integration next to the **User**, means LaunchDarkly has not observed any flag evaluations for this user in the past 30 days.
+The warning icon (&#9888;) at the bottom of the integration next to "User" means LaunchDarkly has not observed any flag evaluations for this context in the past 30 days.
 
-Unless the user is new or inactive, this could be a sign that you have misconfigured the **User key field**. The **User key field** should be mapped to a field on the Salesforce record page that represents the **Key** used to evaluate feature flags.
+Unless the context is new or inactive, you may have misconfigured the **User key field**. The **User key field** should be mapped to a field on the Salesforce record page that represents the context key LaunchDarkly uses to evaluate feature flags.
 
-If you are unsure what the **Key** field should look like, visit the **Users** list in LaunchDarkly and inspect the **Key** column. To learn more, read [The Users dashboard](/home/managing-users/users-dashboard).
+If you are unsure what the **Key** field should look like, visit the **Contexts** list in LaunchDarkly and inspect the "Key" column. To learn more, read [The Contexts list](/home/contexts/contexts-list).
 
-![The "Users" list](users.png)
+![The "Contexts" list](contexts-list.png)
 
 ### Cannot load flag data for user because 'Field' is empty.
 

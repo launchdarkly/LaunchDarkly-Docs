@@ -7,17 +7,6 @@ tags: ['LANGUAGE-NAME', 'migration', 'sdk', 'CLIENT-OR-SERVER-SIDE', 'context']
 ---
 <!-- cSpell:disable Please remove this line when you use this template, we've added it so that placeholder text does not trigger spelling errors -->
 
-<Callout intent="info">
-<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product.
-
-Creating contexts and evaluating flags based on contexts is the primary feature in the LANGUAGE-NAME SDK Y.0 release. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available to members of LaunchDarkly's Early Access Program (EAP). To learn more or join the EAP, read [Contexts](/home/contexts).
-
-</CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains the changes in the LANGUAGE-NAME SDK Y.0 release and how to adapt code that uses a X.x version of the [SDK NAME](/LINK/TO/REFERENCE/GUIDE) to use version Y.0 or later.
@@ -52,7 +41,7 @@ When you evaluate a feature flag within your application, the flag's targeting r
 
 This new version of the LaunchDarkly SDK requires you to evaluate feature flags using an **evaluation context**, which is an object containing one or more contexts.
 
-To learn more about contexts, read [Contexts](/home/contexts).
+To learn more about contexts, read [Contexts and segments](/home/contexts).
 
 ## Migrating from users to contexts
 

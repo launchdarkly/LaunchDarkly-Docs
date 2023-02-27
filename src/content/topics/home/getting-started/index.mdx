@@ -24,13 +24,13 @@ From here, you can learn more about:
 
 Feature management is a framework for feature flag-driven development, testing, and experimentation. The basic unit of feature management is a feature flag.
 
-To start using feature management, first create a feature flag in LaunchDarkly. A feature flag describes rules for who can access a feature in your app, whether that means individual users, users who share common characteristics like email domain or type of mobile device, or just a certain percentage of your application's traffic.
+To start using feature management, first create a feature flag in LaunchDarkly. A feature flag describes the different variations of a feature and the rules that allow different entities to access them. Different entities that access your features could be a percentage of your application's traffic, individuals, or people or software entities who share common characteristics like location, email domain, or type of mobile device. The entities that encounter feature flags in your product are called "contexts."
 
 Next, you need to connect your application to LaunchDarkly. You can connect to LaunchDarkly using any of our 20+ SDKs.
 
-Then, in your application, use the SDK to make a function call any time you want to determine whether a particular user should receive a feature, and what variation of the feature they should receive. The SDKs use local caching to make these variation checks as efficient as possible.
+Then, in your application, use the SDK to make a function call any time you want to determine whether a context should receive a feature, and what variation of the feature it should receive. The SDKs use local caching to make these variation checks as efficient as possible.
 
-The SDKs send analytics events to LaunchDarkly to record every user who encounters a flag and which variation they received. You control which data is sent to LaunchDarkly and can designate certain data as private if you want LaunchDarkly to use it for flag evaluation but not store it.
+The SDKs send analytics events to LaunchDarkly to record each context that encounters a flag and which variation it received. You control which data is sent to LaunchDarkly and can designate certain data as private if you want LaunchDarkly to use it for flag evaluation but not store it.
 
 To begin, read [Joining an account](#joining-an-account), then skip to the [Getting started](#getting-started-in-different-roles) section below that best describes your role.
 
@@ -57,11 +57,11 @@ After you join an account, you have access to the flags list:
 
 From the flags list, you can navigate to LaunchDarkly's primary features in the sidenav:
 
-- [Feature flags](/home/flags): definitions of your feature flags and how their variations target users and segments who use your product
-- [Users](/home/users): people, services, machines, and other resources that encounter feature flags in your product
-- [Segments](/home/users/segments): groups of users targeted by attribute
+- [Feature flags](/home/flags): definitions of your feature flags and how their variations target contexts and segments that use your product
+- [Contexts and segments](/home/contexts): people, services, machines, and other resources that encounter feature flags in your product
+- [Segments](/home/contexts/segments): groups of contexts targeted by attribute
 - [Experiments](/home/about-experimentation): measure the impact of features you roll out to your app or infrastructure
-- [Debugger](/home/flags/debugger): real-time insight into the events your app is sending to LaunchDarkly
+- [Live events](/home/flags/live-events): real-time insight into the events your app is sending to LaunchDarkly
 - [Audit log](/home/flags/audit-log-history): a running tally of changes made to feature flags
 - [Integrations](/integrations): third-party integrations that let you configure the product to your specific needs
 - Account settings: manage [members](/home/members), [projects](/home/organize/projects), [roles](/home/members/built-in-roles), [authorization](/home/account-security), and more
@@ -83,7 +83,7 @@ Click on the **magnifying glass** icon or `CMD`+`K` (Mac) or `CTRL`+`K` (PC) to 
 - Follow an in-app tutorial to [connect an SDK](https://app.launchdarkly.com/get-started/connect-an-sdk)
 - [Create a support ticket](https://support.launchdarkly.com/hc/en-us/requests/new)
 - Copy your [SDK key](/sdk/concepts/client-side-server-side#keys) for the current environment
-- Search for specific [flags](/home/flags), [projects](/home/organize/projects), [segments](/home/users/segments), and [users](/home/users)
+- Search for specific [flags](/home/flags), [projects](/home/organize/projects), [segments](/home/contexts/segments), and [Contexts](/home/contexts)
 - Display recent searches
 
 ![The quick search bar.](getting-started-search-bar.png)
@@ -122,7 +122,7 @@ First, you must set up a LaunchDarkly SDK to integrate LaunchDarkly with your co
 
 For a guided example of these steps, try the in-app [tutorial](https://app.launchdarkly.com/get-started/connect-an-sdk).
 
-Once you have a basic understanding of flags, you can work with others in your organization to determine how you want to target flag variations to users or segments. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
+After you have a basic understanding of flags, you can work with others in your organization to determine how you want to target flag variations to contexts or segments. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 As you add more flags, you can start organizing your flags across different environments. To learn more, read [Organizing your flags](/home/organize). This is also a good time to start thinking about managing the lifecycle of each flag. To learn more, read [Flags in your codebase](/home/code). You can also explore our integrations to help you make LaunchDarkly a seamless part of your workflow. Integrations let you configure the product, receive LaunchDarkly events, or use triggers to perform actions on feature flags from third-party tools. To learn more, read [Integrations](/integrations).
 
@@ -147,9 +147,9 @@ If you haven't worked directly with feature flags before, LaunchDarkly has an ex
 </CalloutDescription>
 </Callout>
 
-First, learn how to [turn feature flags on and off](/home/getting-started/toggle). Then, start thinking about how you'd like to [target flag variations to users or segments](/home/flags).
+First, learn how to [turn feature flags on and off](/home/getting-started/toggle). Then, start thinking about how you'd like to [target flag variations](/home/flags).
 
-As a product manager, you may also build and monitor experiments to understand the impact of features you roll out. Each experiment is a set of actions used to test a hypothesis. You can use feature flags to send flag variations to portions of your user base, and compare your users' different reactions. You can use this for A/B/n testing, acceptance testing, and stress testing. To learn more, read [About Experimentation](/home/about-experimentation).
+As a product manager, you may also build and monitor experiments to understand the impact of features you roll out. Each experiment is a set of actions used to test a hypothesis. You can use feature flags to send flag variations to portions of your user base, and compare your end users' different reactions. You can use this for A/B/n testing, acceptance testing, and stress testing. To learn more, read [About Experimentation](/home/about-experimentation).
 
 For more ideas on what comes next, read [Additional resources](#additional-resources).
 
@@ -211,7 +211,7 @@ Here are some additional resources for learning how to get started with LaunchDa
 
 * [LaunchDarkly in less than 5 minutes](https://fast.wistia.net/embed/channel/mli3h9o3nh?wchannelid=mli3h9o3nh&wmediaid=j627spzhzn): A high-level video overview of LaunchDarkly.
 * [Tutorial](https://app.launchdarkly.com/get-started/connect-an-sdk): The in-app LaunchDarkly tutorial.
-* [Video overview](https://fast.wistia.net/embed/channel/mli3h9o3nh?wchannelid=mli3h9o3nh&wmediaid=c9x1gyt42d): A video about targeting users based on user metadata.
+* [Video overview](https://fast.wistia.net/embed/channel/mli3h9o3nh?wchannelid=mli3h9o3nh&wmediaid=c9x1gyt42d): A video explaining the concept of feature flags.
 * [LaunchDarkly onboarding](https://launchdarkly.com/onboarding): A series of videos covering a variety of getting started topics.
 * [LaunchDarkly Academy](https://academy.launchdarkly.com/): Guided tutorials, virtual labs, and other interactive educational content.
 * [LaunchDarkly YouTube channel](https://www.youtube.com/@LaunchDarkly/videos): Videos covering integration demos, SDK overviews, a user interface (UI) tutorial, and more.

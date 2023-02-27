@@ -1,0 +1,184 @@
+---
+path: /guides/flags/intro-contexts
+title: An introduction to contexts
+description: This guide summarizes what contexts are and provides resources to learn how to use them.
+published: true
+tags: ['guide', 'context']
+---
+
+## Overview
+
+This guide summarizes what contexts are and provides resources to learn how to use them.
+
+Contexts are the upgraded version of LaunchDarkly's existing "user" data objects. Previously, flags could only target users, which was limiting if you wanted to target organizations, devices, groups, or other entities. Contexts give you much more targeting flexibility. They let you create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. To learn more, read [Contexts and segments](/home/contexts).
+
+In this guide you can learn more about:
+
+- [Context kinds](#context-kinds)
+- [Multi-contexts](#multi-contexts)
+- [Context instances and versions](#context-instances-and-versions)
+- Context attributes, including [built-in attributes](#built-in-attributes) and [custom attributes](#custom-attributes)
+- [Context segments](#context-segments)
+- [Using the Contexts list](#using-the-contexts-list)
+- [Upgrading your SDKs to use contexts](#upgrading-your-sdks-to-use-contexts)
+
+## Context kinds
+
+Each context has a context kind, which describes the type of attributes it contains.
+
+For example, you may know:
+
+- The username, first name, last name, and email address of a person. You might include these context attributes in contexts with a "user" context kind.
+- The company, department, and location of an organization. You might include these context attributes in contexts with an "organization" context kind.
+- The device, model, and operating system of an environment. You might include these attributes in contexts with a "device" context kind.
+
+To learn more, read [Context kinds](/home/contexts/context-kinds).
+
+Here's an example of "user," "organization," and "device" context kinds:
+
+<CodeSample>
+<CSTab label="Example contexts">
+
+```json
+// a user context
+"context": {
+  "kind": "user",
+  "name": "Sandy",
+  "email": "sandy@example.com",
+  "gymMember": "true"
+  }
+
+// an organization context
+"context": {
+  "kind": "organization",
+  "name": "Global Health Gym",
+  "address": {
+    "street": "123 Main Street",
+    "city": "Springfield"
+    }
+  }
+
+// a device context
+"context": {
+  "kind": "device",
+  "type": "iPad",
+  "operating_system": "iPadOS 15",
+  "deviceId": 12345
+  }
+```
+
+</CSTab>
+</CodeSample>
+
+When you create a context kind, you provide a name and key. Then, any attributes that you add to a context of that kind become part of the context kind. To learn more, read [Creating context kinds](/home/contexts/context-kinds#creating-context-kinds).
+
+## Multi-contexts
+
+When you evaluate a feature flag within your application, the flag's targeting rules can use information from one or more kinds of contexts. For example, you might evaluate a flag using only the "user" context. Or, you might evaluate a flag using both the "user" context and the "device" context simultaneously. We refer to evaluations with more than one context as a multi-context.
+
+This illustration shows two multi-contexts:
+
+![Two multi-contexts with three contexts each of "user," "organization," and "location."](contexts-multi.png)
+
+To learn more, read [Multi-contexts](/home/contexts#multi-contexts).
+
+## Context instances and versions
+
+Any particular individual context, independent of all other relationships, is a context instance. Each context instance has a unique combination of associated contexts. For example, suppose your gym's fitness app uses both organization and user contexts. This means you can target features based on the location and affiliation of each gym, and separately target features based on individual end users. 
+
+If end user Sandy logs into your fitness app from two different gyms they visit, that is two different context instances.
+
+These two context instances would have the following associated user, device, and organization contexts:
+
+- user: Sandy, device: iPhone, organization: Springfield North
+- user: Sandy, device: iPhone, organization: Springfield East
+
+A context instance version is a context instance that's recorded from a unique source application or LaunchDarkly SDK. For example, if your application uses both the iOS SDK and the Go SDK, then you may see both an iOS SDK context instance version from when Sandy visited your app at the gym on their iPhone, and a Go SDK context instance version from when Sandy visited from the gym's check-in kiosk.
+
+These two context instance versions would have the following associated user and device contexts:
+
+- user: Sandy, device: iPhone, location: Springfield North, iOS SDK instance
+- user: Sandy, device: ThinkPad, location: Springfield North, Go SDK instance
+
+This illustration shows example contexts, context instances, and context instance versions:
+
+![An example of associated contexts, context instances, and context instance versions.](contexts-chart.png)
+
+To learn more, read [Understanding context instances](/home/contexts#understanding-context-instances).
+
+## Context attributes
+
+Context attributes include all of the information about a context that LaunchDarkly can use in a feature flag evaluation. You can use context attributes in targeting rules for flags and standard segments. For example, imagine you want a flag to serve the `true` variation to user contexts that are within the United States, or `false` to device contexts that use iOS. You can use context attributes to accomplish this. To learn more, read [Context attributes](/home/contexts/attributes).
+
+### Built-in attributes
+
+LaunchDarkly has the following built-in attributes for contexts: `kind`, `key`, `name`, and `anonymous`. While LaunchDarkly provides built-in attribute fields for you to fill in, the SDK does not automatically collect any information. If you want to target your users based on any built-in attributes, you must supply their values.
+
+To learn more, read [Built-in attributes](/home/contexts/built-in-attributes).
+
+### Custom attributes
+
+In addition to built-in attributes, you can create your own custom attributes according to your needs. To learn more, read [Custom attributes](/home/contexts/custom-attributes).
+
+Here is an example of a user context with the built-in attributes of `kind` and `name`, and the custom attributes of `country` and `beta-tester`:
+
+<CodeSample>
+<CSTab label="Example context">
+
+```json
+"context": {
+  "kind": "user",
+  "name": "Jesse",
+  "country": "Canada",
+  "beta-tester": "true"
+  }
+```
+
+</CSTab>
+</CodeSample>
+
+## Context segments
+
+Segments are lists of contexts that you can use to manage flag targeting behavior in bulk. Segments are useful for keeping groups of contexts, like `beta-users` or `enterprise-customers`, up to date. They allow you to more quickly turn features on or off for certain groups with confidence.
+
+There are two types of segments:
+
+- Standard segments, which can include a maximum of 15,000 contexts and support targeting rules.
+- Big Segments, which can hold more than 15,000 contexts. You can sync Big Segments with Amplitude cohorts.
+
+To learn more, read [Segments](/home/contexts/segments).
+
+## Using the Contexts list
+
+The **Contexts** list shows you all of the contexts that have encountered feature flags in your application. You can select any context to view its context details page. To learn more, read [The Contexts list](/home/contexts/contexts-list).
+
+Here is an image of the **Contexts** list:
+
+![The "Contexts" list.](contexts-list.png)
+
+The context details page gives you a summary view of how the context experiences all of the features in your app, and lets you customize their experience from one screen. To learn more, read [The context details page](/home/contexts/context-details).
+
+Here is an examples of the context details page:
+
+![A context's details page.](context-details.png)
+
+## Upgrading your SDKs to use contexts
+
+You can only use contexts if your SDKs support them. If you are a new customer, use the latest version of the SDKs and make sure they support contexts. If you are an existing customer, you must upgrade your SDKs to the latest versions. For a list of SDKs that support contexts and links to their migration guides, read [SDKs](/sdk).
+
+If you use the Relay Proxy, you also need to update it to version 7.0 or later before you upgrade your SDKs. To learn more about upgrading, read the [Relay Proxy 7.0.0 release notes](https://github.com/launchdarkly/ld-relay/releases/tag/v7.0.0).
+
+## Conclusion
+
+With contexts, you can now use flag targeting on a wide range of entities beyond just users. This guide provided a high-level introduction to the concept of contexts and how to use them. For a full tutorial on how to upgrade from users to contexts, read [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

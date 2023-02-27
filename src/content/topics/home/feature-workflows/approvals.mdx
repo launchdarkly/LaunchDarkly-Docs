@@ -54,7 +54,7 @@ If your environment requires approvals, **Review and request approval** is the d
 ![The "Request approval" dialog.](approvals-request.png)
 
 4. Review and confirm the changes displayed in the dialog. If you need to make changes, click **Edit** next to the pencil icon.
-5. Enter a **Description** to add context that helps your reviewers understand the changes you made.
+5. Enter a **Description** to add details that help your reviewers understand the changes you made.
 6. Choose one or more reviewers from the **Reviewers** menu.
 7. Click **Request approval**. The approval request appears.
 
@@ -66,7 +66,7 @@ The flag's **Targeting** tab also updates with a number next to the **Pending ch
 
 <LearnMore>
 
-You can also use the REST API: [Create approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequest)
+You can also use the REST API: [Create approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestForFlag)
 
 </LearnMore>
 
@@ -88,7 +88,7 @@ You will receive an email, an in-app inbox notification, and, if you use the Lau
 
 <LearnMore>
 
-You can also use the REST API: [Get approval request (beta)](https://apidocs.launchdarkly.com/tag/Approvals-(beta)#operation/getApprovalRequest), [Get approval requests (beta)](https://apidocs.launchdarkly.com/tag/Approvals-(beta)#operation/getApprovalRequests)
+You can also use the REST API: [List approval requests](https://apidocs.launchdarkly.com/tag/Approvals-(beta)#operation/getApprovalRequests), [List approval requests for a flag](https://apidocs.launchdarkly.com/tag/Approvals#operation/getApprovalForFlag), [Get approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals-(beta)#operation/getApprovalRequest)
 
 </LearnMore>
 
@@ -108,7 +108,7 @@ By default, the Approval dashboard is filtered to show approval requests on whic
 
 <LearnMore>
 
-You can also use the REST API: [Review approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestReview)
+You can also use the REST API: [Review approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestReviewForFlag)
 
 </LearnMore>
 
@@ -192,7 +192,7 @@ Only member accounts can approve and apply changes to an approval request. Appro
 
 <LearnMore>
 
-You can also use the REST API: [Apply approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestApplyRequest), [Review approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestReview)
+You can also use the REST API: [Apply approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestApplyForFlag), [Review approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestReviewForFlag)
 
 </LearnMore>
 
@@ -205,7 +205,7 @@ You may delete your request for changes to a flag at any point before the change
 
 <LearnMore>
 
-You can also use the REST API: [Delete approval request](https://apidocs.launchdarkly.com/tag/Approvals/#operation/deleteApprovalRequest)
+You can also use the REST API: [Delete approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals/#operation/deleteApprovalRequestForFlag)
 
 </LearnMore>
 

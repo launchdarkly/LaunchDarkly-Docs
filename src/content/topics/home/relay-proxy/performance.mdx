@@ -14,9 +14,9 @@ We developed a load testing framework for the Relay Proxy based on [Locust](http
 
 Performance is always dependent on specific workload and environment. You can run benchmarks against your own infrastructure and LaunchDarkly configuration for more accurate information.
 
-Locust tests events, client-side SDKs, and server-side SDKs. Locust's internal nomenclature uses the term "users" to refer to simulated SDKs. Do not mistake Locust's "users" with LaunchDarkly's users. They are not the same thing.
+Locust tests events, client-side SDKs, and server-side SDKs. Locust's internal nomenclature uses the term "users" to refer to simulated SDKs. Do not mistake Locust's "users" with LaunchDarkly's user contexts. They are not the same thing.
 
-A single server-side SDK can support many customers. In the case of client-side SDKs, this does correlate with a specific user, because a client-side SDK is configured for a particular user.
+A single server-side SDK can support many customers. In the case of client-side SDKs, this may correlate with a specific end user, because a client-side SDK is configured for a particular context.
 
 We recommend that you configure the Relay Proxy to be highly available, which reduces load on any particular server. To learn more, read [Relay Proxy guidelines](/home/relay-proxy/guidelines).
 

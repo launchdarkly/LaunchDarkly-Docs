@@ -27,7 +27,7 @@ initializeUrlMapping()
 
 export const setSubdomain = (content: string, site: SiteType, enableSiteSelection: boolean) => {
   // We always write content for LaunchDarkly docs, we shouldn't do any manipulation of URLs
-  // if the user is viewing our LaunchDarkly docs.
+  // if the reader is viewing our LaunchDarkly docs.
   if (!enableSiteSelection || site === 'launchDarkly') {
     return content
   }

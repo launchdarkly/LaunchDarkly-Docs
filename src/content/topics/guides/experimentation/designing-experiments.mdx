@@ -58,7 +58,7 @@ In LaunchDarkly, experiments can:
 - validate new ideas by testing multiple variations of a feature,
 - determine your user base's interest in a feature before you build it,
 - gather performance data for a feature, service, or API,
-- increase the adoption of a product by determining the features your users prefer,
+- increase the adoption of a product by determining the features your customers prefer,
 - drive revenue and conversion rate by rolling out successful variations to the rest of your user base,
 - and more.
 
@@ -78,8 +78,8 @@ Different types of experiments can test different types of hypotheses.
 
 Here are some examples of experiment types:
 
-- Feature validation: After developing a feature, make sure user reaction to the feature is positive. If it's not, iterate on the new feature until it's neutral or positive for the target metric.
-- Risk mitigation: Some changes must go out. For example, upgrading to a new version of an OS on all servers. It's difficult to test all the failure scenarios before doing so, so you can roll these out slowly and watch critical metrics for dips.
+- Feature validation: After developing a feature, make sure customer reaction to the feature is positive. If it's not, iterate on the new feature until it's neutral or positive for the target metric.
+- Risk mitigation: Some changes must go out. For example, upgrading to a new version of an operating system on all servers. It's difficult to test all the failure scenarios before doing so, so you can roll these out slowly and watch critical metrics for dips.
 - Optimization: Commonly thought of in the sense of "conversion funnel optimization," optimization is used more and more in different parts of an app where the app can be parameterized and new test configurations can be selected by an algorithm.
 
 Here are some external resources we recommend to learn more about building experiments:
@@ -89,11 +89,11 @@ Here are some external resources we recommend to learn more about building exper
 
 ## Generating ideas
 
-When you plan your experiment, it can be helpful to identify it as a brief, simple explanation of what you are trying to prove and why. You may also want to explain where the rationale behind this experiment originates. References to any user research, prior bugs, or feature requests provide context to what you are trying to achieve.
+When you plan your experiment, it can be helpful to identify it as a brief, simple explanation of what you are trying to prove and why. You may also want to explain where the rationale behind this experiment originates. References to any end user research, prior bugs, or feature requests provide context to what you are trying to achieve.
 
 Here are some example questions you can answer with an experiment:
 
-- Does removing complexity and adding white space result in users spending more time on the site?
+- Does removing complexity and adding white space result in customers spending more time on the site?
 - Do more product images lead to increased sales?
 - Does page load time increase significantly when search results are sorted?
 - What is the best color for a call to action button?
@@ -131,15 +131,15 @@ Most hypotheses can be reduced to the following statement:
 
 ## Choosing your sample size
 
-The number of users included in an experiment is called the sample size. The larger an experiment’s sample size, the more confident you can be in the experiment’s outcome. However, one benefit of using Bayesian statistics for our experimentation model is you can still get useful results even with small sample sizes. To learn more, read [Experimentation and Bayesian statistics](/guides/experimentation/bayesian).
+The number of end users included in an experiment is called the sample size. The larger an experiment’s sample size, the more confident you can be in the experiment’s outcome. However, one benefit of using Bayesian statistics for our experimentation model is you can still get useful results even with small sample sizes. To learn more, read [Experimentation and Bayesian statistics](/guides/experimentation/bayesian).
 
-While you assess an experiment's viability, consider how many unique users it takes to get a representative sample of your audience. Sample size estimators can tell you how many users you need, how long the experiment should run for, an estimated impact of the experiment, and other information you need for your test. We recommend using the [Power Calculator estimator](https://bookingcom.github.io/powercalculator/).
+While you assess an experiment's viability, consider how many unique visitors it takes to get a representative sample of your audience. Sample size estimators can tell you how many visitors you need, how long the experiment should run for, an estimated impact of the experiment, and other information you need for your test. We recommend using the [Power Calculator estimator](https://bookingcom.github.io/powercalculator/).
 
-After you have calculated your sample size, you can run your experiment as long as you need until the experiment includes the desired number of users. We recommend running experiments for at least one week, if possible. For example, if your experiment needs to include 70,000 users, it’s better to run an experiment that includes 10,000 users per day for seven days, rather than an experiment that includes all 70,000 on the first day. This helps avoid “day of week” effects. To learn more about day of week effects and how they can affect your experiment, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
+After you have calculated your sample size, you can run your experiment as long as you need until the experiment includes the desired number of participants. We recommend running experiments for at least one week, if possible. For example, if your experiment needs to include 70,000 customers, it’s better to run an experiment that includes 10,000 customers per day for seven days, rather than an experiment that includes all 70,000 on the first day. This helps avoid “day of week” effects. To learn more about day of week effects and how they can affect your experiment, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
 
 ## Determining an audience
 
-An experiment requires two or more samples to test against. You may want to run an experiment on all of your users, or you may want to target users by certain attributes so you can run it on a smaller sample of your population. For example, you may want to run your experiment only on users in the United States, or only those that have an account with your business.
+An experiment requires two or more samples to test against. You may want to run an experiment on all of your customers, or you may want to target customers based on certain attributes so you can run the experiment on a smaller sample of your population. For example, you may want to run your experiment only on customers in the United States, or only those that have an account with your business.
 
 Here are some possible ways to construct your experiment sample:
 - Logged in as opposed to anonymous
@@ -147,9 +147,9 @@ Here are some possible ways to construct your experiment sample:
 - By geography
 - Randomly
 
-If you want to restrict your experiment audience to only users with certain attributes, create a targeting rule on the flag you include in the experiment and run the experiment on that rule. If you don't want to restrict the audience for your experiment, run the experiment on the flag's default rule.
+If you want to restrict your experiment audience to only customers with certain attributes, create a targeting rule on the flag you include in the experiment and run the experiment on that rule. If you don't want to restrict the audience for your experiment, run the experiment on the flag's default rule. To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
 
-To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
+An experiment also requires determining who or what will be randomly assigned to each variation that you're testing. For example, if you are testing an updated flow for processing purchase orders, you may want everyone in the same organization assigned to the same variation. If you are testing performance of a backend change, you may want each new request to your servers assigned to the same variation. When you build the experiment, you can choose which context kind to use as your randomization unit. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
 
 ## Choosing variations
 
@@ -165,22 +165,22 @@ A good experiment requires well-defined metrics. You must determine what kind an
 
 Identifying the right metrics is imperative to getting accurate results from your experiments.
 
-Choosing metrics that correctly measure the effect of a change on your users or codebase can be difficult. Where possible, choose metrics that are a direct result of the changes you are making, rather than those that might be influenced by other factors.
+Choosing metrics that correctly measure the effect of a change on your customers or codebase can be difficult. Where possible, choose metrics that are a direct result of the changes you are making, rather than those that might be influenced by other factors.
 
 For example, if you know your business' key performance indicators (KPIs), you may be able to break them down into smaller numeric goals, such as an item's average revenue per order, a server's response speed, or a link's click-through rate. These goals might make useful metrics to track in an experiment.
 
 Here is a list of metrics that LaunchDarkly supports:
 
-- Click conversion metrics: Tracks the clicks on a user interface (UI) element. For example, how frequently a user clicks the Save button. Only compatible with the JavaScript and React SDKs.
-- Custom conversion metrics: Tracks events for any arbitrary event. For example, whether a user search called a service or not.
-- Custom numeric metrics: Tracks increases or decreases in numeric value against a baseline you set. For example, how many items are in a user's cart when they check out of your online store.
+- Click conversion metrics: Tracks the clicks on a UI element. For example, how frequently a customer clicks the Save button. Only compatible with the JavaScript and React SDKs.
+- Custom conversion metrics: Tracks events for any arbitrary event. For example, whether a customer search called a service or not.
+- Custom numeric metrics: Tracks increases or decreases in numeric value against a baseline you set. For example, how many items are in a customer's cart when they check out of your online store.
 - Page view conversion metrics: Tracks how many times a page is viewed. For example, how many times a blog post is viewed based on three different titles. Only compatible with the JavaScript and React SDKs.
 
 To learn more about metric types, read [Choosing a metric](/home/experimentation/metrics#choosing-a-metric).
 
 ### Choosing how many metrics to use
 
-With LaunchDarkly experiments, you will choose one primary metric to base your decision making on. With each additional metric you add to an experiment, decision making becomes harder, which is why you can choose only one primary metric. You can add up to 19 secondary metrics to track additional user behaviors.
+With LaunchDarkly experiments, you will choose one primary metric to base your decision making on. With each additional metric you add to an experiment, decision making becomes harder, which is why you can choose only one primary metric. You can add up to 19 secondary metrics to track additional customer behaviors.
 
 To learn more, read [Using primary and secondary metrics](/home/creating-experiments#using-primary-and-secondary-metrics).
 

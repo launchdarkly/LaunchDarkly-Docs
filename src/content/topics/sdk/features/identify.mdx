@@ -14,13 +14,9 @@ This topic explains how to use the identify feature in LaunchDarkly SDKs. Identi
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users." To learn more, read [Contexts and segments](/home/contexts).
 
-Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
-
-You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
-
-If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [most of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
 </CalloutDescription>
 </Callout>
@@ -391,12 +387,12 @@ client.identify(newContext, hash, function() {
 const newMultiContext = {
   kind: 'multi',
   user: {
-    key: 'aa0ceb',
+    key: 'user-key-123abc',
     name: 'Anna',
     role: 'doctor'
   },
   device: {
-    key: 'device-key',
+    key: 'device-key-123abc',
     platform: 'Android'
   }
 }
@@ -419,6 +415,8 @@ client.identify(newUser, hash, function() {
 </CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify).
+
+If your contexts are extraordinarily large, you may need to configure the JavaScript SDK to send the evaluation context as a request body. To learn more, read [Using REPORT in the JavaScript SDK](/guides/account/user-data#using-report-in-the-javascript-sdk).
 
 <Callout intent="alert">
 <CalloutTitle>You must use a hash parameter while in secure mode</CalloutTitle>

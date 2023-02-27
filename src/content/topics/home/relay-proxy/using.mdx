@@ -103,10 +103,10 @@ curl -X REPORT localhost:8030/sdk/evalx/context \
 <CSTab label="Evaluate a feature flag, Relay Proxy v6.x">
 
 ```bash
-curl -X REPORT localhost:8030/sdk/eval/user \
+curl -X REPORT localhost:8030/sdk/eval/context \
   -H "Authorization: sdk-key-123abc" \
   -H "Content-Type: application/json" \
-  -d '{"key": "user-key-123abc", "email":"sandy@example.com"}'
+  -d '{"key": "context-key-123abc", "email":"sandy@example.com"}'
 ```
 
 </CSTab>

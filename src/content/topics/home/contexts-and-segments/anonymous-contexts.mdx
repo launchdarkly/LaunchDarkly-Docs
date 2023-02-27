@@ -1,0 +1,134 @@
+---
+path: /home/contexts/anonymous-contexts
+title: Anonymous contexts
+description: This topic explains what anonymous contexts are, how their information is handled in LaunchDarkly, and how they contribute to your monthly active users (MAU) count.
+published: true
+tags: ['anonymous', 'key', 'mtc', 'alias', 'mci', 'mau']
+---
+
+## Overview
+
+This topic explains what anonymous contexts are, how their information is handled in LaunchDarkly, and how they contribute to your monthly active users (MAU) count.
+
+You can designate any context as an anonymous context. Anonymous contexts work just like other contexts, except that they don't appear on your **Contexts** list in LaunchDarkly. You can't search for anonymous contexts on your **Contexts** list, and you can't search or autocomplete by anonymous context keys. Anonymous contexts still count toward your client-side MAU limit.
+
+The most common reason to designate anonymous contexts is to prevent unauthenticated users from diluting useful data on user contexts in the **Contexts** list.
+
+Anonymous contexts may have different key attributes, or they may use a shared context key.
+
+To use different key attributes, set the key attribute to a value that is unique for each of your anonymous contexts. You can also have the client-side SDKs generate a random context key and set a unique value for you. To learn more, read [Tracking anonymous contexts with unique keys](#tracking-anonymous-contexts-with-unique-keys).
+
+To use a shared context key, set the key attribute to the same value for each of your anonymous contexts. Because the context key is the same, all anonymous single contexts will count as a single context instance toward your client-side MAU limit. Anonymous multi-contexts may count as more than one MAU. To learn more, read [Understanding how anonymous contexts contribute to MAU](#understanding-how-anonymous-contexts-contribute-to-mau).
+
+This means you cannot target subsets of your anonymous contexts for Experimentation, and if you want to target subsets of your anonymous contexts for a gradual rollout, you will need to target them using other attributes. To learn more, read [Tracking anonymous contexts with a shared key](#tracking-anonymous-contexts-with-a-shared-key).
+
+<Callout intent="info">
+<CalloutTitle>Ensuring customer privacy</CalloutTitle>
+<CalloutDescription>
+
+You can use anonymous contexts to hide personally identifiable information (PII), but we recommend using private attributes instead. To learn more, read [Using private context attributes](/home/contexts/attributes#using-private-context-attributes).
+
+</CalloutDescription>
+</Callout>
+
+To learn how to create anonymous contexts, read your SDK-specific section in [User and context configuration](/sdk/features/user-context-config).
+
+<Callout intent="info">
+<CalloutTitle>Consider using multi-contexts</CalloutTitle>
+<CalloutDescription>
+
+On a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context so that it's no longer anonymous.
+
+Alternatively, you could use a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user information. To learn more, read [Associating anonymous contexts with logged-in end users](#associating-anonymous-contexts-with-logged-in-end-users).
+
+</CalloutDescription>
+</Callout>
+
+## Understanding how anonymous contexts contribute to MAU
+
+Anonymous contexts also contribute to MAU. LaunchDarkly builds context objects in two ways:
+
+* With a unique key that you provide and that persists between pages
+* With a static key that is shared among all anonymous contexts
+
+All contexts are identified by their unique key, including anonymous contexts. If you provide the anonymous context key yourself, you must ensure that the context uses that key on each subsequent visit.
+
+A common strategy to make sure that you're using the same anonymous context key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into the SDK. If you use a client-side SDK and want to use a unique key for your anonymous contexts, you can defer key generation onto the SDK. To do this, build a context object and omit the key completely. The SDK generates a unique identifier for the context and persists this unique identifier in local storage. Each subsequent context evaluation without a context key uses that saved unique identifier. To learn more, read [User and context configuration](/sdk/features/user-context-config).
+
+A common challenge from using cookies or local storage is that they are optional. End users can turn them off. They are also often not observed by bots and site crawlers. To mitigate this challenge, you can use a single key for all anonymous contexts. However, you will not be able to use Experimentation if you use a single key for all anonymous contexts.
+
+To learn more about MAU, read [Account usage metrics](/home/billing/usage-metrics).
+
+## Tracking anonymous contexts with a shared key
+
+You do not always need to uniquely identify your anonymous contexts. Instead, you can use a shared key.
+
+If you are targeting anonymous contexts in percentage rollouts, you must assign variations by an attribute other than the shared key. Otherwise, all anonymous contexts are served the same variation. To learn more about variation assignments by attribute, read [Understanding percentage rollout logic](/home/flags/rollouts#understanding-percentage-rollout-logic).
+
+You cannot target anonymous contexts with a shared key in Experimentation. All contexts with the same key receive the same variation, and you cannot target specific segments unless they have unique keys. To learn more about audience allocation for an experiment, read [Allocating experiment audiences](/home/creating-experiments/allocation).
+
+Using a shared context key for all anonymous contexts instead of unique keys helps reduce your client-side MAU usage.
+
+## Tracking anonymous contexts with unique keys
+
+Sometimes it is useful to generate unique keys for anonymous contexts. We recommend using unique keys for the following reasons:
+
+- You are targeting contexts individually by key
+- You are using Experimentation
+- You are using Data Export
+- You are conducting percentage rollouts
+
+### Understanding how unique keys contribute to context count
+
+Your account is limited to 100,000,000 contexts by default. You may hit this limit accidentally if you use too many unique keys.
+
+If you feel like you hit this limit too frequently, you may be creating more contexts than you know.
+
+Here are some examples of ways you may be creating unique context keys:
+
+* Creating contexts that include request IDs, so each context generates a new ID every time it requests against the server. Contexts do not need a context ID to use a request ID. For example, an unauthenticated API might only give you a request ID, not a context ID.
+* Server-to-server communication where there are no human operators, just software components interacting.
+* If you use LaunchDarkly to configure log levels or tracing, you may use a different type of ID, like a timestamp. LaunchDarkly classifies each of those IDs as unique IDs.
+
+You can replace some of the unique IDs in the examples above with anonymous contexts. This decreases your maximum context count, but keep in mind that anonymous contexts do not appear on the **Contexts** list. Assess the components interacting with LaunchDarkly and feature flags to determine which require unique IDs, user IDs, or both, or can be classified as anonymous contexts.
+
+You can remove context instances you don't need anymore by clicking **Delete instance** in the overflow menu for that context on the list, or by opening the context's page, clicking the instance page, and clicking **Delete**. Deleting a context instance deletes all versions of that instance. To learn more, read [Removing a context instance](/home/contexts/contexts-list#removing-a-context-instance).
+
+## Associating anonymous contexts with logged-in end users
+
+Before they log in, an end user might be represented by a device context. After they log in, they might be represented by two contexts, with one context kind based on their device and the second context kind based on their user information. This one person is now represented by two unique context keys. Both contexts are counted toward your MAU limit.
+
+If you want to associate two contexts with each other, you can identify a multi-context that includes both individual contexts when you want the association to occur. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+
+If you are not yet using an SDK version that supports contexts, you can associate an anonymous user with a specific, logged-in user using the `alias` method.
+
+<Details summary="Click to expand details on the deprecated `alias` method">
+
+<Callout intent="info">
+<CalloutTitle>This feature is not available in all SDKs</CalloutTitle>
+<CalloutDescription>
+
+This section explains aliasing users, which is a deprecated feature for LaunchDarkly SDKs that are part of the contexts Early Access Program (EAP). For a list of SDKs that still support this feature, read [Aliasing users](/sdk/features/aliasing-users).
+
+</CalloutDescription>
+</Callout>
+
+In some cases, one person can be represented by multiple users in LaunchDarkly. If LaunchDarkly registers a person as an anonymous user, and that person later logs in to the application, LaunchDarkly registers them again as a logged-in user. This one person is now represented by two unique user keys. Both users are counted toward your MAU limit.
+
+You can associate these two user keys by configuring your SDK to send `alias` events. `Alias` events connect two user keys and register them as one event-sending entity.
+
+If you use Data Export or Experimentation, `alias` events are useful because they make the data represented in destinations and experiment results easier to understand. `Alias` events enable Data Export destinations to correlate the two user keys referring to the same underlying user. They also enable experiments to recognize when impressions and conversions occurred for a user, even if the user key changed between the two events.
+
+To learn more about configuring your SDK to send `alias` events, read [Aliasing users](/sdk/features/aliasing-users).
+
+<Callout intent="alert">
+<CalloutTitle>mParticle events require additional configuration</CalloutTitle>
+<CalloutDescription>
+
+If you use mParticle as a Data Export destination, you must configure it to receive <code>alias</code> events in the LaunchDarkly UI. mParticle requires this additional configuration step to register events correctly.<br/><br/>
+
+To learn more, read [mParticle](/integrations/data-export/mparticle).
+
+</CalloutDescription>
+</Callout>
+</Details>

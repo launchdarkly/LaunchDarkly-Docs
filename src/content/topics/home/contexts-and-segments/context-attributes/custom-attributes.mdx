@@ -1,0 +1,67 @@
+---
+path: /home/contexts/custom-attributes
+title: Custom attributes
+description: This topic explains what custom context attributes are and how to configure them.
+published: true
+tags: ['custom attribute', 'context', 'user']
+---
+
+## Overview
+
+This topic explains what custom attributes are and how to configure them.
+
+LaunchDarkly allows you to target contexts based on arbitrary custom attributes, which means you can control who receives features based on any criteria that you send to us. To learn more, read [Targeting rules](/home/flags/targeting-rules).
+
+## Creating custom attributes
+
+<Callout intent="warning">
+<CalloutTitle>First create custom attributes in your SDK</CalloutTitle>
+<CalloutDescription>
+
+You must first create custom attributes within your SDK before you can use them in targeting rules. To learn how, read [User and context configuration](/sdk/features/user-context-config).
+
+</CalloutDescription>
+</Callout>
+
+You can create custom attributes by configuring contexts within your SDK. If you create a custom attribute within a rule on a flag's <strong>Targeting</strong> tab, flag evaluations won't be able to use the attribute until you configure it within your SDK. To learn how, read [User and context configuration](/sdk/features/user-context-config).
+
+<Callout intent="alert">
+<CalloutTitle>Custom and built-in attributes cannot share names</CalloutTitle>
+<CalloutDescription>
+
+If you create a custom attribute with a name already in use by a built-in attribute, the SDK will behave unpredictably during feature flag evaluation. For a list of built-in attributes and their names, read [Built-in attributes](/home/contexts/built-in-attributes).
+
+</CalloutDescription>
+</Callout>
+
+Custom attributes are environment-specific. They are not shared between environments or projects.
+
+Here is an example context which contains custom attributes:
+
+<CodeSample>
+<CSTab label="Context with custom attributes">
+
+```json
+"context": {
+  "kind": "user",
+  "name": "Anna",
+  "key": "user-key-123abc",
+  "email": "anna@globalhealthexample.com",
+  "jobFunction": "doctor"
+}
+```
+
+</CSTab>
+</CodeSample>
+
+There is no limit to the number of custom attributes you can have. However, adding custom attributes does increase the size of the context object. JavaScript-based client-side SDKs send the context during initialization, so a large number of custom attributes may mean it takes longer for the SDK to initialize. To learn more, read [Initializing the client](/sdk/client-side/javascript#initializing-the-client).
+
+## Setting custom attribute values
+
+The value of a custom attribute can be of the following types:
+
+* boolean
+* number
+* string
+* array
+* JSON object

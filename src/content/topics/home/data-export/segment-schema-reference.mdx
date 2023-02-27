@@ -12,13 +12,14 @@ This topic explains the different event kinds for Segment Data Export destinatio
 
 To learn more about the Segment destination, read [Segment's documentation](https://docs.Segment.com/).
 
-There are five different event kinds exported to Segment. They are:
+There are four different event kinds exported to Segment. They are:
 
 * [Feature events](#feature-events): This event is emitted when a feature flag is evaluated.
-* [Click events](#click-events): This event is emitted when a user clicks on a CSS selector for which they have configured a metric in an experiment.
-* [Page view events](#page-view-events): This event is emitted when a user loads a page associated with an experiment metrics.
+* [Click events](#click-events): This event is emitted when an end user clicks on a CSS selector for which they have configured a metric in an experiment.
+* [Page view events](#page-view-events): This event is emitted when an end user loads a page associated with an experiment metrics.
 * [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a `custom` event.
-* [Alias events](#alias-events): This event is emitted when the LaunchDarkly SDK calls the alias method. It is also emitted automatically in client-side SDKs when an anonymous user identifies as a non-anonymous user. Read more about `alias` events in [Segment's alias spec](https://segment.com/docs/connections/spec/alias/).
+
+LaunchDarkly no longer supports `alias` events for SDKs upgraded to contexts. LaunchDarkly continues to support sending and receiving alias events for older SDK versions. For a list of SDKs that still support `alias` events, read [Aliasing users](/sdk/features/aliasing-users).
 
 ### Additional properties
 
@@ -121,7 +122,7 @@ This table explains `click` event properties:
   <TableBody>
     <TableRow>
       <TableCell><code>url</code></TableCell>
-      <TableCell>The URL from which a user triggered a flag evaluation.</TableCell>
+      <TableCell>The URL from which a user context triggered a flag evaluation.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell><code>selector</code></TableCell>
@@ -142,12 +143,16 @@ This table explains `page view` event properties:
   <TableBody>
     <TableRow>
       <TableCell><code>url</code></TableCell>
-      <TableCell>The URL from which a user triggered a flag evaluation.</TableCell>
+      <TableCell>The URL from which a user context triggered a flag evaluation.</TableCell>
     </TableRow>
    </TableBody>
 </Table>
 
 ## Custom events
+
+Custom events contain the properties listed under [Additional properties](#additional-properties).
+
+This table explains `custom` event properties not listed in that section:
 
 <Table>
   <TableHeader>
@@ -159,31 +164,6 @@ This table explains `page view` event properties:
       <TableCell><code>metricValue</code></TableCell>
       <TableCell>The numeric value of a metric if it is specified in the event.
       If no metric value was provided, this field doesn't appear.</TableCell>
-    </TableRow>
-   </TableBody>
-</Table>
-
-## Alias events
-
-The `alias` event schema is defined by [Segment's spec](https://segment.com/docs/connections/spec/alias/). The following indicates LaunchDarkly's usage of the schema.
-
-This table explains `alias` event properties:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Property name</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell><code>PreviousId</code></TableCell>
-      <TableCell>The previous key as defined by the <a
-      href="/sdk/concepts/contributors-guide#alias-events">SDK Alias method</a>.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell><code>UserId</code></TableCell>
-      <TableCell>The key as defined by the <a
-      href="/sdk/concepts/contributors-guide#alias-events">SDK Alias method</a>.</TableCell>
     </TableRow>
    </TableBody>
 </Table>

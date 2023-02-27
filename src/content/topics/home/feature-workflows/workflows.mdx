@@ -27,7 +27,7 @@ You can also use the REST API: [Workflows (beta)](https://apidocs.launchdarkly.c
 
 ## Using workflows
 
-Workflows can automate some of the manual tasks required to manage a feature flag. These tasks often take place in stages. For example, a feature flag workflow that gradually releases a flag to more users might look like this:
+Workflows can automate some of the manual tasks required to manage a feature flag. These tasks often take place in stages. For example, a feature flag workflow that gradually releases a flag to more contexts might look like this:
 
 ![A workflow that progressively rolls out a flag over time.](workflows-progressive-rollout.png)
 
@@ -42,7 +42,7 @@ To use workflows, you should understand the following features:
 
 ## Setting up a workflow
 
-You can set up three kinds of workflows. Progressive rollout workflows gradually increase the percentage of users targeted by a flag. Maintenance windows allow you to temporarily toggle a flag off. Custom workflows manage a specific rollout process that you define. You can also save a workflow created as a template to reuse later. To learn more, read [Workflow templates](/home/feature-workflows/workflow-templates).
+You can set up three kinds of workflows. Progressive rollout workflows gradually increase the percentage of contexts targeted by a flag. Maintenance windows allow you to temporarily toggle a flag off. Custom workflows manage a specific rollout process that you define. You can also save a workflow created as a template to reuse later. To learn more, read [Workflow templates](/home/feature-workflows/workflow-templates).
 
 ### Building a progressive rollout workflow
 
@@ -53,7 +53,7 @@ To build a progressive rollout workflow:
 3. Click **Progressive rollout**.
 4. Configure your progressive rollout:
   * Choose when to start the workflow.
-  * Choose the default variation to roll out to users.
+  * Choose the default variation to roll out to contexts.
   * Choose how much to increase the percentage of the rollout, starting at 0%. This setting overwrites any previously-defined rollouts for the default variation, so you should check to ensure that the default variation will not be reduced.
   * Choose how frequently to increase the rollout percentage.
 
@@ -86,7 +86,7 @@ For multivariate workflows, LaunchDarkly decreases and recalculates the variatio
 
 ### Building a maintenance window workflow
 
-You can use workflows to create maintenance windows that toggle a flag on or off, and then back off or on, during a scheduled date and time. 
+You can use workflows to create maintenance windows that toggle a flag on or off, and then back off or on, during a scheduled date and time.
 
 To build a maintenance window workflow:
 

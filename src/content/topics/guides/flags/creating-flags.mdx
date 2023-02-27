@@ -26,20 +26,20 @@ Every flag has a "permanent" checkbox on its **Settings** tab. This checkbox ide
 
 ### Experimentation
 
-An experiment is a set of actions used to test a hypothesis. You can use feature flags to send flag variations to portions of your user base, and compare your users' different reactions. You can use this for A/B/n testing, acceptance testing, and stress testing. To learn more, read [About Experimentation](/home/about-experimentation).
+An experiment is a set of actions used to test a hypothesis. You can use feature flags to send flag variations to different portions of your user base, and compare their different reactions. You can use this for A/B/n testing, acceptance testing, and stress testing. To learn more, read [About Experimentation](/home/about-experimentation).
 
 ## Determining your flag's use case
 
 Most flags fall into one of four categories. These categories are:
 
-- [Rollout flags](#rollout-flags): You can use rollout flags to manage incremental feature rollouts. You typically remove a rollout flag when its user targeting reaches 100%.
+- [Rollout flags](#rollout-flags): You can use rollout flags to manage incremental feature rollouts. You typically remove a rollout flag when its context targeting reaches 100%.
 - [Flags in experiments](#flags-in-experiments): You can use flags for running experiments. You typically remove a flag used in an experiment when the experiment is done.
 - [Entitlement flags](#entitlement-flags): You can use entitlement flags for long-term targeting. These flags are usually permanent.
 - [Operational flags](#operational-flags): You can use operational flags as emergency shutoff flags, or "kill switches." These flags are usually permanent.
 
 Before you create a feature flag, answer these questions to determine what kind of flag you need:
 
-* Will this flag manage a code or feature release, experiment, user permissions, or operations?
+* Will this flag manage a code or feature release, experiment, customer permissions, or operations?
 * What relationship will this flag have to any other flags?
 * What is the smallest thing this flag can do to be useful?
 * Will this flag still be useful after the new code is fully and successfully released?
@@ -50,19 +50,19 @@ Answering these questions will help you determine how you name and describe the 
 
 ### Rollout flags
 
-You can wrap a flag around code for a new or improved feature, and use it to release the new feature to users in increments. Rollout flags are almost always boolean with `true` or `false` variations that represent whether the new code is enabled.
+You can wrap a flag around code for a new or improved feature, and use it to release the new feature to contexts in increments. Rollout flags are almost always boolean with `true` or `false` variations that represent whether the new code is enabled.
 
-Rollout flags are temporary. After you verify the new code is stable and roll out the feature to 100% of users, you should delete the flag. To learn more, read [Percentage rollouts](/home/flags/rollouts).
+Rollout flags are temporary. After you verify the new code is stable and roll out the feature to 100% of contexts, you should delete the flag. To learn more, read [Percentage rollouts](/home/flags/rollouts).
 
 ### Flags in experiments
 
-Flags used in experiments are similar to rollout flags in that they wrap around feature code that impacts users. However, flags used in experiments can be either boolean or multivariate, so that the experiment can test multiple values. You can pair flags with metrics to compare user or system behavior between two or more flag variations.
+Flags used in experiments are similar to rollout flags in that they wrap around feature code that impacts end users. However, flags used in experiments can be either boolean or multivariate, so that the experiment can test multiple values. You can pair flags with metrics to compare context or system behavior between two or more flag variations.
 
 Flags used in experiments are temporary. After you determine a winning variation, you should delete the flag. To learn more, read [About Experimentation](/home/about-experimentation).
 
 ### Entitlement flags
 
-Entitlement flags control access to certain features or areas of your product. For example, a flag might wrap around a feature that is only accessible by users with a certain role or membership tier.
+Entitlement flags control access to certain features or areas of your product. For example, a flag might wrap around a feature that is only accessible by customers with a certain role or membership tier.
 
 Entitlement flags are usually permanent.
 
@@ -125,7 +125,7 @@ Don't repeat any information already present in the flag's name. Instead, focus 
 
 The flags list has controls for filtering and sorting flags by different major attributes. You can also create tags for flags you want to find quickly.
 
-Tags are useful for grouping flags by particular details. For example, if there's a set of long-lived flags that are specifically intended for operational use, you can tag them with `operational`. If you have flags that have special targeting for users in Belgium, you can tag them `belgium`. To learn more, read [Tags](/home/members/role-concepts#tags).
+Tags are useful for grouping flags by particular details. For example, if there's a set of long-lived flags that are specifically intended for operational use, you can tag them with `operational`. If you have flags that have special targeting for contexts in Belgium, you can tag them `belgium`. To learn more, read [Tags](/home/members/role-concepts#tags).
 
 You can also use tags to control which account members can modify flags. To learn more, read [Using tags in custom role policies](/home/members/role-tags#using-tags-in-custom-role-policies).
 
@@ -135,9 +135,9 @@ Try to reuse existing tags as much as possible. This streamlines the flags list 
 
 Most flags are boolean with two variations: `true` and `false`. However, you can use multivariate flags that evaluate different values, like strings or numbers, when you need to do more complex operations. You can add more variations to a multivariate flag at any time.
 
-For example, imagine some of your users need to be charged sales tax for a purchase. If they are charged, the tax is 7%. If they are not charged, it is zero. You could make a boolean flag that determines whether or not tax is applied by assigning the tax to `true` or `false` states.
+For example, imagine some of your customers need to be charged sales tax for a purchase. If they are charged, the tax is 7%. If they are not charged, it is zero. You could make a boolean flag that determines whether or not tax is applied by assigning the tax to `true` or `false` states.
 
-However, there is an opportunity to add more complexity later if you use a multivariate flag and assign the flag variations to the numbers `7` and `0`. If the tax rate later changes, you can update the tax percentage charged by the app without changing your code. Alternatively, you could make more variations of the same flag that address other tax rates used in different regions, and use targeting rules to automatically return the user's correct tax rate.
+However, there is an opportunity to add more complexity later if you use a multivariate flag and assign the flag variations to the numbers `7` and `0`. If the tax rate later changes, you can update the tax percentage charged by the app without changing your code. Alternatively, you could make more variations of the same flag that address other tax rates used in different regions, and use targeting rules to automatically return the customer's correct tax rate.
 
 ### Understanding the flag's default values
 

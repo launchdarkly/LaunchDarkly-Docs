@@ -91,25 +91,6 @@ curl -X REPORT https://your-relay-proxy.com:8030/sdk/evalx/context \
 ```
 
 </CSTab>
-<CSTab label="GET request, Relay Proxy v6.x">
-
-```bash
-
-curl -X GET https://your-relay-proxy.com:8030/sdk/evalx/users/base64Encoding \
-  -H "Authorization: sdk-key-123abc"
-```
-
-</CSTab>
-<CSTab label="REPORT request, Relay Proxy v6.x">
-
-```bash
-curl -X REPORT https://your-relay-proxy.com:8030/sdk/evalx/user \
-  -H "Authorization: sdk-key-123abc" \
-  -H "Content-Type: application/json" \
-  -d '{"key": "user-key-123abc", "name": "Sandy"}'
-```
-
-</CSTab>
 </CodeSample>
 
 In the example,

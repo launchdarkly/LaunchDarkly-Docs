@@ -42,8 +42,8 @@
         "svg": "toggle-switch",
         "items": [
           {
-            "label": "Targeting users with flags",
-            "path": "/home/flags/targeting-users",
+            "label": "Targeting with flags",
+            "path": "/home/flags/targeting",
             "items": [
               {
                 "label": "Targeting rules",
@@ -54,11 +54,11 @@
                 "path": "/home/flags/rollouts"
               },
               {
-                "label": "Individual user targeting",
+                "label": "Individual targeting",
                 "path": "/home/flags/individual-targeting"
               },
               {
-                "label": "Bulk user targeting",
+                "label": "Bulk targeting",
                 "path": "/home/flags/bulk-targeting"
               }
             ]
@@ -88,8 +88,8 @@
             "path": "/home/flags/settings"
           },
           {
-            "label": "The debugger",
-            "path": "/home/flags/debugger"
+            "label": "Live events",
+            "path": "/home/flags/live-events"
           }
         ]
       },
@@ -207,53 +207,63 @@
       },
       {
         "group": "feature-flags",
-        "label": "Users and user segments",
-        "path": "/home/users",
+        "label": "Contexts and segments",
+        "path": "/home/contexts",
         "svg": "chart-pie",
         "items": [
           {
-            "label": "The Users list",
-            "path": "/home/users/users-list"
-          },
-          {
-            "label": "User attributes",
-            "path": "/home/users/attributes",
+            "label": "The Contexts list",
+            "path": "/home/contexts/contexts-list",
             "items": [
               {
-                "label": "Built-in user attributes",
-                "path": "/home/users/built-in-attributes"
-              },
-              {
-                "label": "Custom user attributes",
-                "path": "/home/users/custom-attributes"
+                "label": "The context details page",
+                "path": "/home/contexts/context-details"
               }
             ]
           },
           {
-            "label": "User segments",
-            "path": "/home/users/segments",
+            "label": "Context attributes",
+            "path": "/home/contexts/attributes",
+            "items": [
+              {
+                "label": "Built-in attributes",
+                "path": "/home/contexts/built-in-attributes"
+              },
+              {
+                "label": "Custom attributes",
+                "path": "/home/contexts/custom-attributes"
+              }
+            ]
+          },
+          {
+            "label": "Context kinds",
+            "path": "/home/contexts/context-kinds"
+          },
+          {
+            "label": "Segments",
+            "path": "/home/contexts/segments",
             "items": [
               {
                 "label": "Standard segments",
-                "path": "/home/users/standard-segments"
+                "path": "/home/contexts/standard-segments"
               },
               {
                 "label": "Big Segments",
-                "path": "/home/users/big-segments"
+                "path": "/home/contexts/big-segments"
               },
               {
                 "label": "Syncing Big Segments from Amplitude cohorts",
-                "path": "/home/users/synced-segments"
+                "path": "/home/contexts/synced-segments"
               },
               {
-                "label": "Bulk editing users in segments",
-                "path": "/home/users/bulk-edit-segments"
+                "label": "Bulk editing contexts in segments",
+                "path": "/home/contexts/bulk-edit-segments"
               }
             ]
           },
           {
-            "label": "Anonymous users",
-            "path": "/home/users/anonymous-users"
+            "label": "Anonymous contexts",
+            "path": "/home/contexts/anonymous-contexts"
           }
         ]
       },
@@ -1535,7 +1545,7 @@
             "path": "/guides/account/migrating-solutions"
           },
           {
-            "label": "Minimizing LaunchDarkly's access to user data",
+            "label": "Minimizing LaunchDarkly's access to end user data",
             "path": "/guides/account/user-data"
           }
         ]
@@ -1545,6 +1555,10 @@
         "path": "/guides/flags",
         "svg": "toggle-switch",
         "items": [
+          {
+            "label": "An introduction to contexts",
+            "path": "/guides/flags/intro-contexts"
+          },
           {
             "label": "Best practices for upgrading users to contexts",
             "path": "/guides/flags/upgrading-contexts"
@@ -1574,7 +1588,7 @@
             "path": "/guides/flags/testing-code"
           },
           {
-            "label": "Using entitlements to manage user experience",
+            "label": "Using entitlements to manage customer experience",
             "path": "/guides/flags/entitlements"
           },
           {

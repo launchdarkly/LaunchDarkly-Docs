@@ -61,14 +61,13 @@ To connect Segment to LaunchDarkly:
 15. Click **Track Event**.
 16. The **Edit: Track Event** page guides you through the process of mapping [Segment Track events](https://segment.com/docs/connections/spec/track/) to LaunchDarkly experimentation events. The default settings should be acceptable for most customers.
 17. Click **Save**.
-17. Repeat steps 13-17, to configure the **Alias Event** mapping. The default settings are acceptable for most customers.
-18. On the **Mappings** tab, click the radio buttons associated with the **Track Event** and **Alias User** mappings to begin sending events to LaunchDarkly.
+18. On the **Mappings** tab, click the radio buttons associated with the **Track Event** mapping to begin sending events to LaunchDarkly.
 
 ## How the integration works
 
 After you connect Segment and LaunchDarkly, events from the source you choose can appear as custom metric events in LaunchDarkly experiments. This process fails if LaunchDarkly fails to recognize events Segment sends to it as Experimentation events.
 
-LaunchDarkly correlates the metric events sent from Segment with LaunchDarkly user keys. This correlation uses the Segment user ID, if it is present. Otherwise, the correlation uses the Segment anonymous ID.
+LaunchDarkly correlates the metric events sent from Segment with LaunchDarkly context keys. This correlation uses the Segment user ID, if it is present. Otherwise, the correlation uses the Segment anonymous ID.
 
 To register events from Segment in a LaunchDarkly experiment, you must meet the following criteria:
 

@@ -157,13 +157,13 @@ To send a test event:
 ![The "Send a test event" section of the "Edit destination" panel.](kinesis-test-event.png)
 
 4. If you have configured the destination correctly, an event is logged in the Kinesis destination.
-5. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
+5. Identify a successful test event by searching for the context key or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
 
 <Callout intent="info">
 <CalloutTitle>Partition Keys</CalloutTitle>
 <CalloutDescription>
 
-Kinesis records have [partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key). When we create a record, we use the user key that was sent with the event as the partition key. If the event does not contain a user key, we create a random partition key.
+Kinesis records have [partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key). When LaunchDarkly creates a record, it creates a random partition key.
 
 </CalloutDescription>
 </Callout>

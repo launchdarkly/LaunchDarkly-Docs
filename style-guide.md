@@ -16,7 +16,7 @@ Here are some guidelines to get you started:
 
 * Avoid unnecessary capitalizations. Proper nouns, including product and feature names, and UI elements should reflect their display text. Do not capitalize unnecessary words in headings or text. For example, LaunchDarkly's Data Export feature uses capital letters because it's a proper noun, but when we refer to exporting data to a destination, we do not capitalize either the verb or the noun.
 * Bold text labels that you can click in the LaunchDarkly UI and have proper names. For example, bold sidenav elements, tabs, button text, and toggle options. Put text that is read-only, like checkbox labels or dialog headers, in quotes.
-* All screenshots and graphics in the docs must have alt text that describes the content of the image. For example, say "The Users list, with a specific user called out." not "The Users list provides a simple interface you can use to track users registered with LaunchDarkly."
+* All screenshots and graphics in the docs must have alt text that describes the content of the image. For example, say "The Contexts list, with a specific context called out." not "The Contexts list provides a simple interface you can use to track contexts registered with LaunchDarkly."
 * Use the Oxford comma. Every list with more than two items must have a comma before the "and" and final list item.
 
 ## Voice and tone
@@ -35,13 +35,13 @@ It is a best practice to write documentation that reflects the full diversity of
 
 If you write an example that references humans, use names and pronouns from multiple genders.
 
-Do not use idioms, euphemisms, or ableist or hierarchical language in the docs. Some of these terms are figurative and hard to translate for users who speak English as a secondary language ("shoot the moon," "break new ground"), and many of them have discriminatory backgrounds ("whitelist/blacklist," "rule of thumb").
+Do not use idioms, euphemisms, or ableist or hierarchical language in the docs. Some of these terms are figurative and hard to translate for readers who speak English as a secondary language ("shoot the moon," "break new ground"), and many of them have discriminatory backgrounds ("whitelist/blacklist," "rule of thumb").
 
-Do not make assumptions about the abilities or bodies of your users. Common euphemisms to explain behaviors can make assumptions about capabilities that do not apply to everyone using your docs.
+Do not make assumptions about the abilities or bodies of your readers. Common euphemisms to explain behaviors can make assumptions about capabilities that do not apply to everyone using your docs.
 
 For example, do not use verbs like "see" to refer to consuming and comprehending information ("reading"); docs users who use screenreaders may not be able to see the docs, but they can certainly read them, so that's a better verb to use.
 
-Similarly, a "hands-on" exercise might not be "hands-on" for a user with a mobility issue or assistive device. Instead, you could say "interactive."
+Similarly, a "hands-on" exercise might not be "hands-on" for a reader with a mobility issue or assistive device. Instead, you could say "interactive."
 
 
 ## Topic and component best practices
@@ -64,7 +64,7 @@ Here is information about the callouts:
 
 * Info callouts are blue and provide useful context or information in a targeted way.
 * Alert callouts are yellow and provide lightweight warnings or advisories about behavior or unexpected consequences.
-* Warning callouts are red and provide information about severe consequences a user could experience by misconfiguring or misunderstanding part of the app.
+* Warning callouts are red and provide information about severe consequences a LaunchDarkly customer could experience by misconfiguring or misunderstanding part of the app.
 * Success callouts are green and provide positive messages about success indicators, improvements, or other types of positive messaging. These are our most rarely-used type of callout.
 
 ### Headings
@@ -180,10 +180,10 @@ Procedures tell a reader how to complete a task by defining the start state, the
 
 Writing useful procedures is a skill it takes time to cultivate, but here are some best practices:
 
-Divide procedures into steps by tracking interactions. Every time a user has to click or type to accomplish something, that's a discrete step.
+Divide procedures into steps by tracking interactions. Every time a LaunchDarkly customer has to click or type to accomplish something, that's a discrete step.
 Steps start with verbs. "Click," "Enter," "Navigate," "Scroll."
 
-Only describe what the user is doing and experiencing. Procedures are not for background technical information. You can, however, explain the consequences of user behavior, such as a page opening, a drawer appearing, or a setting being saved.
+Only describe what the reader is doing and experiencing. Procedures are not for background technical information. You can, however, explain the consequences of their behavior, such as a page opening, a drawer appearing, or a setting being saved.
 
 Example:
 

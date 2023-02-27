@@ -56,9 +56,9 @@ Here is what you cannot transfer:
 
 * The audit log does not transfer between accounts.
 * SDK keys do not transfer between accounts.
-* Custom roles do not transfer between accounts. You must grant custom roles to new account members in the destination account after the merge completes.
-* Data from running experiments does not transfer between accounts. If you merge a source project into the destination project while the source project has experiments running, the experiment cannot match its user targeting to the user targeting options in the destination project. To prevent data loss, pause experiments during the merge and resume them in the destination project after.
-* User data from the **Users** list. This data is account-specific and cannot transfer between accounts.
+* Custom roles do not transfer between accounts. You must grant custom roles to new account members in the primary account after the merge completes.
+* Data from running experiments does not transfer between accounts. If you merge a source project into the destination project while the source project has experiments running, the experiment cannot match its context targeting to the context targeting options in the destination project. To prevent data loss, pause experiments during the merge and resume them in the destination project after.
+* Context data from the **Contexts** list. This data is account-specific and cannot transfer between accounts.
 * Flag metadata, including flag status, the flag evaluations graph, and the time when flags were most recently evaluated.
 * Big Segments, including Big Segments synced with Amplitude. Standard segments are transferred.
 
@@ -95,9 +95,9 @@ A LaunchDarkly account contains projects and environments.
 
 Account members are people who work at your organization or have access rights to your organization's LaunchDarkly environment for another reason, such as contractors or part-time employees. To learn more, read [LaunchDarkly account members](/home/members/managing).
 
-### Users
+### Contexts
 
-Users are people, services, machines, or other resources that encounter feature flags in your product. Users are not account members. To learn more, read [Users and user segments](/home/users).
+Contexts are people, services, machines, or other resources that encounter feature flags in your product. Contexts are not account members. To learn more, read [Contexts and segments](/home/contexts).
 
 ## Merging LaunchDarkly accounts
 

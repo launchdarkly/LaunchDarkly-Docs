@@ -1,7 +1,7 @@
 ---
 path: /home/data-export
 title: Data Export
-description: This topic explains how to use LaunchDarkly's Data Export feature to export and store flag, user, and Experimentation event data. Data Export provides a real-time export of raw analytics data, including feature flag requests, analytics events, custom events, Experimentation events, and more.
+description: This topic explains how to use LaunchDarkly's Data Export feature to export and store flag, context, and Experimentation event data. Data Export provides a real-time export of raw analytics data, including feature flag requests, analytics events, custom events, Experimentation events, and more.
 published: true
 tags: ['data export', 'destination', 'event']
 ---
@@ -17,7 +17,7 @@ Data Export is available as an add-on for customers on an Enterprise plan. To le
 
 ## Overview
 
-This topic explains how to use LaunchDarkly's Data Export feature to export and store flag, user, and Experimentation event data.
+This topic explains how to use LaunchDarkly's Data Export feature to export and store flag, context, and Experimentation event data.
 
 Data Export provides a real-time export of raw analytics data, including feature flag requests, analytics events, custom events, Experimentation events, and more. By exporting your data to a location of your choice, you can use your own data warehouse and tools to analyze event data.
 
@@ -71,11 +71,11 @@ To export data from a specific flag to a destination:
 
 ### Understanding Data Export and Experimentation events
 
-If you check a flag's **Send detailed events to data export destinations** checkbox, then LaunchDarkly exports evaluation events for all users that encounter the flag.
+If you check a flag's **Send detailed events to data export destinations** checkbox, then LaunchDarkly exports evaluation events for all contexts that encounter the flag.
 
-If you do not check the **Send detailed events to data export destinations** checkbox, then LaunchDarkly does not export evaluation events, unless you are using the flag in an experiment. If you are using the flag in an experiment, then LaunchDarkly will still export evaluation events for users included in the experiment, but no other users.
+If you do not check the **Send detailed events to data export destinations** checkbox, then LaunchDarkly does not export evaluation events, unless you are using the flag in an experiment. If you are using the flag in an experiment, then LaunchDarkly will still export evaluation events for contexts included in the experiment, but no other contexts.
 
-You can tell if a user evaluation was part of an experiment from the optional `inExperiment` attribute. Evaluations that were part of an experiment have the `inExperiment` attribute on the evaluation reason set to `true`. To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+You can tell if an evaluation was part of an experiment from the optional `inExperiment` attribute. Evaluations that were part of an experiment have the `inExperiment` attribute on the evaluation reason set to `true`. To learn more, read [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
 ### Exporting environment event data
 

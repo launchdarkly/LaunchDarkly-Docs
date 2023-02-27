@@ -10,11 +10,11 @@ tags: ['guide', 'mobile', 'sdk', 'android', 'ios']
 
 This guide explores some best practices for using LaunchDarkly’s mobile SDKs.
 
-Mobile app development contains plenty of challenges. Your app will face wildly variable conditions, including many different devices and runtime environments, and unstable data connections. We’ve done our best to provide robust and efficient performance in our mobile SDKs. In addition, we provide these recommendations to improve the quality of your users' experience.
+Mobile app development contains plenty of challenges. Your app will face wildly variable conditions, including many different devices and runtime environments, and unstable data connections. We’ve done our best to provide robust and efficient performance in our mobile SDKs. In addition, we provide these recommendations to improve the quality of your customers' experience.
 
 ## Avoiding app startup delays
 
-Every millisecond counts during app launch. Your app is likely to initialize many different components before presenting a live interface to the user. The LaunchDarkly SDK is one of them.
+Every millisecond counts during app launch. Your app is likely to initialize many different components before presenting a live interface to the customer. The LaunchDarkly SDK is one of them.
 
 When initializing, the LaunchDarkly SDK attempts these steps:
 
@@ -46,12 +46,12 @@ To learn more, read [Getting started](/sdk/client-side/dotnet#getting-started) i
 
 The Android SDK’s `LDClient.init()` method takes, as its fourth parameter, a timeout integer which specifies the maximum number of seconds the SDK can wait for a response from the server.
 
-Depending on how `init()` is called, the SDK may block the current thread until either the flags are retrieved or the timeout period is exceeded. If `init()` is called in the main app thread, the rest of the app startup will be blocked until this call completes, resulting in poor user experience.
+Depending on how `init()` is called, the SDK may block the current thread until either the flags are retrieved or the timeout period is exceeded. If `init()` is called in the main app thread, the rest of the app startup will be blocked until this call completes, resulting in poor customer experience.
 
 To ensure that `LDClient.init()` doesn’t block the rest of the app, use any of these techniques:
 
 * Provide `init()` a timeout value of `0`. The `init()` method returns an `LDClient` immediately but continues creating the connection in the background. If cached flag data is available from a previous execution, any invocation of a [`variation()`](/sdk/features/evaluating#android) method will use that cached data until the SDK receives fresh data. Otherwise, it will use the fallback value specified in the invocation. You can also use [change listeners](/sdk/features/flag-changes#android) to respond when the SDK updates the flag cache.
-* Call [this overload for](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#init-android.app.Application-com.launchdarkly.sdk.android.LDConfig-com.launchdarkly.sdk.LDUser-) `init()` which returns a `Future`. Wait for it to complete on a separate thread/executor to implement a timeout behavior without blocking the application using `future.get(timeout)`.
+* Call [this overload for](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#init(android.app.Application,com.launchdarkly.sdk.android.LDConfig,com.launchdarkly.sdk.LDContext)) `init()` which returns a `Future`. Wait for it to complete on a separate thread/executor to implement a timeout behavior without blocking the application using `future.get(timeout)`.
 * Move the `init()` call to its own thread.
 
 To learn more, read [Getting started](/sdk/client-side/android#getting-started) in the [Android SDK reference](/sdk/client-side/android) topic.
@@ -82,17 +82,17 @@ To learn more, read [Getting started](/sdk/client-side/react/react-native#gettin
 
 </Details>
 
-## Deciding on the user experience for flag changes
+## Deciding on the customer experience for flag changes
 
-LaunchDarkly delivers flag updates to your app as soon as possible. This is great for ensuring that flag evaluations are up to date with the current flag settings, but may cause problems depending on how the flag is used. For example, consider a user interface configured by flags. If the flags change in the middle of a user session, the user may be confused or alarmed by the interface changing without warning.
+LaunchDarkly delivers flag updates to your app as soon as possible. This is great for ensuring that flag evaluations are up to date with the current flag settings, but may cause problems depending on how the flag is used. For example, consider a user interface (UI) configured by flags. If the flags change in the middle of a customer's session, the customer may be confused or alarmed by the interface changing without warning.
 
-For each flag used by your app, decide on a policy for how updates to the flag should be handled while the app is running. You may want to ignore updates to certain flags if they happen in the middle of a user session, whereas other flags, such as kill switches, should update immediately.
+For each flag used by your app, decide on a policy for how updates to the flag should be handled while the app is running. You may want to ignore updates to certain flags if they happen in the middle of a customer session, whereas other flags, such as kill switches, should update immediately.
 
 These policies can be implemented as wrapper methods around the LaunchDarkly SDK, rather than configuration changes to the SDK itself.
 
 ## Ensuring delivery of analytics events
 
-The SDK communicates evaluation and diagnostic data back to the server as part of normal usage. The LaunchDarkly user interface displays this data in several places, including the [flags list](/home/organize/flags-list), the [flag Insights tab](/home/flags/insights), and in [Experimentation](/home/about-experimentation).
+The SDK communicates evaluation and diagnostic data back to the server as part of normal usage. The LaunchDarkly UI displays this data in several places, including the [flags list](/home/organize/flags-list), the [flag Insights tab](/home/flags/insights), and in [Experimentation](/home/about-experimentation).
 
 This data is generated by the SDK and added to an event buffer. The SDK clears the buffer and sends the data back to LaunchDarkly periodically, every few seconds.
 
@@ -102,11 +102,11 @@ To learn more about the events SDKs send to LaunchDarkly, read [Analytics events
 
 ## Targeting the app version number, OS, and device when enabling new features
 
-The LaunchDarkly mobile SDKs automatically provide and fill two custom user attributes: `os` and `device`. These attributes are automatically populated with information about the user's operating system and hardware, so that it's easier to target specific configurations. Because of this, we recommend that your code provide a custom attribute that contains the app version number.
+We recommend creating a "device" context kind to track information about each end user's operating system and hardware, such as operating system and device, so that it's easier to target specific configurations. To learn more, read [Context kinds](/home/contexts/context-kinds). Additionally, we recommend that your code set the application version, which you can do as part of your SDK [Configuration](/sdk/features/config).
 
-This combination of attributes is particularly useful for targeting the release of new features. For example, consider a “dark mode” feature being added to an app. Versions 10 to 14 contain early, incomplete versions of the feature. These versions are available to all users, but the “dark mode” feature is only enabled for testers. With version 15, the feature is considered complete and enabled for all users. Unfortunately, some users are still using an older version of the app. When the feature is enabled, they encounter bugs.
+This combination of attributes is particularly useful for targeting the release of new features. For example, consider a “dark mode” feature being added to an app. Versions 10 to 14 contain early, incomplete versions of the feature. These versions are available to all customers, but the “dark mode” feature is only enabled for testers. With version 15, the feature is considered complete and enabled for all customers. Unfortunately, some customers are still using an older version of the app. When the feature is enabled, they encounter bugs.
 
-Including the app version number in the user attributes makes it possible for you to add a flag rule which targets that version. This is also useful for situations when you must disable a feature due to code issues, which you then fix in a later release. By targeting the app version, you can re-enable the feature only for those users running the corrected code.
+Including the app version number in your SDK configuration makes it possible for you to add a flag rule which targets that version. This is also useful for situations when you must disable a feature due to code issues, which you then fix in a later release. By targeting the app version, you can re-enable the feature only for those customers running the corrected code.
 
 ## Understanding SDK size and usage
 

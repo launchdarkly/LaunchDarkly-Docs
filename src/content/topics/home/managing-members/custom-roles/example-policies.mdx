@@ -194,7 +194,7 @@ Copy this role and make any modifications to it to suit your needs:
 </CSTab>
 </CodeSample>
 
-In the example above, we use `notResources` to allow role recipients to view and modify `project-1` exclusively. We do this by specifying which projects the user cannot view, with one exception.
+In the example above, we use `notResources` to allow role recipients to view and modify `project-1` exclusively. We do this by specifying which projects the member cannot view, with one exception.
 
 This lets you restrict access to only one project without having to explicitly deny access to every project except that one.
 
@@ -337,7 +337,7 @@ Copy this Reader role and make any modifications to it to suit your needs:
   {
     "effect": "deny",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:user/*"]
+    "resources": ["proj/*:env/*:context/*"]
   },
   {
     "effect": "deny",
@@ -430,7 +430,7 @@ Copy this Writer role and make any modifications to it to suit your needs:
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:user/*"]
+    "resources": ["proj/*:env/*:context/*"]
   },
   {
     "effect": "allow",
@@ -527,7 +527,7 @@ Copy this Admin role and make any modifications to it to suit your needs:
   {
     "effect": "allow",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:user/*"]
+    "resources": ["proj/*:env/*:context/*"]
   },
   {
     "effect": "allow",

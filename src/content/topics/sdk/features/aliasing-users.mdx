@@ -7,10 +7,10 @@ tags: ['alias', 'context', 'sdk', 'user']
 ---
 
 <Callout intent="alert">
-<CalloutTitle>This feature is deprecated in the contexts EAP</CalloutTitle>
+<CalloutTitle>This feature is deprecated for SDKs that use contexts</CalloutTitle>
 <CalloutDescription>
 
-LaunchDarkly no longer supports `alias` events for SDKs included in the contexts Early Access Program (EAP). LaunchDarkly continues to support sending and receiving alias events for older SDK versions, and SDKs not included in the EAP. For a list of SDKs in the contexts EAP, read about our [SDKs that support contexts](/sdk).
+LaunchDarkly no longer supports `alias` events for SDKs upgraded for contexts. LaunchDarkly continues to support sending and receiving alias events for older SDK versions. To learn more, read about our [SDKs that support contexts](/sdk).
 
 To learn how to associate contexts without using the `alias` method, read [Associating anonymous contexts with logged-in end users](/home/contexts/anonymous-contexts#associating-anonymous-contexts-with-logged-in-end-users).
 
@@ -208,7 +208,7 @@ client.alias(newUser, previousUser);
 
 ### React Native
 
-In version 7 and newer of the React Native SDK, aliasing is no longer supported or required. To learn more, read [React Native SDK 6.x to 7.0 migration guide](/sdk/client-side/react/native-migration-6-to-7).
+In version 7 and newer of the React Native SDK, aliasing is no longer supported or required. To learn more, read [React Native SDK 6.x to 7.0 migration guide](/sdk/client-side/react/react-native-migration-6-to-7).
 
 <Details summary="Expand React Native code sample for older versions">
 

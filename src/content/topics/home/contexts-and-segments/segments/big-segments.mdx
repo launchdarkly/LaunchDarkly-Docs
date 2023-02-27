@@ -1,0 +1,135 @@
+---
+path: /home/contexts/big-segments
+title: Big Segments
+description: This topic explains how to build and manage Big Segments. Big Segments let you target large groups of contexts by attribute.
+published: true
+tags: ['big segment', 'import', 'user', 'target']
+---
+
+<Callout intent="primary">
+  <CalloutTitle>Big Segments is an Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+Big Segments is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to build and manage Big Segments. Big Segments let you target large groups of contexts by context kind.
+
+A Big Segment is a segment that is backed by an external data store. Big Segments can support massive numbers of targets. A standard segment is capped at 15,000 contexts, but the cap for a Big Segment is only limited by the data store you configure. A standard segment can have a list of targets per context kind, but all of the contexts within a Big Segment must be of the same context kind. All of the Big Segment's included targets will be associated with that context kind.
+
+To learn how to create a Big Segment, read [Creating segments](/home/contexts/segments#creating-segments).
+
+## Prerequisites
+
+To use Big Segments, you must meet the following prerequisites:
+
+### You must configure server-side SDKs to use Big Segments
+
+How you need to configure your SDKs depends on what kinds of SDKs you use:
+- **Server-side SDKs**: You must use an SDK version that supports Big Segments. To learn more, read the [SDK documentation on Big Segments](/sdk/features/big-segments).
+- **Client-side SDKs**: All client-side SDKs support Big Segments by default. No additional setup is required.
+
+### You must properly configure the Relay Proxy to use Big Segments with server-side SDKs
+
+How you need to configure the Relay Proxy depends on what kinds of SDKs you use:
+- **Server-side SDKs**: You must use the Relay Proxy and it must be configured to use Big Segments.
+- **Client-side SDKs**: The Relay Proxy is not required. However, if you do use the Relay Proxy, you must configure it to use Big Segments. To learn more, read [Using the Relay Proxy](/home/relay-proxy/using).
+
+## Configuring Big Segments
+
+There are two ways to add context targets to a Big Segment:
+
+- Sync the Big Segment from an Amplitude cohort
+- Add context targets to the Big Segment from a CSV
+
+A segment can use one of these two methods, but not both.
+
+## Syncing Big Segments from Amplitude
+
+You can sync Big Segments from an Amplitude cohort. When you sync your Amplitude cohort to the LaunchDarkly destination in the Amplitude dashboard, it creates a synced segment. This allows the segment to contain a large number of contexts from Amplitude.
+
+To learn more, read [Syncing Big Segments from Amplitude cohorts](/home/contexts/synced-segments).
+
+## Adding context targets to Big Segments
+
+You can add context targets to a Big Segment from a CSV file. All of the contexts within a Big Segment must be of the same context kind. After you populate a Big Segment with targets, you can then add or remove individual contexts.
+
+### Importing context targets from a CSV file
+
+To import context targets from a CSV file:
+
+1. Navigate to the "Individual targets" section of the Big Segment you wish to import targets into.
+
+![The "Targeting" tab of an empty Big Segment.](big-segment-empty.png)
+
+2. Click **Upload CSV**. An "Upload CSV" dialog appears.
+
+If the Big Segment already contains contexts, you have the option to merge or overwrite the existing contexts with the contexts from the CSV file. If you are merging contexts, they must be of all the same context kind.
+ - Select "Overwrite" to replace all existing contexts in the segment
+ - Select "Merge" to add to the existing contexts in the segment
+
+![The Big Segment "Upload CSV" dialog.](big-segment-upload-modal.png)
+
+3. Click **Select File**.
+4. Select a CSV file from your computer.
+5. Click **Upload File**.
+
+The import process begins in the background. When the import completes successfully, you receive an email notification. Depending on the number of contexts in the CSV, this may take several minutes or hours.
+
+<LearnMore>
+
+You can also use the REST API: [Create Big Segment import](https://apidocs.launchdarkly.com/tag/Segments-(beta)#operation/createBigSegmentImport)
+
+</LearnMore>
+
+There are some limitations to the import feature. They are:
+
+- The imported CSV file must not contain a header row. LaunchDarkly reads context keys from the first column of the CSV file. For example:
+
+![An example Big Segment CSV file.](big-segment-example-csv.png)
+
+- LaunchDarkly does not support concurrent imports within a single environment.
+- Uploaded CSV files may not exceed 40MB in size and may not contain more than 1 million contexts. All of the contexts must be of the same context kind. If you want to add more than 1 million contexts, you can use the "Merge" option with multiple sequential file uploads.
+
+### Add and remove individual targets
+
+After you add context targets to a Big Segment using a CSV file, you can then add or remove individual contexts.
+
+To add or remove individual contexts to or from a Big Segment:
+
+1. Navigate to the desired segment.
+2. In the **Included targets** search box, enter the key of the context you want to add or remove. If the context is present in the segment, a **Remove user** button appears. If the user is not present in the segment, an **Add user** button appears.
+<!-- cSpell:disable TKTK the UI button hasn't been updated yet to say "Add/remove contexts" instead of users. We should re-check the UI  before GA launch. cSpell:enable -->
+
+![Adding an individual context to a Big Segment.](big-segment-add-individual-user.png)
+
+3. Click **Add user** or **Remove user**.
+4. Click **Review and save**. A "Review and save" dialog appears.
+
+![The Big Segment "Review and save" dialog.](big-segment-review-and-save.png)
+
+5. Click **Save changes**.
+
+## Exporting contexts
+
+To export the contexts from a Big Segment into a CSV file:
+
+1. Navigate to the **Segments** list and click the name of the segment you wish to export. The segment's **Targeting** tab appears.
+2. Click on the "Included targets" **overflow menu**.
+3. Select "Export as CSV".
+
+![The overflow menu for a Big Segment with the "Export as CSV" option displayed.](big-segment-export.png)
+
+The export process runs in the background. When it completes, you receive an email notification containing a link to where you can download your CSV file.
+
+LaunchDarkly does not support exporting segments with more than 10 million contexts.
+
+<LearnMore>
+
+You can also use the REST API: [Create Big Segment export](https://apidocs.launchdarkly.com/tag/Segments-(beta)#operation/createBigSegmentExport)
+
+</LearnMore>

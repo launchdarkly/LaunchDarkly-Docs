@@ -10,7 +10,7 @@ tags: ['metric', 'create', 'configure', 'experiment', 'experimentation', 'enterp
 
 This topic explains how to create a metric to use within an experiment in LaunchDarkly.
 
-Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page. Create metrics that align with your business goals and connect them to your team's flags to track the impact of different flag variations over time.
+Metrics measure audience behaviors affected by the flags in your experiments. You can use metrics to track all kinds of things, from how often customers access a URL to how long that URL takes to load a page. Create metrics that align with your business goals and connect them to your team's flags to track the impact of different flag variations over time.
 
 <LearnMore>
 
@@ -20,7 +20,7 @@ You can also use the REST API: [Metrics](https://apidocs.launchdarkly.com/tag/Me
 
 ## Understanding types of metrics
 
-Conversion metrics register events when a user takes an action based on a feature flag they encounter. Conversion metrics can track `click`, `page view`, and `custom` event kinds. Numeric metrics measure numeric values against a baseline you set. Numeric metrics can track the `conversion` event kind. To learn more about event kinds, read [Analytics events](/sdk/concepts/events).
+Conversion metrics register events when an end user takes an action based on a feature flag they encounter. Conversion metrics can track `click`, `page view`, and `custom` event kinds. Numeric metrics measure numeric values against a baseline you set. Numeric metrics can track the `conversion` event kind. To learn more about event kinds, read [Analytics events](/sdk/concepts/events).
 
 There are four metric options in LaunchDarkly:
 
@@ -78,7 +78,7 @@ To learn more about Experimentation events, read [Experimentation events](/home/
 
 ### Choosing a metric
 
-You should choose a metric type that correctly measures the effect of a change on your users or codebase. If you are unsure of what metric type to use, it may be helpful to begin by determining what kind of data you are trying to measure.
+You should choose a metric type that correctly measures the effect of a change on your customers or codebase. If you are unsure of what metric type to use, it may be helpful to begin by determining what kind of data you are trying to measure.
 
 This table includes examples of different kinds of data you can measure with different metric types:
 
@@ -91,28 +91,28 @@ This table includes examples of different kinds of data you can measure with dif
     <TableRow>
       <TableCell>Click conversion</TableCell>
       <TableCell>
-        How often do users click a "Save" button?<br />
-        How many times do users click on a link?<br />
+        How often do customers click a "Save" button?<br />
+        How many times do customers click on a link?<br />
         When is the best point during a process to display a sign-up invitation?
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Custom conversion</TableCell>
       <TableCell>
-        Do user searches call a particular service?<br />
+        Do customer searches call a particular service?<br />
         Do customers contact customer service within a set period of time?<br />
         Do customers renew their contract within 30 days?<br />
-        Do user payments succeed?
+        Do customer payments succeed?
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Custom numeric</TableCell>
       <TableCell>
-        How much do users spend per transaction in my store?<br />
-        How much do users spend in total?<br />
-        How many items do users purchase per transaction?<br />
-        How many items do users purchase total?<br />
-        How much time do users spend on a page?<br />
+        How much do customers spend per transaction in my store?<br />
+        How much do customers spend in total?<br />
+        How many items do customers purchase per transaction?<br />
+        How many items do customers purchase total?<br />
+        How much time do customers spend on a page?<br />
         How long does it take for a server to respond to a request?<br />
         How long until the time to first byte (TTFB)?
       </TableCell>
@@ -120,7 +120,7 @@ This table includes examples of different kinds of data you can measure with dif
     <TableRow>
       <TableCell>Page view conversion</TableCell>
       <TableCell>
-        How many times do users view a blog post?
+        How many times do end users view a blog post?
       </TableCell>
     </TableRow>
   </TableBody>

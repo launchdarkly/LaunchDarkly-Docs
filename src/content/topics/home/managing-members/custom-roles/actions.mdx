@@ -275,6 +275,61 @@ This table explains available code reference actions:
 
 </Details>
 
+## Context actions
+
+<Details summary="Expand Context actions">
+
+`context` is a child of both a project and environments. A code sample is below:
+
+<CodeSample>
+<CSTab label="Context resource">
+
+```json
+proj/*:env/*:context/*
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [The Contexts list](/home/contexts/contexts-list).
+
+This table explains available context actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+     <TableRow>
+      <TableCell>
+        <code>createContextKind</code>
+      </TableCell>
+      <TableCell>
+        Create a context kind.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteContextInstances</code>
+      </TableCell>
+      <TableCell>
+        Delete a context's instances.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateContextKind</code>
+      </TableCell>
+      <TableCell>
+        Update a context kind.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
 ## Destination actions
 
 <Details summary="Expand Destination actions">
@@ -668,7 +723,7 @@ This table explains available feature flag actions that affect only the current 
         <code>updateExpiringTargets</code>
       </TableCell>
       <TableCell>
-        Change a flag's expiring individual user targeting rules.
+        Change a flag's expiring individual context targeting rules.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -754,7 +809,7 @@ This table explains available feature flag actions that affect only the current 
         <code>updateTargets</code>
       </TableCell>
       <TableCell>
-        Update individual user targeting rules.
+        Update individual context targeting rules.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1479,7 +1534,7 @@ This table explains available role actions:
         <code>updateMembers</code>
       </TableCell>
       <TableCell>
-        Add or remove users from a custom role (equivalent to <code>updateCustomRole</code> on account members).
+        Add or remove members from a custom role. Equivalent to <code>updateCustomRole</code> on account members.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1515,7 +1570,7 @@ proj/*:env/*:segment/*
 </CSTab>
 </CodeSample>
 
-To learn more, read [User segments](/home/users/segments).
+To learn more, read [Segments](/home/contexts/segments).
 
 This table explains available segments actions:
 
@@ -1554,7 +1609,7 @@ This table explains available segments actions:
         <code>updateExcluded</code>
       </TableCell>
       <TableCell>
-        Change a segment's excluded users.
+        Change a segment's excluded contexts.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1570,7 +1625,7 @@ This table explains available segments actions:
         <code>updateExpiringTargets</code>
       </TableCell>
       <TableCell>
-        Change a segment's expiring individual user targeting rules.
+        Change a segment's expiring individual context targeting rules.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1578,7 +1633,7 @@ This table explains available segments actions:
         <code>updateIncluded</code>
       </TableCell>
       <TableCell>
-        Change a segment's included users.
+        Change a segment's included contexts.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1806,45 +1861,6 @@ This table explains available template actions:
         <code>viewTemplate</code>
       </TableCell>
       <TableCell>If set to deny, anyone impacted by this policy can neither view nor modify a template.</TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-</Details>
-
-## User actions
-
-<Details summary="Expand User actions">
-
-`user` is a child of both a project and environments. A code sample is below:
-
-<CodeSample>
-<CSTab label="User resource">
-
-```json
-proj/*:env/*:user/*
-```
-
-</CSTab>
-</CodeSample>
-
-To learn more, read [The Users list](/home/users/users-list).
-
-This table explains available users actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>deleteUser</code>
-      </TableCell>
-      <TableCell>
-        Delete a user.
-      </TableCell>
     </TableRow>
   </TableBody>
 </Table>

@@ -10,11 +10,11 @@ tags: ['guide', 'edge', 'sdk', 'cloudflare', 'worker']
 
 This guide explains how to connect LaunchDarkly to Cloudflare Workers using [LaunchDarkly's Cloudflare Edge SDK](/sdk/server-side/node-js/cloudflare-edge-sdk).
 
-Cloudflare Workers are serverless functions that run "at the edge" within Cloudflare's Content Delivery Network (CDN). Unlike traditional serverless functions that are deployed to a single region, edge functions like Cloudflare Workers are deployed across a global CDN network. This means that users' requests are routed to the nearest CDN, allowing the function response to be extremely fast.
+Cloudflare Workers are serverless functions that run "at the edge" within Cloudflare's Content Delivery Network (CDN). Unlike traditional serverless functions that are deployed to a single region, edge functions like Cloudflare Workers are deployed across a global CDN network. This means that requests are routed to the nearest CDN, allowing the function response to be extremely fast.
 
 LaunchDarkly provides a Cloudflare Workers integration that synchronizes flags and flag values with Cloudflare, which makes accessing flag values from within a Worker available without any processing delay. This allows you to use flag values within a Worker without incurring even the minimal cost of retrieving those values from the LaunchDarkly server.
 
-This guide explains how to get set up within Cloudflare and set up the LaunchDarkly integration. It also contains several examples of using LaunchDarkly flags within a Worker to alter the response sent back to the user based upon flag values.
+This guide explains how to get set up within Cloudflare and set up the LaunchDarkly integration. It also contains several examples of using LaunchDarkly flags within a Worker to alter the response sent back to the end user based upon flag values.
 
 ## Setting up a project
 
@@ -156,7 +156,7 @@ Here's how to set up local development:
 
 Wrangler generates a Cloudflare Worker for you. The Worker contains a lot of extraneous code that you don't need for this guide. You can replace the existing worker code in `/src/index.ts` with the simplified code below. This makes it easier to update using the examples in the remainder of this guide.
 
-The Worker gets the existing page content from the Cloudflare's key value store (KV) where all the site's assets are cached and returns that in the response to the user's browser.
+The Worker gets the existing page content from the Cloudflare's key value store (KV) where all the site's assets are cached and returns that in the response to the browser.
 
 Here's what it looks like:
 
@@ -476,7 +476,7 @@ Now you are ready to use flag variations within your application.
 
 ### Cloudflare's HTMLRewriter class
 
-The examples below make use of a powerful feature that Cloudflare Workers provides called [HTMLRewriter](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter). HTMLRewriter is a JavaScript class that you can leverage within Cloudflare Worker code to modify the content of the response it sends back to the user. This lets you to do things like modify the page's HTML or change text in the response. This section explains some of the basics of HTMLRewriter so you can understand the code in the examples below.
+The examples below make use of a powerful feature that Cloudflare Workers provides called [HTMLRewriter](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter). HTMLRewriter is a JavaScript class that you can leverage within Cloudflare Worker code to modify the content of the response it returns. This lets you to do things like modify the page's HTML or change text in the response. This section explains some of the basics of HTMLRewriter so you can understand the code in the examples below.
 
 Here's how to construct a new instance of the HTMLRewriter class:
 
@@ -504,9 +504,9 @@ Two of the below examples make use of element handlers to modify the HTML respon
 
 ## Bootstrapping client-side flag values
 
-A persistent problem with modifying the client UI on the web using JavaScript is the delay between when the UI initially renders an element and when the update runs in the script. This causes a "flash" of initial content, where the initial rendering flashes on screen before the UI updates it. A common example of this is login/sign up links briefly rendering before getting updated with the logged-in user's information.
+A persistent problem with modifying the client UI on the web using JavaScript is the delay between when the UI initially renders an element and when the update runs in the script. This causes a "flash" of initial content, where the initial rendering flashes on screen before the UI updates it. A common example of this is login/sign up links briefly rendering before getting updated with the logged-in end user's information.
 
-Imagine a scenario using a LaunchDarkly flag to enable or disable a feature within the browser UI. You definitely do not want the feature to display, however briefly, before disappearing. This could cause confusion and possibly frustration on the part of the user. While LaunchDarkly's client SDKs provide tools caching in LocalStorage to minimize these types of issues, the nature of how JavaScript runs in the browser means that any fully client-side solution cannot completely eliminate the delay, though there are methods to obscure it. Cloudflare Workers allow you to actually eliminate that delay by directly injecting your client-side flag values into the HTML before the browser ever receives the request.
+Imagine a scenario using a LaunchDarkly flag to enable or disable a feature within the browser UI. You definitely do not want the feature to display, however briefly, before disappearing. This could cause confusion and possibly frustration on the part of the end user. While LaunchDarkly's client SDKs provide tools caching in LocalStorage to minimize these types of issues, the nature of how JavaScript runs in the browser means that any fully client-side solution cannot completely eliminate the delay, though there are methods to obscure it. Cloudflare Workers allow you to actually eliminate that delay by directly injecting your client-side flag values into the HTML before the browser ever receives the request.
 
 Here's how to bootstrap the client-side flag values:
 
@@ -538,9 +538,9 @@ Here's how to bootstrap the client-side flag values:
   </CSTab>
   </CodeSample>
 
-  When the rewriter finds a `<head>` element, it creates a new instance of the `FlagStateInjector` class. This class contains an element handler that injects the flag values into a `<script>` element within the `<head>`. In this example, the LaunchDarkly client is only pulling flag values that have client-side SDK availability enabled using an anonymous user.
+  When the rewriter finds a `<head>` element, it creates a new instance of the `FlagStateInjector` class. This class contains an element handler that injects the flag values into a `<script>` element within the `<head>`. In this example, the LaunchDarkly client is only pulling flag values that have client-side SDK availability enabled using an anonymous context.
 
-3. (Optional) Pass user details. If you have user details available within your Worker, you can use them instead of the anonymous user. Place this code anywhere in the Worker file, as long as it is outside of existing function blocks.
+3. (Optional) Pass an evaluation context. If you have context details available within your Worker, you can use them instead of the anonymous context. Place this code anywhere in the Worker file, as long as it is outside of existing function blocks.
 
   In this example, the code is at the top of the file immediately after the `ldClient` variable instantiation:
 
@@ -550,10 +550,11 @@ Here's how to bootstrap the client-side flag values:
   ```ts
   class FlagsStateInjector {
     async element(element: Element) {
-      // fetch all flag values for client-side SDKs as evaluated for an anonymous user
-      // use a more appropriate user key if needed
-      const user = { key: 'anonymous' }
-      const allFlags = await ldClient.allFlagsState(user, {
+      // fetch all flag values for client-side SDKs 
+      // as evaluated for a context that has not logged in
+      // use a more appropriate context key if needed
+      const context = { key: 'guest' }
+      const allFlags = await ldClient.allFlagsState(context, {
         clientSideOnly: true,
       })
       element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true })
@@ -598,7 +599,7 @@ Here's how to bootstrap the client-side flag values:
   </CSTab>
   </CodeSample>
 
-Because the flag values are automatically synced between LaunchDarkly and the KV store, every time this page is served it automatically injects the current flag state values before it sends the page to the end user. This eliminates any flash of content caused even by a very brief rendering delay between when the UI initially displays, and when the LaunchDarkly client receives flag values that are used to update the user interface.
+Because the flag values are automatically synced between LaunchDarkly and the KV store, every time this page is served it automatically injects the current flag state values before it sends the page to the end user. This eliminates any flash of content caused even by a very brief rendering delay between when the user interface (UI) initially displays, and when the LaunchDarkly client receives flag values that are used to update the UI.
 
 After you've bootstrapped the client, you can use the LaunchDarkly SDK client as you normally would. For example, the following code, when you add it to `/assets/custom.js`, initializes the SDK, gets the value of a boolean flag named `show-about-us`, and then calls the `showAboutUs()` method to either hide or display the "About Us" section of the home page.
 
@@ -606,7 +607,7 @@ After you've bootstrapped the client, you can use the LaunchDarkly SDK client as
 <CSTab label="JavaScript">
 
 ```js
-const client = LDClient.initialize('<YOUR_CLIENT_SIDE_ID>', {
+const client = LDClient.initialize('<client-side-id-123abc>', {
   key: 'anonymous',
 })
 client.on('ready', async function () {
@@ -623,11 +624,11 @@ client.on('change', async function () {
 </CSTab>
 </CodeSample>
 
-Because the value of `show-about-us` is bootstrapped in the client, there is no latency when getting the initial flag value and displaying the content to the user. In addition, because the code watches for the `change` event, any changes to the flag once the page is loaded are reflected immediately.
+Because the value of `show-about-us` is bootstrapped in the client, there is no latency when getting the initial flag value and displaying the content to the end user. In addition, because the code watches for the `change` event, any changes to the flag once the page is loaded are reflected immediately.
 
 ## Modifying content at the edge
 
-You can use Cloudflare Workers to modify the content being served to an end user at the CDN level, before they ever receive it in their browser client. This can be useful to do things like [A/B testing](https://developers.cloudflare.com/workers/examples/ab-testing), [fetching an HTML or API response](https://developers.cloudflare.com/workers/examples/fetch-html), targeting content based upon user data, or personalizing content for an authenticated user.
+You can use Cloudflare Workers to modify the content being served to an end user at the CDN level, before they ever receive it in their browser client. This can be useful to do things like [A/B testing](https://developers.cloudflare.com/workers/examples/ab-testing), [fetching an HTML or API response](https://developers.cloudflare.com/workers/examples/fetch-html), targeting content based upon context data, or personalizing content for an authenticated end user.
 
 This example shows how to use the value of a string flag to replace the header text on a page. This type of solution could be modified for use in A/B testing, for slowly rolling out content changes, or for personalizing content.
 
@@ -641,7 +642,7 @@ Here's how to replace the header text:
 
 2. Create a function to handle asynchronously retrieving the flag values. You can reuse the LaunchDarkly client you created in the prior example, but you'll get flag values in multiple places, so it's simpler to create a new function.
 
-  The following function passes in a user `key` and a `user` object and returns the value of the flag for that user. If you do not pass a user, it defaults to `anonymous` as a user key. You can place this function anywhere within the `/src/index.ts` Worker file that is outside an existing code block.
+  The following function passes in a context `key` and a `context` object and returns the value of the flag for that context. If you do not pass a context, it defaults to `anonymous` as a context key. You can place this function anywhere within the `/src/index.ts` Worker file that is outside an existing code block.
 
   In this example, it is just prior to the `addEventListener` function block:
 
@@ -649,14 +650,14 @@ Here's how to replace the header text:
   <CSTab label="TypeScript">
 
   ```ts
-  async function getFlagValue(key: string, user?) {
+  async function getFlagValue(key: string, context?) {
     let flagValue
-    if (!user) {
-      user = {
-        key: 'anonymous',
+    if (!context) {
+      context = {
+        key: 'guest',
       }
     }
-    flagValue = await ldClient.variation(key, user, false)
+    flagValue = await ldClient.variation(key, context, false)
     return flagValue
   }
   ```
@@ -698,7 +699,7 @@ Here's how to replace the header text:
   </CSTab>
   </CodeSample>
 
-The video clip below demonstrates how changing the flag in LaunchDarkly will trigger the Worker to alter the text response in the `h1` tag before the page is received by the user. Because the change happens within the Worker, the user must refresh the page to reflect any flag change after the user has already received the page source.
+The video clip below demonstrates how changing the flag in LaunchDarkly will trigger the Worker to alter the text response in the `h1` tag before the page is received by the context. Because the change happens within the Worker, an end user must refresh the page to reflect any flag change after the context has already received the page source.
 
 <iframe
   width="560"
@@ -712,7 +713,7 @@ The video clip below demonstrates how changing the flag in LaunchDarkly will tri
 
 ## Modifying the response headers for a response
 
-Modifying the response headers for a response can be a powerful tool. You can use it to change existing headers for testing purposes, add custom headers that your code can respond to, or even redirect a user to a different page. In this example, you'll use a JSON flag value in LaunchDarkly to create an object containing the custom headers you want to add to the response using a Cloudflare Worker.
+Modifying the response headers for a response can be a powerful tool. You can use it to change existing headers for testing purposes, add custom headers that your code can respond to, or even redirect someone to a different page. In this example, you'll use a JSON flag value in LaunchDarkly to create an object containing the custom headers you want to add to the response using a Cloudflare Worker.
 
 First, create a JSON flag in LaunchDarkly. JSON flags can contain any valid, arbitrary JSON data. In the example below, the flag contains an array of request header names and values. In one case, a `x-launchdarkly-hello` header is set, while in the other it is not.
 
@@ -778,12 +779,12 @@ customHeader.headers.forEach((header: { name: string, value: string }) => {
 </CSTab>
 </CodeSample>
 
-As shown highlighted in the image below, when the flag is turned on, the user receives an `x-launchdarkly-hello` response header with the value of "Hello from LaunchDarkly."
+As shown highlighted in the image below, when the flag is turned on, the end user receives an `x-launchdarkly-hello` response header with the value of "Hello from LaunchDarkly."
 
 ![Viewing custom response headers.](cloudflare-custom-headers.png)
 
 ## Conclusion
 
-Cloudflare Workers offer a great way to deploy serverless code "to the edge", meaning they are deployed to a CDN and served to your end users from the CDN servers closest to their location. This makes them incredibly fast and a great way to perform all sorts of logic and processing on the user's request and response as it is in flight. If you're wondering what else you can do with Cloudflare Workers, read their [list of examples](https://developers.cloudflare.com/workers/examples), including things like sending a [conditional response](https://developers.cloudflare.com/workers/examples/conditional-response) or [rewriting links](https://developers.cloudflare.com/workers/examples/rewrite-links).
+Cloudflare Workers offer a great way to deploy serverless code "to the edge", meaning they are deployed to a CDN and served to your customers from the CDN servers closest to their location. This makes them incredibly fast and a great way to perform logic and processing on the request and response as they are in flight. If you're wondering what else you can do with Cloudflare Workers, read their [list of examples](https://developers.cloudflare.com/workers/examples), including things like sending a [conditional response](https://developers.cloudflare.com/workers/examples/conditional-response) or [rewriting links](https://developers.cloudflare.com/workers/examples/rewrite-links).
 
 Combining Workers with LaunchDarkly feature management is a powerful combination, offering you the ability to bootstrap client-side flags with zero latency or allowing you to control how your code runs at the edge in Cloudflare simply by flipping a flag.

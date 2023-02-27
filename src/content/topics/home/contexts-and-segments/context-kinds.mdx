@@ -1,0 +1,108 @@
+---
+path: /home/contexts/context-kinds
+title: Context kinds
+description: This topic explains what context kinds are and how to manage them.
+published: true
+tags: ['context kind']
+---
+
+## Overview
+
+This topic explains what context kinds are and how to manage them.
+
+## Understanding context kinds
+
+Contexts are people, services, machines, or other resources that encounter feature flags in your product.
+
+Each context has a context kind that you can use to categorize context instances for targeting and Experimentation. For example, you may know:
+
+* the username, first name, last name, and email address of a person. You might include these context attributes in contexts with a "user" context kind.
+* the company, department, and location of an organization. You might include these context attributes in contexts with an "organization" context kind.
+* the device, model, and operating system of an environment. You might include these attributes in contexts with a "device" context kind.
+
+When you create a context kind, you provide a name, key, and description. Then, any attributes that you add to a context of that kind become part of the context kind. You do not need to define the attributes themselves when you create the context kind.
+
+Context kinds let you group context attributes together conceptually. When you create individual targets or add targeting rules for a flag or a segment, the available context attributes are organized by context kind.
+
+Context kinds are specific to LaunchDarkly [projects](/home/organize/projects). After you create them in a project, they are available in any of the [environments](/home/organize/environments) within that project.
+
+## Viewing context kinds
+
+You can view a list of context kinds that have been identified or evaluated within the last 30 days by navigating to the **Contexts** list and clicking the **Kinds** tab.
+
+The context kinds list includes all of the built-in and manually created context kinds within your project:
+
+![The context kinds list.](contexts-kinds-tab.png)
+
+The context kinds list includes the following columns:
+
+- In use: indicates whether an SDK has ever sent a context with this kind to LaunchDarkly
+- Available for targeting: indicates whether you can use this context kind in flag and segment targeting rules. Check or uncheck the "Show hidden context kinds" checkbox to display or hide contexts kinds that are not available for targeting.
+- Available for experiments: indicates whether you can use this context kind as a randomization unit in experiments. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
+
+You can filter contexts based on their context kind from the **Contexts** list. To learn more, read [The Contexts list](/home/contexts/contexts-list).
+
+<Callout intent="info">
+<CalloutTitle>Contexts appear individually in the <strong>Contexts</strong> list</CalloutTitle>
+<CalloutDescription>
+
+Your application may evaluate a feature flag for a multi-context, that is, one that contains multiple context kinds. For example, your application may send a single multi-context that contains the "user," "organization," and "device" content kinds, all in one evaluation call in the LaunchDarkly SDK. When you do this, all three individual contexts appear separately in your **Contexts** list. You can use the context kind filters to search for them separately.
+
+</CalloutDescription>
+</Callout>
+
+You can view the context kind for a particular context on the context details page, in the "Attributes" section. You can view the context kind for a context instance on the instance details page, in the "Attributes" section. To learn more, read [The context details page](/home/contexts/context-details).
+
+<LearnMore>
+
+You can also use the REST API: [Get context kinds](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextKindsByProjectKey)
+
+</LearnMore>
+
+## Creating context kinds
+
+You can create context kinds in the LaunchDarkly user interface (UI), or automatically when you evaluate a context using a LaunchDarkly SDK.
+
+To create a context kind in the LaunchDarkly UI:
+
+1. Navigate to the **Contexts** list.
+2. Click the **Kinds** tab.
+3. Click **Create kind**:
+
+![The "Kinds" tab, with the "Create kind" button called out.](contexts-create-kind-callout.png)
+
+4. The "New context kind" dialog appears:
+
+![The "New context kind" dialog.](contexts-new-context-kind.png)
+<br />
+
+5. Enter a **Name** for the context kind. This appears in the context kind list, and as a filter option in the **Contexts** list.
+
+6. Enter a **Key** for the context kind. You cannot change this later. It appears in the **Contexts** list and on the [context details page](/home/contexts/context-details) in the "Attributes" section.
+
+7. (Optional) Enter a **Description** for the context kind.
+
+8. (Optional) Uncheck the "Available for targeting" checkbox if you do not want members to be able to use this context kind in flag and segment targeting rules.
+
+9. (Optional) Check the "Available for experiments" checkbox if you want to be able to use this context kind as a randomization unit in experiments. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
+  - Select an industry-standard randomization unit to map the context kind to.
+  - (Optional) Check the "Set as the default for experiments" checkbox if you want new experiments to default to this context kind as the randomization unit.
+
+<Callout intent="warning">
+<CalloutTitle>You must use valid randomization units in your context kinds</CalloutTitle>
+<CalloutDescription>
+
+When creating a new context kind for use in Experimentation, we recommend consulting with an Experimentation expert in your organization or with LaunchDarkly Support to be sure your randomization unit mapping is valid. Using non-standard randomization units will result in invalid experiment results.
+
+</CalloutDescription>
+</Callout>
+
+10. Click **Create kind**.
+
+To create a context kind automatically, create a context object in your LaunchDarkly SDK. When you evaluate a flag for the context, LaunchDarkly automatically creates a new context kind for that context's kind, if one of the same name does not already exist. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+<LearnMore>
+
+You can also use the REST API: [Create or update context kind](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/putContextKind)
+
+</LearnMore>

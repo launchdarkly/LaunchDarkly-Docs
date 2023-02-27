@@ -31,7 +31,7 @@ Integrating flag triggers with Dynatrace requires two steps:
 To complete this guide, you must have the following prerequisites:
 
 - You must have a Pro or Enterprise LaunchDarkly account.
-- You must have a user role with permission to edit flag triggers.
+- You must have a Writer role or custom role with permission to edit flag triggers.
 - You must have access to trigger URLs. To learn more about accessing trigger URLs, read [Understanding flag triggers' security](/home/feature-workflows/triggers#understanding-flag-triggers-security).
 - You must have an existing [Dynatrace](https://www.dynatrace.com/) account.
 
@@ -86,7 +86,7 @@ To configure a LaunchDarkly trigger in Dynatrace, you must perform two steps:
 <CalloutTitle>Create a custom alerting profile in Dynatrace to associate with your trigger</CalloutTitle>
 <CalloutDescription>
 
- We strongly recommend that you use a custom alerting profile. Alerting profiles specify what Dynatrace event or set of events will invoke the webhook. In the absence of a user-specified alerting profile, Dynatrace's default alerting profile sends a webhook to LaunchDarkly for all Dynatrace events.
+ We strongly recommend that you use a custom alerting profile. Alerting profiles specify what Dynatrace event or set of events will invoke the webhook. In the absence of a custom alerting profile, Dynatrace's default alerting profile sends a webhook to LaunchDarkly for all Dynatrace events.
 
 </CalloutDescription>
 </Callout>

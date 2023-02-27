@@ -154,12 +154,12 @@ If you don't provide one or more templates, LaunchDarkly sends you a default JSO
       }
     },
     "_id": "569f514183f2164430000002",
-    "email": "testing@example.com",
-    "firstName": "Henry",
-    "lastName": "Barrow"
+    "email": "sandy@example.com",
+    "firstName": "Sandy",
+    "lastName": "Smith"
   },
   "titleVerb": "",
-  "markdownTitle": "[Henrietta Powell](mailto:testing@example.com) turned on the flag [Example test](https://app.launchdarkly.com/example-project/production/features/example-test) in `Production`",
+  "markdownTitle": "[Sandy Smith](mailto:sandy@example.com) turned on the flag [Example test](https://app.launchdarkly.com/example-project/production/features/example-test) in `Production`",
   "title": "Henrietta Powell turned on the flag Example test in 'Production'",
   "target": {
     "_links": null,
@@ -204,7 +204,7 @@ To test your templates, you can run `npm run preview $INTEGRATION_NAME` or use t
 
 ### The default policy property
 
-Users of your integration can specify an array of LaunchDarkly policies to filter which events to send to your webhook endpoint. To learn more, read [Using policies](/home/members/role-policies)
+People who use your integration can specify an array of LaunchDarkly policies to filter which events to send to your webhook endpoint. To learn more, read [Using policies](/home/members/role-policies)
 
 To simplify onboarding your integration, you can specify a default policy which follows best practices for your integration's use case.
 
@@ -672,7 +672,7 @@ Some capabilities require you to specify an endpoint that LaunchDarkly can make 
 
 This specification must include all appropriate request semantics including the URL, method, and headers.
 
-In the example above, the properties `endpoint.url` and `endpoint.headers[].value` accept template variables. These template variables can reference any `formVariables` you've defined in your manifest. This lets you configure a dynamic endpoint based on the `formVariables` your integration collects from the user. To learn more, read [Using form variables](/integrations/partner-integrations/form-variables).
+In the example above, the properties `endpoint.url` and `endpoint.headers[].value` accept template variables. These template variables can reference any `formVariables` you've defined in your manifest. This lets you configure a dynamic endpoint based on the `formVariables` your integration collects from the end user. To learn more, read [Using form variables](/integrations/partner-integrations/form-variables).
 
 The templating language LaunchDarkly uses is based off of a subset of the Handlebars syntax. To learn more, read the [Handlebars documentation](https://handlebarsjs.com/).
 

@@ -114,7 +114,7 @@ In the example above, `proj/*:`includes all named projects in the list of result
 <CalloutTitle>Resource types do not share permissions</CalloutTitle>
 <CalloutDescription>
 
-User permissions are specific to each resource type, and different types do not share or inherit permissions. For example, if you set user permissions for a project with the ID `default` using `proj/default`, the user does not have the same permissions for the project's environments unless you also set user permissions for `proj/default:env/*`.
+Member permissions are specific to each resource type, and different types do not share or inherit permissions. For example, if you set member permissions for a project with the ID `default` using `proj/default`, the member does not have the same permissions for the project's environments unless you also set member permissions for `proj/default:env/*`.
 
 </CalloutDescription>
 </Callout>
@@ -232,6 +232,17 @@ Here is a reference list of all the supported resources in LaunchDarkly and thei
   </TableRow>
   <TableRow>
     <TableCell>
+      <code>context</code>
+    </TableCell>
+    <TableCell>
+      <code>context</code> is a child of both a project and environments.
+    </TableCell>
+    <TableCell>
+      <code>proj/*:env/*:context/*</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
       <code>destination</code>
     </TableCell>
     <TableCell>
@@ -261,17 +272,6 @@ Here is a reference list of all the supported resources in LaunchDarkly and thei
     </TableCell>
     <TableCell>
       <code>proj/*:env/*:segment/*</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>user</code>
-    </TableCell>
-    <TableCell>
-      <code>user</code> is a child of both a project and environments.
-    </TableCell>
-    <TableCell>
-      <code>proj/*:env/*:user/*</code>
     </TableCell>
   </TableRow>
   <TableRow>

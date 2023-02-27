@@ -10,7 +10,7 @@ tags: ['delete', 'dashboard', 'dependency', 'environment']
 
 This topic explains how to archive flags you no longer need, or delete flags that are archived.
 
-When a flag is no longer being served to users, and it is not a prerequisite of other flags, it may be time to archive it. Archiving a flag retires it from LaunchDarkly without deleting it. You can restore an archived flag if you need it, or find it to reference its configuration later.
+When a flag is no longer being served to customers, and it is not a prerequisite of other flags, it may be time to archive it. Archiving a flag retires it from LaunchDarkly without deleting it. You can restore an archived flag if you need it, or find it to reference its configuration later.
 
 LaunchDarkly will not let you archive a flag that is a prerequisite of other flags. Flags are good candidates for archival when they are serving only one variation in the environment you choose and have not been requested in the last seven days.
 
@@ -38,7 +38,7 @@ To learn how to resolve flag dependencies, read [Resolving dependencies](#resolv
 <CalloutTitle>Archiving a flag removes it from every environment in your project</CalloutTitle>
 <CalloutDescription>
 
-All flags exist in every environment for a project, but often only a few environments matter for your teams' production processes. Archiving a flag will remove it from every environment in the project. Be absolutely certain you can archive a flag without any unintended impact.
+All flags exist in every environment for a project, but often only a few environments matter for your organization's production processes. Archiving a flag will remove it from every environment in the project. Be absolutely certain you can archive a flag without any unintended impact.
 
 </CalloutDescription>
 </Callout>
@@ -52,7 +52,7 @@ The flag is archived and removed from the flags list. You can find it in the arc
 <CalloutTitle>Archived flags serve their coded values if requested</CalloutTitle>
 <CalloutDescription>
 
-If users request a flag after you archive it, the flag value that returns is the value you defined in code.
+If end users request a flag after you archive it, the flag value that returns is the value you defined in code.
 
 </CalloutDescription>
 </Callout>
@@ -133,7 +133,7 @@ You can also restore an archived flag from the flag's **Settings** tab:
 
 After you archive a flag, you can delete it if you no longer need it.
 
-If you delete a flag, its rules will be deleted. Should it be requested again, the flag value defined in code will be returned for all users. Remove any references to the feature flag from your application code before you delete it.
+If you delete a flag, its rules will be deleted. Should it be requested again, the flag value defined in code will be returned for all contexts. Remove any references to the feature flag from your application code before you delete it.
 
 <Callout intent="alert">
 <CalloutTitle>Deleted flags are gone forever</CalloutTitle>

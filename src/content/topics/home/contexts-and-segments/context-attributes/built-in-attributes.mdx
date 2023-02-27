@@ -1,0 +1,87 @@
+---
+path: /home/contexts/built-in-attributes
+title: Built-in attributes
+description: This topic explains what built-in attributes are and how to configure them.
+published: true
+tags: ['built-in', 'attribute', 'context', 'user']
+---
+
+## Overview
+
+This topic explains what LaunchDarkly's built-in attributes are and how to configure them.
+
+LaunchDarkly allows you to target contexts based on built-in attributes. To learn more, read [Targeting rules](/home/flags/targeting-rules).
+
+## Using built-in attributes
+
+The built-in attributes are kind, key, name, and anonymous. Kind, key, and name attributes must be strings, and anonymous attributes must be booleans. You can define additional attributes for a context by passing in a name and value for each.
+
+The context kind and key are the only mandatory attributes. All other attributes are optional.
+
+<Callout intent="info">
+<CalloutTitle>LaunchDarkly does not automatically populate built-in attributes</CalloutTitle>
+<CalloutDescription>
+
+While LaunchDarkly provides built-in attribute fields for you to fill in, the SDK does not automatically collect any information. If you want to target contexts based on any built-in attributes, you must supply their values.<br /><br />
+
+</CalloutDescription>
+</Callout>
+
+Here is a table explaining LaunchDarkly's built-in attributes:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Attribute name</TableHeadCell>
+    <TableHeadCell>Attribute example value</TableHeadCell>
+    <TableHeadCell>Notes</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>kind</code>
+      </TableCell>
+      <TableCell>"user"</TableCell>
+      <TableCell>The context kind. Required for evaluation.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>key</code>
+      </TableCell>
+      <TableCell>"context-key-123abc"</TableCell>
+      <TableCell>Required for evaluation. This should be unique for each context.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>name</code>
+      </TableCell>
+      <TableCell>"Sandy Smith"</TableCell>
+      <TableCell>This attribute is optional, but we recommend including it if you need to target flags to individual contexts.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>anonymous</code>
+      </TableCell>
+      <TableCell>true</TableCell>
+      <TableCell>If set, this boolean attribute prevents the context from appearing in the <strong>Contexts</strong> list. If the anonymous attribute is set to <code>true</code>, LaunchDarkly treats the context as anonymous.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+<Callout intent="info">
+<CalloutTitle>Creating searchable context keys</CalloutTitle>
+<CalloutDescription>
+
+You can structure your context keys so they are both searchable and unique. To do this, we suggest adding a searchable term to the beginning of the key, followed by a unique ID. For example, if you wanted to easily search users that encountered a specific service, you could structure the key as follows: `service_name:uuid`.
+
+Alternatively, you can set unique identifiers for contexts in your SDK configuration. To learn more, read [Application metadata configuration](/sdk/features/app-config).
+
+</CalloutDescription>
+</Callout>
+
+You can view a context's attributes by clicking on the individual context from the [**Contexts** list](https://app.launchdarkly.com/contexts).
+
+<LearnMore>
+
+You can also use the REST API: [Get contexts](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContexts), [Search for contexts](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContexts), [Get context attribute names](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextAttributeNames), [Get context attribute values](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextAttributeValues)
+
+</LearnMore>

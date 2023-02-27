@@ -14,7 +14,7 @@ This topic explains how to join LaunchDarkly as a new account member.
 <CalloutTitle>LaunchDarkly is for groups and organizations</CalloutTitle>
 <CalloutDescription>
 
-You cannot sign up for LaunchDarkly as a user who is not associated with an organization's account. Instead, an administrator or account owner from your organization must send you an invitation email. If you want to sign up for LaunchDarkly as an individual, you can sign up for a [free 14-day trial](https://launchdarkly.com/start-trial/).
+You cannot sign up for LaunchDarkly if your email address is not associated with your organization's account. Instead, an administrator or account owner from your organization must send you an invitation email. If you want to sign up for LaunchDarkly as an individual, you can sign up for a [free trial](https://launchdarkly.com/start-trial/).
 
 </CalloutDescription>
 </Callout>
@@ -26,7 +26,7 @@ You can join your organization's LaunchDarkly account in one of two ways:
 - An admin can invite you to your organization's account
 - You can request access if your organization has enabled domain matching
 
-### Joining through an Admin invite 
+### Joining through an Admin invite
 
 When an Admin invites you to your organization's LaunchDarkly account, you will receive an email from LaunchDarkly. Follow the instructions in the email to create your account and join your organization.
 
@@ -120,7 +120,7 @@ For a list of SSO providers LaunchDarkly supports, read [Supported external iden
 
 ## Understanding LaunchDarkly's user entity types
 
-In LaunchDarkly, it is important to distinguish between **account members** and **users**. Here is a table explaining the difference:
+In LaunchDarkly, it is important to distinguish between **account members** and **contexts**. Here is a table explaining the difference:
 
 <Table>
   <TableHeader>
@@ -131,13 +131,13 @@ In LaunchDarkly, it is important to distinguish between **account members** and 
     <TableRow>
       <TableCell>"Account members," or "members"</TableCell>
       <TableCell>
-        These are people who have been invited to join a LaunchDarkly account to create and manage feature flags. They can log into a company's LaunchDarkly account and view the flags list. They may be employees of a company that uses LaunchDarkly, people with an @your-company.com email address, or people or entities associated with your identity provider (IdP).
+        These are people who have been invited to join a LaunchDarkly account to create and manage feature flags. They can log into a company's LaunchDarkly account and view the flags list. They may be employees of a company that uses LaunchDarkly, people with an @your-company.com email address, or people associated with your identity provider (IdP).
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell>"Users"</TableCell>
+      <TableCell>"Contexts"</TableCell>
       <TableCell>
-        These are people or entities who trigger flag evaluations. This can cause them to appear in the <strong>Users</strong> list in LaunchDarkly, but they cannot log into the organization's LaunchDarkly account or view or modify their own or other user's data. They may be customers of a company using LaunchDarkly, consumers of an app or website that uses feature flags, or other entities that can cause flag evaluations to occur.
+        Contexts are entities that trigger flag evaluations. This can cause them to appear in the <strong>Contexts</strong> list in LaunchDarkly, but they cannot log into the organization's LaunchDarkly account or view or modify their own or other people's data. You can designate people, email addresses, geographical regions, and more as contexts. They can even be combinations of other contexts. They are usually not people with member access to your LaunchDarkly account, although it is possible for someone with member access to encounter one of your feature flags and appear in the <strong>Contexts</strong> list. Contexts are a flexible, highly customizable way to categorize, target, and act on groups that are affected by your feature flags. To learn more, read <a href="/home/contexts#understanding-the-foundations-of-contexts">Understanding the foundations of contexts</a>.
       </TableCell>
     </TableRow>
   </TableBody>
