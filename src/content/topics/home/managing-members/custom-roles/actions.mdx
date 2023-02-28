@@ -301,6 +301,45 @@ This table explains available context actions:
     <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>deleteContextInstance</code>
+      </TableCell>
+      <TableCell>
+        Delete a context's instances.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+## Context kind actions
+
+<Details summary="Expand Context kind actions">
+
+`context-kind` is a child of a project. A code sample is below:
+
+<CodeSample>
+<CSTab label="Context resource">
+
+```json
+proj/*:context-kind/*
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [Context kinds](/home/contexts/context-kinds).
+
+This table explains available context kind actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
      <TableRow>
       <TableCell>
         <code>createContextKind</code>
@@ -311,18 +350,18 @@ This table explains available context actions:
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteContextInstances</code>
-      </TableCell>
-      <TableCell>
-        Delete a context's instances.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>updateContextKind</code>
       </TableCell>
       <TableCell>
         Update a context kind.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateAvailabilityForExperiments</code>
+      </TableCell>
+      <TableCell>
+        Update whether a context kind is available for experiments, the standard randomization that it maps to, and whether it's the project's default.
       </TableCell>
     </TableRow>
   </TableBody>

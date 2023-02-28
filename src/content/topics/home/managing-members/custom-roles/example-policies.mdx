@@ -342,6 +342,11 @@ Copy this Reader role and make any modifications to it to suit your needs:
   {
     "effect": "deny",
     "actions": ["*"],
+    "resources": ["proj/*:context-kind/*"]
+  },
+  {
+    "effect": "deny",
+    "actions": ["*"],
     "resources": ["member/*"]
   },
   {
@@ -431,6 +436,11 @@ Copy this Writer role and make any modifications to it to suit your needs:
     "effect": "allow",
     "actions": ["*"],
     "resources": ["proj/*:env/*:context/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:context-kind/*"]
   },
   {
     "effect": "allow",
@@ -528,6 +538,11 @@ Copy this Admin role and make any modifications to it to suit your needs:
     "effect": "allow",
     "actions": ["*"],
     "resources": ["proj/*:env/*:context/*"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:context-kind/*"]
   },
   {
     "effect": "allow",
