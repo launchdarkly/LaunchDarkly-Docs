@@ -29,18 +29,18 @@ Depending on the SDK, you may need to configure multiple service endpoints in th
 
 2. **Import the LaunchDarkly client in your application code.** This client is the primary way your application uses the SDK and communicates with LaunchDarkly.
 3. **Configure the LaunchDarkly client with the appropriate key for your environment and create the client.** Your SDK key, client-side ID, and mobile key uniquely identify your project and environment, and they authorize your application to connect to LaunchDarkly.
-4. **Set which feature flag variation a user will receive.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different users.
+4. **Set which feature flag variation a context will receive.** Every feature flag is uniquely identified by a feature flag key. Use the key to associate flag variations with different contexts.
 
 <Callout intent="info">
-<CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+<CalloutTitle>Adding contexts to LaunchDarkly</CalloutTitle>
 <CalloutDescription>
 
-You don't have to send users to LaunchDarkly in advance. You can target them with feature flags before they appear on your **Users** list. Users appear in the **Users** list automatically after they encounter feature flags.
+You don't have to send contexts to LaunchDarkly in advance. After you create contexts in your SDK, you can target them with feature flags before they appear on your **Contexts** list. Contexts that exist in your SDK appear in the **Contexts** list automatically after they encounter feature flags.
 
 </CalloutDescription>
 </Callout>
 
-5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, requests and users on the **Users** list may not be populated, because they are derived from analytics events. **You need to shut down the application manually only one time**. To learn more, read [Analytics events](/sdk/concepts/events).
+5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, requests and the **Contexts** list may not be populated, because they are derived from analytics events. **You need to shut down the application manually only one time**. To learn more, read [Analytics events](/sdk/concepts/events).
 
 ### Editor support
 
@@ -62,10 +62,10 @@ All SDKs provide synchronous and asynchronous ways of waiting for the SDK's stat
 
 After you have set up an SDK, you can manage features on your flags list. To learn more, read [The flags list](/home/organize/flags-list).
 
-When you're ready to test your integration, use the debugger to get a real-time view of your feature flag requests as they're received. To learn more, read [The debugger](/home/flags/debugger).
+When you're ready to test your integration, use the **Live events** page to get a real-time view of your feature flag requests as they're received. To learn more, read [Live events](/home/flags/live-events).
 
 <Callout intent="alert" site="federal">
-<CalloutTitle>The debugger is not available in federal environments</CalloutTitle>
+<CalloutTitle>Live events is not available in federal environments</CalloutTitle>
 <CalloutDescription>
 
 To learn more, read [LaunchDarkly in federal environments](/home/advanced/federal).
@@ -75,6 +75,6 @@ To learn more, read [LaunchDarkly in federal environments](/home/advanced/federa
 
 As you begin using feature flags, here are some useful features you can use without re-deploying your application:
 
-* [Targeting users with flags](/home/flags/targeting-users)
+* [Targeting with flags](/home/flags/targeting)
 * [Percentage rollouts](/home/flags/rollouts)
 * [Experimentation](/home/about-experimentation)

@@ -1,22 +1,22 @@
 ---
 path: /guides/flags/entitlements
-title: Using entitlements to manage user experience
-description: This guide explains how you can use feature flags to create special access levels or variable experiences based on the user identity.
+title: Using entitlements to manage customer experience
+description: This guide explains how you can use feature flags to create special access levels or variable experiences based on the customer's context.
 published: true
 tags: ['guide', 'entitlement', 'target', 'segment', 'targeting rule']
 ---
 
 ## Overview
 
-This guide explains how you can use feature flags to create special access levels or variable experiences based on the user identity. Use this guide to understand how long-lived feature flags and precision flag targeting work together to ensure that every user has access to the correct features. Providing different experiences for different users based on user characteristics is referred to as "entitlement."
+This guide explains how you can use feature flags to create special access levels or variable experiences based on the customer's context. Use this guide to understand how long-lived feature flags and precision flag targeting work together to ensure that every customer has access to the correct features. Providing different experiences for different customers based on context characteristics is referred to as "entitlement."
 
 Common use cases include:
 
-- Premium users
+- Premium customers
 - Temporary privilege escalation
 - Localization
 
-In the context of LaunchDarkly's feature flags, entitlement is a subset of flag targeting. It is meant to deliver a set of features to a designated segment or group of users. The difference between targeting and entitlements is that entitlements are meant to be a permanent or long-lived targeting rule, whereas general flag targeting can be more temporary or flexible.
+In the context of LaunchDarkly's feature flags, entitlement is a subset of flag targeting. It is meant to deliver a set of features to a designated segment or group of customers, who you identify based on their context. The difference between targeting and entitlements is that entitlements are meant to be a permanent or long-lived targeting rule, whereas general flag targeting can be more temporary or flexible.
 
 ## Prerequisites
 
@@ -32,7 +32,7 @@ This guide relies on the following concepts:
 
 ### Targeting
 
-Targeting is when you use flag rules to determine which users, user segments, or subsets of user segments receive a flag.
+Targeting is when you use flag rules to determine which contexts, segments, or subsets of segments receive a flag.
 
 ### Permanent flags
 
@@ -40,19 +40,19 @@ Flags with no specified end date, or "permanent" flags, are part of the everyday
 
 ### Pre-defined segment
 
-A group of user contexts that should consistently get the same behavior from the application. A segment might be users in a certain geographic area, servers with a known IP address range, or members of an internal testing group.
+A group of contexts that should consistently get the same behavior from the application. A segment might be end users in a certain geographic area, servers with a known IP address range, or members of an internal testing group.
 
-Using a segment as the definition of a target makes behavior more repeatable and predictable. You can include test users in the segment to ensure the users are represented in test scenarios.
+Using a segment as the definition of a target makes behavior more repeatable and predictable. You can include test contexts in the segment to ensure the contexts are represented in test scenarios.
 
 ## Managing entitlements with feature flags
 
-This section explains how you can use feature flags to manage entitlements for different groups of users. You can use flag and rule targeting patterns to facilitate entitlements in several ways, depending on what your organization needs. We have described several of the most common below.
+This section explains how you can use feature flags to manage entitlements for different groups of contexts. You can use flag and rule targeting patterns to facilitate entitlements in several ways, depending on what your organization needs. We have described several of the most common below.
 
-### Customizing in-product experience for premium users
+### Customizing in-product experience for premium customers
 
-Premium users are the use case people think of most often when they think of entitlements. A premium user has a different experience of the application or site than a standard user. They might be notified about auctions sooner, have more editorial or posting rights, or receive fewer ads. Using a flag to identify a segment as premium users saves you from the slightly-risky process of adding individual users to a different permissions level in your application or site. If there is any breach or problem with access, you can remove either the user or segment very quickly until the problem is resolved.
+Premium customers are the use case people think of most often when they think of entitlements. A premium customer has a different experience of the application or site than a standard customer. They might be notified about auctions sooner, have more editorial or posting rights, or receive fewer ads. Using a flag to identify a segment as premium customers saves you from the slightly-risky process of adding individual customers to a different permissions level in your application or site. If there is any breach or problem with access, you can remove either the customer or segment very quickly until the problem is resolved.
 
-A “logged-in user” is a special case of premium user. Many sites, from e-commerce to newspapers to community sites, have a logged-in/account assumption, which is a kind of premium user, even if it isn't about money. A user logs in to access the full site and the account they hold on it. In that sense, a logged-in user is a premium user who has more access than an anonymous user.
+A “logged-in customer” is a special case of premium customer. Many sites, from e-commerce to newspapers to community sites, have a logged-in/account assumption, which is a kind of premium customer, even if it isn't about money. A customer logs in to access the full site and the account they hold on it. In that sense, a logged-in customer is a premium customer who has more access than an anonymous customer.
 
 ### Rebranding software someone else built
 
@@ -64,11 +64,11 @@ With an entitlements flag, you can put the customizations behind a flag and turn
 
 ### Customization and accessibility
 
-Users want to change their experience of their software to meet their own needs and use patterns. Some people find dark mode easier to read, other people prefer black-on-white text. Offering customization options for content, appearance, and accessibility gives users more control over your software and lets them feel more comfortable.
+End users want to change their experience of their software to meet their own needs and use patterns. Some people find dark mode easier to read, other people prefer black-on-white text. Offering customization options for content, appearance, and accessibility gives end users more control over your software and lets them feel more comfortable.
 
 It’s easy to imagine customization for appearances, things like light/dark mode, highlight colors, and font size. Customization can also include changing the type or frequency of notifications, changing the topics that are presented first, or accessibility options.
 
-Building accessible applications and sites expands your potential audience. However, not all accessibility options are compatible with each other. For example, tab navigation and tablet navigation can have very different layout requirements. Using entitlements to enable customization for accessibility features lets your team perform more specific tests and allows users to choose the options that work best for their needs.
+Building accessible applications and sites expands your potential audience. However, not all accessibility options are compatible with each other. For example, tab navigation and tablet navigation can have very different layout requirements. Using entitlements to enable customization for accessibility features lets your team perform more specific tests and allows end users to choose the options that work best for their needs.
 
 ### Localization
 
@@ -76,9 +76,9 @@ Localization is similar to rebranding, but sometimes there are localization need
 
 Localization can also involve respecting geographical restrictions of several kinds. These include:
 
-- Region-specific restrictions on data (such as those required by GDPR)
+- Region-specific restrictions on data, such as those required by GDPR
 - Internet or data speed by region
-- Seasonal content that assumes all users are in the same hemisphere
+- Seasonal content that assumes all end users are in the same hemisphere
 
 Wrapping geographically-specific content in feature flags allows you to target that content precisely to the people you want.
 
@@ -102,22 +102,22 @@ This table includes an example of effective flag naming:
   </TableHeader>
   <TableBody>
   <TableRow>
-    <TableCell>perm-PaidUser</TableCell>
-    <TableCell>Prerequisite flag for paid users. Dependent flags include perm-ShowPaywall, perm-ThanksSubscriber.</TableCell>
+    <TableCell>perm-PaidCustomer</TableCell>
+    <TableCell>Prerequisite flag for paid customers. Dependent flags include perm-ShowPaywall, perm-ThanksSubscriber.</TableCell>
     <TableCell>prerequisites, permanent, sr-lvl</TableCell>
   </TableRow>
   </TableBody>
 </Table>
 
-As you read the flag information, you'll learn that this flag controls a couple of other flags. If you turn `perm-PaidUser` off, it will affect those flags. It is a permanent flag, so you know you shouldn’t delete it without extensive discussion. The tags help group it with similar flags and make sure that only senior-level operators can change it.
+As you read the flag information, you'll learn that this flag controls a couple of other flags. If you turn `perm-PaidCustomer` off, it will affect those flags. It is a permanent flag, so you know you shouldn’t delete it without extensive discussion. The tags help group it with similar flags and make sure that only senior-level operators can change it.
 
-You can mark the flag **permanent** when you create it, but it is also useful to prepend the name with an agreed-on prefix, such as `perm-` or `entitle-`. Adding tags to your entitlements flags can also help you find and group them for administrative purposes. Use tags to limit who has access to control the flags, because any state change in an entitlement flag can be very visible to your users.
+You can mark the flag **permanent** when you create it, but it is also useful to prepend the name with an agreed-on prefix, such as `perm-` or `entitle-`. Adding tags to your entitlements flags can also help you find and group them for administrative purposes. Use tags to limit who has access to control the flags, because any state change in an entitlement flag can be very visible to your members.
 
 ### Automated segments
 
 You can add and remove individual targets to and from entitlement flags as needed, but depending on how often your customers change, this can be inefficient. Instead, you can target segments if you can provide that targeting data to the LaunchDarkly client evaluating the rules.
 
-For users on Enterprise plans, targeting segments defined in SAML are dynamically generated and updated, and are a good source of truth for who your users are and what level of entitlement and access they should have. It’s better to use those SAML-defined segments as the target of your rule than to try to maintain a correct listing in more than one place.
+For customers on Enterprise plans, targeting segments defined in SAML are dynamically generated and updated, and are a good source of truth for who your end users are and what level of entitlement and access they should have. It’s better to use those SAML-defined segments as the target of your rule than to try to maintain a correct listing in more than one place.
 
 ## Testing plans and designs
 
@@ -125,9 +125,9 @@ Entitlement flags are going to be a part of your code for the foreseeable future
 
 Some best practices include:
 
-- Having alert-equipped test users in each segment
+- Having alert-equipped test contexts in each segment
 - Writing test plans that include changing flag states and measuring the outcomes
-- Using monitoring and observability to ensure that users targeted by entitlement flags are getting the response times expected
+- Using monitoring and observability to ensure that contexts targeted by entitlement flags are getting the response times expected
 - Confirming that your test plan updates the default and fallback behavior of entitlement flags
 
 ## Learn more

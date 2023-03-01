@@ -17,11 +17,11 @@ Experimentation is available to customers on a Pro or Enterprise plan. To learn 
 
 ## Overview
 
-This guide explains how to create mutually exclusive experiments. Mutually exclusive experiments are two or more experiments configured to prevent users from being included in more than one at a time.
+This guide explains how to create mutually exclusive experiments. Mutually exclusive experiments are two or more experiments configured to prevent contexts from being included in more than one at a time.
 
-Generally, it is not a problem to include a user in multiple experiments. Our Experimentation offering minimizes interaction effects using audience allocation, and you can be confident in the winning variation even when running multiple concurrent experiments with overlapping audiences.
+Generally, it is not a problem to include a context in multiple experiments. Our Experimentation offering minimizes interaction effects using audience allocation, and you can be confident in the winning variation even when running multiple concurrent experiments with overlapping audiences.
 
-However, there are some cases in which you may not want to include your users in more than one experiment at a time. For example, you may be concerned about collisions between experiments that are testing similar parts of your app, like two different changes to the same section of your app’s user interface (UI), or experiments running on both the back end and front end of the same functionality.
+However, there are some cases in which you may not want to include each context in more than one experiment at a time. For example, you may be concerned about collisions between experiments that are testing similar parts of your app, like two different changes to the same section of your app’s user interface (UI), or experiments running on both the back end and front end of the same functionality.
 
 Ideally, you would run experiments with potential collisions sequentially or include all of the related changes in the same experiment. However, if you are unable to do that due to time or other constraints, you can create mutually exclusive experiments using prerequisite flags.
 
@@ -33,13 +33,13 @@ In this tutorial you will:
 
 ### Controlling experiment audiences with flag variations
 
-You can control experiment audiences with flag variations. First, you can create a prerequisite flag with variations that correspond to each of the mutually exclusive experiments you want to run. Then, you can use a percentage rollout to randomly assign each of your users to only one of those exclusive experiments.
+You can control experiment audiences with flag variations. First, you can create a prerequisite flag with variations that correspond to each of the mutually exclusive experiments you want to run. Then, you can use a percentage rollout to randomly assign each context to only one of those exclusive experiments.
 
-If you want LaunchDarkly to include all of your users in one of the experiments, add the percentage rollout to the default rule in the prerequisite flag. If you want LaunchDarkly to include only some of your users in the experiments, add the percentage rollout to a targeting rule in the prerequisite flag.
+If you want LaunchDarkly to include all of your contexts in one of the experiments, add the percentage rollout to the default rule in the prerequisite flag. If you want LaunchDarkly to include only some of your contexts in the experiments, add the percentage rollout to a targeting rule in the prerequisite flag.
 
-In this example, the prerequisite flag uses a targeting rule to limit users in the experiments to only those on an iOS device:
+In this example, the prerequisite flag uses a targeting rule to limit contexts in the experiments to only those on an iOS device:
 
-![A prerequisite flag with a targeting rule that targets users on an iOS device.](mutually-exclusive-targeting-rule.png)
+![A prerequisite flag with a targeting rule that targets contexts identified as iOS devices.](mutually-exclusive-targeting-rule.png)
 
 ## Prerequisites
 
@@ -58,7 +58,7 @@ Prerequisites allow you to control feature dependencies in LaunchDarkly. You can
 
 ## Creating the prerequisite flag
 
-In this example, you will create a string prerequisite flag. You will assign 50% of users to the `Experiment 1` variation, and 50% of users to the `Experiment 2` variation. Later, when you create your two mutually exclusive experiments, the flags those experiments include will be dependents of this flag.
+In this example, you will create a string prerequisite flag. You will assign 50% of contexts to the `Experiment 1` variation, and 50% of contexts to the `Experiment 2` variation. Later, when you create your two mutually exclusive experiments, the flags those experiments include will be dependents of this flag.
 
 To create the prerequisite flag:
 
@@ -74,10 +74,10 @@ To create the prerequisite flag:
 
 8. Click **Save flag**. The flag’s **Targeting** tab appears.
 9. In the "Default rule" **serve** menu, select "a percentage rollout."
-  - (Optional) If you want to include only some of your users in the experiments, targeted by attribute, add the percentage rollout to a targeting rule instead of the default rule.
-10. Update the rollout so 50% of users are served Experiment 1, and 50% of users are served Experiment 2.
+  - (Optional) If you want to include only some of your contexts in the experiments, targeted by attribute, add the percentage rollout to a targeting rule instead of the default rule.
+10. Update the rollout so 50% of contexts are served Experiment 1, and 50% of contexts are served Experiment 2.
 
-![A default rule on a prerequisite flag serving a rollout including 50% of users in Experiment 1, and 50% of users in Experiment 2.](mutually-exclusive-default-rule.png)
+![A default rule on a prerequisite flag serving a rollout including 50% of contexts in Experiment 1, and 50% of contexts in Experiment 2.](mutually-exclusive-default-rule.png)
 
 11. Click **Review and save**.
 
@@ -146,10 +146,11 @@ To create the first custom metric:
 4. Enter "Experiment 1 custom metric" in the **Name** field.
 5. Click the **Event kind** menu and select "Custom."
 6. Enter "Experiment 1 metric" in the **Event name** field.
+7. Choose the `user` context kind for the metric to measure events from.
 
 ![The "Event information" section of the "Create a new metric" panel with a conversion metric configured.](metrics-event-information.png)
 
-7. Click **Save metric**.
+8. Click **Save metric**.
 
 To create the second custom metric, repeat steps 1-7, except name the metric "Experiment 2 custom metric" and name the event "Experiment 2 metric."
 
@@ -166,15 +167,16 @@ To build your first experiment:
 
 3. Enter "Mutually exclusive experiment 1" in the **Experiment name** field.
 4. Enter a **Hypothesis** for your experiment.
-5. Click **Next**. The "Select metrics" step opens.
-6. Choose "Experiment 1 custom metric" from the **Primary metric** menu.
+5. Choose the `user` context kind as the randomization unit.
+6. Click **Next**. The "Select metrics" step opens.
+7. Choose "Experiment 1 custom metric" from the **Primary metric** menu.
 
 ![The "Select metrics" section of a new experiment.](mutually-exclusive-metric.png)
 
-7. Click **Next**. The "Define variations" step opens.
-8. Choose the "Mutually exclusive flag 1" flag from the **Select flag** menu.
-9. Click **Next**. The "Set audience" step opens.
-10. Enter the percentage of traffic for each variation you want to include in the experiment.
+8. Click **Next**. The "Define variations" step opens.
+9. Choose the "Mutually exclusive flag 1" flag from the **Select flag** menu.
+10. Click **Next**. The "Set audience" step opens.
+11. Enter the percentage of traffic for each variation you want to include in the experiment.
 12. Select which variation you want LaunchDarkly to serve to the remaining population.
 
 ![The "Set audience" section of a new experiment.](mutually-exclusive-audience.png)
@@ -198,11 +200,11 @@ To start your experiment iterations:
 3. Click **Start**.
 4. Repeat steps 1-3 for "Mutually exclusive experiment 2."
 
-You are now running two mutually exclusive experiments, with no overlap between the users included in each.
+You are now running two mutually exclusive experiments, with no overlap between the contexts included in each.
 
 ## Conclusion
 
-In this guide, you learned how to create a prerequisite flag and two dependent flags to prevent users from being included in two concurrent experiments.
+In this guide, you learned how to create a prerequisite flag and two dependent flags to prevent contexts from being included in two concurrent experiments.
 
 Mutually exclusive experiments are not limited to two at a time. When it's time to create your own, you can create as many mutually exclusive experiments as you need to prevent collisions between experiments running on similar parts of your app or infrastructure.
 

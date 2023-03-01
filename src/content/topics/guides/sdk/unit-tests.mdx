@@ -19,6 +19,10 @@ The jest-launchdarkly-mock package is only compatible with the [React SDK](/sdk/
 </CalloutDescription>
 </Callout>
 
+## Migrating from users to contexts
+
+The 2.0 version of jest-launchdarkly-mock only operates on contexts. When you migrate from version 1.x, replace `getUser` with `getContext` and remove all references to the `alias` function because it has been removed.
+
 ## Getting started
 
 First, install jest-launchdarkly-mock with a package manager:
@@ -143,7 +147,7 @@ it('should identify on click', () => {
   fireEvent.click(getByTestId('test-button'))
 
   // assert: identify gets called
-  expect(ldClientMock.identify).toBeCalledWith({ key: 'aa0ceb' })
+  expect(ldClientMock.identify).toBeCalledWith({ key: 'context-key-123abc' })
 })
 ```
 
@@ -185,7 +189,7 @@ describe('button', () => {
     fireEvent.click(getByTestId('test-button'))
 
     // asserting ldClient.identify gets called
-    expect(ldClientMock.identify).toBeCalledWith({ key: 'aa0ceb' })
+    expect(ldClientMock.identify).toBeCalledWith({ key: 'context-key-123abc' })
   })
 })
 ```
@@ -203,3 +207,4 @@ Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
 
 </CalloutDescription>
 </Callout>
+

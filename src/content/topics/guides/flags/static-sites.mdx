@@ -74,13 +74,13 @@ Static websites may have some dynamic content. While the file that produced the 
 
 This distinction is important. Most of today's websites contain JavaScript even if they render like static sites. The most common JavaScript in these types of websites is used for tracking analytics.
 
-Another characteristic of these types of static sites is how users navigate them. In the example above, a user may land on the homepage (`/index.html`), then click on a link to the "about" page (`/about/index.html`). That action instructs the browser to make an HTTP request for the `/about/index.html` page causing it to be loaded into the browser as an entirely new page.
+Another characteristic of these types of static sites is how viewers navigate them. In the example above, a viewer may land on the homepage (`/index.html`), then click on a link to the "about" page (`/about/index.html`). That action instructs the browser to make an HTTP request for the `/about/index.html` page causing it to be loaded into the browser as an entirely new page.
 
 ### Understanding the difference between static sites and single page applications
 
-In a SPA, there is one or a limited number of static pages that comprise an entire website or web application. All user interactions in that site are managed by JavaScript.
+In a SPA, there is one or a limited number of static pages that comprise an entire website or web application. All viewer interactions in that site are managed by JavaScript.
 
-For example, when a user clicks on a link within a SPA, JavaScript code on the page intercepts the request and performs the action intended by the developer rather than telling the browser to load the URL associated with that link.
+For example, when a viewer clicks on a link within a SPA, JavaScript code on the page intercepts the request and performs the action intended by the developer rather than telling the browser to load the URL associated with that link.
 
 Here is a diagram showing a sample single page application interaction:
 
@@ -95,10 +95,10 @@ SPA sites aren't necessarily static HTML pages. Some are dynamically generated b
 
 With LaunchDarkly, web developers can use feature flags on a static site to gain the following capabilities:
 
-* Expose a site feature to a targeted set of users, rather than to all.
+* Expose a site feature to a targeted set of contexts, rather than to all.
 * Release a feature independently of when the feature's code is deployed.
 * Release a feature on a specific schedule.
-* Perform an A/B/n test on a feature before releasing it to all users.
+* Perform an A/B/n test on a feature before releasing it to all contexts.
 
 Feature flags can give developers more control over the features they create.
 
@@ -106,7 +106,7 @@ Feature flags can give developers more control over the features they create.
 
 [LaunchDarkly SDKs](/sdk) can operate on a server or on a client. Static sites must use the [LaunchDarkly client-side JavaScript SDK](/sdk/client-side/javascript).
 
-Code referencing feature flags on your static site will fail if a user has JavaScript turned off on their browser.
+Code referencing feature flags on your static site will fail if a viewer has JavaScript turned off on their browser.
 
 If your site is built with React or uses the Gatsby web framework, you can use the corresponding library for easier integration:
 
@@ -128,54 +128,37 @@ There are a few options available when loading the SDK:
 - **Load from a CDN with a `<script>` tag**: This is the simplest and most traditional way especially if you're not using a module bundler like [Webpack](https://webpack.js.org/) or [Rollup](https://rollupjs.org/). To learn more, read [Script tag](/sdk/client-side/javascript#making-the-sdk-available-with-a-script-tag).
 - **Use a module bundler**: Bundling along with [code splitting](https://webpack.js.org/guides/code-splitting/) to split up your JavaScripts into smaller bundles and only load the bundles needed for the corresponding page. An advantage to code splitting is that it lets you load script bundles in parallel.
 
-Generally, you will want to load the SDK as early as possible on the page. The earlier the SDK is loaded, the earlier your code can initialize the LaunchDarkly client. Similarly to initializing the SDK, the timing and method with which you initialize the client can impact an end user's experience of your site.
+Generally, you will want to load the SDK as early as possible on the page. The earlier the SDK is loaded, the earlier your code can initialize the LaunchDarkly client. Similarly to initializing the SDK, the timing and method with which you initialize the client can impact a viewer's experience of your site.
 
-To initialize the client, you must first define a user.
+To initialize the client, you must first define a context.
 
-For example:
+The only required property of the context is the `key`. The `key` property is a unique property that LaunchDarkly uses to keep track of the flag values for that particular context instance. In LaunchDarkly client-side SDKs, the SDK sets the context `key` to a generated UUID. This identifier remains constant across browser sessions.
+
+If your context is anonymous, use the `anonymous` property:
 
 <CodeSample>
-<CSTab label="Initializing the LaunchDarkly client">
+<CSTab label="Initializing with an anonymous context">
 
 ```js
-const user = {
-  "key": "aa0ceb"
+const context = {
+  kind: 'user',
+  anonymous: true
 };
-const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
-```
-
-
-</CSTab>
-</CodeSample>
-
-The only required property of the user is the `key`. The client requires a `user`, but your web app does not actually need to have a signed-in user.
-
-The `user` property is a unique property that LaunchDarkly uses to keep track of the flag values for that unique key.
-
-If your user is anonymous, use the `anonymous` property:
-
-<CodeSample>
-<CSTab label="Initializing with an anonymous user">
-
-```js
-const user = {"anonymous": true};
-const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user);
+const client = LDClient.initialize('client-side-id-123abc', context);
 ```
 
 </CSTab>
 </CodeSample>
 
-By omitting the `key` property and adding the `anonymous` property, the LaunchDarkly client auto-generates a unique identifier for the anonymous user, and this identifier remains constant across browser sessions.
+To learn more, read [Anonymous contexts](/home/contexts/anonymous-contexts).
 
-To learn more, read [Anonymous users](/home/users/anonymous-users).
-
-The client initialization connects to LaunchDarkly's servers and fetches the initial flag values for the user. This initialization cycle can take around 100-200ms and can delay your initial page render by at least that much. You could render the page before you have the flag values available, however, your users may experience parts of the page changing as the flag values load.
+The client initialization connects to LaunchDarkly's servers and fetches the initial flag values for the context. This initialization cycle can take around 100-200ms and can delay your initial page render by at least that much. You could render the page before you have the flag values available, however, your site viewers may experience parts of the page changing as the flag values load.
 
 To learn more, read [Initializing the client](/sdk/client-side/javascript#initializing-the-client).
 
 ## Bootstrapping the client
 
-Bootstrapping lets you decrease startup times for client-side SDKs by providing them with an initial set of flag values that are immediately available during client initialization. The SDK serves these values to the user before it has established a connection to LaunchDarkly so there is no inconsistency in the flag variations they receive.
+Bootstrapping lets you decrease startup times for client-side SDKs by providing them with an initial set of flag values that are immediately available during client initialization. The SDK serves these values to the context before it has established a connection to LaunchDarkly so there is no inconsistency in the flag variations they receive.
 
 There are two methods of bootstrapping the client:
 
@@ -194,9 +177,12 @@ This technique uses the browser's local storage:
 <CSTab label="Bootstrapping with local storage">
 
 ```js
-const ldclient = LDClient.initialize('YOUR_CLIENT_SIDE_ID', user, options = {
-  bootstrap: 'localStorage'
-});
+  const context = {
+    kind: 'user',
+    anonymous: true
+  };
+  const options = { bootstrap: 'localStorage' };
+  const ldclient = LDClient.initialize('client-side-id-123abc', context, options);
 ```
 
 </CSTab>
@@ -211,10 +197,10 @@ Bootstrapping using local storage has some benefits:
 
 Bootstrapping using local storage also has some downsides:
 
-- The first time the user visits your site, local storage is empty. This means the user will receive the site's default behavior before the values from feature flags load, and only after their second visit will the page utilize the values in local storage.
+- The first time the viewer visits your site, local storage is empty. This means they will receive the site's default behavior before the values from feature flags load, and only after their second visit will the page utilize the values in local storage.
 - If there is a long time between page visits, the values stored in local storage may be out of date.
-- Some users have privacy settings that block sites from using their browser's local storage.
-- Flag changes that happen while the user is on the page automatically update the local storage cache, keeping it in sync with the server. However, if the user is not on the page when the flag change happens, the flag value in local storage may go out of sync with the server. The next time this user visits that page, they could experience a flicker because of the client using the previous flag value from local storage. If you bootstrap using local storage, it's important to choose effective defaults for your flag values to limit rendering delays. On SPA sites, this may not be a problem. Users will likely only load a site once per browser session. In this case, [subscribe to flag changes](#releasing-features-in-realtime) to trigger the appropriate behavior in your app in real-time.
+- Some viewers have privacy settings that block sites from using their browser's local storage.
+- Flag changes that happen while the viewer is on the page automatically update the local storage cache, keeping it in sync with the server. However, if the viewer is not on the page when the flag change happens, the flag value in local storage may go out of sync with the server. The next time this viewer visits that page, they could experience a flicker because of the client using the previous flag value from local storage. If you bootstrap using local storage, it's important to choose effective defaults for your flag values to limit rendering delays. On SPA sites, this may not be a problem. Viewers will likely only load a site once per browser session. In this case, [subscribe to flag changes](#releasing-features-in-realtime) to trigger the appropriate behavior in your app in real-time.
 
 ### Bootstrapping using server-rendered content
 
@@ -226,13 +212,13 @@ Bootstrapping using server-rendered content requires more setup than bootstrappi
 
 The benefits of bootstrapping using server-rendered content include:
 
-- It provides values the first time a user visits a page.
+- It provides values the first time a viewer visits a page.
 - Bootstrapped values will not become out of date if there is a lag between page visits.
-- It does not rely on a user's privacy settings to function.
+- It does not rely on a viewer's privacy settings to function.
 
 The downside to bootstrapping using server-rendered content is that it requires significantly more set up work than bootstrapping from local storage.
 
-All of the server-side SDKs have a function, named some variation of `allFlagsState`, to evaluate flags on behalf of a specified user. We recommend populating the initial set of bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's all flags method.
+All of the server-side SDKs have a function, named some variation of `allFlagsState`, to evaluate flags on behalf of a specified context. We recommend populating the initial set of bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's all flags method.
 
 If your back end passes values to your front end on page load, you can call your server-side SDK's all flags function on page load and pass the results as a parameter to your front-end initialization code. To learn more, read [Getting all flags](/sdk/features/all-flags).
 
@@ -250,9 +236,9 @@ function onPageLoad(flags) {
   ...
 
   var ldclient = LDClient.initialize(
-    'YOUR_CLIENT_SIDE_ID',
-    user,
-    options = {
+    'client-side-id-123abc',
+    context,
+    {
       bootstrap: flags
     }
   );
@@ -265,9 +251,9 @@ function onPageLoad(flags) {
 <script>
 // Elsewhere on the page, the server injects this
 onPageLoad({
-  // flag values for user
-  'foo': true,
-  'bar': 'foo',
+  // flag values for context
+  'bool-flag-key-123abc': true,
+  'string-flag-key-123abc': 'Canada',
 });
 <script>
 ```
@@ -275,7 +261,7 @@ onPageLoad({
 </CSTab>
 </CodeSample>
 
-All LaunchDarkly server-side SDKs can evaluate all flags on a user's behalf. These flags can then be combined with the HTML response.
+All LaunchDarkly server-side SDKs can evaluate all flags on a context's behalf. These flags can then be combined with the HTML response.
 
 To learn more, read about [bootstrapping with JavaScript](/sdk/features/bootstrapping#javascript).
 
@@ -318,8 +304,8 @@ ldclient.on('change', function(flags) {
 <CSTab label="Subscribe to a specific flag">
 
 ```js
-ldclient.on('change:YOUR_FLAG_KEY', function(value, previous) {
-  console.log('YOUR_FLAG_KEY changed:', value, '(' + previous + ')');
+ldclient.on('change:flag-key-123abc', function(value, previous) {
+  console.log('flag-key-123abc changed:', value, '(' + previous + ')');
   // add your feature behavior here...
 });
 ```
@@ -345,14 +331,15 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 
 (async () => {
   const LDProvider = await asyncWithLDProvider({
-    clientSideID: 'your-client-side-id',
-    user: {
-      "key": "aa0ceb",
-      "name": "Grace Hopper",
-      "email": "gracehopper@example.com"
+    clientSideID: 'client-side-id-123abc',
+    context: {
+      "kind": "user",
+      "key": "user-key-123abc",
+      "name": "Sandy Smith",
+      "email": "sandy@example.com"
     },
     options: {
-			"bootstrap": "localStorage",
+      "bootstrap": "localStorage",
     }
   });
 
@@ -386,7 +373,7 @@ const HooksDemo = () => {
   const { devTestFlag } = useFlags();
   const client = useLDClient();
 
-  const onLoginSuccessful = () => client.identify({ key: 'aa0ceb' });
+  const onLoginSuccessful = () => client.identify({ key: 'context-key-123abc' });
 
   return (
     <div>{devTestFlag ? 'Flag on' : 'Flag off'}</div>
@@ -443,7 +430,7 @@ From `gatsby-config.js`:
     {
       resolve: 'gatsby-plugin-launchdarkly',
       options: {
-        clientSideID: '<your-launchdarkly-project-client-side-id>',
+        clientSideID: '<client-side-id-123abc>',
         options: {
           // any LaunchDarkly options you may want to implement
           bootstrap: 'localStorage', // caches flag values in localstorage
@@ -471,14 +458,14 @@ import { useFlags, useLDClient } from 'gatsby-plugin-launchdarkly';
 </CSTab>
 </CodeSample>
 
-This plugin assumes that the user viewing your site is anonymous. In this case, the LaunchDarkly SDK tracks your client so it remembers what variation of the flag the client received. This behavior happens automatically.
+This plugin assumes that the end user viewing your site is anonymous. In this case, the LaunchDarkly SDK tracks your client so it remembers what variation of the flag the client received. This behavior happens automatically.
 
-If you have a signed-in user, you may want LaunchDarkly to know that in order to target that user with a feature.
+If you have a signed-in end user, you may want LaunchDarkly to know that in order to target that context with a feature.
 
 You can do this by accessing the `client` object directly:
 
 <CodeSample>
-<CSTab label="Example with signed-in user">
+<CSTab label="Example with signed-in end user">
 
 ```js
 import React from 'react';
@@ -489,13 +476,13 @@ const HooksDemo = () => {
   const client = useLDClient();
 
   // Calling `identify` will cause the flags to be re-evaluated for the new
-  // user that's logged in. Changes in flag values will stream in and could
-  // cause your component to re-render.
+  // end user that's logged in. Changes in flag values will stream in and
+  // could cause your component to re-render.
   const onLoginSuccessful = (user) => client.identify({
-    key: user.id,
+    kind: 'user',
+    key: user.key,
     firstName: user.firstName,
     lastName: user.lastName,
-    anonymous: false,
   });
 
   return (
@@ -517,9 +504,9 @@ This guide shows you strategies for implementing feature flags on static sites.
 
 These strategies include:
 
-- Load and initialize the SDK as fast as possible before the initial page render (or in parallel, assuming you don't need the flag values right away).
+- Load and initialize the SDK as fast as possible before the initial page render, or in parallel assuming you don't need the flag values right away.
 - Efficiently bootstrap the LaunchDarkly client with the initial flag values.
-- Host your site from a CDN.  A CDN will bring your site closer to the user and hopefully improve your site's perceived performance.
+- Host your site from a CDN. A CDN will bring your site closer to the viewer and hopefully improve your site's perceived performance.
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

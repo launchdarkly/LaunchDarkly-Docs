@@ -212,10 +212,10 @@ const initLdClient = () => {
 
 class FlagsStateInjector {
   async element(element) {
-    // fetch all flag values for client-side SDKs as evaluated for an anonymous user
-    // use a more appropriate user key if needed
-    const user = { key: 'anonymous' }
-    const allFlags = await ldClient.allFlagsState(user, { clientSideOnly: true })
+    // fetch all flag values for client-side SDKs as evaluated for an anonymous context
+    // use a more appropriate context key if needed
+    const evalContext = { key: 'context-key-123abc' }
+    const allFlags = await ldClient.allFlagsState(evalContext, { anonymous: true })
     element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true })
   }
 }
@@ -239,6 +239,8 @@ async function handleRequest(event) {
 </CSTab>
 </CodeSample>
 
+<!-- question about line 268 above: should it be anonymous: true, since client-side SDKs set key?  Also, do we need to specify a context kind? SC-164921 -->
+
 This uses `HTMLRewriter` to inject a script tag into the head of your document that saves your set of feature flags to `window.ldFlags`. To learn more about `HTMLRewriter`, read [Cloudflare's documentation](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter).
 
 These flag values can then be used to bootstrap your client-side SDK. For example, if you are using the React client SDK:
@@ -255,7 +257,7 @@ const App = () => {
 };
 
 export default withLDProvider({
-  clientSideID: 'YOUR_CLIENT_SIDE_ID',
+  clientSideID: 'client-side-id-123abc',
   options: {
     bootstrap: window.ldFlags
   }

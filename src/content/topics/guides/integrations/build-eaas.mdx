@@ -63,7 +63,7 @@ For an EaaS integration, include requests to create and delete a LaunchDarkly en
 
 ### HTTP User Agent for REST API requests
 
-All API calls from LaunchDarkly partners should include a custom User-Agent: 
+All API calls from LaunchDarkly partners should include a custom User-Agent:
 
 <CodeSample>
 <CSTab label="JSON">
@@ -78,7 +78,7 @@ All API calls from LaunchDarkly partners should include a custom User-Agent:
 ### Authentication
 
 Your integration can use either API keys or OAuth for authentication:
-- If you use API keys, your customers will need to create them in LaunchDarkly and provide them to your service. 
+- If you use API keys, your customers will need to create them in LaunchDarkly and provide them to your service.
 - If you use OAuth, configure it as described in [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
 
 LaunchDarkly has support for OAuth clients. The only two types of scoped permissions are currently `reader` and `writer`. An EaaS integration needs the `writer` scope so it can create and delete environments. However, your customers may not want to provide the level of access overall that this functionality would grant.
@@ -89,15 +89,15 @@ The endpoint to create a new environment accepts a POST body in JSON format. The
 
 * `key`: The environment key
 * `name`: The environment name
-* `color`: The HTML hex color code for the environment when viewed in the LaunchDarkly user interface
+* `color`: The HTML hex color code for the environment when viewed in the LaunchDarkly user interface (UI)
 
-Most EaaS integrations will want to leverage the `source` parameter to use another environment's targeting to clone. Note, there are no hard-coded environment keys in LaunchDarkly. 
+Most EaaS integrations will want to leverage the `source` parameter to use another environment's targeting to clone. Note, there are no hard-coded environment keys in LaunchDarkly.
 
 If a customer creates a project in LaunchDarkly without specifying environments, by default LaunchDarkly creates two environments, `prod` and `test`. If the customer creates a project and does specify environments, then those defaults will not be used.
 
 Optionally you, the partner, may want to tag environments with a consistent value so it is easier to query the LaunchDarkly API for a list of those environments.
 
-As a partner you will have to provide support for your users to provide a LaunchDarkly Environment key that they want to use as the value of the `source` parameter.
+As a partner you will have to allow your end users to provide a LaunchDarkly Environment key that they want to use as the value of the `source` parameter.
 
 <LearnMore>
 

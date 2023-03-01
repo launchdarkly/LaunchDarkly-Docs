@@ -3,7 +3,7 @@ path: /sdk/features/user-context-config
 title: User and context configuration
 description: This topic explains how to configure user and context objects in LaunchDarkly SDKs. These features are available for both client-side and server-side SDKs.
 published: true
-tags: ['context', 'configure', 'built-in', 'custom', 'attribute', 'sdk', 'user', 'lduser']
+tags: ['configure', 'context', 'built-in', 'custom', 'attribute', 'sdk', 'user', 'lduser']
 ---
 
 ## Overview
@@ -14,24 +14,20 @@ This topic explains how to configure user and context objects in LaunchDarkly SD
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users." To learn more, read [Contexts and segments](/home/contexts).
 
-Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
-
-You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
-
-If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [most of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
 </CalloutDescription>
 </Callout>
 
 ## Configuring context objects
 
-Every LaunchDarkly SDK lets you configure context or user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Contexts** or **Users** list. The attribute values determine which variation of a feature flag the customer receives.
+Every LaunchDarkly SDK lets you configure context or user objects to return specific data to LaunchDarkly. Any attributes you pass to LaunchDarkly become available on the **Contexts** list. The attribute values determine which variation of a feature flag the customer receives.
 
-The object's `key` is the only mandatory attribute. Keys are always transmitted to LaunchDarkly.
+Every object is required to have a `key`. Keys are always transmitted to LaunchDarkly. Typically, you supply the key when you create the context. If you are using a client-side SDK and mark the context as anonymous, the SDK can generate the key for you. To learn more, read [Designating anonymous contexts](#designating-anonymous-contexts).
 
-Keys must be a string type. Keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). Keys must be consistent, which means the same person must correspond to the same key across different services to contribute to consistent flag evaluations and accurate Monthly Active Users (MAU). You can use a primary key, an email address, or a hash, as long as the same person always has the same key. We recommend using a hash if possible.
+Keys must be a string type. Keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). Keys must be consistent, which means the same person must correspond to the same key across different services to contribute to consistent flag evaluations and accurate monthly active users (MAU). You can use a primary key, an email address, or a hash, as long as the same person always has the same key. We recommend using a hash if possible.
 <!-- cSpell:disable TKTK, review/update during SC-163842 cSpell:enable -->
 
 ### Using built-in and custom attributes
@@ -59,7 +55,7 @@ Each SDK lets you configure private attributes. You can use private attributes f
 
 ### Designating anonymous contexts
 
-Each SDK lets you designate anonymous contexts or users. Anonymous contexts or users don't appear on your **Contexts** or **Users** list, so you can't search for them, and you can't search for or autocomplete by their keys. If you use the same key for every anonymous context or user, you also can't use Experimentation, because tracking events are attributed to the context key.
+Each SDK lets you designate anonymous contexts or users. Anonymous contexts or users don't appear on your **Contexts** list, so you can't search for them, and you can't search for or autocomplete by their keys. If you use the same key for every anonymous context or user, you also can't use Experimentation, because tracking events are attributed to the context key.
 
 In client-side SDKs, if you don't provide a key or set it to null, and set `anonymous` to `true`, then the SDK generates a random key for you.
 
@@ -200,13 +196,9 @@ LDUser user = User.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
-
-<!-- cSpell:disable TKTK review this content during SC-163842 / billing cSpell:enable-->
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 
 If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
-
-In Android or iOS, you can also set a configuration option to have the SDK to create a key for an anonymous context for you.
 
 Here's how:
 
@@ -553,7 +545,7 @@ LDUserSetAnonymous(user, true);
 </CSTab>
 </CodeSample>
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### Electron
@@ -742,7 +734,7 @@ const anonymousUser2: LDElectron.LDUser = { key: 'user-key-123abc', anonymous: t
 </CSTab>
 </CodeSample>
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### Flutter
@@ -840,7 +832,7 @@ LDUser user = LDUserBuilder('user key')
 </CSTab>
 </CodeSample>
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### iOS
@@ -1018,7 +1010,7 @@ LDUser *user = [LDUser new];
 
 You must generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 
-We recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the context is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the context is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### JavaScript
@@ -1353,7 +1345,7 @@ const anonymousUser: ld.LDUser = { anonymous: true };
 </CSTab>
 </CodeSample>
 
-We recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the logged-in end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the logged-in end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### Node.js (client-side)
@@ -1677,7 +1669,7 @@ const anonymousUser2: ld.LDUser = { key: 'user-key-123abc', anonymous: true };
 </CSTab>
 </CodeSample>
 
-We recommend using the same user key for every initialization and then replacing that with the actual user key when you know who the user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### React Native

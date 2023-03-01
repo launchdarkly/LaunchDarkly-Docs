@@ -34,7 +34,7 @@ To learn more about how LaunchDarkly manages different environments, read [Envir
 
 ### Using LaunchDarkly to focus on your product, not on different teams
 
-Flag hierarchies can span multiple teams. When you think about the design of your hierarchy, remember that you may cross organizational boundaries to deliver a unified user experience. Different teams may rely on the same flags, use the same environments, or do complementary work.
+Flag hierarchies can span multiple teams. When you think about the design of your hierarchy, remember that you may cross organizational boundaries to deliver a unified end user experience. Different teams may rely on the same flags, use the same environments, or do complementary work.
 
 <Callout intent="warning">
 <CalloutTitle>Flags must be in the same project to use one as a prerequisite of the other</CalloutTitle>
@@ -61,7 +61,7 @@ It’s useful to remember that deployment is the process of getting code onto th
 
 ## Understanding flag relationships
 
-You can think of feature flags in different ways based on their relationships to each other. It might be helpful to use the mental model of the [Keystone Pattern](https://martinfowler.com/bliki/KeystoneInterface.html), where one flag is a keystone or required prerequisite that supports and enables other flags to do their jobs. Another pattern is "version gating", where a feature is only available if the user is on a certain version of the software. In version gating, the prerequisite is checking the software version number.
+You can think of feature flags in different ways based on their relationships to each other. It might be helpful to use the mental model of the [Keystone Pattern](https://martinfowler.com/bliki/KeystoneInterface.html), where one flag is a keystone or required prerequisite that supports and enables other flags to do their jobs. Another pattern is "version gating", where a feature is only available if the end user is on a certain version of the software. In version gating, the prerequisite is checking the software version number.
 
 ### Prerequisite flags
 
@@ -85,7 +85,7 @@ Prerequisite flags may control large UI elements which contain multiple componen
 
 Controlling these sub-elements with flags does not change the prerequisite flag behavior. All flag conditions and rules are evaluated, and if there is any condition that would prevent the flagged code from executing, that will stop execution. In other words, even if a flagged piece of code would execute according to 9 of its 10 rules, the tenth would prevent execution. That safety-first behavior would be reversed if the flag default was to serve the code on, and the flag rules existed to turn it off.
 
-For example, a flag named "New search bar" enables a new search bar on a new page in your app. Access to that page is required for a user to use the new search bar, and is controlled by the "New page" flag. In this example, the "New page" flag is a prerequisite of the "New search bar" flag.
+For example, a flag named "New search bar" enables a new search bar on a new page in your app. Access to that page is required for an end user to use the new search bar, and is controlled by the "New page" flag. In this example, the "New page" flag is a prerequisite of the "New search bar" flag.
 
 Prerequisite flag settings can vary by environment, so you could have the prerequisite and dependent flags all on in a test environment, but not in production. The production prerequisite flag might be secured by role-based access control (RBAC), so it could only be enabled by a small subset of your organization.
 To learn more, read [Custom roles](/home/members/custom-roles).
@@ -153,7 +153,7 @@ All of the dependent flags will then be instantly accessible and evaluated. You 
 
 ### Decommissioning
 
-In the previous two examples, we assumed that the default state of a flag is `false`. When `false` is the default, the feature doesn’t appear. From a user's standpoint, the software works the way it always has. Only if the flag changes from the default state (`false`) to `true` does a change appear to the user.
+In the previous two examples, we assumed that the default state of a flag is `false`. When `false` is the default, the feature doesn’t appear. From an end user's standpoint, the software works the way it always has. Only if the flag changes from the default state (`false`) to `true` does a change appear to the context.
 
 There is also a pattern for flags with a default state of `true.` These are flags that might be put around features that are being removed or decommissioned. Changing the flag state to `false` means the existing feature no longer appears. When a team uses feature flags to turn a feature off, they have the option of turning it back on instantly if they need to. If you put a feature flag around code that is being decommissioned and make it dependent on status checks or tests, you can be sure all important preparations are complete before you turn off the flag that controls the legacy code.
 

@@ -72,9 +72,9 @@ You can make changes to the hypothesis, audience, and metrics of an existing exp
 
 After you create an experiment, you cannot edit its name, flag, or the flag's variations. If you want to use a different flag or a different flag variation, you must create a new experiment.
 
-### Changing an experiment's hypothesis
+### Changing an experiment's details
 
-To change an experiment's hypothesis:
+To change an experiment's details:
 
 1. Navigate to the **Design** tab of your experiment.
 2. Click **Edit experiment**:
@@ -83,22 +83,8 @@ To change an experiment's hypothesis:
 
 3. Navigate to the "Details" section and click the pencil **edit** icon.
 4. Edit the hypothesis as needed.
-5. Scroll to the top of the page and click **Save**.
-  - If the experiment was running when you made edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
-
-### Changing an experiment's audience
-
-To edit the audience of an experiment:
-
-1. Navigate to the **Design** tab of your experiment.
-2. Click **Edit experiment**.
-3. Navigate to the "Experiment audience" section and click the pencil **edit** icon.
-
-![The user targeting section of a flag's "Targeting" tab with an active experiment.](experiment-targeting-edit-population.png)
-
-4. Edit the traffic allocation as needed.
-  - (Optional) To disable variation reassignment, click **Advanced**, then check the **Prevent variation reassignment when increasing traffic** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
-5. Scroll to the top of the page and click **Save**.
+5. Choose a new randomization unit as needed. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
+6. Scroll to the top of the page and click **Save**.
   - If the experiment was running when you made edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
 
 ### Changing an experiment's metric
@@ -112,6 +98,21 @@ Here's how to change the metric:
 3. Navigate to the "Metrics" section and click the pencil **edit** icon.
 4. Choose new metrics from the "Primary metric" or "Secondary metrics" menus.
 Scroll to the top of the page and click **Save**.
+  - If the experiment was running when you made edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
+
+### Changing an experiment's audience
+
+To edit the audience of an experiment:
+
+1. Navigate to the **Design** tab of your experiment.
+2. Click **Edit experiment**.
+3. Navigate to the "Experiment audience" section and click the pencil **edit** icon.
+
+![The targeting section of a flag's "Targeting" tab.](experiment-flag-targeting-tab.png)
+
+4. Edit the traffic allocation as needed.
+  - (Optional) To disable variation reassignment, click **Advanced**, then check the **Prevent variation reassignment when increasing traffic** checkbox. We strongly recommend leaving this box **unchecked**. To learn more, read [Understanding variation reassignment](/home/creating-experiments/allocation#understanding-variation-reassignment).
+5. Scroll to the top of the page and click **Save**.
   - If the experiment was running when you made edits, a "Save experiment design?" dialog appears. Enter a reason for the change and click **Save and start new iteration**.
 
 ## Legacy experiments
@@ -132,7 +133,7 @@ After your legacy experiment has registered enough events to achieve statistical
 
 You can view the statistical significance of your metrics and the winning versions in the "Statistical significance" column. The baseline variation does not show statistical significance.
 
-Your winning variation is the flag variation that has the most positive impact compared to the baseline. You can roll the winning variation out to 100% of your users from the flag's **Targeting** tab. To learn how, read [Percentage rollouts](/home/flags/rollouts).
+Your winning variation is the flag variation that has the most positive impact compared to the baseline. You can roll the winning variation out to 100% of your end users from the flag's **Targeting** tab. To learn how, read [Percentage rollouts](/home/flags/rollouts).
 
 To learn how to determine the winning variation in the current Experimentation model instead, read [Winning variations](/home/analyzing-experiments/winning-variation).
 

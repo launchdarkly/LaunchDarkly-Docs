@@ -19,19 +19,15 @@ Big Segments is available to customers on an Enterprise plan. To learn more, [re
 
 This topic explains how the Big Segments feature works in the LaunchDarkly SDKs that support it.
 
-Big Segments are a type of segment that can contain an arbitrarily large number of user contexts or users. Big Segments only support contexts with a context kind of "user." To learn more, read [Big Segments](/home/contexts/big-segments).
+Big Segments are a type of segment that can contain an arbitrarily large number of contexts of any one context kind. To learn more, read [Big Segments](/home/contexts/big-segments).
 
 <Callout intent="info">
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
 
-Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
-
-You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
-
-If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [most of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
 </CalloutDescription>
 </Callout>
@@ -74,7 +70,7 @@ Only the Redis and DynamoDB integrations support Big Segments. If you use Redis,
         user or context cache size
       </TableCell>
       <TableCell>
-        The maximum number of users or user contexts whose Big Segments status the SDK can cache. The Big Segments status includes all of the Big Segments the user or user context is a part of. A higher value means that the SDK queries the database for recently-referenced users' or user contexts' Big Segments statuses less often. If not specified, the default value is 1000.
+        The maximum number of contexts whose Big Segments status the SDK can cache. The Big Segments status includes all of the Big Segments the context is a part of. A higher value means that the SDK queries the database for recently-referenced contexts' Big Segments statuses less often. If not specified, the default value is 1000.
       </TableCell>
     </TableRow>
     <TableRow>

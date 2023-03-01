@@ -29,6 +29,17 @@ If you are using JavaScript or React Web, confirm that you are using at least th
 
 These versions send the correct versions of events that LaunchDarkly needs for experimentation tracking. To learn more, read [Experimentation events](/home/about-experimentation/events).
 
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts and segments](/home/contexts).
+
+Creating contexts and evaluating flags based on contexts is supported in the latest major versions of [most of our SDKs](/sdk). If you upgrade your JavaScript SDK or React Web SDK to version 3, those versions replace users with contexts. These new major versions also include the updates in versions 2.23.0 and 2.28.0, respectively, that address the most common causes for SRMs.
+
+</CalloutDescription>
+</Callout>
+
 ### Event deduplication
 
 Older versions of the JavaScript SDK, prior to version 2.23.0, deduplicate events by default. This can cause an SRM in the case where you evaluate the same flag before and after a call to `identify`.
@@ -78,6 +89,8 @@ const client = LDClient.initialize('client-side-id-123abc', user, options);
 
 </CSTab>
 </CodeSample>
+
+The `allowFrequentDuplicateEvents` option has been deprecated in the JavaScript SDK version 2.23.0 and React Web SDK version 2.28.0. It has been removed in version 3 of the JavaScript and React Web SDKs.
 
 </Details>
 

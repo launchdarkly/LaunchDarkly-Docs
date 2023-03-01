@@ -32,17 +32,17 @@ A confirmation dialog appears in your browser and the Slack app's username appea
 
 ## Understanding the Slack app's permissions
 
-The Slack app requires you to grant permission for it to work in your Slack account. The list of permissions shown in the authorization dialog is inclusive of everything the app can do, but not all users will be able to perform all actions using the app.
+The Slack app requires you to grant permission for it to work in your Slack account. The list of permissions shown in the authorization dialog is inclusive of everything the app can do, but not all members will be able to perform all actions using the app.
 
-The things the Slack app can do are limited to what the user can do in LaunchDarkly. It never allows users to take actions beyond what their roles in LaunchDarkly allow.
+The things the Slack app can do are limited to what the member can do in LaunchDarkly. It never allows members to take actions beyond what their roles in LaunchDarkly allow.
 
-**The Slack app does not grant additional permissions to LaunchDarkly users.**
+**The Slack app does not grant additional permissions to LaunchDarkly members.**
 
 For example:
 
-Cody is a LaunchDarkly user with the Reader role. He authorizes the LaunchDarkly Slack app and uses it to view flag information and subscribe channels to notifications. He cannot toggle the flag on or off in LaunchDarkly using the Slack app, because readers are not allowed to perform that action.
+Cody is a LaunchDarkly member with the Reader role. He authorizes the LaunchDarkly Slack app and uses it to view flag information and subscribe channels to notifications. He cannot toggle the flag on or off in LaunchDarkly using the Slack app, because readers are not allowed to perform that action.
 
-Isha is a LaunchDarkly user with the Admin role. She authorizes the LaunchDarkly Slack app and can use it to view flag information, subscribe channels to notifications, and toggle flags on and off, because those are all actions administrators are allowed to perform.
+Isha is a LaunchDarkly member with the Admin role. She authorizes the LaunchDarkly Slack app and can use it to view flag information, subscribe channels to notifications, and toggle flags on and off, because those are all actions administrators are allowed to perform.
 
 ## Adding multiple accounts to the Slack app
 
@@ -70,12 +70,12 @@ If an account is no longer authorized, you can re-authorize the account by click
 
 Connecting your Slack account with your LaunchDarkly account makes two changes. When you complete the OAuth authorization workflow:
 
-- You allow your Slack and LaunchDarkly accounts to act as a single user.
+- You allow your Slack and LaunchDarkly accounts to act as a single entity.
 - You automatically create and configure a webhook in LaunchDarkly that sends notifications to your Slack team.
 
-The first item happens for each individual user. The second item only happens once per team, typically by the first member on the Slack team to authorize the app with LaunchDarkly.
+The first item happens for each individual end user. The second item only happens once per team, typically by the first member on the Slack team to authorize the app with LaunchDarkly.
 
-Members with the Reader role in LaunchDarkly do not have the ability to create webhooks. If the first person to authorize the LaunchDarkly Slack app is a Reader, this can cause a problem because that user cannot create the necessary webhook.
+Members with the Reader role in LaunchDarkly do not have the ability to create webhooks. If the first person to authorize the LaunchDarkly Slack app is a Reader, this can cause a problem because that member cannot create the necessary webhook.
 
 To learn more about member permissions, read [Understanding member roles](/home/members/managing#understanding-member-roles).
 

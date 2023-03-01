@@ -20,23 +20,23 @@ Click conversion metrics are only available on the JavaScript and React SDKs. If
 </Callout>
 
 <Callout intent="warning">
-<CalloutTitle>Call track and flush when a user is redirected</CalloutTitle>
+<CalloutTitle>Call track and flush when an end user is redirected</CalloutTitle>
 <CalloutDescription>
 
-SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call track and then flush when you know the browser will redirect a user to another page, such as on click.
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects an end user to another page, any events that occurred between when the SDK last sent events and when browser redirected the end user will be lost. To avoid this, call track and then flush when you know the browser will redirect an end user to another page, such as on click.
 
 </CalloutDescription>
 </Callout>
 
-Click conversion metrics track how often a user interacts with an element of your product's UI. Click conversion metrics must be used with either the JavaScript or React SDK.
+Click conversion metrics track how often an end user interacts with an element of your product's UI. Click conversion metrics must be used with either the JavaScript or React SDK.
 
-For example, you might want to track how often a user clicks a "Save" button when it is red versus how often a user clicks the "Save" button when it is blue. You can create a metric that monitors clicks on the button as designated by a CSS selector located at a specific URL.
+For example, you might want to track how often a customer clicks a "Save" button when it is red versus how often a customer clicks the "Save" button when it is blue. You can create a metric that monitors clicks on the button as designated by a CSS selector located at a specific URL.
 
 You can even monitor clicks on the button across different URLs by telling the metric to track different URLs based on substrings or simple matches. For example, you could track an event on every URL with <code>/checkout-page/</code> in the URL path.
 
 ## Understanding CSS selectors
 
-CSS selectors designate specific areas of your product UI, like buttons or images, that your users can interact with. You can create a metric that monitors interaction with one or more CSS selectors.
+CSS selectors designate specific areas of your product UI, like buttons or images, that your end users can interact with. You can create a metric that monitors interaction with one or more CSS selectors.
 
 For example, some CSS selectors include:
 
@@ -45,7 +45,7 @@ For example, some CSS selectors include:
 * `button.example-button`
 * `.example-button, .example-button-alt`
 
-The CSS selector must be present in your application after the end user interacts with it in order for LaunchDarkly to record the metric. For example, if the user clicks an element that is dynamically removed from your application in response to the click, then LaunchDarkly will not record the metric event.
+The CSS selector must be present in your application after the end user interacts with it in order for LaunchDarkly to record the metric. For example, if the end user clicks an element that is dynamically removed from your application in response to the click, then LaunchDarkly will not record the metric event.
 
 If the CSS selector will not be present after the end user interacts with it, we recommend using a custom conversion metric instead. To learn more, read [Custom conversion metrics](/home/creating-experiments/metrics/custom-conversion).
 
@@ -74,7 +74,7 @@ To create a click conversion metric:
     <TableRow>
       <TableCell>Simple match</TableCell>
       <TableCell>
-        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that matches the string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you want events to record for URLs with substrings, specify each URL individually.
+        This sends an event when the end user accesses a URL, or clicks on an element hosted at a URL, that matches the string you enter in the Target URL field or a formulation of that URL that included appended parameters. If you want events to record for URLs with substrings, specify each URL individually.
       </TableCell>
         <TableCell>
         If you specify:
@@ -101,7 +101,7 @@ To create a click conversion metric:
     <TableRow>
       <TableCell>Exact match</TableCell>
       <TableCell>
-        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL, that exactly matches what you enter in the Target URL field. Identical base URLs with different substrings do not send events.
+        This sends an event when the end user accesses a URL, or clicks on an element hosted at a URL, that exactly matches what you enter in the Target URL field. Identical base URLs with different substrings do not send events.
       </TableCell>
       <TableCell>
       If you specify:
@@ -118,7 +118,7 @@ To create a click conversion metric:
     <TableRow>
       <TableCell>Substring match</TableCell>
       <TableCell>
-        This sends an event when the user accesses a URL, or clicks on an element hosted at a URL with a specific string of text in it.
+        This sends an event when the end user accesses a URL, or clicks on an element hosted at a URL with a specific string of text in it.
       </TableCell>
       <TableCell>
         If you specify:
@@ -152,7 +152,18 @@ To create a click conversion metric:
 
 11. Enter the webpage URL.
 11. (Optional) Click **Add additional URL** to track behavior on more than one URL.
-12. Click **Save metric**.
+12. Choose one or more context kinds available for experiments for the metric to measure events from.
+
+<Callout intent="warning">
+<CalloutTitle>Metrics must use valid randomization units</CalloutTitle>
+<CalloutDescription>
+
+Using invalid randomization units will result in invalid experiment results. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units). If you're unsure of which randomization unit to use, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new) for help determining valid context kind selections.
+
+</CalloutDescription>
+</Callout>
+
+13. Click **Save metric**.
 
 After you create a metric, you can connect it to an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
 

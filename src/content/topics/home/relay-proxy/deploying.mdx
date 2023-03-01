@@ -45,7 +45,7 @@ For examples and a full list of allowable variables, read the documentation in t
 
 In the following example, the Relay Proxy is configured to have two LaunchDarkly environments.
 
-For the first environment, the SDK key is `staging-sdk-key`, and the environment name (for the purposes of logging) is `Staging`. For the second environment, the SDK key is `prod-sdk-key`, and the environment name is `Production`.
+For the first environment, the SDK key is `staging-sdk-key-123abc`, and the environment name, for the purposes of logging, is `Staging`. For the second environment, the SDK key is `prod-sdk-key-456def`, and the environment name is `Production`.
 
 In this example, the Relay Proxy is configured to listen on port 8030, which is its default port.
 
@@ -56,8 +56,8 @@ The example configuration follows:
 
  ```bash
 docker run --name ld-relay              \
-     -e LD_ENV_Staging="staging-sdk-key" \
-     -e LD_ENV_Prod="prod-sdk-key"       \
+     -e LD_ENV_Staging="staging-sdk-key-123abc" \
+     -e LD_ENV_Prod="prod-sdk-key-456def"       \
      -p 8030:8030                        \
      -e PORT=8030                        \
      launchdarkly/ld-relay
@@ -89,27 +89,27 @@ To deploy the Relay Proxy using this Helm chart:
 
   Here's how:
 
-  <CodeSample>
-  <CSTab label="Using command line flags">
+<CodeSample>
+<CSTab label="Using command line flags">
 
-  ```bash
-  helm install relay --set relay.environment.LD_ENV_MyEnvironment=sdk-key launchdarkly-ld-relay/ld-relay
-  ```
+```bash
+helm install relay --set relay.environment.LD_ENV_environment-key-123abc=sdk-key123bc launchdarkly-ld-relay/ld-relay
+```
 
-  </CSTab>
-  <CSTab label="Using values file">
+</CSTab>
+<CSTab label="Using values file">
 
-  ```yaml
-  # values.yaml
-  relay:
-      environment:
-          LD_ENV_MyEnvironment: sdk-key
+```yaml
+# values.yaml
+relay:
+    environment:
+        LD_ENV_environment-key-123abc: sdk-key123bc
 
-  # Run on the terminal
-  helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
-  ```
-  </CSTab>
-  </CodeSample>
+# Run on the terminal
+helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
+```
+</CSTab>
+</CodeSample>
 
 You can find examples and full documentation on all configuration options in the [GitHub repository](https://github.com/launchdarkly/ld-relay-helm).
 
@@ -170,8 +170,8 @@ To use a configuration file:
 
   ```text
   # A single environment which only proxies server-side SDKs
-  [environment "<YOUR-ENVIRONMENT-NAME>"]
-      sdkKey = "<YOUR-ENVIRONMENT-SDK-KEY>"
+  [environment "environment-key-123abc"]
+      sdkKey = "sdk-key-123abc"
   ```
 
   </CSTab>
@@ -179,14 +179,14 @@ To use a configuration file:
 
   ```text
   # An environment which proxies SDKs with SDK keys or client-side IDs
-  [environment "Spree Webapp Production"]
-      sdkKey = "SPREE_WEB_PROD_API_KEY"
-      envId = "SPREE_WEB_PROD_ENV_ID"
+  [environment "Production"]
+      sdkKey = "sdk-key-123abc"
+      envId = "environment-key-123abc"
 
   # An environment which proxies SDKs with SDK keys or mobile keys
-  [environment "Spree Mobile Production"]
-      sdkKey = "SPREE_MOBILE_PROD_API_KEY"
-      mobileKey = "SPREE_MOBILE_PROD_MOBILE_KEY"
+  [environment "Mobile Production"]
+      sdkKey = "sdk-key-123abc"
+      mobileKey = "mobile-key-123abc"
   ```
 
   </CSTab>
@@ -223,7 +223,7 @@ To use environment variables:
   <CSTab label="Example environment variable">
 
   ```bash
-  export LD_ENV_MyEnvName=<YOUR-ENVIRONMENT-SDK-KEY>
+  export LD_ENV_environment-key-123abc=<sdk-key-123abc>
   ```
 
   </CSTab>
@@ -260,4 +260,4 @@ If you use a server-side SDK, you must use the Relay Proxy and configure your se
 
 If you use a client-side SDK, there's no additional setup required to use Big Segments. However, if you use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
 
-To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/users/big-segments).
+To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/contexts/big-segments).

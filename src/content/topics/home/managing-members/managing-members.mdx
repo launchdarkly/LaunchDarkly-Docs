@@ -20,7 +20,7 @@ Account members are people who work at your organization or have access rights t
 <CalloutTitle>LaunchDarkly account members are not LaunchDarkly users</CalloutTitle>
 <CalloutDescription>
 
-LaunchDarkly users are resources, including people, who encounter feature flags in your app. In many cases, they are customers or people accessing your product. To learn more about users, read [The Users list](/home/users/users-list).
+LaunchDarkly users are people who encounter feature flags in your app. In many cases, they are customers or people accessing your product. Users are represented by user "contexts." Contexts can also represent other entities encountering feature flags, such as devices, organizations, and more. To learn more about contexts, read [The Contexts list](/home/contexts/contexts-list).
 
 </CalloutDescription>
 </Callout>
@@ -126,9 +126,9 @@ You can also tell people in your organization to delete their other accounts bef
 
 ## Using aliased email addresses in LaunchDarkly
 
-Alternatively, if the member has a Google Apps or Outlook 365 account, you can invite them to LaunchDarkly using an alias. An alias account is the email address of the person you wish to invite with a plus sign (`+`) and additional text string appended. `joe+launchdarkly@example.com` is an alias of `joe@example.com`.
+Alternatively, if the member has a Google Apps or Outlook 365 account, you can invite them to LaunchDarkly using an alias. An alias account is the email address of the person you wish to invite with a plus sign (`+`) and additional text string appended. `sandy+launchdarkly@example.com` is an alias of `sandy@example.com`.
 
-For example, if the user object `alice@diner.com` already exists in LaunchDarkly, you can also invite `alice+newproject@diner.com` to your LaunchDarkly organization. Emails from both addresses are sent to `alice@diner.com`, but only `alice+newproject@diner.com` has access to your LaunchDarkly organization. This is also helpful when you need contractors to collaborate with you on projects.
+For instance, if the user object `alice@example.com` already exists in LaunchDarkly, you can also invite `alice+newproject@example.com` to your LaunchDarkly organization. Emails from both addresses are sent to `alice@example.com`, but only `alice+newproject@example.com` has access to your LaunchDarkly organization. This is also helpful when you need contractors to collaborate with you on projects.
 
 ## Removing members from LaunchDarkly
 

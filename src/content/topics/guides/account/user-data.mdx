@@ -1,65 +1,65 @@
 ---
 path: /guides/account/user-data
-title: Minimizing LaunchDarkly's access to user data
-description: This guide explains different options to configure your product's relationship with LaunchDarkly to minimize when your users' data is transmitted to our servers.
+title: Minimizing LaunchDarkly's access to end user data
+description: This guide explains different options to configure your product's relationship with LaunchDarkly to minimize when your end users' data is transmitted to our servers.
 published: true
-tags: ['guide', 'user', 'data', 'security', 'pii', 'sdk', 'role', 'events stream']
+tags: ['guide', 'context', 'data', 'security', 'pii', 'sdk', 'role', 'events stream', 'user']
 ---
 
 ## Overview
 
-Depending on your organization's security and privacy requirements, you may need to restrict what user data you send to LaunchDarkly. This guide helps you understand what user data LaunchDarkly can access, how you can restrict or eliminate that access, and what features we provide to help you minimize access.
+Depending on your organization's security and privacy requirements, you may need to restrict what end user data you send to LaunchDarkly. This guide helps you understand what end user data LaunchDarkly can access, how you can restrict or eliminate that access, and what features we provide to help you minimize access.
 
 If you're an existing or potential customer of LaunchDarkly with questions about how we handle sensitive or third-party data, this guide is for you.
 
-## Understanding user data
+## Understanding end user data
 
-User data is information about your customers or users that your product sends to LaunchDarkly. This is different from information about your account members, who are authorized users of your LaunchDarkly account.
+End user data is information about your customers that your product sends to LaunchDarkly as part of a context. This is different from information about your account members, who are part of your LaunchDarkly account.
 
-User data can include personally identifiable information (PII), including names, email addresses, or other unique identifiers. User data can be business-critical information and can present significant risk if exposed to unauthorized parties.
+End user data can include personally identifiable information (PII), including names, email addresses, or other unique identifiers, depending on how you define your [context kinds](/home/contexts/context-kinds). This data can be business-critical information and can present significant risk if exposed to unauthorized parties.
 
-To learn more about users, read [The Users list](/home/users/users-list).
+To learn more about contexts, read [Contexts and segments](/home/contexts).
 
-## How LaunchDarkly receives user data
+## How LaunchDarkly receives end user data
 
-You configure the LaunchDarkly SDK to collect and transmit attributes about users to LaunchDarkly for the purpose of flag targeting.
+You configure the LaunchDarkly SDK to collect and transmit attributes from contexts to LaunchDarkly for the purpose of flag targeting.
 
-When you evaluate a feature flag in your SDK, the evaluation includes a `user` key associated with an object. The object is the user data. It can include various key-value pairs that contain information about your users.
+When you evaluate a feature flag in your SDK, you must provide an evaluation context. The evaluation context includes the [context kind](/home/contexts/context-kinds) and the values of any attributes for particular end users visiting your application.
 
-To learn more about the built-in attributes LaunchDarkly suggests you collect, read [Built-in user attributes](/home/users/built-in-attributes).
+To learn more about the built-in attributes LaunchDarkly suggests you collect, read [Built-in attributes](/home/contexts/built-in-attributes/).
 
 ## Considering data requirements
 
 Every company has different types of data they collect and use for various purposes. Consider whether data is advantageous for your business to collect, and if any data exposes you to unwanted risk. For data that presents a risk, understand your requirements for handling that data. If you are collecting data, examine the methods you use to store it, and how long you want to keep it.
 
-When you pass user data through LaunchDarkly, consider whether the users affected are protected by regional laws that restrict which data you can transmit or we can receive. You may wish to default to a more restrictive set of data transmitted and stored than is required by your home country in order to comply with relevant international laws.
+When you pass data through LaunchDarkly, consider whether the end users affected are protected by regional laws that restrict which data you can transmit or we can receive. You may wish to default to a more restrictive set of data transmitted and stored than is required by your home country in order to comply with relevant international laws.
 
 LaunchDarkly is a multi-tenant platform. This means that, with some exceptions, LaunchDarkly stores data in the same place and uses the same application to respond to customer requests. Exceptions to this include certain large customers and customers who are members of the United States federal government. Multi-tenant software has a broader security footprint because more people access the same database than they would in a single-tenant instance.
 
 You may want to restrict which data you send to LaunchDarkly because of this, although multi-tenant software architecture is very common and extremely low-risk. When you pass data to LaunchDarkly, it is never available to anyone to whom you have not granted permission, regardless of where it is stored.
 
-Depending on the requirements of your organization, you may want to limit or completely restrict the user data you send to LaunchDarkly.
+Depending on the requirements of your organization, you may want to limit or completely restrict the data you send to LaunchDarkly.
 
-## How the LaunchDarkly SDK you use affects user data
+## How the LaunchDarkly SDK you use affects context data
 
-LaunchDarkly SDKs have different constraints that affect user data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
+LaunchDarkly SDKs have different constraints that affect context data. Specifically, client-side SDKs differ from server-side SDKs in the following ways:
 - You must make available each flag that you want client-side or mobile SDKs to be able to access. To do this, select the checkboxes in the "Client-side SDK availability" section of the flag's configuration. To learn more, read [Client-side ID](/sdk/concepts/client-side-server-side#client-side-id).
-- By default, client-side SDKs aren't authenticated. Because of this, one user could use another user's account to evaluate flags not meant for them. To authenticate user data, you can enable the SDK's secure mode, which requires you to pass a server generated hash in your user data. To learn more, read [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk).
-- Client-side SDKs send user data in the URL as a `GET` query parameter. If you are concerned about that data being stored in logs or by intermediary proxies, you can use the [`useReport`](/sdk/features/user-config#javascript) setting to use the HTTP `REPORT` verb. This sends the user data in the request body, rather than in the header. To learn more, read [Use REPORT in the JavaScript SDK](#using-report-in-the-javascript-sdk).
+- By default, client-side SDKs aren't authenticated. Because of this, one end user could use another end user's account to evaluate flags not meant for them. To authenticate context data, you can enable the SDK's secure mode, which requires you to pass a server-generated hash in each evaluation context. To learn more, read [Secure mode](/sdk/features/secure-mode#configuring-secure-mode-in-the-javascript-client-side-sdk).
+- Client-side SDKs send context data in the URL as a `GET` query parameter. If you are concerned about that data being stored in logs or by intermediary proxies, you can use the [`useReport`](/sdk/features/user-context-config#javascript) setting to use the HTTP `REPORT` verb. This sends the evaluation context in the request body, rather than in the header. To learn more, read [Use REPORT in the JavaScript SDK](#using-report-in-the-javascript-sdk).
 
 ## LaunchDarkly member roles
 
-Every account member in your LaunchDarkly project can view user and flag information, including targeting data. Account members with Writer, Admin, or Owner roles can configure flag settings, including targeting flags by PII like user email addresses. Consider if your organization needs to restrict which account members can control access to user data.
+Every account member in your LaunchDarkly project can view context and flag information, including targeting data. Account members with Writer, Admin, or Owner roles can configure flag settings, including targeting flags by PII like end user email addresses. Consider if your organization needs to restrict which account members can control access to this data.
 
 The exception to this is if an account member is assigned the No access role or a custom role with the `viewProject` action set to `deny`. The `viewProject` action controls a role holder's access to an entire project by preventing or granting them viewing rights to the project. Viewing rights are required for any other permissions in a project to take effect, so restricting viewing rights effectively removes all access to the project.
 
-You can give an account member custom permissions to view and modify user data by assigning them a custom role.
+You can give an account member custom permissions to view and modify context data by assigning them a custom role.
 
 To learn more, read [Custom roles](/home/members/custom-roles).
 
-## Features to minimize user data sent to LaunchDarkly
+## Features to minimize end user data sent to LaunchDarkly
 
-LaunchDarkly does not have detectors set up to prevent you from sending PII.
+LaunchDarkly does not have guardrails that prevent you from sending PII.
 
 <Callout intent="alert">
 <CalloutTitle>Increased privacy comes with tradeoffs</CalloutTitle>
@@ -70,11 +70,11 @@ Further hardening the privacy of your LaunchDarkly projects may require some Lau
 </CalloutDescription>
 </Callout>
 
-Here are some additional configuration options you can use to increase user privacy in LaunchDarkly. Using these features can impact certain features in the LaunchDarkly UI.
+Here are some additional configuration options you can use to increase end user privacy in LaunchDarkly. Using these features can impact certain features in the LaunchDarkly UI.
 
 ### Using REPORT in the JavaScript SDK
 
-You can configure the JavaScript SDK to use the REPORT HTTP verb instead of GET. In this model, the REPORT verb forces user objects to be sent as request bodies instead of as path parameters. Path parameters are frequently logged and easy for proxies to observe, but request bodies are typically not logged or stored.
+You can configure the JavaScript SDK to use the REPORT HTTP verb instead of GET. In this model, the REPORT verb forces evaluation contexts to be sent as request bodies instead of as path parameters. Path parameters are frequently logged and easy for proxies to observe, but request bodies are typically not logged or stored.
 
 In addition, LaunchDarkly uses end-to-end encryption and all communication occurs over HTTPS. Unless a malicious third party breaks transport layer security (TLS) encryption, a man-in-the-middle attack is impossible.
 
@@ -86,7 +86,7 @@ Here is an example where the `useReport` parameter is enabled:
 <CSTab label="JavaScript">
 
 ```js
-var client = LDClient.initialize(‘environment-id-123abc’, user, options = {
+const client = LDClient.initialize('client-side-id-123abc', context, options = {
   useReport: true
 });
 ```
@@ -110,8 +110,8 @@ Here is an example configuration for the client:
 <CSTab label="JavaScript">
 
 ```js
-var ldclient = LDClient.initialize(‘client-side-id-123abc’,
-user, options = {
+const client = LDClient.initialize(‘client-side-id-123abc’,
+context, options = {
   allAttributesPrivate: true,
   baseUrl: "https://your-relay-proxy.com:8030",
   streamUrl: "https://your-relay-proxy.com:8030"
@@ -141,29 +141,25 @@ To learn more, read [Relay Proxy - Configuration](https://github.com/launchdarkl
 
 ### Bootstrapping flag values against a server-side SDK
 
-Similar to using a Relay Proxy, you can get the initial payload for users from one of your own servers instead of reaching out to LaunchDarkly. This technique is referred to as bootstrapping. To learn more, read [Bootstrapping](/sdk/features/bootstrapping).
+Similar to using a Relay Proxy, you can get the initial payload for evaluation contexts from one of your own servers instead of reaching out to LaunchDarkly. This technique is referred to as bootstrapping. In this model, the evaluation context values are acquired from a server-side SDK instance while the JavaScript SDK initializes.  To learn more, read [Bootstrapping](/sdk/features/bootstrapping).
 
-In this model, the user-specific values are acquired from a server-side SDK instance while the JavaScript SDK initializes. The only downside to this approach is that you are not able to receive real-time updates to flag values, because connecting to the stream exposes the user object.
+### Using private attributes
 
-The only way to get updates with this approach is to “poll” for changes against your own server or perform a full page refresh.
+You can use LaunchDarkly's private attribute settings to restrict the context data your service sends to LaunchDarkly while still using that data for flag targeting. You can make all attributes private, choose specific attributes to make private, or make attributes private for specific context kinds.
 
-### Using private user attributes
+To learn more, read [Using private context attributes](/home/contexts/attributes#using-private-context-attributes).
 
-You can use LaunchDarkly's private attribute settings to restrict the user data your service sends to LaunchDarkly while still using that data for flag targeting. You can make all attributes private, choose specific attributes to make private, or make attributes private for specific users.
+### Using anonymous contexts
 
-To learn more, read [Using private user attributes](/home/users/attributes#using-private-user-attributes).
+Anonymous contexts do not register as context instances in your [**Contexts** list](/home/contexts/contexts-list), and so the usual data LaunchDarkly collects isn't available for an anonymous context instance. You can use anonymous contexts to hide personally identifiable information (PII), but we recommend using private attributes instead. To specify that a context should not be indexed, set `anonymous` to `true`.
 
-### Using anonymous users
-
-Anonymous users do not register as users in your [**Users** list](/home/users/users-list), and so the usual data LaunchDarkly collects on a user isn't available for an anonymous user. You can use anonymous users to hide personally identifiable information (PII), but we recommend using private user attributes instead. You can force all users to register in LaunchDarkly as anonymous users by setting the anonymous user bit in your SDK to `true` when you construct the LaunchDarkly User object from the domain user object.
-
-To learn more, read [Anonymous users](/home/users/anonymous-users).
+To learn more, read [Anonymous contexts](/home/contexts/anonymous-contexts).
 
 <Callout intent="warning">
-<CalloutTitle>Anonymous users and private user attributes don't appear on the <strong>Users</strong> list</CalloutTitle>
+<CalloutTitle>Anonymous context instances and private attributes don't appear on the <strong>Contexts</strong> list</CalloutTitle>
 <CalloutDescription>
 
-If you use anonymous users or private user attributes, the **Users** list won't populate with a complete list of users who access LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
+If you use anonymous contexts or private attributes, the **Contexts** list won't populate with a complete list of context instances that accessed LaunchDarkly, and autocomplete for private attributes won't function in LaunchDarkly.
 
 </CalloutDescription>
 </Callout>
@@ -173,37 +169,37 @@ If you use anonymous users or private user attributes, the **Users** list won't 
 In the event that you accidentally send PII to LaunchDarkly, you should take the following steps to remove the information from LaunchDarkly:
 
 1. Revert the change or action you took that sent the data to LaunchDarkly.
-2. Find any users with exposed PII using the [find users API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/getSearchUsers).
-3. Delete the affected users from the **Users** list in one of two ways:
-  - [using the user interface (UI)](/home/users/users-list#removing-a-user), or
-  - [using the API with the delete user API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/deleteUser). If you want to delete all users out of an environment rather than look for specific users, you can use the [list users API endpoint](https://apidocs.launchdarkly.com/tag/Users#operation/getUsers).
+2. Find any context instances with exposed PII using the [search context instances API endpoint](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContextInstances).
+3. Delete the affected context instances from the **Contexts** list in one of two ways:
+  - [using the user interface (UI)](/home/contexts/contexts-list#removing-a-context-instance), or
+  - [using the API with the delete context instances endpoint](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/deleteContextInstances). If you want to delete all context instances out of an environment, you can find them using the [search context instances API endpoint](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContextInstances).
 
 <Callout intent="info">
-<CalloutTitle>Deleting users from the Users list does not impact flag evaluations</CalloutTitle>
+<CalloutTitle>Deleting context instances from the <strong>Contexts</strong> list does not impact flag evaluations</CalloutTitle>
 <CalloutDescription>
 
-Flag evaluations are made based on the user object you provide to the SDK, not what's on the **Users** list. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+Flag evaluations are made based on the evaluation context you provide to the SDK, not what's on the **Contexts** list. To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
 </CalloutDescription>
 </Callout>
 
-These steps ensure that the PII no longer exists in LaunchDarkly. The PII attribute name will still appear in menu recommendations such as when you're creating or modifying a targeting rule, but no data will appear if you have deleted all of the users with the exposed data. LaunchDarkly automatically cycles out unused attribute fields within 30 days. If you need the field deleted sooner, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+These steps ensure that the PII no longer exists in LaunchDarkly. The PII attribute name will still appear in menu recommendations such as when you're creating or modifying a targeting rule, but no data will appear if you have deleted all of the context instances with the exposed data. LaunchDarkly automatically cycles out unused attribute fields within 30 days. If you need the field deleted sooner, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
-## User-initiated data minimization
+## End user-initiated data minimization
 
-When your product uses LaunchDarkly JavaScript SDKs, users can minimize the data that they send to LaunchDarkly by configuring their browser to prevent sending analytics data.
+When your product uses LaunchDarkly JavaScript SDKs, end users can minimize the data that they send to LaunchDarkly by configuring their browser to prevent sending analytics data.
 
-This works because the JavaScript SDK sends data to the feature flag API (`app.launchdarkly.com`), the streaming API (`stream.launchdarkly.com`), and the analytics API (`events.launchdarkly.com`). Users can block the analytics API to reduce the amount of data they provide to LaunchDarkly, but the feature flag API and analytics API are necessary for LaunchDarkly to work.
+This works because the JavaScript SDK sends data to the feature flag API (`app.launchdarkly.com`), the streaming API (`stream.launchdarkly.com`), and the analytics API (`events.launchdarkly.com`). End users can block the analytics API to reduce the amount of data they provide to LaunchDarkly, but the feature flag API and analytics API are necessary for LaunchDarkly to work.
 
 ### Do Not Track
 
-Modern web browsers have Do Not Track (DNT) options that request websites, apps, and services not harvest user data.
+Modern web browsers have Do Not Track (DNT) options that request websites, apps, and services not harvest end user data.
 
-Individual users can enable DNT in their browsers. LaunchDarkly complies with DNT requests and does not send analytics data when a browser has DNT enabled.
+Individual end users can enable DNT in their browsers. LaunchDarkly complies with DNT requests and does not send analytics data when a browser has DNT enabled.
 
 ### Ad blockers
 
-If users configure ad blockers in their browsers, they can prevent analytics information from being transmitted to LaunchDarkly. However, because ad blockers are third-party products, LaunchDarkly cannot control how they implement their restrictions.
+If end users configure ad blockers in their browsers, they can prevent analytics information from being transmitted to LaunchDarkly. However, because ad blockers are third-party products, LaunchDarkly cannot control how they implement their restrictions.
 
 If you use an ad blocker, some feature flags may not work because the ad blocker incorrectly blocks access to `app.launchdarkly.com` or `stream.launchdarkly.com` when it should only be blocking outbound connections to `events.launchdarkly.com`.
 

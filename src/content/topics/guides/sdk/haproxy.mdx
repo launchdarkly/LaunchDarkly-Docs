@@ -6,6 +6,19 @@ published: true
 tags: ['guide', 'haproxy', 'sdk', 'lua']
 ---
 
+<Callout intent="alert">
+<CalloutTitle>This guide has not been updated to include custom contexts</CalloutTitle>
+<CalloutDescription>
+
+This documentation is not updated to display upcoming changes from LaunchDarkly's contexts feature. This documentation will be updated during the contexts Early Access Program (EAP).
+
+To learn more about custom contexts, read [Contexts and segments](/home/contexts).
+
+</CalloutDescription>
+</Callout>
+
+<!-- cSpell:disable TKTK: remove the above callout when the U2C version of Lua is available, SC-189166 cSpell:enable -->
+
 ## Overview
 
 This guide explains how to use our [Lua server-side SDK](https://github.com/launchdarkly/lua-server-sdk) with [HAProxy](https://www.haproxy.org/). You can use HAProxy with LaunchDarkly to implement dynamic rate limiting, access controls, rollout, and many other features at the edge of your application architecture.
@@ -65,7 +78,7 @@ core.register_service("launchdarkly", "http", function(applet)
         key = "abc"
     })
 
-    if client:boolVariation(user, os.getenv("LD_FLAG_KEY"), false) then
+    if client:boolVariation(user, os.getenv("flag-key-123abc"), false) then
         applet:send("<p>feature launched</p>")
     else
         applet:send("<p>feature not launched</p>")
@@ -75,6 +88,9 @@ end)
 
 </CSTab>
 </CodeSample>
+
+<!-- cSpell:disable TKTK: update the code sample when the U2C version of Lua is available, SC-189166 cSpell:enable -->
+
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

@@ -72,7 +72,7 @@ const QuickLinks = () => (
       <QuickLink
         iconName="chart-areaspline"
         heading="Experimentation"
-        blurp="Test frontend and backend changes in real time, on real users."
+        blurp="Test frontend and backend changes in real time, on real end users."
         navItems={[
           { path: '/home/creating-experiments', label: 'Creating experiments' },
           { path: '/home/analyzing-experiments', label: 'Analyzing experiments' },

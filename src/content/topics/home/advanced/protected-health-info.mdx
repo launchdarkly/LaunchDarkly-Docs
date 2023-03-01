@@ -12,7 +12,8 @@ This topic explains what to consider when you need to send Protected Health Info
 
 By following these recommendations, you can support your organization's requirements for HIPAA compliance. Before LaunchDarkly can support your HIPAA compliance, you must review and implement the guidelines in this topic.
 
-When you pass user data through LaunchDarkly, consider whether the users affected are protected by laws that restrict which data you can transmit or LaunchDarkly can view. Depending on the requirements of your organization, you may want to limit or completely restrict the user data you send to LaunchDarkly.
+When you pass user data through LaunchDarkly, consider whether the customers affected are protected by laws that restrict which data you can transmit or LaunchDarkly can view. Depending on the requirements of your organization, you may want to limit or completely restrict the data you send to LaunchDarkly.
+
 To learn more about limiting the data you pass through LaunchDarkly, you can read [Minimizing LaunchDarkly's access to user data](/guides/account/user-data/).
 
 ## Prerequisites
@@ -45,7 +46,7 @@ After you enter into a BAA with LaunchDarkly, you can pass PHI through some fiel
 
 Only send LaunchDarkly PHI in the following fields:
 
-* User objects
+* Context objects
 * Flag targeting rules
 
 Do not send LaunchDarkly PHI in any other field. There is no way for LaunchDarkly to determine if information in text fields is PHI, and there are no safeguards in place to prevent you from transmitting PHI in other fields.

@@ -1,70 +1,62 @@
 module.exports = [
-  // Temporary redirects for U2C EAP
+  // Redirects for users-to-contexts
+
   {
-    fromPath: '/home/flags/targeting',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/flags/targeting',
+    fromPath: '/home/flags/debugger',
+    toPath: '/home/flags/live-events',
   },
   {
-    fromPath: '/home/flags/live-events',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/flags/live-events',
+    fromPath: '/home/flags/targeting-users',
+    toPath: '/home/flags/targeting',
   },
   {
-    fromPath: '/home/contexts',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts',
+    fromPath: '/home/users',
+    toPath: '/home/contexts',
   },
   {
-    fromPath: '/home/contexts/contexts-list',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/contexts-list',
+    fromPath: '/home/users/users-list',
+    toPath: '/home/contexts/contexts-list',
   },
   {
-    fromPath: '/home/contexts/context-details',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/context-details',
+    fromPath: '/home/users/attributes',
+    toPath: '/home/contexts/attributes',
   },
   {
-    fromPath: '/home/contexts/attributes',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/attributes',
+    fromPath: '/home/users/built-in-attributes',
+    toPath: '/home/contexts/built-in-attributes',
   },
   {
-    fromPath: '/home/contexts/built-in-attributes',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/built-in-attributes',
+    fromPath: '/home/users/custom-attributes',
+    toPath: '/home/contexts/custom-attributes',
   },
   {
-    fromPath: '/home/contexts/custom-attributes',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/custom-attributes',
+    fromPath: '/home/users/segments',
+    toPath: '/home/contexts/segments',
   },
   {
-    fromPath: '/home/contexts/context-kinds',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/context-kinds',
+    fromPath: '/home/users/standard-segments',
+    toPath: '/home/contexts/standard-segments',
   },
   {
-    fromPath: '/home/contexts/segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/segments',
+    fromPath: '/home/users/big-segments',
+    toPath: '/home/contexts/big-segments',
   },
   {
-    fromPath: '/home/contexts/standard-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/standard-segments',
+    fromPath: '/home/users/synced-segments',
+    toPath: '/home/contexts/synced-segments',
   },
   {
-    fromPath: '/home/contexts/big-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/big-segments',
+    fromPath: '/home/users/bulk-edit-segments',
+    toPath: '/home/contexts/bulk-edit-segments',
   },
   {
-    fromPath: '/home/contexts/synced-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/synced-segments',
-  },
-  {
-    fromPath: '/home/contexts/bulk-edit-segments',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/bulk-edit-segments',
-  },
-  {
-    fromPath: '/home/contexts/anonymous-contexts',
-    toPath: 'https://docs-stg.launchdarkly.com/contexts-eap/home/contexts/anonymous-contexts',
+    fromPath: '/home/users/anonymous-users',
+    toPath: '/home/contexts/anonymous-contexts',
   },
   {
     fromPath: '/sdk/features/user-config',
     toPath: '/sdk/features/user-context-config',
   },
-
   // Redirects within the docs site
 
   {
@@ -341,7 +333,7 @@ module.exports = [
   },
   {
     fromPath: '/home/managing-flags/targeting-users',
-    toPath: '/home/flags/targeting-users',
+    toPath: '/home/flags/targeting',
   },
   {
     fromPath: '/home/managing-flags/bulk-user-targeting',
@@ -361,27 +353,11 @@ module.exports = [
   },
   {
     fromPath: '/home/managing-flags/debugger',
-    toPath: '/home/flags/debugger',
+    toPath: '/home/flags/live-events',
   },
   {
     fromPath: '/home/managing-users',
     toPath: '/home/users',
-  },
-  {
-    fromPath: '/home/managing-users/users-dashboard',
-    toPath: '/home/users/users-list',
-  },
-  {
-    fromPath: '/home/managing-users/user-attributes',
-    toPath: '/home/users/attributes',
-  },
-  {
-    fromPath: '/home/managing-users/anonymous-users',
-    toPath: '/home/users/anonymous-users',
-  },
-  {
-    fromPath: '/home/managing-users/synced-segments',
-    toPath: '/home/users/synced-segments',
   },
   {
     fromPath: '/home/account-security/managing-your-team',
@@ -628,6 +604,264 @@ module.exports = [
     toPath: '/home/members/managing',
   },
 
+  // Users to contexts redirects
+  {
+    fromPath: '/home/users',
+    toPath: '/home/contexts',
+  },
+  {
+    fromPath: '/home/users/users-dashboard',
+    toPath: '/home/contexts/contexts-list',
+  },
+  {
+    fromPath: '/home/users/user-attributes',
+    toPath: '/home/contexts/attributes',
+  },
+  {
+    fromPath: '/home/users/anonymous-users',
+    toPath: '/home/contexts/anonymous-contexts',
+  },
+  {
+    fromPath: '/home/users/synced-segments',
+    toPath: '/home/contexts/synced-segments',
+  },
+  {
+    fromPath: '/home/flags/targeting-users',
+    toPath: '/home/flags/targeting',
+  },
+  {
+    fromPath: '/home/flags/debugger',
+    toPath: '/home/flags/live-events',
+  },
+  {
+    fromPath: '/sdk/features/user-config',
+    toPath: '/sdk/features/user-context-config',
+  },
+  {
+    fromPath: '/home/users/users-dashboard',
+    toPath: '/home/contexts/contexts-list',
+  },
+  {
+    fromPath: '/home/users/attributes',
+    toPath: '/home/contexts/attributes',
+  },
+  {
+    fromPath: '/home/users/built-in-attributes',
+    toPath: '/home/contexts/built-in-attributes',
+  },
+  {
+    fromPath: '/home/users/custom-attributes',
+    toPath: '/home/contexts/custom-attributes',
+  },
+  {
+    fromPath: '/home/users/segments',
+    toPath: '/home/contexts/segments',
+  },
+  {
+    fromPath: '/home/users/standard-segments',
+    toPath: '/home/contexts/standard-segments',
+  },
+  {
+    fromPath: '/home/users/bulk-edit-segments',
+    toPath: '/home/contexts/bulk-edit-segments',
+  },
+  {
+    fromPath: '/home/users/big-segments',
+    toPath: '/home/contexts/big-segments',
+  },
+
+  // Redirects from guide rearchitecture project, q2 2022
+  {
+    fromPath: '/guides/best-practices/migrating-solutions',
+    toPath: '/guides/account/migrating-solutions',
+  },
+  {
+    fromPath: '/guides/tutorials/merge-accounts',
+    toPath: '/guides/account/merge-accounts',
+  },
+  {
+    fromPath: '/guides/best-practices/user-data',
+    toPath: '/guides/account/user-data',
+  },
+  {
+    fromPath: 'guides/best-practices/teams',
+    toPath: '/guides/teams-roles/teams',
+  },
+  {
+    fromPath: '/guides/best-practices/custom-roles',
+    toPath: '/guides/teams-roles/custom-roles',
+  },
+  {
+    fromPath: '/guides/tutorials/no-access',
+    toPath: '/guides/teams-roles/no-access',
+  },
+  {
+    fromPath: '/guides/tutorials/sdk-flag',
+    toPath: '/guides/flags/sdk-flag',
+  },
+  {
+    fromPath: '/guides/tutorials/rules-and-targeting',
+    toPath: '/guides/flags/rules-and-targeting',
+  },
+  {
+    fromPath: '/guides/best-practices/creating-flags',
+    toPath: '/guides/flags/creating-flags',
+  },
+  {
+    fromPath: '/guides/best-practices/flag-hierarchy',
+    toPath: '/guides/flags/flag-hierarchy',
+  },
+  {
+    fromPath: '/guides/best-practices/improving-code',
+    toPath: '/guides/flags/improving-code',
+  },
+  {
+    fromPath: '/guides/best-practices/technical-debt',
+    toPath: '/guides/flags/technical-debt',
+  },
+  {
+    fromPath: '/guides/best-practices/testing-code',
+    toPath: '/guides/flags/testing-code',
+  },
+  {
+    fromPath: '/guides/best-practices/entitlements',
+    toPath: '/guides/flags/entitlements',
+  },
+  {
+    fromPath: '/guides/platform-specific/triggers-dynatrace',
+    toPath: '/guides/integrations/triggers-dynatrace',
+  },
+  {
+    fromPath: '/guides/platform-specific/static-sites',
+    toPath: '/guides/flags/static-sites',
+  },
+  {
+    fromPath: '/guides/platform-specific/cloudflare-workers',
+    toPath: '/guides/infrastructure/cloudflare-workers',
+  },
+  {
+    fromPath: '/guides/best-practices/integrations',
+    toPath: '/guides/integrations/using-integrations',
+  },
+  {
+    fromPath: '/guides/best-practices/integrations-use-cases',
+    toPath: '/guides/integrations/integrations-use-cases',
+  },
+  {
+    fromPath: '/guides/best-practices/deployment-strategies',
+    toPath: '/guides/infrastructure/deployment-strategies',
+  },
+  {
+    fromPath: '/guides/best-practices/infrastructure-migration',
+    toPath: '/guides/infrastructure/infrastructure-migration',
+  },
+  {
+    fromPath: '/guides/best-practices/serverless',
+    toPath: '/guides/infrastructure/serverless',
+  },
+  {
+    fromPath: '/guides/platform-specific/aws-lambda',
+    toPath: '/guides/infrastructure/aws-lambda',
+  },
+  {
+    fromPath: '/guides/platform-specific/nextjs',
+    toPath: '/guides/infrastructure/nextjs',
+  },
+  {
+    fromPath: '/guides/platform-specific/svelte',
+    toPath: '/guides/infrastructure/svelte',
+  },
+  {
+    fromPath: '/guides/platform-specific/unit-tests',
+    toPath: '/guides/infrastructure/unit-tests',
+  },
+  {
+    fromPath: '/guides/platform-specific/mobile',
+    toPath: '/guides/sdk/mobile',
+  },
+  {
+    fromPath: '/guides/tutorials/unsupported-sdk',
+    toPath: '/guides/sdk/unsupported-sdk',
+  },
+  {
+    fromPath: '/guides/platform-specific/haproxy',
+    toPath: '/guides/sdk/haproxy',
+  },
+  {
+    fromPath: '/guides/platform-specific/nginx',
+    toPath: '/guides/sdk/nginx',
+  },
+  {
+    fromPath: '/guides/tutorials/rest-api',
+    toPath: '/guides/api/rest-api',
+  },
+  {
+    fromPath: '/guides/best-practices/sdk-wrappers',
+    toPath: '/guides/sdk/sdk-wrappers',
+  },
+  {
+    fromPath: 'guides/tutorials/experimentation',
+    toPath: '/guides/experimentation/experimentation',
+  },
+  {
+    fromPath: '/guides/best-practices/bayesian',
+    toPath: '/guides/experimentation/bayesian',
+  },
+
+  // Redirects from renaming "teams" category to "members"
+  {
+    fromPath: '/home/team/role-actions',
+    toPath: '/home/members/role-actions',
+  },
+  {
+    fromPath: '/home/team/role-policies',
+    toPath: '/home/members/role-policies',
+  },
+  {
+    fromPath: '/home/team/role-tags',
+    toPath: '/home/members/role-tags',
+  },
+  {
+    fromPath: '/home/team/role-resources',
+    toPath: '/home/members/role-resources',
+  },
+  {
+    fromPath: '/home/team/example-policies',
+    toPath: '/home/members/example-policies',
+  },
+  {
+    fromPath: '/home/team/role-create',
+    toPath: '/home/members/role-create',
+  },
+  {
+    fromPath: '/home/team/role-concepts',
+    toPath: '/home/members/role-concepts',
+  },
+  {
+    fromPath: '/home/team/custom-roles',
+    toPath: '/home/members/custom-roles',
+  },
+  {
+    fromPath: '/home/team/account-owners',
+    toPath: '/home/members/account-owners',
+  },
+  {
+    fromPath: '/home/team/built-in-roles',
+    toPath: '/home/members/built-in-roles',
+  },
+  {
+    fromPath: '/home/team/managing',
+    toPath: '/home/members/managing',
+  },
+  {
+    fromPath: '/home/team',
+    toPath: '/home/members',
+  },
+  {
+    fromPath: '/home/getting-started/your-team',
+    toPath: '/home/getting-started/your-account',
+  },
+
   // Redirects from the readme-hosted docs site
   {
     fromPath: '/',
@@ -715,7 +949,7 @@ module.exports = [
   },
   {
     fromPath: '/docs/debugger',
-    toPath: '/home/flags/debugger',
+    toPath: '/home/flags/live-events',
   },
   {
     fromPath: '/docs/users-index',
@@ -731,15 +965,31 @@ module.exports = [
   },
   {
     fromPath: '/docs/segmenting-users',
-    toPath: '/home/users/segments',
+    toPath: '/home/contexts/segments',
   },
   {
-    fromPath: '/home/managing-users/user-segments',
-    toPath: '/home/users/segments',
+    fromPath: '/home/users/user-segments',
+    toPath: '/home/contexts/segments',
+  },
+  {
+    fromPath: '/home/managing-users/users-dashboard',
+    toPath: '/home/contexts/contexts-list',
+  },
+  {
+    fromPath: '/home/managing-users/user-attributes',
+    toPath: '/home/contexts/attributes',
+  },
+  {
+    fromPath: '/home/managing-users/anonymous-users',
+    toPath: '/home/contexts/anonymous-users',
+  },
+  {
+    fromPath: '/home/managing-users/synced-segments',
+    toPath: '/home/contexts/synced-segments',
   },
   {
     fromPath: '/docs/anonymous-users',
-    toPath: '/home/users/anonymous-users',
+    toPath: '/home/contexts/anonymous-contexts',
   },
   {
     fromPath: '/docs/security-index',

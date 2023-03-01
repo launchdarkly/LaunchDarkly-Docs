@@ -18,7 +18,6 @@ Data Export exposes the following kinds of events:
 - `click` events
 - `page view` events
 - `custom` events
-- `alias` events
 - `summary` events. To export `summary` events, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 - `debug` events
 
@@ -51,16 +50,13 @@ This table lists event kinds:
     <TableRow>
       <TableCell>index</TableCell>
       <TableCell>
-        This event kind contains the user attributes for a particular user, defined by a user key, when a feature flag
-        evaluates the user. This event kind is not available for Segment or mParticle destinations. To export{' '}
-        <code>index</code> events, <a href="https://support.launchdarkly.com/hc/en-us/requests/new">contact Support</a>.
+        This event kind contains the context attributes for a particular context, defined by a context key, when a feature flag evaluates the context. This event kind is not available for Segment or mParticle destinations. To export <code>index</code> events, <a href="https://support.launchdarkly.com/hc/en-us/requests/new">contact Support</a>.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>identify</TableCell>
       <TableCell>
-        This event kind passes details about a user provided in an explicit <code>identify</code> call to the SDK. This
-        event kind is not available for Segment or mParticle destinations.
+        This event kind passes details about a context provided in an explicit <code>identify</code> call to the SDK. This event kind is not available for Segment or mParticle destinations.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -81,13 +77,6 @@ This table lists event kinds:
       <TableCell>custom</TableCell>
       <TableCell>
         This event kind passes data provided in an explicit <code>track</code> call to the SDK.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>alias</TableCell>
-      <TableCell>
-        This event kind includes information necessary to correlate a user known by two different user keys, such as an
-        anonymous user key and a logged-in user key.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -121,7 +110,7 @@ The `index` and `identify` event kinds are **not available** for Segment and mPa
 
 Older SDKs always send `feature` events regardless of whether detailed tracking is enabled for that flag. Only newer SDKs generate the `summary` and `index` events described below.
 
-Older SDKs will also send `user` attributes as an object inside `feature` events instead of just providing a "userKey" that can reference user data sent in a prior `index` event.
+Older SDKs will also send `user` attributes as an object inside `feature` events instead of just providing a "contextKey" that can reference context data sent in a prior `index` event.
 
 <Callout intent="info">
 <CalloutTitle>Enabling detailed analytics events</CalloutTitle>
@@ -155,7 +144,7 @@ All events have the following top level structure:
 
 - `project`: The ID of the LaunchDarkly project associated with the event.
 - `environment`: The ID of the LaunchDarkly environment associated with the event.
-- `version`: The event version. Events sent from SDKs included in the contexts EAP are version `2`. Older events are version `1` and have different schemas.
+- `version`: The event version. Events sent from SDKs upgraded for contexts are version `2`. Older events are version `1` and have different schemas.
 - `event`: The event itself. It is an object with a structure described below, depending on the `kind` of event.
 
 ## Feature events
@@ -182,7 +171,7 @@ Here is an example `feature` event:
   },
   "prereqOf": "prereq-flag-key-123abc",
   "contextKeys": {
-    "user": "Sandy",
+    "user": "sandy",
     "anonymousUser": "123213421231"
   }
 }
@@ -216,9 +205,7 @@ Here is an example `feature` event:
 Here is a list of `feature` event properties:
 
 - `kind`: The kind for a `feature` event is `feature`. An SDK only generates a `feature` event if the you set the `trackEvents` attribute of the flag to `true`. You can also control this with settings in the UI.
-- `contextKind`: The kind of context which generated an event. This will only be `"anonymousUser"` for events generated on behalf of an anonymous user. It is omitted for events generated on behalf of a non-anonymous user.
-- `userKey`: The key of the user object used in a feature flag evaluation. SDKs periodically transmit details for the `user` object used in a feature flag evaluation as reported by the "feature" event with a separate `index` event.
-- `creationDate`: When the SDK requested the feature flag, at UNIX epoch time in milliseconds.
+- `creationDate`: When the SDK requested the feature flag, as UNIX epoch time in milliseconds.
 - `key`: The key of the feature flag requested.
 - `variation`: The variation of the flag requested. The SDK stores flag variation values in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `1` for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.
 - `variationName`: The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.
@@ -244,7 +231,7 @@ By default, LaunchDarkly does not export `index` events. To export `index` event
 </CalloutDescription>
 </Callout>
 
-Server-side SDKs send `index` events periodically to describe the attributes of users or contexts referenced by the "userKey" or "contextKey" in `feature` events.
+Server-side SDKs send `index` events periodically to describe the attributes of contexts referenced by the "contextKey" in `feature` events.
 
 An example `index` event is shown below:
 
@@ -291,19 +278,20 @@ Here is a list of `index` event properties:
 
 - `kind`: The kind of an `index` event is `index`.
 - `context` (version 2 only): The same schema as `context` objects for feature flag evaluation.
-- `creationDate`: The time this user or context was recorded at UNIX epoch time in milliseconds.
+- `creationDate`: The time this context was recorded at UNIX epoch time in milliseconds.
 - `user` (version 1 only): The same schema as user objects for feature flag evaluation.
+
 
 <Callout intent="info">
 <CalloutTitle>Server-side SDKs determine when to send <code>index</code> events</CalloutTitle>
 <CalloutDescription>
 
-Server-side SDKs have internal logic that determines whether it is necessary to send an `index` event. SDKs do not create `index` events for every flag evaluation. If the SDKs identify the same user or context multiple times in succession, the SDK does not send multiple `index` events. The SDK identifies users and contexts based on the users' or contexts' keys.
+Server-side SDKs have internal logic that determines whether it is necessary to send an `index` event. SDKs do not create `index` events for every flag evaluation. If the SDKs identify the same context multiple times in succession, the SDK does not send multiple `index` events. The SDK identifies contexts based on the contexts' keys.
 
 </CalloutDescription>
 </Callout>
 
-Client-side SDKs do not send `index` events. Instead, Client-side SDKs send `identify` events when the SDK initializes, which include all of the user or context properties.
+Client-side SDKs do not send `index` events. Instead, Client-side SDKs send `identify` events when the SDK initializes, which include all of the context properties.
 
 ## Identify events
 
@@ -354,8 +342,9 @@ Here is a list of `identify` event properties:
 
 - `kind`: The kind of an `identify` event is `identify`.
 - `context` (version 2 only): The same schema as `context` objects for feature flag evaluation.
-- `creationDate`: The time this user or context was recorded at UNIX epoch time in milliseconds.
+- `creationDate`: The time this context was recorded at UNIX epoch time in milliseconds.
 - `user` (version 1 only): The same schema as `user` objects for feature flag evaluation.
+
 
 ## Click events
 
@@ -428,13 +417,13 @@ An example `pageview` event is shown below:
 {
   "kind": "pageview",
   "key": "page-view-metric-key-123abc",
+  "creationDate": 1663182171994,
   "url": "https://example.com/",
-  "creationDate": 16420388151234,
-  "contextKeys": {
-    "user": "Sandy",
-    "anonymousUser": "123213421231"
+  "user": {
+    "key": "user-key-123abc"
   }
 }
+
 ```
 
 </CSTab>
@@ -489,38 +478,6 @@ not appear if a metric value was not provided by the event.
   "data": {
     "custom": "value"
   }
-}
-```
-
-</CSTab>
-</CodeSample>
-
-## Alias events
-
-SDKs produce `alias` events when the client application calls the SDK's alias method. Client-side SDKs also emit them automatically when an anonymous user identifies as a non-anonymous user.
-
-<Callout intent="alert">
-<CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
-<CalloutDescription>
-
-To read about how <code>alias</code> events function in mParticle and Segment destinations, read their respective schema references.
-
-</CalloutDescription>
-</Callout>
-
-An example `alias` event is shown below:
-
-<CodeSample>
-<CSTab label="Alias event example">
-
-```json
-{
-  "kind": "alias",
-  "creationDate": 1600376029000,
-  "key": "logged-in-user-key",
-  "contextKind": "user",
-  "previousKey": "logged-out-user-key",
-  "previousContextKind": "anonymousUser"
 }
 ```
 
@@ -635,30 +592,26 @@ Each feature flag includes the following details:
     <TableHeadCell>Meaning</TableHeadCell>
   </TableHeader>
   <TableBody>
-    <TableRow>
-      <TableCell>default</TableCell>
-      <TableCell>
-        The default value the SDK received for the feature, sampled at some point during the interval.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>startDate</TableCell>
-      <TableCell>
-        The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in
-        milliseconds.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>endDate</TableCell>
-      <TableCell>
-        The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX epoch time in
-        milliseconds.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>counters</TableCell>
-      <TableCell>A set of counters as described below.</TableCell>
-    </TableRow>
+  <TableRow>
+    <TableCell>startDate</TableCell>
+    <TableCell>The timestamp of the first feature flag evaluation included in this packet. This value is a UNIX epoch time in milliseconds.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>endDate</TableCell>
+    <TableCell>The timestamp of the last feature flag evaluation included in this packet. This value is a UNIX epoch time in milliseconds.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>default</TableCell>
+    <TableCell>The default value the SDK received for the feature, sampled at some point during the interval.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>counters</TableCell>
+    <TableCell>A set of counters as described below.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>contextKind (version 2 only)</TableCell>
+    <TableCell>The context kinds used to evaluate the flag.</TableCell>
+  </TableRow>
   </TableBody>
 </Table>
 
@@ -700,3 +653,41 @@ The `counters` field is an array of objects with the following contents:
     </TableRow>
   </TableBody>
 </Table>
+
+## Debug events
+
+The `debug` event is a variant of the `feature` event, with two differences. It has `kind` set to `"debug"` and it inlines the `context` value. SDKs send `debug` events only if the `debugEventsUntilDate` attribute is set for a feature flag and the attribute indicates a UNIX epoch timestamp in milliseconds that has not yet elapsed. `debug` events are not controlled by the `trackEvents` field.
+
+Here is an example `debug` event:
+
+<CodeSample>
+<CSTab label="Debug event">
+
+```json
+ {
+    "kind": "debug",
+    "context": {
+      "key": "context-key-123abc",
+      "kind": "user",
+      "name": "Sandy"
+    },
+    "creationDate": 1462220944000,
+    "key": "flag-key-123abc",
+    "value": false,
+    "default": false,
+    "version": 42,
+    "prereqOf": "parent-flag-key-456def"
+  }
+```
+
+</CSTab>
+</CodeSample>
+
+Here is a list of the `debug` event properties:
+
+* `kind`: The kind of a `debug` event is `"debug"`.
+* `context`: The same schema as `context` objects for feature flag evaluation.
+* `creationDate`: When the SDK requested the feature flag, as UNIX epoch time in milliseconds.
+* `key`: The key of the feature flag requested.
+* `value`: The value of the feature flag returned by feature flag evaluation.
+* `default`: Optional. This will be `true` if the feature flag evaluation failed and the default flag value that your app passed into the SDK [evaluation](/sdk/features/evaluating) was used instead. This field will be `false` or omitted if the default flag value was not used.

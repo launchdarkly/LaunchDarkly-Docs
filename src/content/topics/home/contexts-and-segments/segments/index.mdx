@@ -1,0 +1,177 @@
+---
+path: /home/contexts/segments
+title: Segments
+description: This topic explains how to build and manage segments. Segments let you target groups of contexts by attribute.
+published: true
+tags: ['segment', 'target']
+---
+
+## Overview
+
+This topic explains how to build and manage segments. Segments let you target groups of contexts by attribute.
+
+## Understanding segments
+
+Segments are lists of contexts that you can use to manage flag targeting behavior in bulk. Segments are useful for keeping groups of contexts, like `beta-users` or `enterprise-customers`, up to date. They allow you to more quickly turn features on or off for certain groups with confidence.
+
+LaunchDarkly supports two types of segments:
+
+- [Standard segments](/home/contexts/standard-segments)
+- [Big Segments](/home/contexts/big-segments), including Big Segments synced with Amplitude
+
+### Understanding segment types
+
+There are a few differences between standard segments and Big Segments. You cannot convert a segment from one kind to another after you create it, so choose the kind that best suits your use case when you create it.
+
+This table explains the differences between standard segments and Big Segments:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>
+      Segment type
+    </TableHeadCell>
+    <TableHeadCell>
+      Number of contexts
+    </TableHeadCell>
+    <TableHeadCell>
+      Backed by external data store
+    </TableHeadCell>
+    <TableHeadCell>
+      Supports uploading contexts from CSV
+    </TableHeadCell>
+    <TableHeadCell>
+      Supports targeting rules
+    </TableHeadCell>
+    <TableHeadCell>
+      Supports multiple context kinds
+    </TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+      Standard segments
+      </TableCell>
+      <TableCell>
+        Up to 15,000
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+      Big Segments
+      </TableCell>
+      <TableCell>
+        More than 15,000
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+### Targeting with segments
+
+There are some differences between flag targeting and segment targeting:
+
+- Segments are environment-specific. They do not populate in environments other than the one you created them in.
+- Segment targeting can reference another segment only if both segments exist in the same environment, and if you're using a version of an SDK that supports contexts. To learn more, read [SDKs](/sdk). 
+
+<Callout intent="primary">
+<CalloutTitle>Not all SDKs support targeting segments within segments</CalloutTitle>
+<CalloutDescription>
+
+To target a segment within another segment, you must be using the latest version of an SDK that supports the feature. To find out which versions of which SDKs support this feature, read the [list of SDKs that support contexts](/sdk).
+
+If you target a segment within another segment but aren't using an updated SDK, the flag will skip the segment targeting rule and evaluate contexts against the next subsequent rule.
+
+</CalloutDescription>
+</Callout>
+
+Like flags, you cannot create a circular reference between two segments, for example, where segment A targets segment B and segment B targets segment A.
+
+## Using the Segments list
+
+You can view standard and Big Segments on the **Segments** list.
+
+From the list, you can filter segments to display only those synced from Amplitude.
+
+![The "Segments" list with the "Amplitude synced cohorts" filter applied.](segments-dashboard-amplitude-filter.png)
+
+## Creating segments
+
+To create a new segment:
+
+1. Navigate to the **Segments** list.
+2. Click **Create segment**. The "Create a segment" panel appears.
+
+![The "Segments" list with the "Create segment" button called out.](segments-new-callout.png)
+
+
+3. Give your segment a human-readable **Name**.
+4. Enter a **Key** for the segment. This field auto-populates based on the segment name, but you can change it if you need to.
+5. (Optional) Add a **Description**.
+6. (Optional) Choose **Tags** from the menu.
+7. Select the **Standard** option to create a standard segment, or the **Big** option to create a Big Segment. You cannot convert a segment from one kind to another after you create it.
+
+![The "Create a segment" panel.](segments-create.png)
+
+8. Click **Save segment**. The segment's **Targeting** tab appears.
+
+You can further edit the segment's settings from its **Settings** tab.
+
+<LearnMore>
+
+You can also use the REST API: [Create segment](https://apidocs.launchdarkly.com/tag/Segments#operation/postSegment)
+
+</LearnMore>
+
+## Converting a rule into a standard segment
+
+You may require complex targeting rules to successfully perform feature launches. You can convert both individual targets and targeting rules into standard segments from the flag's **Targeting** page.
+
+To convert a rule to a standard segment:
+
+1. Navigate to the flag's **Targeting** tab.
+2. In the targeting section or the rule matching section, click the **overflow menu** of the rule you wish to convert. The overflow menu appears.
+3. Click "Convert to segment". The "Convert to segment" dialog appears.
+
+![A flag rule with the "Convert to segment" option called out.](segment-convert-to-segment.png)
+
+4. Give your segment a human-readable **Name** and a **Key**.
+5. (Optional) Add a **Description**.
+6. (Optional) Choose any **Tags** from the menu menu.
+7. Click **Save segment**. A confirmation appears indicating that you've created a new segment.
+
+A new rule targeting the newly created segment appears in the list of targeting rules.
+
+## Deleting segments
+
+To delete a segment, find the segment you want to delete on the **Segments** list and click **Delete**.
+
+<LearnMore>
+
+You can also use the REST API: [Delete segment](https://apidocs.launchdarkly.com/tag/Segments#operation/deleteSegment)
+
+</LearnMore>
+
+## Related content
+
+Here are the topics in this category:
+<ChildPageList path="/home/contexts/segments" unsorted="true" />

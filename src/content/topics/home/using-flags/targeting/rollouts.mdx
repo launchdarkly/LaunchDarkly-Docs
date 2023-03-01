@@ -1,0 +1,77 @@
+---
+path: /home/flags/rollouts
+title: Percentage rollouts
+description: This topic explains how to use percentage rollouts to release new features incrementally.
+published: true
+tags: ['percentage rollout', 'targeting rule', 'context', 'target', 'user']
+---
+
+## Overview
+
+This topic explains how to use percentage rollouts to release new features incrementally.
+
+Percentage rollouts let you manage the risk of deployment by releasing a feature gradually. You can roll out your feature to a small percentage of contexts and, as you become more confident your feature is working as intended, increase the percentage over time.
+
+## Creating percentage rollouts
+
+You can create a percentage rollout in a flag's targeting rule or a flag's default rule.
+
+Here is an image of a percentage rollout in a default rule:
+
+![The percentage rollout section.](flag-rules-percentage-fifty.png)
+
+In this example, 50% of contexts will receive the new feature. If the new feature works as expected, you can increase the percentage of contexts receiving the new feature incrementally, until it eventually reaches 100%.
+
+If you want to roll out a variation to a very small percentage of contexts, you can assign less than 1% to a variation. You can use up to three decimal places, for example, 0.125%.
+
+You can use workflows to automate the process of changing rollout percentages over time. To learn how, read [Workflows](/home/feature-workflows/workflows).
+
+To learn more about contexts, read [Contexts and segments](/home/contexts).
+
+## Understanding percentage rollout logic
+
+When you set up a percentage rollout, each context receives a particular variation based on their context key.
+
+The percentage rollout logic generates a hash based on both the context key and context kind. The SDK uses this hash to generate a percentage value for that context. That value, compared to the value set for the percentage rollout value, determines which variation a context receives. The hash has partitions from 1 to 100,000. When you assign flag variations, the hash assigns values from 1 to 100,000 to contexts in each partition, in order. For example, when you assign 50% to variation A, LaunchDarkly serves variation A to hash partitions from 1 to 50,000.
+
+A common use case for percentage rollouts is to increment the percentage of customers targeted by a flag over time until 100% of the customers receive one variation of a flag. When you change the percentage allocation of contexts to flag variations, those contexts are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of contexts receiving variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already receiving variation A.
+
+To learn more about rollouts and variation assignments, read [Percentage rollouts](/sdk/concepts/flag-evaluation-rules#percentage-rollouts).
+
+## Rolling out by context attribute
+
+You can assign variations to contexts based on any attribute in the "by context" and "by attribute" menus.
+
+For example, you can roll out a feature to 25% of user contexts, but instead of being assigned to a variation randomly by key, each end user will be assigned to a variation based on the value of the "country" attribute in their user context. This ensures that LaunchDarkly assigns all customers with matching attribute-value pairs to the same variation. To learn more about attributes, read [Context attributes](/home/contexts/attributes).
+
+Here is an image of a rollout by the "country" attribute for a user context:
+
+![A percentage rollout by the "country" attribute for a user context.](rules-percentage-rollout-attribute.png)
+
+The attribute must have either string values or integer numeric values. If you use an attribute with a numeric value that includes a fraction, or has a value type besides `string` or `number`, then the SDK cannot use the attribute value and assigns the context to an arbitrary variation.
+
+### Maintaining customer experience across anonymous and logged-in states
+
+Contexts are designed to let you target different types of entities, such as devices and organizations, precisely. However, if your application requires a user login, you will probably use a "user" context, at least for some of the attributes you are storing. When your application has both anonymous and logged-in states, you want to maintain the customer experience across both states.
+
+To associate pre-login (anonymous end user) behaviors with post-login (known end user) behaviors to get a singular view of a user flow, you can set an attribute in a "user" context and set your percentage rollouts to roll out based on that attribute.
+
+Here's how to do this:
+
+1. Store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
+2. Use this unique identifier as both the context's key and an attribute in the "user" context until the user logs in. The attribute can be named anything, but for this example it is named `uniqueId`.
+3. While the user is logged in, set the context's key to their real (primary) context key, but continue to use the unique identifier stored in the cookie as the contexts's `uniqueId` custom attribute.
+4. For all flags, or for those that may affect logged out users, set your flags to serve percentage rollouts based on the `uniqueId` attribute.
+
+To learn more about anonymous users, read [Anonymous users](/home/contexts/anonymous-contexts).
+
+Alternatively, you can use an attribute in a non-user context and set flags' percentage rollouts based on that attribute.
+
+Here's how to do this:
+
+1. Store a unique identifier for the anonymous end user in a different kind of context, such as a device context. A device ID or UUID works well.
+2. Target the end user based on this unique identifier while they are not yet logged in.
+3. After the end user logs in, store their user information in a user context. Associate the device context and the user context with each other. To do this, identify a multi-context that includes both individual contexts when you want the association to occur.
+4. For all flags, or for those that may affect logged out users, set your flags to serve percentage rollouts based on the unique identifier in the device context.
+
+To learn more, read [Identifying and changing contexts](/sdk/features/identify).

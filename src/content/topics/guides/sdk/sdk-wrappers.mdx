@@ -14,7 +14,7 @@ This can be useful for a number of reasons. For example, an SDK wrapper lets you
 
 * Use consistent default values in variation methods for the engineers working with the SDK
 * Implement specific business logic relating to feature flag evaluation
-* Consistently define user objects across SDKs
+* Consistently define context objects across SDKs
 
 More use cases are explained in [Use cases for SDK wrappers](#use-cases-for-sdk-wrappers).
 
@@ -36,11 +36,9 @@ An SDK wrapper is a data type or struct that acts as a [facade](https://en.wikip
 
 ### Understanding why to wrap an SDK
 
-SDK wrappers help enforce consistent SDK usage. By implementing a wrapper, you can mandate consistency across your SDK configuration, user object configuration, and default flag values.
+SDK wrappers help enforce consistent SDK usage. By implementing a wrapper, you can mandate consistency across your SDK configuration, context object configuration, and default flag values.
 
 If you need to instantiate multiple SDK instances, and you are using a "shared services" or "one project per product line" model, wrapping an SDK helps you manage the complexity of having multiple SDK instances by abstracting them.
-
-Furthermore, wrapping an SDK lets you enforce consistent usage among developers, including for configuration, user object creation, and default flag values.
 
 ## Using SDK wrappers in different design patterns
 
@@ -75,7 +73,7 @@ When you set a wrapper to run mid-session updates, the wrapper can change an end
 
 When you encapsulate an SDK, the wrapper reads app configuration and knows how to construct `LDClient` based on the app. Multiple SDKs use the same wrapper library. This makes it easier to do mass reconfiguration of the SDKs, because updates you make to the wrapper affect all the SDKs inside it.
 
-You can also encapsulate an `LDClient` instance with a user context so you can pass them as a single object. This is the existing pattern provided by our client-side SDKs. It’s also useful for server-side SDKs in apps that have to evaluate multiple flags for the same user as part of a request or session. In this use case, the object also acts as a single request/session context, which is useful for observability purposes.
+You can also encapsulate an `LDClient` instance with a context so you can pass them as a single object. This is the existing pattern provided by our client-side SDKs. It’s also useful for server-side SDKs in apps that have to evaluate multiple flags for the same context as part of a request or session. In this use case, the object also acts as a single request/session context, which is useful for observability purposes.
 
 ## Use cases for SDK wrappers
 
@@ -93,19 +91,19 @@ To learn more, read [Migrating your existing feature flag solution to LaunchDark
 
 When you run automated tests, the wrapper can use a fixed or pre-defined state instead of building a real `LDClient`.
 
-### Automatically providing user context
+### Automatically providing context
 
-You can use an SDK wrapper to automatically add environmental context, such as operating system (OS), browser, or app version. A wrapper can also read user context from environment variables.
+You can use an SDK wrapper to automatically add environmental context, such as operating system (OS), browser, or app version. A wrapper can also read user context from environment variables. To learn more about setting up different context kinds, read [Context kinds](/home/contexts/context-kinds).
 
-This implementation is especially useful for API communication within microservices, where the microservice client can automatically encode user attributes into request headers. The LaunchDarkly mobile SDKs already implement some of this behavior by automatically providing the OS and the device's custom attributes.
+This implementation is especially useful for API communication within microservices, where the microservice client can automatically encode context attributes into request headers.
 
-### Enforcing correct definition of the user context
+### Enforcing correct definition of the context
 
 An SDK wrapper can ensure consistency by enforcing the ways that different code and apps use the same attributes. For example, a wrapper can fix the casing or spelling of attribute names, which is especially useful when the same flag is in use across different environments.
 
-A wrapper can also spot and prevent common problems in how user attributes are filled, scan attribute values for common personally identifiable information (PII) formats such as phone numbers and social security numbers, and automatically mark certain user attributes as private.
+A wrapper can also spot and prevent common problems in how attributes are filled, scan attribute values for common personally identifiable information (PII) formats such as phone numbers and social security numbers, and automatically mark certain context attributes as private.
 
-This is very useful for maintaining user privacy and consistency across your codebase.
+This is very useful for maintaining end user privacy and consistency across your codebase.
 
 ### Improving observability
 

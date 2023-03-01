@@ -6,17 +6,6 @@ published: true
 tags: ['guide', 'context', 'migration']
 ---
 
-<Callout intent="info">
-<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-Contexts are only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
-
-A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product. Creating contexts and evaluating flags based on contexts is supported in the latest versions of some of our SDKs. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available for EAP customers.
-
-</CalloutDescription>
-</Callout>
-
 ## Overview
 
 This guide summarizes what contexts are and describes best practices for upgrading your LaunchDarkly account and SDKs from users to contexts.
@@ -31,7 +20,7 @@ Before you use this guide, you should understand the following concepts.
 
 Every context has a context kind. "User" is a common context kind, but you can create context kinds for nearly anything. Other common context kinds include "organization," "device," and "account." To learn more, read [Context kinds](/home/contexts/context-kinds).
 
-Context attributes include all of the information about a context kind that LaunchDarkly can use in a feature flag evaluation. LaunchDarkly has the following built-in attributes for contexts: `kind`, `key`, `name`, and `anonymous`. While LaunchDarkly provides built-in attribute fields for you to fill in, the SDK does not automatically collect any information. If you want to target your users based on any built-in attributes, you must supply their values.
+Context attributes include all of the information about a context that LaunchDarkly can use in a feature flag evaluation. LaunchDarkly has the following built-in attributes for contexts: `kind`, `key`, `name`, and `anonymous`. While LaunchDarkly provides built-in attribute fields for you to fill in, the SDK does not automatically collect any information. If you want to target your contexts based on any built-in attributes, you must supply their values.
 
 In addition to built-in attributes, you can create your own custom attributes according to your needs. To learn more, read [Built-in attributes](/home/contexts/built-in-attributes) and [Custom attributes](/home/contexts/custom-attributes).
 
@@ -45,7 +34,6 @@ You can configure your SDKs to send multi-contexts to LaunchDarkly, or you can c
 
 To complete this guide, you must have the following prerequisites:
 
-- Be a member of the [contexts EAP](https://launchdarkly.com/eap).
 - Access to a LaunchDarkly account with permission to edit flags.
 - Access to the sections of your codebase that contain feature flags.
 
@@ -109,9 +97,7 @@ First, consider how you want to track and target your customers. "User" is the d
 
 Some common context kinds include device, location, organization, and account type. You may already have a mental model of your "users" as stand-ins for other kinds of contexts. For example, if you have a custom user attribute of "organization" and you have many flags that target on that user attribute, you may want to create an "organization" context kind.
 
-If you use experimentation, think about what context kinds you may want to run experiments on. You can target any context kind when building your experiment audience. Currently, experiments can only randomize variations by the "user" context kind. When contexts are no longer part of the EAP and are generally available, experiments will be able to randomize on any context kind.
-
-<!-- cSpell:disable TKTK Update this section at GA SC-178188 cSpell:enable -->
+If you use experimentation, think about what context kinds you may want to run experiments on. You can target any context kind when building your experiment audience, as well as use certain context kinds as industry-standard randomization units. To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
 
 ![The context "Kinds" tab.](contexts-kinds-tab.png)
 
@@ -122,6 +108,15 @@ You don’t have to make any final decisions now. You can create context kinds a
 ## Add contexts to your application code
 
 First, follow the instructions in the SDK migration guides to update your client configuration and your `variation` and `identify` calls.
+
+<Callout>
+  <CalloutTitle>Specify the <code>name</code> attribute when you add contexts to code</CalloutTitle>
+  <CalloutDescription>
+
+When you add contexts to your code, you can specify various attributes to differentiate them. We recommend including the <code>name</code> attribute, which will let you target flags by a person's full name. To learn more, read <a href="/home/contexts/built-in-attributes">Built-in attributes</a>.
+
+  </CalloutDescription>
+</Callout>
 
 Then, consider if you want to customize your application metadata. You can view your default application metadata on a context's details page under "From source:" as context instance versions. To learn more, read [The context details page](/home/contexts/context-details).
 
@@ -242,11 +237,19 @@ In the "user" context, include all of your legacy attributes. Pass any other con
 
 ## Update your flag targeting
 
-Update your flags' individual targeting, targeting rules, and any default rules that are a percentage rollout.
+Update your flags' individual targeting, targeting rules, and any default rules that are a percentage rollout. You can update them manually or use a script from LaunchDarkly to automate some parts of the process.
+
+### Using a script to update flag targeting
+
+LaunchDarkly has a script that can perform some flag migration tasks for you. The script can identify flags that are ready to migrate and create approval requests for the maintainers of those flags asking them to approve the needed changes.
+
+The script is open source, so you can modify it to perform more complex tasks based on your requirements. To learn more, read [the script's README](https://github.com/launchdarkly-labs/context-migration#readme).
+
+[Download the script on GitHub.](https://github.com/launchdarkly-labs/context-migration)
+
+### Updating flag targeting manually
 
 Your existing individual targeting, targeting rules, and rollouts automatically default to the "user" context kind and its legacy attributes. For any flags that need to target or roll out to new context kinds, you must recreate the associated rule or redefine the default rule to target the appropriate context and attributes, as applicable.
-
-You may also want to consider automating this process. If you have a list of legacy attributes and their new contexts and names in a .csv file, you can use a script with our REST API that identifies and updates rules for you or creates an approval request that replaces the rule. To learn more, read our [API documentation](https://apidocs.launchdarkly.com/).
 
 Here is an example of a flag targeting the "state" attribute of a "location" context kind:
 
@@ -266,7 +269,7 @@ If you use segments, we recommend that you do not update a segment for contexts 
 
 If you have decided to add new context kinds, you should review your running experiments to determine if they need changes. LaunchDarkly automatically updates any running experiments to target user kinds. However, if you decide to edit a flag's targeting rule to target a different context kind, you must start a new iteration of that experiment.
 
-For new experiments, the flag can target any context kind when building your experimentation audience. However, currently you can only assign variations by the "user" context kind when you allocate your experiment’s traffic. When contexts are no longer part of the EAP and are generally available, experiments will be able to assign contexts to variations by any context kind. To learn more, read [Using targeting rules](/home/creating-experiments/allocation#using-targeting-rules).
+For new experiments, the flag can target any context kind when building your experimentation audience, and you can assign variations by any context kind that maps to an industry-standard randomization unit when you allocate your experiment’s traffic. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
 
 ## Confirm that your SDKs are sending contexts to LaunchDarkly
 
@@ -294,7 +297,7 @@ After you have confirmed that your SDKs and flag rules are working correctly, yo
 
 ## Conclusion
 
-In this guide, you learned about how to upgrade your SDKs and edit your feature flags to begin using contexts. Contexts give you greatly expanded flexibility to precisely target end users, devices, organizations, and other entities to meet your complex business needs. As you begin using contexts as part of our Early Access Program, don't hesitate to contact us with your feedback.
+In this guide, you learned about how to upgrade your SDKs and edit your feature flags to begin using contexts. Contexts give you greatly expanded flexibility to precisely target end users, devices, organizations, and other entities to meet your complex business needs. As you begin using contexts, don't hesitate to contact us with your feedback.
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

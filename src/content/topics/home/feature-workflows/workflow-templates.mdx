@@ -26,9 +26,9 @@ If your organization follows a standard procedure for rolling out feature flags,
 
 ### Understanding how workflow templates are applied across flags
 
-You can create workflow templates in the context of a flag and an environment, but you can apply them to any flag in any environment or project.
+You can apply workflow templates to any flag in any environment or project, regardless of which environment or project you create them in.
 
-When you apply a template to a different flag or environment from where it was created, any environment or flag specific pieces of the workflow, such as variations, segments, or users are cleared. LaunchDarkly prompts you to fill in these blanks with appropriate values for the new flag and environment.
+When you apply a template to a different flag or environment from where it was created, any environment or flag specific pieces of the workflow, such as variations, segments, or contexts are cleared. LaunchDarkly prompts you to fill in these blanks with appropriate values for the new flag and environment.
 
 ## Saving a workflow as a template
 
@@ -47,14 +47,14 @@ Here is how to save a workflow as a template:
 
 Here is how to apply a template to a flag:
 
-1. Navigate to a feature flag. 
+1. Navigate to a feature flag.
 2. Click on the **Workflows** tab.
 3. Click the **Start with a template** button.
 
 ![Select the option to use a template.](start-with-a-template-button.png)
 
 4. Search for the template that you would like to use on the feature flag.
-5. Review the workflow and enter any missing details. 
+5. Review the workflow and enter any missing details.
 6. Click **Start workflow** to begin the workflow.
 
 
@@ -67,5 +67,3 @@ At this time, templates can only be deleted through the API.
 Use the REST API: [Delete workflow template](https://apidocs.launchdarkly.com/tag/Workflow-templates-(beta)#operation/deleteWorkflowTemplate)
 
 </LearnMore>
-
-

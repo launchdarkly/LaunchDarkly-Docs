@@ -69,17 +69,21 @@ clone
 close
 cloudflare
 cloudwatch
+cmci
 code references
 compare
 configure
 connection
 contribute
 consul
+context
+context kind
 conversion
 copy
 create
 csv
 custom attribute
+custom context
 custom property
 custom role
 
@@ -115,14 +119,15 @@ electron
 elk
 email
 enterprise
+entitlement
 environment
 erlang
 evaluate
 evaluation
+evaluation context
 event
 events stream
 experiment
-entitlement
 experimentation
 export
 
@@ -209,6 +214,7 @@ lduser
 lead time
 link
 listener
+live event
 log
 logdna
 logger
@@ -219,6 +225,7 @@ lua
 manage
 manifest
 mau
+mci
 member
 merge
 metric
@@ -231,6 +238,8 @@ mock
 mode
 monitor
 mparticle
+mtc
+multi-context
 multivariate
 mutually exclusive
 
@@ -360,7 +369,6 @@ type
 unit test
 url
 user
-user object
 
 # V
 

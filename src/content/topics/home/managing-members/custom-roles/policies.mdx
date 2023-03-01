@@ -1,7 +1,7 @@
 ---
 path: /home/members/role-policies
 title: Using policies
-description: This topic explains how to write policies for  custom roles, integrations access, and Relay Proxy access. Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly.
+description: This topic explains how to write policies for  custom roles, integrations access, and Relay Proxy access. Policies combine resources and actions into a set of statements that define what members can or cannot do in LaunchDarkly.
 published: true
 tags: ['policy', 'resource', 'json', 'custom role']
 ---
@@ -10,7 +10,7 @@ tags: ['policy', 'resource', 'json', 'custom role']
 
 This topic explains how to write policies for custom roles, integrations access, and Relay Proxy access.
 
-Policies combine resources and actions into a set of statements that define what users can or cannot do in LaunchDarkly. To learn more, read [Custom role concepts](/home/members/role-concepts).
+Policies combine resources and actions into a set of statements that define what members can or cannot do in LaunchDarkly. To learn more, read [Custom role concepts](/home/members/role-concepts).
 
 ## Using the policy algorithm
 
@@ -36,7 +36,7 @@ To learn  more, read [Understanding the minimum required actions for a role](/ho
 
 Statement order does not matter. You can assign multiple custom roles to one member, and each custom role has its own policy.
 
-Permissions are cumulative across roles. If you assign multiple custom roles to a member, and one of those custom roles allows access to a resource, then access is allowed even if other roles deny that access. Adding roles to a user can only increase that user's access.
+Permissions are cumulative across roles. If you assign multiple custom roles to a member, and one of those custom roles allows access to a resource, then access is allowed even if other roles deny that access. Adding roles to a member can only increase that member's access.
 
 ## Understanding policies
 
@@ -147,7 +147,7 @@ Here's the example policy:
 </CSTab>
 </CodeSample>
 
-In the next example, the environment key `production` represents the account's Production environment. This statement denies the user from modifying any feature flags in production:
+In the next example, the environment key `production` represents the account's Production environment. This statement denies the member from modifying any feature flags in production:
 
 <CodeSample>
 <CSTab label="Statement">

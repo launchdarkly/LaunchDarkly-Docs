@@ -6,17 +6,6 @@ published: true
 tags: ['Erlang', 'migration', 'sdk', 'server-side', 'context']
 ---
 
-<Callout intent="info">
-<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product.
-
-Creating contexts and evaluating flags based on contexts is the primary feature in the Erlang (server-side) SDK 2.0 release. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available to members of LaunchDarkly's Early Access Program (EAP). To learn more or join the EAP, read [Contexts](/home/contexts).
-
-</CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains the changes in the Erlang (server-side) SDK 2.0 release and how to adapt code that uses a 1.x version of the [Erlang (server-side) SDK](https://launchdarkly.github.io/erlang-server-sdk/doc/) to use version 2.0 or later.
@@ -100,7 +89,7 @@ If you include the `kind` attribute, then the SDK will treat the map as an `ldcl
   first_name => <<"Sandy">>
 }
 
-%% If you add a kind to your map, then it will NOT be valid, 
+%% If you add a kind to your map, then it will NOT be valid,
 %% because `first_name` is no longer a built-in attribute for contexts.
 %% Instead, create your context using ldclient_context:new
 Context = ldclient_context:set(<<"firstName">>, <<"Sandy">>,
@@ -112,7 +101,7 @@ Context = #{
   attributes => #{
     <<"firstName">> => <<"Sandy">>
   }
-} 
+}
 ```
 
 </CSTab>
@@ -248,7 +237,7 @@ Here's how to add object attributes to a context:
 <CSTab label="2.0 syntax, context with object attributes">
 
 ```erlang
-Context = 
+Context =
   ldclient_context:set(<<"address">>, #{
     <<"street">> => <<"123 Main Street">>,
     <<"city">> => <<"Springfield">>

@@ -12,7 +12,7 @@ interface FeatureProps {
  * This component uses the react sdk via gatsby-plugin-launchdarkly to control content changes.
  * Flags are defined in catfood under the Docs project.
  *
- * Note that we can't really target users because docs users are public and there's no logins.
+ * Note that we can't really target user contexts or account members because docs readers are public and there's no logins.
  *
  * @param {String} flagKey - This is the camelCased flag key in catfood
  * @param {Boolean} showWhenVariation - This is the flag value to show content. Defaults to true.

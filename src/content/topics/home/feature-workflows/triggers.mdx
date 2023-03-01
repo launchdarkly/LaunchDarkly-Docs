@@ -77,7 +77,7 @@ LaunchDarkly also supports generic triggers that you can use with other tools. T
 
 Generic triggers can connect to anything that fires a webhook. If a tool or service accepts an inbound connection from a webhook, you can use that service to turn a flag on or off. For example, if your company has an in-house monitoring application, you can use a generic trigger to turn flags on or off directly from your application.
 
-Generic triggers work without any request body, but  if you want to enhance the flag's audit log with more information, you can add different attributes. Any combination of properties will return information, and every attribute is optional.
+Generic triggers work without any request body, but if you want to enhance the flag's audit log with more information, you can add different attributes. Any combination of properties will return information, and every attribute is optional.
 
 To do this, send a JSON payload with the following shape:
 
@@ -88,7 +88,7 @@ To do this, send a JSON payload with the following shape:
 
 {
     "eventName": "system CPU at 90%", // a name or description associated with the event
-    "url": "https://yourlinkhere.com" // put a link here to direct a user to more information
+    "url": "https://yourlinkhere.com" // put a link here to direct a member to more information
 }
 
 ```

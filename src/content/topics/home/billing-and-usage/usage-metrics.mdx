@@ -3,28 +3,42 @@ path: /home/billing/usage-metrics
 title: Account usage metrics
 description: This topic explains how to understand the billing and usage metrics visualized in the Account settings page.
 published: true
-tags: ['mau', 'billing', 'client-side']
+tags: ['mci', 'cmci', 'mau', 'billing', 'client-side']
 site: launchDarklyOnly
 siteAlertTitle: Certain areas of the Usage tab are not available in federal environments
 ---
 
 ## Overview
 
-This topic explains how to understand the billing and usage metrics visualized in the **Account settings** page. It introduces the concept of Monthly Active Users (MAU), an amount of unique identifiers designated in your LaunchDarkly plan.
+This topic explains how to understand the billing and usage metrics visualized in the **Account settings** page. It introduces the concept of monthly active users (MAU) and monthly context instances (MCI), which are numbers of unique identifiers designated in your LaunchDarkly plan.
 
-## Understanding how LaunchDarkly calculates Monthly Active Users (MAU)
+<Callout intent="info">
+<CalloutTitle>LaunchDarkly's billing calculations will change on April 1, 2023</CalloutTitle>
+<CalloutDescription>
 
-LaunchDarkly calculates client-side MAUs as unique keys that evaluate, initialize, or identify any flag from a client-side SDK over a rolling 30-day period. The amount of these keys is designated per account.
+On April 1, 2023, LaunchDarkly will introduce a new format of calculating billing and usage: monthly context instances, or MCI. We have provided documentation about MCI in this topic to help you prepare for any changes to your billing, but this change will not affect you until April 1 at the earliest. Some customers will be affected when their plan renews, but no one will be affected before April 1, 2023.<br /><br />
 
-Your usage is based on the total number of unique user keys across your entire account, regardless of anonymity or whether the user is currently visible on the **Users** list. We count unique user keys that are evaluated by a flag. If a single user account evaluates flags from multiple device types or over multiple sessions, we count that user as one MAU over the 30-day period. If user accounts evaluate flags in your Relay Proxy, we also count each user as one MAU over the 30-day period.
+For more information about MCI and how this update impacts your LaunchDarkly plan, read <a href="#starting-april-1-2023-calculating-client-side-monthly-context-instances-mci">Calculating client-side monthly context instances (MCI)</a>.
 
-LaunchDarkly visualizes this data in **Account settings** on the **Usage** tab. The Client MAUs chart shows the total number of unique keys over the previous 30-day rolling period. LaunchDarkly usage charts also show you the number of unique keys per project and per environment.
+</CalloutDescription>
+</Callout>
 
-Here is an example **Usage** tab:
+## Understanding usage metrics
+
+Usage metrics are located on the **Usage** tab under **Account settings**. These usage metrics tell you more about how your application and members of your organization are using LaunchDarkly.
+
+Here is an image of the **Overview** subtab under **Usage**:
 
 ![The "Usage" tab.](settings-usage.png)
 
-The users in your MAU count are automatically removed after 30 days of inactivity.
+The **Usage** tab includes the following subtabs:
+
+- **Overview**: displays how many seats, client-side MAU, Experimentation events, Data Export events, and server connections your organization is using.
+- **Client**: displays client-side MAU and client connections. You can narrow the views by project/environment, context kind, SDK type, SDK name, or date range. The users in your MAU count are automatically removed after 30 days of inactivity. To learn more, read [Calculating client-side monthly active users (MAU)](/home/billing/usage-metrics#calculating-client-side-monthly-active-users-mau).
+- **Experiments**: if you use Experimentation, displays Experimentation keys and Experimentation units over the selected time or date range. You can narrow the views by context kind, project/environment, or date range. To learn more about pricing, read [Experiment pricing](/home/about-experimentation#experiment-pricing).
+- **Data Export**: If you use Data Export, displays Data Export usage over the selected time or date range. You can narrow the views by or date range.
+- **Server**: displays server-side MAU and server connections. You can narrow the views by date range, SDK, or project and environment. The users in your MAU count are automatically removed after 30 days of inactivity. LaunchDarkly does not bill for server-side MAU.
+<!-- cSpell:disable TKTK the server tab still needs updating in the UI. sc188761 cSpell:enable -->
 
 <LearnMore>
 
@@ -32,60 +46,121 @@ You can also use the REST API: [Account usage](https://apidocs.launchdarkly.com/
 
 </LearnMore>
 
-Project MAU and account MAU are not always the same number. MAU charts count unique users for a specific Project or Environment. Users can be active in multiple projects or environments, contributing to the unique user counts in each context.
+### Understanding project and account MAU
 
-* The **Overview** tab shows the unique client MAUs at the account level
-* The **Client** tab can show all the unique client MAUs from each named project, *or*
-* The **Client** tab can show all the unique client MAUs from each named environment
+Project MAU and account MAU are not always the same number. MAU charts count unique users for a specific project or environment. Users can be active in multiple projects or environments, contributing to the unique user counts in each. The **Overview** tab shows the unique client MAU at the account level, while the **Client** tab can show all the unique MAU from each named project or from each named environment.
 
-For example, LaunchDarkly may be receiving 10K unique user keys for Project A and 10K for Project B, but if there is any overlap in the user base your account may be serving 13k unique user keys.
+For example, you may have 10,000 contexts in Project A and 10,000 contexts in Project B, but if there is any overlap in the user base your account will have fewer than 20,000 total unique user keys.
 
-A detailed breakdown of the example user key allocation follows:
+Here's a diagram showing the overlap in contexts between Project A and Project B:
 
-* Total keys in Project A: 10k
-* Total keys in Project B: 10k
-* Keys that exist in **both** projects A and B: 7k
-* Keys **only** in project A: 3k
-* Keys **only** in project B: 3k
-* Total unique keys: 13k
+![A Venn diagram depicting how different sets of user keys can overlap.](usage-metrics-venn-diagram.png)
 
-The keys that exist in only one project (3k in each project, which adds up to 6k total) are added to the keys that exist in both projects (7k) to show 13k unique keys in your account.
+Here's how many keys each project might have:
 
-![A Venn diagram depicting how different sets of users can overlap.](usage-metrics-venn-diagram.png)
+- 3,000 unique keys in Project A
+- 3,000 unique keys in Project B
+- 7,000 keys that exist in both Projects A and B
+- 13,000 total unique keys
 
-### Understanding client-side MAU limits
+## Calculating client-side monthly active users (MAU)
 
-Your LaunchDarkly plan includes a client-side MAU limit. We understand that a company's user base can grow unexpectedly over time. We never stop or throttle service if you exceed your MAU limit, nor do we bill you for MAU overages. All users in your environment will continue to evaluate feature flags correctly, regardless of your MAU.
+LaunchDarkly calculates client-side MAU as unique user contexts that evaluate, initialize, or identify any flag from a client-side SDK over a rolling 30-day period. The amount of these user contexts is designated per account.
 
-If you exceed your client-side MAU limit, new users and changes to existing users, such as new attributes, will not appear in the **Users** list. The user information in the list has a Time to Live (TTL) of 30 days. No users in the list receive updates while you are over your MAU limit, so all of your users become stale after 30 days and will be removed until you are back under your contracted MAU limit.
+Your usage is based on the total number of unique client-side user contexts across your entire account, regardless of anonymity or whether the context is currently visible on the **Contexts** list. Uniqueness is defined as unique user context `key`s. Custom attributes do not affect client-side MAU uniqueness. LaunchDarkly does not bill for server-side MAU.
 
-If you have configured LaunchDarkly to use anonymous users, that can impact your MAU as well. To learn more, read [Understanding how anonymous users contribute to MAU](/home/users/anonymous-users#understanding-how-anonymous-users-contribute-to-mau).
+## Starting April 1, 2023: Calculating client-side monthly context instances (MCI)
 
-## Understanding billing metrics
+<Callout intent="info">
+<CalloutTitle>You will not be billed for MCI before April 1, 2023</CalloutTitle>
+<CalloutDescription>
 
-Billing metrics are located on the **Billing** tab under **Account settings**.
+The documentation in this section is provided to help you plan for and understand upcoming changes to how we calculate usage. It will not apply to any customer plans until April 1, 2023.<br /><br />
 
-Billing metrics show you:
+On April 1, 2023, LaunchDarkly usage will be calculated using monthly context instances (MCI). However, not all customers will be affected by this change on April 1, 2023. Depending on your plan type, you may charged with MCI at a different time.<br /><br />
 
-- How many client-side MAUs you’re tracking in LaunchDarkly
-- How many projects and environments you have set up
-- How many seats you’re using under your plan
-- How many Experimentation events you're using
-- How many Data Export events you're using
+Here's how different plan types are affected by this change:<br /><br />
 
-You can easily view your usage, and adjust your plan as you need to accommodate your application’s or organization’s growth. To learn more, read [The Billing tab](/home/billing/billing-tab).
+<ul>
+ <li>If you are on a Starter or Pro plan, your bill will be calculated with MCI starting on April 1, 2023</li>
+ <li>If you are on an Enterprise plan, your bill will be calculated with MCI when it renews, but not before April 1, 2023</li>
+</ul>
 
-## Understanding usage metrics
+If you are unsure about how you will be billed, [contact Sales](https://launchdarkly.com/contact-sales/) or your LaunchDarkly Account Executive.
 
-Usage metrics are located under **Account settings** > **Usage**. These usage metrics tell you more about how your application and members of your organization are using LaunchDarkly.
+</CalloutDescription>
+</Callout>
 
-Usage metrics tell you:
+LaunchDarkly calculates client-side MCI as unique context instances that evaluate, initialize, or identify any flag from a client-side SDK over a rolling 30-day period. The amount of these context instances is designated per account.
 
-- How many LaunchDarkly seats, projects, and environments your organization is using.
-- How many unique MAUs LaunchDarkly is tracking, broken out by browser and mobile MAUs.
-- How many server connections your application has with LaunchDarkly. You can visualize them by hour, day, or over the past month to observe trends.
+Your usage is based on the total number of unique client-side context instances across your entire account, regardless of anonymity or whether the context is currently visible on the **Contexts** list. Uniqueness is defined as unique pairs of context kinds and `key`s. Custom attributes do not affect client-side MCI uniqueness. LaunchDarkly does not bill for server-side MCI.
 
-If you have Experimentation or Data Export enabled, you can view metrics related to that usage.
+LaunchDarkly bills for client-side context instances in the following ways:
 
-- For Experimentation, you can view the number of experiment events, as well as the average over the last hour, up to the last 60 days. To learn more about managing Experimentation events, read [Managing Experimentation billing costs](/home/about-experimentation/events#managing-experimentation-billing-costs).
-- For Data Export, you can view the number of events published along with the average, from a time period as short as one hour to as long as the last 60 days.
+- Each unique context instance counts as one client-side MCI.
+- A context instance can be just one context, or a group of contexts that LaunchDarkly evaluates together as a multi-context. LaunchDarkly bills multi-contexts as one client-side MCI.
+- If you add or remove a context from an existing multi-context, LaunchDarkly considers the new context instance unique and counts it as an additional client-side MCI.
+- If you change an existing context's key, LaunchDarkly considers the new context instance unique and counts it as an additional client-side MCI.
+- If a context contains a single context, such as a "user," but has multiple `key`s, each unique `key` counts as one client-side MCI.
+
+To learn more, read [Understanding contexts and context kinds](/home/contexts#understanding-contexts-and-context-kinds).
+
+Here are examples of evaluation contexts, and how LaunchDarkly would count them toward client-side MCI:
+
+<CodeSample>
+<CSTab label="A single context">
+
+```json
+// LaunchDarkly counts this as one client-side MCI
+Context = {
+  "kind": "user",
+  "key": "context-key-123abc"
+}
+```
+
+</CSTab>
+<CSTab label="A multi-context">
+
+```json
+// LaunchDarkly counts this as one client-side MCI
+Context = {
+  "kind": "multi",
+  "user": { "key": "user-key-123abc" },
+  "organization": { "key": "org-key-123abc" }
+}
+```
+
+</CSTab>
+<CSTab label="A context with two evaluations">
+
+```json
+// If a single context is later used as part of a multi-context,
+// LaunchDarkly counts it as two client-side MCI
+
+// For example, here's a single context before the end user logs in:
+Context = {
+  "kind": "device",
+  "key": "device-key-123abc"
+}
+
+// Here's the corresponding multi-context after the end user logs in,
+// LaunchDarkly counts this as a second client-side MCI:
+Context = {
+  "kind": "multi",
+  "device": { "key": "device-key-123abc" },
+  "user": { "key": "user-key-123abc" }
+}
+```
+
+</CSTab>
+</CodeSample>
+
+If contexts evaluate flags in your Relay Proxy, we also count each context instance as one client-side MCI over the 30-day period.
+
+### Understanding client-side MCI limits
+
+Your LaunchDarkly plan includes a client-side MCI limit. We understand that a company's user base can grow unexpectedly over time. We never stop or throttle service if you exceed your client-side MCI limit, nor do we bill you for client-side MCI overages. All contexts in your environment will continue to evaluate feature flags correctly, regardless of the amount of your client-side MCI.
+
+If you exceed your client-side MCI limit, new context instances and changes to existing context instances, such as new attributes, will not appear in the **Contexts** list. The context information in the list has a Time to Live (TTL) of 30 days. No contexts in the list receive updates while you are over your client-side MCI limit, so all of your contexts become stale after 30 days and will be removed until you are back under your contracted client-side MCI limit.
+
+If you have configured LaunchDarkly to use anonymous contexts, that can impact your client-side MCI as well. To learn more, read [Understanding how anonymous contexts contribute to MAU](/home/contexts/anonymous-contexts#understanding-how-anonymous-contexts-contribute-to-mau).
