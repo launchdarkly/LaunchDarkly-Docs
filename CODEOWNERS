@@ -1,19 +1,19 @@
 # more about codeowners below:
 # https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
 
-* @launchdarkly/squad-integrations
+* @launchdarkly/team-app-platform-product
 
 # Content
-.cspell/custom-words.txt @launchdarkly/squad-docs
-*.md @launchdarkly/squad-docs
-*.mdx @launchdarkly/squad-docs
-/assets/ @launchdarkly/squad-docs
-/src/content/*.json @launchdarkly/squad-docs
-/src/content/icons @launchdarkly/squad-docs
-/src/content/images @launchdarkly/squad-docs
-/templates/ @launchdarkly/squad-docs
-redirectRules.js @launchdarkly/squad-docs
+.cspell/custom-words.txt @launchdarkly/team-docs
+*.md @launchdarkly/team-docs
+*.mdx @launchdarkly/team-docs
+/assets/ @launchdarkly/team-docs
+/src/content/*.json @launchdarkly/team-docs
+/src/content/icons @launchdarkly/team-docs
+/src/content/images @launchdarkly/team-docs
+/templates/ @launchdarkly/team-docs
+redirectRules.js @launchdarkly/team-docs
 
 # EOL data
-/src/content/sdkVersions.json @launchdarkly/squad-sdk
-/src/content/relayVersions.json @launchdarkly/squad-sdk
+/src/content/sdkVersions.json @launchdarkly/team-sdk
+/src/content/relayVersions.json @launchdarkly/team-sdk
