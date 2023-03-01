@@ -19,11 +19,9 @@ If you want to add LaunchDarkly to your React Native codebase, use the React Nat
 <CalloutTitle>Version 3 of the React Web SDK replaces users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
 
-You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
-
-Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [React Web SDK 2.x to 3.0 migration guide](/sdk/client-side/react/web-migration-2-to-3).
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [React Web SDK 2.x to 3.0 migration guide](/sdk/client-side/react/web-migration-2-to-3) and [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
 
 </CalloutDescription>
 </Callout>
@@ -81,11 +79,13 @@ The React SDK builds on LaunchDarkly's JavaScript SDK to provide a better integr
 <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly React SDK, version 3.0 and higher, is compatible with React version 16.3.3 and higher.
+The LaunchDarkly React SDK versions 3.0 and higher are compatible with React version 16.3.3 and higher.
 
-The LaunchDarkly React SDK, version 2.x, is compatible with React version 16.3.0 and higher.
+The LaunchDarkly React SDK versions 2.x are compatible with React version 16.3.0 and higher.
 
 The LaunchDarkly React SDK offers two custom hooks. If you want to use these, then you must use React version 16.8.0 or higher. To learn more, read [Hooks](#hooks).
+
+The LaunchDarkly React SDK version 3.0.0 uses optional chaining. If you encounter an error related to optional chaining during transpiling, bundling, or running tests, updating to version 3.0.2 should resolve the error.
 
 </CalloutDescription>
 </Callout>
@@ -107,28 +107,22 @@ Client-side IDs are not secret and you can expose them in your client-side code 
 
 Install the React SDK using either `npm` or `yarn`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Installing with npm', value: 'js', },
-    { label: 'Installing with yarn', value: 'yarn', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install launchdarkly-react-client-sdk
 ```
 
-</CodeTabItem>
-<CodeTabItem value="yarn">
+</CSTab>
+<CSTab label="Installing with yarn">
 
 ```bash
 yarn add launchdarkly-react-client-sdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Initializing the React SDK
 
@@ -160,14 +154,8 @@ The `asyncWithLDProvider` function accepts an `AsyncProviderConfig` object, whic
 
 Here's how to initialize using `asyncWithLDProvider`:
 
-<CodeTabs
-  defaultValue="react"
-  values={[
-    { label: 'React Web SDK, v3.0', value: 'react', },
-    { label: 'React Web SDK, v2.x', value: 'react-v2', },
-  ]
-}>
-<CodeTabItem value="react">
+<CodeSample>
+<CSTab label="React Web SDK v3.0">
 
 ```js
 import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
@@ -193,8 +181,8 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
 })();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="react-v2">
+</CSTab>
+<CSTab label="React Web SDK v2.x">
 
 ```js
 import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
@@ -217,11 +205,10 @@ import { asyncWithLDProvider } from 'launchdarkly-react-client-sdk';
     document.getElementById('reactDiv'),
   );
 })();
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Omitting the <code>kind</code> creates a user object, not a context</CalloutTitle>
@@ -248,14 +235,8 @@ If your app does not yet have the context when you call `asyncWithLDProvider`, y
 
 Here's how to identify the context after initialization:
 
-<CodeTabs
-  defaultValue="app"
-  values={[
-    { label: 'JavaScript: app.js', value: 'app', },
-    { label: 'JavaScript: index.js', value: 'index', },
-  ]
-}>
-<CodeTabItem value="app">
+<CodeSample>
+<CSTab label="JavaScript: app.js">
 
 ```js
 // app.js
@@ -274,8 +255,8 @@ export default function App {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="index">
+</CSTab>
+<CSTab label="JavaScript: index.js">
 
 ```js
 // index.js
@@ -300,8 +281,8 @@ const renderApp = async () => {
 renderApp();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Identifying and changing contexts](/sdk/features/identify#react).
 
@@ -322,14 +303,8 @@ The `withLDProvider` function accepts a `ProviderConfig` object, which provides 
 
 Here's how to initialize using `withLDProvider`:
 
-<CodeTabs
-  defaultValue="react"
-  values={[
-    { label: 'React Web SDK, v3.0', value: 'react', },
-    { label: 'React Web SDK, v2.x', value: 'react-v2', },
-  ]
-}>
-<CodeTabItem value="react">
+<CodeSample>
+<CSTab label="React Web SDK v3.0">
 
 ```js
 import { render } from 'react-dom';
@@ -352,8 +327,8 @@ const rootElement = document.getElementById("root");
 render(<LDProvider />, rootElement);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="react-v2">
+</CSTab>
+<CSTab label="React Web SDK v2.x">
 
 ```js
 import { render } from 'react-dom';
@@ -373,11 +348,10 @@ const LDProvider = withLDProvider({
 
 const rootElement = document.getElementById("root");
 render(<LDProvider />, rootElement);
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After initialization is complete, your flags and the client are only available after your app has mounted. Use this method if you prefer to render your app first, and then process flag updates after rendering is complete.
 
@@ -404,13 +378,8 @@ After your code has initialized the React SDK, use `withLDConsumer` to access fl
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { withLDConsumer } from 'launchdarkly-react-client-sdk';
@@ -425,8 +394,8 @@ const Home = ({ flags, ldClient /*, ...otherProps */ }) => {
 export default withLDConsumer()(Home);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Configuring the React SDK
 
@@ -454,14 +423,8 @@ These are the properties:
 
 The following is an example `ProviderConfig` object including each of the above properties:
 
-<CodeTabs
-defaultValue="react"
-values={[
-  { label: 'React Web SDK, v3.0', value: 'react', },
-  { label: 'React Web SDK, v2.x', value: 'react-v2', },
-]
-}>
-<CodeTabItem value="react">
+<CodeSample>
+<CSTab label="React Web SDK v3.0">
 
 ```js
 {
@@ -486,8 +449,8 @@ values={[
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="react-v2">
+</CSTab>
+<CSTab label="React Web SDK v2.x">
 
 ```js
 {
@@ -511,8 +474,8 @@ values={[
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Hooks
 
@@ -550,13 +513,8 @@ To disable the React SDK's automatic camel-case feature, provide `asyncWithLDPro
 
 Here's how to configure the automatic camel-case feature:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 export default withLDProvider({
@@ -567,8 +525,8 @@ export default withLDProvider({
 })(App);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 With this configuration option in place, you can access your `dev-flag-test` flag using bracket notation, for example, `flag['dev-flag-test']`.
 

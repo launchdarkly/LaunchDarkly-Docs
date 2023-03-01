@@ -43,9 +43,9 @@ This section explains how to create an IAM policy to support the Kinesis Data Ex
 
 If you create a new Kinesis stream, write down or save the following information:
 
-* Region
-* Stream name
-* Stream ARN
+- Region
+- Stream name
+- Stream ARN
 
 You will need this information when you configure your export.
 
@@ -59,14 +59,8 @@ To create an IAM policy:
 3. Select the **Create Policy from JSON** option.
 4. Use the following template policy to configure the Policy Document field:
 
-
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example policy', value: 'json', },
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+  <CSTab label="Example policy">
 
 ```json
 {
@@ -86,8 +80,8 @@ To create an IAM policy:
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+</CodeSample>
 
 5. If you have a _stream ARN_ already configured, you can paste the entire ARN in. At least, change the following fields to include the values you specified during IAM policy configuration:
 
@@ -108,7 +102,6 @@ To create a cross-account IAM role:
 2. Enter `554582317989` into the **Account ID** field. This allows LaunchDarkly to assume the role:
 
 ![The Account ID field in the "Create role" screen.](kinesis-create-role.png)
-
 
 3. Add the policy you created earlier to this role. Write down or save the role ARN.
 
@@ -164,13 +157,13 @@ To send a test event:
 ![The "Send a test event" section of the "Edit destination" panel.](kinesis-test-event.png)
 
 4. If you have configured the destination correctly, an event is logged in the Kinesis destination.
-5. Identify a successful test event by searching for the user or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
+5. Identify a successful test event by searching for the context key or flag key `LaunchDarklyDataExportTestEvent`. When this key appears in the destination, you know the test event arrived.
 
 <Callout intent="info">
 <CalloutTitle>Partition Keys</CalloutTitle>
 <CalloutDescription>
 
-Kinesis records have [partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key). When we create a record, we use the user key that was sent with the event as the partition key. If the event does not contain a user key, we create a random partition key.
+Kinesis records have [partition keys](https://docs.aws.amazon.com/streams/latest/dev/key-concepts.html#partition-key). When LaunchDarkly creates a record, it creates a random partition key.
 
 </CalloutDescription>
 </Callout>
@@ -195,7 +188,7 @@ To delete a destination:
 
 1. Navigate to the **Integrations** page and find "Amazon Kinesis."
 2. Click into the "Amazon Kinesis" section to display a list of destinations.
-2. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
-3. Click **Delete destination**:
+3. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
+4. Click **Delete destination**:
 
 ![The "Delete destination" section of the "Edit destination" panel.](destination-delete.png)

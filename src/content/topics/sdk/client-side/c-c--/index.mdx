@@ -78,41 +78,28 @@ Here's how to install the SDK:
 3. Build the C++ wrapper, which is not included in the release binaries. Copy the [header](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/include/launchdarkly/api.hpp) and [source](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/api.cpp) files and add them to your own build system.
 4. Include the LaunchDarkly SDK headers:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C', value: 'c' },
-    { label: 'C++', value: 'cpp' }
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 #include <launchdarkly/api.h>
 ```
 
-</CodeTabItem>
-<CodeTabItem value="cpp">
+</CSTab>
+<CSTab label="C++">
 
 ```c
 #include <launchdarkly/api.hpp>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 5. Create a single shared instance of `LDClient`.
 6. Specify your *mobile key* to authorize your application to connect to a particular environment within LaunchDarkly:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C', value: 'c' },
-    { label: 'C++', value: 'cpp' }
-  ]
-}>
-
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 unsigned int maxwaitmilliseconds = 10 * 1000;
@@ -121,9 +108,8 @@ struct LDUser *user = LDUserNew("user-key-123abc");
 struct LDClient *client = LDClientInit(config, user, maxwaitmilliseconds);
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="cpp">
+</CSTab>
+<CSTab label="C++">
 
 ```cpp
 unsigned int maxwaitmilliseconds = 10 * 1000;
@@ -132,8 +118,8 @@ struct LDUser *user = LDUserNew("user-key-123abc");
 LDClientCPP *client = LDClientCPP::Init(config, user, maxwaitmilliseconds);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>LDClient must be a singleton</CalloutTitle>
@@ -176,13 +162,8 @@ Here's how to verify the SDK is configured correctly by fetching flag configurat
 
  This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before initialization completes, you will receive the default flag value. If you want to wait for client initialization, register a callback:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 void initCallback(LDStatus status)
@@ -195,19 +176,13 @@ void initCallback(LDStatus status)
 LDSetClientStatusCallback(initCallback);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 2. Use `client` to check which variation a specific user should receive for a certain feature flag:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C', value: 'c' },
-    { label: 'C++', value: 'cpp' }
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 bool show_feature = LDBoolVariation(client, "flag-key-123abc", false);
@@ -218,9 +193,8 @@ if (show_feature) {
 }
 ```
 
-</CodeTabItem>
-
-<CodeTabItem value="cpp">
+</CSTab>
+<CSTab label="C++">
 
 ```cpp
 bool show_feature = client->boolVariation("flag-key-123abc", false);
@@ -232,8 +206,8 @@ if (show_feature) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

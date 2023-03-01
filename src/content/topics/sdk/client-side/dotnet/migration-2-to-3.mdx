@@ -6,17 +6,6 @@ published: true
 tags: ['net', '.net', 'migration', 'sdk', 'client-side', 'context']
 ---
 
-<Callout intent="info">
-<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product.
-
-Creating contexts and evaluating flags based on contexts is the primary feature in the .NET (client-side) SDK 3.0 release. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available to members of LaunchDarkly's Early Access Program (EAP). To learn more or join the EAP, read [Contexts](/home/contexts).
-
-</CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains the changes in the .NET (client-side) SDK 3.0 release and how to adapt code that uses a 2.x version of the [.NET (client-side) SDK](/sdk/client-side/dotnet) to use version 3.0 or later.
@@ -31,7 +20,7 @@ If you update to the latest 2.x version, deprecation warnings appear in areas of
 
 Many LaunchDarkly customers create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. In previous versions of the LaunchDarkly SDK, you could define this information in a user object, using a combination of built-in and custom attributes. Now you can define this information in a more structured way, using **contexts**.
 
-Each context has a required attribute called `kind` that describes the type of attributes it contains. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
+Each context has a required attribute called `kind` that you can use to categorize context instances for targeting and Experimentation. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
 
 When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you may know:
 
@@ -41,7 +30,7 @@ When you evaluate a feature flag within your application, the flag's targeting r
 
 This new version of the LaunchDarkly SDK requires you to evaluate feature flags using an **evaluation context**, which is an object containing one or more contexts.
 
-To learn more about contexts, read [Contexts](/home/contexts).
+To learn more about contexts, read [Contexts and segments](/home/contexts).
 
 ## Migrating from users to contexts
 
@@ -72,53 +61,37 @@ Where you previously created users, now you can create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '2.x syntax, user with key', value: 'user', },
-    { label: '3.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="2.x syntax, user with key">
 
 ```csharp
 var user = User.WithKey("user-key-123abc");
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="3.0 syntax, context with key">
 
 ```csharp
 var context = Context.New("context-key-123abc");
 
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '3.0 syntax, context shortcut', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="3.0 syntax, context shortcut">
 
 ```csharp
 var context = Context.New(ContextKind.Of("organization"), "org-key-123abc");
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '3.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="3.0 syntax, multi-context">
 
 ```csharp
 var userContext = Context.New("user-key-123abc");
@@ -127,8 +100,8 @@ var orgContext = Context.New(ContextKind.Of("organization"), "org-key-123abc");
 
 var multiContext = Context.NewMulti(userContext, orgContext);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -146,14 +119,8 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '2.x syntax, user with attributes', value: 'user', },
-    { label: '3.x, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="2.x syntax, user with attributes">
 
 ```csharp
 var user = User.Builder("user-key-123abc")
@@ -161,8 +128,8 @@ var user = User.Builder("user-key-123abc")
   .Email("sandy@example.com")
   .Build();
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="3.x, context with attributes">
 
 ```csharp
 var context = Context.Builder("context-key-123abc")
@@ -170,8 +137,8 @@ var context = Context.Builder("context-key-123abc")
   .Set("email", "sandy@example.com")
   .Build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -181,13 +148,8 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's one way to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="context"
-  values={[
-    { label: '3.0 syntax, context with object attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="context">
+<CodeSample>
+<CSTab label="3.0 syntax, context with object attributes">
 
 ```csharp
 var address = LdValue.ObjectBuilder("address")
@@ -199,8 +161,8 @@ var context = Context.Builder("context-key-123abc")
   .Set("address", address)
   .Build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are multiple ways you can construct attribute values. To learn more about additional methods, read [LDValue](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.LdValue.html).
 
@@ -225,14 +187,8 @@ In version 3.0, there are two scopes for which you can mark attributes as privat
 
 In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
-  <CodeTabs
-    defaultValue="private-all"
-    values={[
-      { label: '3.0 syntax, all attributes marked private', value: 'private-all', },
-      { label: '3.0 syntax, two attributes marked private', value: 'private-some', },
-    ]
-  }>
-  <CodeTabItem value="private-all">
+  <CodeSample>
+  <CSTab label="3.0 syntax, all attributes marked private">
 
   ```csharp
 Configuration config = Configuration.Builder("mobile-key-123abc")
@@ -241,8 +197,8 @@ Configuration config = Configuration.Builder("mobile-key-123abc")
 LdClient client = LdClient.Init(config, context);
 
   ```
-  </CodeTabItem>
-  <CodeTabItem value="private-some">
+  </CSTab>
+  <CSTab label="3.0 syntax, two attributes marked private">
 
   ```csharp
 Configuration config = Configuration.Builder("mobile-key-123abc")
@@ -250,20 +206,15 @@ Configuration config = Configuration.Builder("mobile-key-123abc")
     .Build();
 LdClient client = LdClient.Init(config, context);
   ```
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 To learn more, read [`AllAttributesPrivate`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Client_Integrations_EventProcessorBuilder_AllAttributesPrivate_System_Boolean_) and [`PrivateAttributes`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.Integrations.EventProcessorBuilder.html#LaunchDarkly_Sdk_Client_Integrations_EventProcessorBuilder_PrivateAttributes_System_String___).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="private"
-  values={[
-    { label: '3.0 syntax, attribute marked private for one context', value: 'private', },
-  ]
-}>
-<CodeTabItem value="private">
+<CodeSample>
+<CSTab label="3.0 syntax, attribute marked private for one context">
 
 ```csharp
 var context = Context.Builder("context-key-123-abc")
@@ -271,8 +222,8 @@ var context = Context.Builder("context-key-123-abc")
     .Private("email")
     .Build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -286,41 +237,31 @@ In the 3.0 version of the SDK, this behavior works differently. The SDK will not
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: '3.0 syntax, configuring the SDK to generate keys', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="3.0 syntax, configuring the SDK to generate keys">
 
 ```csharp
 Configuration config = Configuration.Builder("mobile-key-123abc")
     .GenerateAnonymousKeys(true)
     .Build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you set this option, the SDK will generate a key for any context whose `anonymous` attribute is true. You must still specify a non-null key as a placeholder when you construct the `Context`, because the SDK does not allow a `Context` to exist with a null key. When you pass this context to SDK methods like `Init` or `Identify`, the SDK replaces the placeholder key with a generated key.
 
 In this example, the placeholder key is "unknown-context-key", but it could be any non-empty string:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: '3.0 syntax, building an anonymous context', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="3.0 syntax, building an anonymous context">
 
 ```csharp
 Context.Builder("unknown-context-key")
     .Anonymous(true)
     .Build();
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to alias events
 
@@ -334,13 +275,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '3.0 syntax, associating two contexts', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="3.0 syntax, associating two contexts">
 
 ```csharp
 var userContext = Context.New("user-key-123abc");
@@ -351,8 +287,8 @@ var multiContext = Context.NewMulti(userContext, deviceContext);
 
 await client.IdentifyAsync(multiContext); // or, use synchronous Identify
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`NewMulti`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Context.html#LaunchDarkly_Sdk_Context_NewMulti_LaunchDarkly_Sdk_Context_Context__).
 

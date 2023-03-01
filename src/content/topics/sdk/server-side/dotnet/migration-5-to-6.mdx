@@ -78,14 +78,8 @@ For each data source type, there is a factory method whose name ends in `DataSou
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```csharp
 // 5.x model: setting custom options for streaming mode
@@ -101,8 +95,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```csharp
 // 6.0 model: setting custom options for streaming mode
@@ -122,8 +116,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The default is to use streaming mode. Unlike the earlier model, you can no longer construct a meaningless configuration such as "use streaming mode, but set the polling interval to 1 minute" or "disable events, but set the flush interval to 10 seconds."
 
@@ -139,14 +133,8 @@ To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The following examples use the [Redis integration](https://github.com/launchdarkly/dotnet-server-sdk-redis):
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```csharp
 // 5.x model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
@@ -160,8 +148,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```csharp
 // 6.0 model: use Redis, set custom Redis URI and key prefix, set cache TTL to 45 seconds
@@ -176,8 +164,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to events
 
@@ -189,14 +177,8 @@ If you use private user attributes and are configuring private attributes for th
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```csharp
 // 5.x model: disabling events
@@ -213,8 +195,8 @@ var config =  Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```csharp
 // 6.0 model: disabling events
@@ -234,8 +216,8 @@ var config =  Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 It is no longer possible to construct a meaningless configuration like "disable events, but set the flush interval to 10 seconds."
 
@@ -247,14 +229,8 @@ Some of the methods have changed slightly in terms of the type or number of para
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```csharp
 // 5.x model: setting connection and read timeouts
@@ -264,8 +240,8 @@ var config =  Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.0 syntax">
 
 ```csharp
 // 6.0 model: setting connection and read timeouts
@@ -286,8 +262,8 @@ var config =  Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to EvaluationDetail and EvaluationReason
 
@@ -313,12 +289,8 @@ The new package provides some basic built-in logging implementations suitable fo
 
 Here is an example of configuring the .NET SDK to send log output to the console, and to enable only log messages of `Warn` level or higher:
 
-<CodeTabs
-  values={[
-    { label: '6.0 syntax', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk6">
+<CodeSample>
+<CSTab label="6.0 syntax">
 
 ```csharp
 using LaunchDarkly.Logging;
@@ -329,17 +301,13 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 It also has an adapter system for connecting it to other logging frameworks. If you use .NET Core, the built-in adapter that sends log output to the .NET Core logging framework is `Microsoft.Extensions.Logging`:
 
-<CodeTabs
-  values={[
-    { label: '6.0 only', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk6">
+<CodeSample>
+<CSTab label="6.0 only">
 
 ```csharp
 var config = Configuration.Builder("sdk-key-123abc")
@@ -347,17 +315,13 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Other adapters are defined in separate packages whose source code is in the [`dotnet-logging-adapters`](https://github.com/launchdarkly/dotnet-logging-adapters) repository. For instance, if you add the package `LaunchDarkly.Logging.Log4net`, you can configure the SDK to send log output to [log4net](https://logging.apache.org/log4net/) like this:
 
-<CodeTabs
-  values={[
-    { label: '6.0 only', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk6">
+<CodeSample>
+<CSTab label="6.0 only">
 
 ```csharp
 var config = Configuration.Builder("sdk-key-123abc")
@@ -365,8 +329,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The SDK's use of logger names has also changed. Most logging frameworks allow you to use logger names to configure different filtering rules for different kinds of messages, so if you have been using that feature you may need to adjust your configuration.
 
@@ -395,14 +359,8 @@ The configuration syntax for both proxy mode and daemon mode has changed in the 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="sdk5"
-  values={[
-    { label: '5.x syntax', value: 'sdk5', },
-    { label: '6.3 and above', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label="5.x syntax">
 
 ```csharp
 // proxy mode
@@ -421,8 +379,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label="6.3 and above">
 
 ```csharp
 // proxy mode - this example requires version 6.3.0 or higher
@@ -442,8 +400,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Converting objects to or from JSON data
 
@@ -467,12 +425,8 @@ However, this means that if you want to convert LaunchDarkly SDK types such as `
 
 If you want to make Json.NET work correctly with these types, you must add the package `LaunchDarkly.CommonSdk.JsonNet`, and then create Json.NET's `JsonSerializerSettings` as follows:
 
-<CodeTabs
-  values={[
-    { label: '6.0 only', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk6">
+<CodeSample>
+<CSTab label="6.0 only">
 
 ```csharp
     var settings = new JsonSerializerSettings
@@ -483,19 +437,15 @@ If you want to make Json.NET work correctly with these types, you must add the p
         }
     };
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can then use `settings` in any call to `JsonConvert.SerializeObject` or `JsonConvert.DeserializeObject`, or use it globally by modifying `JsonConvert.DefaultSettings`, and Json.NET will correctly handle the LaunchDarkly SDK types.
 
 Alternately, if you would rather not install this extra package, you can use `LaunchDarkly.Sdk.Json.LdJsonSerialization` and add an extra step to convert the JSON string to Json.NET's `JRaw` type:
 
-<CodeTabs
-  values={[
-    { label: '6.0 only', value: 'sdk6', },
-  ]
-}>
-<CodeTabItem value="sdk6">
+<CodeSample>
+<CSTab label="6.0 only">
 
 ```csharp
     struct ValuesBeingPassedToJavaScriptCode
@@ -511,8 +461,8 @@ Alternately, if you would rather not install this extra package, you can use `La
     }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Implementing custom components
 

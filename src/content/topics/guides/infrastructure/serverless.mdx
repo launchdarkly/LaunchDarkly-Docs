@@ -68,13 +68,8 @@ For smaller workloads, you can use the LaunchDarkly SDK as you normally would.
 
 Here is a code sample that shows how to evaluate a feature flag with the NodeJS runtime in AWS Lambda:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'JavaScript', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
@@ -92,8 +87,8 @@ exports.handler = (event, context, callback) => {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This approach may take longer for the runtime to initialize, but after initialization the requests handled by that runtime instance will suffer no performance hit.
 
@@ -123,13 +118,8 @@ This dedicated AWS Lambda function, built on the NodeJS runtime, connects to the
 
 We configure it using the `RedisFeatureStore` method. The AWS Lambda function built on the NodeJS runtime could look like this:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'JavaScript', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
@@ -155,8 +145,8 @@ exports.handler = (event, context, callback) => {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In this example, we initialize the LaunchDarkly SDK inside the handler.
 
@@ -189,13 +179,8 @@ The app code retains the same structure as the example in Option 1 above, but wi
 
 Here is an example:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'JavaScript', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```javascript
 var LaunchDarkly = require('launchdarkly-node-server-sdk');
@@ -221,12 +206,12 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-## Sending analytics events to the Users list
+## Sending analytics events to the Contexts list
 
-The **Users** list is populated with data from analytics events. You must call close in your SDK before shutting down to ensure the SDK sends analytics events and your **Users** list displays user data. To learn how, read [Shutting down](/sdk/features/shutdown).
+The **Contexts** list is populated with data from analytics events. You must call close in your SDK before shutting down to ensure the SDK sends analytics events and your **Contexts** list displays context data. To learn how, read [Shutting down](/sdk/features/shutdown).
 
 To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 

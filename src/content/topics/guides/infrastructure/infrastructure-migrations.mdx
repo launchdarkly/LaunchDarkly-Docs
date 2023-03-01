@@ -33,7 +33,7 @@ A more efficient method is to have both the old code and new code in the same se
 
 The downside to this method is that every change to that logic requires a code change and deployment, which can mean downtime, especially if the deployment needs to be rolled back. A gradual migration may involve many phases as you validate the new code, expand its capabilities, fix bugs, deploy clusters, migrate consumers, and so on. Each of those phases requires small changes in that logic. This is where LaunchDarkly feature flags come in.
 
-You can define sets of identifiers within targeting rules to eliminate the need for multiple deployments. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
+You can define sets of identifiers within targeting rules to eliminate the need for multiple deployments. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 Some possibilities for targeting rules include:
 - Only use the new code when a “test mode” parameter is provided.
@@ -75,14 +75,8 @@ Use a set of four feature flags to control reading and writing to each database 
 
 For example, the function below will save an event to the appropriate database depending on the value of your feature flags (`events-dbA-write` and `events-dbB-write`):
 
-<CodeTabs
-  defaultValue="code"
-  values={[
-    { label: 'Saving to the data store', value: 'code', },
-  ]
-}>
-
-<CodeTabItem value="code">
+<CodeSample>
+<CSTab label="Saving to the data store">
 
 ```go
 func storeEvent(evt Event, account ld.User) {
@@ -95,14 +89,14 @@ func storeEvent(evt Event, account ld.User) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>This function accepts three parameters</CalloutTitle>
 <CalloutDescription>
 
-The `ldclient.BoolVariation()` function retrieves the feature flag value from LaunchDarkly and accepts 3 parameters: feature flag name, user account object, and default flag value.
+The `ldclient.BoolVariation()` function retrieves the feature flag value from LaunchDarkly and accepts three parameters: feature flag name, evaluation context, and default flag value.
 
 </CalloutDescription>
 </Callout>
@@ -115,14 +109,8 @@ The code that reads the events is more complicated. Here, the strategy is to rea
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="code"
-  values={[
-    { label: 'Reading from the data store', value: 'code', },
-  ]
-}>
-
-<CodeTabItem value="code">
+<CodeSample>
+<CSTab label="Reading from the data store">
 
 ```go
 func findEventById(id string, account ld.User) Event {
@@ -151,8 +139,8 @@ func findEventById(id string, account ld.User) Event {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This implementation has a bias toward the incumbent data store, which in this example is `dbA`. It returns the value read from `dbA` when it reads from both stores, and it will also read from `dbA` any time the `dbB` flag is `false`.
 
@@ -160,7 +148,7 @@ This implementation has a bias toward the incumbent data store, which in this ex
 
 Now that you’ve wrapped your data access in feature flags, you can plan the rollout.
 
-You can leave the read flag (`events-dbB-read`) turned off for everyone, and progressively roll out the write flag (`events-dbB-write`) to your user base. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `dbB`, roll the flag out to more users, until all events are being written to both databases.
+You can leave the read flag (`events-dbB-read`) turned off for everyone, and progressively roll out the write flag (`events-dbB-write`) to your user base. Watch performance metrics and error logs. If things perform as expected and you've verified the data is written correctly in `dbB`, roll the flag out to more contexts, until all events are being written to both databases.
 
 When you are happy with the write performance and have confirmed that the data in `dbB` is correct, you can plan to migrate the missing data that's not yet in `dbB`. This data was written before the `events-dbB-write` flag was turned on. You can do this as a one-time copy with a script, ignoring any duplicate entries that came in after you enabled writes to `dbB`. Make sure to do a final check on the resulting data in `dbB`.
 
@@ -173,13 +161,9 @@ The example up until this point assumed a data model that doesn't get updated, o
 </CalloutDescription>
 </Callout>
 
-After your data is copied to `dbB`, you can start turning on reads to the new data store. Turn on reads for a small segment of your users and monitor the performance metrics and error logs. Specifically, pay attention for a “dbA and dbB events differ” message. That message does not indicate that something is wrong in production. Even if you receive that message, it hasn’t affected any users. They are still using the data from your old data store. If you receive that error message, you can fix any issues without impacting your users and move forward.
+After your data is copied to `dbB`, you can start turning on reads to the new data store. Turn on reads for a small segment of your contexts and monitor the performance metrics and error logs. Specifically, pay attention for a “dbA and dbB events differ” message. That message does not indicate that something is wrong in production. Even if you receive that message, it hasn’t affected anyone else. They are still using the data from your old data store. If you receive that error message, you can fix any issues without impacting your end users and move forward.
 
-<LearnMore>
-
-Learn more: [Percentage rollouts](/home/flags/rollouts)
-
-</LearnMore>
+To learn more about rollouts, read [Percentage rollouts](/home/flags/rollouts).
 
 After you're comfortable with the performance metrics and error counts you're receiving with reads and writes, you can now turn off the read and write flags for `dbA`, remove all references to all four flags in your code, and you are left with just `dbB`.
 
@@ -230,7 +214,7 @@ The techniques described in this guide are only some strategies for a fairly sim
 
 For example, your target data store may need to have a different schema, forcing your DAO to read and write that data differently. This is a likely scenario if you're moving from a document database to a relational database. In this case, your new DAO may require changes to the application that will also need to be flagged.
 
-Additionally, if you have corresponding mobile and desktop apps that need updated code to access the new data store, you must plan those migrations as well, because client-side apps are often not version-consistent across user bases. This may require shipping new versions of your mobile and desktop apps and waiting for your users to slowly upgrade to the new versions before attempting the migration.
+Additionally, if you have corresponding mobile and desktop apps that need updated code to access the new data store, you must plan those migrations as well, because client-side apps are often not version-consistent across user bases. This may require shipping new versions of your mobile and desktop apps and waiting for your customers to slowly upgrade to the new versions before attempting the migration.
 
 There's no one-size-fits-all strategy for infrastructure migrations. This guide explores only a few strategies that can serve as a foundation to build on. Using feature flags for migration projects will increase your confidence, limit the risks, and allow you to make infrastructure migrations happen seamlessly.
 

@@ -20,15 +20,15 @@ Page view conversion metrics are only available on the JavaScript and React SDKs
 </Callout>
 
 <Callout intent="warning">
-<CalloutTitle>Call track and flush when a user is redirected</CalloutTitle>
+<CalloutTitle>Call track and flush when an end user is redirected</CalloutTitle>
 <CalloutDescription>
 
-SDKs send events at regular intervals, such as every five seconds. If a browser redirects a user to another page, any events that occurred between when the SDK last sent events and when browser redirected the user will be lost. To avoid this, call track and then flush when you know the browser will redirect a user to another page, such as on click.
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects an end user to another page, any events that occurred between when the SDK last sent events and when browser redirected the end user will be lost. To avoid this, call track and then flush when you know the browser will redirect an end user to another page, such as on click.
 
 </CalloutDescription>
 </Callout>
 
-Page view conversion metrics track how often users view an element on a page hosted at a specific URL. Page view conversion metrics must be used with either the JavaScript or React SDK.
+Page view conversion metrics track how often end users view an element on a page hosted at a specific URL. Page view conversion metrics must be used with either the JavaScript or React SDK.
 
 For example, you might want to track how often customers view an item when its price is discounted different amounts.
 
@@ -43,7 +43,18 @@ To create a page view conversion metric:
 
 3. Specify the type of **Target URL** you want to track behavior on. To learn about the different options for URL matching, read the table in [Creating click conversion metrics](/home/creating-experiments/metrics/click#creating-click-conversion-metrics).
 4. (Optional) Click **Add additional URL** to track behavior on more than one URL.
-5. Click **Save metric**.
+5. Choose one or more context kinds available for experiments for the metric to measure events from.
+
+<Callout intent="warning">
+<CalloutTitle>Metrics must use valid randomization units</CalloutTitle>
+<CalloutDescription>
+
+Using invalid randomization units will result in invalid experiment results. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units). If you're unsure of which randomization unit to use, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new) for help determining valid context kind selections.
+
+</CalloutDescription>
+</Callout>
+
+6. Click **Save metric**.
 
 After you create a metric, you can connect it to an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
 

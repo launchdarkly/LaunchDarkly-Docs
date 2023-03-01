@@ -66,7 +66,7 @@ Common organizational schemas options include:
 
 - **A separate project for each app or executable owned by a team:** This is our recommended approach for most customers. One project per app or executable is best when you are rolling out LaunchDarkly to the whole organization, or you have microservices that are functionally distinct from one another or share very few dependencies. This option allows you to easily manage permissions for members on a per-project basis. You can also use LaunchDarkly [Teams](#using-teams) to manage access and permissions. One disadvantage to this method is that you can’t apply flags from one project to another project. You may also need to manage multiple SDK instances within the same project, and this adds complexity.
 - **A single project for the entire organization:** If you have a smaller team, or are rolling out LaunchDarkly for only a specific project, you may not need to break it up into multiple projects. We do not recommend this approach if you have multiple teams, as your account can quickly become complex with multiple groups making thousands of flags in your environment.
-- **A separate project for each "product"**: If you want to share flags across a set of components that is presented to your users as a single product, you can create one project. For example, a mobile application, web application, and backend services that are presented as one product might all fit in one project. This approach can be helpful if you have a microservice architecture for your product and you know you want to share flags across multiple services. We do not recommend this approach if you have a hard separation between unrelated groups of services.
+- **A separate project for each "product"**: If you want to share flags across a set of components that is presented to your end users as a single product, you can create one project. For example, a mobile application, web application, and backend services that are presented as one product might all fit in one project. This approach can be helpful if you have a microservice architecture for your product and you know you want to share flags across multiple services. We do not recommend this approach if you have a hard separation between unrelated groups of services.
 - **Shared services with multiple projects:** In the shared services model, you have one project that refers to the product line and a second project that supports the shared service. You can initialize multiple instances of an SDK and write a wrapper around them to move the complexity away from your developers while still having features flags for all your services. However, this model can be complex to manage. To learn more, read [Use cases for SDK wrappers](/guides/sdk/sdk-wrappers).
 
 ### Creating a flag naming convention
@@ -162,11 +162,11 @@ It may be helpful to organize your flags into a spreadsheet to help you decide w
 
 If your legacy system only allows boolean flags, you may be able to simplify by combining multiple boolean flags into one multivariate flags.
 
-For example, if you have three different possible background colors of red, blue, and yellow, your legacy system might have two boolean flags to determine the background color for a user:
+For example, if you have three different possible background colors of red, blue, and yellow, your legacy system might have two boolean flags to determine the background color for a given context instance:
 
-- If flag A is on, the user receives a read background
-- If flag B is on, the user receives a blue background
-- If neither flag A nor B is on, the user receives a yellow background
+- If flag A is on, the context instance receives a red background
+- If flag B is on, the context instance receives a blue background
+- If neither flag A nor B is on, the context instance receives a yellow background
 
 You could replace flags A and B in the legacy system with one multivariate flag in LaunchDarkly that serves either a red, blue, or yellow background depending on the flag's targeting rules.
 
@@ -174,7 +174,7 @@ You could replace flags A and B in the legacy system with one multivariate flag 
 
 Follow the flag naming convention you created during your planning phase. Ideally, you will migrate a small number of flags and it will not be burdensome to create them manually.
 
-You can use the LaunchDarkly API to preload all of your existing flags and targeting rules, but if you are migrating so many flags you need an automated process, consider whether you have eliminated legacy flags thoroughly enough. There may be more you can archive or delete.
+You can use the LaunchDarkly REST API to preload all of your existing flags and targeting rules, but if you are migrating so many flags you need an automated process, consider whether you have eliminated legacy flags thoroughly enough. There may be more you can archive or delete.
 
 ### Comparing flags between systems
 
@@ -214,7 +214,7 @@ You likely use other third-party tools in your release process, such as applicat
 
 Accumulating technical debt with feature flags is unavoidable, but there are steps you can take to minimize it.
 
-First, define what done means when it comes to a feature. When you create a flag, what processes do you have in place for ensuring the flag is removed? Is a feature done when it rolls out to 100% of users, or is it done when the flag is removed from the code? Coding a flag is a two-part process: creating a flag and removing a flag. You shouldn’t consider these two separate processes. If you’re using Git to manage your work, we recommend submitting a pull request (PR) to remove the flag at the same time you submit the PR to add it.
+First, define what done means when it comes to a feature. When you create a flag, what processes do you have in place for ensuring the flag is removed? Is a feature done when it rolls out to 100% of your customer base, or is it done when the flag is removed from the code? Coding a flag is a two-part process: creating a flag and removing a flag. You shouldn’t consider these two separate processes. If you’re using Git to manage your work, we recommend submitting a pull request (PR) to remove the flag at the same time you submit the PR to add it.
 
 To learn more about managing technical debt in LaunchDarkly, read [Reducing technical debt from feature flags](/guides/flags/technical-debt).
 

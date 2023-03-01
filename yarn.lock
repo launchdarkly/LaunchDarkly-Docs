@@ -4799,9 +4799,9 @@ __metadata:
   linkType: hard
 
 "@sideway/formula@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@sideway/formula@npm:3.0.0"
-  checksum: 8ae26a0ed6bc84f7310be6aae6eb9d81e97f382619fc69025d346871a707eaab0fa38b8c857e3f0c35a19923de129f42d35c50b8010c928d64aab41578580ec4
+  version: 3.0.1
+  resolution: "@sideway/formula@npm:3.0.1"
+  checksum: e4beeebc9dbe2ff4ef0def15cec0165e00d1612e3d7cea0bc9ce5175c3263fc2c818b679bd558957f49400ee7be9d4e5ac90487e1625b4932e15c4aa7919c57a
   languageName: node
   linkType: hard
 
@@ -5690,6 +5690,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cheerio@npm:*":
+  version: 0.22.31
+  resolution: "@types/cheerio@npm:0.22.31"
+  dependencies:
+    "@types/node": "*"
+  checksum: 8d73d22fdd384c290514dad6f9f4a436f5a90bc836bbe9b46fe4f557041a03484f0547291d0347185a806149f465355fc225dc87477b8cf5af5be307bb75e6a4
+  languageName: node
+  linkType: hard
+
 "@types/cheerio@npm:^0.22.22":
   version: 0.22.30
   resolution: "@types/cheerio@npm:0.22.30"
@@ -5738,6 +5747,16 @@ __metadata:
   version: 0.0.30
   resolution: "@types/debug@npm:0.0.30"
   checksum: 61365bfd3129b8e93696bc1a9be574fb11ff6bd2f32a8dafdefc547035b83c9341f17ffd303417481335fc3392d5e7842962d09551877493fa0f1e6814fec10d
+  languageName: node
+  linkType: hard
+
+"@types/enzyme@npm:^3.10.12":
+  version: 3.10.12
+  resolution: "@types/enzyme@npm:3.10.12"
+  dependencies:
+    "@types/cheerio": "*"
+    "@types/react": "*"
+  checksum: 356e9142566b68c9b324ae71a7b93f03512a1c009a1d337a25ce4f495590f3e79de08aa4a0016d6224cb228c27832d92b6d7d3276ba5962302c41d0577e8a912
   languageName: node
   linkType: hard
 
@@ -12734,6 +12753,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gatsby-plugin-google-tagmanager@npm:^4.25.0":
+  version: 4.25.0
+  resolution: "gatsby-plugin-google-tagmanager@npm:4.25.0"
+  dependencies:
+    "@babel/runtime": ^7.15.4
+    web-vitals: ^1.1.2
+  peerDependencies:
+    gatsby: ^4.0.0-next
+    react: ^16.9.0 || ^17.0.0 || ^18.0.0 || ^0.0.0
+    react-dom: ^16.9.0 || ^17.0.0 || ^18.0.0 || ^0.0.0
+  checksum: e2804b450c1e7e531d3b74c25b37d4216bed4ca90b511a927907e13432df98f10d1141bee5195f71bab6d86e351e3fa9e1dcb61b963fda521b8a9f31a0edd1fe
+  languageName: node
+  linkType: hard
+
 "gatsby-plugin-launchdarkly@npm:^0.4.0":
   version: 0.4.0
   resolution: "gatsby-plugin-launchdarkly@npm:0.4.0"
@@ -13527,6 +13560,7 @@ __metadata:
     "@types/body-scroll-lock": ^3.1.0
     "@types/chai": ^4.3.1
     "@types/chai-string": ^1.4.2
+    "@types/enzyme": ^3.10.12
     "@types/github-slugger": ^1.3.0
     "@types/jest": ^27.5.0
     "@types/lodash.debounce": ^4.0.7
@@ -13573,6 +13607,7 @@ __metadata:
     gatsby-plugin-catch-links: ^4.13.0
     gatsby-plugin-client-side-redirect: ^1.1.0
     gatsby-plugin-google-gtag: ^4.13.0
+    gatsby-plugin-google-tagmanager: ^4.25.0
     gatsby-plugin-launchdarkly: ^0.4.0
     gatsby-plugin-manifest: ^4.13.0
     gatsby-plugin-mdx: ^3.13.0
@@ -24006,6 +24041,13 @@ __metadata:
   version: 1.1.4
   resolution: "web-namespaces@npm:1.1.4"
   checksum: 5149842ccbfbc56fe4f8758957b3f8c8616a281874a5bb84aa1b305e4436a9bad853d21c629a7b8f174902449e1489c7a6c724fccf60965077c5636bd8aed42b
+  languageName: node
+  linkType: hard
+
+"web-vitals@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "web-vitals@npm:1.1.2"
+  checksum: 92071029089277166e11141b735831d9011e85737d32c1360034676db898ab0ca95f19041ee01904f2189ad6e711b9da6b17567e4831290a429a586c98bc573f
   languageName: node
   linkType: hard
 

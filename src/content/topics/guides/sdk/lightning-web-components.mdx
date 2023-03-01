@@ -35,33 +35,23 @@ Next, set up your Salesforce environment. To do this:
 
 ## Using the LaunchDarkly client in a Lightning Web Component
 
-In the Javascript file of your Lightning Web Component, import the static resource:
+In the JavaScript file of your Lightning Web Component, import the static resource:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Import LD Client', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Import LD client">
 
 ```js
 import ldclient from '@salesforce/resourceUrl/ldclient';
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Then, load the imported script for usage in the file, using the Lightning Web Component [Platform Resource Loader](https://developer.salesforce.com/docs/component-library/bundle/lightning-platform-resource-loader/documentation):
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Load script', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Load script">
 
 ```js
 Promise.all([
@@ -73,18 +63,13 @@ Promise.all([
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-Finally, initialize the LaunchDarkly Client:
+Finally, initialize the LaunchDarkly client:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Initializing LaunchDarkly client', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Initializing LaunchDarkly client">
 
 ```js
 const context = {
@@ -97,18 +82,13 @@ await this.LDClient.waitUntilReady();
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-You can access the flag value using a Javascript `getter` method:
+You can access the flag value using a JavaScript `getter` method:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Example flag getter method', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Example flag getter method">
 
 ```js
 get exampleFlag() {
@@ -118,21 +98,16 @@ get exampleFlag() {
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [LWC Data Binding](https://developer.salesforce.com/docs/component-library/documentation/en/lwc/lwc.js_props_getter)
 You can then use HTML to allow feature flags to control your user interface (UI) display.
 
 Here is an example of an LWC HTML snippet:
 
-<CodeTabs
-  defaultValue="html"
-  values={[
-    { label: 'LWC HTML snippet', value: 'html', },
-  ]
-}>
-<CodeTabItem value="html">
+<CodeSample>
+<CSTab label="LWC HTML snippet">
 
 ```html
 <template if:true={exampleFlag}>
@@ -144,8 +119,8 @@ Here is an example of an LWC HTML snippet:
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Conclusion
 

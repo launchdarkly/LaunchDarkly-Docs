@@ -6,17 +6,6 @@ published: true
 tags: ['javascript', 'migration', 'sdk', 'client-side', 'context']
 ---
 
-<Callout intent="info">
-<CalloutTitle>Contexts are for Early Access Program customers only</CalloutTitle>
-<CalloutDescription>
-
-A context is a generalized way of describing and referring to the people, services, machines, or other resources that encounter feature flags in your product.
-
-Creating contexts and evaluating flags based on contexts is the primary feature in the JavaScript SDK 3.0 release. However, the ability to target flags or segments by context, or review context instances that have encountered flags in your application, is only available to members of LaunchDarkly's Early Access Program (EAP). To learn more or join the EAP, read [Contexts](/home/contexts).
-
-</CalloutDescription>
-</Callout>
-
 ## Overview
 
 This topic explains the changes in the JavaScript SDK 3.0 release and how to adapt code that uses a 2.x version of the [JavaScript SDK](/sdk/client-side/javascript) to use version 3.0 or later.
@@ -25,11 +14,15 @@ This topic explains the changes in the JavaScript SDK 3.0 release and how to ada
 
 Before you migrate to version 3.0, update to the latest 2.x version. If you update to the latest 2.x version, deprecation warnings appear in areas of your code that need to be changed for 3.0. You can update them at your own pace while still using 2.x, rather than migrating everything simultaneously. To learn more about updating to the latest 2.x version, visit the [SDK's GitHub repository](https://github.com/launchdarkly/js-client-sdk).
 
+## Dependencies for the v3 SDK
+
+The JavaScript SDK versions 3.0.0 and 3.1.0 use optional chaining. If you encounter an error related to optional chaining during transpiling, bundling, or running tests, updating to version 3.1.1 should resolve the error.
+
 ## Understanding contexts
 
 Many LaunchDarkly customers create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. In previous versions of the LaunchDarkly SDK, you could define this information in a user object, using a combination of built-in and custom attributes. Now you can define this information in a more structured way, using **contexts**.
 
-Each context has a required attribute called `kind` that describes the type of attributes it contains. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
+Each context has a required attribute called `kind` that you can use to categorize context instances for targeting and Experimentation. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
 
 When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you may know:
 
@@ -39,7 +32,7 @@ When you evaluate a feature flag within your application, the flag's targeting r
 
 This new version of the LaunchDarkly SDK requires you to evaluate feature flags using an **evaluation context**, which is an object containing one or more contexts.
 
-To learn more about contexts, read [Contexts](/home/contexts).
+To learn more about contexts, read [Contexts and segments](/home/contexts).
 
 ## Migrating from users to contexts
 
@@ -72,14 +65,8 @@ Where you previously created users, now you must create contexts.
 
 Here's how to construct a basic context, as compared with constructing a user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '2.x syntax, user with key', value: 'user', },
-    { label: '3.0 syntax, context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="2.x syntax, user with key">
 
 ```js
 const user = {
@@ -87,8 +74,8 @@ const user = {
 };
 const client = LDClient.initialize('client-side-id-123abc', user);
 ```
-</CodeTabItem>
-<CodeTabItem value="single-context">
+</CSTab>
+<CSTab label="3.0 syntax, context with key">
 
 ```js
 const context = {
@@ -97,8 +84,8 @@ const context = {
 };
 const client = LDClient.initialize('client-side-id-123abc', context);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Omitting the <code>kind</code> creates a user object, not a context</CalloutTitle>
@@ -121,13 +108,8 @@ We strongly recommend upgrading your SDK to take advantage of the context functi
 
 Here's how to construct a basic context, with a context kind of something other than "user":
 
-<CodeTabs
-  defaultValue="single-context"
-  values={[
-    { label: '3.0 syntax, single context with key', value: 'single-context', },
-  ]
-}>
-<CodeTabItem value="single-context">
+<CodeSample>
+<CSTab label="3.0 syntax, single context with key">
 
 ```js
 const context = {
@@ -136,18 +118,13 @@ const context = {
 };
 const client = LDClient.initialize('client-side-id-123abc', context);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Here's how to construct a multi-context, which includes multiple context kinds:
 
-<CodeTabs
-  defaultValue="multi-context"
-  values={[
-    { label: '3.0 syntax, multi-context', value: 'multi-context', },
-  ]
-}>
-<CodeTabItem value="multi-context">
+<CodeSample>
+<CSTab label="3.0 syntax, multi-context">
 
 ```js
 const deviceContext = {
@@ -171,8 +148,8 @@ const multiContext = {
 
 const client = LDClient.initialize('client-side-id-123abc', multiContext)
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to built-in and custom attributes
 
@@ -190,14 +167,8 @@ You can define additional attributes for a context by passing in a name and valu
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
-<CodeTabs
-  defaultValue="user"
-  values={[
-    { label: '2.x syntax, user with attributes', value: 'user', },
-    { label: '3.0 syntax, context with attributes', value: 'context', },
-  ]
-}>
-<CodeTabItem value="user">
+<CodeSample>
+<CSTab label="2.x syntax, user with attributes">
 
 ```js
 const user = {
@@ -207,8 +178,8 @@ const user = {
   email: 'sandy@example.com'
 };
 ```
-</CodeTabItem>
-<CodeTabItem value="context">
+</CSTab>
+<CSTab label="3.0 syntax, context with attributes">
 
 ```js
 const context = {
@@ -219,8 +190,8 @@ const context = {
   email: 'sandy@example.com'
 };
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Referencing properties of an attribute object
 ----
@@ -230,13 +201,8 @@ In previous versions of the SDK, if you set the value of a user's custom attribu
 
 Here's how to add object attributes to a context:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: '3.0 syntax, context with object attributes', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="3.0 syntax, context with object attributes">
 
 ```js
 const context = {
@@ -251,8 +217,8 @@ const context = {
   }
 };
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -275,42 +241,31 @@ In version 3.0, there are two scopes for which you can mark attributes as privat
 
 In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
-<CodeTabs
-  defaultValue="private-all"
-  values={[
-    { label: '3.0 syntax, all attributes marked private', value: 'private-all', },
-    { label: '3.0 syntax, two attributes marked private', value: 'private-some', },
-  ]
-}>
-<CodeTabItem value="private-all">
+<CodeSample>
+<CSTab label="3.0 syntax, all attributes marked private">
 
 ```js
 const options = { allAttributesPrivate: true };
 
 const client = ld.initialize('client-side-id-123abc', context, options);
 ```
-</CodeTabItem>
-<CodeTabItem value="private-some">
+</CSTab>
+<CSTab label="3.0 syntax, two attributes marked private">
 
 ```js
-const options = { privateAttributeNames: ['email', 'address'] };
+const options = { privateAttributes: ['email', 'address'] };
 
 const client = ld.initialize('client-side-id-123abc', context, options);
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-To learn more, read [`allAttributesPrivate`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#allAttributesPrivate) and [`privateAttributeNames`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#privateattributenames).
+To learn more, read [`allAttributesPrivate`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#allAttributesPrivate) and [`privateAttributes`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#privateAttributes).
 
 Here's how to mark an attribute as private for a particular context:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: '3.0 syntax, attributes marked private for particular context', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="3.0 syntax, attributes marked private for particular context">
 
 ```js
 const context = {
@@ -328,8 +283,8 @@ const context = {
   }
 };
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For attributes that are objects, you can mark specific fields private, using the `/` delimiter followed by the attribute name, then the `/` delimiter followed by the JSON property within the value.
 
@@ -345,13 +300,8 @@ Similarly, in the 3.0 version of the SDK, you can omit the context key when buil
 
 If you are working with a multi-context, you can mark some contexts anonymous and not others. Here's an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: '3.0 syntax, working with anonymous contexts', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="3.0 syntax, working with anonymous contexts">
 
 ```js
 // This user context is not anonymous
@@ -376,8 +326,8 @@ const multiContext = {
   device: deviceContext
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Understanding changes to alias events
 
@@ -391,13 +341,8 @@ If you want to continue associating two contexts with each other, you can use tw
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: '3.0 syntax, identifying a multi-context', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="3.0 syntax, identifying a multi-context">
 
 ```js
 const deviceContext = {
@@ -423,8 +368,8 @@ client.identify(multiContext, hash, function() {
   console.log("Multi-context's flags available");
 });
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify).
 

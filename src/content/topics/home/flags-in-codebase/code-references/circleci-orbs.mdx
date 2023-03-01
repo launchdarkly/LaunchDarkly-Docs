@@ -43,13 +43,8 @@ To set up the LaunchDarkly orb in CircleCI:
 2. Create a YAML file in CircleCI with configuration including LaunchDarkly's Orb.
    Here's an example minimal configuration using LaunchDarkly's Orb:
 
-<CodeTabs
- defaultValue="yaml"
- values={[
-   { label: 'YAML', value: 'yaml', },
- ]
-}>
-<CodeTabItem value="yaml">
+<CodeSample>
+<CSTab label="YAML">
 
 ```yaml
 version: 2.1
@@ -66,8 +61,8 @@ workflows:
           repo_url: $YOUR_REPO_URL # used to generate links to your repository
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Additional configuration options
 

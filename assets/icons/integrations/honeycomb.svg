@@ -1,6 +1,12 @@
-<svg width="58" height="55" viewBox="0 0 58 55" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M12.1828 28.2383L16.2437 35.2981L12.1828 42.3579H4.06092L0 35.2981L4.06092 28.2383H12.1828Z" fill="#F7931D"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M29.4588 15.5635L34.3916 24.159L29.4588 32.7317H19.5933L14.6605 24.159L19.5933 15.5635H29.4588Z" fill="#8CC63F"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M29.2752 37.7988L34.208 46.3715L29.2752 54.9441H19.4097L14.4769 46.3715L19.4097 37.7988H29.2752Z" fill="#FDB912"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M51.4843 0L58.0001 11.3003L51.4843 22.6006H38.4985L31.9827 11.3003L38.4985 0H51.4843Z" fill="#25BDBE"/>
+<svg width="32" height="31" viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M25.41 18.5809H23.5228C22.9255 18.5809 22.3826 18.8266 21.9893 19.222V16.0991H21.335V25.3731H22.0071V21.134C22.0071 20.0983 22.8507 19.2507 23.8823 19.2507H25.003C26.0347 19.2507 26.8783 20.0983 26.8783 21.134V25.3731H27.5797V20.7602C27.5797 19.5614 26.6035 18.5809 25.41 18.5809Z" stroke="#414343" stroke-width="0.5"/>
+<mask id="mask0_9907_18929" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="15" width="9" height="9">
+<path d="M0.00390625 15.5942H8.95277V23.3894H0.00390625V15.5942Z" fill="white"/>
+</mask>
+<g mask="url(#mask0_9907_18929)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M6.71239 15.5942L8.95272 19.4918L6.71239 23.3894H2.23164L-0.00878906 19.4918L2.23164 15.5942H6.71239Z" fill="#F7931D"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.253 8.59985L18.9754 13.3361L16.253 18.0727H10.8079L8.08496 13.3361L10.8079 8.59985H16.253Z" fill="#8CC63F"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M16.1503 20.8689L18.8728 25.6051L16.1503 30.3417H10.7053L7.98242 25.6051L10.7053 20.8689H16.1503Z" fill="#FDB912"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M28.4116 0L32 6.24291L28.4116 12.4858H21.2343L17.646 6.24291L21.2343 0H28.4116Z" fill="#25BDBE"/>
 </svg>

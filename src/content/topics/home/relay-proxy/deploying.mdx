@@ -27,20 +27,15 @@ To deploy the Relay Proxy with Docker:
 
 1. Use `docker pull` to pull the latest Relay Proxy Docker image:
 
-  <CodeTabs
-    defaultValue="relay"
-    values={[
-      { label: 'Update your Docker container', value: 'relay', },
-    ]
-  }>
-  <CodeTabItem value="relay">
+  <CodeSample>
+  <CSTab label="Update your Docker container">
 
   ```bash
   docker pull launchdarkly/ld-relay
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 2. Use `docker run` to run the Relay Proxy from your Docker container while specifying your configuration details.
 
@@ -50,31 +45,26 @@ For examples and a full list of allowable variables, read the documentation in t
 
 In the following example, the Relay Proxy is configured to have two LaunchDarkly environments.
 
-For the first environment, the SDK key is `staging-sdk-key`, and the environment name (for the purposes of logging) is `Staging`. For the second environment, the SDK key is `prod-sdk-key`, and the environment name is `Production`.
+For the first environment, the SDK key is `staging-sdk-key-123abc`, and the environment name, for the purposes of logging, is `Staging`. For the second environment, the SDK key is `prod-sdk-key-456def`, and the environment name is `Production`.
 
 In this example, the Relay Proxy is configured to listen on port 8030, which is its default port.
 
 The example configuration follows:
 
-<CodeTabs
-   defaultValue="relay"
-   values={[
-     { label: 'Run with a Docker container', value: 'relay', },
-   ]
- }>
- <CodeTabItem value="relay">
+<CodeSample>
+<CSTab label="Run with a Docker container">
 
  ```bash
 docker run --name ld-relay              \
-     -e LD_ENV_Staging="staging-sdk-key" \
-     -e LD_ENV_Prod="prod-sdk-key"       \
+     -e LD_ENV_Staging="staging-sdk-key-123abc" \
+     -e LD_ENV_Prod="prod-sdk-key-456def"       \
      -p 8030:8030                        \
      -e PORT=8030                        \
      launchdarkly/ld-relay
  ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Using Helm to run the Relay Proxy in Kubernetes
 
@@ -84,52 +74,42 @@ To deploy the Relay Proxy using this Helm chart:
 
 1. Add the LaunchDarkly Relay Proxy Helm chart repository.
 
-<CodeTabs
-  defaultValue="relay"
-  values={[
-    { label: 'Add chart repository', value: 'relay', },
-  ]
-}>
-<CodeTabItem value="relay">
+  <CodeSample>
+  <CSTab label="Add chart repository">
 
-```bash
-helm repo add launchdarkly-ld-relay https://launchdarkly.github.io/ld-relay-helm
-```
-</CodeTabItem>
-</CodeTabs>
+  ```bash
+  helm repo add launchdarkly-ld-relay https://launchdarkly.github.io/ld-relay-helm
+  ```
+  </CSTab>
+  </CodeSample>
 
 2. Use `helm install` to install the chart archive and deploy the proxy into your cluster.
 
-The fastest way to configure installation is through Helm's `--set` flag. However, we recommend using files with the `--values` flag as this enables easier long term maintenance. In the examples below, replace `MyEnvironment` with the name of your Relay Proxy environment and `sdk-key` with your SDK key.
+  The fastest way to configure installation is through Helm's `--set` flag. However, we recommend using files with the `--values` flag as this enables easier long term maintenance. In the examples below, replace `MyEnvironment` with the name of your Relay Proxy environment and `sdk-key` with your SDK key.
 
-Here's how:
+  Here's how:
 
-<CodeTabs
-  defaultValue="flags"
-  values={[
-    { label: 'Using command line flags', value: 'flags', },
-    { label: 'Using values file', value: 'file', },
-  ]
-}>
-<CodeTabItem value="flags">
+<CodeSample>
+<CSTab label="Using command line flags">
 
 ```bash
-helm install relay --set relay.environment.LD_ENV_MyEnvironment=sdk-key launchdarkly-ld-relay/ld-relay
+helm install relay --set relay.environment.LD_ENV_environment-key-123abc=sdk-key123bc launchdarkly-ld-relay/ld-relay
 ```
-</CodeTabItem>
-<CodeTabItem value="file">
+
+</CSTab>
+<CSTab label="Using values file">
 
 ```yaml
 # values.yaml
 relay:
     environment:
-        LD_ENV_MyEnvironment: sdk-key
+        LD_ENV_environment-key-123abc: sdk-key123bc
 
 # Run on the terminal
 helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can find examples and full documentation on all configuration options in the [GitHub repository](https://github.com/launchdarkly/ld-relay-helm).
 
@@ -157,20 +137,15 @@ After you do this, the executable binary `ld-relay` appears in the directory.
 
 There is also a shortcut command that can replace the longer procedure above. This command downloads the code and builds it in a single step. After you enter the command, the executable binary `ld-relay` appears in `$GOPATH/bin`. You can move it to any other location.
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Download and build Relay Proxy', value: 'bash', },
-  ]
-}>
-
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="Download and build Relay Proxy">
 
 ```bash
 go install github.com/launchdarkly/ld-relay/v6@latest
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 When you execute the binary, you must tell the Relay Proxy about your desired configuration. You can do this either with a configuration file or environment variables.
 
@@ -190,59 +165,48 @@ To use a configuration file:
 
 1. Create a new file:
 
-  <CodeTabs
-    defaultValue="single"
-    values={[
-      { label: 'Basic example', value: 'single', },
-      { label: 'Multiple environments', value: 'multiple', },
-    ]
-  }>
-  <CodeTabItem value="single">
+  <CodeSample>
+  <CSTab label="Basic example">
 
   ```text
   # A single environment which only proxies server-side SDKs
-  [environment "<YOUR-ENVIRONMENT-NAME>"]
-      sdkKey = "<YOUR-ENVIRONMENT-SDK-KEY>"
+  [environment "environment-key-123abc"]
+      sdkKey = "sdk-key-123abc"
   ```
 
-  </CodeTabItem>
-  <CodeTabItem value="multiple">
+  </CSTab>
+  <CSTab label="Multiple environments">
 
   ```text
   # An environment which proxies SDKs with SDK keys or client-side IDs
-  [environment "Spree Webapp Production"]
-      sdkKey = "SPREE_WEB_PROD_API_KEY"
-      envId = "SPREE_WEB_PROD_ENV_ID"
+  [environment "Production"]
+      sdkKey = "sdk-key-123abc"
+      envId = "environment-key-123abc"
 
   # An environment which proxies SDKs with SDK keys or mobile keys
-  [environment "Spree Mobile Production"]
-      sdkKey = "SPREE_MOBILE_PROD_API_KEY"
-      mobileKey = "SPREE_MOBILE_PROD_MOBILE_KEY"
+  [environment "Mobile Production"]
+      sdkKey = "sdk-key-123abc"
+      mobileKey = "mobile-key-123abc"
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
   To learn more about the supported configuration options, read [Configuration](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md) in the Relay Proxy GitHub repository.
 
 2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`.
 
-Run the following code:
+  Run the following code:
 
-  <CodeTabs
-    defaultValue="relay"
-    values={[
-      { label: 'Run the binary', value: 'relay', },
-    ]
-  }>
-  <CodeTabItem value="relay">
+  <CodeSample>
+  <CSTab label="Run the binary">
 
   ```bash
   $GOPATH/bin/ld-relay --config ./ld-relay.conf
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 
 ### Using environment variables
@@ -255,39 +219,29 @@ To use environment variables:
 
   For example, to specify the SDK key for an environment named `MyEnvName`:
 
-  <CodeTabs
-    defaultValue="relay"
-    values={[
-      { label: 'Example environment variable', value: 'relay', },
-    ]
-  }>
-  <CodeTabItem value="relay">
+  <CodeSample>
+  <CSTab label="Example environment variable">
 
   ```bash
-  export LD_ENV_MyEnvName=<YOUR-ENVIRONMENT-SDK-KEY>
+  export LD_ENV_environment-key-123abc=<sdk-key-123abc>
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
   To learn more about supported environment variables, read [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md#configuration-file-format-and-environment-variables) in the Relay Proxy GitHub repository.
 
 2. Run the Relay Proxy binary while passing the `--from-env` argument. The following command assumes that the `ld-relay` binary is in `$GOPATH/bin`.
 
-  <CodeTabs
-    defaultValue="relay"
-    values={[
-      { label: 'Run the binary', value: 'relay', },
-    ]
-  }>
-  <CodeTabItem value="relay">
+  <CodeSample>
+  <CSTab label="Run the binary">
 
   ```bash
   $GOPATH/bin/ld-relay --from-env
   ```
 
-  </CodeTabItem>
-  </CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 ## Configuring the Relay Proxy for Big Segments
 
@@ -306,4 +260,4 @@ If you use a server-side SDK, you must use the Relay Proxy and configure your se
 
 If you use a client-side SDK, there's no additional setup required to use Big Segments. However, if you use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
 
-To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/users/big-segments).
+To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/contexts/big-segments).

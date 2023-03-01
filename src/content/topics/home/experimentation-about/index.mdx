@@ -17,13 +17,13 @@ Experimentation is available to customers on a Pro or Enterprise plan. To learn 
 
 ## Overview
 
-This topic explains the concepts and value of LaunchDarkly's Experimentation feature. Experiments let you measure the effect of flags on users by tracking metrics your team cares about.
+This topic explains the concepts and value of LaunchDarkly's Experimentation feature. Experiments let you measure the effect of flags on end users by tracking metrics your team cares about.
 
 ## Understanding Experimentation
 
 Experimentation lets you validate the impact of features you roll out to your app or infrastructure. You can measure things like page views, clicks, load time, infrastructure costs, and more.
 
-By connecting metrics you create to flags in your LaunchDarkly environment, you can measure the changes in your users' behavior based on what flags they evaluate. This helps you make more informed decisions, so the features your development team ships align with your business objectives.
+By connecting metrics you create to flags in your LaunchDarkly environment, you can measure the changes in your customer's behavior based on what flags they evaluate. This helps you make more informed decisions, so the features your development team ships align with your business objectives.
 
 To learn about Experimentation use cases, read [Example experiments](/guides/experimentation/example-experiments).
 
@@ -172,7 +172,7 @@ Server-side SDKs:
 <CalloutTitle>Outdated SDKs return invalid experiment results</CalloutTitle>
 <CalloutDescription>
 
-When you request that we enable audience allocation for your account, we will ask you to confirm that you are using SDK and Relay Proxy versions that support this feature. If your SDK and Relay Proxy versions are outdated, users will receive different flag variations across various SDKs, rendering your experimentation results invalid.
+When you request that we enable audience allocation for your account, we will ask you to confirm that you are using SDK and Relay Proxy versions that support this feature. If your SDK and Relay Proxy versions are outdated, contexts will receive different flag variations across various SDKs, rendering your experimentation results invalid.
 
 </CalloutDescription>
 </Callout>
@@ -190,7 +190,7 @@ Some of the things you can do with Experimentation include:
 - A/B/n testing, also called multivariate testing
 - Start and stop experiments at any time so you have immediate control over which variations your customers encounter
 - Review credible intervals in experiment results so you can decide which variation you can trust to have the most impact
-- Target specific groups of users or segments to experiments, refining your testing audience
+- Target specific groups of contexts or segments to experiments, refining your testing audience
 - Measure the impact of changes to your product at all layers of your technology stack
 - Roll out product changes in multiple stages, leveraging both Experimentation and workflows
 
@@ -200,7 +200,7 @@ To lean more, read [Designing experiments](/guides/experimentation/designing-exp
 
 Experiment data is collected on an experiment's **Results** tab, which displays experiment data in near-real time. To learn more, read [Analyzing experiments](/home/analyzing-experiments).
 
-As your experiment collects data, LaunchDarkly calculates the variation that is most likely to be the best choice out of all the variations you're testing. After you decide which flag variation has the impact you want, you can gradually roll that variation out to 100% of your users with LaunchDarkly's percentage rollouts feature. To learn more about percentage rollouts, read [Percentage rollouts](/home/flags/rollouts).
+As your experiment collects data, LaunchDarkly calculates the variation that is most likely to be the best choice out of all the variations you're testing. After you decide which flag variation has the impact you want, you can gradually roll that variation out to 100% of your customers with LaunchDarkly's percentage rollouts feature. To learn more about percentage rollouts, read [Percentage rollouts](/home/flags/rollouts).
 
 You can export experiment data to an external destination using Data Export. To learn more, read [Data Export](/home/data-export).
 
@@ -213,13 +213,13 @@ As you use Experimentation, consider these best practices:
 - **Consider experiments from day one.** Create hypotheses in the planning stage of feature development, so you and your team are ready to run experiments as soon as your feature launches.
 - **Define what you're measuring.** Align with your team on which tangible metrics you're optimizing for, and what results constitute success.
 - **Plan your experiments in relation to each other.** If you're running multiple experiments simultaneously, make sure they don't collect similar or conflicting data.
-- **Associate users who interact with your app before and after logging in.** If a user accesses your experiment from both a logged out and logged in state, each state will generate its own user key. Use `alias` events to associate the two user keys, which prevents one user from generating duplicate events. To learn more, read [Associating anonymous users with logged in users](/home/users/anonymous-users#associating-anonymous-users-with-logged-in-users).
+- **Associate end users who interact with your app before and after logging in.** If someone accesses your experiment from both a logged out and logged in state, each state will generate its own context key. You can associate multiple related contexts together using multi-contexts. To learn more, read [Associating anonymous contexts with logged-in end users](/home/contexts/anonymous-contexts#associating-anonymous-contexts-with-logged-in-end-users).
 
 You can use experiments to measure a variety of different outcomes. Some example experiments include:
 
 - Testing the efficacy of different search implementations, such as Elasticsearch versus SOLR versus Algolia
 - Tracking how features you ship are increasing or decreasing page load time
-- Calculating conversion rates by monitoring how frequently users click on various page elements
+- Calculating conversion rates by monitoring how frequently end users click on various page elements
 - Testing the impact of new artificial intelligence and machine learning (AI/ML) models on end-user behavior and product performance.
 
 <LearnMore>
@@ -230,13 +230,15 @@ You can also use the REST API: [Experiments (beta)](https://apidocs.launchdarkly
 
 ## Experiment pricing
 
-Experiments are billed monthly based on the number of unique user keys in each experiment. To estimate your Experimentation billing costs, multiply the number of experiments you run each month by the number of unique users in your experiment audience.
+Experiments are billed monthly based on the number of unique context keys in each experiment. To learn more about context keys, read [Built-in attributes](/home/contexts/built-in-attributes).
+
+Your billing month begins on the same day of the month your contract began with LaunchDarkly. For example, if your contract with LaunchDarkly began on January 15th, your Experimentation billing month resets the 15th of every month. To estimate your Experimentation billing costs, multiply the number of experiments you run each month by the number of unique context keys in your experiment audiences. If an experiment has multiple iterations, it is still counted as one experiment. If the same context key appears in two different experiments, they key is counted twice for billing purposes.
 
 <Callout intent="info">
-<CalloutTitle>Your billing model may be different</CalloutTitle>
+<CalloutTitle>You may be billed for experiment events instead of keys</CalloutTitle>
 <CalloutDescription>
 
-Customers on older contracts may be billed by Experimentation event count, rather than unique user keys. To learn more, read [Experimentation events](/home/about-experimentation/events). If you are unsure about how you are being billed for Experimentation, [contact Sales](https://launchdarkly.com/contact-sales/) or your LaunchDarkly Account Executive.
+Customers on older contracts may be billed by Experimentation event count, rather than unique context keys. To learn more, read [Experimentation events](/home/about-experimentation/events). If you are unsure about how you are being billed for Experimentation, [contact Sales](https://launchdarkly.com/contact-sales/) or your LaunchDarkly Account Executive.
 
 </CalloutDescription>
 </Callout>

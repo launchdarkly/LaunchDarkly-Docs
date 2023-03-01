@@ -23,13 +23,13 @@ To learn more, read [Contexts and segments](/home/contexts).
 
 ### Context kind
 
-A `context kind` is a conceptual grouping of information that you may know about different contexts. Each context includes a `kind` that describes the type of attributes it contains.
+A `context kind` organizes your [contexts](#context) into different types based on the kinds of resources encountering flags. Each context has one `kind` with a unique set of corresponding attributes that you can use for targeting and Experimentation.
 
 To learn more, read [Understanding contexts and context kinds](/home/contexts#understanding-contexts-and-context-kinds).
 
 ### Context instance
 
-A `context instance` is a particular individual context that has encountered a feature flag in your product.
+A `context instance` is a unique combination of one or more contexts that have encountered a feature flag in your product.
 
 To learn more, read [Understanding context instances](/home/contexts#understanding-context-instances).
 
@@ -37,7 +37,7 @@ To learn more, read [Understanding context instances](/home/contexts#understandi
 
 ### Environment
 
-An `environment` is an organizational unit contained within a [project](#project). You can create multiple environments within each project. All environments in a single project contain the same [flags](#flag). However, the flags can have different states, targets, and rules in each environment.
+An `environment` is an organizational unit contained within a [project](#project). You can create multiple environments within each project. Environments in LaunchDarkly typically correspond to the environments in which your code is deployed, such as development, staging, and production. All environments in a single project contain the same [flags](#flag). However, the flags can have different states, targets, and rules in each environment.
 
 To learn more, read [Environments](/home/organize/environments).
 
@@ -78,7 +78,7 @@ To learn more, read [LaunchDarkly account members](/home/members/managing).
 
 ### Project
 
-A `project` is an organizational unit for flags in your LaunchDarkly account. You can define projects in any way you like. A common pattern is to create one project in your LaunchDarkly account for each product your company makes.
+A `project` is an organizational unit for flags in your LaunchDarkly account. You can define projects in any way you like. A common pattern is to create one project in your LaunchDarkly account for each product your company makes. Each project can have multiple environments.
 
 To learn more, read [Projects](/home/organize/projects).
 
@@ -90,7 +90,7 @@ A `role` is a description of the access that a member has to information within 
 
 A `custom role` is also a description of the access that a member has to information within LaunchDarkly. With custom roles, you create the description of the access using a set of statements called a policy.
 
-Every member must have at least one role or custom role assigned to them, even if the role explicitly prohibits them from accessing any information within LaunchDarkly.
+Every member must have at least one role or custom role assigned to them, either directly or through a team. This is true even if the role explicitly prohibits them from accessing any information within LaunchDarkly.
 
 To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles), [Custom roles](/home/members/custom-roles), and [Custom role concepts](/home/members/role-concepts).
 
@@ -104,15 +104,19 @@ A `team` is a group of members in your LaunchDarkly account. To learn more, read
 
 ### User
 
-A `user` is a person, service, machine, or other resource that encounters feature flags in your product.
+Previously, a `user` was the only way to refer to an entity that encountered feature flags in your product.
 
-Newer versions of the LaunchDarkly SDKs replace users with [contexts](#context).
+Newer versions of the LaunchDarkly SDKs replace users with [contexts](#context). Contexts are a more powerful and flexible way of referring to the people, services, machines, or other resources that encounter feature flags in your product. A user is just one [kind](#context-kind) of context.
+
+People who are logged in to the LaunchDarkly user interface are called [members](#member).
 
 ## V
 
 ### Variation
 
 A `variation` is a description of a possible value that a flag can have. Each variation must contain the possible flag value. It may also contain a name and description.
+
+Flags share variations across environments within a project. However, the flags can have different states, targets, and rules in each environment.
 
 When you create a flag, you must decide whether it is a boolean flag or a multivariate flag. Boolean flags have exactly two variations, with values of "true" and "false." Multivariate flags can have more than two variations. Each of the variations must have a value of the same type, for example, a string.
 

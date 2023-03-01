@@ -19,29 +19,29 @@ Experimentation is available to customers on a Pro or Enterprise plan. To learn 
 
 This guide provides strategies and best practices to manage experiments that include both logged-out and logged-in end users.
 
-You may want to run experiments on end-user behavior within apps or websites that have both a logged-out and logged-in state, such as an online store where customers can check out either as a guest or as a logged-in user.
+You may want to run experiments on end-user behavior within apps or websites that have both a logged-out and logged-in state, such as an online store where customers can check out either as a guest or as a logged-in end user.
 
-You could compare two variations of your site, a one-click checkout experience versus a two-click checkout experience, and track a metric such as time to check out. The most important thing for your experiment to measure is whether one click or two clicks affects the time customers spend checking out of your store, so the primary metric you will use is checkout time. If you want to also track whether or not the end user was logged in, you can add their logged-in state as a custom attribute. To learn more, read [Custom user attributes](/home/users/custom-attributes).
+You could compare two variations of your site, a one-click checkout experience versus a two-click checkout experience, and track a metric such as time to check out. The most important thing for your experiment to measure is whether one click or two clicks affects the time customers spend checking out of your store, so the primary metric you will use is checkout time. If you want to also track whether or not the end user was logged in, you can add their logged-in state as a custom attribute. To learn more, read [Custom attributes](/home/contexts/custom-attributes).
 
-We don't recommend trying to use the SDK [aliasing](/sdk/features/aliasing-users) feature to serve the same variation to a user both before and after they log in.
+We don't recommend trying to use the SDK aliasing feature to serve the same variation to someone both before and after they log in.
 
 Some of the problems with trying to use the aliasing feature for this purpose include:
 
 - Inconsistency in end-user experience within a session, leading to confusion for the customer.
-- There are some situations when it is not possible for LaunchDarkly to associate two different users using the alias method.
+- There are some situations when it is not possible for LaunchDarkly to associate two different contexts using the alias method.
 - The aliasing feature is deprecated in the newest versions of some of our SDKs, and will eventually no longer be available. To learn more, read [Aliasing users](/sdk/features/aliasing-users).
 
 ## Concepts
 
 In order to use this guide, you should understand the following concepts:
 
-### Logged-out users
+### Logged-out end users
 
-Logged-out end users are users that LaunchDarkly has not yet identified. When you're using Experimentation with logged-out users, you should assign each logged-out user a unique key. To learn more, read [Tracking anonymous users with unique keys](/home/users/anonymous-users#tracking-anonymous-users-with-unique-keys).
+Logged-out end users are people that LaunchDarkly has not yet identified. When you're using Experimentation with logged-out end users, you should assign each logged-out end user a unique key. To learn more, read [Tracking anonymous contexts with unique keys](/home/contexts/anonymous-contexts#tracking-anonymous-contexts-with-unique-keys).
 
-### Custom user attributes
+### Custom attributes
 
-You can create custom user attributes to track and target users based on any data you want to track. To learn more, read [Custom user attributes](/home/users/custom-attributes).
+You can create custom attributes to track and target contexts based on any data you want to track. To learn more, read [Custom attributes](/home/contexts/custom-attributes).
 
 ### Custom numeric metrics
 
@@ -61,11 +61,11 @@ That evening, Miguel visits your website from his laptop. Because he is not logg
 
 In either scenario, if your metric is tracking time to check out, it will properly track the end user's behavior and correlate it to the correct variation. This is because the experiment is comparing checkout buttons, not logged-in states. However, Miguel had a better user experience than Anna. 
 
-The approach you choose when designing experiments for logged-out and logged-in users should balance your experiment's objectives and the end user's experience. For the above example, one way you could ensure a more consistent user experience is to limit the experiment to mobile-only or desktop-only, or to run two mutually exclusive concurrent experiments, one for each platform. To learn how, read [Creating mutually exclusive experiments](/guides/experimentation/mutually-exclusive).
+The approach you choose when designing experiments for logged-out and logged-in end users should balance your experiment's objectives and the end user's experience. For the above example, one way you could ensure a more consistent end-user experience is to limit the experiment to mobile-only or desktop-only, or to run two mutually exclusive concurrent experiments, one for each platform. To learn how, read [Creating mutually exclusive experiments](/guides/experimentation/mutually-exclusive).
 
 ## Build an experiment with logged-out and logged-in states
 
-Even when you design your experiment for consistency within sessions, you can still track whether an end user was logged in using a custom attribute. In this example, we will show you how to build a checkout experience experiment for an app with logged-out and logged-in states, and how to track time to checkout as a primary metric.
+Even when you design your experiment for consistency within sessions, you can still track whether someone was logged in using a custom attribute. In this example, we will show you how to build a checkout experience experiment for an app with logged-out and logged-in states, and how to track time to checkout as a primary metric.
 
 ### Hypothesis
 
@@ -81,7 +81,7 @@ Next, determine the sample size needed for your experiment. In this example, you
 
 Here is the sample size calculation:
 
-`2000 customers x 15 days x 50% of customers = 15,000 users in experiment`
+`2000 customers x 15 days x 50% of customers = 15,000 contexts in experiment`
 
 ### Metric
 
@@ -92,6 +92,8 @@ Here is an example of this metric:
 ![The "Metric information" panel for a custom numeric metric.](experiment-logged-in-metric.png)
 
 When adding the event name in your codebase, use the same event name that you created as part of your metric. In this example, the event name is "Time to checkout."
+
+Choose "ms" as the unit of measure, your success criteria as "Lower than baseline," and `user` as the context kind.
 
 ### Variations
 

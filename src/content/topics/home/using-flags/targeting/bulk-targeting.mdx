@@ -1,0 +1,80 @@
+---
+path: /home/flags/bulk-targeting
+title: Bulk targeting
+description: This topic explains how to perform edits on groups of contexts, or export all the contexts a flag is targeted to.
+published: true
+tags: ['target', 'context', 'flag', 'export', 'csv', 'enterprise', 'user']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Bulk targeting is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Bulk targeting is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to perform edits on groups of contexts with the "Bulk edit" option, or export all the contexts a flag is targeted to with the "Export as CSV" option.
+
+The "Bulk edit" option lets you manage all of your targets for a single feature flag variation. You can use bulk editing with the "user" [context kind](/home/contexts/context-kinds) to make changes to users in large numbers, such as adding or removing them to a flag variation. The "Export as CSV" option lets you export all the context keys for a flag's targeting settings as a spreadsheet.
+
+<Callout intent="alert">
+<CalloutTitle>Bulk targeting limitations</CalloutTitle>
+<CalloutDescription>
+
+Very large lists of named contexts increase the size of the payload the SDK fetches when initializing, as well as the memory footprint of the SDK. If you use Big Segments, you may have lists of over 15,000 contexts, which can increase initialization time. To learn more, read [Segments](/home/contexts/segments).
+
+We recommend not exceeding a few thousand individual contexts across your flags and segments. Instead, use context attributes to target a large number of individual contexts. You can assign an attribute to the contexts that should receive the feature flag and then set up the targeting rules to serve the flag to contexts with that attribute, so you can target groups of contexts without increasing the size of the payload.
+
+To learn more, read [Context attributes](/home/contexts/attributes).
+
+</CalloutDescription>
+</Callout>
+
+## Bulk editing
+
+If you have a long list of contexts you want to add, remove, or replace within a segment, you can bulk edit these contexts from a flag's **Targeting** tab.
+
+To edit contexts in bulk:
+
+1. Navigate to the flags list and choose the flag you wish to modify.
+2. In the "Targets" section, click the **overflow menu**:
+
+![The "Targets" section with the "Bulk edit" option called out for user contexts.](flag-targeting-bulk-edit-callout.png)
+
+3. Select "Bulk edit." A "Bulk editing" dialog appears.
+4. Choose "Add", "Remove", or "Replace" from the menu.
+5. Use the menu to do one of the following actions:
+  - "Add" adds the selected contexts as targets to the variation
+  - "Remove" removes the selected contexts from the target variation
+  - "Replace" replaces all currently targeted contexts with the selected contexts
+6. Enter a list of context keys in the **these users** field, separated by a comma or new line. LaunchDarkly looks up contexts with a "user" context kind by key and displays them by name in the list on the right. If you want to target a context that has not yet been encountered by LaunchDarkly, you must enter the key.
+
+![The "Bulk editing" dialog.](flag-targeting-bulk-edit.png)
+
+You can update the list on the right before you perform the selected action. The options for updating the list include the following:
+
+- **All** represents all of the contexts that may be impacted by the action, whether they are added or removed. Check the checkbox for the action to apply.
+- **The checkmark** represents inputted context keys that currently match contexts in the system. For example, if you enter the key `user-key-123-abc`, and a user context with that key already exists in LaunchDarkly, it will show up by name in this list.
+- **The question mark** represents contexts with no matching records in LaunchDarkly. If you are adding contexts and the contexts do not currently exist in LaunchDarkly, they will be added to the targeting list.
+- **Current** lists all of the currently targeted contexts for the variation.
+
+7. Click **Add N users**, **Remove N users**, or **Replace N users** to perform the selected action.
+
+If you want to target the same large numbers of user contexts in multiple flags, you can create a segment, set up targeting rules for the segment, and target the segment instead. To learn how, read [Segments](/home/contexts/segments).
+
+## Exporting a list of contexts to CSV
+
+You can download a list of all the contexts a flag variation is targeted to from the flag's **Targeting** tab.
+
+To export a list of contexts to a CSV file:
+
+1. Navigate to the flag's **Targeting** tab.
+2. In the "Targets" section, click the **overflow menu**:
+
+  ![The "Targets" section with the "Export as CSV" option for user contexts called out.](flag-targeting-export-as-csv.png)
+
+3. Click "Export as CSV." A CSV file including the list of contexts keys a flag variation is targeted to downloads to your machine.

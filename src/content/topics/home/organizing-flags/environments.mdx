@@ -1,9 +1,9 @@
 ---
 path: /home/organize/environments
 title: Environments
-description: This topic explains what environments are in LaunchDarkly. Environments are organizational units contained within projects. Your LaunchDarkly account supports an unlimited number of projects, environments, flags, and server-side Monthly Active Users (MAU).
+description: This topic explains what environments are in LaunchDarkly and how to use them to manage different business areas or areas of your product lifecycle.
 published: true
-tags: ['environment', 'project', 'mau', 'key', 'clone', 'ttl']
+tags: ['environment', 'project', 'mtc', 'key', 'clone', 'ttl', 'mau']
 ---
 
 ## Overview
@@ -12,7 +12,7 @@ This topic explains what environments are in LaunchDarkly and how to use them to
 
 Environments are organizational units contained within projects. Environments allow you to manage your feature flags throughout your entire development lifecycle, from local development through production. Typical environments within a project could be Production, QA, Staging, or individual environments.
 
-Your LaunchDarkly account supports an unlimited number of projects, environments, flags, and server-side Monthly Active Users (MAU). If you are on a **legacy Starter plan**, your account may be limited to two projects and two environments. To remove those restrictions, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+Your LaunchDarkly account supports an unlimited number of projects, environments, flags, and server-side monthly active users (MAU). If you are on a **legacy Starter plan**, your account may be limited to two projects and two environments. To remove those restrictions, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 You can create multiple environments within each project, and all projects must have at least one environment. To learn more about projects, read [Projects](/home/organize/projects).
 
@@ -97,8 +97,8 @@ Confirm you're creating the environment in the project where you want it to live
 4. Give your environment a human-readable **Name**.
 5. (Optional) Give your environment a unique **Key**. This field populates automatically based on your name, but you can change it now if you wish.
 6. (Optional) Add **Tags**.
-7. (Optional) Select the **Enable secure mode** checkbox to ensure a user of the client-side SDK cannot impersonate another user.
-8. (Optional) Select the **Require comments for flag and segment changes** checkbox to force members who modify flags and user segments to leave a comment to explain their changes.
+7. (Optional) Select the **Enable secure mode** checkbox to ensure an end user of a client-side SDK cannot impersonate another end user.
+8. (Optional) Select the **Require comments for flag and segment changes** checkbox to force members who modify flags and segments to leave a comment to explain their changes.
 
 <Callout intent="info">
 <CalloutTitle>Comments help establish a change history</CalloutTitle>
@@ -120,7 +120,7 @@ Required comments is available to customers on an Enterprise plan. To learn more
 </CalloutDescription>
 </Callout>
 
-8. (Optional) Select the **Require confirmation for flag and segment changes** checkbox to force members who modify flags and user segments to verify they wish to make these changes.
+8. (Optional) Select the **Require confirmation for flag and segment changes** checkbox to force members who modify flags and segments to verify they wish to make these changes.
 
 <Callout intent="info">
 <CalloutTitle>Confirm changes helps prevent mistakes</CalloutTitle>
@@ -135,7 +135,7 @@ Requiring members to confirm that they wish to make changes may help them from c
 10. (Optional) Specify a **TTL** between 0 and 60 minutes. TTL, or Time to Live, is a setting in DNS records that dictates how long the record should be cached by nameservers and browsers.
 
 <Callout intent="info">
-<CalloutTitle>PHP users need a TTL setting</CalloutTitle>
+<CalloutTitle>Specify a TTL if you use the PHP SDK</CalloutTitle>
 <CalloutDescription>
 
 The TTL setting checkbox only applies to environments using the PHP SDK. To learn more, read [TTL settings](#ttl-settings).
@@ -163,8 +163,8 @@ For organizations with many flags, cloning an environment is the fastest way to 
 
 When you clone an environment, the following restrictions apply:
 * You cannot clone an environment if it has more than 1000 segments.
-* When you clone an environment, user targeting does not carry over to the new environment, because users may not exist in both environments.
-* Users in segments, Amplitude synced segments, and Big Segments do not carry over to the new environment. Instead, an empty segment is created as a placeholder for flag rules to reference. To learn more about how to sync these segments, read [Big Segments](/home/users/big-segments).
+* When you clone an environment, context targeting does not carry over to the new environment, because contexts may not exist in both environments.
+* Contexts in standard segments, Amplitude synced segments, and Big Segments do not carry over to the new environment. Instead, LaunchDarkly creates an empty segment as a placeholder for flag rules to reference. To learn how to add contexts to these segments, read [Segments](/home/contexts/segments).
 
 Cloning an environment is currently only available through the REST API.
 

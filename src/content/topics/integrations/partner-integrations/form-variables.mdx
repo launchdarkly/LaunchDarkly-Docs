@@ -12,18 +12,12 @@ This topic explains how to use form variables to collect configuration data from
 
 ## Building form variables
 
-To support your configuration, you must describe a set of `formVariables` that define your  configuration properties. The `formVariables` populate a form in the LaunchDarkly user interface (UI) that members complete to add your integration.
+To support your configuration, you must describe a set of `formVariables` that define your configuration properties. The `formVariables` populate a form in the LaunchDarkly user interface (UI) that members complete to add your integration.
 
 Here's an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example manifest', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example manifest">
 
 ```json
 "formVariables": [
@@ -43,8 +37,9 @@ Here's an example:
     }
 ]
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 Here's how the `formVariables` entry above displays on the [LaunchDarkly Integrations page](https://app.launchdarkly.com/default/integrations):
 
@@ -53,6 +48,7 @@ Here's how the `formVariables` entry above displays on the [LaunchDarkly Integra
 Form variables apply to the entire integration configuration. There are no capability-specific form variables.
 
 Here are the form variables you need to supply:
+
 - `key`, `name`, `description`, and `type` are required.
 - `formVariables[].description` is used as a field label on the UI. You can use simple Markdown to link a word or phrase to an external URL.
 - Optionally, you can set `isSecret` or `isOptional` if necessary, or provide guidance with `placeholder` and `defaultValue`. If you provide a `defaultValue`, you must also set `isOptional` to `true` and vice versa.

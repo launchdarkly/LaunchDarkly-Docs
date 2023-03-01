@@ -10,11 +10,9 @@ published: true
 <CalloutTitle>Version 7 of the .NET SDK replaces users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
 
-You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
-
-Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [.NET (server-side) SDK 6.x to 7.0 migration guide](/sdk/server-side/dotnet/migration-6-to-7).
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [.NET (server-side) SDK 6.x to 7.0 migration guide](/sdk/server-side/dotnet/migration-6-to-7) and [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
 
 </CalloutDescription>
 </Callout>
@@ -87,31 +85,20 @@ First, install the LaunchDarkly SDK as a dependency in your application using yo
 
 Here's how:
 
-<CodeTabs
-  defaultValue="shell"
-  values={[
-    { label: 'Shell', value: 'shell', },
-  ]
-}>
-<CodeTabItem value="shell">
+<CodeSample>
+<CSTab label="Shell">
 
 ```bash
 Install-Package LaunchDarkly.ServerSdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly SDK's namespaces in your application code. The namespace is not the same as the package name:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C# (.NET SDK versions 6.x and later)', value: 'csharp', },
-    { label: 'C# (.NET SDK versions 5.14.x and earlier)', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v6.x and later (C#)">
 
 ```csharp
 using LaunchDarkly.Sdk;
@@ -121,34 +108,29 @@ using LaunchDarkly.Sdk.Server;
 // LaunchDarkly.Sdk.Server defines the LdClient and Configuration types for the server-side .NET SDK.
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5">
+</CSTab>
+<CSTab label=".NET SDK v5.14.x and earlier (C#)">
 
 ```csharp
 using LaunchDarkly.Client;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 To create a single instance:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 LdClient client = new LdClient("sdk-key-123abc");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>LdClient should be a singleton</CalloutTitle>
@@ -167,14 +149,8 @@ You can use `client` to check which variation a particular context will receive 
 
 In the v7 example, the context key is the string "context-key-123abc". In the v6 example, the user key is the string "user-key-123abc":
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C# (.NET SDK v7)', value: 'csharp', },
-    { label: 'C# (.NET SDK v6)', value: 'csharp-v6', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 var context = Context.Builder("context-key-123abc")
@@ -191,8 +167,8 @@ else {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-v6">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 var user = User.Builder("example-user-key")
@@ -209,18 +185,13 @@ else {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Contexts have a context kind of "user" by default. To specify a different kind, use the `Kind` method:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C# (.NET SDK v7)', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 var context = Context.Builder("context-key-123abc")
@@ -229,8 +200,8 @@ var context = Context.Builder("context-key-123abc")
   .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Understanding contexts and context kinds](/home/contexts#understanding-contexts-and-context-kinds).
 
@@ -242,14 +213,8 @@ To learn more, [read Microsoft's documentation](https://docs.microsoft.com/en-us
 
 If you cannot update your application platform's configurations to support TLS version 1.2, you can update your application's SDK configuration to use new LaunchDarkly endpoints that support TLS versions 1.0 and later. Here is an example:
 
-<CodeTabs
-  defaultValue="sdk6"
-  values={[
-    { label: '.NET SDK 6.x and 7.x syntax', value: 'sdk6', },
-    { label: '.NET SDK 5.x syntax', value: 'sdk5', },
-  ]
-}>
-<CodeTabItem value="sdk5">
+<CodeSample>
+<CSTab label=".NET SDK 5.x syntax (C#)">
 
 ```csharp
 // Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
@@ -274,8 +239,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk6">
+</CSTab>
+<CSTab label=".NET SDK 6.x and 7.x syntax (C#)">
 
 ```csharp
 // Use `stream-tls10.launchdarkly.com` and `events-tls10.launchdarkly.com` TLSv1 endpoints
@@ -296,8 +261,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Potential network connectivity issues caused by DNS caching</CalloutTitle>

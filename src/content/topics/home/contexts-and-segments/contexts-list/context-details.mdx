@@ -1,0 +1,96 @@
+---
+path: /home/contexts/context-details
+title: The context details page
+description: This topic explains what the context details page is. The context details page gives you a detailed view of a context and lets you customize its experience from one screen.
+published: true
+tags: ['dashboard', 'context', 'attribute', 'mci', 'cmci', 'mau', 'user']
+---
+
+## Overview
+
+This topic explains what the context details page is. The context details page gives you a detailed view of a context and lets you customize its experience from one screen.
+
+To open the details page for a context, click on the context name from the **Contexts** list.
+
+## Attributes
+
+The "Attributes" section displays all of the context attributes associated with the selected context instance version. A context instance version is a context instance that's recorded from a unique source application or LaunchDarkly SDK.
+
+This illustration shows a flag evaluating two instance versions of the same context:
+
+![Two instance versions of the same context.](context-instance-versions.png)
+
+To learn more, read [Understanding context instances](/home/contexts#understanding-context-instances).
+
+To view attributes from a different context instance version, choose a different version from the "From source" menu:
+
+![The "From source" menu with two context instance versions displayed.](context-details-instance-menu.png)
+
+To learn more, read [Context attributes](/home/contexts/attributes).
+
+<LearnMore>
+
+You can also use the REST API: [Get context attribute names](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextAttributeNames), [Get context attribute values](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextAttributeValues)
+
+</LearnMore>
+
+## Segments
+
+The "Segments" section lists any segments the context is a part of. Click on the segment name to open the segment's **Targeting** tab.
+
+To learn more, read [Segments](/home/contexts/segments).
+
+## Instances
+
+The "Instances" section lists the instances in which the context has appeared, and when LaunchDarkly last encountered each instance:
+
+![The "Instances" section with two instances.](context-details-instances.png)
+
+Click on an individual instance name to open the instance details page. The instance details page lists the context kinds, attributes, segments, and expected flag variations for that particular context instance.
+
+<LearnMore>
+
+You can also use the REST API: [Get context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextInstances)
+
+</LearnMore>
+
+### Deleting a context instance
+
+You can delete a context instance by clicking on an individual instance name to open the instance details page, then clicking **Delete**:
+
+  ![A context instance detail page with the "Delete" button called out.](context-details-instances-delete-callout.png)
+
+Deleting a context instance deletes all versions of that instance. Deleting context instances from the **Contexts** list does not decrease your monthly active users (MAU) count.
+
+<LearnMore>
+
+You can also use the REST API: [Delete context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/deleteContextInstances)
+
+</LearnMore>
+
+## Expected flag variations
+
+The "Expected flag variations" section lists the variation you can expect that context instance to receive for each flag within your current project and environment.
+
+### Modifying feature flag variations for a context
+
+You can modify the feature flag variation a context receives. To do this:
+
+1. Find the flag you want to modify in the "Expected flag variations" section.
+2. Select a new variation from the **Variation** menu next to the flag:
+
+    ![The "Expected flag variations" section with a variation called out.](context-details-targeting-callout.png)
+
+3. (Optional) To remove individual targeting, either:
+  - change to the variation from the **Variation** dropdown, or
+  - click the "Evaluation reason" link to remove the individual target from the flag's **Targeting** tab.
+4. Click **Save changes**.
+
+<Callout intent="info">
+<CalloutTitle>Flag targeting changes are only available for individual contexts.</CalloutTitle>
+<CalloutDescription>
+
+You cannot make targeting changes to context instances with multiple contexts. That option is not available on the instance details page with multiple contexts.
+
+</CalloutDescription>
+</Callout>

@@ -63,40 +63,30 @@ Unlike other LaunchDarkly SDKs, the C/C++ SDK has no installation steps. To get 
 
 After cloning the repository, include the LaunchDarkly SDK headers:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 #include "launchdarkly/api.h"
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Configure logging, and call the global initialization function. You must call these functions before you perform any other operations. LaunchDarkly provides a predefined convenience logger.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDConfigureGlobalLogger(LD_LOG_INFO, LDBasicLogger);
 LDGlobalInit();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
@@ -115,13 +105,8 @@ Calling `LDClientInit` initiates a remote call to the LaunchDarkly service to fe
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 unsigned int maxwaitmilliseconds = 10 * 1000;
@@ -130,20 +115,15 @@ struct LDUser *user = LDUserNew("user-key-123abc");
 struct LDClient *client = LDClientInit(config, maxwaitmilliseconds);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can use `client` to check which variation a particular user will receive for a given feature flag.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 user = LDUserNew("user-key-123abc");
@@ -157,18 +137,13 @@ if (show_feature) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If the SDK might be able to execute your flag evaluation before `client` initializes, wrap your call in `LDClientIsInitialized(client)`:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 if (LDClientIsInitialized(client)) {
@@ -176,8 +151,8 @@ if (LDClientIsInitialized(client)) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

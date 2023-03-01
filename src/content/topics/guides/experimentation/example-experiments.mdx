@@ -21,11 +21,11 @@ This guide provides examples of experiments you can build in LaunchDarkly.
 
 ## Example 1: Notifications opt-in
 
-When a user downloads your app onto their phone or tablet for the first time, it may ask the user to opt-in to notifications from the app. Some apps ask the user to opt-in right away, and others wait until the user has interacted with your app for a certain amount of time before asking.
+When a customer downloads your app onto their phone or tablet for the first time, it may ask them to opt-in to notifications from the app. Some apps ask the customer to opt-in right away, and others wait until the customer has interacted with your app for a certain amount of time before asking.
 
-Asking the user to opt-in right away may feel premature, as the user might not know yet if they like your app enough to want notifications. However, waiting too long may also result in fewer opt-ins, as the user may have become comfortable using your app without notifications.
+Asking the customer to opt-in right away may feel premature, as the customer might not know yet if they like your app enough to want notifications. However, waiting too long may also result in fewer opt-ins, as the customer may have become comfortable using your app without notifications.
 
-The Apple app store allows apps to ask users to opt-in only once. This means it's important to time your one opt-in request at a point when the user is most likely to opt-in. You can use Experimentation to find out when this time is.
+The Apple app store allows apps to ask customers to opt-in only once. This means it's important to time your one opt-in request at a point when the customer is most likely to opt-in. You can use Experimentation to find out when this time is.
 
 ### Hypothesis
 
@@ -33,19 +33,19 @@ To begin, create a hypothesis for your experiment.
 
 Here is an example:
 
-"We believe that by prompting a user to opt-in to notifications on the fifth time they open our app, users will opt-in to notifications significantly more often than those who are prompted the first time they open our app, and slightly more often than those who are prompted on the tenth time they open our app."
+"We believe that by prompting a customer to opt-in to notifications on the fifth time they open our app, customers will opt-in to notifications significantly more often than those who are prompted the first time they open our app, and slightly more often than those who are prompted on the tenth time they open our app."
 
 ### Sample size
 
-Next, determine the sample size needed for your experiment. In this example, you know that about 2,000 people download your app per day, and you'd like to have at least 40,000 users in your experiment. You decide to include 100% of your new users in the sample to get the fastest results. So, you will run this experiment for 21 days to include about 42,000 users.
+Next, determine the sample size needed for your experiment. In this example, you know that about 2,000 people download your app per day, and you'd like to have at least 40,000 customers in your experiment. You decide to include 100% of your new customers in the sample to get the fastest results. So, you will run this experiment for 21 days to include about 42,000 customers.
 
 Here is the sample size calculation:
 
-`2,000 users x 21 days x 100% of users = 42,000 users in experiment`
+`2,000 customers x 21 days x 100% of customers = 42,000 customers in experiment`
 
 ### Metric
 
-You will use a click conversion metric to track when users opt-in to notifications. To learn how to create a click conversion metric, read [Click conversion metrics](/home/creating-experiments/metrics/click).
+You will use a click conversion metric to track when customers opt-in to notifications. To learn how to create a click conversion metric, read [Click conversion metrics](/home/creating-experiments/metrics/click).
 
 Here is what your metric will look like:
 
@@ -65,7 +65,7 @@ Here is what your flag's **Variations** tab will look like:
 
 ### Audience
 
-You want to include only users who have newly downloaded the app. To accomplish this, you can build a rule on your flag to exclude users who have already made an opt-in decision. To learn how, read [Targeting rules](/home/flags/targeting-rules).
+You want to include only customers who have newly downloaded the app. To accomplish this, you can build a rule on your flag to exclude customers that have already made an opt-in decision. To learn how, read [Targeting rules](/home/flags/targeting-rules).
 
 Here is what your flag's **Targeting** tab will look like with a targeting rule:
 
@@ -75,7 +75,7 @@ Here is what your flag's **Targeting** tab will look like with a targeting rule:
 <CalloutTitle>You must run experiments on the correct rule</CalloutTitle>
 <CalloutDescription>
 
-When you build an experiment, you can choose which flag targeting rule to run the experiment on. This ensures you include the right group of users in your experiment. In this example, run the experiment on the flag’s targeting rule that you just created, not the flag’s default rule.
+When you build an experiment, you can choose which flag targeting rule to run the experiment on. This ensures you include the right group of customers in your experiment. In this example, run the experiment on the flag’s targeting rule that you just created, not the flag’s default rule.
 
 </CalloutDescription>
 </Callout>
@@ -104,11 +104,11 @@ Here is an example:
 
 ### Sample size
 
-Next, determine the sample size needed for your experiment. In this example, you do not want to include your entire user base in your experiment, so decide to limit your experiment to 10% of your users. You know that about 60,000 people visit your site per day, and you'd like to have at least 120,000 users in your experiment. So, you will run this experiment for 20 days.
+Next, determine the sample size needed for your experiment. In this example, you do not want to include your entire user base in your experiment, so decide to limit your experiment to 10% of your customers. You know that about 60,000 people visit your site per day, and you'd like to have at least 120,000 customers in your experiment. So, you will run this experiment for 20 days.
 
 Here is the sample size calculation:
 
-`60,000 users x 20 days x 10% of users = 120,000 users in experiment`
+`60,000 customers x 20 days x 10% of customers = 120,000 customers in experiment`
 
 ### Metric
 
@@ -162,15 +162,15 @@ To begin, create a hypothesis for your experiment.
 
 Here is an example:
 
-"We believe that giving users an extra week in their free trial, for a total of 21 days, will increase conversions to a paid account compared to the control of 14 days."
+"We believe that giving customers an extra week in their free trial, for a total of 21 days, will increase conversions to a paid account compared to the control of 14 days."
 
 ### Sample size
 
-Next, determine the sample size needed for your experiment. In this example, you know that about 750 users sign up for a free trial per day, and you'd like to have at least 10,000 users in your experiment. So, you will run this experiment for 14 days to include about 10,500 users.
+Next, determine the sample size needed for your experiment. In this example, you know that about 750 customers sign up for a free trial per day, and you'd like to have at least 10,000 customers in your experiment. So, you will run this experiment for 14 days to include about 10,500 customers.
 
 Here is the sample size calculation:
 
-`750 users x 14 days x 100% of users = 10,500 users in experiment`
+`750 customers x 14 days x 100% of customers = 10,500 customers in experiment`
 
 ### Metric
 
@@ -195,7 +195,7 @@ Here is what your flag's **Variations** tab will look like:
 
 ### Audience
 
-In this experiment, you do not want to include students who may be using your trial service for school projects, so you will exclude users with email addresses that end with `.edu`. To accomplish this, you can build a rule on your flag. To learn how, read [Targeting rules](/home/flags/targeting-rules).
+In this experiment, you do not want to include students who may be using your trial service for school projects, so you will exclude customers with email addresses that end with `.edu`. To accomplish this, you can build a rule on your flag. To learn how, read [Targeting rules](/home/flags/targeting-rules).
 
 Here is what your flag's **Targeting** tab will look like with a targeting rule:
 
@@ -205,7 +205,7 @@ Here is what your flag's **Targeting** tab will look like with a targeting rule:
 <CalloutTitle>You must run experiments on the correct rule</CalloutTitle>
 <CalloutDescription>
 
-When you build an experiment, you can choose which flag targeting rule to run the experiment on. This ensures you include the right group of users in your experiment. In this example, run the experiment on the flag’s targeting rule that you just created, not the flag’s default rule.
+When you build an experiment, you can choose which flag targeting rule to run the experiment on. This ensures you include the right group of customers in your experiment. In this example, run the experiment on the flag’s targeting rule that you just created, not the flag’s default rule.
 
 </CalloutDescription>
 </Callout>

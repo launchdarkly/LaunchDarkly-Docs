@@ -71,7 +71,7 @@ yarn dev
 
 The site will build. Monitor the progress in your terminal, and when the build completes, navigate to [localhost:8000](http://localhost:8000).
 
-You can also run in a `fast` development mode which omits all mdx images and most mdx content except for getting-started, managing-flags and managing-users:
+You can also run in a `fast` development mode which omits all mdx images and most mdx content except for `/home/getting-started`, `/home/flags` and `/home/contexts` :
 
 ```shell
 yarn && yarn dev-fast

@@ -14,9 +14,9 @@ In LaunchDarkly, the combination of metrics and flags is an experiment. Experime
 
 ## Configuring experiments
 
-When a user performs a metric-tracked action in your application after they encounter a feature flag, the experiment logs an event.
+When an end user performs a metric-tracked action in your application after they encounter a feature flag, the experiment logs an event.
 
-For example, an experiment might show that users are more likely to convert by clicking "Checkout" when the checkout button is a certain color. The metric you would track is the number of times users click on the checkout button. You would connect the metric to a flag serving four variations, each of which is a different color for the button.
+For example, an experiment might show that end users are more likely to convert by clicking "Checkout" when the checkout button is a certain color. The metric you would track is the number of times end users click on the checkout button. You would connect the metric to a flag serving four variations, each of which is a different color for the button.
 
 Configuring an experiment requires four steps:
 
@@ -47,9 +47,9 @@ The all flags method sends events for some SDKs, but not others. For SDKs that d
 
 Your network must be allowed to send events to LaunchDarkly. Ensure that event streaming endpoints, `mobile.launchdarkly.com`, and `events.launchdarkly.com` are on your allow list.
 
-### You must be using unique user keys
+### You must be using unique context keys
 
-Your anonymous users must have their own unique user keys to use Experimentation. To learn more, read [Designating anonymous users](/sdk/features/user-context-config#designating-anonymous-contexts).
+Your anonymous contexts must have their own unique context keys to use Experimentation. To learn more, read [Designating anonymous contexts](/sdk/features/user-context-config#designating-anonymous-contexts).
 
 ### You must configure the Relay Proxy to send events
 
@@ -57,7 +57,7 @@ You do not have to use the Relay Proxy to use Experimentation. However, if you d
 
 ## Creating metrics
 
-Metrics are the measure against which you evaluate flag events. You can use metrics to track all kinds of things, from how often users access a URL to how long that URL takes to load a page. If users load a URL, click an element, or otherwise participate in the behavior the metric tracks, LaunchDarkly sends an event to your experiment.
+Metrics measure audience behaviors affected by the flags in your experiments. You can use metrics to track all kinds of things, from how often end users access a URL to how long that URL takes to load a page. If end users load a URL, click an element, or otherwise participate in the behavior the metric tracks, LaunchDarkly sends an event to your experiment.
 
 You don't need to create a new metric for each new experiment. You can reuse existing metrics in multiple experiments, which allows you to compare how the metric performs with different flags. Similarly, a single experiment can use primary and secondary metrics, which allow you to observe how the variations perform against various measurements.
 
@@ -84,8 +84,9 @@ To build an experiment:
 
 ![The "Experiments" list with the "Create experiment" button called out.](experiment-list-new-callout.png)
 
-3. Enter an **Experiment name**.
+3. The "Experiment details" step opens. Enter an **Experiment name**.
 4. Enter a **Hypothesis** for your experiment.
+5. Choose a context kind from the **Randomization unit for this experiment** menu. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
 5. Click **Next**. The "Select metrics" step opens.
 6. Choose a metric from the **Primary metric** menu.
 7. (Optional) Choose additional metrics from the **Secondary metrics** menu. To learn more, read [Using primary and secondary metrics](#using-primary-and-secondary-metrics).
@@ -95,9 +96,9 @@ To build an experiment:
 8. Click **Next**. The "Define variations" step opens.
 9. Choose a flag to use in the experiment from the **Select flag** menu.
 10. Click **Next**. The "Set audience" step opens.
-11. Choose which targeting rule to run the experiment on. 
-  - If you want to restrict your experiment audience to only users with certain attributes, create a targeting rule on the flag you include in the experiment and run the experiment on that rule.
-  - If you don't want to restrict the audience for your experiment, run the experiment on the flag's default rule. If the flag doesn't have any user targeting rules, the flag's default rule will be the only option.
+11. Choose which targeting rule to run the experiment on.
+  - If you want to restrict your experiment audience to only contexts with certain attributes, create a targeting rule on the flag you include in the experiment and run the experiment on that rule.
+  - If you don't want to restrict the audience for your experiment, run the experiment on the flag's default rule. If the flag doesn't have any targeting rules, the flag's default rule will be the only option.
 
 ![The "Set audience" step with the default rule chosen.](experiment-builder-set-audience.png)
 

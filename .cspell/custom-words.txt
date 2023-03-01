@@ -42,6 +42,7 @@ classname
 classpath
 clientstream
 cmake
+cmci
 cocoapods
 codebases
 coderefs
@@ -65,7 +66,6 @@ eaas
 elif
 elsewhere
 emptystate
-Ernestina
 evalx
 eventhub
 eventsource
@@ -98,6 +98,7 @@ guzzlehttp
 Hackage
 Hashicorp
 hashlib
+hedis
 hexdigest
 HMACSHA
 inclusivity
@@ -174,6 +175,7 @@ NRQL
 objc
 okhttp
 onelogin
+optin
 overrepresent
 packagename
 Packagist
@@ -260,8 +262,10 @@ subfeatures
 subpackage
 subproject
 subtab
+subtabs
 svelte
 sveltekit
+targetable
 targetusername
 templatable
 templating
@@ -274,6 +278,7 @@ timeseries
 toset
 TOTP
 touchpoints
+transpiles
 treeview
 Trello
 trendgraph

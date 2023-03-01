@@ -94,102 +94,27 @@ There are four different types of callouts:
 
 ## Learn more
 
-### Single
+Use the LearnMore component to link to related API endpoints in our API docs.
 
 <LearnMore>
 
-Learn more: [Single link](/foobar)
+You can also use the REST API: [Single link](/foobar)
 
 </LearnMore>
 
-<CodeTabs
-  defaultValue="text"
-  values={[
-    { label: 'Single Learn More', value: 'text', },
-  ]
-}>
-<CodeTabItem value="text">
+<CodeSample>
+<CSTab label="Single learn more">
 
 ```js
 <LearnMore>
 
-Learn more: [Single link](/foobar)
+You can also use the REST API: [Single link](/foobar)
 
 </LearnMore>
 ```
 
-</CodeTabItem>
-</CodeTabs>
-
-### Multiple
-
-<LearnMore>
-
-Learn more:
-  * [This is an internal link](/foobar)
-  * [External link](http://reactjunkie.com)
-  * [Another internal link](/foobar)
-
-</LearnMore>
-
-
-<CodeTabs
-  defaultValue="LearnMore"
-  values={[
-    { label: 'Multiple Learn More', value: 'LearnMore', },
-  ]
-}>
-<CodeTabItem value="LearnMore">
-
-```js
-<LearnMore>
-
-Learn more:
-  * [This is an internal link](/foobar)
-  * [External link](http://reactjunkie.com)
-  * [Another internal link](/foobar)
-
-</LearnMore>
-```
-
-</CodeTabItem>
-</CodeTabs>
-
-### Using Additional Text
-
-<LearnMore>
-
-Some lead text describing the links.<br/><br/>
-
-  * [This is an internal link](/foobar)
-  * [External link](http://reactjunkie.com)
-  * [Another internal link](/foobar)
-
-</LearnMore>
-
-
-<CodeTabs
-  defaultValue="LearnMore"
-  values={[
-    { label: 'Using Additional Text', value: 'LearnMore', },
-  ]
-}>
-<CodeTabItem value="LearnMore">
-
-```js
-<LearnMore>
-
-Some lead text describing the links.<br/><br/>
-
-  * [This is an internal link](/foobar)
-  * [External link](http://reactjunkie.com)
-  * [Another internal link](/foobar)
-
-</LearnMore>
-```
-
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Details
 
@@ -201,14 +126,8 @@ Here are some expanded details
 
 </Details>
 
-<CodeTabs
-  defaultValue=""
-  values={[
-    { label: 'Details', value: 'Details', },
-  ]
-}>
-
-<CodeTabItem value="Details">
+<CodeSample>
+<CSTab label="Details">
 
 ```jsx
 <Details summary="Click to open more information">
@@ -218,8 +137,8 @@ Here are some expanded details
 </Details>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Details may also be set to be open by default
 
@@ -229,14 +148,8 @@ This details is open by default
 
 </Details>
 
-<CodeTabs
-  defaultValue=""
-  values={[
-    { label: 'Details', value: 'Details', },
-  ]
-}>
-
-<CodeTabItem value="Details">
+<CodeSample>
+<CSTab label="Details">
 
 ```jsx
 <Details open summary="Click to open more information">
@@ -246,8 +159,8 @@ This details is open by default
 </Details>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Image
 
@@ -256,21 +169,15 @@ The docs site supports PNGs and GIFs. Just use Markdown images. Put the images i
 ![Some caption](data-export.png)
 
 
-<CodeTabs
-  defaultValue=""
-  values={[
-    { label: 'Image', value: 'Image', },
-  ]
-}>
-
-<CodeTabItem value="Image">
+<CodeSample>
+<CSTab label="Image">
 
 ```markdown
 ![Some caption](data-export.png)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Callout
 
@@ -278,10 +185,10 @@ Include a blank line between the opening and closing `<CalloutDescription>` tags
 
 ```js
 <Callout intent="primary"> <!-- OR alert, warning, info -->
-  <CalloutTitle>Adding users to LaunchDarkly</CalloutTitle>
+  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
   <CalloutDescription>
 
-You do not have to send users to LaunchDarkly in advance. <a href="">Check out this page</a>. You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the <strong>Users</strong> list automatically after they encounter feature flags.
+FEATURE HERE is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
 
   </CalloutDescription>
 </Callout>
@@ -302,29 +209,16 @@ The behavior is as follows:
 ## Code samples
 
 1. Write code block as markdown as usual.
-2. Add a `CodeTabs` component with a default value, which will be the first tab shown, and a values array of objects with a label and value.
-3. Each CodeTabItem will be one of the tabs.
-4. If a tab has federal-specific content, include two versions of the language. Set `site=federal` after the language for the federal-specific code block. When the reader selects "LaunchDarkly docs," the CodeTabItem displays the unannotated code block. When they select "Federal docs," the CodeTabItem displays the `site=federal` code block.
+2. Add a `CodeSample` component.
+3. Each CSTab will be one of the tabs.
+4. If a tab has federal-specific content, include two versions of the language. Set `site=federal` after the language for the federal-specific code block. When the reader selects "LaunchDarkly docs," the CSTab displays the unannotated code block. When they select "Federal docs," the CSTab displays the `site=federal` code block.
 
-<CodeTabs
-  defaultValue="code"
-  values={[
-    { label: 'Code snippet', value: 'code', },
-  ]
-}>
-<CodeTabItem value="code">
+<CodeSample>
+<CSTab label="Code snippet">
 
 ```js
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'Python', value: 'py', },
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-    <CodeTabItem value="js">
+<CodeSample>
+    <CSTab label="JavaScript">
 
     ```js
     function helloWorld() {
@@ -337,16 +231,16 @@ The behavior is as follows:
       }
     ```
 
-    </CodeTabItem>
-    <CodeTabItem value="py">
+    </CSTab>
+    <CSTab label="Python">
 
     ```python
     def hello_world():
       print 'Hello, world!'
     ```
 
-    </CodeTabItem>
-    <CodeTabItem value="java">
+    </CSTab>
+    <CSTab label="Java">
 
     ```java
     class HelloWorld {
@@ -356,25 +250,20 @@ The behavior is as follows:
     }
     ```
 
-    </CodeTabItem>
+    </CSTab>
 
-</CodeTabs>
+</CodeSample>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Tables
 
 Markdown tables are hard to read in text editors and easy to break. We built our own table component to use instead. It's much like an HTML table. When content in a table cell is left-justified, and bracketed by empty lines, you can use HTML tags in it.
 
-<CodeTabs
-  defaultValue="Table"
-  values={[
-    { label: 'Table', value: 'Table', },
-  ]
-}>
-<CodeTabItem value="Table">
+<CodeSample>
+<CSTab label="Table">
 
 ```jsx
 <Table>
@@ -399,8 +288,8 @@ Column 2 Cell 1 <a href="example.com">with a link in it</a>.
 </Table>
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 # Special considerations for federal docs
 

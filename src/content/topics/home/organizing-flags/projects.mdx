@@ -18,7 +18,7 @@ Environments are organizational units contained within a project. To learn more,
 
 Set up a project to serve one set of end users. Sorting your flags into related chunks of functionality based on their impact on end users helps you logically organize related flags.
 
-A common pattern is to map each project in your LaunchDarkly instance to a specific product your company makes. For example, a mobile application, web app, and back-end services that are presented to the user as one product might all fit in one project because they likely will share most flags. To learn about other common patterns for mapping your architecture with LaunchDarkly, read [Implementing LaunchDarkly Project Architecture Best Practices](https://launchdarkly.com/blog/implementing-launchdarkly-project-architecture-best-practices).
+A common pattern is to map each project in your LaunchDarkly instance to a specific product your company makes. For example, a mobile application, web app, and back-end services that are presented to a customer as one product might all fit in one project because they likely will share most flags. To learn about other common patterns for mapping your architecture with LaunchDarkly, read [Implementing LaunchDarkly Project Architecture Best Practices](https://launchdarkly.com/blog/implementing-launchdarkly-project-architecture-best-practices).
 
 
 <Callout intent="info">
@@ -34,7 +34,7 @@ Here is a diagram of two example projects, "Web App" and "Mobile App":
 
 ![A visual representation of two projects, "Web App" and "Mobile App," each of which have multiple environments.](projects-two-app-types.png)
 
-Your LaunchDarkly account supports an unlimited number of projects, environments, flags, and server-side Monthly Active Users (MAU). If you are on a **legacy Starter plan**, your account may be limited to two projects and two environments. To remove those restrictions, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+Your LaunchDarkly account supports an unlimited number of projects, environments, flags, context kinds, and server-side monthly active users (MAU). If you are on a **legacy Starter plan**, your account may be limited to two projects and two environments. To remove those restrictions, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 ## Projects and environments
 
@@ -121,15 +121,15 @@ You can access a project's flag defaults by navigating to the **Projects** tab u
 
 All flag types support the following defaults:
 
-- The **Mark flags as permanent** checkbox determines whether new flags should be permanent or temporary. 
-- The **Make available for Mobile SDK** and **Make available for Client-side** checkboxes determine whether new flags should be available to mobile and/or client-side SDKs. 
+- The **Mark flags as permanent** checkbox determines whether new flags should be permanent or temporary.
+- The **Make available for Mobile SDK** and **Make available for Client-side** checkboxes determine whether new flags should be available to mobile and/or client-side SDKs.
 - The **Default tags** field adds listed tags to new flags.
 
 In addition, boolean flags support the following defaults:
 
 - The **Display name** fields set the name of **true** and **false** variations of new flags.
 - The **Description** fields set the description for **true** and **false** variations of new flags.
-- The **Default on behavior** determines which variation a new flag will serve when the flag's targeting is on and the user did not match any targeting rules.
-- The **Off behavior** determines which variation a new flag will serve when the flag's targeting is off. 
+- The **Default on behavior** determines which variation a new flag will serve when the flag's targeting is on and the context did not match any targeting rules.
+- The **Off behavior** determines which variation a new flag will serve when the flag's targeting is off.
 
 To learn more about these default settings, read [Other flag settings](/home/flags/settings).

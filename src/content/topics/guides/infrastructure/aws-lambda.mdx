@@ -6,6 +6,17 @@ published: true
 tags: ['guide', 'serverless', 'aws', 'lambda']
 ---
 
+<Callout intent="alert">
+<CalloutTitle>This guide has not been updated to include custom contexts</CalloutTitle>
+<CalloutDescription>
+
+This documentation is not updated to display upcoming changes from LaunchDarkly's contexts feature. This documentation will be updated during the contexts Early Access Program (EAP).
+
+To learn more about custom contexts, read [Contexts and segments](/home/contexts).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This guide explains how to connect LaunchDarkly with an AWS Lambda serverless function and deploy this function to Lambda@Edge.
@@ -14,7 +25,7 @@ Serverless functions play a critical role in modern application architectures. F
 
 In this guide, you'll explore how to build a serverless function with [AWS Lambda](https://aws.amazon.com/lambda/) and how you can use LaunchDarkly flags and Lambda functions to conditionally enable or modify server-side logic. In addition, you'll learn how to deploy this to [CloudFront](https://aws.amazon.com/cloudfront/), Amazon's content delivery network (CDN), as [Lambda@Edge](https://aws.amazon.com/lambda/edge/) so you can use the flags to conditionally perform actions at the "edge."
 
-The example function you will build redirects users to a different version of a website. It is better to do this "at the edge" to limit any latency the user might experience during the request. Rather than intercept the request on the server and do a server-side redirect or send back a response that performs a client-side redirect, you can intercept the request at the CDN level closest to the user and direct it to a specific version of the site. Identifying the user and serving them a flag variation from the edge means faster state changes to feature flags, and no disruptions when the flag state changes from the default value to the targeted variation.
+The example function you will build redirects viewers to a different version of a website. It is better to do this "at the edge" to limit any latency they might experience during the request. Rather than intercept the request on the server and do a server-side redirect or send back a response that performs a client-side redirect, you can intercept the request at the closest CDN level and direct it to a specific version of the site. Serving a flag variation from the edge means faster state changes to feature flags, and no disruptions when the flag state changes from the default value to the targeted variation.
 
 ### Prerequisites
 
@@ -30,11 +41,11 @@ The source code for the example below is available [on GitHub](https://github.co
 
 ## Example: Controlling a percentage release from the edge
 
-Let's imagine your company is launching a rebrand that includes a new site design. This is a major undertaking and the marketing department wants to be sure that everything is perfect. Rather than enable a flag to deploy the site to everyone, they want to roll out the new site to an increasing percentage of users over time. How can you do this without it becoming a major DevOps headache?
+Let's imagine your company is launching a rebrand that includes a new site design. This is a major undertaking and the marketing department wants to be sure that everything is perfect. Rather than enable a flag to deploy the site to everyone, they want to roll out the new site to an increasing percentage of people over time. How can you do this without it becoming a major DevOps headache?
 
-In this example, you'll use LaunchDarkly to control the release. LaunchDarkly will assign each user to a variation that determines whether they receive the new site or the old site. An AWS Lambda@Edge function will use this information to route them to the appropriate version of the site at the edge, rather than relying on a client-side or server-side redirect.
+In this example, you'll use LaunchDarkly to control the release. LaunchDarkly will assign each end user to a variation that determines whether they receive the new site or the old site. An AWS Lambda@Edge function will use this information to route them to the appropriate version of the site at the edge, rather than relying on a client-side or server-side redirect.
 
-After you create a Lambda function, users will either be directed to the old site or the new site depending on which variation they are assigned to within LaunchDarkly. LaunchDarkly determines this by assigning each unique user according to a percentage rollout.
+After you create a Lambda function, end users will either be directed to the old site or the new site depending on which variation they are assigned to within LaunchDarkly. LaunchDarkly determines this by assigning each unique end user according to a percentage rollout.
 
 To learn more about percentage rollouts, read [Percentage rollouts](/home/flags/rollouts).
 
@@ -137,21 +148,16 @@ After you download the function locally, install the [LaunchDarkly Node SDK](/sd
 
     Use this code:
 
-    <CodeTabs
-    defaultValue="js"
-    values={[
-        { label: 'JavaScript', value: 'js', }
-    ]
-    }>
-    <CodeTabItem value="js">
+    <CodeSample>
+    <CSTab label="JavaScript">
 
     ```js
     const LaunchDarkly = require('launchdarkly-node-server-sdk')
     const client = LaunchDarkly.init('sdk-key-123abc')
     ```
 
-   </CodeTabItem>
-   </CodeTabs>
+   </CSTab>
+   </CodeSample>
 
    <Callout intent="info">
    <CalloutTitle>Lambda@Edge does not support environment variables.</CalloutTitle>
@@ -166,13 +172,8 @@ After you download the function locally, install the [LaunchDarkly Node SDK](/sd
 
 4. Test your setup by initializing LaunchDarkly and returning a response indicating whether it has succeeded or failed.
 
-    <CodeTabs
-    defaultValue="js"
-    values={[
-        { label: 'JavaScript', value: 'js', }
-    ]
-    }>
-    <CodeTabItem value="js">
+    <CodeSample>
+    <CSTab label="JavaScript">
 
     ```js
     exports.handler = async (event) => {
@@ -189,8 +190,8 @@ After you download the function locally, install the [LaunchDarkly Node SDK](/sd
     };
     ```
 
-    </CodeTabItem>
-    </CodeTabs>
+    </CSTab>
+    </CodeSample>
 
 5. To update the Lambda function, including uploading the npm dependencies, open the AWS panel in VS Code. Right-click the function and select "Upload." When prompted, choose "Directory" and then select the directory that the Lambda function is in. When it asks you whether to build with SAM, choose "No."
 
@@ -211,24 +212,19 @@ LaunchDarkly is now initialized, so you can set up flags to use in the function 
 
 5. Find to the "Default rule" section and choose "A percentage rollout" from the **Serve** menu. For the purposes of this example, assign 50/50. In a real world scenario, you'd likely start with a smaller distribution in the first variation and increase that number over time.
 
- ![Setting a percentage rollout.](rules-percentage-fifty.png)
+ ![Setting a percentage rollout.](flag-rules-percentage-fifty.png)
 
 6. Scroll up and click **Save changes**.
 7. Toggle the flag **On** and save again. If you don't turn targeting on, the percentage rollout will not run and you'll only get the default off variation.
 
 ### Getting a flag value in Lambda
 
-Now that you've created a flag, you can use it in your function. First, you'll add a new flag call to the code. The code below uses the LaunchDarkly SDK to call for the value of the `rebrand` flag. Use your email as a static key to identify the user. The key determines which variation you receive, based on rollout percentages. Because you're entering the key manually, you will always get the same result regardless of how many times you call the flag.
+Now that you've created a flag, you can use it in your function. First, you'll add a new flag call to the code. The code below uses the LaunchDarkly SDK to call for the value of the `rebrand` flag. Use your email as a static key to identify the context. The key determines which variation you receive, based on rollout percentages. Because you're entering the key manually, you will always get the same result regardless of how many times you call the flag.
 
 Replace the existing handler code with the code below:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-      { label: 'JavaScript', value: 'js', }
-  ]
-  }>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
   ```js
   exports.handler = async event => {
@@ -242,8 +238,8 @@ Replace the existing handler code with the code below:
   }
   ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Open the AWS panel in VSCode. Right-click to upload. When the upload finishes, right-click the function and invoke it again. You do not need a payload.
 
@@ -257,21 +253,16 @@ You've successfully integrated and used a LaunchDarkly flag in a Lambda function
 
 You're using Lambda, and now you can add Lambda@Edge. Here's how to deploy your function there.
 
-A function running on Lambda@Edge receives a specific [event structure](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html). You can use this to specify a key for LaunchDarkly that will ensure that different users get different flag variations, but the same user always ends up in the same group. For example, users 1 and 2 will each get variations A and B, respectively, regardless of how many times they load the website. User 2 will never get variation A and user 1 will never get variation B.
+A function running on Lambda@Edge receives a specific [event structure](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-event-structure.html). You can use this to specify a key for LaunchDarkly that will ensure that different contexts get different flag variations, but the same context always ends up in the same group. For example, contexts 1 and 2 will each get variations A and B, respectively, regardless of how many times they load the website. Context 2 will never get variation A and context 1 will never get variation B.
 
 The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site. Otherwise, if the value is `false`, it redirects them to the original site. A more complete solution would take into account the URI and query string that was requested and redirect them to the appropriate location on either the beta or main site, but this example is simpler than a real-life example. The code below gets the value of the flag and, if the value is `true`, redirects them to the beta site.
 
-First, update your function to use this event. You can use the user's IP address as the key. While the IP isn't unique to an individual, it is the only identifying information we always have available for the user.
+First, update your function to use this event. You can use the context's IP address as the key. While the IP isn't unique to an individual, it is the only identifying information we always have available for the context.
 
 Here is the event code:
 
-<CodeTabs
-defaultValue="js"
-values={[
-     { label: 'JavaScript', value: 'js', }
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 exports.handler = async (event) => {
@@ -303,8 +294,8 @@ exports.handler = async (event) => {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Use the AWS panel in VSCode to upload it again by right-clicking on the function and choosing "Upload Lambda."
 
@@ -316,13 +307,8 @@ Open the AWS panel in VS Code. Right-click on the function and select "Invoke on
 
 You should get a response like:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON', value: 'json', }
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="JSON">
 
 ```json
 {
@@ -339,8 +325,8 @@ You should get a response like:
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ![Invoking the Lambda with a sample payload.](aws-invoke-lambda-edge.png)
 
@@ -399,7 +385,7 @@ While it is definitely not a requirement, there are some great use cases for Lau
 Some of these use cases are:
 
 - You need to [reduce your app's outbound connections](/home/relay-proxy#you-want-to-reduce-outbound-connections-to-launchdarkly) because you have thousands or tens of thousands of servers all connecting to LaunchDarkly and those connections are overwhelming your network. In a serverless context, this can potentially incur an increase in your overall costs.
-- You want to [keep user data private](/guides/account/user-data#evaluating-flags-against-a-relay-proxy), so your SDKs evaluate against your Relay Proxy and your private data never leaves your network.
+- You want to [keep end-user data private](/guides/account/user-data#evaluating-flags-against-a-relay-proxy), so your SDKs evaluate against your Relay Proxy and your private data never leaves your network.
 - You want to facilitate faster connections with SDKs that run more closely to your Relay Proxy. This can be extremely useful in serverless environments. In AWS, the Relay Proxy exists within the same environment as your Lambda, DynamoDB, or any other AWS resources your application uses.
 - You want to [increase startup speed in your serverless functions](/home/relay-proxy#you-want-to-reduce-initialization-latency-in-a-serverless-environment).
 
@@ -426,93 +412,68 @@ Here are the steps to set this up:
 
 1. Clone the GitHub repository, change directory into the project, and install the project dependencies:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Clone and install', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Clone and install">
 
-```bash
-git clone https://github.com/halex5000/launchdarkly-relay-proxy-aws-serverless-cdk
-cd launchdarkly-relay-proxy-aws-serverless-cdk
-npm install
-```
+  ```bash
+  git clone https://github.com/halex5000/launchdarkly-relay-proxy-aws-serverless-cdk
+  cd launchdarkly-relay-proxy-aws-serverless-cdk
+  npm install
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 2. Copy the example environment file and then edit it with your own environment variables, including your LaunchDarkly SDK keys:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Copy and edit', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Copy and edit">
 
-```bash
-cp .env.example .env
-```
+  ```bash
+  cp .env.example .env
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 3. Install the [AWS CLI](https://aws.amazon.com/cli/) if you don't already have it.
 4. Set up your account and region to use the AWS CDK, making sure to replace the account number and region placeholders below with your own details:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Set account and region', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Set account and region">
 
-```bash
-npm run cdk bootstrap aws://{ACCOUNT-NUMBER}/{REGION}
-```
+  ```bash
+  npm run cdk bootstrap aws://{ACCOUNT-NUMBER}/{REGION}
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 5. Finally, deploy the stack to AWS:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'Deploy', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+  <CodeSample>
+  <CSTab label="Deploy">
 
-```bash
-npm run cdk deploy
-```
+  ```bash
+  npm run cdk deploy
+  ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 The deployment should take about two minutes to run and it will deploy to the account and region that you configured using the credentials from your CLI. During the process, you'll be prompted to approve new roles and permissions created by this stack.
 
 If you prefer to use CloudFormation, you can easily convert this CDK project to a cloud formation template (CFT) with the following command after completing steps one and two above:
 
-<CodeTabs
-  defaultValue="bash"
-  values={[
-    { label: 'CFT', value: 'bash', }
-  ]
-}>
-<CodeTabItem value="bash">
+<CodeSample>
+<CSTab label="CFT">
 
 ```bash
 npm run cdk synth > cloud-formation-template.yaml
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This will generate a CloudFormation template and save it locally in your machine.
 
@@ -520,7 +481,7 @@ Once the Relay Proxy is set up, it will automatically keep flag values in sync w
 
 ## Handling LaunchDarkly analytics events
 
-LaunchDarkly's dashboard provides a lot of detail on flag usage, users, and experimentation results. Much of this data is passed to LaunchDarkly using analytics events. To learn more, read [Analytics events](/sdk/concepts/events).
+LaunchDarkly's dashboard provides a lot of detail on flag usage, contexts, and Experimentation results. Much of this data is passed to LaunchDarkly using analytics events. To learn more, read [Analytics events](/sdk/concepts/events).
 
  To save on performance and network requests, the LaunchDarkly SDKs buffer these events, sending them on a configurable interval.
 
@@ -532,23 +493,18 @@ One solution is to manually flush analytics events on every invocation of the La
 
 Here's how to flush events:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Flushing events', value: 'json', }
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Flushing events">
 
 ```js
 exports.handler = async (event) => {
   await client.waitForInitialization();
 
   const apiVersion = await client.variation("flag-key-123abc", {key: "anonymous"}, "");
-  
-  // flush the analytics events 
+
+  // flush the analytics events
   await client.flush();
-  
+
   const response = {
     statusCode: 200,
     body: JSON.stringify("Hello world"),
@@ -557,8 +513,8 @@ exports.handler = async (event) => {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [Flushing events](/sdk/features/flush).
 
@@ -566,7 +522,7 @@ While this works, it has also effectively eliminated the buffer entirely since a
 
 ### Closing the client
 
-When the client closes, it automatically sends any pending analytics events to LaunchDarkly. You can handle this using a [Graceful shutdown with AWS Lambda](https://github.com/aws-samples/graceful-shutdown-with-aws-lambda). This requires that you add an extension to your Lambda. You can use the CloudWatch Lambda Insight extension as it is built in.
+Before closing the client, flush any pending analytics events to LaunchDarkly. You can handle this using a [Graceful shutdown with AWS Lambda](https://github.com/aws-samples/graceful-shutdown-with-aws-lambda). This requires that you add an extension to your Lambda. You can use the CloudWatch Lambda Insight extension as it is built in.
 
 Here are the steps:
 
@@ -577,13 +533,8 @@ After you add the extension, you can listen for the `SIGTERM` event that indicat
 
 Here's how:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Closing and listening', value: 'json', }
-  ]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Closing and listening">
 
 ```js
 const LaunchDarkly = require("launchdarkly-node-server-sdk");
@@ -603,7 +554,8 @@ process.on('SIGTERM', async () => {
     console.info('[runtime] SIGTERM received');
 
     console.info('[runtime] cleaning up');
-    await client.close();
+    await client.flush()
+    client.close();
     console.info('LaunchDarkly connection closed');
     
     console.info('[runtime] exiting');
@@ -611,8 +563,8 @@ process.on('SIGTERM', async () => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you'd like to watch this process run, go to the "Monitor" tab in the AWS Lambda console and choose "View logs in CloudWatch." You can view the logs for a recent run of your function and see that you triggered the cleanup script. In our tests, this happened approximately six minutes after the last call of the function.
 
@@ -627,7 +579,7 @@ If you'd like to clean up your AWS environment when you complete this guide, her
 
 ## Conclusion
 
-In this guide, you integrated a LaunchDarkly flag into a Lambda function and deployed the function to Lambda@Edge. By doing this, you serve a flag variation closer to the user, which  means faster state changes to feature flags and no disruptions when the flag state changes.
+In this guide, you integrated a LaunchDarkly flag into a Lambda function and deployed the function to Lambda@Edge. By doing this, you serve a flag variation closer to the end user's location, which means faster state changes to feature flags and no disruptions when the flag state changes.
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

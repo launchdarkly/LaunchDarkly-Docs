@@ -1,0 +1,49 @@
+---
+path: /home/contexts/bulk-edit-segments
+title: Bulk editing contexts in segments
+description: If you have a long list of contexts you want to add, remove, or replace within a segment, you can bulk edit contexts from a segment's Targeting tab.
+published: true
+tags: ['bulk', 'segment', 'edit', 'enterprise']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Bulk editing segments is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Bulk editing segments is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+If you have a long list of contexts you want to add, remove, or replace within a segment, you can bulk edit contexts from a segment's **Targeting** tab.
+
+To edit contexts in bulk:
+
+1. Navigate to the **Segments** list and choose the segment you wish to modify.
+2. In the "Included targets" or "Excluded targets" section, click the **overflow menu**.
+3. Select "Bulk edit." A "Bulk editing targets" dialog appears.
+4. Use the menu to do one of the following actions:
+  - "Add" adds the selected contexts as targets
+  - "Remove" removes the selected contexts as targets
+  - "Replace" replaces all currently targeted contexts with the selected contexts
+5. Enter a list of context keys or email addresses in the **these targets** field, separated by a comma or new line. LaunchDarkly looks up contexts by key or email and displays them in the list on the right. If you want to target a context that has not yet been encountered by LaunchDarkly, you must enter their key.
+
+![The "Bulk editing included targets" dialog.](segments-bulk-editing.png)
+
+You can update the list on the right before you perform the selected action. The options for updating the list include the following:
+
+- **All** represents all of the contexts that may be impacted by the action, whether they are added or removed. Check the context's checkbox for the action to apply.
+- **The checkmark** represents inputted context keys that currently match contexts in the system. For example, if you enter the context key `context-key-123abc`, and `context-key-123abc` already exists in LaunchDarkly, it will show up in this list.
+- **The question mark** represents contexts with no matching records in LaunchDarkly. If you are adding contexts and the contexts do not currently exist in LaunchDarkly, they will be added to the targeting list.
+- **The exclamation mark** represents context key inputs with multiple matching records. For example, if you enter the email address `sandy@example.com`, but there are multiple context keys that have `sandy@example.com` as an email address, the system may return multiple matching records. You can select the correct record by clicking the checkbox.
+- **Current** lists all of the currently targeted contexts for the segment.
+
+6. Click **Add N targets**, **Remove N targets**, or **Replace N targets** to perform the selected action.
+
+<LearnMore>
+
+You can also use the REST API: [Update context targets on a Big Segment](https://apidocs.launchdarkly.com/tag/Segments#operation/updateBigSegmentContextTargets)
+
+</LearnMore>

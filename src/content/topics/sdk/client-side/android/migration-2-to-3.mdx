@@ -47,25 +47,14 @@ This version removed the `set` prefix from all the configuration methods of `LDC
 Additionally, certain configuration options have changed:
 
 * If your application used `setPrivateAttributeNames(Set<String>)` to configure globally private user attributes, you need to update it to use `privateAttributes(UserAttribute...)`. `UserAttribute` lets you specify default user attribute names.
-
 * If your application has not been updated to use `setPollUri(Uri)` rather than the deprecated `setBaseUri(Uri)`, you need to update it for this method rename, because this version removed `setBaseUri`.
-
 * If your application used `setEventsUri(Uri)` to configure the endpoint that the SDK uses to report events, you need to update it because the SDK treats this field differently in 3.0. In 2.x, the SDK expected you to specify the endpoint in the provided `Uri`, normally `/mobile`. In 3.0, the SDK appends the path. You should normally give `eventsUri` a pathless URI in 3.0.
-
 * If your application used `setAdditionalHeaders(Map<String, String>)` to add additional headers to requests made by the SDK, you need to update it to use `headerTransform(LDHeaderUpdater)`. The SDK calls the provided `LDHeaderUpdater` to update the headers used on each request to the LaunchDarkly service, allowing the headers to differ between requests.
 
 The following example shows all of these changes:
 
-<CodeTabs
-  defaultValue="sdk2-java"
-  values={[
-    { label: '2.x syntax (Java)', value: 'sdk2-java', },
-    { label: '3.0 syntax (Java)', value: 'sdk3-java', },
-    { label: '2.x syntax (Kotlin)', value: 'sdk2-kotlin', },
-    { label: '3.0 syntax (Kotlin)', value: 'sdk3-kotlin', },
-  ]
-}>
-<CodeTabItem value="sdk2-java">
+<CodeSample>
+<CSTab label="2.x syntax (Java)">
 
 ```java
 HashMap<String, String> addHeaders = new HashMap<>();
@@ -84,8 +73,8 @@ LDConfig ldConfig = new LDConfig.Builder()
     .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-java">
+</CSTab>
+<CSTab label="3.0 syntax (Java)">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -102,8 +91,8 @@ LDConfig ldConfig = new LDConfig.Builder()
     .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2-kotlin">
+</CSTab>
+<CSTab label="2.x syntax (Kotlin)">
 
 ```kotlin
 val addHeaders: HashMap<String, String> = HashMap()
@@ -122,8 +111,8 @@ val ldConfig: LDConfig = LDConfig.Builder()
     .build()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-kotlin">
+</CSTab>
+<CSTab label="3.0 syntax (Kotlin)">
 
 ```kotlin
 val ldConfig: LDConfig = LDConfig.Builder()
@@ -138,8 +127,8 @@ val ldConfig: LDConfig = LDConfig.Builder()
     .build()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Understanding changes to building users
 
@@ -157,16 +146,8 @@ These builder methods have been removed in favor of new overrides for `custom` a
 
 Here is an example migration:
 
-<CodeTabs
-  defaultValue="sdk2-java"
-  values={[
-    { label: '2.x syntax (Java)', value: 'sdk2-java', },
-    { label: '3.0 syntax (Java)', value: 'sdk3-java', },
-    { label: '2.x syntax (Kotlin)', value: 'sdk2-kotlin', },
-    { label: '3.0 syntax (Kotlin)', value: 'sdk3-kotlin', },
-  ]
-}>
-<CodeTabItem value="sdk2-java">
+<CodeSample>
+<CSTab label="2.x syntax (Java)">
 
 ```java
 LDUser user = new LDUser.Builder("userKey")
@@ -175,8 +156,8 @@ LDUser user = new LDUser.Builder("userKey")
     .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-java">
+</CSTab>
+<CSTab label="3.0 syntax (Java)">
 
 ```java
 LDUser user = new LDUser.Builder("userKey")
@@ -185,8 +166,8 @@ LDUser user = new LDUser.Builder("userKey")
     .build();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2-kotlin">
+</CSTab>
+<CSTab label="2.x syntax (Kotlin)">
 
 ```kotlin
 val user: LDUser = LDUser.Builder("userKey")
@@ -195,8 +176,8 @@ val user: LDUser = LDUser.Builder("userKey")
     .build()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-kotlin">
+</CSTab>
+<CSTab label="3.0 syntax (Kotlin)">
 
 ```kotlin
 val user: LDUser = LDUser.Builder("userKey")
@@ -205,8 +186,8 @@ val user: LDUser = LDUser.Builder("userKey")
     .build()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Additionally, the `custom` and `privateCustom` overrides that took the nullable types `Boolean` and `Number` as the attribute value have been removed, which avoids potential `NullPointerExceptions`. There are new overrides for setting `boolean`, `int`, and `double` attribute values as replacements for the previous overrides.
 
@@ -218,44 +199,36 @@ In the 3.0 release of the SDK, `jsonVariation` has been renamed to `jsonValueVar
 
 Here is an example using the new `LDValue` type:
 
-<CodeTabs
-  defaultValue="sdk2-java"
-  values={[
-    { label: '2.x syntax (Java)', value: 'sdk2-java', },
-    { label: '3.0 syntax (Java)', value: 'sdk3-java', },
-    { label: '2.x syntax (Kotlin)', value: 'sdk2-kotlin', },
-    { label: '3.0 syntax (Kotlin)', value: 'sdk3-kotlin', },
-  ]
-}>
-<CodeTabItem value="sdk2-java">
+<CodeSample>
+<CSTab label="2.x syntax (Java)">
 
 ```java
 JsonElement result = client.jsonVariation("flagKey", new JsonArray());
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-java">
+</CSTab>
+<CSTab label="3.0 syntax (Java)">
 
 ```java
 LDValue result = client.jsonValueVariation("flagKey", LDValue.buildArray().build());
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2-kotlin">
+</CSTab>
+<CSTab label="2.x syntax (Kotlin)">
 
 ```kotlin
 val result: JsonElement = client.jsonVariation("flagKey", JsonArray())
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-kotlin">
+</CSTab>
+<CSTab label="3.0 syntax (Kotlin)">
 
 ```kotlin
 val result: LDValue = client.jsonValueVariation("flagKey", LDValue.buildArray().build())
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Additionally, a behavioral change has been made to the `stringVariation` and `stringVariationDetail` methods. Before the 3.0 release of the Android SDK, these methods were lenient in handling the type mismatch when the value for the requested flag key was a complex type of a JSON array or object. In this case, the SDK returned a serialized representation of the flag value. For consistency with how the other variation methods behave when the flag value does not match the type expected by the variation call, the resultant flag value is the provided default value in this case.
 
@@ -269,16 +242,8 @@ In the 3.0 release, the values in the returned `Map` are `LDValue`s wrapping the
 
 Here is an example of retrieving all flag values:
 
-<CodeTabs
-  defaultValue="sdk2-java"
-  values={[
-    { label: '2.x syntax (Java)', value: 'sdk2-java', },
-    { label: '3.0 syntax (Java)', value: 'sdk3-java', },
-    { label: '2.x syntax (Kotlin)', value: 'sdk2-kotlin', },
-    { label: '3.0 syntax (Kotlin)', value: 'sdk3-kotlin', },
-  ]
-}>
-<CodeTabItem value="sdk2-java">
+<CodeSample>
+<CSTab label="2.x syntax (Java)">
 
 ```java
 Map<String, ?> flagValues = client.allFlags();
@@ -293,8 +258,8 @@ for (Map.Entry<String, ?> flag : flagValues.entrySet()) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-java">
+</CSTab>
+<CSTab label="3.0 syntax (Java)">
 
 ```java
 Map<String, LDValue> flagValues = client.allFlags();
@@ -316,8 +281,8 @@ for (Map.Entry<String, LDValue> flag : flagValues.entrySet()) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2-kotlin">
+</CSTab>
+<CSTab label="2.x syntax (Kotlin)">
 
 ```kotlin
 val flagValues: Map<String, ?> = client.allFlags()
@@ -330,8 +295,8 @@ for (flag in flagValues.entries) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-kotlin">
+</CSTab>
+<CSTab label="3.0 syntax (Kotlin)">
 
 ```kotlin
 val flagValues: Map<String, ?> = client.allFlags()
@@ -347,8 +312,8 @@ for (flag in flagValues.entries) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 
 ## Track methods
@@ -357,16 +322,8 @@ The overloads for the SDK `track` method have been split into separate methods f
 
 Here is an example of these changes:
 
-<CodeTabs
-  defaultValue="sdk2-java"
-  values={[
-    { label: '2.x syntax (Java)', value: 'sdk2-java', },
-    { label: '3.0 syntax (Java)', value: 'sdk3-java', },
-    { label: '2.x syntax (Kotlin)', value: 'sdk2-kotlin', },
-    { label: '3.0 syntax (Kotlin)', value: 'sdk3-kotlin', },
-  ]
-}>
-<CodeTabItem value="sdk2-java">
+<CodeSample>
+<CSTab label="2.x syntax (Java)">
 
 ```java
 client.track("dataEvent", new JsonPrimitive(4));
@@ -374,8 +331,8 @@ client.track("metricEvent", null, 5.5);
 client.track("bothEvent", new JsonPrimitive("tag"), 3.5);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-java">
+</CSTab>
+<CSTab label="3.0 syntax (Java)">
 
 ```java
 client.trackData("dataEvent", LDValue.of(4));
@@ -383,8 +340,8 @@ client.trackMetric("metricEvent", LDValue.ofNull(), 5.5);
 client.trackMetric("bothEvent", LDValue.of("tag"), 3.5);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk2-kotlin">
+</CSTab>
+<CSTab label="2.x syntax (Kotlin)">
 
 ```kotlin
 client.track("dataEvent", JsonPrimitive(4))
@@ -392,8 +349,8 @@ client.track("metricEvent", null, 5.5)
 client.track("bothEvent", JsonPrimitive("tag"), 3.5)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-kotlin">
+</CSTab>
+<CSTab label="3.0 syntax (Kotlin)">
 
 ```kotlin
 client.trackData("dataEvent", LDValue.of(4))
@@ -401,8 +358,8 @@ client.trackMetric("metricEvent", LDValue.ofNull(), 5.5)
 client.trackMetric("bothEvent", LDValue.of("tag"), 3.5)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 
 ## Converting objects to or from JSON data
@@ -423,14 +380,8 @@ To make this work correctly, you must add an extra step to the setup of your Gso
 
 Here is an example including the extra step:
 
-<CodeTabs
-  defaultValue="sdk3-java"
-  values={[
-    { label: 'Java', value: 'sdk3-java', },
-    { label: 'Kotlin', value: 'sdk3-kotlin', },
-  ]
-}>
-<CodeTabItem value="sdk3-java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.google.gson.*;
@@ -442,8 +393,8 @@ Gson gson = new GsonBuilder()
   .create();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 import com.google.gson.*
@@ -455,8 +406,8 @@ val gson: Gson = GsonBuilder()
   .create()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you have registered [`LDGson.typeAdapters()`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/json/LDGson.html#typeAdapters--) in the Gson instance you're using, `toJson()` and `fromJson()` works as expected with LaunchDarkly types.
 
@@ -466,14 +417,8 @@ Previously, it was not possible to convert LaunchDarkly SDK classes to or from J
 
 Here is how to configure your Jackson `ObjectMapper` with `LDJackson.module()`:
 
-<CodeTabs
-  defaultValue="sdk3-java"
-  values={[
-    { label: 'Java', value: 'sdk3-java', },
-    { label: 'Kotlin', value: 'sdk3-kotlin', },
-  ]
-}>
-<CodeTabItem value="sdk3-java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 import com.google.jackson.databind.*;
@@ -483,8 +428,8 @@ ObjectMapper mapper = new ObjectMapper();
 mapper.registerModule(LDJackson.module());
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk3-kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```java
 import com.google.jackson.databind.*
@@ -494,5 +439,5 @@ val mapper: ObjectMapper = ObjectMapper()
 mapper.registerModule(LDJackson.module())
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>

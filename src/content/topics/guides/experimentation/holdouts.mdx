@@ -10,11 +10,11 @@ tags: ['experimentation', 'holdout', 'tutorial']
 
 This guide explains how to create a holdout experiment to measure the overall effectiveness of your Experimentation program.
 
-As you begin planning your Experimentation program, you may want to track how much of an impact your experiments have over time. Will there be any measurable differences in behavior between the end users you include in experiments, and those you do not? Which group of users will spend more money, sign up for services, or affect other metrics at higher rates? Holdout groups can help you answer these questions.
+As you begin planning your Experimentation program, you may want to track how much of an impact your experiments have over time. Will there be any measurable differences in behavior between the end users you include in experiments, and those you do not? Which group of end users will spend more money, sign up for services, or affect other metrics at higher rates? Holdout groups can help you answer these questions.
 
-A holdout group is a set of users that you exclude from all of your experiments. This creates a control group against which you can measure the impact of your Experimentation program. If, after a set period of time such as a month or quarter, there are no measurable differences between your Experimentation group and your holdout group, you may want to reconsider the number, scope, and design of the experiments you're running.
+A holdout group is a set of contexts that you exclude from all of your experiments. This creates a control group against which you can measure the impact of your Experimentation program. If, after a set period of time such as a month or quarter, there are no measurable differences between your Experimentation group and your holdout group, you may want to reconsider the number, scope, and design of the experiments you're running.
 
-To form a holdout group, create a prerequisite flag that assigns all of your users to be either included or excluded from the holdout group, then add that flag as a prerequisite to all of your flags used in an experiment.
+To form a holdout group, create a prerequisite flag that assigns all of your contexts to be either included or excluded from the holdout group, then add that flag as a prerequisite to all of your flags used in an experiment.
 
 In this tutorial you will:
 
@@ -42,7 +42,7 @@ Prerequisites allow you to control feature dependencies in LaunchDarkly. You can
 
 ## Creating the holdout flag
 
-To begin, create a prerequisite boolean flag that determines what percentage of your users to include in the holdout group. In this example, you will include 5% of your total user base in the holdout group.
+To begin, create a prerequisite boolean flag that determines what percentage of your contexts to include in the holdout group. In this example, you will include 5% of your total user base in the holdout group.
 
 To create the prerequisite flag:
 
@@ -85,19 +85,20 @@ One way to measure the impact of your Experimentation program is by creating a r
 
 ### Creating the metric
 
-First, decide what metric you want to measure. Choose a metric that aligns with the same KPIs or goals you want to experiment on, such as average revenue per user or percentage of users that sign up for your service. In this example, you will measure average revenue per user.
+First, decide what metric you want to measure. Choose a metric that aligns with the same KPIs or goals you want to experiment on, such as average revenue per customer or percentage of customers that sign up for your service. In this example, you will measure average revenue per customer.
 
 To create your metric:
 
 1. Navigate to the **Experiments** list.
 2. Click the **Metrics** tab.
 3. Click **Create metric**. The "Create a new metric" panel appears.
-4. Enter "Average revenue per user" in the **Name** field.
+4. Enter "Average revenue per customer" in the **Name** field.
 5. Click the **Event kind** menu and select "Custom."
-6. Enter "Average revenue per user" in the **Event name** field.
+6. Enter "Average revenue per customer" in the **Event name** field.
 7. Enter "USD" in the **Unit of measure** field.
 8. Choose "Higher than baseline" from the **Success criteria** menu.
-9. Click **Save metric**.
+9. Choose the `user` context kind for the metric to measure events from.
+10. Click **Save metric**.
 
 ![The "Metric information" panel for a custom numeric metric.](holdouts-metric.png)
 
@@ -114,8 +115,9 @@ To build your experiment:
 
 3. Enter "Holdout comparison for Q1 2023" in the **Experiment name** field.
 4. Enter a **Hypothesis** for your experiment.
-5. Click **Next**. The "Select metrics" step opens.
-6. Choose "Average revenue per user" from the **Primary metric** menu.
+5. Choose "user" as the randomization unit.
+6. Click **Next**. The "Select metrics" step opens.
+7. Choose "Average revenue per customer" from the **Primary metric** menu.
 
 ![The "Select metrics" section of a new experiment.](holdouts-select-metrics.png)
 

@@ -46,8 +46,8 @@ Benefits of scheduling flag changes include:
 
 1. **Timing an early launch**: Scheduling your flag to turn on or off on a specified date/time allows you to plan your release without having to manually make changes at desired release times.
 2. **Progressive feature rollouts**: This functionality allows you to create a set of scheduled changes to your flag once, and LaunchDarkly slowly release the feature for you. For example, you can schedule your flag to roll out to 20% of your user base tomorrow, 35% the day after, 50% the day after that, and increase that percentage until it reaches 100%.
-3. **Temporary user access**: You can schedule rules that target certain users and segments to be added to or removed from your flag’s targeting to better manage user access.
-4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your users.
+3. **Temporary access**: You can schedule rules that target certain contexts and segments to be added to or removed from your flag’s targeting to better manage customer access.
+4. **Flag hygiene**: You can schedule your flag’s targeting rules to clean up once your flag has been rolled out to 100% of your user base.
 
 <Callout intent="info">
 <CalloutTitle>Feature Workflows are available in the LaunchDarkly API</CalloutTitle>
@@ -86,7 +86,7 @@ Here is an image of a flag with multiple changes scheduled:
 
 ![A flag with multiple changes scheduled.](workflows-pending-changes.png)
 
-If you use scheduled flag changes to schedule user removal dates, but an approver approves the request _after_ the scheduled date and time of the user removal, LaunchDarkly prevents you from applying the change. To learn more about scheduling, read [Scheduling user removal from segments](/home/users/standard-segments#scheduling-user-removal-from-segments).
+If you use scheduled flag changes to schedule context removal dates, but an approver approves the request _after_ the scheduled date and time of the context removal, LaunchDarkly prevents you from applying the change. To learn more about scheduling, read [Scheduling context removal from segments](/home/contexts/standard-segments#scheduling-context-removal-from-segments).
 
 ### Creating scheduled flag changes that require approvals
 
@@ -133,21 +133,21 @@ To delete a scheduled flag change:
 
 ## Managing conflicts with scheduled changes
 
-It’s possible that as you schedule a change to a flag, another user introduces a breaking change, or a conflict.
+It’s possible that as you schedule a change to a flag, another member introduces a breaking change, or a conflict.
 
 Conflicts occur for two reasons:
-* Another user updated the flag’s targeting that invalidates one or more of your scheduled changes
-* Another user scheduled a set of conflicting changes to be executed before your changes
+* Another member updated the flag’s targeting that invalidates one or more of your scheduled changes
+* Another member scheduled a set of conflicting changes to be executed before your changes
 
-LaunchDarkly warns users in the user interface (UI) when they save or schedule changes to the flag that introduce conflicts with other pending scheduled changes.
+LaunchDarkly warns members in the user interface (UI) when they save or schedule changes to the flag that introduce conflicts with other pending scheduled changes.
 
 Here is an image of the Confirm changes dialog:
 
 ![A notification showing a conflicting scheduled change.](workflows-conflict.png)
 
-Despite this warning, a user could decide to save their conflicting changes anyway.
+Despite this warning, a member could decide to save their conflicting changes anyway.
 
-If this happens, LaunchDarkly sends an email notification to the user whose changes now conflict. That user's changes will not take effect at the time and date they scheduled.
+If this happens, LaunchDarkly sends an email notification to the member whose changes now conflict. That members's changes will not take effect at the time and date they scheduled.
 
 ### Resolving conflicts in scheduled changes
 
@@ -155,7 +155,7 @@ If your scheduled changes conflict with other changes, you receive an email noti
 
 Here is an image of the email you could receive:
 
-![The email notification users with conflicting changes receive.](workflows-email.png)
+![The email notification members with conflicting changes receive.](workflows-email.png)
 
 You can resolve the conflict and ensure your scheduled changes don’t fail in one of two ways:
 

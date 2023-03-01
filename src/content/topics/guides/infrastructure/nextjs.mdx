@@ -26,8 +26,8 @@ The four strategies are:
 
 * **Pre-rendering (static site rendering, static site generation, or SSG)**: This content is rendered at build time before the application is deployed. This usually  happens as part of a CI/CD build process. For example, new code checked into your git repository triggers a build in Netlify or Vercel, two popular deployment options for Next.js sites. A [build hook](https://docs.netlify.com/configure-builds/build-hooks/) or [deploy hook](https://vercel.com/docs/concepts/git/deploy-hooks) can also trigger a new build. A common example is when you're using an external headless content management system so that changes to content are automatically re-rendered in the build.
 * **Server-side rendering (SSR)**: This is the traditional style of rendering a page. The content is generated on the server (Node.js in this case) for every single request and then sent to the browser for the initial page load.
-* **Client-side rendering**: Some content, such as user-specific data on a pre-rendered page, cannot be fully rendered before deployment. In these cases, you must use JavaScript to modify the rendered output in the browser. Similarly, you may not want to re-render the page server-side for every interaction. In these cases, you'd also update the page using client-side JavaScript.
-* **Deferred rendering**: This is functionally equivalent to pre-rendering except that the requested page isn't rendered during the initial build. Instead, it's rendered only when the first user requests it. For example, pre-rendering an e-commerce site with thousands of product pages could cause excessively long builds for little value, because many of those pages may get minimal traffic. Instead, you can defer rendering these pages until they are first requested. While the initial visitor may experience a slight delay in loading the page, subsequent visitors will receive the page from the build cache.
+* **Client-side rendering**: Some content, such as context-specific data on a pre-rendered page, cannot be fully rendered before deployment. In these cases, you must use JavaScript to modify the rendered output in the browser. Similarly, you may not want to re-render the page server-side for every interaction. In these cases, you'd also update the page using client-side JavaScript.
+* **Deferred rendering**: This is functionally equivalent to pre-rendering except that the requested page isn't rendered during the initial build. Instead, it's rendered only when the first context requests it. For example, pre-rendering an e-commerce site with thousands of product pages could cause excessively long builds for little value, because many of those pages may get minimal traffic. Instead, you can defer rendering these pages until they are first requested. While the initial visitor may experience a slight delay in loading the page, subsequent visitors will receive the page from the build cache.
 
 Each of these types of rendering has different implications when you're working with a LaunchDarkly SDK.
 
@@ -65,9 +65,9 @@ In some cases, flipping a flag has immediate impact, but in others it may requir
 First, when do you need a rebuild? You'll need to trigger a rebuild for:
 
 * Pre-rendered pages: If your flag impacts the content or functionality on any pre-rendered page, the changes it has won't be visible until a rebuild triggers and deploys.
-* Deferred rendered pages: If a page's rendering is deferred using DPR or ISR, you must trigger a full rebuild, because you do not have an easy way to determine if the impacted pages have been built and already exist in the cache. The only way to ensure that the page updates appropriately is to do a full site rebuild. A page that uses ISR can have a cache timeout and rebuild to reflect any changes after the timeout expires, but this still requires waiting for that page's cache to be invalidated and then rebuilt for the next user's request. It's better and safer to initiate a full rebuild and confirm your changes appear.
+* Deferred rendered pages: If a page's rendering is deferred using DPR or ISR, you must trigger a full rebuild, because you do not have an easy way to determine if the impacted pages have been built and already exist in the cache. The only way to ensure that the page updates appropriately is to do a full site rebuild. A page that uses ISR can have a cache timeout and rebuild to reflect any changes after the timeout expires, but this still requires waiting for that page's cache to be invalidated and then rebuilt for the next context's request. It's better and safer to initiate a full rebuild and confirm your changes appear.
 
-Server-side rendered pages will reflect any changes on the next request. If a user is already on the page, they must refresh it to view the impact of a flag change. Client-side rendered pages will immediately reflect any changes in the browser without any refresh.
+Server-side rendered pages will reflect any changes on the next request. If an end user is already on the page, they must refresh it to view the impact of a flag change. Client-side rendered pages will immediately reflect any changes in the browser without any refresh.
 
 ### Automating rebuilds
 
@@ -129,30 +129,25 @@ Next, you must add a policy to this webhook. The policy determines the permissio
 To add a policy to the webhook:
 
 1. Navigate to the "Policy" section of the webhook and click **Advanced editor**. This lets you create a policy with very specific restrictions. The example code below says that this webhook has access to the environments (`env/*`) and flags (`flag/*`) tagged with `build-impact`.
-2. Paste this code into the advanced editor. Change the project key from `brian-test` to your LaunchDarkly project key. You can get the project key from the **Projects** tab under **Account settings**.
+2. Paste this code into the advanced editor. Change the project key from `proj-key-123abc` to your LaunchDarkly project key. You can get the project key from the **Projects** tab under **Account settings**.
 
-Here is the code to paste and modify:
+  Here is the code to paste and modify:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'JSON', value: 'json', }
+  <CodeSample>
+  <CSTab label="JSON">
+
+  ```json
+  [
+    {
+      "effect": "allow",
+      "actions": ["*"],
+      "resources": ["proj/proj-key-123abc:env/*:flag/*;build-impact"]
+    }
   ]
-}>
-<CodeTabItem value="json">
+  ```
 
-```json
-[
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/brian-test:env/*:flag/*;build-impact"]
-  }
-]
-```
-
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+  </CodeSample>
 
 3. Click **Save settings**.
 
@@ -184,13 +179,8 @@ Any page that uses this component only needs the `getClient()` method, which alw
 
 Here is an example method:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import LaunchDarkly from "launchdarkly-node-server-sdk";
@@ -209,8 +199,8 @@ export async function getClient() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must have a `LAUNCHDARKLY_SDK_KEY` environment variable set in a `.env.local` file. In addition, you must ensure that wherever you deploy this application, that environment variable is set as well.
 
@@ -233,21 +223,15 @@ Here are some use cases involving pre-rendered content. In Next.js, data being p
 
 The following example uses the `ld-server.js` component's `getClient()` method to get the initialized LaunchDarkly client. Then it requests the value of the `featured-username` key. This is a string key that is used to determine the DEV username to use to load posts from the DEV API. You could also have gotten a `true / false` flag and passed that value when rendering the UI to determine if a feature should be shown.
 
-
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 export async function getStaticProps() {
   const client = await getClient();
   let featuredUsername = await client.variation(
     "featured-username",
-    { key: "brian@launchdarkly.com" },
+    { key: "context-key-123abc" },
     false
   );
   const response = await fetch(
@@ -263,12 +247,12 @@ export async function getStaticProps() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You could use a flag like this to modify the behavior of a page without needing to ask for code changes from the dev team.
 
-In statically pre-rendered pages, you cannot use different variations for different users or roll out a variation. Every user receives the same statically rendered content. This is why you use a single constant value for the user. In this case, you can just use an email as the constant.
+In statically pre-rendered pages, you cannot use different variations for different contexts or roll out a variation. Every context receives the same statically rendered content. This is why you use a single constant value for the context. In this case, you can just use an email as the constant.
 
 In the next example, you are loading two flags: `show-about-us` and `new-about-us`.
 
@@ -276,20 +260,15 @@ The `show-about-us` flag relates to the client-side rendering example that comes
 
 Imagine a scenario where you wanted to give marketing the ability to launch an updated About Us page when new branding and messaging are ready to align with their campaigns. This flag allows you to do this even when the content is loaded from files in the git repository, such as if they were managed by a [git-based headless CMS](https://www.ample.co/blog/api-driven-or-git-based-figuring-out-the-right-cms-for-you).
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 export async function getStaticProps() {
   const client = await getClient();
   let showPage = await client.variation(
     "show-about-us",
-    { key: "brian@launchdarkly.com" },
+    { key: "context-key-123abc" },
     false
   );
   let loadPage = "";
@@ -298,7 +277,7 @@ export async function getStaticProps() {
   if (showPage) {
     let loadPage = await client.variation(
       "new-about-us",
-      { key: "brian@launchdarkly.com" },
+      { key: "context-key-123abc" },
       false
     );
     const content = await import(`../content/${loadPage}.md`);
@@ -316,8 +295,8 @@ export async function getStaticProps() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In both these cases, you must trigger a rebuild before the content will update on the deployed site. Any of the flags references in either `getStaticProps()` or `getStaticPaths()` must have the `build-impact` tag you created earlier in order to automatically trigger a rebuild when the flag changes.
 
@@ -332,20 +311,15 @@ The key differences are:
 
 In this example, you are also calling a string flag that determines which post category will be featured. The value of this flag determines the parameter you pass to the DEV API.
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 export async function getServerSideProps() {
   const client = await getClient();
   let featuredCategory = await client.variation(
     "featured-category",
-    { key: "brian@launchdarkly.com" },
+    { key: "context-key-123abc" },
     false
   );
 
@@ -362,8 +336,8 @@ export async function getServerSideProps() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ### Client-side rendering
 
@@ -375,13 +349,8 @@ Environment variables are not automatically made available to the client in Next
 
 Add this code to the `module.exports` block:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 env: {
@@ -389,8 +358,8 @@ env: {
 },
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are two ways to initialize the React SDK so that it is available throughout your application. To learn more, read the [React documentation](/sdk/client-side/react/react-web#getting-started). The following examples uses the [`withLDProvider` method](/sdk/client-side/react/react-web#initializing-using-withldprovider). To do this, you must have an  `_app.js` in the root of your `/pages` directory, if one does not yet exist.
 
@@ -398,13 +367,8 @@ Rather than `export default` the `MyApp` function, wrap the application in a Lau
 
 Here is an example `_app.js`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import "../styles/globals.css";
@@ -419,20 +383,15 @@ export default withLDProvider({
 })(MyApp);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Now you can use your flags on the client. You can do this with the `useFlags()` React hook. The following example pulls a flag, `show-about-us`, and uses that to determine if the "About Us" link should be displayed within the site navigation. Because `show-about-us` is not a valid JavaScript variable name, LaunchDarkly automatically converts it to camel case.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import { useFlags } from "launchdarkly-react-client-sdk";
@@ -460,8 +419,8 @@ export default function Nav() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Because this is running on the client, any flag changes you make in LaunchDarkly appear in the UI almost immediately, without requiring a page refresh.
 
@@ -471,33 +430,23 @@ You can make a few small changes to the `/pages/about.js` file. First, load the 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 let showPage = await client.variation(
   "show-about-us",
-  { key: "brian@launchdarkly.com" },
+  { key: "context-key-123abc" },
   false
 );
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 And then pass that value as part of the page's props:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 return {
@@ -509,39 +458,29 @@ return {
 };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-When the user hits this route but `show-about-us` is false, you can make it return a 404, as if the page doesn't even exist.
+When the context hits this route but `show-about-us` is false, you can make it return a 404, as if the page doesn't even exist.
 
 To do that, you must first import Next's error page:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import ErrorPage from "next/error";
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Now you can access the `showPage` prop that you passed and use it to return a 404.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 export default function About({ frontmatter, markdownBody, showPage }) {
@@ -552,38 +491,33 @@ export default function About({ frontmatter, markdownBody, showPage }) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are two important things to consider:
 
 1. You have now introduced a build impact to the `show-about-us` flag and will need to tag it so that the site is rebuilt when that flag is changed.
-2. Because you introduced a build impact, you cannot show different variations to different users. Either everyone will receive the About Us page or no one will.
+2. Because you introduced a build impact, you cannot show different variations to different contexts. Either everyone will receive the About Us page or no one will.
 
 ### Incremental static regeneration (ISR) and distributed persistent rendering (DPR)
 
 Because ISR and DPR are essentially just deferred static rendering, the integration is identical to the SSG integration. You create both an ISR or a DPR page the same way. The main difference is that ISR can have a timeout where the page gets re-rendered without a complete rebuild. With DPR, it only ever renders once per build. On Netlify, if you do not provide a timeout, it runs as DPR, but if you do, it runs as if it is SSR, as Netlify does not support ISR. Vercel, the creators of Next.js, has full support for ISR.
 
-The example below uses a dynamic "catch all" route as `/dpr/[[slug]].js`. The folder name `/dpr` is just for example purposes and not required to use DPR. This page pulls the top 5 posts from the featured user as determined by the `featured-username` flag, and prerenders those. This is determined by only adding these 5 paths to the `paths` variable returned by `getStaticPaths()`.
+The example below uses a dynamic "catch all" route as `/dpr/[[slug]].js`. The folder name `/dpr` is just for example purposes and not required to use DPR. This page pulls the top five posts from the featured author on the [DEV API](https://developers.forem.com/api) site, as determined by the `featured-username` flag, and prerenders those. This is determined by only adding these five paths to the `paths` variable returned by `getStaticPaths()`.
 
 This page uses DPR/ISR because of the `fallback: "blocking"` line on the return instead of `fallback: false`. In a typical prerendered static path, `fallback: false` causes any path not returned in the `paths` variable to return a 404. However, with `fallback: "blocking"`, any path not in the `paths` variable waits for the page to be generated and return that to the browser. To learn more, read the [Next.js documentation](https://nextjs.org/docs/basic-features/data-fetching/get-static-paths#getstaticpaths).
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', }
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 export async function getStaticPaths() {
   const client = await getClient();
   let username = await client.variation(
     "featured-username",
-    { key: "brian@launchdarkly.com" },
+    { key: "context-key-123abc" },
     false
   );
 
@@ -609,12 +543,12 @@ export async function getStaticPaths() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This route functions for any valid path even if it is not one of the top five that were returned in `getStaticPaths()`. You can view this in action by going to the deployed example sites on [Netlify](https://agitated-goldstine-6a8d97.netlify.app/) or [Vercel](https://ld-nextjs-basics.vercel.app/) and clicking one of the blog post links past the first five. The page will still render, though you may notice a slight delay compared to the first five.
 
-The key thing to remember when you think about integrating with LaunchDarkly is that, regardless of whether the page uses DPR or ISR, the only way to ensure that the flag changes the page is to trigger a rebuild. Otherwise, your users may receive the incorrect version of the page until a new build is triggered with DPR or until the timeout has triggered a rebuild of the page with ISR.
+The key thing to remember when you think about integrating with LaunchDarkly is that, regardless of whether the page uses DPR or ISR, the only way to ensure that the flag changes the page is to trigger a rebuild. Otherwise, your end users may receive the incorrect version of the page until a new build is triggered with DPR or until the timeout has triggered a rebuild of the page with ISR.
 
 ## Conclusion
 

@@ -1,7 +1,7 @@
 ---
 path: /home/account-security/okta
 title: Okta
-description: This topic explains how Okta and LaunchDarkly use SCIM to provide user management. You can connect LaunchDarkly and Okta through the Okta UI, give Okta permissions to modify account members in LaunchDarkly, and even integrate LaunchDarkly custom roles with Okta.
+description: This topic explains how Okta and LaunchDarkly use SCIM to provide user management for your account members. You can connect LaunchDarkly and Okta through the Okta UI, give Okta permissions to modify account members in LaunchDarkly, and even integrate LaunchDarkly custom roles with Okta.
 published: true
 tags: ['okta', 'admin', 'scim', 'sso', 'custom role', 'idp']
 ---
@@ -59,7 +59,6 @@ If you get an error during configuration that you cannot add an additional SCIM 
 
 </CalloutDescription>
 </Callout>
-
 
 
 You can use SCIM to connect the LaunchDarkly app to Okta. This lets you provision, manage, and deprovision LaunchDarkly account members in Okta. If you have not configured SAML SSO for LaunchDarkly in Okta, you must do that first. To learn how, read [Configuring Okta SAML SSO for LaunchDarkly](#configuring-okta-saml-sso-for-launchdarkly).
@@ -129,7 +128,7 @@ SCIM setup takes precedence over LaunchDarkly's configuration options. If you be
 </CalloutDescription>
 </Callout>
 
-Use Okta's Group Assignment feature to set up custom roles for a LaunchDarkly account member or team. The roles you set up in Okta are passed to LaunchDarkly as user attributes.
+Use Okta's Group Assignment feature to set up custom roles for a LaunchDarkly account member or group of members. The roles you set up in Okta are passed to LaunchDarkly as member roles.
 
 <Callout intent="alert">
 <CalloutTitle>Account members with multiple roles have permissions combining them</CalloutTitle>
@@ -218,7 +217,7 @@ Okta does not support using the same Okta group for assignments and for Group Pu
 
 To push an Okta group to create a new team in LaunchDarkly:
 
-1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app. 
+1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app.
 2. On the "Push Groups" tab, click **Push Groups**. Select whether to search for a group by name or by rule.
 
 ![The "Push Groups" tab within the LaunchDarkly Okta application.](okta-push-groups.png)
@@ -241,12 +240,12 @@ LaunchDarkly also supports [Group Linking with Okta](https://help.okta.com/en-us
 
 To link an Okta group to an existing LaunchDarkly team:
 
-1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app. 
+1. Navigate to the "Applications" page within Okta and open the LaunchDarkly app.
 2. On the "Push Groups" tab, click **Push Groups**. Select whether to search for a group by name or by rule.
 
 ![The "Push Groups" tab within the LaunchDarkly Okta application.](okta-push-groups.png)
 
-3. Find the group you wish to link by searching for its name. Okta will attempt to find a matching team based on the group name. 
+3. Find the group you wish to link by searching for its name. Okta will attempt to find a matching team based on the group name.
  - If Okta doesn't automatically select a group based on the team name, click the "Create Group" menu and select "Link Group," then search for the team you wish to link.
 
 ![Linking a group to an existing LaunchDarkly team in Okta.](okta-group-link.png)
@@ -269,6 +268,6 @@ To unlink the push group, click on the group's push status, choose the "Unlink p
 
 ![Unlink pushed group in Okta.](okta-unlink-push-group.png)
 
-Deactivating group push or unlinking a group while leaving the group in LaunchDarkly results in an orphaned team. You will not be able to manage or maintain an orphaned team within the LaunchDarkly UI. 
+Deactivating group push or unlinking a group while leaving the group in LaunchDarkly results in an orphaned team. You will not be able to manage or maintain an orphaned team within the LaunchDarkly UI.
 
 To remove the team, first re-link the team, choose the "Unlink pushed group" option, then choose the "Delete the group in the target app" option.

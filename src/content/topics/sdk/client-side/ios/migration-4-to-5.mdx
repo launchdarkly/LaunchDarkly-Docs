@@ -64,16 +64,8 @@ In the 5.0 release of the iOS SDK, the `LDClient.shared` property was removed, a
 
 Here is an an example of the `start` method:
 
-<CodeTabs
-  defaultValue="sdk4-swift"
-  values={[
-    { label: '4.x syntax (Swift)', value: 'sdk4-swift', },
-    { label: '5.0 syntax (Swift)', value: 'sdk5-swift', },
-    { label: '4.x syntax (Obj-C)', value: 'sdk4-objc', },
-    { label: '5.0 syntax (Obj-C)', value: 'sdk5-objc', },
-  ]
-}>
-<CodeTabItem value="sdk4-swift">
+<CodeSample>
+<CSTab label="4.x syntax (Swift)">
 
 ```swift
 let config = LDConfig(mobileKey: "mobile-key-123abc")
@@ -81,8 +73,8 @@ let user = LDUser(key: "user-key-123abc")
 LDClient.shared.start(config: config, user: user)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-swift">
+</CSTab>
+<CSTab label="5.0 syntax (Swift)">
 
 ```swift
 let config = LDConfig(mobileKey: "mobile-key-123abc")
@@ -92,8 +84,8 @@ LDClient.start(config: config, user: user)
 let shared = LDClient.get()!
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4-objc">
+</CSTab>
+<CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
@@ -101,8 +93,8 @@ LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [[LDClient sharedInstance] startWithConfig:config user:user];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-objc">
+</CSTab>
+<CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
 LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
@@ -111,8 +103,8 @@ LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 LDClient *shared = [LDClient get];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If your application was already taking advantage of the `startCompleteWhenFlagsReceived` method to determine when flags are received for the configured user, the static `start` method also supports the `startWaitSeconds` and `completion` parameters that follow the same behavior that `startCompleteWhenFlagReceived` had. More information on the behavior of `start` is available in the [getting started](/sdk/client-side/ios#getting-started) section of the main iOS SDK reference.
 
@@ -130,24 +122,16 @@ In the 5.0 release, the setter for the `user` property has been removed. If your
 
 Here is an example of migrating to the `identify` method:
 
-<CodeTabs
-  defaultValue="sdk4-swift"
-  values={[
-    { label: '4.x syntax (Swift)', value: 'sdk4-swift', },
-    { label: '5.0 syntax (Swift)', value: 'sdk5-swift', },
-    { label: '4.x syntax (Obj-C)', value: 'sdk4-objc', },
-    { label: '5.0 syntax (Obj-C)', value: 'sdk5-objc', },
-  ]
-}>
-<CodeTabItem value="sdk4-swift">
+<CodeSample>
+<CSTab label="4.x syntax (Swift)">
 
 ```swift
 let newUser = LDUser(key: "user-key-123abc")
 LDClient.shared.user = newUser
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-swift">
+</CSTab>
+<CSTab label="5.0 syntax (Swift)">
 
 ```swift
 let newUser = LDUser(key: "user-key-123abc")
@@ -158,24 +142,24 @@ LDClient.get()!.identify(user: newUser) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4-objc">
+</CSTab>
+<CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
 LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [LDClient sharedInstance].user = newUser;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-objc">
+</CSTab>
+<CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
 LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 [[LDClient get] identify:newUser];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 One other change to be aware of is that the optional `LDUser` initializer, `LDUser.init?(object: )`, as been removed in preference of using `LDUser.init(userDictionary: )` directly.
 
@@ -187,44 +171,36 @@ Due to a change of the parameter naming, all variation calls that specify the `f
 
 Here is an an example using the new parameter name:
 
-<CodeTabs
-  defaultValue="sdk4-swift"
-  values={[
-    { label: '4.x syntax (Swift)', value: 'sdk4-swift', },
-    { label: '5.0 syntax (Swift)', value: 'sdk5-swift', },
-    { label: '4.x syntax (Obj-C)', value: 'sdk4-objc', },
-    { label: '5.0 syntax (Obj-C)', value: 'sdk5-objc', },
-  ]
-}>
-<CodeTabItem value="sdk4-swift">
+<CodeSample>
+<CSTab label="4.x syntax (Swift)">
 
 ```swift
 let flagValue = LDClient.shared.variation(forKey: "flag-key", fallback: false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-swift">
+</CSTab>
+<CSTab label="5.0 syntax (Swift)">
 
 ```swift
 let flagValue = LDClient.get()!.variation(forKey: "flag-key", defaultValue: false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4-objc">
+</CSTab>
+<CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
 BOOL flagValue = [[LDClient sharedInstance] boolVariationForKey:@"flag-key" fallback:NO];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-objc">
+</CSTab>
+<CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
 BOOL flagValue = [[LDClient get] boolVariationForKey:@"flag-key" defaultValue:NO];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If your application uses the `variationDetail` methods, and referenced the name of the return type directly, it must also be updated for the renaming of that type.
 
@@ -234,44 +210,36 @@ In the Objective-C interface the returned type is not generic, so there is a sep
 
 Here is an example using the new naming method:
 
-<CodeTabs
-  defaultValue="sdk4-swift"
-  values={[
-    { label: '4.x syntax (Swift)', value: 'sdk4-swift', },
-    { label: '5.0 syntax (Swift)', value: 'sdk5-swift', },
-    { label: '4.x syntax (Obj-C)', value: 'sdk4-objc', },
-    { label: '5.0 syntax (Obj-C)', value: 'sdk5-objc', },
-  ]
-}>
-<CodeTabItem value="sdk4-swift">
+<CodeSample>
+<CSTab label="4.x syntax (Swift)">
 
 ```swift
 let flagValueDetail: EvaluationDetail<Bool> = LDClient.shared.variationDetail(forKey: "flag-key", fallback: false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-swift">
+</CSTab>
+<CSTab label="5.0 syntax (Swift)">
 
 ```swift
 let flagValueDetail: LDEvaluationDetail<Bool> = LDClient.get()!.variationdetail(forKey: "flag-key", defaultValue: false)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4-objc">
+</CSTab>
+<CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
 ObjCBoolEvaluationDetail *flagValueDetail = [[LDClient sharedInstance] boolVariationDetailForKey:@"flag-key" fallback:NO];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-objc">
+</CSTab>
+<CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
 LDBoolEvaluationDetail *flagValueDetail = [[LDClient get] boolVariationDetailForKey:@"flag-key" defaultValue:NO];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Additionally, the deprecated `variationAndSource` methods have been removed in the 5.0 release. If your application was making use of these methods, upgrading to the 5.0 release will require migrating to the `variationDetail` methods.
 
@@ -291,16 +259,8 @@ If your application uses `trackEvent` to record `custom` events, it is necessary
 
 Here is an example using the new names:
 
-<CodeTabs
-  defaultValue="sdk4-swift"
-  values={[
-    { label: '4.x syntax (Swift)', value: 'sdk4-swift', },
-    { label: '5.0 syntax (Swift)', value: 'sdk5-swift', },
-    { label: '4.x syntax (Obj-C)', value: 'sdk4-objc', },
-    { label: '5.0 syntax (Obj-C)', value: 'sdk5-objc', },
-  ]
-}>
-<CodeTabItem value="sdk4-swift">
+<CodeSample>
+<CSTab label="4.x syntax (Swift)">
 
 ```swift
 do {
@@ -310,8 +270,8 @@ do {
 } catch {}
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-swift">
+</CSTab>
+<CSTab label="5.0 syntax (Swift)">
 
 ```swift
 do {
@@ -321,8 +281,8 @@ do {
 } catch {}
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4-objc">
+</CSTab>
+<CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
 NSError* err = nil;
@@ -332,8 +292,8 @@ if (err != nil) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-objc">
+</CSTab>
+<CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
 NSError* err = nil;
@@ -343,8 +303,8 @@ if (err != nil) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To avoid polluting classes external to the SDK, `JSONSerialization.JSONError` has been removed.
 
@@ -356,44 +316,36 @@ Under normal use it is not necessary to explicitly shut down the SDK. If your ap
 
 To shut down the SDK:
 
-<CodeTabs
-  defaultValue="sdk4-swift"
-  values={[
-    { label: '4.x syntax (Swift)', value: 'sdk4-swift', },
-    { label: '5.0 syntax (Swift)', value: 'sdk5-swift', },
-    { label: '4.x syntax (Obj-C)', value: 'sdk4-objc', },
-    { label: '5.0 syntax (Obj-C)', value: 'sdk5-objc', },
-  ]
-}>
-<CodeTabItem value="sdk4-swift">
+<CodeSample>
+<CSTab label="4.x syntax (Swift)">
 
 ```swift
 LDClient.shared.stop()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-swift">
+</CSTab>
+<CSTab label="5.0 syntax (Swift)">
 
 ```swift
 LDClient.get()!.close()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk4-objc">
+</CSTab>
+<CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
 [[LDClient sharedInstance] stop];
 ```
 
-</CodeTabItem>
-<CodeTabItem value="sdk5-objc">
+</CSTab>
+<CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
 [[LDClient get] close];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Removing exposed implementation details
 

@@ -1,14 +1,14 @@
 ---
 path: /guide/api/comparing-sdk-rest-api
 title: Comparing LaunchDarkly's SDKs and REST API
-description: This guide explains the differences between LaunchDarkly's SDKs and REST API, and when you should use each.
+description: This guide explains the differences between LaunchDarkly's SDKs and LaunchDarkly's REST API and associated client libraries, and when you should use each.
 published: true
 tags: ['guide', 'rest', 'api', 'sdk', 'client libraries']
 ---
 
 ## Overview
 
-This guide explains the differences between LaunchDarkly's SDKs and REST API, and when you should use each.
+This guide explains the differences between LaunchDarkly's SDKs and LaunchDarkly's REST API and associated client libraries, and when you should use each.
 
 ## Using the LaunchDarkly SDK
 
@@ -30,13 +30,13 @@ To learn more about a particular LaunchDarkly SDK, read the SDK reference guide 
 
 ## Using the LaunchDarkly REST API
 
-As a LaunchDarkly customer, you're never required to use the REST API. If you want to, you can perform all of the functions available in the REST API through the LaunchDarkly user interface (UI).
+As a LaunchDarkly customer, you're never required to use the REST API or its associated client libraries. If you want to, you can perform all of the functions available in the REST API through the LaunchDarkly user interface (UI).
 
 However, you may find it convenient to perform your feature management programmatically, rather than through the UI. For example, with the LaunchDarkly REST API you can perform the following:
 
 * Create, update, and search for account members, teams, projects, environments, and feature flags
 * Toggle feature flags
-* Query data about users that have evaluated feature flags in your application
+* Query data about contexts that have evaluated feature flags in your application
 * Build custom integrations
 * Export raw data to destinations outside of LaunchDarkly
 
@@ -62,11 +62,12 @@ Outside of the official LaunchDarkly REST API, we occasionally provide supplemen
 
   * are still in beta
   * are not yet incorporated into our REST API framework or client libraries, although they may be in the future
-  * correspond to features that are not yet available through the LaunchDarkly user interface
+  * correspond to features that are not yet available through the LaunchDarkly user interface (UI)
 
 To learn more about the currently available supplemental public APIs, read:
 
 * [Importing metric events](/home/creating-experiments/import-metric-events)
+* [Deployment events API](/home/accelerate/get-started-accelerate/deployment-events-api)
 
 ## Conclusion
 

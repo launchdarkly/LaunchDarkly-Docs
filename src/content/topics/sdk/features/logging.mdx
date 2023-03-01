@@ -26,7 +26,7 @@ This feature is available in the following client-side SDKs:
 * [Electron](#electron)
 * [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
-* [React](#react)
+* [React Web](#react-web)
 * [Roku](#roku)
 
 ### .NET (client-side)
@@ -50,14 +50,8 @@ The Android SDK makes heavy use of Timber logging. Include Timber in your applic
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 if (BuildConfig.DEBUG) {
@@ -65,8 +59,8 @@ if (BuildConfig.DEBUG) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 if (BuildConfig.DEBUG) {
@@ -74,8 +68,8 @@ if (BuildConfig.DEBUG) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Electron
@@ -114,14 +108,8 @@ You can use [`basicLogger`](https://launchdarkly.github.io/node-client-sdk/funct
 
 This example shows how to use `basicLogger` to enable debug-level logging in your SDK configuration:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```javascript
 const LaunchDarkly = require('launchdarkly-node-client-sdk');
@@ -136,8 +124,8 @@ const client = LaunchDarkly.initialize( 'client-side-id-123abc', user, options);
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
@@ -149,8 +137,8 @@ const client = LaunchDarkly.initialize( 'client-side-id-123abc', user, options);
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Be aware of two considerations when enabling debug-level logging:
 
@@ -159,23 +147,18 @@ Be aware of two considerations when enabling debug-level logging:
 
 </Details>
 
-### React
+### React Web
 
 <Details summary="Expand React code sample">
 
-The React SDK relies on the JavaScript SDK for logging-related functionality. In the default configuration, the SDK sends the output to the console and enables all log levels except `debug`.
+The React Web SDK relies on the JavaScript SDK for logging-related functionality. In the default configuration, the SDK sends the output to the console and enables all log levels except `debug`.
 
 To change the logging configuration, set `LDOptions.logger` to any object that implements the `LDLogger` interface and performs logging for the client. The `basicLogger`, available in the JavaScript SDK, produces such an object.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="react"
-  values={[
-    { label: 'JavaScript', value: 'react', }
-  ]
-}>
-<CodeTabItem value="react">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```javascript
 import { basicLogger } from 'launchdarkly-js-sdk-client';
@@ -188,8 +171,8 @@ export default withLDProvider({
 })(App);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [LDOptions](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html) and [LDLogger](https://launchdarkly.github.io/js-client-sdk/interfaces/LDLogger.html) in the JavaScript SDK API docs.
 
@@ -211,31 +194,21 @@ Those loggers are:
 
 You can configure the SDK log level. For example, to set the level to `info`:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 config.setLogLevel(LaunchDarklyLogLevels().info)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The SDK supports the following Levels:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 LaunchDarklyLogLevels().error
@@ -245,19 +218,16 @@ LaunchDarklyLogLevels().debug
 LaunchDarklyLogLevels().none
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### Legacy API custom logger for the Roku SDK
 ---
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+Here is an example of the legacy API custom logger:
+
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 function CustomLogger() as Object
@@ -273,21 +243,16 @@ config.setLogger(CustomLogger())
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 #### SceneGraph API custom logger for the Roku SDK
 ---
 
 Here is an example of the SceneGraph API custom logger:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'XML', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="CustomLogger.xml">
 
 ```xml
 <!-- /components/CustomLogger.xml -->
@@ -301,16 +266,8 @@ Here is an example of the SceneGraph API custom logger:
 </component>
 ```
 
-</CodeTabItem>
-</CodeTabs>
-
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+</CSTab>
+<CSTab label="CustomLogger.brs">
 
 ```brightscript
 REM /components/CustomLogger.brs
@@ -341,26 +298,21 @@ function mainThread() as Void
 end function
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To use the logger, create the SceneGraph logger node, and then:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 config.setLoggerNode(myLoggerNode)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -390,13 +342,8 @@ The .NET SDK sends log output to `Console.Error` by default. The [`Configuration
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Logging;
@@ -409,18 +356,13 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The destination could be another logging framework, such as the .NET Core `Microsoft.Extensions.Logging` API in this example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Logging;
@@ -431,8 +373,8 @@ var config = Configuration.Builder("sdk-key-123abc")
     .Build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about logging configuration and adapters for other logging frameworks, read the documentation for [`LaunchDarkly.Logging`](https://launchdarkly.github.io/dotnet-logging/).
 
@@ -466,30 +408,20 @@ For example, setting it to `LD_LOG_TRACE` produces the most verbose output, whic
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDConfigureGlobalLogger(LD_LOG_TRACE, LDBasicLogger);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also use your own custom log function:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 static void
@@ -502,8 +434,8 @@ LDConfigureGlobalLogger(LD_LOG_TRACE, myCustomLogger);
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -516,14 +448,8 @@ By default, all levels of messages are enabled except `Debug`. You can tell the 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -546,8 +472,8 @@ config.Logging = ldcomponents.Logging().
 config.Logging = ldcomponents.NoLogging()
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -570,8 +496,8 @@ config.Logging = ldcomponents.Logging().
 config.Logging = ldcomponents.NoLogging()
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are two things to consider if you enable the `Debug` log level:
 
@@ -592,13 +518,8 @@ If you do not specify a destination, the default behavior depends on the version
 
 Here is an example of configuring log output to go to the standard output stream (`System.out`), and enabling `DEBUG` level:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java (SDK versions 5.10.x and later)', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v5.10.x and later">
 
 ```java
 import com.launchdarkly.logging.*;
@@ -611,8 +532,8 @@ LDConfig config = new LDConfig.Builder()
   .build();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about logging configuration and adapters for other logging frameworks, read the documentation for [`com.launchdarkly.logging`](https://github.com/launchdarkly/java-logging).
 
@@ -649,14 +570,8 @@ You can use [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/modul
 
 This example shows how to use `basicLogger` to enable debug-level logging in your SDK configuration:
 
-<CodeTabs
-  defaultValue="node"
-  values={[
-    { label: 'JavaScript', value: 'node', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="node">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```javascript
 const ld = require('launchdarkly-node-server-sdk');
@@ -668,8 +583,8 @@ const options = {
 };
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -682,8 +597,8 @@ const logger: ld.LDLogger = ld.basicLogger({
 const options: ld.LDOptions = { logger: logger };
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are two important things to consider before you enable debug-level logging:
 
@@ -705,20 +620,15 @@ There are two important things to consider before you enable the DEBUG log level
 
 You can pass a custom logger to the SDK by using the configurable `logger` property:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP">
 
 ```php
 $client = new LaunchDarkly\LDClient("sdk-key-123abc", ["logger" => new Logger("LaunchDarkly", [new ErrorLogHandler(0, Level::Debug)])]);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Python
@@ -729,21 +639,16 @@ The Python SDK uses Python's built-in [logging library](https://docs.python.org/
 
 Here's how to enable the debug log level:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 ld_logger = logging.getLogger("ldclient")
 ld_logger.setLevel(logging.DEBUG)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 There are two important things to consider before you enable the debug log level:
 
@@ -765,13 +670,8 @@ There are two important things to consider before you enable the DEBUG log level
 
 You can pass a custom logger to the SDK by using the configurable `logger` property:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 log = ::Logger.new($stdout)
@@ -780,8 +680,8 @@ config = LaunchDarkly::Config.new({logger: log})
 client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Rust

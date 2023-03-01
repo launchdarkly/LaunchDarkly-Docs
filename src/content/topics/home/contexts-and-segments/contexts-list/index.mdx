@@ -1,0 +1,301 @@
+---
+path: /home/contexts/contexts-list
+title: The Contexts list
+description: This topic explains what the Contexts list is, how it is populated, and how to use it.
+published: true
+tags: ['dashboard', 'context', 'attribute', 'mci', 'cmci', 'mau', 'user']
+---
+
+## Overview
+
+This topic explains what the **Contexts** list is, how it is populated, and how to use it.
+
+The **Contexts** list shows you all of the contexts that have encountered feature flags in your application. You can select any context to view its context detail page, which gives you a summary view of how the context experiences all of the features in your app, and lets you customize their experience from one screen. To learn more, read [The context details page](/home/contexts/context-details).
+
+## Understanding the Contexts list
+
+The **Contexts** list populates automatically when different contexts encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data in the list is populated from the data you send in variation calls, as well as data from identify calls. To learn more about evaluating contexts in the SDK, read [Evaluating flags](/sdk/features/evaluating). To learn more about contexts and attributes, read [Context attributes](/home/contexts/attributes).
+
+<Callout intent="alert">
+<CalloutTitle>You cannot add contexts manually</CalloutTitle>
+<CalloutDescription>
+
+You cannot create contexts in the <strong>Contexts</strong> list. The list only includes contexts that have already been evaluated by a LaunchDarkly SDK.
+
+</CalloutDescription>
+</Callout>
+
+If a context's attributes change within five minutes of the previous evaluation, and the context key stays the same, the list deduplicates the context and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
+
+<Callout intent="alert">
+<CalloutTitle>The SDK does not use the attributes on the <strong>Contexts</strong> list to evaluate flags</CalloutTitle>
+<CalloutDescription>
+
+The SDK only evaluates flags based on the context you provide in the evaluation call. The SDK does not use the attributes shown on the **Contexts** list, and context attributes are not synchronized across SDK instances. You must provide all applicable attributes for each evaluation in the SDK for your targeting rules to apply correctly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
+Here is an image of the **Contexts** list:
+
+![The "Contexts" list.](contexts-list.png)
+
+From the list, you can filter contexts by name, kind, or attribute. You can also sort the list to identify the oldest or most recent contexts evaluated in your LaunchDarkly account. By default, the most recently active contexts appear first. Click the toggle arrow on the "Last seen" column to sort the list by least recently active contexts.
+
+<Callout intent="info">
+<CalloutTitle>Contexts appear individually in the <strong>Contexts</strong> list</CalloutTitle>
+<CalloutDescription>
+
+Your application may evaluate a feature flag for a multi-context, that is, one that contains multiple context kinds. For example, your application may send a multi-context that contains the "user," "organization," and "device" context kinds, all in one evaluation call in the LaunchDarkly SDK. When you do this, all three individual contexts appear separately in your **Contexts** list. You can use the context kind filters to search for them separately.
+
+</CalloutDescription>
+</Callout>
+
+To learn more about how the **Contexts** list is populated, and how you might exceed the 100,000,000 context limit, read [Anonymous contexts](/home/contexts/anonymous-contexts).
+
+To learn how to create context kinds, read [Creating context kinds](/home/contexts/context-kinds#creating-context-kinds).
+
+<LearnMore>
+
+You can also use the REST API: [Get contexts](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContexts), [Get context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextInstances)
+
+</LearnMore>
+
+## Filtering contexts
+
+You can filter contexts on the **Contexts** list by context kind, name, key, or attribute.
+
+To filter contexts:
+
+1. In the filter field, enter all or the beginning of a context kind, name, key, or attribute. 
+  - To filter by an attribute for a specific context kind, separate the context kind and its attribute with a period (`.`). For example, to search the "state" attribute of "user" contexts, use `user.state`.
+
+![A search query for "user" context kinds.](contexts-filter-context-kind.png)<br />
+
+2. Press enter. Only contexts with matching attribute values now display on the **Contexts** list.
+
+<LearnMore>
+
+You can also use the REST API: [Search for contexts](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContexts), [Search for context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContextInstances)
+
+</LearnMore>
+
+### Using advanced filter strings
+
+In addition to filtering by context kind, name, or attribute, you can create advanced filter strings to search for specific values in specific fields.
+
+This table contains examples of advanced filter strings and what they search for:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Filter string</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>
+      <code>location equals Springfield</code>
+    </TableCell>
+    <TableCell>
+      Searches for all context kinds for a location attribute with the value of "Springfield"
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>organization.location anyOf ["Springfield","Midway"]</code>
+    </TableCell>
+    <TableCell>
+      Searches for all organization contexts that have a location attribute with the value of "Springfield" or "Midway"
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>device.type startsWith "Samsung"</code>
+    </TableCell>
+    <TableCell>
+      Searches for all device contexts that have a type attribute that starts with "Samsung"
+    </TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+Expand the advanced context filtering reference below to learn how to create filter strings on the **Contexts** list.
+
+<Details summary="Click to expand the advanced context filtering reference">
+
+A filter string contains three elements:
+
+- **Field**: The field is the first part of the filter string. It is a field in the contexts that you want to filter based on.
+  - If you're searching an attribute for a specific context kind, separate the context kind and its attribute with a period (`.`). 
+  - Field names are always strings. If they appear within double quotes (`"`), then they are encoded as if they were a JSON string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
+- **Operator**: The operator is the second part of the filter string. It describes the conditions by which the filter identifies the match value. To learn about all of the available operators, view the ["Operators" table below](#operators).
+- **Match value**: The match value is the third part of the filter string. It describes the values that the filter will identify. 
+  - A match value must be in the same format as a JSON value or an unquoted string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
+
+### Operators
+
+This table lists all of the available operators and related examples:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Operator</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+    <TableHeadCell>Example</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>
+      <code>equals</code>
+    </TableCell>
+    <TableCell>
+      Returns true if there is an exact match on the entire field.
+    </TableCell>
+    <TableCell>
+      <code>organization.number equals 44</code><br />
+      <code>"kind" equals "device"</code><br />
+      <code>device.option equals true</code><br />
+      <code>organization.number equals [1,2,3,4]</code><br />
+      <code>user.name equals ["Sandy", "Jesse"]</code>
+    </TableCell>
+  </TableRow>
+    <TableRow>
+    <TableCell>
+      <code>anyOf</code>
+    </TableCell>
+    <TableCell>
+      Returns true if any of the values in a field match any of the values in the match value.
+    </TableCell>
+    <TableCell>
+      <code>organization.number anyOf [44]</code><br />
+      <code>user.name anyOf ["Sandy","Jesse"]</code><br />
+      <code>device.optin "anyOf" [true]</code><br />
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>contains</code>
+    </TableCell>
+    <TableCell>
+      Returns true if all the match values are also found in the values of the field.
+    </TableCell>
+    <TableCell>
+      <code>organization.number contains [44]</code><br />
+      <code>"user.name" contains ["Sandy","Jesse"]</code><br />
+      <code>device.optin "contains" [true]</code><br />
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>startsWith</code>
+    </TableCell>
+    <TableCell>
+      Returns true the value in a field, which should be a singular string, begins with the provided substring.
+    </TableCell>
+    <TableCell>
+      <code>user.name startsWith San</code><br />
+      <code>device.os startsWith "iOS"</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>lte</code>
+    </TableCell>
+    <TableCell>
+      Returns true if any of the values in a field, which should be numbers, are less than or equal to the match value, which should be a number.
+    </TableCell>
+    <TableCell>
+      <code>organization.number lte 44</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>gte</code>
+    </TableCell>
+    <TableCell>
+      Returns true if any of the values in a field, which should be numbers, are greater than or equal to the match value, which should be a number.
+    </TableCell>
+    <TableCell>
+      <code>organization.number gte 44</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+    <code>after</code>
+    </TableCell>
+    <TableCell>
+      Returns true if any of the values in a field, which should be dates, are after or equal to the provided datetime. Valid match values should be numbers in unix epoch milliseconds, or date time strings in RFC-3339 format.
+    </TableCell>
+    <TableCell>
+      <code>user.signup after "2022-09-21T19:03:15+00:00"</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>before</code></TableCell>
+    <TableCell>Returns true if any of the values in a field, which should be dates, are before or equal to the provided datetime. Valid match values should be numbers in unix epoch milliseconds, or date time strings in RFC-3339 format.</TableCell>
+    <TableCell>
+      <code>user.signup before "2022-09-21T19:03:15+00:00"</code>
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>
+      <code>notEquals</code>
+    </TableCell>
+    <TableCell>
+      Returns true if there is not an exact match on the entire field.
+    </TableCell>
+    <TableCell>
+      <code>organization.number notEquals 44</code><br />
+      <code>"user.name" notEquals Sandy</code><br />
+      <code>device.optin notEquals true</code><br />
+      <code>organization.number notEquals [1,2,3,4]</code><br />
+      <code>user.name notEquals ["Sandy", "Jesse"]</code><br />
+    </TableCell>
+  </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+### Customizing the Contexts list
+
+You can customize which attributes appear on the **Contexts** list. To start, click the **Attributes** button.
+
+Here is a screenshot of the **Attributes** button on the list:
+
+![The "Contexts" list with the "Show attributes" button called out.](contexts-attributes-callout.png)
+
+The **Attributes** menu lets you choose attributes to appear on the **Contexts** list. After you choose specific attributes, that view persists when you visit the list in the future.
+
+## Modifying feature flags for a context instance
+
+Click a context to manage the feature flags that apply to it, view the context instances that have encountered your flags, view the segments that the context is in, and view a full list of context attributes. To learn more, read [The context details page](/home/contexts/context-details).
+
+## Context storage
+
+The **Contexts** list shows only cached context information. A context will appear on the list for 30 days after a flag sends an `identify` or `flag evaluation` event for them. Each time a flag sends a new event for the context, the 30-day period starts over.
+
+After 30 days with no new `identify` or `flag evaluation` events, contexts age out of the system and their information no longer appears on the list.
+
+After a context ages out of the system, it will reappear on the list if a flag sends an `identify` or `flag evaluation` event for it again. The exception to this is if your account has reached the maximum number of contexts.
+
+If you want to keep contexts on the list for longer than 30 days between flags sending `identify` or `flag evaluation` events, you can manually call identify for all of the contexts that you wish to retain. To learn how to do this in your SDK, read [Identifying and changing contexts](/sdk/features/identify).
+
+Accounts are limited to 100,000,000 context instances. If you reach the context instance limit, flag evaluations will still work for new contexts, but those contexts won't appear on the list until stale contexts age out of the 30-day cache and your context instances drop below 100,000,000. To learn more, read [Understanding client-side MCI limits](/home/billing/usage-metrics#understanding-client-side-mci-limits).
+
+If you want to increase your client-side monthly active users (MAU) limit and include more contexts from your client-side SDKs on the list, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+
+## Removing a context instance
+
+You can delete individual context instances from the **Contexts** list by clicking the **overflow menu** and choosing "Delete instance." Deleting a context instance deletes all versions of that instance.
+
+The **overflow menu** only appears if there is exactly one context instance, due to the risks of deleting multiple instances at once.
+
+You can also delete context instances from the context details page. To learn how, read [Deleting a context instance](/home/contexts/context-details#deleting-a-context-instance).
+
+To learn more about context instances, read [Understanding context instances](/home/contexts#understanding-context-instances).
+
+<LearnMore>
+
+You can also use the REST API: [Delete context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/deleteContextInstances)
+
+</LearnMore>

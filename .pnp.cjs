@@ -55,6 +55,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/body-scroll-lock", "npm:3.1.0"],\
             ["@types/chai", "npm:4.3.1"],\
             ["@types/chai-string", "npm:1.4.2"],\
+            ["@types/enzyme", "npm:3.10.12"],\
             ["@types/github-slugger", "npm:1.3.0"],\
             ["@types/jest", "npm:27.5.0"],\
             ["@types/lodash.debounce", "npm:4.0.7"],\
@@ -101,6 +102,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-catch-links", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-client-side-redirect", "npm:1.1.0"],\
             ["gatsby-plugin-google-gtag", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
+            ["gatsby-plugin-google-tagmanager", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.25.0"],\
             ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.4.0"],\
             ["gatsby-plugin-manifest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-mdx", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:3.13.0"],\
@@ -8342,10 +8344,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@sideway/formula", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/@sideway-formula-npm-3.0.0-8688cb96b6-8ae26a0ed6.zip/node_modules/@sideway/formula/",\
+        ["npm:3.0.1", {\
+          "packageLocation": "./.yarn/cache/@sideway-formula-npm-3.0.1-ee371b2ddf-e4beeebc9d.zip/node_modules/@sideway/formula/",\
           "packageDependencies": [\
-            ["@sideway/formula", "npm:3.0.0"]\
+            ["@sideway/formula", "npm:3.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -9589,6 +9591,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/node", "npm:17.0.8"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:0.22.31", {\
+          "packageLocation": "./.yarn/cache/@types-cheerio-npm-0.22.31-63e46da0e3-8d73d22fdd.zip/node_modules/@types/cheerio/",\
+          "packageDependencies": [\
+            ["@types/cheerio", "npm:0.22.31"],\
+            ["@types/node", "npm:17.0.8"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@types/common-tags", [\
@@ -9641,6 +9651,17 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-debug-npm-0.0.30-0fa4eb1306-61365bfd31.zip/node_modules/@types/debug/",\
           "packageDependencies": [\
             ["@types/debug", "npm:0.0.30"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/enzyme", [\
+        ["npm:3.10.12", {\
+          "packageLocation": "./.yarn/cache/@types-enzyme-npm-3.10.12-eae4c96ec1-356e914256.zip/node_modules/@types/enzyme/",\
+          "packageDependencies": [\
+            ["@types/enzyme", "npm:3.10.12"],\
+            ["@types/cheerio", "npm:0.22.31"],\
+            ["@types/react", "npm:17.0.38"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15863,7 +15884,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["enzyme-to-json", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:3.6.2"],\
             ["@types/cheerio", "npm:0.22.30"],\
-            ["@types/enzyme", null],\
+            ["@types/enzyme", "npm:3.10.12"],\
             ["enzyme", "npm:3.11.0"],\
             ["lodash", "npm:4.17.21"],\
             ["react-is", "npm:16.13.1"]\
@@ -18505,6 +18526,38 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["gatsby-plugin-google-tagmanager", [\
+        ["npm:4.25.0", {\
+          "packageLocation": "./.yarn/cache/gatsby-plugin-google-tagmanager-npm-4.25.0-f7c88884e6-e2804b450c.zip/node_modules/gatsby-plugin-google-tagmanager/",\
+          "packageDependencies": [\
+            ["gatsby-plugin-google-tagmanager", "npm:4.25.0"]\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.25.0", {\
+          "packageLocation": "./.yarn/__virtual__/gatsby-plugin-google-tagmanager-virtual-e25a280c38/0/cache/gatsby-plugin-google-tagmanager-npm-4.25.0-f7c88884e6-e2804b450c.zip/node_modules/gatsby-plugin-google-tagmanager/",\
+          "packageDependencies": [\
+            ["gatsby-plugin-google-tagmanager", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.25.0"],\
+            ["@babel/runtime", "npm:7.16.7"],\
+            ["@types/gatsby", null],\
+            ["@types/react", "npm:17.0.45"],\
+            ["@types/react-dom", "npm:17.0.16"],\
+            ["gatsby", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.1"],\
+            ["react", "npm:17.0.2"],\
+            ["react-dom", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:17.0.2"],\
+            ["web-vitals", "npm:1.1.2"]\
+          ],\
+          "packagePeers": [\
+            "@types/gatsby",\
+            "@types/react-dom",\
+            "@types/react",\
+            "gatsby",\
+            "react-dom",\
+            "react"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["gatsby-plugin-launchdarkly", [\
         ["npm:0.4.0", {\
           "packageLocation": "./.yarn/cache/gatsby-plugin-launchdarkly-npm-0.4.0-7f302e80ce-daa8b8f33a.zip/node_modules/gatsby-plugin-launchdarkly/",\
@@ -19421,6 +19474,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/body-scroll-lock", "npm:3.1.0"],\
             ["@types/chai", "npm:4.3.1"],\
             ["@types/chai-string", "npm:1.4.2"],\
+            ["@types/enzyme", "npm:3.10.12"],\
             ["@types/github-slugger", "npm:1.3.0"],\
             ["@types/jest", "npm:27.5.0"],\
             ["@types/lodash.debounce", "npm:4.0.7"],\
@@ -19467,6 +19521,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-catch-links", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-client-side-redirect", "npm:1.1.0"],\
             ["gatsby-plugin-google-gtag", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
+            ["gatsby-plugin-google-tagmanager", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.25.0"],\
             ["gatsby-plugin-launchdarkly", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:0.4.0"],\
             ["gatsby-plugin-manifest", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:4.13.0"],\
             ["gatsby-plugin-mdx", "virtual:7cd9f570b9bf5c82a6171b88a0a3f92c5f774590b99dca2259d88a296f724359b3ebdf071eb915b6e321eb65fc847a12c4bfe96f43e2dc0e4a1c8016935e19e8#npm:3.13.0"],\
@@ -22356,7 +22411,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@hapi/hoek", "npm:9.2.1"],\
             ["@hapi/topo", "npm:5.1.0"],\
             ["@sideway/address", "npm:4.1.3"],\
-            ["@sideway/formula", "npm:3.0.0"],\
+            ["@sideway/formula", "npm:3.0.1"],\
             ["@sideway/pinpoint", "npm:2.0.0"]\
           ],\
           "linkType": "HARD"\
@@ -31718,6 +31773,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["web-vitals", [\
+        ["npm:1.1.2", {\
+          "packageLocation": "./.yarn/cache/web-vitals-npm-1.1.2-8e3860bc35-9207102908.zip/node_modules/web-vitals/",\
+          "packageDependencies": [\
+            ["web-vitals", "npm:1.1.2"]\
+          ],\
+          "linkType": "HARD"\
+        }],\
         ["npm:2.1.4", {\
           "packageLocation": "./.yarn/cache/web-vitals-npm-2.1.4-68bdd9ecb2-03d3f47dbf.zip/node_modules/web-vitals/",\
           "packageDependencies": [\

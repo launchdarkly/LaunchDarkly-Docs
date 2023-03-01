@@ -43,13 +43,13 @@ Here's how to configure the LogDNA integration:
 
 4. (Optional) Enter a human-readable **Name**.
 5. Paste in your **LogDNA ingestion key**.
-7. Specify the **Log level** with which LaunchDarkly messages should be posted. The default value is `INFO`.
+6. Specify the **Log level** with which LaunchDarkly messages should be posted. The default value is `INFO`.
 7. (Optional) Configure a custom **Policy** to control which information LaunchDarkly sends to LogDNA. To learn more, read [Advanced configuration](#advanced-configuration).
 8. Click **Save Configuration**.
 
 When you configure the integration correctly, LaunchDarkly sends change data to LogDNA.
 
-By default, this data is limited to *flag* activity only. You can expand it to other kinds of data, such as project and environment changes.
+By default, this data is limited to _flag_ activity only. You can expand it to other kinds of data, such as project and environment changes.
 
 ## Advanced configuration
 
@@ -57,21 +57,15 @@ The "Policy" configuration field lets you control which kinds of events LaunchDa
 
 The default policy value restricts it to flag changes in production environments:
 
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
-
-<CodeTabItem value="txt">
+<CodeSample>
+<CSTab label="Policy example">
 
 ```txt
 proj/*:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can override the default policy to restrict exported events to:
 
@@ -79,24 +73,17 @@ You can override the default policy to restrict exported events to:
 - a specific action (or set of actions)
 - a specific kind (or kinds) of entities
 
-
 For example, the example policy below restricts the integration so LaunchDarkly only sends changes from the `web-app` project's production environment to LogDNA:
 
-<CodeTabs
-  defaultValue="txt"
-  values={[
-    { label: 'Policy example', value: 'txt', },
-  ]
-}>
-
-<CodeTabItem value="txt">
+<CodeSample>
+<CSTab label="Policy example">
 
 ```txt
 proj/web-app:env/production:flag/*
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about setting custom policies, read [Policies in custom roles](/home/members/role-policies).
 

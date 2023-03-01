@@ -13,7 +13,7 @@ This topic explains how to use the flag evaluations graph on the **Insights** ta
 
 ## Using the flag evaluations graph
 
-The flag evaluations graph gives your engineering and product teams insight into how many times users are receiving each version of a flag over time, as well as any changes to the flag that could have affected how many times each flag was evaluated.
+The flag evaluations graph gives your engineering and product teams insight into how many times different contexts are receiving each version of a flag over time, as well as any changes to the flag that could have affected how many times each flag was evaluated.
 
 To view a flag's evaluations graph:
 
@@ -23,8 +23,9 @@ To view a flag's evaluations graph:
 
 ![The flag evaluations graph on the "Insights" tab.](flag-insights.png)
 
-The flag evaluations graph shows you how flag evaluations change over time. Changes to flag targeting rules, new variations, or an increased number of users affects how all of your end users are experiencing your application. Expect new evaluations to appear on Insights within 1-2 minutes.
+The flag evaluations graph shows you how flag evaluations change over time. Changes to flag targeting rules, new variations, or an increased number of contexts affects how your end users experience your application.
 
-Each graph also has annotations powered by LaunchDarkly's audit log entries. They tell you about changes to your flag and when those changes were made. This gives you input about how changes affect what your users receive.
+Flag evaluations graphs are generated on a per-flag evaluation basis, not a per-context instance basis. This means that if the same context instance is evaluated 20 times, the flag evaluations graph records and displays all 20 evaluations. New evaluations appear on the flag evaluations graph within 1-2 minutes.
 
-Flag evaluations graphs are generated on a per-flag evaluation basis, not a per-user basis. This means that if the same user is evaluated 20 times, the flag evaluations graph records and displays all 20 evaluations.
+Each graph also has annotations powered by LaunchDarkly's audit log entries. They tell you about changes to your flag and when those changes were made. This gives you input about how changes affect what your end users receive.
+

@@ -6,6 +6,19 @@ published: true
 tags: ['guide', 'nginx', 'sdk', 'lua']
 ---
 
+<Callout intent="alert">
+<CalloutTitle>This guide has not been updated to include custom contexts</CalloutTitle>
+<CalloutDescription>
+
+This documentation is not updated to display upcoming changes from LaunchDarkly's contexts feature. This documentation will be updated during the contexts Early Access Program (EAP).
+
+To learn more about custom contexts, read [Contexts and segments](/home/contexts).
+
+</CalloutDescription>
+</Callout>
+
+<!-- cSpell:disable TKTK: remove the above callout when the U2C version of Lua is available, SC-189166 cSpell:enable -->
+
 ## Overview
 
 This guide explains how to use our [Lua server-side SDK](https://github.com/launchdarkly/lua-server-sdk) with the [NGINX OpenResty framework](https://openresty.org).
@@ -29,13 +42,8 @@ Make the source of the Lua SDK accessible to OpenRESTY. You can control imports 
 
 For example:
 
-<CodeTabs
-  defaultValue="nginx"
-  values={[
-    { label: 'NGINX', value: 'nginx', },
-  ]
-}>
-<CodeTabItem value="nginx">
+<CodeSample>
+<CSTab label="NGINX">
 
 ```nginx
 http {
@@ -44,8 +52,8 @@ http {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Preparing the C/C++ server-side SDK
 
@@ -68,13 +76,8 @@ Initialize each NGINX worker process exactly once for ideal operations. You can 
 
 Here is an example of initialization logic:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local ld = require("launchdarkly_server_sdk")
@@ -87,18 +90,15 @@ local config = {
 return ld.clientInit(config, 1000)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Later we can use the result of this initialization process in other directives.
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<!-- cSpell:disable TKTK: update the following code sample when the U2C version of Lua is available, SC-189166 cSpell:enable -->
+
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local ld     = require("launchdarkly_server_sdk")
@@ -109,15 +109,15 @@ local user = ld.makeUser({
     key = "abc"
 })
 
-if client:boolVariation(user, "YOUR_FLAG_KEY", false) then
+if client:boolVariation(user, "flag-key-123abc", false) then
     ngx.say("<p>feature launched</p>")
 else
     ngx.say("<p>feature not launched</p>")
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Example: Feature flagged reverse proxy
 
@@ -125,13 +125,10 @@ This [reverse proxy](https://en.wikipedia.org/wiki/Reverse_proxy) example demons
 
 The example follows:
 
-<CodeTabs
-  defaultValue="nginx"
-  values={[
-    { label: 'NGINX', value: 'nginx', },
-  ]
-}>
-<CodeTabItem value="nginx">
+<!-- cSpell:disable TKTK: update the following code sample when the U2C version of Lua is available, SC-189166 cSpell:enable -->
+
+<CodeSample>
+<CSTab label="NGINX">
 
 ```nginx
 location / {
@@ -145,7 +142,7 @@ location / {
             key = "abc"
         })
 
-        ngx.var.proxy_host = client:stringVariation(user, "YOUR_FLAG_KEY", "10.0.0.0")
+        ngx.var.proxy_host = client:stringVariation(user, "flag-key-123abc", "10.0.0.0")
     }
 
     proxy_pass                       https://$proxy_host$uri;
@@ -154,8 +151,8 @@ location / {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>

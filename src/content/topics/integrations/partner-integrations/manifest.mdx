@@ -30,14 +30,8 @@ The first part of your manifest should describe your organization, contacts, URL
 
 LaunchDarkly uses most of this information to render your integration card and configuration form in the LaunchDarkly user interface (UI).
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example manifest', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example manifest">
 
 ```json
 {
@@ -59,8 +53,9 @@ LaunchDarkly uses most of this information to render your integration card and c
   "requiresOAuth": false
 }
 ```
-</CodeTabItem>
-</CodeTabs>
+
+</CSTab>
+</CodeSample>
 
 Some properties in the manifest, such as `description`, can accept simple [Markdown](https://daringfireball.net/projects/markdown/). The LaunchDarkly UI converts Markdown to HTML. To get the best results, only use simple Markdown, such as links and basic text formatting.
 
@@ -76,6 +71,6 @@ Many integrations in LaunchDarkly use API tokens. However, if your API requires 
 
 ## Form variables and capabilities
 
-Form variables and capabilities are the most important part of the manifest. They define the primary interactions that LaunchDarkly and users will have with your integration.
+Form variables and capabilities are the most important part of the manifest. They define the primary interactions that LaunchDarkly and others will have with your integration.
 
 To learn more, read [Using form variables](/integrations/partner-integrations/form-variables) and [Using integration framework capabilities](/integrations/partner-integrations/capabilities).

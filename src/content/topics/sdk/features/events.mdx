@@ -14,13 +14,9 @@ This topic explains how to send `custom` events using the track feature in your 
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users." To learn more, read [Contexts and segments](/home/contexts).
 
-Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
-
-You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
-
-If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [most of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
 </CalloutDescription>
 </Callout>
@@ -59,20 +55,15 @@ The `Track` method lets you record actions your users take on your site. This le
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 client.Track("metric-key-123abc");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data to your event by passing an extra parameter to `Track`, using the `LdValue` class to represent any value that can be encoded in JSON. To learn how, read [`LdClient.Track`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Track_System_String_LaunchDarkly_Sdk_LdValue_).
 </Details>
@@ -85,28 +76,22 @@ The `track` method lets you record actions your end users take in your applicati
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-    { label: 'Kotlin', value: 'kotlin' }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 client.track("metric-key-123abc", data);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="kotlin">
+</CSTab>
+<CSTab label="Kotlin">
 
 ```kotlin
 client.track("metric-key-123abc", data)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`track`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClientInterface.html#track-java.lang.String-).
 
@@ -120,20 +105,15 @@ You can also attach custom data to your event by calling [`TrackData`](https://l
 
 The `track` method allows you to record `custom` events in your application with LaunchDarkly:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientTrack(client, "YOUR_EVENT_KEY");
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 
 To learn more, read [`LDClientTrack`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#aed07ba2acbb632f26e63c633b0ef5df5).
@@ -150,20 +130,15 @@ Evaluating flags, either with `variation()` or with `allFlags()`, produces analy
 
 You can also explicitly send an event with any data you like using the `track` function:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.track('my-custom-event-key', { customProperty: someValue });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -175,20 +150,15 @@ The `track` method lets you record actions your users take in your you do applic
 
 Here's how:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 await LDClient.track('metric-key-123abc', data: LDValue.objectBuilder().addBool("clicked-button", true).build());
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data to your event using the [track method](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/track.html) with optional parameters.
 </Details>
@@ -203,30 +173,24 @@ After the SDK's event store is full, the SDK discards new events until the event
 
 Optionally, you can add a `metricValue` parameter of type `Double` to `track` in Swift or as a required parameter to the overloaded `track` method in Objective-C.
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift', value: 'swift', },
-    { label: 'Objective-C', value: 'objc', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="Swift">
 
 ```swift
 let data: LDValue = ["some-custom-key": "some-custom-value", "another-custom-key": 7]
 try LDClient.get()!.track(key: "MY_TRACK_EVENT_NAME", data: data)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="Objective-C">
 
 ```objectivec
 LDValue *data = [LDValue ofArray:@[[LDValue ofBool:YES], [LDValue ofNumber:@5.5]]];
 [[LDClient get] trackWithKey:@"MY_TRACK_EVENT_NAME" data:data];
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read the generated API documentation for [Swift](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html#/Events) or [Objective-C](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/Events).
 </Details>
@@ -243,20 +207,15 @@ The second argument is optional. It assists with observational analytics for Dat
 
 To call `track`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.track('event-name-123abc', { customProperty: someValue });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn how to attach custom data to your event with optional parameters, read [`track`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#track).
 
@@ -284,19 +243,14 @@ Evaluating flags, either with `variation()` or with `allFlags()`, produces analy
 
 You can also explicitly send an event with any data you like using the `track` function. The second argument is optional. For example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.track('your-event-name', { customProperty: someValue });
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you define click conversion or page view conversion metrics in LaunchDarkly, the SDK sends them automatically after you have initialized the client. You do not have to do anything else with the client to send click or page view goals. The SDK will generate `page view` events correctly regardless of how the URL is changed, such as by the HTML5 history API, by changing the URL hash fragment, etc.
 
@@ -320,13 +274,8 @@ The `track` method lets you record actions your users take, giving them any even
 
 Here's an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.track('something-happened');
@@ -334,8 +283,8 @@ client.track('something-happened');
 client.track('something-happened-with-custom-data', { someData: 2 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn how to attach custom data to your event with optional parameters, read [`track`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDClient.html#track).
 </Details>
@@ -344,7 +293,7 @@ To learn how to attach custom data to your event with optional parameters, read 
 
 <Details summary="Expand React Native code sample">
 
-The `track` method lets you record actions your users take in your app. You can also attach custom JSON data to your event by passing an extra parameter to `track`.
+The `track` method lets you record actions your customers take in your app. You can also attach custom JSON data to your event by passing an extra parameter to `track`.
 
 <Callout intent="info">
 <CalloutTitle>Availability</CalloutTitle>
@@ -355,21 +304,16 @@ Optionally, you can add a `metricValue` parameter to the `track` method if you a
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.track('metric-flag-key-123abc', false);
 client.track('metric-flag-key-with-data-456def', {some_data: 'value'});
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn how to attach custom data to your event with optional parameters, read [`track`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html#track).
 </Details>
@@ -382,13 +326,8 @@ The `track` method lets you record `custom` events in your application with Laun
 
 Here's how:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 REM without optional data
@@ -402,8 +341,8 @@ launchDarkly.track("YOUR_EVENT_KEY", invalid, 52.3)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs
@@ -432,28 +371,22 @@ The [`Track`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.
 
 Here's an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 client.Track("metric-key-123abc", context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 client.Track("metric-key-123abc", user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data to your event by passing an extra parameter to `Track`. To do this, use the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type, which can contain any kind of data supported by JSON. You can also pass another parameter for a custom metric value.
 </Details>
@@ -466,20 +399,15 @@ The `track` method lets you record actions your users take in your you do applic
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Apex">
 
 ```java
 client.track(user, 'metric-key-123abc', 52.3, LDValue.of('my value'));
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn how to attach custom data to your event with extra parameters, read [Other methods](https://github.com/launchdarkly/apex-server-sdk/blob/master/doc.md#other-methods-1).
 </Details>
@@ -492,20 +420,15 @@ The `LDClientTrack` function lets you record actions your users take on your sit
 
 Here's how:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C/C++', value: 'c', },
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C/C++">
 
 ```c
 LDClientTrack(client, "metric-key-123abc", user, NULL);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LDClientTrack()`](https://launchdarkly.github.io/c-server-sdk/client_8h.html#aef1fb9d7ad8cf35f95b7bfd0ab7d75b1).
 
@@ -517,24 +440,26 @@ You can also attach custom data to your event by calling [`LDClientTrackMetric()
 
 <Details summary="Expand Erlang code sample">
 
-The `track` function lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` function lets you record actions customers take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang SDK v2.0">
+
+```
+ldclient:track(<<"metric-key-123abc">>, #{key => <<"context-key-123abc">>}, #{data => <<"example">>})
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```
 ldclient:track(<<"metric-key-123abc">>, #{key => <<"user-key-123abc">>}, #{data => <<"example">>})
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`track`](https://hexdocs.pm/launchdarkly_server_sdk/ldclient.html#track-3).
 
@@ -551,28 +476,22 @@ In this example, we use [`TrackEvent`](https://pkg.go.dev/github.com/launchdarkl
 
 Here's how:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 client.TrackEvent("completed-purchase", context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 client.TrackEvent("completed-purchase", user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data to your event by calling [`TrackData`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.TrackData), which takes an extra parameter. Or, if you are using experimentation, you can specify a numeric metric with [`TrackMetric`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.TrackMetric).
 
@@ -582,23 +501,24 @@ You can also attach custom data to your event by calling [`TrackData`](https://p
 
 <Details summary="Expand Haskell code sample">
 
-The `track` function lets you record actions your users take on your site. This lets you record events that take place on your server.
+The `track` function lets you record actions customers take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+track client context "metric-key-123abc" Nothing Nothing
+```
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
 ```haskell
 track client user "metric-key-123abc" Nothing Nothing
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach a JSON object containing arbitrary data to your event, or a custom metric value. To learn how, read [`track`](https://launchdarkly.github.io/haskell-server-sdk/src/LaunchDarkly.Server.Client.html#track).
 </Details>
@@ -611,28 +531,22 @@ The [`track`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-s
 
 Here's how:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 client.track("metric-key-123abc", context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 client.track("metric-key-123abc", user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom JSON data to your event with an alternate version of `track`, [`trackData`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#trackData(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.LDValue)). You can set the data to any value that can be represented in JSON. To learn more, read [`LDValue`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDValue.html).
 
@@ -648,20 +562,15 @@ The `track` method lets you record actions your users take. This lets you record
 
 Here's how:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 client:track("metric-key-123abc", user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach an object containing arbitrary data to your event. To learn how, read [`track`](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#track).
 
@@ -669,35 +578,28 @@ You can also attach an object containing arbitrary data to your event. To learn 
 
 ### Node.js (server-side)
 
-
 <Details summary="Expand Node.js (server-side) code sample">
 
 The `track` method lets you record actions that end users take on your site. This lets you record events that take place on your server.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js SDK v7', value: 'js', },
-    { label: 'Node.js SDK v6.x and older', value: 'js-old', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v7">
 
 ```js
 client.track('metric-key-123abc', context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x and earlier">
 
 ```js
 client.track('metric-key-123abc', user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data to your event with optional parameters. To learn how, read [track](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#track).
 
@@ -711,28 +613,22 @@ The `track` method lets you record actions your end users take on your site. Thi
 
 Here's how:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 $client->track("metric-key-123abc", $context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 $client->track("metric-key-123abc", $user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data, including anything that can be marshaled to JSON, to your event by passing an extra parameter to `track`. To learn how, read [`track()`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_track).
 
@@ -746,28 +642,22 @@ The `track` method lets you record actions end users take on your site. This let
 
 Here's how:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python SDK v8.0', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-v7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 ldclient.get().track("metric-key-123abc", context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-v7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 ldclient.get().track("metric-key-123abc", user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data to your event with optional parameters. To learn how, read [`track`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.track).
 </Details>
@@ -780,28 +670,22 @@ The `track` method lets you record actions your contexts take on your site. This
 
 Here's how:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 client.track("metric-key-123abc", context)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 client.track("metric-key-123abc", user)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach an extra hash containing arbitrary data to your event. To learn how, read [`track`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#track-instance_method).
 </Details>
@@ -816,26 +700,20 @@ In this example, we use [`track_event`](https://docs.rs/launchdarkly-server-sdk/
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust SDK v1', value: 'rust', },
-    { label: 'Rust SDK beta', value: 'rust-beta', },
-  ]
-}>
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust SDK v1">
 
 ```rust
 client.track_event(context, "completed-purchase");
 ```
-</CodeTabItem>
-<CodeTabItem value="rust-beta">
+</CSTab>
+<CSTab label="Rust SDK beta">
 
 ```rust
 client.track_event(user, "completed-purchase");
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can also attach custom data to your event by calling [`track_data`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.track_data), which takes an extra parameter. Or, if you are using experimentation, you can specify a numeric metric with [`track_metric`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.track_metric).
 </Details>

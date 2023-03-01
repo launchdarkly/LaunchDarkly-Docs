@@ -10,11 +10,9 @@ published: true
 <CalloutTitle>Version 3 of the JavaScript SDK replaces users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
 
-You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
-
-Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [JavaScript SDK 2.x to 3.0 migration guide](/sdk/client-side/javascript/migration-2-to-3).
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [JavaScript SDK 2.x to 3.0 migration guide](/sdk/client-side/javascript/migration-2-to-3) and [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
 
 </CalloutDescription>
 </Callout>
@@ -92,6 +90,8 @@ The LaunchDarkly client-side JavaScript SDK can be used in all major browsers. H
 
 The standard solution for ensuring that you will get the same functionality even in browsers that do not have native support for these features is to use [polyfills](https://developer.mozilla.org/en-US/docs/Glossary/Polyfill). For a detailed description, and links to information about which browsers may require this, read [JS SDK requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
+Additionally, the JavaScript SDK versions 3.0.0 and 3.1.0 use optional chaining. If you encounter an error related to optional chaining during transpiling, bundling, or running tests, updating to version 3.1.1 should resolve the error.
+
 <Callout intent="alert">
 <CalloutTitle>Do Not Track and ad blocking software</CalloutTitle>
 <CalloutDescription>
@@ -111,49 +111,37 @@ The first step is to make the JavaScript SDK available as a dependency. There ar
 
 In most cases, making the JavaScript SDK available to your application or site requires running one of the following in your project:
 
-<CodeTabs
-  defaultValue="npm"
-  values={[
-    { label: 'npm', value: 'npm', },
-    { label: 'yarn', value: 'yarn', },
-    { label: 'bower', value: 'bower', },
-  ]
-}>
-<CodeTabItem value="npm">
+<CodeSample>
+<CSTab label="npm">
 
 ```bash
 npm install launchdarkly-js-client-sdk
 ```
 
-</CodeTabItem>
-<CodeTabItem value="yarn">
+</CSTab>
+<CSTab label="yarn">
 
 ```bash
 yarn add launchdarkly-js-client-sdk
 ```
 
-</CodeTabItem>
-<CodeTabItem value="bower">
+</CSTab>
+<CSTab label="bower">
 
 ```bash
 # LaunchDarkly's JS SDK script is copied from unpkg in this example
 bower install https://unpkg.com/launchdarkly-js-client-sdk@3
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you are using a package manager, and combining dependencies with your code using a tool such as Webpack, there are various ways to import the JavaScript SDK into your code.
 
 Here are some examples in commonly used frameworks:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 // Using require()
@@ -167,8 +155,8 @@ import * as LDClient from 'launchdarkly-js-client-sdk';
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 In earlier versions of the SDK, the package was named `ldclient-js` instead of `launchdarkly-js-client-sdk`.
 
@@ -193,15 +181,8 @@ If you are working in a development environment, you can load the SDK from unpkg
 
 Here is an example of code to include in the `<head>` tag of your site:
 
-<CodeTabs
-  defaultValue="self"
-  values={[
-    { label: 'Loading from a self-hosted script', value: 'self', },
-    { label: 'Loading from unpkg', value: 'unpkg', },
-    { label: 'Loading from jsDelivr', value: 'jsDelivr', },
-  ]
-}>
-<CodeTabItem value="self">
+<CodeSample>
+<CSTab label="Loading from a self-hosted script">
 
 ```html
 
@@ -210,8 +191,8 @@ Here is an example of code to include in the `<head>` tag of your site:
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="unpkg">
+</CSTab>
+<CSTab label="Loading from unpkg">
 
 ```bash
 
@@ -219,8 +200,8 @@ Here is an example of code to include in the `<head>` tag of your site:
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="jsDelivr">
+</CSTab>
+<CSTab label="Loading from jsDelivr">
 
 ```bash
 
@@ -228,8 +209,8 @@ Here is an example of code to include in the `<head>` tag of your site:
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Initializing the client
 
@@ -268,16 +249,8 @@ Feature flag targeting and rollouts are determined by the end user viewing the p
 
 Here is an example showing how to initialize the client:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript SDK v3 (JavaScript)', value: 'js', },
-    { label: 'JavaScript SDK v3 (TypeScript)', value: 'ts'},
-    { label: 'JavaScript SDK v2.x (JavaScript)', value: 'js-v2', },
-    { label: 'JavaScript SDK v2.x (TypeScript)', value: 'ts-v2'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript SDK v3 (JavaScript)">
 
 ```js
 const context = {
@@ -287,8 +260,8 @@ const context = {
 const client = LDClient.initialize('client-side-id-123abc', context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="JavaScript SDK v3 (TypeScript)">
 
 ```ts
 const context: LDClient.LDContext = {
@@ -298,8 +271,8 @@ const context: LDClient.LDContext = {
 const client = LDClient.initialize('client-side-id-123abc', context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-v2">
+</CSTab>
+<CSTab label="JavaScript SDK v2.x (JavaScript)">
 
 ```js
 const user = {
@@ -308,8 +281,8 @@ const user = {
 const client = LDClient.initialize('client-side-id-123abc', user);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts-v2">
+</CSTab>
+<CSTab label="JavaScript SDK v2.x (TypeScript)">
 
 ```ts
 const user: LDClient.LDUser = {
@@ -318,8 +291,8 @@ const user: LDClient.LDUser = {
 const client = LDClient.initialize('client-side-id-123abc', user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>Initialization delay</CalloutTitle>
@@ -338,14 +311,8 @@ The client object can emit JavaScript events. It emits a `ready` event when it r
 
 Here's how:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.on('ready', () => {
@@ -355,8 +322,8 @@ client.on('ready', () => {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 client.on('ready', () => {
@@ -368,8 +335,8 @@ client.on('ready', () => {
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>Streaming updates</CalloutTitle>
@@ -384,13 +351,8 @@ Or, you can use a promise instead of an event. The SDK has two methods that retu
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.waitUntilReady().then(() => {
@@ -402,20 +364,15 @@ await client.waitUntilReady();
 // initialization succeeded, flag values are now available
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The other method that returns a promise, `waitForInitialization()`, is similar to `waitUntilReady()` except that it also tells you if initialization fails by rejecting the promise. This method never rejects the `waitUntilReady()` promise.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 client.waitForInitialization().then(() => {
@@ -433,8 +390,8 @@ try {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The SDK only decides initialization has failed if it receives an error response indicating that the environment ID is invalid. If it has trouble connecting to LaunchDarkly, it will keep retrying until it succeeds.
 

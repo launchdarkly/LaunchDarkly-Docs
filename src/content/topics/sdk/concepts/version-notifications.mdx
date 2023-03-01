@@ -24,13 +24,8 @@ For the particular SDK you are interested in, you can subscribe to the RSS feed 
 
 The location of the RSS feed is:
 
-<CodeTabs
-  defaultValue="rss"
-  values={[
-    { label: 'RSS feed', value: 'rss', },
-  ]
-}>
-<CodeTabItem value="rss">
+<CodeSample>
+<CSTab label="RSS feed">
 
 ```bash
 # general format
@@ -40,20 +35,15 @@ https://github.com/:organization/:repo/releases.atom
 https://github.com/launchdarkly/js-client-sdk/releases.atom
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If your team uses Slack as a collaboration tool, you can also subscribe a Slack channel to the release RSS feed. In your Slack channel, type `/feed subscribe <RSS feed>` to subscribe.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="rss"
-  values={[
-    { label: 'Slack channel subscription', value: 'rss', },
-  ]
-}>
-<CodeTabItem value="rss">
+<CodeSample>
+<CSTab label="Slack channel subscription">
 
 ```bash
 # general format
@@ -63,8 +53,8 @@ Here's how:
 /feed subscribe https://github.com/launchdarkly/js-client-sdk/releases.atom
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Getting notifications in the LaunchDarkly web application
 
@@ -102,6 +92,7 @@ Server-side SDK migration guides:
 * [.NET (server-side) SDK 6.x to 7.0](/sdk/server-side/dotnet/migration-6-to-7)
 * [Go SDK 4.x to 5.0](/sdk/server-side/go/migration-4-to-5)
 * [Go SDK 5.x to 6.0](/sdk/server-side/go/migration-5-to-6)
+* [Haskell SDK 3.x to 4.0 ](/sdk/server-side/haskell/migration-3-to-4)
 * [Java SDK 4.x to 5.0 ](/sdk/server-side/java/migration-4-to-5)
 * [Java SDK 5.x to 6.0 ](/sdk/server-side/java/migration-5-to-6)
 * [Node.js (server-side) SDK 5.x to 6.0](/sdk/server-side/node-js/migration-5-to-6)

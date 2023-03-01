@@ -10,11 +10,9 @@ published: true
 <CalloutTitle>Version 3 of the .NET (client-side) SDK replaces users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
 
-You can upgrade your SDK at any time. However, the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access this feature, [join the EAP](https://launchdarkly.com/eap). If you are not part of the EAP, your application can send user contexts to LaunchDarkly and they will appear on the **Users** list.
-
-Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [.NET (client-side) SDK 2.x to 3.0 migration guide](/sdk/client-side/dotnet/migration-2-to-3).
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [.NET (client-side) SDK 2.x to 3.0 migration guide](/sdk/client-side/dotnet/migration-2-to-3) and [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
 
 </CalloutDescription>
 </Callout>
@@ -96,30 +94,20 @@ It is also compatible with any other platform that supports .NET Standard versio
 
 To start using the client-side .NET SDK:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 Install-Package LaunchDarkly.ClientSdk
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Next, import the LaunchDarkly packages in your application code:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 using LaunchDarkly.Sdk;
@@ -129,8 +117,8 @@ using LaunchDarkly.Sdk.Client;
 // LaunchDarkly.Sdk.Client defines the LdClient and Configuration types for the client-side .NET SDK.
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 After you install the dependency, initialize the LaunchDarkly client by creating a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
 
@@ -147,14 +135,8 @@ The following example shows the simplest way to create the client. It blocks for
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK 3.0 (C#)">
 
 ```csharp
 var context = Context.New("context-key-123abc");
@@ -162,8 +144,8 @@ var timeSpan = TimeSpan.FromSeconds(10);
 client = LdClient.Init("mobile-key-123abc", context, timeSpan);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-2.x">
+</CSTab>
+<CSTab label=".NET SDK 2.x (C#)">
 
 ```csharp
 var user = User.WithKey("user-key-123abc");
@@ -171,37 +153,31 @@ var timeSpan = TimeSpan.FromSeconds(10);
 client = LdClient.Init("mobile-key-123abc", user, timeSpan);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 However, calling blocking code from the main thread in a mobile app is not considered a best practice. The preferred method is to load the client asynchronously.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK 3.0 (C#)">
 
 ```csharp
 Context context = Context.New("context-key-123abc");
 client = await LdClient.InitAsync("mobile-key-123abc", context);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-2.x">
+</CSTab>
+<CSTab label=".NET SDK 2.x (C#)">
 
 ```csharp
 User user = User.WithKey("user-key-123abc");
 client = await LdClient.InitAsync("mobile-key-123abc", user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>LdClient must be a singleton</CalloutTitle>
@@ -227,13 +203,8 @@ You can use `client` to check which variation a particular context will receive 
 
 Here's how:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 bool showFeature = client.BoolVariation("flag-key-123abc", false);
@@ -245,8 +216,8 @@ else {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
@@ -263,13 +234,8 @@ To make a flag available to this SDK, check the **SDKs using Mobile key** checkb
 
 You can configure the client-side .NET SDK to connect to the [Relay Proxy](https://github.com/launchdarkly/ld-relay) as follows:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 Configuration config = Configuration.Builder("sdk-key-123abc")
@@ -280,8 +246,8 @@ Configuration config = Configuration.Builder("sdk-key-123abc")
 LdClient client = LdClient.Init(config);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Shutting down
 

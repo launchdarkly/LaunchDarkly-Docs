@@ -12,7 +12,7 @@ This guide discusses some of the challenges of testing code that uses feature fl
 
 In a traditional development process, a quality assurance (QA) team does testing on staging, then deploys to production. However, staging is never an exact replica of production. If something is working on staging but breaks on production, then the QA team has to rerun all their tests a second time. A more efficient approach is to skip or minimize testing on staging and test in production from the beginning.
 
-Some of our most successful customers are able to deploy to production multiple times per day because their QA and user acceptance testing (UAT) teams can validate functionality in a real production environment before exposing that functionality to the rest of their user base. When you use feature flags to expose your feature to test users only, if your QA or UAT team finds a bug, there is no impact on any other users and there is no need to do a full rollback. After your feature is working for your test users, you can begin an incremental rollout to the rest of your audience.
+Some of our most successful customers are able to deploy to production multiple times per day because their QA and user acceptance testing (UAT) teams can validate functionality in a real production environment before exposing that functionality to the rest of their user base. When you use feature flags to expose your feature to test contexts only, if your QA or UAT team finds a bug, there is no impact on any other contexts and there is no need to do a full rollback. After your feature is working for your test contexts, you can begin an incremental rollout to the rest of your audience.
 
 In addition to manual testing in production, this guide discusses multiple types of automated tests you can run while developing your code, including unit testing, mock testing, integration testing, and end-to-end testing. We also provide example unit tests, example Cypress tests, and a mock to use with the Jest test runner and the React Web SDK.
 
@@ -28,25 +28,26 @@ To complete this guide, you should understand the following concepts:
 
 ### Flag variations
 
-Flag variations let you use one flag to serve multiple variations of a feature to different users simultaneously. There is no limit to the number of variations you can add to a flag, making them useful for testing scenarios. To learn more, read [Creating flag variations](/home/flags/variations).
+Flag variations let you use one flag to serve multiple variations of a feature to different contexts simultaneously. There is no limit to the number of variations you can add to a flag, making them useful for testing scenarios. To learn more, read [Creating flag variations](/home/flags/variations).
 
 ### Fallback values
 
-Fallback values are what your app serves to a user if it can't evaluate a flag, such as if your app can’t connect to LaunchDarkly. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+Fallback values are what your app serves to a context if it can't evaluate a flag, such as if your app can’t connect to LaunchDarkly. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
 
 ### Flag targeting
 
-Flag targeting lets you control which users receive which variation of a feature flag. Targeting is useful when testing your code in production because it lets you target only specific test users and exclude your general user population. To learn more, read [Targeting users with flags](/home/flags/targeting-users).
+Flag targeting lets you control which contexts receive which variation of a feature flag. Targeting is useful when testing your code in production because it lets you target only specific test contexts and exclude your general context population. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 <LearnMore>
 
-Learn more: [Creating flags using the API](https://apidocs.launchdarkly.com/tag/Feature-flags)
+You can also use the REST API: [Creating flags using the API](https://apidocs.launchdarkly.com/tag/Feature-flags)
 
 </LearnMore>
 
 ### Testing types
 
 This guide discusses the following test types:
+
 - **Unit tests:** unit tests break down testing into small, manageable chunks by automating tests on individual units of code. Unit tests run quickly and can be run while you’re still working on your code. You should parse your unit tests into the smallest pieces possible so you can test individual functions. Unit tests are a type of automated testing.
 - **Mock tests:** mock tests are a type of unit test that let you test your code within a simulated version of an internal or external service. The simulation isolates the behavior of your code so you can focus on the code being tested, and not on the behavior of the service. Any variables external to the mock, such as values coming from an SDK, should be as firmly controlled as possible. Mock tests are a type of automated testing.
 - **Integration and end-to-end tests:** integration and end-to-end tests assess multiple pieces of code working together. In contrast to mock testing, these test real components and services and how they interact with each other. Because of their increased complexity, integration and end-to-end tests are slower and more complex than unit and mock tests. Integration and end-to-end tests are types of automated testing.
@@ -79,14 +80,8 @@ The code for sending queries to each search engine is separated into dedicated f
 
 Here's the code we're testing:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example unit test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example unit test">
 
 ```js
 function newSearch(searchQuery) {
@@ -104,7 +99,7 @@ function oldSearch(searchQuery) {
 
 function search(searchQuery) {
     // Feature Flag - false is the fallback value
-    useNewSearch = ldclient.variation("new-search-algorithm", user, false);
+    useNewSearch = ldclient.variation("new-search-algorithm", context, false);
 
     if (useNewSearch) {
         newSearch(searchQuery);
@@ -112,21 +107,16 @@ function search(searchQuery) {
         oldSearch(searchQuery);
     }
 }
+
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 This unit test checks that the correct search function is being called depending on the flag variations of `true` for the new engine and `false` for the old engine:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example unit test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example unit test">
 
 ```js
 function testNewSearch() {
@@ -166,8 +156,8 @@ function testSearchWithNewSearchOff() {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Mock testing
 
@@ -193,20 +183,22 @@ Using a dedicated LaunchDarkly environment is an easy option to set up because i
 
 ### Using a dedicated LaunchDarkly environment with targeting
 
-Using a dedicated LaunchDarkly environment with targeting is similar to the previous option, but the flags in the environment are configured with targeting rules so that they return different values depending on the user object provided in the code. This allows you to run an entire set of tests with different flag values for each without needing to reconfigure any flags during the test run. This also means that multiple concurrent test runs will not conflict with each other.
+Using a dedicated LaunchDarkly environment with targeting is similar to the previous option, but the flags in the environment are configured with targeting rules so that they return different values depending on the context object you provide in the code. This allows you to run an entire set of tests with different flag values for each without needing to reconfigure any flags during the test run. This also means that multiple concurrent test runs will not conflict with each other.
 
 To learn more, read [Creating targeting rules](/home/flags/targeting-rules#creating-targeting-rules).
 
 To ensure the correct use of targeting in test runs, the test must meet these requirements:
-- The code must supply a distinct but predictable user object for each test.
-- Each flag used in a test must have a targeting configuration that returns the correct flag variation for that test’s user object.
 
-There are many options for setting up a user object to reflect the needed flag values for the current test.
+- The code must supply a distinct but predictable context object for each test.
+- Each flag used in a test must have a targeting configuration that returns the correct flag variation for that test’s context object.
+
+There are many options for setting up a context object to reflect the needed flag values for the current test.
 
 Here are some examples:
-- Perform each test as a distinct app user. Send the user’s ID as the `key` in the user object, which LaunchDarkly matches in flags’ individual user targeting.
-- Specify the name of the test in a custom attribute that LaunchDarkly matches in the test’s targeting rules.
-- Specify a separate custom attribute for each flag and the variation required of that flag.
+
+- Perform each test as a distinct context. Add the context’s ID to the context object, and use the ID in flags’ individual context targeting.
+- Specify the name of the test in a context attribute that LaunchDarkly matches in the test’s targeting rules.
+- Specify a separate attribute for each flag and the variation required of that flag.
 
 ### Bootstrapping
 
@@ -224,74 +216,64 @@ Instead of building a real LaunchDarkly client, you can put a wrapper around you
 
 Cypress is a JavaScript end-to-end testing framework for front-end web applications. This example explains how to create a Cypress plugin to modify flags that control the instances of LaunchDarkly you test with Cypress.
 
-Cypress tests can fail if you don’t have the right flag settings in your testing instance. You may not be able to differentiate between failures caused by flag settings, general flakiness, or real problems. You can use this plugin to ensure that you don’t get failures due to flag settings by targeting the test user in the correct flags before running tests.
+Cypress tests can fail if you don’t have the right flag settings in your testing instance. You may not be able to differentiate between failures caused by flag settings, general flakiness, or real problems. You can use this plugin to ensure that you don’t get failures due to flag settings by targeting the test context in the correct flags before running tests.
 
-To begin, create the following custom Cypress command: `setUserFlags(flags: LDFlagSet)`.
+To begin, create the following custom Cypress command: `setContextFlags(flags: LDFlagSet)`.
 
 This command:
-- Accepts an argument that maps flag keys to variation values, and adds the configured user to the variation with the specified value for each flag included in the argument.
-- Turns each flag on so the user targeting can take effect. If the user is already targeted to receive a variation of a flag other than the requested variation, this command will remove the user from the current variation and add them to the requested variation.
+
+- Accepts an argument that maps flag keys to variation values, and adds the configured context to the variation with the specified value for each flag included in the argument.
+- Turns each flag on so the context targeting can take effect. If the context is already targeted to receive a variation of a flag other than the requested variation, this command will remove the context from the current variation and add them to the requested variation.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example Cypress test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example Cypress test">
 
 ```js
-// target the configured user to receive the 'true' value of the specified flags
-cy.setUserFlags({
+// target the configured context to receive the 'true' value of the specified flags
+cy.setContextFlags({
       'flag-key-1': true,
       'flag-key-2': true,
       'flag-key-3': true,
     });
 
 
-// target the configured user to receive the 'false' value of the specified flags
-cy.setUserFlags({
+// target the configured context to receive the 'false' value of the specified flags
+cy.setContextFlags({
       'flag-key-1': false,
       'flag-key-2': false,
       'flag-key-3': false,
     });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-Next, create `clearUserFlags(flags: LDFlagSet)`.
+Next, create `clearContextFlags(flags: LDFlagSet)`.
 
 This command:
+
 - Accepts an argument that maps flag keys to variation values.
-- Removes the configured user from the variation with the specified value for each flag included in the argument.
+- Removes the configured context from the variation with the specified value for each flag included in the argument.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="json"
-  values={[
-    { label: 'Example Cypress test', value: 'json', },
-  ]
-}>
-
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="Example Cypress test">
 
 ```js
-// remove the configured user from the 'true' variation of the specified flags
- cy.clearUserFlags({
+// remove the configured context from the 'true' variation of the specified flags
+ cy.clearContextFlags({
       'flag-key-1': true,
       'flag-key-2': true,
       'flag-key-3': true,
     });
+
 ```
 
-</CodeTabItem>
-</CodeTabs>
-
+</CSTab>
+</CodeSample>
 
 You can use this plugin to write Cypress tests that cover all configurations of your LaunchDarkly instance, instead of running Cypress tests against fixed configurations.
 
@@ -315,12 +297,12 @@ You can also use the REST API: [Create environment](https://apidocs.launchdarkly
 
 ### Using targeted testing with the REST API
 
-You can use the LaunchDarkly REST API with test environments to set user targets and flag statuses. This method uses fewer environments and more targeted testing, which lets multiple people run tests concurrently. To use this method, you must coordinate how targeting is set up for testers.
+You can use the LaunchDarkly REST API with test environments to set context targets and flag statuses. This method uses fewer environments and more targeted testing, which lets multiple people run tests concurrently. To use this method, you must coordinate how targeting is set up for testers.
 
 Targeting can work in two different ways:
 
-- Targeting user attributes: if you pass a custom attribute within the user context that indicates which test is being run, then your targeting can match on that attribute. Give the custom attribute a human-readable name of the scenario you’re running so you can easily tell what tests are being run with those users.
-- Targeting user IDs: If you don’t have this level of control over user attributes, you can target user IDs. In this method, you should keep track of which IDs are being used in which tests.
+- Targeting context attributes: if you pass an attribute within the context that indicates which test is being run, then your targeting can match on that attribute. Give the attribute a human-readable name of the scenario you’re running so you can easily tell what tests are being run with those contexts.
+- Targeting context IDs: If you don’t have this level of control over context attributes, you can target context IDs. In this method, you should keep track of which IDs are being used in which tests.
 
 To learn more, read our [REST API documentation](https://apidocs.launchdarkly.com/).
 

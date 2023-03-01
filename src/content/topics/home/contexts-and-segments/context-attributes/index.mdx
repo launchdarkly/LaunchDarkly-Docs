@@ -1,0 +1,115 @@
+---
+path: /home/contexts/attributes
+title: Context attributes
+description: This topic explains what context attributes are, how to configure them, and how LaunchDarkly uses them to calculate and display flag settings for your customers.
+published: true
+tags: ['context', 'attribute', 'custom attribute', 'built-in', 'user']
+---
+
+## Overview
+
+This topic explains what context attributes are, how to configure them, and how LaunchDarkly uses them to calculate and display flag settings for your customers.
+
+<Callout intent="info">
+  <CalloutTitle>Some SDKs still use user attributes</CalloutTitle>
+  <CalloutDescription>
+
+  Some LaunchDarkly SDKs do not yet support context-based feature flagging. Instead, they rely on legacy user objects.
+
+  To learn which SDKs are available to use with contexts, read [SDKs](/sdk).
+
+  </CalloutDescription>
+</Callout>
+
+## Understanding context attributes
+
+Contexts are people, services, machines, or other resources that encounter feature flags in your product.
+
+Each context has a context kind that you can use to categorize context instances for targeting and Experimentation. For example, you may know:
+
+  * the username, first name, last name, and email address of a person. You might include these context attributes in contexts with a "user" context kind.
+  * the size, region, and location of an office. You might include these context attributes in contexts with an "organization" context kind.
+  * the configuration details of an environment. You might include these attributes in contexts with a "device" context kind.
+
+To learn more, read [Context kinds](/home/contexts/context-kinds).
+
+When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you might evaluate a flag using only the "user" context. Or you might evaluate a flag using both the "user" context and the "device" context simultaneously. We refer to this kind of evaluation as a multi-context.
+
+This illustration shows a flag evaluating two multi-contexts:
+
+![Two multi-contexts with three contexts each of "user," "organization," and "location."](contexts-multi.png)
+
+A more precise way to refer to a context when you are using it to evaluate a feature flag is an "evaluation context." An evaluation context is the object that the SDK uses to evaluate a feature flag. It can contain a single context or a multi-context. It includes all of the information about a context that LaunchDarkly can use for a feature flag evaluation. To learn more, read [Contexts and segments](/home/contexts).
+
+By default, the **Contexts** list displays a context's attribute values. You can mark any context attribute as private if you only want to use it during flag evaluation, and do not want to display it in the LaunchDarkly user interface (UI). To learn more, read [Using private context attributes](#using-private-context-attributes).
+
+To learn more about upgrading to contexts, read [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
+
+## Targeting based on context attributes
+
+You can use context attributes in targeting rules for flags and segments. For example, imagine you want a flag to serve the `true` variation to user contexts that are in the segment `Test segment`, and account contexts whose plan type is `Beta tester`.
+
+Here is an example of that rule:
+
+![A rule serving "true" to contexts affected by two conditions.](flag-targeting-multiple-rules.png)
+
+After you have set up the conditions for your rule, you can decide whether your contexts will receive one variation, or a percentage rollout across several variations. To learn more, read [Targeting rules](/home/flags/targeting-rules).
+
+## Viewing and managing contexts
+
+By default, SDKs send all of a context's attributes to LaunchDarkly. This data lets LaunchDarkly determine the expected flag variations for contexts and powers the autocomplete functionality throughout the LaunchDarkly UI.
+
+You can change the value of an attribute for a context at any point. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+
+You can access context detail pages from the **Contexts** list. To learn how, read [The Contexts list](/home/contexts/contexts-list).
+
+Here is a context details page in the LaunchDarkly UI:
+
+![A context's details page.](context-details.png)
+
+<Callout intent="alert">
+<CalloutTitle>The SDK does not use the attributes in the <strong>Contexts</strong> list to evaluate flags</CalloutTitle>
+<CalloutDescription>
+
+The SDK only evaluates flags based on the evaluation context you provide in the evaluation call. The SDK does not use the attributes shown on the <strong>Contexts</strong> list, and context attributes are not synchronized across SDK instances. You must provide all applicable context attributes for your targeting rules to apply correctly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
+## Using private context attributes
+
+You may not want to send all attributes back to, or store all attributes in, LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer data is transmitted to or stored within a third-party platform like LaunchDarkly.
+
+For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments.
+
+The **Contexts** list indicates private attributes with a lock icon: 
+
+![The "Contexts" list with a private attribute called out.](contexts-private-attribute-callout.png)
+
+You can also mark some portions of an attribute private. For example, if you have one attribute for address, you could mark the street field of the address attribute as private, but not the city field. You can still use all parts of the address in targeting rules, but only the city would appear in the LaunchDarkly UI.
+
+Depending on the type of SDK you use, LaunchDarkly does not receive or store the information in private attributes. If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.
+
+If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Contexts** list or on the detail page for the context.
+
+### Configuring private attribute settings in your SDK
+
+There are two ways you can mark attributes as private:
+
+* You can mark an attribute as private across all contexts of any context kind. You might use this if you want to ensure that an "email" attribute is never sent to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
+* You can mark an attribute as private within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+
+If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the context is in the **Contexts** list, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the context from the **Contexts** list, and re-evaluate the context.
+
+To learn more about setting these configuration options, read your SDK's documentation.
+
+<Callout intent="alert">
+<CalloutTitle>Implications of using private attributes</CalloutTitle>
+<CalloutDescription>
+
+If a feature flag contains targeting rules that reference private attributes, context pages may not be able to calculate flag settings for your contexts. Each context page indicates when it is unable to calculate flag settings because of private attributes.
+<br />
+When creating a targeting rule, LaunchDarkly cannot autocomplete attributes you have made private.
+
+</CalloutDescription>
+</Callout>

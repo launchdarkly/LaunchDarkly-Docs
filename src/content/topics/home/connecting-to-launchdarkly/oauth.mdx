@@ -21,7 +21,7 @@ It is critically important to only authorize applications you trust to use you
 
 ## Connecting an OAuth app to LaunchDarkly
 
-You can connect your LaunchDarkly account to external applications, such as the LaunchDarkly Slack app, using the OAuth 2.0 protocol. When you authorize an OAuth application, you grant the application access to information and actions a user might take. Some applications can act on your behalf, such as by turning feature flags on and off.
+You can connect your LaunchDarkly account to external applications, such as the LaunchDarkly Slack app, using the OAuth 2.0 protocol. When you authorize an OAuth application, you grant the application access to information and actions an account member might take. Some applications can act on your behalf, such as by turning feature flags on and off.
 
 Your LaunchDarkly credentials and billing information will never be shared with any OAuth application you authorize.
 
@@ -29,7 +29,7 @@ If you are interested in developing your own OAuth application, read [Registerin
 
 ## OAuth app permissions
 
-On initial authorization, an OAuth app shows you a complete list of permissions it requires in order to work. While the app may have the capability to perform many actions in LaunchDarkly, the app's ability to do anything is limited by the abilities of the user who authorizes it.
+On initial authorization, an OAuth app shows you a complete list of permissions it requires in order to work. While the app may have the capability to perform many actions in LaunchDarkly, the app's ability to do anything is limited by the abilities of the account member who authorizes it.
 
 Additionally, if your own permissions are reduced, applications you have previously authorized will have reduced permissions as will.
 

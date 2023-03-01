@@ -74,17 +74,13 @@ Here's an example to demonstrate this factoring tactic. The example code is take
 
 Here is an example:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'pseudocode', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="pseudocode">
 
 ```js
-function getSearchResults(query, user) {
+function getSearchResults(query, context) {
   // 1. parse the query so engine can use it
+
   // ... query parsing logic goes here...
 
   // 2. send the search query to the back-end search engine
@@ -93,19 +89,22 @@ function getSearchResults(query, user) {
 
   // 3. check for errors
   if (response.body.starts_with("SEARCH ERROR")) {
-    // if there's an error, log the response and user details
-    log.ERROR("Search failure", response, user);
+    // if there's an error, log the response and context details
+    log.ERROR("Search failure", response, context);
     return new Error("There was an internal search error.");
   } else {
     // 4. turn response into a result list, clean up the results, etc.
+
     // ... results logic goes here...
+
     return results;
   }
 }
+
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The app's engineering team is preparing to migrate to a new, improved search engine. To prepare for the migration, the team has created the flag `use-new-search-engine` to tell the app which search back-end to use. The code needs to include code for querying both the old and the new search engines.
 
@@ -113,69 +112,72 @@ Inserting the flag logic in the middle of `getSearchResults` would make it even 
 
 The team moves these lines of code, along with code for the new search engine and code to check the flag, into their own functions:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'pseudocode', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="pseudocode">
 
 ```js
 // This new version of the main function is much shorter,
 // because it delegates the central work to executeSearch()
-function getSearchResults(query, user) {
+function getSearchResults(query, context) {
   // 1. parse the query so engine can use it
+
   // ... query parsing logic goes here...
 
   // 2. send the search query to the back-end search engine
-  response = executeSearch(parsedQuery, user);
+  response = executeSearch(parsedQuery, context);
   return response;
 }
 
 // This function only checks the value of the "use-new-search-engine" flag
 // and routes the query to one of the two functions below
 // to do the actual querying and processing
-function executeSearch(query, user) {
-  useNewEngine = ldclient.variation("use-new-search-engine", user, false);
+
+function executeSearch(query, context) {
+  useNewEngine = ldclient.variation("use-new-search-engine", context, false);
   if (useNewEngine == true) {
-    return queryNewEngine(query, user);
+    return queryNewEngine(query, context);
   } else {
-    return queryOldEngine(query, user);
+    return queryOldEngine(query, context);
   }
 }
 
 // This function queries the OLD search engine and processes the response
-function queryOldEngine(query, user) {
+function queryOldEngine(query, context) {
   engineURL = SEARCH_ENGINE_URL + '/search';
   response = sendRequest(engineURL, query);
   if (response.body.starts_with("SEARCH ERROR")) {
-    log.ERROR("Search failure on old engine", response, user);
+    log.ERROR("Search failure on old engine", response, context);
     return new Error("There was an internal search error.");
   } else {
     // turn response into result list, clean up the results, etc.
+
     // ... results logic goes here...
+
     return results;
   }
 }
 
 // This function queries the NEW search engine and processes the response
-function queryNewEngine(query, user) {
+function queryNewEngine(query, context) {
   engineURL = NEW_SEARCH_ENGINE_URL + '/query';
   response = sendRequest(engineURL, query);
   if (response.type == "error") {
-    log.ERROR("Search failure on new engine", response, user);
+    log.ERROR("Search failure on new engine", response, context);
     return new Error("There was an internal search error.");
   } else {
+
     // turn new-engine response into a result list
+
     // ... results logic goes here...
+
     return results;
   }
 }
+
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The migration is expected to last a few weeks. Because the new feature is wrapped in a feature flag, the team can integrate the new search engine code before it's been fully tested and optimized. Now, they can spend time improving the code with real production data. Because the new and old search engine code is separated into different functions, they can make those improvements without changing shared code. In addition, it's easier to add unit tests for the new code because they can call it directly without needing to create mock flag states.
 
@@ -216,38 +218,33 @@ Consider the `executeSearch` function we used as an example earlier. It calls `l
 
 If we moved that call out to `getSearchResults` and sent the flag value to `executeSearch` as an argument, the abbreviated code would look like this:
 
-<CodeTabs
-defaultValue="js"
-values={[
-  { label: 'pseudocode', value: 'js', },
-]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="pseudocode">
 
 ```js
-function getSearchResults(query, user) {
+function getSearchResults(query, context) {
   // 1. parse the query so engine can use it
   // ... query parsing logic goes here...
 
   // 2. send the search query to the back-end search engine
   //    with the feature flag value
-  useNewEngine = ldclient.variation("use-new-search-engine", user, false);
-  response = executeSearch(parsedQuery, user, useNewEngine);
+  useNewEngine = ldclient.variation("use-new-search-engine", context, false);
+  response = executeSearch(parsedQuery, context, useNewEngine);
   return response;
 }
 
 // `useNewEngine` is now supplied in the call
-function executeSearch(query, user, useNewEngine) {
+function executeSearch(query, context, useNewEngine) {
   if (useNewEngine == true) {
-    return queryNewEngine(query, user);
+    return queryNewEngine(query, context);
   } else {
-    return queryOldEngine(query, user);
+    return queryOldEngine(query, context);
   }
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 The purpose of our flag-oriented refactoring was to reduce merge conflicts by separating out the code that would need to change, and keeping it contained in dedicated functions. Unfortunately, putting the flag evaluation code in `getSearchResults` has given it more responsibility that it didn't need, and removed the benefits of the refactoring.
 

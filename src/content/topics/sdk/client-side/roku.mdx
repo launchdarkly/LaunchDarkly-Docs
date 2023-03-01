@@ -73,13 +73,8 @@ Mobile keys are not secret and you can expose them in your client-side code with
 
 Here's how:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 REM get a reference to the task
@@ -96,20 +91,15 @@ LaunchDarklySGInit(config, user)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 For each SceneGraph component you want to use the SDK in you need to initialize an interface to talk to the SceneGraph. This interface provides all the expected client functionality, such as evaluation.
 
 Here's how:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 REM create the scenegraph communication wrapper
@@ -120,8 +110,8 @@ value = launchDarkly.boolVariation("flag-key-123abc", false)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Use a single instance</CalloutTitle>
@@ -147,13 +137,8 @@ Creating a client outside of the SceneGraph API is similar. In the legacy API yo
 
 Here's how:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 REM get a reference to the task
@@ -178,18 +163,13 @@ value = launchDarkly.boolVariation("flag-key-123abc", false)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If not using the SceneGraph you need to poll events to drive the client in your standard event loop:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 while (true)
@@ -206,8 +186,8 @@ while (true)
 end while
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 ## Supported features
 

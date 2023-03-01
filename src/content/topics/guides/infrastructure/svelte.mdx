@@ -101,7 +101,7 @@ The server-side wrapper is in `/src/lib/launchdarkly/server.js`. The wrapper doe
 
 - `initialize()` initializes the SDK using the LaunchDarkly SDK key that is stored in an environment variable in an `.env` file. The environment variable is named `VITE_LAUNCHDARKLY_SDK_KEY` as SvelteKit only exposes environment variables with the `VITE_` prefix. It then waits for the SDK to initialize and returns the SDK client. To learn more about SvelteKit environment variables, read [this FAQ](https://kit.svelte.dev/faq#env-vars).
 - `getClient()` checks if the client has already initialized and, if not, initializes it. In either case, it returns an instance of the SDK client.
-- `getFlagValue()` returns the value of a LaunchDarkly flag based upon the flag's key and the user data that is passed. If no user data is passed, the function will pass a generic anonymous user key.
+- `getFlagValue()` returns the value of a LaunchDarkly flag based upon the flag's key and the evaluation context that is passed in. If no evaluation context is passed in, the function assumes a "user" context kind and will pass a generic anonymous key.
 
 Here is an example:
 
@@ -124,16 +124,16 @@ async function getClient() {
   return (launchDarklyClient = await initialize())
 }
 
-export async function getFlagValue(key, user) {
+export async function getFlagValue(key, context) {
   const client = await getClient()
   let flagValue
 
-  if (!user) {
-    user = {
+  if (!context) {
+    context = {
       key: 'anonymous',
     }
   }
-  flagValue = await client.variation(key, user, false)
+  flagValue = await client.variation(key, context, false)
   return flagValue
 }
 ```
@@ -141,7 +141,7 @@ export async function getFlagValue(key, user) {
 </CSTab>
 </CodeSample>
 
-In the example, any server-side logic that requires a flag value imports the `getFlagValue()` function and passes it the key and user data:
+In the example, any server-side logic that requires a flag value imports the `getFlagValue()` function and passes it the flag key:
 
 <CodeSample>
 <CSTab label="JavaScript">
@@ -250,7 +250,7 @@ The standard client-side JavaScript integration with Svelte requires no special 
 For example, the Svelte component below:
 
 1. Imports the JavaScript SDK.
-2. Initializes the client using the client-side ID and an anonymous user key.
+2. Initializes the client using the client-side ID and an anonymous context key.
 3. When the client is initialized and ready, gets the value of the `show-button` boolean flag.
 4. Sets a listener on the change event for the flag so that any change to the flag value in LaunchDarkly will be immediately reflected on the client.
 5. If the flag variation is true, displays the button within the component. If it is false, does not display the button.
@@ -302,7 +302,7 @@ Much like the server-side interaction, it can be useful to create a wrapper for 
 
 The client-side wrapper is in the file `/src/lib/launchdarkly/client.js`. The wrapper does not implement all the SDK functionality, but has the following functions:
 
-- `initialize()` initializes the SDK using the LaunchDarkly SDK key that is stored in an environment variable in the `.env` file. If no user data is passed, the function will pass a generic anonymous user key. It then waits for the SDK to initialize and returns the SDK client.
+- `initialize()` initializes the SDK using the LaunchDarkly SDK key that is stored in an environment variable in the `.env` file. If no evaluation context is passed, the function will pass a generic anonymous context key. It then waits for the SDK to initialize and returns the SDK client.
 - `getClient()` checks if the client has already been initialized and, if not, initializes it. In either case, it returns an instance of the SDK client.
 - `getFlagValue()` returns the value of a LaunchDarkly flag based upon the flag's key. If a callback function is passed, it adds that as a change listener specific to the passed flag key, meaning that the passed function will only be called on a change to that specific flag rather than a change to any flag in the connected environment.
 
@@ -314,13 +314,13 @@ import * as LaunchDarkly from 'launchdarkly-js-client-sdk'
 
 let launchDarklyClient
 
-async function initialize(user) {
-  if (!user) {
-    user = {
+async function initialize(context) {
+  if (!context) {
+    context = {
       key: 'anonymous',
     }
   }
-  const client = LaunchDarkly.initialize(import.meta.env.VITE_LAUNCHDARKLY_SDK_CLIENT, user)
+  const client = LaunchDarkly.initialize(import.meta.env.VITE_LAUNCHDARKLY_SDK_CLIENT, context)
   await client.waitForInitialization()
   return client
 }

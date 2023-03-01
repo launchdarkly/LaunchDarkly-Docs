@@ -16,13 +16,9 @@ To learn more about how LaunchDarkly determines why a context or user receives a
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users." To learn more, read [Contexts and segments](/home/contexts).
 
-Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
-
-You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
-
-If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [most of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
 </CalloutDescription>
 </Callout>
@@ -65,14 +61,8 @@ The `VariationDetail` methods, such as `BoolVariationDetail`, work the same as `
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 3.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 2.x', value: 'csharp-2.x' },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
 
 ```csharp
 
@@ -91,8 +81,8 @@ int? index = detail.VariationIndex;
 EvaluationReason reason = detail.Reason;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-2.x">
+</CSTab>
+<CSTab label=".NET SDK v2.x (C#)">
 
 ```csharp
 
@@ -111,8 +101,8 @@ int? index = detail.VariationIndex;
 EvaluationReason reason = detail.Reason;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `VariationDetail` methods, read [`EvaluationDetail`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.EvaluationDetail-1.html) and [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_BoolVariationDetail_). To learn more about the configuration option, read [`EvaluationReasons`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.ConfigurationBuilder.html#LaunchDarkly_Sdk_Client_ConfigurationBuilder_EvaluationReasons_System_Boolean_).
 </Details>
@@ -125,14 +115,8 @@ The `variationDetail` methods, such as `boolVariationDetail`, work the same as `
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java for Android SDK v4.0', value: 'java', },
-    { label: 'Java for Android SDK v3.x', value: 'java-v3', }
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -150,8 +134,8 @@ Integer index = detail.getVariationIndex();
 EvaluationReason reason = detail.getReason();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v3">
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
@@ -169,20 +153,15 @@ Integer index = detail.getVariationIndex();
 EvaluationReason reason = detail.getReason();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `variationDetail` methods, read [`EvaluationDetail`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/EvaluationDetail.html) and [`getVariationIndex`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/EvaluationDetail.html#getVariationIndex--). To learn more about the configuration option, read [`evaluationReasons`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDConfig.Builder.html#evaluationReasons(boolean)).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 void printReason(EvaluationReason reason) {
@@ -217,8 +196,8 @@ void printReason(EvaluationReason reason) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdarkly/launchdarkly-android-client-sdk/2.12.0/com/launchdarkly/android/EvaluationReason.html).
 
@@ -234,14 +213,8 @@ The `details.reason` member is the `reason` object described in [Evaluation reas
 
 Here is an example:
 
-<CodeTabs
-defaultValue="c"
-values={[
-    { label: 'C', value: 'c'},
-    { label: 'C++', value: 'c++'},
-]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -261,8 +234,8 @@ if (strcmp(LDGetText(LDObjectLookup(details->reason, "errorKind")), "FLAG_NOT_FO
 LDFreeDetailContents(&details);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="c++">
+</CSTab>
+<CSTab label="C++">
 
 ```cpp
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -281,8 +254,8 @@ if (strcmp(LDGetText(LDObjectLookup(details->reason, "errorKind")), "FLAG_NOT_FO
 LDFreeDetailContents(&details);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `LDVariationDetails` structure, inspect [`client.h`](https://launchdarkly.github.io/c-client-sdk/structLDVariationDetails.html). To learn more about the configuration option, inspect [`config.h`](https://launchdarkly.github.io/c-client-sdk/config_8h.html).
 </Details>
@@ -295,13 +268,8 @@ The `variationDetail` methods, such as `boolVariationDetail`, work the same as `
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 final LDConfig config = LDConfigBuilder("mobile-key-123abc")
@@ -318,20 +286,15 @@ int index = detail.variationIndex;
 LDEvaluationReason reason = detail.reason;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `variationDetail` methods, read [`LDEvaluationDetail`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDEvaluationDetail-class.html) and [`boolVariationDetail`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/boolVariationDetail.html). To learn more about the configuration option, read [`evaluationReasons`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDConfigBuilder/evaluationReasons.html).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="dart"
-  values={[
-    { label: 'Dart', value: 'dart', },
-  ]
-}>
-<CodeTabItem value="dart">
+<CodeSample>
+<CSTab label="Dart">
 
 ```dart
 void printReason(LDEvaluationReason reason) {
@@ -360,8 +323,8 @@ void printReason(LDEvaluationReason reason) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDEvaluationDetail-class.html).
 
@@ -375,15 +338,8 @@ The `variationDetail` methods, such as `boolVariationDetail`, work the same as t
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="swift"
-  values={[
-    { label: 'Swift for iOS SDK v8.0', value: 'swift', },
-    { label: 'Objective-C for iOS SDK v8.0', value: 'objc', },
-    { label: 'Swift for iOS SDK v7.x', value: 'swift-v7', },
-  ]
-}>
-<CodeTabItem value="swift">
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
 ldConfig.evaluationReasons = true
@@ -396,8 +352,8 @@ let variationIndex: Int? = detail.variationIndex
 let reason: [String: LDValue]? = detail.reason
 ```
 
-</CodeTabItem>
-<CodeTabItem value="objc">
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objc
 config.evaluationReasons = true;
@@ -410,8 +366,8 @@ NSInteger variationIndex = detail.variationIndex;
 NSDictionary<NSString*, LDValue*> *reason = detail.reason;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="swift-v7">
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
 
 ```swift
 ldConfig.evaluationReasons = true
@@ -424,8 +380,8 @@ let variationIndex: Int? = detail.variationIndex
 let reason: [String: LDValue]? = detail.reason
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `variationDetail` methods, read [`LDEvaluationDetail`](https://launchdarkly.github.io/ios-client-sdk/Classes/LDEvaluationDetail.html) and [`boolVariationDetail`](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html#/s:12LaunchDarkly8LDClientC19boolVariationDetail6forKey12defaultValueAA012LDEvaluationF0CySbGSS_SbtF). To learn more about the configuration option, read [`LDConfig`](https://launchdarkly.github.io/ios-client-sdk/Structs/LDConfig.html).
 </Details>
@@ -440,14 +396,8 @@ The variation detail returns in an object containing both the result value and a
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript SDK 3.0', value: 'js', },
-    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript SDK 3.0">
 
 ```js
 const options = { evaluationReasons: true };
@@ -460,8 +410,8 @@ const index = detail.variationIndex;
 const reason = detail.reason;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-2.x">
+</CSTab>
+<CSTab label="JavaScript SDK 2.x">
 
 ```js
 const options = { evaluationReasons: true };
@@ -474,8 +424,8 @@ const index = detail.variationIndex;
 const reason = detail.reason;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `variationDetail` methods, read [`LDEvaluationDetail`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDEvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#variationDetail). To learn more about the configuration option, read [`evaluationReasons`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#evaluationReasons).
 </Details>
@@ -490,13 +440,8 @@ The variation detail returns in an object that contains both the result value an
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const options = { evaluationReasons: true };
@@ -509,8 +454,8 @@ const index = detail.variationIndex;
 const reason = detail.reason;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `variationDetail` method, read [`LDEvaluationDetail`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDEvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDClient.html#variationDetail). To learn more about the configuration option, read [`evaluationReasons`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#evaluationReasons).
 </Details>
@@ -519,17 +464,30 @@ To learn more about the `variationDetail` method, read [`LDEvaluationDetail`](ht
 
 <Details summary="Expand React Native code sample">
 
-The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated. For example, you can find out if the user was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods work the same as `variation`, but also provide additional `reason` information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="React Native SDK v7.0 (JavaScript)">
+
+```js
+let config = {
+  mobileKey: 'mobile-key-123abc',
+  evaluationReasons: true
+};
+await client.configure(config, context);
+
+const detail =
+  client.boolVariationDetail('flag-key-123abc', false);
+
+const value = detail.value;
+const index = detail.variationIndex;
+const reason = detail.reason;
+```
+
+</CSTab>
+<CSTab label="React Native SDK v6.x (JavaScript)">
 
 ```js
 let config = {
@@ -546,8 +504,8 @@ const index = detail.variationIndex;
 const reason = detail.reason;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `variationDetail` methods, read [`LDEvaluationDetail`](https://launchdarkly.github.io/react-native-client-sdk/index.html#LDEvaluationDetail) and [`boolVariationDetail`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html#boolVariationDetail). To learn more about the configuration option, read [`LDConfig`](https://launchdarkly.github.io/react-native-client-sdk/index.html#LDConfig).
 </Details>
@@ -560,13 +518,8 @@ For each variation type there is also an associated version that returns the rea
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="brightscript"
-  values={[
-    { label: 'BrightScript', value: 'brightscript', },
-  ]
-}>
-<CodeTabItem value="brightscript">
+<CodeSample>
+<CSTab label="BrightScript">
 
 ```brightscript
 config.setUseEvaluationReasons(true)
@@ -575,8 +528,8 @@ details = launchDarkly.intVariationDetail("flag-key-123abc", 123)
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 These variation methods return an object containing the keys `value`, `reason`, and `variationIndex`. The `value` field is the result of the evaluation. The `reason` field is an object that explains why the result happened, for example details about a rule match. The reason object will always contain a `kind` field. Lastly the `variationIndex` field contains the ID of the particular value returned. This field may be null.
 </Details>
@@ -610,14 +563,8 @@ The `VariationDetail` methods, such as [`BoolVariationDetail`](https://launchdar
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#, .NET SDK 7.0', value: 'csharp', },
-    { label: 'C#, .NET SDK 6.x', value: 'csharp-6.x', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
 
 ```csharp
 EvaluationDetail<bool> detail =
@@ -629,8 +576,8 @@ int? index = detail.VariationIndex;
 EvaluationReason reason = detail.Reason;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="csharp-6.x">
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
 EvaluationDetail<bool> detail =
@@ -642,20 +589,15 @@ int? index = detail.VariationIndex;
 EvaluationReason reason = detail.Reason;
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.EvaluationDetail-1.html), [`BoolVariationDetail`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_BoolVariationDetail_).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="csharp"
-  values={[
-    { label: 'C#', value: 'csharp', },
-  ]
-}>
-<CodeTabItem value="csharp">
+<CodeSample>
+<CSTab label="C#">
 
 ```csharp
 void PrintReason(EvaluationReason reason)
@@ -689,8 +631,8 @@ void PrintReason(EvaluationReason reason)
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationReason`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.EvaluationReason.html).
 
@@ -704,13 +646,8 @@ By passing an `LDClient.EvaluationDetail` object to a variation call you can pro
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Apex', value: 'java', },
-  ]
-}>
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Apex">
 
 ```java
 LDClient.EvaluationDetail details = new LDClient.EvaluationDetail();
@@ -723,8 +660,8 @@ if (details.getReason().getKind() == EvaluationReason.Kind.OFF) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### C/C++ (server-side)
@@ -735,14 +672,8 @@ By passing an `LDDetails` struct to a variation call you can programmatically in
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="c"
-  values={[
-    { label: 'C', value: 'c'},
-    { label: 'C++', value: 'c++'},
-  ]
-}>
-<CodeTabItem value="c">
+<CodeSample>
+<CSTab label="C">
 
 ```c
 struct LDDetails details;
@@ -758,8 +689,8 @@ if (details.reason == LD_RULE_MATCH) {
 LDDetailsClear(&details);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="c++">
+</CSTab>
+<CSTab label="C++">
 
 ```cpp
 LDDetails details;
@@ -774,8 +705,8 @@ if (details.reason == LD_RULE_MATCH) {
 LDDetailsClear(&details);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about the `LDDetails` structure, inspect [`variations.h`](https://launchdarkly.github.io/c-server-sdk/structLDDetails.html).
 </Details>
@@ -788,20 +719,22 @@ The `variation_detail` function is similar to the variation function, but also r
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="erlang"
-  values={[
-    { label: 'Erlang', value: 'erlang', },
-  ]
-}>
-<CodeTabItem value="erlang">
+<CodeSample>
+<CSTab label="Erlang SDK v2.0">
+
+```
+Flag = ldclient:variation_detail(<<"flag-key-123abc">>, #{key => <<"context-key-123abc">>}, false)
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
 
 ```
 Flag = ldclient:variation_detail(<<"flag-key-123abc">>, #{key => <<"user-key-123abc">>}, false)
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 </Details>
 
 ### Go
@@ -812,15 +745,8 @@ The `VariationDetail` methods, such as [`BoolVariationDetail`](https://pkg.go.de
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 value, detail, err := client.BoolVariationDetail("flag-key", context, false)
@@ -831,8 +757,8 @@ reason := detail.Reason
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
@@ -846,22 +772,15 @@ reason := detail.Reason
 // *int which is nil if evaluation failed.
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldreason#EvaluationDetail) and [`BoolVariationDetail`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.BoolVariationDetail).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="go"
-  values={[
-    { label: 'Go SDK v6.0', value: 'go', },
-    { label: 'Go SDK v5.x', value: 'go-v5' },
-  ]
-}>
-
-<CodeTabItem value="go">
+<CodeSample>
+<CSTab label="Go SDK v6.0">
 
 ```go
 import (
@@ -889,8 +808,8 @@ func PrintReason(reason ldreason.EvaluationReason) {
 
 ```
 
-</CodeTabItem>
-<CodeTabItem value="go-v5">
+</CSTab>
+<CSTab label="Go SDK v5.x">
 
 ```go
 import (
@@ -921,8 +840,8 @@ func PrintReason(reason ldreason.EvaluationReason) {
 // so you would need a switch statement with .(type).
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationReason`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldreason#EvaluationReason).
 
@@ -936,23 +855,26 @@ The `variationDetail` functions are similar to the `variation` functions, but th
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="haskell"
-  values={[
-    { label: 'Haskell', value: 'haskell', },
-  ]
-}>
-<CodeTabItem value="haskell">
+<CodeSample>
+<CSTab label="Haskell SDK v4.0">
 
 ```haskell
 details :: IO (EvaluationDetail Bool)
-details = boolVariationDetail client user "flag-key-123abc" False
+details = boolVariationDetail client "flag-key-123abc" context False
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
 
-For specific information on the `EvaluationDetail` structure, inspect the `LaunchDarkly.Server.Details` module.
+```haskell
+details :: IO (EvaluationDetail Bool)
+details = boolVariationDetail client "flag-key-123abc" user False
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#t:EvaluationDetail) and [`boolVariationDetail`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:boolVariationDetail).
 </Details>
 
 ### Java
@@ -963,15 +885,8 @@ The `variationDetail` methods, such as [`boolVariationDetail`](https://javadoc.i
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java SDK v6.0', value: 'java', },
-    { label: 'Java SDK v5.x', value: 'java-v5', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java SDK v6.0">
 
 ```java
 import com.launchdarkly.sdk.*;
@@ -985,8 +900,8 @@ int index = detail.getVariationIndex();       // will be < 0 if evaluation faile
 EvaluationReason reason = detail.getReason();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="java-v5">
+</CSTab>
+<CSTab label="Java SDK v5.x">
 
 ```java
 import com.launchdarkly.sdk.*;
@@ -1000,21 +915,15 @@ int index = detail.getVariationIndex();       // will be < 0 if evaluation faile
 EvaluationReason reason = detail.getReason();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationDetail.html) and [`boolVariationDetail`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#boolVariationDetail(java.lang.String,com.launchdarkly.sdk.LDContext,boolean)).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="java"
-  values={[
-    { label: 'Java', value: 'java', },
-  ]
-}>
-
-<CodeTabItem value="java">
+<CodeSample>
+<CSTab label="Java">
 
 ```java
 void printReason(EvaluationReason reason) {
@@ -1047,8 +956,8 @@ void printReason(EvaluationReason reason) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationReason`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/EvaluationReason.html).
 
@@ -1060,13 +969,8 @@ To learn more, read [`EvaluationReason`](https://javadoc.io/doc/com.launchdarkly
 
 By using the `*Detail` family of variation calls you can programmatically inspect the reason for a particular evaluation:
 
-<CodeTabs
-  defaultValue="lua"
-  values={[
-    { label: 'Lua', value: 'lua', },
-  ]
-}>
-<CodeTabItem value="lua">
+<CodeSample>
+<CSTab label="Lua">
 
 ```lua
 local details = client:boolVariationDetail(client, user, "your.feature.key", false);
@@ -1076,14 +980,13 @@ if details.reason == "FLAG_NOT_FOUND" then
 end
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html#Details).
 </Details>
 
 ### Node.js (server-side)
-
 
 <Details summary="Expand Node.js (server-side) code sample">
 
@@ -1093,16 +996,8 @@ The variation detail is returned in an object that contains both the result valu
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Node.js SDK v7 (JavaScript)', value: 'js', },
-    { label: 'Node.js SDK v7 (TypeScript)', value: 'ts', },
-    { label: 'Node.js SDK v6.x and older (JavaScript)', value: 'js-old', },
-    { label: 'Node.js SDK v6.x and older (TypeScript)', value: 'ts-old', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
 
 ```js
 var detail = client.variationDetail('flag-key-123abc', context, false);
@@ -1112,8 +1007,8 @@ var index = detail.variationIndex;
 var reason = detail.reason;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="Node.js SDK v7.0 (TypeScript)">
 
 ```ts
 client.variationDetail('flag-key-123abc', context, false,
@@ -1124,8 +1019,8 @@ client.variationDetail('flag-key-123abc', context, false,
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x and earlier (JavaScript)">
 
 ```js
 var detail = client.variationDetail('flag-key-123abc', user, false);
@@ -1135,8 +1030,8 @@ var index = detail.variationIndex;
 var reason = detail.reason;
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts-old">
+</CSTab>
+<CSTab label="Node.js SDK v6.x and earlier (TypeScript)">
 
 ```ts
 client.variationDetail('flag-key-123abc', user, false,
@@ -1147,20 +1042,17 @@ client.variationDetail('flag-key-123abc', user, false,
 });
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDEvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#variationDetail).
 
+<!-- cSpell:disable TKTK Verify endpoint names haven't changed. SC-178150 cSpell:enable -->
+
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 function printReason(reason) {
@@ -1187,10 +1079,12 @@ function printReason(reason) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDEvaluationReason.html).
+
+<!-- cSpell:disable TKTK Verify endpoint names haven't changed. SC-178150 cSpell:enable -->
 
 </Details>
 
@@ -1210,14 +1104,8 @@ The variation detail is returned in an object that contains both the result valu
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0', value: 'php', },
-    { label: 'PHP SDK v4.x', value: 'php-4', }
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
 
 ```php
 
@@ -1228,8 +1116,8 @@ $index = $detail->getVariationIndex();
 $reason = $detail->getReason();
 ```
 
-</CodeTabItem>
-<CodeTabItem value="php-4">
+</CSTab>
+<CSTab label="PHP SDK v4.x">
 
 ```php
 
@@ -1240,20 +1128,15 @@ $index = $detail->getVariationIndex();
 $reason = $detail->getReason();
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-EvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-LDClient.html#method_variationDetail).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="php"
-  values={[
-    { label: 'PHP SDK v5.0 and earlier', value: 'php', },
-  ]
-}>
-<CodeTabItem value="php">
+<CodeSample>
+<CSTab label="PHP SDK v5.0 and earlier">
 
 ```php
 function printReason($reason) {
@@ -1283,8 +1166,8 @@ function printReason($reason) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationReason`](https://launchdarkly.github.io/php-server-sdk/classes/LaunchDarkly-EvaluationReason.html).
 
@@ -1300,14 +1183,8 @@ The variation detail is returned in an object that contains both the result valu
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="python"
-  values={[
-    { label: 'Python SDK v8.0', value: 'python', },
-    { label: 'Python SDK v7.x', value: 'python-v7', },
-  ]
-}>
-<CodeTabItem value="python">
+<CodeSample>
+<CSTab label="Python SDK v8.0">
 
 ```python
 detail = client.variation_detail("flag-key-123abc", my_context, False)
@@ -1316,8 +1193,8 @@ index = detail.variation_index
 reason = detail.reason
 ```
 
-</CodeTabItem>
-<CodeTabItem value="python-v7">
+</CSTab>
+<CSTab label="Python SDK v7.x">
 
 ```python
 detail = client.variation_detail("flag-key-123abc", my_user, False)
@@ -1326,20 +1203,15 @@ index = detail.variation_index
 reason = detail.reason
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.evaluation.EvaluationDetail) and [`variation_detail`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.variation_detail).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="py"
-  values={[
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<CodeTabItem value="py">
+<CodeSample>
+<CSTab label="Python">
 
 ```python
 def print_reason(reason):
@@ -1358,8 +1230,8 @@ def print_reason(reason):
     print "error: %s" % reason["errorKind"]
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail.reason`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.evaluation.EvaluationDetail.reason).
 
@@ -1375,14 +1247,8 @@ The variation detail is returned in an object that contains both the result valu
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby SDK v7.0', value: 'ruby', },
-    { label: 'Ruby SDK v6.x', value: 'ruby-v6', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
 
 ```ruby
 detail = client.variation_detail("flag-key", my_context, false)
@@ -1391,8 +1257,8 @@ index = detail.variation_index
 reason = detail.reason
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ruby-v6">
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
 
 ```ruby
 detail = client.variation_detail("flag-key", my_user, false)
@@ -1401,20 +1267,15 @@ index = detail.variation_index
 reason = detail.reason
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/EvaluationDetail) and [`variation_detail`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/LDClient#variation_detail-instance_method).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="ruby"
-  values={[
-    { label: 'Ruby', value: 'ruby', },
-  ]
-}>
-<CodeTabItem value="ruby">
+<CodeSample>
+<CSTab label="Ruby">
 
 ```ruby
 def print_reason(reason)
@@ -1434,8 +1295,8 @@ def print_reason(reason)
   end
 end
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`EvaluationDetail.reason`](https://www.rubydoc.info/gems/launchdarkly-server-sdk/LaunchDarkly/EvaluationDetail#reason-instance_method).
 
@@ -1449,15 +1310,8 @@ The `variation_detail` methods (for example, [`bool_variation_detail`](https://d
 
 Here is an example:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust SDK v1', value: 'rust', },
-    { label: 'Rust SDK beta', value: 'rust-beta', },
-  ]
-}>
-
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust SDK v1">
 
 ```rust
 let detail = client.bool_variation_detail(&context, "flag-key", false);
@@ -1466,8 +1320,8 @@ let value = detail.value;
 let index = detail.variation_index;
 let reason = detail.reason;
 ```
-</CodeTabItem>
-<CodeTabItem value="rust-beta">
+</CSTab>
+<CSTab label="Rust SDK beta">
 
 ```rust
 let detail = client.bool_variation_detail(&user, "flag-key", false);
@@ -1476,21 +1330,15 @@ let value = detail.value;
 let index = detail.variation_index;
 let reason = detail.reason;
 ```
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`variation_detail`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.variation_detail) and [`bool_variation_detail`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.bool_variation_detail).
 
 Here is an example of how to access the details of a reason object:
 
-<CodeTabs
-  defaultValue="rust"
-  values={[
-    { label: 'Rust SDK v1', value: 'rust', },
-  ]
-}>
-
-<CodeTabItem value="rust">
+<CodeSample>
+<CSTab label="Rust SDK v1">
 
 ```rust
 fn print_reason(reason: Reason) {
@@ -1511,8 +1359,8 @@ fn print_reason(reason: Reason) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read [`Reason`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.Reason.html).
 

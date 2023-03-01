@@ -25,7 +25,6 @@ Here is an image of the mParticle API keys dialog:
 
 ![The mParticle API keys dialog.](mparticle-api-keys.png)
 
-
 ## Creating the mParticle destination in LaunchDarkly
 
 You can use the LaunchDarkly UI to create and modify destinations for Data Export.
@@ -59,25 +58,22 @@ You cannot change an environment after you create the destination. If you wish t
 
 ![The "User identifier" menu.](mparticle-user-id.png)
 
-
 <Callout intent="info">
 <CalloutTitle>Choose the correct user identifier for your events</CalloutTitle>
 <CalloutDescription>
 
-The user identifier you choose must match an identity you chose to identify users in the mParticle ecosystem. Every event LaunchDarkly exports has a user key specified by the SDK.
+The user identifier you choose must match an identifier you chose to identify users in the mParticle ecosystem.
 
-The user identifier should correspond to the mParticle user identity your SDK user key represents. For example, if your user key represents an email address, you should choose `email` as the user identifier.
+Every event LaunchDarkly exports has a context key specified by the SDK. The user identifier should correspond to the mParticle user identity your SDK context key represents. For example, if your context key represents a customer ID, you should choose `customer_id` as the user identifier.
 
 To learn more about exported events, read [Schema reference](/home/data-export/schema-reference).
 
 </CalloutDescription>
 </Callout>
 
-10. (Optional) If you use anonymous users, select the **Anonymous user identifier** type from the menu.
+10. (Optional) If you use anonymous contexts, select the **Anonymous user identifier** type from the menu.
 
- If you select this user type, you must also configure your mParticle SDK to send an `alias` event. `Alias` events connect an anonymous user ID with the user ID of a known user. This ensures that your users are identified and counted accurately. LaunchDarkly SDKs also support `alias` events, but in this case you must send the `alias` event from the mParticle SDK.
-
- To learn more about `alias` events in mParticle, read [mParticle's documentation on associating anonymous and known users](https://docs.mparticle.com/guides/idsync/aliasing/).
+ If you select this user type, you must also configure your mParticle SDK to send an `alias` event. `Alias` events connect an anonymous user ID with the user ID of a known user in mParticle. This ensures that your users are identified and counted accurately. To learn more about `alias` events in mParticle, read [mParticle's documentation on associating anonymous and known users](https://docs.mparticle.com/guides/idsync/aliasing/).
 
 11. Check the checkbox indicating you consent to the Integration Terms and Conditions.
 12. Click **Save destination**.
@@ -105,18 +101,8 @@ These example events display the structure of the events LaunchDarkly sends to m
 
 LaunchDarkly sends events in the following formats:
 
-
-<CodeTabs
-  defaultValue="feature-event"
-  values={[
-    { label: 'Feature event', value: 'feature-event', },
-    { label: 'Click event', value: 'click-event', },
-    { label: 'Custom event', value: 'custom-event', },
-    { label: 'Page event', value: 'page-event', },
-  ]
-}>
-
-<CodeTabItem value="feature-event">
+<CodeSample>
+  <CSTab label="Feature event">
 
 ```json
 {
@@ -142,7 +128,7 @@ LaunchDarkly sends events in the following formats:
           "default": "false",
           "reason_kind": "FALLTHROUGH",
           "prerequisite_of": "PARENT-FLAG",
-        "event_type": "custom_event"
+          "event_type": "custom_event"
         }
       }
     }
@@ -150,8 +136,8 @@ LaunchDarkly sends events in the following formats:
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="click-event">
+  </CSTab>
+  <CSTab label="Click event">
 
 ```json
 {
@@ -174,7 +160,7 @@ LaunchDarkly sends events in the following formats:
           "key": "EXAMPLE-CLICK-EVENT-KEY",
           "selector": "btn",
           "url": "http://example.com?queryParam=this",
-        "event_type": "custom_event"
+          "event_type": "custom_event"
         }
       }
     }
@@ -182,8 +168,8 @@ LaunchDarkly sends events in the following formats:
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="custom-event">
+  </CSTab>
+  <CSTab label="Custom event">
 
 ```json
 {
@@ -204,7 +190,7 @@ LaunchDarkly sends events in the following formats:
           "environment": "5d4b12345d2a2806bd2cc6eb",
           "version": "1",
           "key": "EXAMPLE-CUSTOM-EVENT-KEY",
-        "event_type": "custom_event"
+          "event_type": "custom_event"
         }
       }
     }
@@ -212,8 +198,8 @@ LaunchDarkly sends events in the following formats:
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="page-event">
+  </CSTab>
+  <CSTab label="Page event">
 
 ```json
 {
@@ -241,8 +227,8 @@ LaunchDarkly sends events in the following formats:
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+  </CSTab>
+</CodeSample>
 
 ## Enabling Data Export for flags and environments
 
@@ -258,7 +244,7 @@ To delete a destination:
 
 1. Navigate to the **Integrations** page and find "mParticle."
 2. Click into the "mParticle" section to display a list of destinations.
-2. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
-3. Click **Delete destination**:
+3. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
+4. Click **Delete destination**:
 
 ![The "Delete destination" section of the "Edit destination" panel.](destination-delete.png)

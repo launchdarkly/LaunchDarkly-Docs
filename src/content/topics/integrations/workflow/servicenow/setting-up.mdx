@@ -27,13 +27,14 @@ In order to complete this topic, you must meet the following prerequisites:
 - You must have a LaunchDarkly account with a role that allows the `integration/createIntegration` role.
 - You must have an existing ServiceNow account with the **admin** role.
 - You must have a ServiceNow Client ID and secret for an OAuth API endpoint for external clients. To learn how to create these, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
+- If your ServiceNow instance has IP address access control enabled, you must create **inbound** ServiceNow IP access control rules corresponding to the the `outboundAddresses` from LaunchDarkly's [public IP list](/home/advanced/public-ip-list). To learn how to create IP access control rules, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/utah-platform-security/page/administer/login/task/t_AccessControl.html).
 
 ## Setting up the ServiceNow integration in LaunchDarkly
 
 To use the ServiceNow integration to perform flag approvals, you must first establish an OAuth connection between your LaunchDarkly and ServiceNow accounts. After you create the connection, you can either:
 
-* [Configure automatic approvals](#creating-a-launchdarkly-workflow-in-servicenow-for-automatic-approvals) or
-* [Configure manual approvals](#creating-a-launchdarkly-workflow-in-servicenow-for-manual-approvals) approvals.
+- [Configure automatic approvals](#creating-a-launchdarkly-workflow-in-servicenow-for-automatic-approvals) or
+- [Configure manual approvals](#creating-a-launchdarkly-workflow-in-servicenow-for-manual-approvals) approvals.
 
 To establish an OAuth connection:
 
@@ -70,7 +71,7 @@ Here's how:
 4. Click the **overflow menu** on the environment you wish to configure.
 5. Select **Approval settings**. The "Approval settings for environment" panel appears.
 6. Change the **Approval system** from "LaunchDarkly" to "ServiceNow".
-7. Select the ServiceNow standard change template you wish to utilize for all proposed changes in this environment. All change requests created by LaunchDarkly will include relevant details for the  **Short description**, **Justification**, and **Requested by** fields. We recommend choosing a template with all other change request fields pre-populated.
+7. Select the ServiceNow standard change template you wish to utilize for all proposed changes in this environment. All change requests created by LaunchDarkly will include relevant details for the **Short description**, **Justification**, and **Requested by** fields. We recommend choosing a template with all other change request fields pre-populated.
 8. (Optional) Fill in the **Detailed information column name** field with the name of the ServiceNow Change Request column you would like LaunchDarkly to populate with detailed approval request information. This field defaults to `justification` if no value is provided.
 9. Click **Save settings**.
 
@@ -80,8 +81,8 @@ Here's how:
 
 You can create your workflow using either of the two methods ServiceNow offers to create new workflows:
 
-* [Flow Designer](https://docs.servicenow.com/bundle/london-servicenow-platform/page/administer/flow-designer/concept/flow-designer.html) and
-* [Workflow Editor](https://docs.servicenow.com/bundle/paris-servicenow-platform/page/administer/workflow/reference/workflow-editor.html).
+- [Flow Designer](https://docs.servicenow.com/bundle/london-servicenow-platform/page/administer/flow-designer/concept/flow-designer.html) and
+- [Workflow Editor](https://docs.servicenow.com/bundle/paris-servicenow-platform/page/administer/workflow/reference/workflow-editor.html).
 
 The screenshots below are from the Flow Designer, but you can create a workflow the same triggers, actions, and conditions using the Workflow Editor if you prefer.
 
@@ -101,8 +102,9 @@ To create a LaunchDarkly approvals workflow in ServiceNow:
 ![A ServiceNow if condition configured for change request approvals.](servicenow-manual-approval-if.png)
 
 5. Add two "Update Change Request Record" Actions as extensions of the `if` condition.
- * Set the first Action to "Update Record" with "State" "Scheduled" on the latest version of the triggering Change Request Record.
- * Set the second Action to "Update Record" with "State" "Implemented" on the latest version of the triggering Change Request Record.
+
+- Set the first Action to "Update Record" with "State" "Scheduled" on the latest version of the triggering Change Request Record.
+- Set the second Action to "Update Record" with "State" "Implemented" on the latest version of the triggering Change Request Record.
 
 <Callout intent="alert">
 <CalloutTitle>You must use two update actions</CalloutTitle>
@@ -131,8 +133,9 @@ To create an automatic approval workflow:
 
 1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/quebec-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
 2. Set two conditions on your trigger:
- * "State" `is` "New"
- * "Standard Change Template version > Template > Name" `is` "LaunchDarkly auto-approve template"
+
+- "State" `is` "New"
+- "Standard Change Template version > Template > Name" `is` "LaunchDarkly auto-approve template"
 
 ![A Workflow Trigger in the ServiceNow Flow Designer.](servicenow-workflow-trigger.png)
 

@@ -26,7 +26,7 @@ To complete this guide, you must have the following prerequisites:
 * Knowledge of your organization's release process
 * Proficiency and understanding of LaunchDarkly's flag targeting features, including segments
 
-To learn more about segments, read [User segments](/home/users/segments).
+To learn more about segments, read [Segments](/home/contexts/segments).
 
 ## Concepts
 
@@ -43,9 +43,9 @@ It’s easy to use deployment and release interchangeably, but in a feature-flag
  Deployment is usually controlled by a technical team, a release manager, or an
 automated process.
 
-* **Release** is the moment when users get access to new code or features in order to serve a business objective.
+* **Release** is the moment when end users get access to new code or features in order to serve a business objective.
 
- Releases can involve many instances of deployment, and may or may not affect all users of your product.
+ Releases can involve many instances of deployment, and may or may not affect all end users of your product.
 
  Releases are often run by product or marketing teams.
 
@@ -63,10 +63,9 @@ Depending on your business needs, you may want to adopt some of these practices:
 
 ### Ring deployment
 
-In a ring deployment, different groups gradually receive a new feature to manage the risk of deployment. These groups are represented as an expanding series of rings, starting with a small group and growing to encompass all your users.
+In a ring deployment, different groups gradually receive a new feature to manage the risk of deployment. These groups are represented as an expanding series of rings, starting with a small group and growing to encompass all your end users.
 
-If you do a ring deployment, choose users for each group based on a set of similar attributes or an opt-in process. Then make features available to those groups. For
-example, release to internal users first, and then beta users, and then to all users.
+If you do a ring deployment, choose contexts for each group based on a set of similar attributes or an opt-in process. Then make features available to those groups. For example, release to an internal group first, and then a beta group, and then to all end users.
 
 In a ring deployment, the release pattern mirrors the deployment pattern, which mitigates against the deployment itself causing a large unforeseen problem.
 
@@ -74,13 +73,13 @@ Jez Humble introduced the concept of a ring deployment in his book [_Continuous 
 
 ### Percentage-based releases
 
-In a percentage rollout, the deployment has already occurred and the release occurs incrementally based on a percentage. The new feature rolls out to 10% of users, then 25%, then 50%, until all users receive the new feature.
+In a percentage rollout, the deployment has already occurred and the release occurs incrementally based on a percentage. The new feature rolls out to 10% of end users, then 25%, then 50%, until all end users receive the new feature.
 
-In LaunchDarkly, the users who get the new feature in a percentage rollout are randomly selected. After they get the new feature, they retain access to it as long as there is a way to identify them. This kind of sorting is best when your users must log in to use your product, or have accepted cookies.
+In LaunchDarkly, the end users who get the new feature in a percentage rollout are randomly selected. After they get the new feature, they retain access to it as long as there is a way to identify them. This kind of sorting is best when your end users must log in to use your product, or have accepted cookies.
 
-These releases are useful when you cannot run a beta program, or there is little variation in your targeted user base. If you run a small B2B application with the same 1,000 monthly active users, a percentage-based release is likely to give you an accurate estimate of whether the full rollout is likely to have positive or negative impact on your user base.
+These releases are useful when you cannot run a beta program, or there is little variation in your targeted user base. If you run a small B2B application with the same 1,000 monthly active users (MAU), a percentage-based release is likely to give you an accurate estimate of whether the full rollout is likely to have positive or negative impact on your user base.
 
-You may want to automate percentage-based releases gradually by increasing the number of users receiving the new feature. You can terminate the release if there are too many errors or a response time exceeds a set threshold.
+You may want to automate percentage-based releases gradually by increasing the number of end users receiving the new feature. You can terminate the release if there are too many errors or a response time exceeds a set threshold.
 
 You can combine ring deployments and percentage rollouts. You first release to selected groups and then use a percentage-based release to roll out to the remainder of your user base.
 
@@ -88,29 +87,29 @@ To learn more, read [Percentage rollouts](/home/flags/rollouts).
 
 ### Canary releases
 
-A canary release lets you test whether a feature release will have positive impact without affecting your whole user base. Only a small number of your users can use the new feature you release, and you can target by user or segment to determine who those users are.
+A canary release lets you test whether a feature release will have positive impact without affecting your whole user base. Only a small number of your end users can use the new feature you release, and you can target by end user or segment to determine who those end users are.
 
-Ensure that the small group in your canary release is representative of your overall users. For example, a canary release that only goes out to people with the latest phones may miss problems that occur on older versions of a phone's operating system.
+Ensure that the small group in your canary release is representative of your overall end users. For example, a canary release that only goes out to people with the latest phones may miss problems that occur on older versions of a phone's operating system.
 
-You can use a canary release to test both user acceptance and capacity management. If you roll out a new feature to a group and realize that it consumes too many resources, you can turn the feature off and refactor the product without having stressed your infrastructure or caused a bad user experience.
+You can use a canary release to test both end user acceptance and capacity management. If you roll out a new feature to a group and realize that it consumes too many resources, you can turn the feature off and refactor the product without having stressed your infrastructure or caused a bad end-user experience.
 
 ### Targeted releases
 
 It may make business sense to target a release based on some identifier or segment other than percentages.
 
-For example, a food delivery service could roll out a new feature or set of related features to one medium-size city to test how it works for multiple types of users who must all interact.
+For example, a food delivery service could roll out a new feature or set of related features to one medium-size city to test how it works for multiple types of end users who must all interact.
 
-If that service makes a change that affects restaurants, drivers, and consumers, all of those users should receive the change simultaneously because they all perform functions that relate to each other. If the city-wide rollout produces good results, the service can release it to the rest of their user base with confidence.
+If that service makes a change that affects restaurants, drivers, and consumers, all of those end users should receive the change simultaneously because they all perform functions that relate to each other. If the city-wide rollout produces good results, the service can release it to the rest of their user base with confidence.
 
 ### Entitlement releases
 
-You might want a flag that affects user permissions or access to be permanent. These flags affect what users can do in your platform, or their **entitlements**.
+You might want a flag that affects end user permissions or access to be permanent. These flags affect what end users can do in your platform, or their **entitlements**.
 
-You can use an entitlement release to add a feature that is only intended for a portion of your users.
+You can use an entitlement release to add a feature that is only intended for a portion of your user base.
 
 For example, if you had a premium service, you could configure the release so that the feature was only available to people who had paid a membership fee.
 
-You can combine entitlement releases with percentage-based releases or canary releases, but when the release is done, only some users will have access to to the feature.
+You can combine entitlement releases with percentage-based releases or canary releases, but when the release is done, only some end users will have access to to the feature.
 
 ## Post-release tasks
 
@@ -124,7 +123,7 @@ Metrics help us determine whether something is improving or not. Consider what m
 
 Availability, reliability, and response time of an application should not change with the deployment of a new feature. Set up monitoring to track performance before, during, and after you deploy code to ensure performance does not degrade.
 
-The metrics you track will vary based on your business and objectives. Tracking metrics such as page load time, errors, uptime, conversions, or user registrations can tell you whether a feature is performing well or causing problems.
+The metrics you track will vary based on your business and objectives. Tracking metrics such as page load time, errors, uptime, conversions, or end user registrations can tell you whether a feature is performing well or causing problems.
 
 ### Removing temporary flags
 

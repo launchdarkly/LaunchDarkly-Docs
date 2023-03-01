@@ -15,7 +15,7 @@ In order to write docs that build and run in our site, you must follow the guide
 All documentation topics follow identical formats:
 
 * They are .MDX files.
-* They exist in a file structure that corresponds to their placement in the sidenav. For example, 'The Users list' is inside a directory called 'Users and user segments' because it exists in the 'Users and user segments' category on the docs site.
+* They exist in a file structure that corresponds to their placement in the sidenav. For example, `custom-roles.mdx` is inside a directory called `managing-members` because it exists in the "Managing your account members" category on the docs site.
 * They have frontmatter that assists their placement in search results, controls whether they appear on the docs site or not, and define their title and URL slug.
 
 The content architecture in the `LaunchDarkly-Docs` repo is as follows:
@@ -29,7 +29,7 @@ The content architecture in the `LaunchDarkly-Docs` repo is as follows:
  `/home/account-security/custom-roles/configure`
  or
  /header-section/sidenav-category/topic
- `/home/users-and-segments/users-list`
+ `/home/members/custom-roles`
 * Screenshots are in `src/content/images/`.
 * The sidenav is in NavigationData.js.
 * Redirects are in redirectRules.js.
@@ -42,11 +42,11 @@ Here's a template for what the frontmatter should look like:
 
 ```
 ---
-path: /home/users-and-segments/users-list
-title: The Users list
-description: This topic explains what the Users list is. The Users list gives you a summary view of how each user experiences all of the features in your app, and lets you customize their experience from one screen.
+path: /home/members/custom-roles
+title: Custom roles
+description: This topic explains what custom roles are and how to create them. Custom roles give access control to everything in LaunchDarkly, from feature flags to metrics, environments, and teams.
 published: true
-tags: ['dashboard', 'user', 'attribute', 'mau']
+tags: ['custom role', 'permission', 'access', 'resource', 'policy']
 ---
 ```
 

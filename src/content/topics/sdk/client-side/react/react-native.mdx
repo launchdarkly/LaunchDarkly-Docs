@@ -6,6 +6,17 @@ tags: ['react native', 'react', 'sdk', 'client-side']
 published: true
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 7 of the React Native SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [React Native SDK 6.x to 7.0 migration guide](/sdk/client-side/react/react-native-migration-6-to-7).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the React Native SDK, and links to reference information on all of the supported features.
@@ -50,7 +61,9 @@ The sample code snippets for this SDK are available in both JavaScript and TypeS
 <CalloutTitle>SDK version compatibility</CalloutTitle>
 <CalloutDescription>
 
-The LaunchDarkly React Native SDK is compatible with Xcode 12.2 or higher and React Native 0.64 or higher.
+The LaunchDarkly React Native SDK versions 7 and higher are compatible with React Native 0.69 or higher.
+
+The LaunchDarkly React Native SDK versions 6.x are compatible with Xcode 12.2 or higher and React Native 0.64 or higher.
 
 If you need support for earlier versions of React Native, use older versions of the LaunchDarkly React Native SDK. To learn more, read [Releases](https://github.com/launchdarkly/react-native-client-sdk/releases).
 
@@ -74,50 +87,39 @@ First, install the LaunchDarkly SDK as a dependency. Add the LaunchDarkly npm de
 
 To add the LaunchDarkly npm dependency:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'Installing with npm', value: 'js', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="Installing with npm">
 
 ```bash
 npm install --save launchdarkly-react-native-client-sdk
 npx pod-install
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You must have a `Podfile` in your `ios/` directory. After you write the `Podfile`, run `pod install` in the `ios/` directory. This SDK requires Xcode 12.2 or higher and compiles against Swift 5.
 
 After setting up the SDK, import the SDK into your project:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 import LDClient from 'launchdarkly-react-native-client-sdk';
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
-After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and user configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page.
+After the SDK is imported, create a single, shared instance of `LDClient`, passing in the client and context configuration objects. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the **Environments** tab of your project under [**Account settings**](https://app.launchdarkly.com/settings/projects) page.
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -141,14 +143,19 @@ If you have multiple LaunchDarkly projects, you can create one `LDClient` for ea
 
 The following example shows the simplest way to create a shared instance of `LDClient`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="React Native SDK v7.0 (JavaScript)">
+
+```js
+let client = new LDClient();
+let config = { mobileKey: 'mobile-key-123abc' };
+let context = { key: 'user-key-123abc', kind: 'user' };
+
+await client.configure(config, context);
+```
+
+</CSTab>
+<CSTab label="React Native SDK v6.x (JavaScript)">
 
 ```js
 let client = new LDClient();
@@ -158,8 +165,19 @@ let user = { key: 'user-key-123abc' };
 await client.configure(config, user);
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="React Native SDK v7.0 (TypeScript)">
+
+```ts
+let client = new LDClient();
+let config: ld.LDConfig = { mobileKey: 'mobile-key-123abc' };
+let context: ld.LDContext = { key: 'user-key-123abc', kind: 'user' };
+
+await client.configure(config, context);
+```
+
+</CSTab>
+<CSTab label="React Native SDK v6.x (TypeScript)">
 
 ```ts
 let client = new LDClient();
@@ -169,21 +187,26 @@ let user: ld.LDUser = { key: 'user-key-123abc' };
 await client.configure(config, user);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 You can give `.configure` a timeout parameter. If it receives flag values before the timeout, the returned promise will resolve. Otherwise, it will be rejected.
 
 Here is an example with a timeout of five seconds:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="React Native SDK v7.0 (JavaScript)">
+
+```js
+let client = new LDClient();
+let config = { mobileKey: 'mobile-key-123abc' };
+let context = { key: 'user-key-123abc', kind: 'user' };
+
+client.configure(config, context, 5)
+```
+
+</CSTab>
+<CSTab label="React Native SDK v6.x (JavaScript)">
 
 ```js
 let client = new LDClient();
@@ -193,8 +216,19 @@ let user = { key: 'user-key-123abc' };
 client.configure(config, user, 5.0)
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="React Native SDK v7.0 (TypeScript)">
+
+```ts
+let client = new LDClient();
+let config: ld.LDConfig = { mobileKey: 'mobile-key-123abc' };
+let context: ld.LDContext = { key: 'user-key-123abc', kind: 'user' };
+
+client.configure(config, context, 5);
+```
+
+</CSTab>
+<CSTab label="React Native SDK v6.x (TypeScript)">
 
 ```ts
 let client = new LDClient();
@@ -204,8 +238,8 @@ let user: ld.LDUser = { key: 'user-key-123abc' };
 client.configure(config, user, 5.0);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
@@ -234,7 +268,9 @@ To learn more about data collection within this SDK and implications on submissi
 
 This SDK supports the following features:
 
-* [Configuration](/sdk/features/config#react-native)
+* [Configuration](/sdk/features/config#react-native), including
+  * [Application metadata configuration](/sdk/features/app-config#react-native)
+  * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#react-native)
 * [Evaluating flags](/sdk/features/evaluating#react-native)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#react-native)
 * [Flushing events](/sdk/features/flush#react-native)
@@ -245,7 +281,6 @@ This SDK supports the following features:
 * [Offline mode](/sdk/features/offline-mode#react-native)
 * [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#react-native)
 * [Sending custom events](/sdk/features/events#react-native)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#react-native)
 * [Shutting down](/sdk/features/shutdown#react-native)
 * [Subscribing to flag changes](/sdk/features/flag-changes#react-native)
 * [User and context configuration](/sdk/features/user-context-config#react-native)

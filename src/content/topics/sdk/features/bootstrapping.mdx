@@ -14,13 +14,9 @@ This topic explains how the bootstrapping feature works in the LaunchDarkly SDKs
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. To learn more, read [Contexts](/home/contexts).
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
 
-Creating contexts and evaluating flags based on them is supported in the latest major versions of [some of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
-
-You can upgrade your SDKs at any time, but the ability to target by context, or review context instances that have encountered flags in your application, is only available for customers in the contexts Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
-
-If you are using the latest version of an SDK and are not part of the EAP, your application can send contexts to LaunchDarkly and they will appear on the **Users** list.
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [most of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
 
 </CalloutDescription>
 </Callout>
@@ -87,7 +83,7 @@ This feature is available in the following client-side SDKs:
 * [Electron](#electron)
 * [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
-* [React](#react)
+* [React Web](#react-web)
 
 ### Electron
 
@@ -97,14 +93,8 @@ You can use bootstrapping on the Electron SDK with values provided by LaunchDark
 
 You can use it to set the feature flags to any values you want:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const client = LaunchDarkly.initialize(
@@ -119,8 +109,8 @@ const client = LaunchDarkly.initialize(
 );
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-electron-client-sdk';
@@ -135,8 +125,8 @@ const options: LaunchDarkly.LDOptions = {
 const client = LaunchDarkly.initializeInMain('client-side-id-123abc', user, options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you set `bootstrap` to the string `"localStorage"`, the client tries to get flag values from persistent storage, using a unique key that is based on the user properties.
 
@@ -144,14 +134,8 @@ In Electron, persistent storage consists of files in the [`userData`](https://el
 
 Here's how to use this mode:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const client = LaunchDarkly.initializeInMain(
@@ -163,8 +147,8 @@ const client = LaunchDarkly.initializeInMain(
 );
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-electron-client-sdk';
@@ -175,8 +159,8 @@ const client = LaunchDarkly.initializeInMain('client-side-id-123abc', user, opti
 
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
@@ -186,16 +170,8 @@ const client = LaunchDarkly.initializeInMain('client-side-id-123abc', user, opti
 
 Here is an example of how to bootstrap flags into the JavaScript client, if it passes the flags on page load:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript SDK 3.0', value: "js" },
-    { label: 'TypeScript, JS SDK 3.0', value: "ts" },
-    { label: 'JavaScript SDK 2.x', value: "js-2.x" },
-    { label: 'TypeScript, JS SDK 2.x', value: "ts-2.x" },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript SDK v3.0">
 
 ```js
 function onPageLoad(flags) {
@@ -213,8 +189,8 @@ function onPageLoad(flags) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="JavaScript SDK v3.0 (TypeScript)">
 
 ```ts
 import * as LDClient from 'launchdarkly-js-client-sdk';
@@ -228,8 +204,8 @@ function onPageLoad(flags: LDClient.LDFlagSet) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="js-2.x">
+</CSTab>
+<CSTab label="JavaScript SDK v2.x">
 
 ```js
 function onPageLoad(flags) {
@@ -247,8 +223,8 @@ function onPageLoad(flags) {
 }
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts-2.x">
+</CSTab>
+<CSTab label="JavaScript SDK v2.x (TypeScript)">
 
 ```ts
 import * as LDClient from 'launchdarkly-js-client-sdk';
@@ -262,20 +238,15 @@ function onPageLoad(flags: LDClient.LDFlagSet) {
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 If you can invoke your backend dynamically, such as in Ruby with a template directory, you can inline the function invocation and request that the SDK return only the client-side flags.
 
 Here is an example of how to bootstrap flags into the JavaScript client, if you acquire the flags from a Ruby template directive:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: "js" },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const ldclient = LDClient.initialize(
@@ -290,19 +261,13 @@ const ldclient = LDClient.initialize(
 );
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 Alternatively, you can bootstrap feature flags from local storage:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts'},
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const client = LDClient.initialize('client-side-id-123abc', user, options = {
@@ -310,8 +275,8 @@ const client = LDClient.initialize('client-side-id-123abc', user, options = {
 });
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LDClient from 'launchdarkly-js-client-sdk';
@@ -320,8 +285,8 @@ const options: LDClient.LDOptions = { bootstrap: 'localStorage' };
 const client = LDClient.initialize('client-side-id-123abc', user, options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 When the client uses local storage, it stores the latest flag settings there. On page load, it uses the previous settings and emits the 'ready' event immediately. This means that on page load, the user may receive cached flag values until the next page load.
 
@@ -337,14 +302,8 @@ You can use bootstrapping on the Node.js SDK with values provided by LaunchDarkl
 
 You can use it to set the feature flags to any values you want:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const client = LaunchDarkly.initialize(
@@ -359,8 +318,8 @@ const client = LaunchDarkly.initialize(
 );
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
@@ -375,21 +334,15 @@ const options: LaunchDarkly.LDOptions = {
 const client = LaunchDarkly.initialize('client-side-id-123abc', user, options);
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 A more useful mode in a client-side Node application is to bootstrap from locally cached values. In this mode, if no values have been cached yet, the SDK obtains flags from LaunchDarkly and then caches them in persistent storage. The next time you start, the cached flags are immediately available, and the SDK also contacts LaunchDarkly in the background to obtain updated values.
 
 To activate this mode, use the special string `"localStorage"`:
 
-<CodeTabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'TypeScript', value: 'ts', },
-  ]
-}>
-<CodeTabItem value="js">
+<CodeSample>
+<CSTab label="JavaScript">
 
 ```js
 const client = LaunchDarkly.initialize(
@@ -401,8 +354,8 @@ const client = LaunchDarkly.initialize(
 );
 ```
 
-</CodeTabItem>
-<CodeTabItem value="ts">
+</CSTab>
+<CSTab label="TypeScript">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
@@ -410,15 +363,14 @@ import * as LaunchDarkly from 'launchdarkly-node-client-sdk';
 const options: LaunchDarkly.LDOptions = { bootstrap: 'localStorage' };
 
 const client = LaunchDarkly.initialize('client-side-id-123abc', context, options);
-
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 </Details>
 
-### React
+### React Web
 
 <Details summary="Expand React code sample">
 
@@ -430,13 +382,8 @@ Specify the `flags` property as a JSON object containing flag metadata derived f
 
 Here is an example:
 
-<CodeTabs
-defaultValue="json"
-values={[
-  { label: 'json', value: 'json', },
-]
-}>
-<CodeTabItem value="json">
+<CodeSample>
+<CSTab label="JSON">
 
 ```json
 {
@@ -447,8 +394,8 @@ values={[
 }
 ```
 
-</CodeTabItem>
-</CodeTabs>
+</CSTab>
+</CodeSample>
 
 To learn more, read the [React Web SDK reference](/sdk/client-side/react/react-web).
 

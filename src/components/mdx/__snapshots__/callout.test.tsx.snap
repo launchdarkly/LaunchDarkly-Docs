@@ -57,18 +57,18 @@ exports[`callout renders 1`] = `
         <span
           class="emotion-3"
         >
-          Adding users to LaunchDarkly
+          Adding contexts to LaunchDarkly
         </span>
         <span
           class="emotion-4"
         >
-          You do not have to send users to LaunchDarkly in advance. 
+          You do not have to send contexts to LaunchDarkly in advance. 
           <a
             href="example.com"
           >
             Check out this page
           </a>
-          . You can target them with feature flags have LaunchDarkly accounts of their own. Users appear in the dashboard automatically after they encounter feature flags.
+          . You can target them with feature flags have LaunchDarkly accounts of their own. Contexts appear in the dashboard automatically after they encounter feature flags.
         </span>
       </div>
       <div>
