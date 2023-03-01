@@ -43,7 +43,7 @@ To learn more, read [Environments](/home/organize/environments).
 
 ### Evaluation
 
-An `evaluation` is what happens when your application's code sends the [LaunchDarkly SDK](#launchdarkly-sdk) information about a particular [flag](#flag) and a particular [context](#context) that has encountered that flag, and the SDK sends back the value of the [flag variation](#variation) that the context should receive. We say that the SDK evaluates the flag, or that the flag has been evaluated for a particular context or customer.
+An `evaluation` is what happens when your application's code sends the [LaunchDarkly SDK](#sdk) information about a particular [flag](#flag) and a particular [context](#context) that has encountered that flag, and the SDK sends back the value of the [flag variation](#variation) that the context should receive. We say that the SDK evaluates the flag, or that the flag has been evaluated for a particular context or customer.
 
 To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
@@ -55,16 +55,6 @@ To learn more, read [Evaluating flags](/sdk/features/evaluating).
 A `flag` is the basic unit of feature management. It describes the different variations of a feature and the rules that allow different entities to access them. Different entities that access your features could be a percentage of your application's traffic, individuals, or people or software entities who share common characteristics like location, email domain, or type of mobile device. The entities that encounter feature flags in your product are called [contexts](#context).
 
 To learn more, read [Using feature management](/home/getting-started#using-feature-management).
-
-## L
-
-### LaunchDarkly SDK
-
-The `LaunchDarkly SDK` is the software development kit that you use to integrate LaunchDarkly with your application's code. We provide more than two dozen LaunchDarkly SDKs, in different languages and frameworks.
-
-When your application starts, your code should initialize the LaunchDarkly SDK you're working with. When a customer encounters a feature flag in your application, your code should use the SDK to evaluate the feature flag and retrieve the appropriate flag variation for that customer.
-
-To learn more, read [Setting up an SDK](/home/getting-started/setting-up). For more information about the differences between the LaunchDarkly SDK and the LaunchDarkly REST API, read [Comparing LaunchDarkly's SDKs and REST API](/guide/api/comparing-sdk-rest-api).
 
 ## M
 
@@ -93,6 +83,18 @@ A `custom role` is also a description of the access that a member has to informa
 Every member must have at least one role or custom role assigned to them, either directly or through a team. This is true even if the role explicitly prohibits them from accessing any information within LaunchDarkly.
 
 To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles), [Custom roles](/home/members/custom-roles), and [Custom role concepts](/home/members/role-concepts).
+
+## S
+
+### SDK
+
+The `LaunchDarkly SDK` is the software development kit that you use to integrate LaunchDarkly with your application's code.
+
+We provide more than two dozen LaunchDarkly SDKs, in different languages and frameworks. Our `client-side SDKs` are designed for single-user desktop, mobile, and embedded applications. They are intended to be used in a potentially less secure environment, such as a personal computer or mobile device. Our `server-side SDKs` are designed for multi-user systems. They are intended to be used in a trusted environment, such as inside a corporate network or on a web server.
+
+When your application starts, your code should initialize the LaunchDarkly SDK you're working with. When a customer encounters a feature flag in your application, your code should use the SDK to evaluate the feature flag and retrieve the appropriate flag variation for that customer.
+
+To learn more, read [Setting up an SDK](/home/getting-started/setting-up) and [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side). For more information about the differences between the LaunchDarkly SDK and the LaunchDarkly REST API, read [Comparing LaunchDarkly's SDKs and REST API](/guide/api/comparing-sdk-rest-api).
 
 ## T
 
