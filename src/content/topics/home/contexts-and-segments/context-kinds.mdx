@@ -89,10 +89,10 @@ To create a context kind in the LaunchDarkly UI:
   - (Optional) Check the "Set as the default for experiments" checkbox if you want new experiments to default to this context kind as the randomization unit.
 
 <Callout intent="warning">
-<CalloutTitle>You must use valid randomization units in your context kinds</CalloutTitle>
+<CalloutTitle>Context kinds available for experiments must use valid randomization units</CalloutTitle>
 <CalloutDescription>
 
-When creating a new context kind for use in Experimentation, we recommend consulting with an Experimentation expert in your organization or with LaunchDarkly Support to be sure your randomization unit mapping is valid. Using non-standard randomization units will result in invalid experiment results.
+Using invalid randomization units will result in invalid experiment results. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units). If you're unsure of which randomization unit to use, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new) for help determining valid context kind selections.
 
 </CalloutDescription>
 </Callout>
