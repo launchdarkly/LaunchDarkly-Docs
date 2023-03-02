@@ -171,7 +171,7 @@ This table lists all of the available operators and related examples:
       <code>anyOf</code>
     </TableCell>
     <TableCell>
-      Returns true if any of the values in a field match any of the values in the match value.
+      Returns true if any of the values in a field match any of the values in the match value. Only works for fields like kindkeys, applicationid, id, key, kind, kindkey
     </TableCell>
     <TableCell>
       <code>organization.number anyOf [44]</code><br />
@@ -184,7 +184,7 @@ This table lists all of the available operators and related examples:
       <code>contains</code>
     </TableCell>
     <TableCell>
-      Returns true if all the match values are also found in the values of the field.
+      Returns true if all the match values are also found in the values of the field. Only works for fields like kinds, kindkeys 
     </TableCell>
     <TableCell>
       <code>organization.number contains [44]</code><br />
@@ -202,28 +202,6 @@ This table lists all of the available operators and related examples:
     <TableCell>
       <code>user.name startsWith San</code><br />
       <code>device.os startsWith "iOS"</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>lte</code>
-    </TableCell>
-    <TableCell>
-      Returns true if any of the values in a field, which should be numbers, are less than or equal to the match value, which should be a number.
-    </TableCell>
-    <TableCell>
-      <code>organization.number lte 44</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>gte</code>
-    </TableCell>
-    <TableCell>
-      Returns true if any of the values in a field, which should be numbers, are greater than or equal to the match value, which should be a number.
-    </TableCell>
-    <TableCell>
-      <code>organization.number gte 44</code>
     </TableCell>
   </TableRow>
   <TableRow>
