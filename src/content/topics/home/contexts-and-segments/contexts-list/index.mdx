@@ -171,12 +171,12 @@ This table lists all of the available operators and related examples:
       <code>anyOf</code>
     </TableCell>
     <TableCell>
-      Returns true if any of the values in a field match any of the values in the match value.
+      Returns true if any of the values in a field match any of the values in the match value. This operator is only available for the following fields: <code>applicationId</code>, <code>id</code>, <code>key</code>, <code>kind</code>, <code>kindKey</code>, <code>kindKeys</code>.
     </TableCell>
     <TableCell>
-      <code>organization.number anyOf [44]</code><br />
-      <code>user.name anyOf ["Sandy","Jesse"]</code><br />
-      <code>device.optin "anyOf" [true]</code><br />
+      <code>applicationId anyOf [44]</code><br />
+      <code>kind anyOf ["device","org"]</code><br />
+      <code>key anyOf [1,2,3,4]</code><br />
     </TableCell>
   </TableRow>
   <TableRow>
@@ -184,12 +184,11 @@ This table lists all of the available operators and related examples:
       <code>contains</code>
     </TableCell>
     <TableCell>
-      Returns true if all the match values are also found in the values of the field.
+      Returns true if all the match values are also found in the values of the field. This operator is only available for the following fields: <code>kindKeys</code>, <code>kinds</code>. 
     </TableCell>
     <TableCell>
-      <code>organization.number contains [44]</code><br />
-      <code>"user.name" contains ["Sandy","Jesse"]</code><br />
-      <code>device.optin "contains" [true]</code><br />
+      <code>kindKeys contains ["Sandy","Jesse"]</code><br />
+      <code>kinds contains ["s"]</code><br />
     </TableCell>
   </TableRow>
   <TableRow>
@@ -202,28 +201,6 @@ This table lists all of the available operators and related examples:
     <TableCell>
       <code>user.name startsWith San</code><br />
       <code>device.os startsWith "iOS"</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>lte</code>
-    </TableCell>
-    <TableCell>
-      Returns true if any of the values in a field, which should be numbers, are less than or equal to the match value, which should be a number.
-    </TableCell>
-    <TableCell>
-      <code>organization.number lte 44</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>gte</code>
-    </TableCell>
-    <TableCell>
-      Returns true if any of the values in a field, which should be numbers, are greater than or equal to the match value, which should be a number.
-    </TableCell>
-    <TableCell>
-      <code>organization.number gte 44</code>
     </TableCell>
   </TableRow>
   <TableRow>
@@ -254,7 +231,7 @@ This table lists all of the available operators and related examples:
     <TableCell>
       <code>organization.number notEquals 44</code><br />
       <code>"user.name" notEquals Sandy</code><br />
-      <code>device.optin notEquals true</code><br />
+      <code>device.option notEquals true</code><br />
       <code>organization.number notEquals [1,2,3,4]</code><br />
       <code>user.name notEquals ["Sandy", "Jesse"]</code><br />
     </TableCell>
