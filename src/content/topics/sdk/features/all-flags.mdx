@@ -25,7 +25,7 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 The all flags feature returns the state of all feature flags targeted to a context or user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
 
-The all flags method does not create contexts, users, or other analytics events in your LaunchDarkly account for all of our client-side SDKs, and most of our server-side SDKs. Additionally, getting all flags usually does not send events that create a context or user within LaunchDarkly or populate the flag evaluations graph for a flag. The exceptions to this are Electron, JavaScript, and Node.js (client-side), which do send analytics events.
+The all flags method does not send analytics events to LaunchDarkly by default for most SDKs. The exceptions to this are Electron, JavaScript, Node.js (client-side), and Vue, which do send analytics events by default. For these SDKs, you can disable sending analytics events when calling the all flags method if needed. To learn more about what analytics events do in LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
 For client-side SDKs, the all flags feature may return a null value in cases where a flag's fallback value would be served to the end user.
 
@@ -202,7 +202,7 @@ The `allFlags` method produces a map of feature flag keys to their values.
 
 The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
-Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off with the [`sendEventsOnlyForVariation` configuration option](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation).
+Unlike most of our SDKs, our Node.js (client-side) SDK's `allFlags` method sends analytics events to LaunchDarkly. If you do not want `allFlags` to generate any analytics events, you can turn this off by setting the [`sendEventsOnlyForVariation`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation) option to `true`.
 
 To use the all flags feature:
 
