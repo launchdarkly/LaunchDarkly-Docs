@@ -25,6 +25,14 @@ You cannot create contexts in the <strong>Contexts</strong> list. The list only 
 </CalloutDescription>
 </Callout>
 
+<Callout intent="info">
+<CalloutTitle>In order to see the context name</CalloutTitle>
+<CalloutDescription>
+
+You must send the context name in the <strong>variation</strong> call in the LaunchDarkly SDK in order to see the name on the U.I. To learn more, read [Contexts](/home/contexts#example-contexts-that-affect-annas-experience).
+</CalloutDescription>
+</Callout>
+
 If a context's attributes change within five minutes of the previous evaluation, and the context key stays the same, the list deduplicates the context and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
 
 <Callout intent="alert">
