@@ -26,8 +26,8 @@ In order to complete this topic, you must meet the following prerequisites:
 
 - You must have a LaunchDarkly account with a role that allows the `integration/createIntegration` role.
 - You must have an existing ServiceNow account with the **admin** role.
-- You must have a ServiceNow Client ID and secret for an OAuth API endpoint for external clients. To learn how to create these, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
-- If your ServiceNow instance has IP address access control enabled, you must create **inbound** ServiceNow IP access control rules corresponding to the the `outboundAddresses` from LaunchDarkly's [public IP list](/home/advanced/public-ip-list). To learn how to create IP access control rules, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/utah-platform-security/page/administer/login/task/t_AccessControl.html).
+- You must have a ServiceNow Client ID and secret for an OAuth API endpoint for external clients. To learn how to create these, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/page/administer/security/task/t_CreateEndpointforExternalClients.html).
+- If your ServiceNow instance has IP address access control enabled, you must create **inbound** ServiceNow IP access control rules corresponding to the the `outboundAddresses` from LaunchDarkly's [public IP list](/home/advanced/public-ip-list). To learn how to create IP access control rules, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/page/administer/login/task/t_AccessControl.html).
 
 ## Setting up the ServiceNow integration in LaunchDarkly
 
@@ -39,7 +39,7 @@ To use the ServiceNow integration to perform flag approvals, you must first esta
 To establish an OAuth connection:
 
 1. Log in to ServiceNow.
-2. Complete ServiceNow's instructions for [creating an endpoint for external clients](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
+2. Complete ServiceNow's instructions for [creating an endpoint for external clients](https://docs.servicenow.com/bundle/page/administer/security/task/t_CreateEndpointforExternalClients.html).
 3. Navigate to the LaunchDarkly Integrations page and find "ServiceNow."
 4. Click **Add integration**. The integration menu appears.
 5. Click **Connect to ServiceNow**. An OAuth provider registration dialog appears.
@@ -47,7 +47,7 @@ To establish an OAuth connection:
 
 ![LaunchDarkly's ServiceNow OAuth provider registration form.](servicenow-register-oauth-launchdarkly.png)
 
-7. In ServiceNow, follow the directions to [create an endpoint for external clients](https://docs.servicenow.com/bundle/paris-platform-administration/page/administer/security/task/t_CreateEndpointforExternalClients.html).
+7. In ServiceNow, follow the directions to [create an endpoint for external clients](https://docs.servicenow.com/bundle/page/administer/security/task/t_CreateEndpointforExternalClients.html).
 8. Set the **Redirect URL** to the redirect URL saved to your clipboard in the previous step. Ensure you are following the directions for your ServiceNow version.
 
 ![The ServiceNow external client endpoint registration form with the Redirect URL configured.](servicenow-register-oauth-provider.png)
@@ -81,14 +81,14 @@ Here's how:
 
 You can create your workflow using either of the two methods ServiceNow offers to create new workflows:
 
-- [Flow Designer](https://docs.servicenow.com/bundle/london-servicenow-platform/page/administer/flow-designer/concept/flow-designer.html) and
-- [Workflow Editor](https://docs.servicenow.com/bundle/paris-servicenow-platform/page/administer/workflow/reference/workflow-editor.html).
+- [Flow Designer](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/flow-designer/concept/flow-designer.html) and
+- [Workflow Editor](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/workflow/reference/workflow-editor.html).
 
 The screenshots below are from the Flow Designer, but you can create a workflow the same triggers, actions, and conditions using the Workflow Editor if you prefer.
 
 To create a LaunchDarkly approvals workflow in ServiceNow:
 
-1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/quebec-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/utah-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
 2. Set two conditions on your trigger: "State" `is` "New" and "Standard Change Template version > Template > Name" `is` "LaunchDarkly template."
 
 ![A configured Workflow Trigger in the ServiceNow Flow Designer.](servicenow-workflow-trigger.png)
@@ -131,7 +131,7 @@ Automatic approval workflows create a correlating ServiceNow Change Request for 
 
 To create an automatic approval workflow:
 
-1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/quebec-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/utah-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
 2. Set two conditions on your trigger:
 
 - "State" `is` "New"
