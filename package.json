@@ -1,5 +1,5 @@
 {
-  "name": "git-gatsby",
+  "name": "ld-docs-private",
   "private": true,
   "description": "LaunchDarkly's Docs Site",
   "version": "1.0.0",
@@ -159,10 +159,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/launchdarkly/git-gatsby"
+    "url": "https://github.com/launchdarkly/ld-docs-private"
   },
   "bugs": {
-    "url": "https://github.com/launchdarkly/git-gatsby/issues"
+    "url": "https://github.com/launchdarkly/ld-docs-private/issues"
   },
   "peerDependencies": {
     "graphql": "^14.0.0"
