@@ -421,7 +421,7 @@ ldclient:start_instance("sdk-key-123abc", #{
 To connect the SDK to the Relay Proxy, use the `Config.ServiceEndpoints` property and `ldcomponents.RelayProxyEndpoints()` to specify the base URI of your Relay Proxy:
 
 <CodeSample>
-<CSTab label="Go SDK v5.8 and later">
+<CSTab label="Go">
 
 ```go
 // To use the Replay Proxy in proxy mode for both streaming and events:
@@ -436,31 +436,6 @@ config := ld.Config{
 config := ld.Config{
     ServiceEndpoints: ldcomponents.RelayProxyEndpointsWithoutEvents(
         "https://your-relay-proxy.com:8030"),
-}
-```
-
-</CSTab>
-<CSTab label="Go SDK v5.7.x and earlier">
-
-```go
-// Prior to version 5.8.0, the base URI had to be specified for each service,
-// depending on which services you were actually using.
-// To use the Relay Proxy in proxy mode for both streaming and events:
-
-
-config := ld.Config{
-    DataSource: ldcomponents.StreamingDataSource().
-        BaseURI("https://your-relay-proxy.com:8030"),
-    Events: ldcomponents.SendEvents().
-        BaseURI("https://your-relay-proxy.com:8030"),
-}
-
-// Alternatively, to use the Relay Proxy in proxy mode for streaming,
-// but send events to LaunchDarkly, use:
-
-config := ld.Config{
-    DataSource: ldcomponents.StreamingDataSource().
-        BaseURI("https://your-relay-proxy.com:8030"),
 }
 ```
 
