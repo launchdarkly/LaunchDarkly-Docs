@@ -41,7 +41,7 @@ To create a targeting rule:
 
 9. Click **Review and save**.
 
-If a targeting rule references any context kinds or attributes with `null` values, or that do not exist for a given context, then the flag skips that rule. For example, in a rule that checks "region is one of Canada," any context whose region attribute is not set or is set to null does not match the rule. Similarly, in a rule that checks "region is not one of Canada," any context whose region attribute is not set or is set to null does not match the rule. This behavior ensures that your rules only target contexts for which you explicitly have attribute information.
+If a targeting rule references any context kinds or attributes with `null` values, or that do not exist for a given context, then the flag skips that rule. For example, in a rule that checks "region is one of Canada," any context whose region attribute is not set or is set to `null` does not match the rule. Similarly, in a rule that checks "region is not one of Canada," any context whose region attribute is not set or is set to `null` does not match the rule. This behavior ensures that your rules only target contexts for which you explicitly have attribute information.
 
 You can add multiple conditions to a rule. Here is how rules handle multiple conditions and values:
 

@@ -65,3 +65,7 @@ The value of a custom attribute can be of the following types:
 * string
 * array
 * JSON object
+
+### Null JSON values
+
+`null` is a valid JSON type, but it is not a valid attribute value in LaunchDarkly. In LaunchDarkly, `null` is equivalent to the attribute being undefined. For example, in a JSON representation of a context, `"name": null` is equivalent to omitting the name attribute value completely. This applies to both built-in attributes and custom attributes.

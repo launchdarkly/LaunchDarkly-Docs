@@ -245,7 +245,7 @@ The technical details of how to implement `diagnostic` events in a LaunchDarkly 
 
 We've observed a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and handle them as gracefully as possible:
 
-- Passing `null` or the language equivalent) as the context `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
+- Passing `null` or the language equivalent as the context `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
 - Including a trailing slash in the base URL of a custom config object. Example: `https://sdk.launchdarkly.com/`, which when appended to `/api`, yields `https://sdk.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.
 
 ## More resources
