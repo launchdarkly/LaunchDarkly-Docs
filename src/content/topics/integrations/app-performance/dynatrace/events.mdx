@@ -56,9 +56,10 @@ Here's how to add and configure the Dynatrace integration:
 4. Enter your Dynatrace API token.
 5. Enter the URL of your Dynatrace service in the **Dynatrace URL** field. Do not include a slash at the end.
 6. Select the entity type of the Dynatrace entities you want to send LaunchDarkly events to. To learn more, read [Understanding entity types](#understanding-entity-types).
-7. (Optional) Configure a custom policy to control which information LaunchDarkly sends to Dynatrace. To learn more, read [Configuring integration policies](#configuring-integration-policies).
-8. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
-9. Click **Save configuration**.
+7. (Optional) Specify a Dynatrace entity tag to be associated with all feature flag events sent from this integration. If you do not specify a tag, then you will need to specify a Dynatrace tag in custom properties setting of individual feature flags. To learn more, read [Associating flags with Dynatrace tags](#associating-flags-with-dynatrace-tags)
+8. (Optional) Configure a custom policy to control which information LaunchDarkly sends to Dynatrace. To learn more, read [Configuring integration policies](#configuring-integration-policies).
+9. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+10. Click **Save configuration**.
 
 ### Understanding entity types
 
@@ -110,7 +111,7 @@ To learn more about using the policy editor, read [Policies in custom roles](/ho
 
 ## Associating flags with Dynatrace tags
 
-The LaunchDarkly Dynatrace integration only sends events from flags which are explicitly associated with Dynatrace tags. It does **not** send events from every flag in your LaunchDarkly project.
+If you do not specify a Dynatrace tag in the integration's configuration, then the integration will only send events from flags that are explicitly associated with Dynatrace tags. In this case, it does **not** send events from every flag in your LaunchDarkly project.
 
 The integration lets you view an application's flag change events beside its performance graphs. This makes it easier to correlate problems with the flag changes that may have caused them.
 
