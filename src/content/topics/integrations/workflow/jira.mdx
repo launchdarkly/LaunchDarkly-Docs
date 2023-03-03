@@ -43,8 +43,10 @@ To complete this procedure, you must have the following prerequisites:
 To set up the Jira integration, you must complete the following steps:
 
 1. Give your API access token the required permissions:
-  - You can [create a custom role with webhook and flag link permissions, then add the custom role to a personal or service access token](#create-a-custom-role-and-add-it-to-an-api-access-token), or
-  - you can [add the built-in Writer role to your personal access token](#add-the-built-in-writer-role-to-your-personal-access-token).
+
+- You can [create a custom role with webhook and flag link permissions, then add the custom role to a personal or service access token](#create-a-custom-role-and-add-it-to-an-api-access-token), or
+- you can [add the built-in Writer role to your personal access token](#add-the-built-in-writer-role-to-your-personal-access-token).
+
 2. [Configure the LaunchDarkly integration in Jira with the API access token](#configure-the-launchdarkly-integration-in-jira).
 
 This allows LaunchDarkly to communicate with Jira any time you change a flag.
@@ -112,19 +114,12 @@ You can also use the advanced role policy editor to grant permissions by adding 
 [
   {
     "effect": "allow",
-    "actions": [
-      "createWebhook",
-      "deleteWebhook"
-    ],
+    "actions": ["createWebhook", "deleteWebhook"],
     "resources": ["webhook/*"]
   },
   {
     "effect": "allow",
-    "actions": [
-      "createFlagLink",
-      "updateFlagLink",
-      "deleteFlagLink"
-    ],
+    "actions": ["createFlagLink", "updateFlagLink", "deleteFlagLink"],
     "resources": ["proj/*:env/*:flag/*"]
   }
 ]
@@ -254,7 +249,7 @@ To remove a flag from a Jira issue:
 <CalloutTitle>Adding issues to an existing flag</CalloutTitle>
 <CalloutDescription>
 
-Your Jira issue must exist before you associate it with your feature flag. If you accidentally added a Jira issue to your flag, delete the custom property, create your Jira issue, and try again.
+Your Jira issue must exist before you associate it with your feature flag. If you accidentally added a Jira issue to your flag, delete the custom property, and try connecting your jira issue again.
 
 </CalloutDescription>
 </Callout>
