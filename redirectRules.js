@@ -10,10 +10,6 @@ module.exports = [
     toPath: '/home/flags/targeting',
   },
   {
-    fromPath: '/home/users',
-    toPath: '/home/contexts',
-  },
-  {
     fromPath: '/home/users/users-list',
     toPath: '/home/contexts/contexts-list',
   },
@@ -42,16 +38,8 @@ module.exports = [
     toPath: '/home/contexts/big-segments',
   },
   {
-    fromPath: '/home/users/synced-segments',
-    toPath: '/home/contexts/synced-segments',
-  },
-  {
     fromPath: '/home/users/bulk-edit-segments',
     toPath: '/home/contexts/bulk-edit-segments',
-  },
-  {
-    fromPath: '/home/users/anonymous-users',
-    toPath: '/home/contexts/anonymous-contexts',
   },
   {
     fromPath: '/sdk/features/user-config',
@@ -63,6 +51,10 @@ module.exports = [
     fromPath: '/accelerate-eap/home/about-accelerate',
     toPath: '/home/accelerate/',
     // This is from the merged Accelerate EAP branch staging site into main, so it's technically within the docs site.
+  },
+  {
+    fromPath: '/home/managing-flags/targeting-users',
+    toPath: '/home/flags/targeting',
   },
   {
     fromPath: '/guides/infrastructure/unit-tests',
@@ -80,143 +72,9 @@ module.exports = [
     fromPath: '/home/about-experimentation/import-metric-events',
     toPath: '/home/creating-experiments/import-metric-events',
   },
-
-  // Redirects from guide rearchitecture project, q2 2022
   {
-    fromPath: '/guides/best-practices/migrating-solutions',
-    toPath: '/guides/account/migrating-solutions',
-  },
-  {
-    fromPath: '/guides/tutorials/merge-accounts',
-    toPath: '/guides/account/merge-accounts',
-  },
-  {
-    fromPath: '/guides/best-practices/user-data',
-    toPath: '/guides/account/user-data',
-  },
-  {
-    fromPath: 'guides/best-practices/teams',
-    toPath: '/guides/teams-roles/teams',
-  },
-  {
-    fromPath: '/guides/best-practices/custom-roles',
-    toPath: '/guides/teams-roles/custom-roles',
-  },
-  {
-    fromPath: '/guides/tutorials/no-access',
-    toPath: '/guides/teams-roles/no-access',
-  },
-  {
-    fromPath: '/guides/tutorials/sdk-flag',
-    toPath: '/guides/flags/sdk-flag',
-  },
-  {
-    fromPath: '/guides/tutorials/rules-and-targeting',
-    toPath: '/guides/flags',
-  },
-  {
-    fromPath: '/guides/best-practices/creating-flags',
-    toPath: '/guides/flags/creating-flags',
-  },
-  {
-    fromPath: '/guides/best-practices/flag-hierarchy',
-    toPath: '/guides/flags/flag-hierarchy',
-  },
-  {
-    fromPath: '/guides/best-practices/improving-code',
-    toPath: '/guides/flags/improving-code',
-  },
-  {
-    fromPath: '/guides/best-practices/technical-debt',
-    toPath: '/guides/flags/technical-debt',
-  },
-  {
-    fromPath: '/guides/best-practices/testing-code',
-    toPath: '/guides/flags/testing-code',
-  },
-  {
-    fromPath: '/guides/best-practices/entitlements',
-    toPath: '/guides/flags/entitlements',
-  },
-  {
-    fromPath: '/guides/platform-specific/triggers-dynatrace',
-    toPath: '/guides/integrations/triggers-dynatrace',
-  },
-  {
-    fromPath: '/guides/platform-specific/static-sites',
-    toPath: '/guides/flags/static-sites',
-  },
-  {
-    fromPath: '/guides/platform-specific/cloudflare-workers',
-    toPath: '/guides/infrastructure/cloudflare-workers',
-  },
-  {
-    fromPath: '/guides/best-practices/integrations',
-    toPath: '/guides/integrations/using-integrations',
-  },
-  {
-    fromPath: '/guides/best-practices/integrations-use-cases',
-    toPath: '/guides/integrations/integrations-use-cases',
-  },
-  {
-    fromPath: '/guides/best-practices/deployment-strategies',
-    toPath: '/guides/infrastructure/deployment-strategies',
-  },
-  {
-    fromPath: '/guides/best-practices/infrastructure-migration',
-    toPath: '/guides/infrastructure/infrastructure-migration',
-  },
-  {
-    fromPath: '/guides/best-practices/serverless',
-    toPath: '/guides/infrastructure/serverless',
-  },
-  {
-    fromPath: '/guides/platform-specific/aws-lambda',
-    toPath: '/guides/infrastructure/aws-lambda',
-  },
-  {
-    fromPath: '/guides/platform-specific/nextjs',
-    toPath: '/guides/infrastructure/nextjs',
-  },
-  {
-    fromPath: '/guides/platform-specific/svelte',
-    toPath: '/guides/infrastructure/svelte',
-  },
-  {
-    fromPath: '/guides/platform-specific/unit-tests',
-    toPath: '/guides/infrastructure/unit-tests',
-  },
-  {
-    fromPath: '/guides/platform-specific/mobile',
-    toPath: '/guides/sdk/mobile',
-  },
-  {
-    fromPath: '/guides/tutorials/unsupported-sdk',
-    toPath: '/guides/sdk/unsupported-sdk',
-  },
-  {
-    fromPath: '/guides/platform-specific/haproxy',
-    toPath: '/guides/sdk/haproxy',
-  },
-  {
-    fromPath: '/guides/platform-specific/nginx',
-    toPath: '/guides/sdk/nginx',
-  },
-  {
-    fromPath: '/guides/tutorials/rest-api',
-    toPath: '/guides/api/rest-api',
-  },
-  {
-    fromPath: '/guides/best-practices/sdk-wrappers',
-    toPath: '/guides/sdk/sdk-wrappers',
-  },
-  {
-    fromPath: 'guides/tutorials/experimentation',
-    toPath: '/guides/experimentation/experimentation',
-  },
-  {
-    fromPath: '/guides/best-practices/bayesian',
-    toPath: '/guides/experimentation/bayesian',
+    fromPath: '/docs/targeting-users',
+    toPath: '/home/flags/targeting',
   },
 
   // Redirects for external sites
@@ -227,10 +85,6 @@ module.exports = [
 
   // Redirects within docs site
 
-  {
-    fromPath: '/home/users/users-dashboard',
-    toPath: '/home/users/users-list',
-  },
   {
     fromPath: '/guides/flags/rules-and-targeting',
     toPath: '/guides/flags',
@@ -330,10 +184,6 @@ module.exports = [
   {
     fromPath: '/home/managing-flags/environments',
     toPath: '/home/organize/environments',
-  },
-  {
-    fromPath: '/home/managing-flags/targeting-users',
-    toPath: '/home/flags/targeting',
   },
   {
     fromPath: '/home/managing-flags/bulk-user-targeting',
@@ -626,48 +476,8 @@ module.exports = [
     toPath: '/home/contexts/synced-segments',
   },
   {
-    fromPath: '/home/flags/targeting-users',
-    toPath: '/home/flags/targeting',
-  },
-  {
-    fromPath: '/home/flags/debugger',
-    toPath: '/home/flags/live-events',
-  },
-  {
-    fromPath: '/sdk/features/user-config',
-    toPath: '/sdk/features/user-context-config',
-  },
-  {
-    fromPath: '/home/users/users-dashboard',
-    toPath: '/home/contexts/contexts-list',
-  },
-  {
     fromPath: '/home/users/attributes',
     toPath: '/home/contexts/attributes',
-  },
-  {
-    fromPath: '/home/users/built-in-attributes',
-    toPath: '/home/contexts/built-in-attributes',
-  },
-  {
-    fromPath: '/home/users/custom-attributes',
-    toPath: '/home/contexts/custom-attributes',
-  },
-  {
-    fromPath: '/home/users/segments',
-    toPath: '/home/contexts/segments',
-  },
-  {
-    fromPath: '/home/users/standard-segments',
-    toPath: '/home/contexts/standard-segments',
-  },
-  {
-    fromPath: '/home/users/bulk-edit-segments',
-    toPath: '/home/contexts/bulk-edit-segments',
-  },
-  {
-    fromPath: '/home/users/big-segments',
-    toPath: '/home/contexts/big-segments',
   },
 
   // Redirects from guide rearchitecture project, q2 2022
@@ -928,10 +738,6 @@ module.exports = [
     toPath: '/home/organize/environments',
   },
   {
-    fromPath: '/docs/targeting-users',
-    toPath: '/home/flags/targeting-users',
-  },
-  {
     fromPath: '/docs/bulk-user-targeting',
     toPath: '/home/flags/bulk-targeting',
   },
@@ -957,11 +763,11 @@ module.exports = [
   },
   {
     fromPath: '/docs/the-user-dashboard',
-    toPath: '/home/users/users-list',
+    toPath: '/home/contexts/contexts-list',
   },
   {
     fromPath: '/docs/private-user-attributes',
-    toPath: '/home/users/attributes',
+    toPath: '/home/contexts/attributes',
   },
   {
     fromPath: '/docs/segmenting-users',
