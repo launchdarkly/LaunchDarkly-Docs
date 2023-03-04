@@ -44,7 +44,7 @@ You can define additional attributes for a context by passing in a name and valu
 
 If you create an attribute with a name already in use by a built-in attribute, the SDK will behave unpredictably during feature flag evaluation.
 
-When you work with an SDK that supports contexts, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. If you work with an SDK that only supports users, there are several additional built-in attributes. For a list of built-in attributes and their names, read [Built-in user attributes](/home/contexts/built-in-attributes).
+When you work with an SDK that supports contexts, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. If you work with an SDK that only supports users, there are several additional built-in attributes.
 
 </CalloutDescription>
 </Callout>
@@ -59,7 +59,7 @@ Each SDK lets you designate anonymous contexts or users. Anonymous contexts or u
 
 In client-side SDKs, if you don't provide a key or set it to null, and set `anonymous` to `true`, then the SDK generates a random key for you.
 
-If you want to reduce your client-side MAU, we recommend using the same key for every initialization and then replacing that with the actual key when you know who the user context is. This way LaunchDarkly counts the initialization key only once against your client-side MAU, instead of every time you initialize. However, you cannot use this method if you use Experimentation, because all contexts you include in an experiment must have a unique key.
+If you want to reduce your client-side MAU, we recommend using the same key for every initialization and then replacing that with a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization key only once against your client-side MAU, instead of every time you initialize. However, you cannot use this method if you use Experimentation, because all contexts you include in an experiment must have a unique key.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -123,7 +123,7 @@ The argument to `Builder` is the context's key. The key should uniquely identify
 <CalloutTitle>Interpreting attribute types</CalloutTitle>
 <CalloutDescription>
 
-The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attribute values can be an JSON type, including booleans, numbers, strings, arrays, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attribute values can be any JSON type, including booleans, numbers, strings, arrays, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
 
 If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -137,8 +137,8 @@ You can optionally configure the client-side .NET SDK to treat some or all attri
 
 In the client-side .NET SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all context attributes except the kind and key for all contexts are removed before the SDK sends the context to LaunchDarkly.
-- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributes` method, which takes any number of attribute names or slash-delimited paths to designated a JSON property within an attribute, such as `/address/street`. If any context has a custom or built-in attribute that matches one of these names, the SDK removes it before sending the context to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can call the `AllAttributesPrivate` method, which takes in a boolean parameter. If `true`, all context attributes except the kind and key are removed for all contexts before the SDK sends the context to LaunchDarkly.
+- When creating the LaunchDarkly `Configuration` object, you can call the `PrivateAttributes` method, which takes any number of attribute names or slash-delimited paths to designated JSON properties within an attribute, such as `/address/street`. If any context has a custom or built-in attribute that matches one of these names, the SDK removes it before sending the context to LaunchDarkly.
 
 You can also mark attributes as private when building the context object by calling `Private()` on the context builder.
 
@@ -196,9 +196,9 @@ LDUser user = User.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
+You still need to generate a key for anonymous contexts. Session IDs or UUIDs work best for this.
 
-If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 
 Here's how:
 
@@ -303,7 +303,7 @@ The argument to `Builder` is the context's key. The key should uniquely identify
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attributes values can be any JSON type, including boolean, number, string, array, or object. The Android SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attribute values can be any JSON type, including boolean, number, string, array, or object. The Android SDK is strongly-typed, so be aware of this distinction.
 
 If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -416,7 +416,7 @@ val user: LDUser = LDUser.Builder("user-key-123abc")
 
 When the SDK sends this context back to LaunchDarkly, it removes the `name` and `group` attributes.
 
-#### Anonymous users in the Android SDK
+#### Anonymous contexts in the Android SDK
 ---
 
 You can distinguish logged-in end users from anonymous end users in the SDK.
@@ -462,9 +462,9 @@ val user: LDUser = LDUser.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-You can leave the key parameter in the Builder null or make it an empty string. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+When you mark the context as anonymous, you can leave the key parameter in the Builder null or make it an empty string. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
 
-If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### C/C++ (client-side)
@@ -955,7 +955,9 @@ user.privateAttributes = @[@"name", @"group"];
 #### Anonymous contexts in the iOS SDK
 ---
 
-You can declare an `LDcontext` to be an anonymous, not logged-in end user:
+You can distinguish logged-in end users from anonymous end users in the SDK.
+
+Here's how:
 
 <CodeSample>
 <CSTab label="iOS SDK v8.0 (Swift)">
@@ -965,9 +967,6 @@ var contextBuilder = LDContextBuilder(key: "context-key-123abc")
 contextBuilder.anonymous(true)
 
 let context = contextBuilder.build().get()
-
-// Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
-let context = try LDContextBuilder().build().get()
 ```
 
 </CSTab>
@@ -978,9 +977,6 @@ LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-
 [builder trySetValueWithName:@"anonymous" value:[LDValue ofBool:true]];
 
 LDContext *context = builder.build.success;
-
-// Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
-LDContextBuilder *newThing = [[LDContextBuilder alloc] init];
 ```
 
 </CSTab>
@@ -989,9 +985,6 @@ LDContextBuilder *newThing = [[LDContextBuilder alloc] init];
 ```swift
 var user = LDUser(key: "user-key-123abc")
 user.isAnonymous = true
-
-// Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
-let user = LDUser()
 ```
 
 </CSTab>
@@ -1000,17 +993,58 @@ let user = LDUser()
 ```objectivec
 LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 user.isAnonymous = YES;
+```
 
-// Or have the SDK use a device persistent key. This sets `isAnonymous` by default.
+</CSTab>
+</CodeSample>
+
+You still need to generate a key for anonymous contexts. Session IDs or UUIDs work best for this.
+
+Alternatively, you can omit the key parameter. The client will automatically set the `isAnonymous` property for the context, and set the key to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
+
+```swift
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
+let context = try LDContextBuilder().build().get()
+```
+
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
+
+```objectivec
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
+LDContextBuilder *newThing = [[LDContextBuilder alloc] init];
+```
+
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
+
+```swift
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
+let user = LDUser()
+```
+
+</CSTab>
+<CSTab label="iOS SDK v7.x (Objective-C)">
+
+```objectivec
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
 LDUser *user = [LDUser new];
 ```
 
 </CSTab>
 </CodeSample>
 
-You must generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 
-If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the context is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### JavaScript
@@ -1173,7 +1207,7 @@ const client = ld.initialize('client-side-id-123abc', user, options);
 
 In the above example, the `name` and `email` attributes are removed.
 
-You can configure this option either in the context object or in the configuration object, by specifying an array of attributes that should be private. In the context object, specify your array of attributes in the `privateNames` field of the reserved `_meta` property. In the configuration object, specify your array of attributes in the `privateAttributes` configuration option.
+You can configure this option either in the configuration object or in the context object, by specifying an array of attributes that should be private. In the configuration object, specify your array of attributes in the `privateAttributes` configuration option. In the context object, specify your array of attributes in the `privateNames` field of the reserved `_meta` property.
 
 Here's how:
 
@@ -1260,17 +1294,14 @@ You can distinguish logged-in end users from anonymous end users in the SDK.
 
 If you use [multi-contexts](/home/contexts#understanding-contexts-and-context-kinds), you can choose to make only some contexts anonymous.
 
+To create an anonymous context, specify the `anonymous` property and omit the `key` property. The client will automatically set the key to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+
 Here's how:
 
 <CodeSample>
 <CSTab label="JavaScript SDK v3.0">
 
 ```js
-// To create an anonymous context, specify the "anonymous" property and
-// omit the "key" property. In doing so, the LaunchDarkly client
-// auto-generates a unique identifier for this context. The
-// identifier is saved in local storage and reused in future
-// browser sessions to ensure a constant experience.
 const anonymousUserContext = {
   kind: 'user',
   anonymous: true
@@ -1294,11 +1325,6 @@ const multiContext = {
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
 
-// To create an anonymous context, specify the "anonymous" property and
-// omit the "key" property. In doing so, the LaunchDarkly client
-// auto-generates a unique identifier for this context. The
-// identifier is saved in local storage and reused in future
-// browser sessions to ensure a constant experience.
 const anonymousContext: ld.LDContext = {
   kind: 'user',
   anonymous: true
@@ -1320,11 +1346,6 @@ const multiContext: ld.LDContext = {
 <CSTab label="JavaScript SDK v2.x">
 
 ```js
-// To create an anonymous user, specify the "anonymous" property and
-// omit the "key" property. In doing so, the LaunchDarkly client
-// auto-generates a unique identifier for this user. The
-// identifier is saved in local storage and reused in future
-// browser sessions to ensure a constant experience.
 const anonymousUser = { anonymous: true };
 ```
 
@@ -1334,34 +1355,20 @@ const anonymousUser = { anonymous: true };
 ```ts
 import * as ld from 'launchdarkly-js-client-sdk';
 
-// To create an anonymous user, specify the "anonymous" property and
-// omit the "key" property. In doing so, the LaunchDarkly client
-// auto-generates a unique identifier for this user. The
-// identifier is saved in local storage and reused in future
-// browser sessions to ensure a constant experience.
 const anonymousUser: ld.LDUser = { anonymous: true };
 ```
 
 </CSTab>
 </CodeSample>
 
-If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the logged-in end user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### Node.js (client-side)
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-<Callout intent="alert">
-<CalloutTitle>Personally-identifying user keys</CalloutTitle>
-<CalloutDescription>
-
-By default, when the SDK requests feature flags from LaunchDarkly, it makes an HTTP GET request with the user properties encoded in the URL. If you do not want user keys or other properties to be in request URLs, enable the `useReport` option in your client configuration. The SDK sends user data in the body of an HTTP REPORT request instead.
-
-</CalloutDescription>
-</Callout>
-
-Here's an example of a user:
+Here's an example of a context:
 
 <CodeSample>
 <CSTab label="Node.js SDK v3.0 (JavaScript)">
@@ -1432,15 +1439,15 @@ const user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
-<Callout intent="info">
-<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
+The `kind` and `name` attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use / as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use <code>/address/city</code> in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+<Callout intent="alert">
+<CalloutTitle>Personally-identifying user keys</CalloutTitle>
 <CalloutDescription>
 
-The kind and name attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects.
-
-If an attribute is a JSON object, then in your flag or segment targeting, you can use / as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use <code>/address/city</code> in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+By default, when the SDK requests feature flags from LaunchDarkly, it makes an HTTP GET request with the user properties encoded in the URL. If you do not want user keys or other properties to be in request URLs, enable the `useReport` option in your client configuration. The SDK sends user data in the body of an HTTP REPORT request instead.
 
 </CalloutDescription>
 </Callout>
@@ -1448,9 +1455,9 @@ If an attribute is a JSON object, then in your flag or segment targeting, you ca
 #### Private attributes in the Node.js SDK
 ---
 
-You can optionally configure the SDK to treat all user attributes as [private user attributes](/home/contexts/attributes). Private user attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
+You can optionally configure the SDK to treat all attributes as [private attributes](/home/contexts/attributes). Private attributes can be used for targeting purposes, but are removed from the user data sent back to LaunchDarkly.
 
-To mark all user attributes except the key as private in the JavaScript SDK, you can use the `allAttributesPrivate` option:
+To mark all user attributes except the key as private in the Node.js SDK, you can use the `allAttributesPrivate` option:
 
 <CodeSample>
 <CSTab label="Node.js SDK v3.0 (JavaScript)">
@@ -1600,7 +1607,7 @@ const client = ld.initialize('client-side-id-123abc', user, options);
 </CSTab>
 </CodeSample>
 
-In the above example, the SDK sends only the user's key and name back to LaunchDarkly.
+In the above example, the SDK sends only the context key and name back to LaunchDarkly.
 
 #### Anonymous contexts in the Node.js SDK
 ---
@@ -1613,13 +1620,7 @@ Here's how:
 <CSTab label="Node.js SDK v3.0 (JavaScript)">
 
 ```js
-// To create an anonymous user with an auto-generated key, specify
-// the "anonymous" property and omit the "key" property. The LaunchDarkly
-// client creates a unique key for this user and caches it locally.
-const anonymousContext = { kind: 'user', anonymous: true };
-
-// You can also specify any key you want:
-const anonymousContext2 = { kind: 'user', key: "user-key-123abc", anonymous: true };
+const anonymousContext = { kind: 'user', key: "user-key-123abc", anonymous: true };
 ```
 
 </CSTab>
@@ -1628,27 +1629,14 @@ const anonymousContext2 = { kind: 'user', key: "user-key-123abc", anonymous: tru
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
 
-// To create an anonymous user with an auto-generated key, specify
-// the "anonymous" property and omit the "key" property. The LaunchDarkly
-// client creates a unique key for this user and caches it locally.
-const anonymousContext: ld.LDContext = { kind: 'user', anonymous: true };
-
-// You can also specify any key you want:
-const anonymousContext2: ld.LDUser = { kind: 'user', key: 'user-key-123abc', anonymous: true };
-
+const anonymousContext: ld.LDContext = { kind: 'user', key: 'user-key-123abc', anonymous: true };
 ```
 
 </CSTab>
 <CSTab label="Node.js SDK v2.x (JavaScript)">
 
 ```js
-// To create an anonymous user with an auto-generated key, specify
-// the "anonymous" property and omit the "key" property. The LaunchDarkly
-// client creates a unique key for this user and caches it locally.
-const anonymousUser = { anonymous: true };
-
-// You can also specify any key you want:
-const anonymousUser2 = { key: "user-key-123abc", anonymous: true };
+const anonymousUser = { key: "user-key-123abc", anonymous: true };
 ```
 
 </CSTab>
@@ -1657,19 +1645,53 @@ const anonymousUser2 = { key: "user-key-123abc", anonymous: true };
 ```ts
 import * as ld from 'launchdarkly-node-client-sdk';
 
-// To create an anonymous user with an auto-generated key, specify
-// the "anonymous" property and omit the "key" property. The LaunchDarkly
-// client creates a unique key for this user and caches it locally.
-const anonymousUser: ld.LDUser = { anonymous: true };
-
-// You can also specify any key you want:
-const anonymousUser2: ld.LDUser = { key: 'user-key-123abc', anonymous: true };
+const anonymousUser: ld.LDUser = { key: 'user-key-123abc', anonymous: true };
 ```
 
 </CSTab>
 </CodeSample>
 
-If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the user is. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
+You can also have the SDK generate the key for you. Specify the `anonymous` property and omit the `key` property. The client will automatically set the key to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="Node.js SDK v3.0 (JavaScript)">
+
+```js
+const anonymousContext = { kind: 'user', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v3.0 (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const anonymousContext: ld.LDContext = { kind: 'user', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v2.x (JavaScript)">
+
+```js
+const anonymousUser = { anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v2.x (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const anonymousUser: ld.LDUser = { anonymous: true };
+
+```
+
+</CSTab>
+</CodeSample>
+
+If you don't use Experimentation, we recommend using the same context key for every initialization and then replacing that with a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization context key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### React Native
@@ -1768,7 +1790,9 @@ let user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-The first attribute in the object is the `key`. In the example, the value is `user-key-123abc`. key and kind are the only mandatory attributes. The combination of `key` and `kind` should also uniquely identify each context. You can use any value such as a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible.
+The first attribute in the object is the `key`. In the example, the value is `user-key-123abc`. In the React Native SDK, both `key` and `kind` required. They are the only mandatory attributes. If you mark the context as anonymous, the SDK can generate the key for you.
+
+The combination of `key` and `kind` should uniquely identify each context. You can use any value for the key, such as a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible.
 
 Other attributes can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -1838,9 +1862,9 @@ For attributes that are objects, you can mark specific fields private, using the
 
 You can distinguish logged out or unregistered end users from logged-in end users in the SDK. Anonymous contexts are just like regular contexts, except that they do not appear on the **Contexts** list in LaunchDarkly. This prevents unauthenticated end users from diluting useful data on the **Contexts** list.
 
-If you omit the context key when building an anonymous context, the SDK sets the context key to a generated UUID. If you omit the context key and do not mark the context as anonymous, the SDK gives a usage error.
-
 If you use [multi-contexts](/home/contexts#understanding-contexts-and-context-kinds), you can choose to make only some contexts anonymous.
+
+To create an create an anonymous context, specify the `anonymous` property. If you omit the context key when building an anonymous context, the client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots. If you omit the context key and do not mark the context as anonymous, the SDK gives a usage error.
 
 Here's how:
 
@@ -1874,14 +1898,14 @@ const multiContext = {
 </CSTab>
 </CodeSample>
 
-We recommend using the same context key for every initialization and then replacing that with the actual context key when you know who the logged-in end user is. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+We recommend using the same context key for every initialization and then replacing that a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
 </Details>
 
 ### React Web
 
-All user-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
+All context-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
 
-Unlike the JavaScript SDK, the React SDK does not require a user object for initialization. If you do not specify one, the React SDK uses an anonymous user by default.
+Unlike the JavaScript SDK, the React SDK does not require a context object for initialization. If you do not specify one, the React SDK uses an anonymous context by default.
 
 ### Roku
 
@@ -2483,7 +2507,7 @@ To learn more about the available attributes, read [`Context`](https://pkg.go.de
 <CalloutTitle>Interpreting attribute types</CalloutTitle>
 <CalloutDescription>
 
-The kind and name attributes expect string values. Other attributes values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
+The kind and name attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
 
 If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -2669,7 +2693,7 @@ user2 = (makeUser "user-key-456def")
 </CSTab>
 </CodeSample>
 
-The argument to `makeUser` is the context's key. The key is the only mandatory attribute. The combination of the key and kind should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `makeUser` is the context's key. The key is the only mandatory attribute. The combination of the key and kind should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same end user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 #### Private attributes in the Haskell SDK
 ---
@@ -2808,7 +2832,7 @@ Our Javadoc for [ContextBuilder](https://javadoc.io/doc/com.launchdarkly/launchd
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user." Other attributes values can be booleans, numbers, strings, arrays, or objects. If you pass a value that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user." Other attribute values can be booleans, numbers, strings, arrays, or objects. If you pass a value that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
 
 If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -2923,7 +2947,7 @@ LDUser user = new LDUser.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this. Each unique user key registers a user in the system, so capture and reuse your anonymous user's key between requests.
+You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this.
 </Details>
 
 ### Lua
@@ -3029,7 +3053,7 @@ const user: ld.LDUser
 </CSTab>
 </CodeSample>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The `key` property is the context key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -3047,8 +3071,8 @@ You can optionally configure the Node.js SDK to treat some or all attributes as 
 
 In the Node.js SDK there are two ways to define private attributes for the entire LaunchDarkly client:
 
-- In the LaunchDarkly `LDOptions`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all user attributes for all users before sending the user to LaunchDarkly, except the key.
-- In the LaunchDarkly `LDOptions` object, you can define a list of `privateAttributes`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- In the LaunchDarkly `LDOptions`, you can set `allAttributesPrivate` to `true`. If you enable this, the SDK removes all attributes for all contexts before sending the context to LaunchDarkly, except the kind and key.
+- In the LaunchDarkly `LDOptions` object, you can define a list of `privateAttributes`. If any context has a custom or built-in attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
 
 You can also define a set of `privateAttributes` on the context object. For example:
 
@@ -3107,9 +3131,9 @@ const user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-When the SDK sends this user context back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
-#### Anonymous users in the Node.js SDK
+#### Anonymous contexts in the Node.js SDK
 ---
 
 If your application has both anonymous and logged-in states, you can distinguish logged-in end users from anonymous end users in the SDK.
@@ -3159,8 +3183,6 @@ const user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-<!-- cSpell:disable TKTK Need SDK team to verify this code sample. SC-178166 cSpell:enable -->
-
 You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this.
 </Details>
 
@@ -3205,7 +3227,7 @@ The first argument to [`LDContextBuilder`](http://launchdarkly.github.io/php-ser
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
+The kind and name attributes expect string values. Other attribute values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way. The PHP SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
@@ -3281,8 +3303,6 @@ You still need to generate a unique key for anonymous contexts. Session IDs or U
 <Details summary="Expand Python code sample">
 
 In version 8.0 and higher of the Python SDK, the [`Context`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.Context) class has a `create` method for creating a simple context, with a context kind of "user" and with only a key. It has a `builder` method for building a context with other properties.
-
-In the Python SDK, users are dictionaries.
 
 Here's an example:
 
@@ -3393,7 +3413,7 @@ user = { "key":"user-key-123abc", "anonymous": True }
 </CSTab>
 </CodeSample>
 
-You still need to generate a unique key for anonymous users. Session IDs or UUIDs work best for this. Anonymous users still count toward your plan's MAU limit, so make sure you capture and reuse your anonymous user's key between requests.
+You still need to generate a unique key for anonymous contexts. Session IDs or UUIDs work best for this. Anonymous contexts still count toward your plan's MAU limit, so make sure you capture and reuse your anonymous context keys between requests.
 </Details>
 
 ### Ruby
@@ -3585,7 +3605,7 @@ let user2 = builder.build();
 </CSTab>
 </CodeSample>
 
-The most common attribute is the context's key. In the example, the string `"context-key-123abc"` is the context key. The context key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, a hash string, or some other value, as long as the same context always has the same key. We recommend using a hash string if possible.
+The most common attribute is the context's key. In the example, the string `"context-key-123abc"` is the context key. The context key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". For the context key, you can use a primary key, a hash string, or some other value, as long as the same context always has the same key. We recommend using a hash string if possible.
 
 To learn more about the available attributes, read [`Context`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Context.html) and [`ContextBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.ContextBuilder.html).
 
@@ -3593,7 +3613,7 @@ To learn more about the available attributes, read [`Context`](https://docs.rs/l
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. Other attributes values can be any JSON type, including booleans, numbers, strings, arrays, or objects. These types are all represented by the [`AttributeValue`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.AttributeValue.html) type. The Rust SDK is strongly-typed, so be aware of this distinction.
+The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. Other attribute values can be any JSON type, including booleans, numbers, strings, arrays, or objects. These types are all represented by the [`AttributeValue`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.AttributeValue.html) type. The Rust SDK is strongly-typed, so be aware of this distinction.
 
 If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -3639,7 +3659,7 @@ let user = User::with_key("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-When the SDK sends this user back to LaunchDarkly, it removes the `email` attribute.
+When the SDK sends this context back to LaunchDarkly, it removes the `email` attribute.
 
 
 #### Anonymous contexts in the Rust SDK
