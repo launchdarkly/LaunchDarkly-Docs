@@ -36,7 +36,7 @@ The flag health summary includes:
 
 The stale flags list shows information about flags in a selected environment that we recommend you remove.
 
-You can use the search and filter options to refine this list into a different subset of flags.
+You can use the search and filter options to refine this list into a different subset of flags:
 - Search by flag maintainer, flag name, flag key, or flag description.
 - Filter by flag maintainer, tags, and ready to archive or needs review.
 - Sort by flag age.
@@ -51,10 +51,10 @@ If you choose additional environments, LaunchDarkly performs the checks again an
 
 ### Description of checks
 
-LaunchDarkly runs 3 checks to determine if a flag is stale. They are:
+LaunchDarkly runs three checks to determine if a flag is stale. They are:
 
-- Verify absence of code references: If you use code references and there are no references to this flag in your code, the check passes. If you do not use code references, the check does not run.
-- Verify only one variation is being served: This check passes if all environments are serving the same variation as the selected environment at the top of the page.
-- Verify the flag has not been requested: This check passes if the flag has not been requested in the last 7 days.
+- Verify absence of code references: If you use code references and there are no references to this flag in your code, this check passes. If you do not use code references, this check does not run.
+- Verify only one variation is being served: If all environments are serving the same variation as the selected environment at the top of the page, this check passes.
+- Verify the flag has not been requested: If the flag has not been requested in the last seven days, this check passes.
 
-If all checks pass, you can click `Archive` to begin the Archive process.
+If all checks pass, you can click **Archive** to begin the archive process.
