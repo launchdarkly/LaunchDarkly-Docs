@@ -26,8 +26,9 @@ In order to complete this topic, you must meet the following prerequisites:
 
 - You must have a LaunchDarkly account with a role that allows the `integration/createIntegration` role.
 - You must have an existing ServiceNow account with the **admin** role.
-- You must have a ServiceNow Client ID and secret for an OAuth API endpoint for external clients. To learn how to create these, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/page/administer/security/task/t_CreateEndpointforExternalClients.html).
-- If your ServiceNow instance has IP address access control enabled, you must create **inbound** ServiceNow IP access control rules corresponding to the the `outboundAddresses` from LaunchDarkly's [public IP list](/home/advanced/public-ip-list). To learn how to create IP access control rules, read [ServiceNow's documentation](https://docs.servicenow.com/bundle/page/administer/login/task/t_AccessControl.html).
+- You must have a ServiceNow Client ID. To learn how to create these, search for "Get the Client ID and Client Secret" in [ServiceNow's documentation](https://docs.servicenow.com/) and choose the article for your ServiceNow version.
+- You must have a secret for an OAuth API endpoint for external clients. To learn how to create these, search for "Create an OAuth JWT API endpoint for external clients" in [ServiceNow's documentation](https://docs.servicenow.com/) and choose the article for your ServiceNow version.
+- If your ServiceNow instance has IP address access control enabled, you must create **inbound** ServiceNow IP access control rules corresponding to the the `outboundAddresses` from LaunchDarkly's [public IP list](/home/advanced/public-ip-list). To learn how to create IP access control rules, search for "IP Address Access Control" in [ServiceNow's documentation](https://docs.servicenow.com/) and choose the article for your ServiceNow version.
 
 ## Setting up the ServiceNow integration in LaunchDarkly
 
@@ -39,7 +40,7 @@ To use the ServiceNow integration to perform flag approvals, you must first esta
 To establish an OAuth connection:
 
 1. Log in to ServiceNow.
-2. Complete ServiceNow's instructions for [creating an endpoint for external clients](https://docs.servicenow.com/bundle/page/administer/security/task/t_CreateEndpointforExternalClients.html).
+2. Complete ServiceNow's instructions for creating an endpoint for external clients, including saving the redirect URL.
 3. Navigate to the LaunchDarkly Integrations page and find "ServiceNow."
 4. Click **Add integration**. The integration menu appears.
 5. Click **Connect to ServiceNow**. An OAuth provider registration dialog appears.
@@ -47,15 +48,14 @@ To establish an OAuth connection:
 
 ![LaunchDarkly's ServiceNow OAuth provider registration form.](servicenow-register-oauth-launchdarkly.png)
 
-7. In ServiceNow, follow the directions to [create an endpoint for external clients](https://docs.servicenow.com/bundle/page/administer/security/task/t_CreateEndpointforExternalClients.html).
-8. Set the **Redirect URL** to the redirect URL saved to your clipboard in the previous step. Ensure you are following the directions for your ServiceNow version.
+7. Set the **Redirect URL** to the redirect URL saved to your clipboard in step 2. Ensure you are following the directions for your ServiceNow version.
 
 ![The ServiceNow external client endpoint registration form with the Redirect URL configured.](servicenow-register-oauth-provider.png)
 
-9. In LaunchDarkly's **OAuth provider registration** dialog, enter your ServiceNow host URL. For example, if your ServiceNow instance is hosted at `https://launchdarkly.service-now.com`, enter `https://launchdarkly.service-now.com`.
-10. Enter the **Client ID** and **Client Secret** for the client you created in step 5.
-11. Click **Register OAuth Provider**.
-12. Click **Allow**. ServiceNow may prompt you to log in to your ServiceNow account at this step.
+8. In LaunchDarkly's **OAuth provider registration** dialog, enter your ServiceNow host URL. For example, if your ServiceNow instance is hosted at `https://launchdarkly.service-now.com`, enter `https://launchdarkly.service-now.com`.
+9. Enter the **Client ID** and **Client Secret** for the client you created in step 5.
+10. Click **Register OAuth Provider**.
+11. Click **Allow**. ServiceNow may prompt you to log in to your ServiceNow account at this step.
 
 Your LaunchDarkly and ServiceNow accounts are now connected. Next, you must enable the ServiceNow approvals integration for your LaunchDarkly environment.
 
@@ -81,14 +81,16 @@ Here's how:
 
 You can create your workflow using either of the two methods ServiceNow offers to create new workflows:
 
-- [Flow Designer](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/flow-designer/concept/flow-designer.html) and
-- [Workflow Editor](https://docs.servicenow.com/bundle/utah-build-workflows/page/administer/workflow/reference/workflow-editor.html).
+- Flow Designer
+- Workflow Editor
+
+To learn more, search for "Flow Designer" and "Workflow Editor" in [ServiceNow's documentation](https://docs.servicenow.com/) and choose the articles for your ServiceNow version.
 
 The screenshots below are from the Flow Designer, but you can create a workflow the same triggers, actions, and conditions using the Workflow Editor if you prefer.
 
 To create a LaunchDarkly approvals workflow in ServiceNow:
 
-1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/utah-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+1. Create a new Workflow Trigger for record "Created" on the "Change Request [change_request]" table.  To learn how to do this, search for "Create Security Operations workflow triggers" in [ServiceNow's documentation](https://docs.servicenow.com/) and choose the article for your ServiceNow version.
 2. Set two conditions on your trigger: "State" `is` "New" and "Standard Change Template version > Template > Name" `is` "LaunchDarkly template."
 
 ![A configured Workflow Trigger in the ServiceNow Flow Designer.](servicenow-workflow-trigger.png)
@@ -131,7 +133,7 @@ Automatic approval workflows create a correlating ServiceNow Change Request for 
 
 To create an automatic approval workflow:
 
-1. Create a new [Workflow Trigger](https://docs.servicenow.com/bundle/utah-security-management/page/product/security-operations-common/task/create-workflow-triggers.html) for record "Created" on the "Change Request [change_request]" table.
+1. Create a new Workflow Trigger for record "Created" on the "Change Request [change_request]" table. To learn how to do this, search for "Create Security Operations workflow triggers" in [ServiceNow's documentation](https://docs.servicenow.com/) and choose the article for your ServiceNow version.
 2. Set two conditions on your trigger:
 
 - "State" `is` "New"
