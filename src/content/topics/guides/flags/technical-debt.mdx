@@ -77,10 +77,10 @@ Test the fallback values of permanent flags periodically to ensure they are up t
 
 The flags list provides the status of every flag and when it was last evaluated. Statuses include:
 
-- **New/Never Requested**: This flag has not yet been evaluated. This status most commonly appears for newly created flags.
+- **New/Never Requested**: You created the flag fewer than seven days ago and it has never been requested.
 - **Active**: LaunchDarkly is currently receiving requests for the flag using your production SDK.
-- **Launched**: All contexts have been receiving one variation of the flag for seven days or more.
-- **Inactive**: The flag has not been requested for seven days or more.
+- **Launched**: All context instances have been receiving one variation of the flag for seven days or more.
+- **Inactive**: The flag has not been requested for at least seven days.
 
 To learn more, read [Flag statuses](/home/code/flag-status).
 
