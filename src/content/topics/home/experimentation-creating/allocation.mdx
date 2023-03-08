@@ -26,64 +26,93 @@ You may want to refine your experiment audience for any of the following reasons
 
 ## Randomization units
 
-An experiment's randomization unit is the context kind the experiment uses to assign traffic to each of its variations.
+An experiment's randomization unit is the context kind the experiment uses to assign traffic to each of its variations. For example, if you choose the context kind `user` as an experiment's randomization unit, then the experiment will divide contexts into the experiment's variations by individual users. User Sandy might be assigned to variation A and user Jesse assigned to variation B. However, if you choose `organization` as a randomization unit, then the experiment will divide contexts into the experiment's variations by organizations instead.
 
-When you create a new context kind, you can choose whether the context kind can be used in Experimentation, and if so, what standard randomization unit to map it to. To learn more, read [Creating context kinds](/home/contexts/context-kinds#creating-context-kinds).
+There are six industry-standard randomization units that you can use in Experimentation:
+- user
+- user-time
+- guest
+- guest-time
+- organization
+- request
 
-There are a limited number of industry-standard randomization units that are appropriate for use in Experimentation. Attempting to use other randomization units will result in invalid experiment results.
+Attempting to use other randomization units would result in invalid experiment results.
 
-Some examples of standard randomization units you could map your context kinds to include:
+The built-in `user` context kind is automatically mapped to the `user` standard randomization unit. You will need to map any additional context kinds that you want to use in Experimentation to one of the standard randomization units. Multiple context kinds can be mapped to the same standard randomization unit.
 
-- User: for each person that encounters your feature, randomly choose a variation for that particular person
-- Request: for each particular action that someone performs on your platform, randomly choose a variation for that particular request, operation, or action
-- Guest-time: for each non-logged-in person that encounters your feature at a particular time of day or on a particular day of the week, randomly choose a variation for that guest/time combination
+Here is an example of mapping a new context kind of "customer" to the randomization unit "user":
+
+![The "New context kind" dialog with the randomization unit mapping field called out.](new-context-kind-callout.png)<br /><br />
+
+To learn more, read [Creating context kinds](/home/contexts/context-kinds#creating-context-kinds).
+
+Here is a table of the industry-standard randomization units and example context kinds that might be associated with them:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Standard randomization unit</TableHeadCell>
+    <TableHeadCell>Example context kind mappings</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell>User</TableCell>
+    <TableCell><code>user</code>, <code>member</code>, <code>customer</code></TableCell>
+    <TableCell>For each person that encounters your feature, randomly choose a variation for that particular person</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>User-Time</TableCell>
+    <TableCell><code>user</code>+hour-of-day, <code>user</code>+day-of-week<br /><br />
+    Takes the form of a composite key of user-key and time-at-some-granularity</TableCell>
+    <TableCell>For each person that encounters your feature at a particular time of day or on a particular day of the week, randomly choose a variation for that person/time combination</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Guest</TableCell>
+    <TableCell><code>device</code>, <code>cookie</code>, <code>session</code>, <code>logged-out user</code>, <code>guest</code>, <code>non-authorized user</code></TableCell>
+    <TableCell>For each non-logged-in person that encounters your feature, randomly choose a variation for that particular guest</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Guest-time</TableCell>
+    <TableCell><code>guest</code>+hour-of-day, <code>guest</code>+day-of-week<br /><br />
+    Takes the form of a composite key of guest-key and time-at-some-granularity</TableCell>
+    <TableCell>For each non-logged-in person that encounters your feature at a particular time of day or on a particular day of the week, randomly choose a variation for that guest/time combination</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Organization</TableCell>
+    <TableCell><code>organization</code>, <code>company</code>, <code>business</code></TableCell>
+    <TableCell>For each organization that encounters your feature, randomly choose a variation for that organization</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Request</TableCell>
+    <TableCell><code>HTTP request</code>, <code>operation</code>, <code>transaction</code>, <code>interaction</code></TableCell>
+    <TableCell>For each particular action that someone performs on your platform, randomly choose a variation for that particular request, operation, or action</TableCell>
+  </TableRow>
+</TableBody>
+</Table>
 
 <Callout intent="warning">
 <CalloutTitle>Experiments must use valid randomization units</CalloutTitle>
 <CalloutDescription>
 
-If you're unsure of which randomization unit to use, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new) for help determining valid context kind selections.
+If you're unsure of which randomization unit to map to your context kind, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new) for help.
 
 </CalloutDescription>
 </Callout>
 
-When you create a new Experimentation metric, you must assign one or more context kinds available for experiments that the metric can measure events from. To learn more, read [Creating metrics](/home/creating-experiments/metrics).
+When you create a metric, you will also need to map the new metric to a context kind you have marked as available for experiments:
 
-Here is a table of industry-standard randomization units and possible context kinds that could be associated with them:
+![The "Metric information" panel with the randomization unit mapping field called out.](metric-randomization-unit-callout.png)<br />
 
-<Table>
-  <TableHeader>
-    <TableHeadCell>Standard randomization unit</TableHeadCell>
-    <TableHeadCell>Possible context kind mappings</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-  <TableRow>
-    <TableCell>User</TableCell>
-    <TableCell>User, member, customer</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>User-Time</TableCell>
-    <TableCell>User+hour-of-day, User+day-of-week<br />
-    Takes the form of a composite key of user-key and time-at-some-granularity</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Guest</TableCell>
-    <TableCell>Device, cookie, session, logged-out user, guest, non-authorized user</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Guest-time</TableCell>
-    <TableCell>Takes the form of a composite key of guest-key and time-at-some-granularity</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Organization</TableCell>
-    <TableCell>Organization, company, business</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Request</TableCell>
-    <TableCell>HTTP request, operation, transaction, interaction</TableCell>
-  </TableRow>
-</TableBody>
-</Table>
+To learn more, read [Creating metrics](/home/creating-experiments/metrics).
+
+Finally, when you create an experiment, you will choose a context kind to serve as a randomization unit that determines both:
+
+- which context kind the experiment will allocate traffic to different variations by, and
+- which metrics you can use in the experiment.
+
+In this example, the experiment has a randomization unit of `customer`. It is compatible with the chosen metric, because the metric can measure events from `customer` context kinds.
+
+![The experiment creation screen with randomization units for the experiment and the metric called out.](experiment-randomization-unit-callout.png)
 
 ## Creating experiment audiences
 

@@ -80,12 +80,19 @@ To learn more about Experimentation events, read [Experimentation events](/home/
 
 You should choose a metric type that correctly measures the effect of a change on your customers or codebase. If you are unsure of what metric type to use, it may be helpful to begin by determining what kind of data you are trying to measure.
 
-This table includes examples of different kinds of data you can measure with different metric types:
+When you create a metric, you will map the new metric to a context kind you have marked as available for experiments:
+
+![The "Randomization unit" mapping field in a metric creation panel.](metric-randomization-unit.png)<br />
+
+To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
+
+This table includes examples of different kinds of data you can measure with different metric types, and common randomization unit context kind mappings:
 
 <Table>
   <TableHeader>
     <TableHeadCell>Metric type</TableHeadCell>
     <TableHeadCell>Example uses</TableHeadCell>
+    <TableHeadCell>Example randomization unit context kind mappings</TableHeadCell>
   </TableHeader>
   <TableBody>
     <TableRow>
@@ -95,6 +102,7 @@ This table includes examples of different kinds of data you can measure with dif
         How many times do customers click on a link?<br />
         When is the best point during a process to display a sign-up invitation?
       </TableCell>
+      <TableCell><code>user</code></TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Custom conversion</TableCell>
@@ -103,6 +111,10 @@ This table includes examples of different kinds of data you can measure with dif
         Do customers contact customer service within a set period of time?<br />
         Do customers renew their contract within 30 days?<br />
         Do customer payments succeed?
+      </TableCell>
+      <TableCell>
+        <code>user</code><br />
+        <code>organization</code>
       </TableCell>
     </TableRow>
     <TableRow>
@@ -116,11 +128,19 @@ This table includes examples of different kinds of data you can measure with dif
         How long does it take for a server to respond to a request?<br />
         How long until the time to first byte (TTFB)?
       </TableCell>
+      <TableCell>
+        <code>user</code><br />
+        <code>guest</code><br />
+        <code>request</code>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Page view conversion</TableCell>
       <TableCell>
         How many times do end users view a blog post?
+      </TableCell>
+      <TableCell>
+        <code>user</code><br />
       </TableCell>
     </TableRow>
   </TableBody>
@@ -128,7 +148,13 @@ This table includes examples of different kinds of data you can measure with dif
 
 ## Connecting a metric to an experiment
 
-After you create a metric, you can use it in one or more experiments. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+After you create a metric, you can use it in one or more experiments. The randomization unit you map the metric to must match the context kind you want to randomize on. 
+
+In this example, the experiment has a randomization unit of `customer`. It is compatible with the chosen metric, because the metric can measure events from `customer` context kinds.
+
+![The experiment creation screen with randomization units for the experiment and the metric called out.](experiment-randomization-unit-callout.png)
+
+To learn more, read [Building experiments](/home/creating-experiments#building-experiments).
 
 ## Deleting metrics
 
