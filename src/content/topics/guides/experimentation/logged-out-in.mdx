@@ -23,14 +23,6 @@ You may want to run experiments on end-user behavior within apps or websites tha
 
 You could compare two variations of your site, a one-click checkout experience versus a two-click checkout experience, and track a metric such as time to check out. The most important thing for your experiment to measure is whether one click or two clicks affects the time customers spend checking out of your store, so the primary metric you will use is checkout time. If you want to also track whether or not the end user was logged in, you can add their logged-in state as a custom attribute. To learn more, read [Custom attributes](/home/contexts/custom-attributes).
 
-We don't recommend trying to use the SDK aliasing feature to serve the same variation to someone both before and after they log in.
-
-Some of the problems with trying to use the aliasing feature for this purpose include:
-
-- Inconsistency in end-user experience within a session, leading to confusion for the customer.
-- There are some situations when it is not possible for LaunchDarkly to associate two different contexts using the alias method.
-- The aliasing feature is deprecated in the newest versions of some of our SDKs, and will eventually no longer be available. To learn more, read [Aliasing users](/sdk/features/aliasing-users).
-
 ## Concepts
 
 In order to use this guide, you should understand the following concepts:
@@ -75,6 +67,14 @@ Here is an example:
 
 "We believe that customers who encounter a one-click checkout experience will spend less time in the checkout process than customers who encounter a two-click checkout experience."
 
+### Randomization unit
+
+Choose a randomization unit context kind that is mapped to the standard randomization unit of `Guest`. If you don't have a context kind that is mapped to the standard randomization unit of `Guest`, you will need to create one. To learn how, read [Creating context kinds](/home/contexts/context-kinds#creating-context-kinds). In this example, we're also calling the custom context kind `guest`.
+
+If you wanted to run a version of this experiment only on logged in users, you would instead choose a randomization unit context kind that is mapped to the standard randomization unit of `User`. 
+
+To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
+
 ### Sample size
 
 Next, determine the sample size needed for your experiment. In this example, you know that about 2000 customers check out per day, and you'd like to have at least 15,000 customers in your experiment. So, you will run this experiment on 50% of your customer base for 15 days to include about 15,000 customers.
@@ -89,11 +89,11 @@ Use a custom numeric metric to track time to checkout. To learn how to create a 
 
 Here is an example of this metric:
 
-![The "Metric information" panel for a custom numeric metric.](experiment-logged-in-metric.png)
+![The "Metric information" panel for a custom numeric metric.](experiment-logged-in-metric.png)<br />
 
 When adding the event name in your codebase, use the same event name that you created as part of your metric. In this example, the event name is "Time to checkout."
 
-Choose "ms" as the unit of measure, your success criteria as "Lower than baseline," and `user` as the context kind.
+Choose "ms" as the unit of measure, "Lower than baseline" as your success criteria, and the `guest` context kind as the randomization unit.
 
 ### Variations
 
