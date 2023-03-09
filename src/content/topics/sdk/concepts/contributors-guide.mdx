@@ -49,7 +49,7 @@ Flag updates are triggered when you make changes on your flags list, and arrive 
 
 Expose the store itself as an interface so that you can easily implement alternative configurations, for example, a Redis-backed store.
 
-Additionally, server-side SDKs often support a mechanism for receiving feature flag updates without establishing a direct connection to LaunchDarkly. This mechanism relies on the [LaunchDarkly Relay Proxy](/home/advanced/relay-proxy) to connect to LaunchDarkly, receive feature flag updates, and keep a persistent feature store up-to-date. When a server-side SDK is configured to operate in this mode, it will defer to the Relay Proxy to update the persistent feature store whenever a feature flag is updated. This mode should be configurable and disabled by default. To learn more, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
+Additionally, server-side SDKs often support a mechanism for receiving feature flag updates without establishing a direct connection to LaunchDarkly. This mechanism relies on the [LaunchDarkly Relay Proxy](/home/relay-proxy) to connect to LaunchDarkly, receive feature flag updates, and keep a persistent feature store up-to-date. When a server-side SDK is configured to operate in this mode, it will defer to the Relay Proxy to update the persistent feature store whenever a feature flag is updated. This mode should be configurable and disabled by default. To learn more, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
 
 ### Receiving flag updates in SDKs using the client-side ID
 
@@ -109,7 +109,7 @@ To implement the variation method in a client-side SDK, return the last-known ev
   <CalloutTitle>Are you importing data?</CalloutTitle>
   <CalloutDescription>
 
-This page is targeted at contributors to LaunchDarkly SDKs. If you are a LaunchDarkly customer looking for a way to import your metric events into LaunchDarkly from an existing data source, or a data provider looking to integrate with LaunchDarkly, use the metric import API to record your events instead. To learn more, read [Importing metric events](/home/about-experimentation/import-metric-events).
+This page is targeted at contributors to LaunchDarkly SDKs. If you are a LaunchDarkly customer looking for a way to import your metric events into LaunchDarkly from an existing data source, or a data provider looking to integrate with LaunchDarkly, use the metric import API to record your events instead. To learn more, read [Importing metric events](/home/creating-experiments/import-metric-events).
 
   </CalloutDescription>
 </Callout>
