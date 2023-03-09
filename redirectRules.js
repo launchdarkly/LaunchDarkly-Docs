@@ -339,6 +339,10 @@ module.exports = [
     fromPath: '/integrations/gatsby/',
     toPath: '/sdk/client-side/react/gatsby',
   },
+  {
+    fromPath: '/integrations/dynatrace-cloud-automation/',
+    toPath: '/integrations/dynatrace',
+  },
   // Redirects to new Data Export section
   {
     fromPath: '/integrations/data-export/',
