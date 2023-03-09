@@ -957,6 +957,10 @@
             "path": "/integrations/compass"
           },
           {
+            "label": "GitHub Actions Flag Evaluations",
+            "path": "/integrations/github-actions-flag-evaluations"
+          },
+          {
             "label": "Heap",
             "path": "/integrations/heap"
           },

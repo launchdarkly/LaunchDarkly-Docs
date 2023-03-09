@@ -1,0 +1,123 @@
+---
+path: /integrations/github-actions-flag-evaluations
+title: GitHub Actions Flag Evaluations
+description: This topic explains how to use the LaunchDarkly GitHub Actions Flag Evaluations integration. It lets you evaluate LaunchDarkly feature flags as a step in your GitHub workflow jobs.
+published: true
+tags: ['github', 'integration']
+site: launchDarklyOnly
+---
+
+
+## Overview
+
+This topic explains how to use the LaunchDarkly GitHub Actions Flag Evaluations integration. The GitHub Actions Flag Evaluations integration lets you evaluate LaunchDarkly feature flags as a step in your [GitHub workflow jobs](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#jobs) and use those values in later steps.
+
+GitHub actions allow you to automate, customize, and execute your software development workflows in your repository. Using LaunchDarkly feature flags, you can gain additional flexibility and control over your CI/CD pipeline.
+<Callout intent="alert">
+  <CalloutTitle>This feature is in beta</CalloutTitle>
+  <CalloutDescription>
+
+Development work on the action is ongoing. Elements of the action may change without notice, including becoming backwards incompatible.
+
+  </CalloutDescription>
+</Callout>
+
+## Prerequisites
+
+To complete this procedure, you must have the following prerequisites:
+
+- An SDK token for the LaunchDarkly environment you are using for flag evaluation. Store the token as a repository secret titled `LAUNCHDARKLY_SDK_KEY`.
+
+## Setting up GitHub Actions Flag Evaluations
+
+To set up GitHub Actions Flag Evaluations:
+
+1. Log in to GitHub and navigate to your repo.
+2. Navigate to **Settings** > **Secrets** and click **Add a new secret**.
+3. Paste in your SDK key to the field that appears and click **Save secret**.
+4. Return to your GitHub repository to create a new Actions workflow.
+
+- If you already have an `action.yml` file: Copy and paste the `eval-flags` job declaration below into the jobs section in your `action.yml` file.
+- If you don't already have a workflow file: Create a new file titled `action.yml` in the `.github/workflows` directory of your repository. Paste the `eval-flags` job declaration below into the **Edit file** section.
+
+<CodeSample>
+<CSTab label="Sample workflow: eval-flags job declaration">
+
+```yaml
+name: Evaluate LaunchDarkly flags
+on: push
+jobs:
+  eval-flags:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate flags
+        id: ld
+        uses: launchdarkly/gha-flags@v0.1.0
+        with:
+          sdk-key: ${{ secrets.LAUNCHDARKLY_SDK_KEY }}
+          flags: test-boolean-flag,false
+          - name: If true
+            if: fromJSON(steps.ld.outputs.test-boolean-flag) == true
+            run: echo "It's true"
+          - name: If false
+            if: fromJSON(steps.ld.outputs.test-boolean-flag) == false
+            run: echo "It's false"
+```
+
+</CSTab>
+</CodeSample>
+
+<Callout intent="info">
+<CalloutTitle>Best practices for configuring an actions file</CalloutTitle>
+<CalloutDescription>
+
+We strongly recommend that you update the `uses` attribute value to reference the most recent tag in the [launchdarkly/gha-flags](https://github.com/launchdarkly/gha-flags) repository. This pins your workflow to a particular version of the `launchdarkly/gha-flags` action.
+
+</CalloutDescription>
+</Callout>
+
+5. Commit this file to the default branch of your repository.
+
+## Format of a flag evaluation
+
+The workflow evaluates the flags listed under the `flags` key of the action. Each flag that the workflow evaluates must include a flag key and fallback value. 
+
+The flag key identifies the flag. The fallback value is served if LaunchDarkly is unreachable or if the flag does not have an off variation set. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+
+In the example workflow above, the key is `test-boolean-flag` and the fallback value is `false`.
+
+## Using flag evaluations output in subsequent steps
+
+Each of the flag keys included in the job will have their evaluation output accessible at `steps.<job id>.outputs.<flag key>`.
+
+In the example above the flag key `test-boolean-flag` is available using `steps.ld.outputs.test-boolean-flag`.
+
+GitHub actions cast all value types to string in the output.
+
+
+## Contexts created by the integration
+
+Each time you execute this action, the action creates up to three contexts. You can view the created contexts on your [**Contexts** list](/home/contexts/contexts-list).
+
+This action creates or updates contexts based on the following mappings:
+
+* The action maps environment variables starting with `GITHUB_` to a context with the key `GitHub`.
+* The action maps environment variables starting with `RUNNER_` to a context with the key `GitHubRunner`.
+* If you pass additional variables into the action, the action maps any variables starting with `LD_` to a context with the key `GitHubCustomAttributes`.
+
+For a list of the automatically mapped in environment variables, read GitHub's [default environment variables](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables).
+
+## Limitations
+
+This integration currently has the following limitations:
+
+* Use of JSON feature flags is not officially supported.
+* GitHub actions casts output to `string` type.
+* If no fallback value is provided for a feature flag, `null` is returned for the value.
+* [Code References](/home/code/code-references) does not surface flags used in workflow files.
+
+## Troubleshooting
+
+After you create the workflow, you can confirm that it's working correctly by pushing an empty commit and verifying that the newly created action succeeds.
+
+If the action fails, there may be a problem with your configuration. To investigate, review the action's logs to view any error messages.
