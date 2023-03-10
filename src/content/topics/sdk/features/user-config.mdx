@@ -1723,7 +1723,8 @@ let context = {
 <CSTab label="React Native SDK, v6.x (JavaScript)">
 
 ```js
-// in v6.x and earlier, the user object has a set of built-in attributes
+// in v6.x and earlier, the key is required
+// the user object has a set of built-in attributes
 // you can add additional attributes under 'custom'
 
 let user = {
@@ -1768,7 +1769,8 @@ let context: ld.LDContext = {
 ```ts
 import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
 
-// in v6.x and earlier, the user object has a set of built-in attributes
+// in v6.x and earlier, the key is required
+// the user object has a set of built-in attributes
 // you can add additional attributes under 'custom'
 
 let user: ld.LDUser = {
@@ -1899,6 +1901,8 @@ const multiContext = {
 </CodeSample>
 
 We recommend using the same context key for every initialization and then replacing that a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization user key only once against your MAU, instead of every time you initialize.
+
+In the 6.x versions of the SDK, the user key is required when building anonymous users. To learn more, read [Understanding changes to anonymous users](/sdk/client-side/react/react-native-migration-6-to-7#understanding-changes-to-anonymous-users) in the [React Native SDK 6.x to 7.0 migration guide](/sdk/client-side/react/react-native-migration-6-to-7).
 </Details>
 
 ### React Web

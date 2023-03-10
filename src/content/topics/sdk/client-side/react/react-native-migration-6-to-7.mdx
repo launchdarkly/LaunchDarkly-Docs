@@ -332,9 +332,9 @@ The `privateAttributeNames` attribute that existed in a user object in version 6
 
 ### Understanding changes to anonymous users
 
-In 6.x versions of the SDK, you could omit the user key when building an anonymous user, and the SDK would set the user key to a generated UUID.
+In 6.x versions of the SDK, the user key is mandatory when building an anonymous user because the underlying Android SDK mandates it.
 
-Similarly, in the 7.0 version of the SDK, you can omit the context key when building an anonymous context, and the SDK sets the context key to a generated UUID. If you omit the context key and do not mark the context as anonymous, the SDK gives a usage error.
+In the 7.0 version of the SDK, you can omit the context key when building an anonymous context, and the SDK sets the context key to a generated UUID. If you omit the context key and do not mark the context as anonymous, the SDK gives a usage error.
 
 If you are working with a multi-context, you can mark some contexts anonymous and not others. Here's an example:
 
