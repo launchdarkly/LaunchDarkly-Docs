@@ -8,7 +8,7 @@ tags: ['guide', 'entitlement', 'target', 'segment', 'targeting rule']
 
 ## Overview
 
-This guide explains how you can use feature flags to create special access levels or variable experiences based on the customer's context. Use this guide to understand how long-lived feature flags and precision flag targeting work together to ensure that every customer has access to the correct features. Providing different experiences for different customers based on context characteristics is referred to as "entitlement."
+This guide explains how you can use feature flags to create special access levels or variable experiences based on the customer type. Use this guide to understand how long-lived feature flags and precision flag targeting work together to ensure that every customer has access to the correct features. Providing different experiences for different customers based on context characteristics is referred to as "entitlement."
 
 Common use cases include:
 
@@ -16,7 +16,7 @@ Common use cases include:
 - Temporary privilege escalation
 - Localization
 
-In the context of LaunchDarkly's feature flags, entitlement is a subset of flag targeting. It is meant to deliver a set of features to a designated segment or group of customers, who you identify based on their context. The difference between targeting and entitlements is that entitlements are meant to be a permanent or long-lived targeting rule, whereas general flag targeting can be more temporary or flexible.
+Conceptually, entitlement is a subset of flag targeting. It is meant to deliver a set of features to a designated segment or group of customers, whom you identify based on their customer type, location, or other criteria. The difference between targeting and entitlements is that entitlements are meant to be a permanent or long-lived targeting rule, whereas general flag targeting can be more temporary or flexible.
 
 ## Prerequisites
 
@@ -32,17 +32,19 @@ This guide relies on the following concepts:
 
 ### Targeting
 
-Targeting is when you use flag rules to determine which contexts, segments, or subsets of segments receive a flag.
+Targeting is when you use flag rules to determine which contexts or segments receive which variations of a flag. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 ### Permanent flags
 
-Flags with no specified end date, or "permanent" flags, are part of the everyday operation of the application. They don't have a determined lifespan, so you shouldn't remove them as you would a temporary flag. In LaunchDarkly, you can designate a flag “permanent” when you create it.
+Flags with no specified end date, or "permanent" flags, are part of the everyday operation of the application. They don't have a determined lifespan, so you shouldn't remove them as you would a temporary flag. In LaunchDarkly, you can designate a flag as “permanent” when you create it. To learn more, read [Creating a feature flag](/home/getting-started/feature-flags#creating-a-feature-flag).
 
 ### Pre-defined segment
 
-A group of contexts that should consistently get the same behavior from the application. A segment might be end users in a certain geographic area, servers with a known IP address range, or members of an internal testing group.
+You can group a set of contexts that should consistently get the same behavior from the application into a segment. A segment might be end users in a certain geographic area, servers with a known IP address range, or members of an internal testing group.
 
 Using a segment as the definition of a target makes behavior more repeatable and predictable. You can include test contexts in the segment to ensure the contexts are represented in test scenarios.
+
+To learn more, read [Segments](/home/contexts/segments).
 
 ## Managing entitlements with feature flags
 
@@ -118,6 +120,12 @@ You can mark the flag **permanent** when you create it, but it is also useful to
 You can add and remove individual targets to and from entitlement flags as needed, but depending on how often your customers change, this can be inefficient. Instead, you can target segments if you can provide that targeting data to the LaunchDarkly client evaluating the rules.
 
 For customers on Enterprise plans, targeting segments defined in SAML are dynamically generated and updated, and are a good source of truth for who your end users are and what level of entitlement and access they should have. It’s better to use those SAML-defined segments as the target of your rule than to try to maintain a correct listing in more than one place.
+
+## Risks when using entitlement flags
+
+Using entitlement flags can come with some risk. If your app can't connect to LaunchDarkly, all of your end users will receive a single fallback variation that you specify in your SDK, rather than the flag's **Targeting** tab. This means that some of your end users could receive too much or too little access, or some other variation that's not appropriate for all entitlement levels. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+
+One option to help mitigate this risk is using the Relay Proxy in proxy mode with a persistent store. Using the Relay proxy in proxy mode with a persistent store provides the flag's last known state to server-side apps when connectivity to LaunchDarkly is unavailable. To learn more, read [Using proxy mode](/home/relay-proxy/using#using-proxy-mode) and [Caching guidelines](/home/relay-proxy/guidelines#caching-guidelines). 
 
 ## Testing plans and designs
 
