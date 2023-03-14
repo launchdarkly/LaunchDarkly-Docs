@@ -1695,6 +1695,10 @@
           {
             "label": "Building an ephemeral Environments as a Service integration",
             "path": "/guides/integrations/build-eaas"
+          },
+          {
+            "label": "Building a metric import and sync integration",
+            "path": "/guides/integrations/build-metric"
           }
         ]
       },
