@@ -1,8 +1,6 @@
 ###
 ### Display
 ###
-# Verbose program output
-verbose = "info"
 
 # Show progress
 progress = true
