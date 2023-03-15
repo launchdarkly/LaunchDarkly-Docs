@@ -78,30 +78,30 @@ The SDK only evaluates flags based on the evaluation context you provide in the 
 
 ## Using private context attributes
 
-You may not want to send all attributes back to, or store all attributes in, LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer data is transmitted to or stored within a third-party platform like LaunchDarkly.
+You may not want to send all attributes back to, or store all attributes in, LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer data is transmitted to or stored within a third-party platform like LaunchDarkly. For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments.
 
-For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments.
+You can't mark attributes as private from within the LaunchDarkly UI. Instead, you must configure them within your SDK. 
 
-The **Contexts** list indicates private attributes with a lock icon: 
+After you configure a private attribute within your SDK, the **Contexts** list displays the attribute with a lock icon: 
 
 ![The "Contexts" list with a private attribute called out.](contexts-private-attribute-callout.png)
 
-You can also mark some portions of an attribute private. For example, if you have one attribute for address, you could mark the street field of the address attribute as private, but not the city field. You can still use all parts of the address in targeting rules, but only the city would appear in the LaunchDarkly UI.
-
-Depending on the type of SDK you use, LaunchDarkly does not receive or store the information in private attributes. If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.
-
-If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Contexts** list or on the detail page for the context.
-
 ### Configuring private attribute settings in your SDK
 
-There are two ways you can mark attributes as private:
+There are multiple ways you can mark attributes as private:
 
 * You can mark an attribute as private across all contexts of any context kind. You might use this if you want to ensure that an "email" attribute is never sent to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
 * You can mark an attribute as private within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+* You can mark some portions of an attribute as private. For example, if you have one attribute for address, you could mark the "street" field of the address attribute as private, but not the "city" field. You can still use all parts of the address in targeting rules, but only the city would appear in the LaunchDarkly UI.
 
-If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the context is in the **Contexts** list, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation, delete the context from the **Contexts** list, and re-evaluate the context.
+To learn how to use these configuration options, read [User and context configuration](/sdk/features/user-context-config).
 
-To learn more about setting these configuration options, read your SDK's documentation.
+If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the context is in the **Contexts** list, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation within the SDK, delete the context from the **Contexts** list, and re-evaluate the context.
+
+Depending on the type of SDK you use, LaunchDarkly does not receive or store the information in private attributes:
+
+* If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.
+* If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Contexts** list or on the detail page for the context.
 
 <Callout intent="alert">
 <CalloutTitle>Implications of using private attributes</CalloutTitle>

@@ -1,0 +1,130 @@
+---
+path: /guides/integrations/build-metric
+title: Building a metric import and sync integration
+description: This guide explains how LaunchDarkly partners can use the REST API to build a metric import and sync integration.
+published: true
+tags: ['guide', 'integration']
+---
+
+## Overview
+
+This guide explains how LaunchDarkly partners can use the REST API to build an integration for [creating metrics](/home/creating-experiments/metrics). By the end of this guide, you as a LaunchDarkly partner should have the information you need to create an integration that can create metrics for our joint customers' LaunchDarkly experiments.
+
+## Understanding LaunchDarkly metrics
+
+Experimentation lets you validate the impact of features you roll out to your app or infrastructure. You can measure things like page views, clicks, load time, infrastructure costs, and more.
+
+By connecting metrics you create to flags in your LaunchDarkly environment, you can measure the changes in your customer's behavior based on what flags they evaluate. This helps you make more informed decisions, so the features your development team ships align with your business objectives.
+
+You can use this integration method to create either [custom conversion metrics](/home/creating-experiments/metrics/custom-conversion) or [custom numeric metrics](/home/creating-experiments/metrics/custom-numeric):
+- Custom conversion metrics track events for any arbitrary event
+- Custom numeric metrics track increases or decreases in a numeric value against a baseline you set
+
+To learn more, read [Understanding types of metrics](/home/creating-experiments/metrics#understanding-types-of-metrics).
+
+## Building an integration
+
+To build an integration, make sure you meet the [prerequisites](/integrations/partner-integrations/getting-started#prerequisites). Then follow the steps outlined on the [Getting started](/integrations/partner-integrations/getting-started) page.
+
+The Getting started page explains each of the following steps in detail:
+
+1. [Forking the LaunchDarkly Integration Framework repository](/integrations/partner-integrations/getting-started#fork-the-launchdarkly-integration-framework-repository).
+2. [Creating a new directory](/integrations/partner-integrations/getting-started#create-a-new-directory).
+3. [Creating an integration manifest](/integrations/partner-integrations/getting-started#create-an-integration-manifest).
+  - For an example of a completed manifest, read the [Manifest.json example](#manifestjson-example).
+4. [Defining the integration's capabilities](/integrations/partner-integrations/getting-started#define-the-integrations-capabilities).
+  - No capability section is required for a metric creation integration. You can add a top-level key `"otherCapabilities"" ["external"]`.
+5. [Creating end-user documentation and README](/integrations/partner-integrations/getting-started#create-end-user-documentation-and-readme).
+6. [Submitting the integration](/integrations/partner-integrations/getting-started#submit-the-integration).
+
+## Format of a request
+
+For a custom metric integration, the following sections describe the required request format.
+
+### HTTP User Agent for REST API requests
+
+All API calls from LaunchDarkly partners should include a custom User-Agent: 
+
+<CodeSample>
+<CSTab label="JSON">
+
+```json
+{launchdarkly product}-{source product}-int/{version}
+```
+
+</CSTab>
+</CodeSample>
+
+### Authentication
+
+Your integration can use either API keys or OAuth for authentication:
+- If you use API keys, your customers will need to create them in LaunchDarkly and provide them to your service. 
+- If you use OAuth, configure it as described in [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
+
+LaunchDarkly has support for OAuth clients. The only two types of scoped permissions are currently `reader` and `writer`. A metric integration needs the `writer` scope so it can create metrics. However, your customers may not want to provide the level of access overall that this functionality would grant.
+
+For a custom metric integration, we suggest that partners use an API key.
+
+### Creation
+
+The endpoint to create a new environment accepts a POST body in JSON format. The minimum set of required parameters is:
+
+* `key`: The metric key
+* `kind`: This should be `custom`
+* `isNumeric`: Whether to track numeric changes in value against a baseline (`true`) or to track a conversion when users taken an action (`false`).
+* `unit`: Required if `isNumeric` is `true`.
+* `eventKey`: This should be equal to the 
+
+<LearnMore>
+
+You can also use the REST API: [Create a LaunchDarkly metric](https://apidocs.launchdarkly.com/tag/Metrics#operation/postMetric)
+
+</LearnMore>
+
+### Manifest.json example
+
+This manifest is required for an integration. It renders your integration metadata inside of the LaunchDarkly UI.
+
+<CodeSample>
+<CSTab label="JSON">
+
+```json
+{
+	"name": "Sample Integration",
+	"version": "1.0.0",
+	"overview": "Short one-liner describing your integration.",
+	"description": "Send flag data to space. Markdown-based description.",
+	"author": "Acme Inc.",
+	"supportEmail": "support@example.com",
+	"links": {
+		"site": "https://example.com",
+		"supportWebsite": "https://docs.releaseapp.io/integrations/integrations-overview/launchdarkly-integration",
+		"privacyPolicy": "https://example.com/privacy"
+	},
+	"categories": ["automation"],
+	"icons": {
+		"square": "assets/images/square.svg",
+		"horizontal": "assets/images/horizontal.svg"
+	},
+	"otherCapabilities": ["external"]
+}
+```
+
+</CSTab>
+</CodeSample>
+
+
+## Conclusion
+
+This guide describes the process of building a metric integration integration. To learn more about building your own integrations, read [Building partner integrations](/integrations/partner-integrations).
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>
