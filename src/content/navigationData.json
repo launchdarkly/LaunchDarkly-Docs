@@ -1109,6 +1109,10 @@
             "path": "/sdk/features/aliasing-users"
           },
           {
+            "label": "Anonymous contexts and users",
+            "path": "/sdk/features/anonymous"
+          },
+          {
             "label": "Big Segments",
             "path": "/sdk/features/big-segments"
           },
@@ -1169,6 +1173,10 @@
           {
             "label": "Offline mode",
             "path": "/sdk/features/offline-mode"
+          },
+          {
+            "label": "Private attributes",
+            "path": "/sdk/features/private-attributes"
           },
           {
             "label": "Reading flags from a file",

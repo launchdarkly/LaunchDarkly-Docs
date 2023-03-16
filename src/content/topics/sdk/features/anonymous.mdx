@@ -1,0 +1,938 @@
+---
+path: /sdk/features/anonymous
+title: Anonymous contexts and users
+description: This topic explains how to configure contexts as anonymous in LaunchDarkly SDKs. These features are available for both client-side and server-side SDKs.
+published: true
+tags: ['configure', 'context', 'anonymous', 'attribute', 'sdk', 'user', 'lduser']
+---
+
+## Overview
+
+This topic explains how to configure contexts as anonymous in LaunchDarkly SDKs. These features are available for both client-side and server-side SDKs.
+
+<Callout intent="info">
+<CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users." To learn more, read [Contexts and segments](/home/contexts).
+
+Creating contexts and evaluating flags based on them is supported in the latest major versions of [most of our SDKs](/sdk). For these SDKs, the code samples on this page include the two most recent versions.
+
+</CalloutDescription>
+</Callout>
+
+Each SDK lets you designate anonymous contexts or users. Anonymous contexts or users don't appear on your **Contexts** list, so you can't search for them, and you can't search for or autocomplete by their keys. If you use [multi-contexts](/home/contexts#understanding-contexts-and-context-kinds), you can choose to make only some contexts anonymous.
+
+In client-side SDKs, if you don't provide a key or set it to null, and set `anonymous` to `true`, then the SDK generates a random key for you.
+
+If you generate keys for anonymous contexts, session IDs or UUIDs work best. If you want to reduce your client-side MAU, you can use the same key for every initialization and then replace that with a different key, unique to each context, when you know which person or entity the context represents. This way LaunchDarkly counts the initialization key only once against your client-side MAU, instead of every time you initialize. However, you cannot use this method if you use Experimentation, because all contexts you include in an experiment must have a unique key.
+
+Details about each SDK's configuration are available in the SDK-specific sections below.
+
+* [Client-side SDKs](#client-side-sdks)
+* [Server-side SDKs](#server-side-sdks)
+
+## Client-side SDKs
+
+Here are the configuration options for anonymous contexts and users in client-side SDKs.
+
+* [.NET (client-side)](#net-client-side)
+* [Android](#android)
+* [C/C++ (client-side)](#cc-client-side)
+* [Electron](#electron)
+* [Flutter](#flutter)
+* [iOS](#ios)
+* [JavaScript](#javascript)
+* [Node.js (client-side)](#nodejs-client-side)
+* [React Native](#react-native)
+* [React Web](#javascript): The React SDK relies on the JavaScript SDK for context-related functionality.
+* [Roku](#roku)
+
+### .NET (client-side)
+
+<Details summary="Expand .NET (client-side) code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
+
+```csharp
+Context context = Context.Builder("context-key-123abc")
+    .Anonymous(true)
+    .Build();
+```
+
+</CSTab>
+<CSTab label=".NET SDK v2.x (C#)">
+
+```csharp
+LDUser user = User.Builder("user-key-123abc")
+    .Anonymous(true)
+    .Build();
+```
+
+</CSTab>
+</CodeSample>
+
+To auto-generate a key for any context whose `anonymous` attribute is true:
+
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
+
+```csharp
+Configuration config = Configuration.Builder("mobile-key-123abc")
+    .GenerateAnonymousKeys(true)
+    .Build();
+```
+
+</CSTab>
+</CodeSample>
+
+If you set this option, you must still specify a non-null key as a placeholder when you construct the `Context`, because the SDK does not allow a `Context` to exist with a null key. When you pass this context to SDK methods like `Init` or `Identify`, the SDK replaces the placeholder key with a generated key.
+
+In this example, the placeholder key is "unknown-context-key", but it could be any non-empty string:
+
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
+
+```csharp
+Context context = Context.Builder("unknown-context-key")
+    .Anonymous(true)
+    .Build();
+```
+
+</CSTab>
+<CSTab label=".NET SDK v2.x (C#)">
+
+```csharp
+LDUser user = User.Builder((string)null).Anonymous(true).Build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Android
+
+<Details summary="Expand Android code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Android SDK v4.0 (Java)">
+
+```java
+LDContext context = LDContext.builder("context-key-123abc")
+    .anonymous(true)
+    .build();
+```
+
+</CSTab>
+<CSTab label="Android SDK v4.0 (Kotlin)">
+
+```kotlin
+val context: LDContext = LDContext.builder("context-key-123abc")
+    .anonymous(true)
+    .build()
+```
+
+</CSTab>
+<CSTab label="Android SDK v3.x (Java)">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
+    .anonymous(true)
+    .build();
+```
+
+</CSTab>
+<CSTab label="Android SDK v3.x (Kotlin)">
+
+```kotlin
+val user: LDUser = LDUser.Builder("user-key-123abc")
+    .anonymous(true)
+    .build()
+```
+
+</CSTab>
+</CodeSample>
+
+When you mark the context as anonymous, you can leave the key parameter in the Builder null or make it an empty string. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+</Details>
+
+### C/C++ (client-side)
+
+<Details summary="Expand C/C++ (client-side) code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="C/C++">
+
+```c
+struct LDUser *user = LDUserNew("user-key-123abc");
+LDUserSetAnonymous(user, true);
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Electron
+
+<Details summary="Expand Electron code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="JavaScript">
+
+```js
+const anonymousUser2 = { key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="TypeScript">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const anonymousUser2: LDElectron.LDUser = { key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+</CodeSample>
+
+To create an anonymous user with an auto-generated key, specify the "anonymous" property and omit the "key" property. The LaunchDarkly client creates a unique key for this user and caches it locally:
+
+<CodeSample>
+<CSTab label="JavaScript">
+
+```js
+const anonymousUser = { anonymous: true };
+```
+
+</CSTab>
+<CSTab label="TypeScript">
+
+```ts
+import * as LDElectron from 'launchdarkly-electron-client-sdk';
+
+const anonymousUser: LDElectron.LDUser = { anonymous: true };
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Flutter
+
+<Details summary="Expand Flutter code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Dart">
+
+```dart
+LDUser user = LDUserBuilder('user key')
+    .anonymous(true)
+    .build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### iOS
+
+<Details summary="Expand iOS code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
+
+```swift
+var contextBuilder = LDContextBuilder(key: "context-key-123abc")
+contextBuilder.anonymous(true)
+
+let context = contextBuilder.build().get()
+```
+
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
+
+```objectivec
+LDContextBuilder *builder = [[LDContextBuilder alloc] initWithKey:@"context-key-123abc"];
+[builder trySetValueWithName:@"anonymous" value:[LDValue ofBool:true]];
+
+LDContext *context = builder.build.success;
+```
+
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
+
+```swift
+var user = LDUser(key: "user-key-123abc")
+user.isAnonymous = true
+```
+
+</CSTab>
+<CSTab label="iOS SDK v7.x (Objective-C)">
+
+```objectivec
+LDUser *user = [[LDUser alloc] initWithKey:@"user-key-123abc"];
+user.isAnonymous = YES;
+```
+
+</CSTab>
+</CodeSample>
+
+Alternatively, you can omit the key parameter. The client will automatically set the `isAnonymous` property for the context, and set the key to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
+
+```swift
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
+let context = try LDContextBuilder().build().get()
+```
+
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
+
+```objectivec
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
+LDContextBuilder *newThing = [[LDContextBuilder alloc] init];
+```
+
+</CSTab>
+<CSTab label="iOS SDK v7.x (Swift)">
+
+```swift
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
+let user = LDUser()
+```
+
+</CSTab>
+<CSTab label="iOS SDK v7.x (Objective-C)">
+
+```objectivec
+// Have the SDK use a device persistent key. 
+// This sets `isAnonymous` by default.
+LDUser *user = [LDUser new];
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### JavaScript
+
+<Details summary="Expand JavaScript code sample">
+
+To create an anonymous context, specify the `anonymous` property and omit the `key` property. The client will automatically set the key to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="JavaScript SDK v3.0">
+
+```js
+const anonymousUserContext = {
+  kind: 'user',
+  anonymous: true
+};
+
+// A multi-context can contain both anonymous and non-anonymous contexts.
+// Here, the organization is not anonymous.
+const multiContext = {
+  kind: 'multi',
+  user: anonymousUserContext,
+  org: {
+    key: 'org-key-123abc',
+    name: 'Example organization name'
+  }
+}
+```
+
+</CSTab>
+<CSTab label="JavaScript SDK v3.0 (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const anonymousContext: ld.LDContext = {
+  kind: 'user',
+  anonymous: true
+};
+
+// A multi-context can contain both anonymous and non-anonymous contexts.
+// Here, the organization is not anonymous.
+const multiContext: ld.LDContext = {
+  kind: 'multi',
+  user: anonymousUserContext,
+  org: {
+    key: 'org-key-123abc',
+    name: 'Example organization name'
+  }
+}
+```
+
+</CSTab>
+<CSTab label="JavaScript SDK v2.x">
+
+```js
+const anonymousUser = { anonymous: true };
+```
+
+</CSTab>
+<CSTab label="JavaScript SDK v2.x (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-js-client-sdk';
+
+const anonymousUser: ld.LDUser = { anonymous: true };
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Node.js (client-side)
+
+<Details summary="Expand Node.js (client-side) code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Node.js SDK v3.0 (JavaScript)">
+
+```js
+const anonymousContext = { kind: 'user', key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v3.0 (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const anonymousContext: ld.LDContext = { kind: 'user', key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v2.x (JavaScript)">
+
+```js
+const anonymousUser = { key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v2.x (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const anonymousUser: ld.LDUser = { key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+</CodeSample>
+
+You can also have the SDK generate the key for you. Specify the `anonymous` property and omit the `key` property. The client will automatically set the key to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="Node.js SDK v3.0 (JavaScript)">
+
+```js
+const anonymousContext = { kind: 'user', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v3.0 (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const anonymousContext: ld.LDContext = { kind: 'user', anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v2.x (JavaScript)">
+
+```js
+const anonymousUser = { anonymous: true };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v2.x (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-client-sdk';
+
+const anonymousUser: ld.LDUser = { anonymous: true };
+
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### React Native
+
+<Details summary="Expand React Native code sample">
+
+To create an create an anonymous context, specify the `anonymous` property. If you omit the context key when building an anonymous context, the client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots. If you omit the context key and do not mark the context as anonymous, the SDK gives a usage error.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="JavaScript">
+
+```js
+// This device context is anonymous
+// The key is omitted, and the SDK will automatically generate one
+const deviceContext = {
+  kind: 'device',
+  deviceId: '12345',
+  anonymous: true
+}
+
+// The multi-context contains one anonymous context
+// and one non-anonymous context
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+```
+
+</CSTab>
+</CodeSample>
+
+In the 6.x versions of the SDK, the user key is required when building anonymous users. To learn more, read [Understanding changes to anonymous users](/sdk/client-side/react/react-native-migration-6-to-7#understanding-changes-to-anonymous-users) in the React Native SDK 6.x to 7.0 migration guide.
+</Details>
+
+### React Web
+
+All context-related functionality provided by the [JavaScript SDK](#javascript) is also available in the React SDK.
+
+### Roku
+
+<Details summary="Expand Roku code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="BrightScript">
+
+```brightscript
+user.setAnonymous(Boolean)
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+## Server-side SDKs
+
+Here are the configuration options for anonymous contexts and users in server-side SDKs:
+
+* [.NET (server-side)](#net-server-side)
+* [Apex](#apex)
+* [C/C++ (server-side)](#cc-server-side)
+* [Erlang](#erlang)
+* [Go](#go)
+* [Haskell](#haskell)
+* [Java](#java)
+* [Lua](#lua)
+* [Node.js (server-side)](#nodejs-server-side)
+* [PHP](#php)
+* [Python](#python)
+* [Ruby](#ruby)
+* [Rust](#rust)
+
+### .NET (server-side)
+
+<Details summary="Expand .NET (server-side) code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
+
+```csharp
+var context = Context.Builder("context-key-123abc")
+    .Anonymous(true)
+    .Build();
+```
+
+</CSTab>
+<CSTab label=".NET SDK v6.x (C#)">
+
+```csharp
+var user = User.Builder("user-key-123abc")
+    .Anonymous(true)
+    .Build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Apex
+
+<Details summary="Expand Apex code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Java">
+
+```java
+LDUser user = new LDUser.Builder('abc123')
+    .setAnonymous(true)
+    .build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### C/C++ (server-side)
+
+<Details summary="Expand C/C++ (server-side) code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="C/C++">
+
+```c
+LDUserSetAnonymous(user, true);
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Erlang
+
+<Details summary="Expand Erlang code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+    Context = ldclient_context:set(anonymous, true,
+        ldclient_context:new(<<"user-key-123abc">>))
+```
+
+</CSTab>
+<CSTab label="Erlang SDK v1.x">
+
+```erlang
+Key = <<"user-key-123abc">>,
+Anonymous = true,
+Map = #{
+    key => Key,
+    anonymous => Anonymous,
+},
+User = ldclient_user:new_from_map(Map)
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Go
+
+<Details summary="Expand Go code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Go SDK v6.0">
+
+```go
+import (
+    "github.com/launchdarkly/go-sdk-common/v3/ldcontext"
+)
+
+// Anonymous context with only a key
+context1 := ldcontext.NewBuilder("context-key-123abc").Anonymous(true)
+
+// Anonymous context with a key plus other attributes
+context2 := ldcontext.NewBuilder("context-key-456def").
+    Anonymous(true).
+    SetString("country", "Canada").
+    Build()
+```
+
+</CSTab>
+<CSTab label="Go SDK v5.x">
+
+```go
+import (
+    "gopkg.in/launchdarkly/go-sdk-common.v2/lduser"
+)
+
+// Anonymous user with only a key
+user1 := lduser.NewAnonymousUser("user-key-123abc")
+
+// Anonymous user with a key plus other attributes
+user2 := lduser.NewUserBuilder("user-key-456def").
+    Anonymous(true).
+    Country("US").
+    Build()
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Haskell
+
+<Details summary="Expand Haskell code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+makeContext "user-key-123abc" "user"
+  & withAnonymous True
+```
+
+</CSTab>
+<CSTab label="Haskell SDK v3.x">
+
+```haskell
+user` = userSetAnonymous True user
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Java
+
+<Details summary="Expand Java code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Java SDK v6.0">
+
+```java
+LDContext context = LDContext.builder("context-key-123abc")
+  .anonymous(true)
+  .build();
+```
+
+</CSTab>
+<CSTab label="Java SDK v5.x">
+
+```java
+LDUser user = new LDUser.Builder("user-key-123abc")
+  .anonymous(true)
+  .build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Lua
+
+<Details summary="Expand Lua code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Lua">
+
+```lua
+local user = ld.makeUser({
+    key       = "user-key-123abc",
+    anonymous = true
+    }
+)
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Node.js (server-side)
+
+<Details summary="Expand Node.js (server-side) code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
+
+```js
+const context = {kind:'user', key:'user-key-123abc', anonymous: true};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.0 (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  anonymous: true,
+}
+```
+
+</CSTab>
+<CSTab label="Node SDK v6.x and earlier (JavaScript)">
+
+```js
+const user = {key:'user-key-123abc', anonymous: true};
+```
+
+</CSTab>
+<CSTab label="Node SDK v6.x and earlier (TypeScript)">
+
+```ts
+import * as ld from 'launchdarkly-node-server-sdk';
+
+const user: ld.LDUser = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  anonymous: true,
+}
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### PHP
+
+<Details summary="Expand PHP code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
+
+```php
+$context = LDContext::builder("context-key-123abc")->anonymous(true)->build();
+```
+
+</CSTab>
+<CSTab label="PHP SDK v4.x">
+
+```php
+$user = (new LDUserBuilder("user-key-123abc"))->anonymous(true)->build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Python
+
+<Details summary="Expand Python code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Python SDK v8.0">
+
+```python
+context = Context.builder("context-key-123abc").anonymous(True).build()
+```
+
+</CSTab>
+<CSTab label="Python SDK v7.x">
+
+```python
+user = { "key":"user-key-123abc", "anonymous": True }
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Ruby
+
+<Details summary="Expand Ruby code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
+
+```ruby
+context = { key: "context-key-123abc", anonymous: true }
+```
+
+</CSTab>
+<CSTab label="Ruby SDK v6.x">
+
+```ruby
+user = { key: "user-key-123abc", anonymous: true }
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Rust
+
+<Details summary="Expand Rust code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="Rust SDK v1">
+
+```rust
+// Anonymous context with only a key
+let context = ContextBuilder::new("context-key-123abc").anonymous(true).build();
+
+// Anonymous context with a key plus other attributes
+let context = ContextBuilder::new("context-key-123abc").
+    anonymous(true).
+    set_value("country", "US".into()).
+    build();
+```
+
+</CSTab>
+<CSTab label="Rust SDK beta">
+
+```rust
+// Anonymous user with only a key
+let user = User::with_key("user-key-123abc").
+
+// Anonymous user with a key plus other attributes
+let user = User::with_key("user-key-123abc").
+    anonymous(true).
+    country("US").
+    build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>

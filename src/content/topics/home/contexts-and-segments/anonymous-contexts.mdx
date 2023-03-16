@@ -31,7 +31,7 @@ You can use anonymous contexts to hide personally identifiable information (PII)
 </CalloutDescription>
 </Callout>
 
-To learn how to create anonymous contexts, read your SDK-specific section in [User and context configuration](/sdk/features/user-context-config).
+To learn how to create anonymous contexts, read your SDK-specific section in [Anonymous contexts and users](/sdk/features/anonymous).
 
 <Callout intent="info">
 <CalloutTitle>Consider using multi-contexts</CalloutTitle>
@@ -53,7 +53,7 @@ Anonymous contexts also contribute to MAU. LaunchDarkly builds context objects i
 
 All contexts are identified by their unique key, including anonymous contexts. If you provide the anonymous context key yourself, you must ensure that the context uses that key on each subsequent visit.
 
-A common strategy to make sure that you're using the same anonymous context key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into the SDK. If you use a client-side SDK and want to use a unique key for your anonymous contexts, you can defer key generation onto the SDK. To do this, build a context object and omit the key completely. The SDK generates a unique identifier for the context and persists this unique identifier in local storage. Each subsequent context evaluation without a context key uses that saved unique identifier. To learn more, read [User and context configuration](/sdk/features/user-context-config).
+A common strategy to make sure that you're using the same anonymous context key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into the SDK. If you use a client-side SDK and want to use a unique key for your anonymous contexts, you can defer key generation onto the SDK. To do this, build a context object and omit the key completely. The SDK generates a unique identifier for the context and persists this unique identifier in local storage. Each subsequent context evaluation without a context key uses that saved unique identifier. To learn more, read [Anonymous contexts and users](/sdk/features/anonymous).
 
 A common challenge from using cookies or local storage is that they are optional. End users can turn them off. They are also often not observed by bots and site crawlers. To mitigate this challenge, you can use a single key for all anonymous contexts. However, you will not be able to use Experimentation if you use a single key for all anonymous contexts.
 
