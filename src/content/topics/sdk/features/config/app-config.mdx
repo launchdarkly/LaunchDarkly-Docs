@@ -30,7 +30,7 @@ You can also use this metadata for configuring the Accelerate product offering. 
 For the SDKs that support this feature, you can send the following metadata:
 
 - Application identifier (string): A unique identifier representing the application where the LaunchDarkly SDK is running. The value can use only alphanumeric characters and hyphens `-`, periods `.`, and underscores `_`. For example, `authentication-service`.
-- Application version (string): A unique identifier representing the version of the application where the LaunchDarkly SDK is running. The value can use only alphanumeric characters and hyphens `-`, periods `.`, and underscores `_`. For example, you could set this to the semantic version of your application, such as `1.0.0`. If you are using Accelerate, we recommend setting the application version to the full secure hash algorithm (SHA) of the GitHub commit for this deployment, such as `a12bcde3f45ab6c789123456d78efabcde91234f`.
+- Application version (string): A unique identifier representing the version of the application where the LaunchDarkly SDK is running. The value can use only alphanumeric characters and hyphens `-`, periods `.`, and underscores `_`. For example, you could set this to the semantic version of your application, such as `1.0.0`. If you are using Accelerate, we recommend setting the application version to the full secure hash algorithm (SHA) of the GitHub commit for this deployment, such as `a12bcde3f45ab6c789123456d78efabcde91234f`, or to the tag associated with the GitHub commit for this deployment.
 
 You can set these values when you configure the SDK. All connections to LaunchDarkly from a client will send the same value to LaunchDarkly, whether the connection is through streaming, polling, or events. You cannot change the value after you configure the client.
 
@@ -45,7 +45,7 @@ Accelerate is only available to members of LaunchDarkly's Early Access Program (
 </CalloutDescription>
 </Callout>
 
-Configuring your application metadata to send deployment information lets Accelerate track the frequency and timing of your deployments. If you set the application version to a deployment Git SHA, Accelerate will also link the SHAs to your pull requests (PRs) and track which PRs are in your deployment.
+Configuring your application metadata to send deployment information lets Accelerate track the frequency and timing of your deployments. If you set the application version to a deployment SHA or tag from GitHub, Accelerate will also track which commits and pull requests are in your deployment.
 
 To learn how to retrieve the SHA for your deployment, read [Configure your application to send deployment information](/home/accelerate/get-started-accelerate#step-2-configure-your-application-to-send-deployment-information).
 
