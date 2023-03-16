@@ -675,18 +675,6 @@ var dataSourceStatus = client.DataSourceStatusProvider.Status;
 </CSTab>
 </CodeSample>
 
-To check the data store status:
-
-<CodeSample>
-<CSTab label="C#">
-
-```csharp
-var dataStoreStatus = client.DataStoreStatusProvider.Status;
-```
-
-</CSTab>
-</CodeSample>
-
 Alternatively, you can register an event handler that will receive a new status value whenever the status changes.
 
 Here is an example:
@@ -696,11 +684,6 @@ Here is an example:
 
 ```csharp
 client.DataSourceStatusProvider.StatusChanged +=
-    (sender, status) -> {
-        Console.WriteLine("new status is: {0}", status);
-    };
-
-client.DataStoreStatusProvider.StatusChanged +=
     (sender, status) -> {
         Console.WriteLine("new status is: {0}", status);
     };
@@ -726,31 +709,12 @@ dataSourceStatus := client.GetDataSourceStatusProvider().GetStatus()
 </CSTab>
 </CodeSample>
 
-To check the data store status:
-
-<CodeSample>
-<CSTab label="Go">
-
-```go
-dataStoreStatus := client.GetDataStoreStatusProvider().GetStatus()
-```
-
-</CSTab>
-</CodeSample>
-
 Alternatively, you can monitor a channel that provides a new status value whenever the status changes:
 
 <CodeSample>
 <CSTab label="Go">
 
 ```go
-dataSourceStatusChannel := client.GetDataSourceStatusProvider().AddStatusListener()
-go func() {
-    for status := range dataSourceStatusChannel {
-        fmt.Println("new status is: ", status)
-    }
-}()
-
 dataStoreStatusChannel := client.GetDataStoreStatusProvider().AddStatusListener()
 go func() {
     for status := range dataStoreStatusChannel {
@@ -782,19 +746,6 @@ DataSourceStatusProvider.Status dataSourceStatus =
 </CSTab>
 </CodeSample>
 
-To check the data store status:
-
-<CodeSample>
-<CSTab label="Java">
-
-```java
-DataStoreStatusProvider.Status dataStoreStatus =
-  client.getDataStoreStatusProvider().getStatus()
-```
-
-</CSTab>
-</CodeSample>
-
 Alternatively, you can register an event listener that receives a new status value whenever the status changes:
 
 <CodeSample>
@@ -807,11 +758,6 @@ client.getDataSourceStatusProvider().addStatusListener(
   }
 );
 
-client.getDataStoreStatusProvider().addStatusListener(
-  status -> {
-    System.out.println("new status is: " + status);
-  }
-);
 ```
 
 </CSTab>
