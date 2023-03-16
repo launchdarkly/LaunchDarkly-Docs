@@ -43,14 +43,15 @@ To begin using contexts, you need to take the following steps:
 
 1. [Familiarize yourself with updated elements of the LaunchDarkly user interface (UI)](#familiarize-yourself-with-the-launchdarkly-ui).
 2. [Update the Relay Proxy, if applicable](#update-the-relay-proxy-if-applicable)
-3. [Upgrade your SDKs](#upgrade-your-sdks)
-4. [Choose your context kinds](#choose-your-context-kinds)
-5. [Add contexts to your application code](#add-contexts-to-your-application-code)
-6. [Update your flag targeting](#update-your-flag-targeting)
-7. [Review your experiments](#review-your-experiments)
-8. [Confirm that SDKs are sending contexts to LaunchDarkly](#confirm-that-your-sdks-are-sending-contexts-to-launchdarkly)
-9. [Remove legacy targeting from flags](#remove-legacy-targeting-from-flags)
-10. [Remove legacy attributes from SDKs](#remove-legacy-attributes-from-sdks)
+3. [Update your custom roles, if applicable](#update-your-custom-roles-if-applicable)
+4. [Upgrade your SDKs](#upgrade-your-sdks)
+5. [Choose your context kinds](#choose-your-context-kinds)
+6. [Add contexts to your application code](#add-contexts-to-your-application-code)
+7. [Update your flag targeting](#update-your-flag-targeting)
+8. [Review your experiments](#review-your-experiments)
+9. [Confirm that SDKs are sending contexts to LaunchDarkly](#confirm-that-your-sdks-are-sending-contexts-to-launchdarkly)
+10. [Remove legacy targeting from flags](#remove-legacy-targeting-from-flags)
+11. [Remove legacy attributes from SDKs](#remove-legacy-attributes-from-sdks)
 
 Each of these steps is explained in detail below.
 
@@ -76,6 +77,12 @@ Read about and learn how to navigate these sections before you update your flag 
 If you are using the LaunchDarkly Relay Proxy, you must update it to version 7.0 or later before you upgrade your SDKs. To learn more about upgrading, read the [Relay Proxy 7.0.0 release notes](https://github.com/launchdarkly/ld-relay/releases/tag/v7.0.0).
 
 If you’re not sure whether you should use the Relay Proxy and want to learn more, read [Deciding whether to use the Relay Proxy](/home/relay-proxy#deciding-whether-to-use-the-relay-proxy).
+
+## Update your custom roles, if applicable
+
+If you are using custom roles, any existing roles with permissions to delete users will be able to [delete context instances](/home/contexts/context-details#deleting-a-context-instance). Specifically, the `deleteUser` action is automatically aliased to the [`deleteContextInstance`](/home/members/role-actions/#context-actions) action. If your existing roles with permission to delete users should not be able to delete context instances, you must update those existing roles.
+
+If you are using custom roles and would like to specifically allow or disallow creating or updating context kinds, you can update your roles with the [Context kind actions](/home/members/role-actions/#context-kind-actions).
 
 ## Upgrade your SDKs
 
