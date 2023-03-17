@@ -26,7 +26,13 @@ You may want to refine your experiment audience for any of the following reasons
 
 ## Randomization units
 
-An experiment's randomization unit is the context kind the experiment uses to assign traffic to each of its variations. For example, if you choose the context kind `user` as an experiment's randomization unit, then the experiment will divide contexts into the experiment's variations by individual users. User Sandy might be assigned to variation A and user Jesse assigned to variation B. However, if you choose `organization` as a randomization unit, then the experiment will divide contexts into the experiment's variations by organizations instead.
+An experiment's randomization unit is the context kind the experiment uses to assign traffic to each of its variations.
+
+For example, if you choose the context kind `user` as an experiment's randomization unit, then the experiment will divide contexts into the experiment's variations by individual users. User Anna might be assigned to variation A, and user Jesse assigned to variation B. However, if you choose `organization` as a randomization unit, and Anna and Jesse are part of multi-contexts with the same organization key, then they will both be assigned to the same variation.
+
+Here is what Anna and Jesse's multi-contexts might look like:
+
+![Two multi-contexts with different users but the same organization.](contexts-multi-randomization-unit.png)
 
 There are six industry-standard randomization units that you can use in Experimentation:
 - user
