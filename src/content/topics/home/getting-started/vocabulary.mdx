@@ -12,6 +12,13 @@ This topic defines common words used in the LaunchDarkly application and documen
 
 The following definitions may be useful as you work in LaunchDarkly:
 
+## A
+
+### Audience
+
+An [experiment's](#experiment) `audience` is the combination of the targeting rule you're experimenting on and the number of [contexts](#context) you [allocate](#traffic-allocation) to each flag [variation](#variation).
+
+To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
 
 ## C
 
@@ -47,6 +54,11 @@ An `evaluation` is what happens when your application's code sends the [LaunchDa
 
 To learn more, read [Evaluating flags](/sdk/features/evaluating).
 
+### Experiment
+
+An `experiment` is a LaunchDarkly feature that connects a [flag](#flag) with a [metric](#metric) to measure end-user behavior. Experiments track how different [variations](#variation) of a flag affect end-user interactions with your app, and determine the [winning variation](#winning-variation). You can run an experiment for one or more [iterations](#iteration).
+
+To learn more, read [About Experimentation](/home/about-experimentation).
 
 ## F
 
@@ -56,6 +68,14 @@ A `flag` is the basic unit of feature management. It describes the different var
 
 To learn more, read [Using feature management](/home/getting-started#using-feature-management).
 
+## I 
+
+### Iteration
+
+An `iteration` is a defined time period that you run an [experiment](#experiment) for. An iteration can be any length that you choose, and you can run multiple iterations of the same experiment.
+
+To learn more, read [Managing experiments](/home/analyzing-experiments/managing).
+
 ## M
 
 ### Member
@@ -63,6 +83,12 @@ To learn more, read [Using feature management](/home/getting-started#using-featu
 A `member` or `account member` is a person who uses LaunchDarkly at your organization. These people work at your organization or have access rights to your organization's LaunchDarkly environment for another reason, such as contractors or part-time employees.
 
 To learn more, read [LaunchDarkly account members](/home/members/managing).
+
+### Metric
+
+A `metric` is a tool that allows you to measure specific end-user behaviors as part of an [experiment](#experiment). Metrics can measure things like links clicked, money spent, or response time. When combined with a [flag](#flag) in an experiment, metrics determine which flag [variation](#variation) is the [winning variation](#winning-variation).
+
+To learn more, read [Creating metrics](/home/creating-experiments/metrics).
 
 ## P
 
@@ -73,6 +99,12 @@ A `project` is an organizational unit for flags in your LaunchDarkly account. Yo
 To learn more, read [Projects](/home/organize/projects).
 
 ## R
+
+### Randomization unit
+
+An [experiment's](#experiment) `randomization unit` is the [context kind](#context-kind) that the experiment uses to randomly sort [contexts](#context) into each [variation](#variation) by, according to the experiment's [traffic allocation](#traffic-allocation).
+
+To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
 
 ### Role, custom role
 
@@ -102,6 +134,12 @@ To learn more, read [Setting up an SDK](/home/getting-started/setting-up) and [C
 
 A `team` is a group of members in your LaunchDarkly account. To learn more, read [Teams](/home/teams).
 
+### Traffic allocation
+
+An [experiment's](#experiment) `traffic allocation` is the amount of [contexts](#context) you assign to each flag [variation](#variation) you're experimenting on.
+
+To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
+
 ## U
 
 ### User
@@ -123,3 +161,11 @@ Flags share variations across environments within a project. However, the flags 
 When you create a flag, you must decide whether it is a boolean flag or a multivariate flag. Boolean flags have exactly two variations, with values of "true" and "false." Multivariate flags can have more than two variations. Each of the variations must have a value of the same type, for example, a string.
 
 To learn more, read [Creating flag variations](/home/flags/variations).
+
+## W
+
+### Winning variation
+
+An [experiment's](#experiment) `winning variation` is the [variation](#variation) that performed the best out of all the variations tested. Every experiment [iteration](#iteration) displays each variation's "probability to be best." The variation with the highest probability to be best is the winning variation.
+
+To learn more, read [Winning variations](/home/analyzing-experiments/winning-variation).
