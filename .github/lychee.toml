@@ -77,7 +77,8 @@ exclude = [
   # TODO: SC-151435 workaround
   'https://www.npmjs.com/package/*',
   # TODO: SC-155104 workaround
-  'https://mvnrepository.com/artifact/com.launchdarkly/*'
+  'https://mvnrepository.com/artifact/com.launchdarkly/*',
+  'file://*'
 ]
 
 # Exclude all private IPs from checking
