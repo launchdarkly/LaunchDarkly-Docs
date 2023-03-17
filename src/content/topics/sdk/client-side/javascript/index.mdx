@@ -212,9 +212,32 @@ Here is an example of code to include in the `<head>` tag of your site:
 </CSTab>
 </CodeSample>
 
-## Initializing the client
+## Working with the client
 
-After you install the dependency, initialize the LaunchDarkly client. To create a client instance, you need your LaunchDarkly environment's client-side ID.
+After you install the dependency, initialize the LaunchDarkly client. Then, use an event or promise to determine when the client is ready. Next, subscribe to updates. Finally, shut down the client when your application terminates.
+
+The following sections describe these steps in more detail:
+
+* [Initialize the client](#initialize-the-client)
+* [Use events to determine when the client is ready](#use-events-to-determine-when-the-client-is-ready)
+* [Use promises to determine when the client is ready](#use-promises-to-determine-when-the-client-is-ready)
+* [Subscribe to updates](#subscribe-to-updates)
+* [Shut down the client](#shut-down-the-client)
+
+<Callout intent="alert">
+<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
+<CalloutDescription>
+
+You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the end user will receive the default value for that flag.
+
+To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
+
+</CalloutDescription>
+</Callout>
+
+### Initialize the client
+
+To create a client instance, you need your LaunchDarkly environment's client-side ID.
 
 To find and copy your LaunchDarkly client-side ID:
 
@@ -305,7 +328,9 @@ To learn about best practices when using other default flag value methods, read 
 </CalloutDescription>
 </Callout>
 
-To find out when the client is ready, you can use one of two mechanisms: events or promises.
+### Use events to determine when the client is ready
+
+To find out when the client is ready, you can use one of two mechanisms: events or [promises](#use-promises-to-determine-when-the-client-is-ready).
 
 The client object can emit JavaScript events. It emits a `ready` event when it receives initial flag values from LaunchDarkly. You can listen for this event to determine when the client is ready to evaluate flags.
 
@@ -338,16 +363,11 @@ client.on('ready', () => {
 </CSTab>
 </CodeSample>
 
-<Callout intent="info">
-<CalloutTitle>Streaming updates</CalloutTitle>
-<CalloutDescription>
+### Use promises to determine when the client is ready
 
-The SDK does not subscribe to streaming real-time updates automatically when you initialize it. This means subscribing to the SDK's `change` event by calling `.on('change').` causes the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive realtime updates.
+To find out when the client is ready, you can use one of two mechanisms: [events](#use-events-to-determine-when-the-client-is-ready) or promises.
 
-</CalloutDescription>
-</Callout>
-
-Or, you can use a promise instead of an event. The SDK has two methods that return a promise for initialization: `waitUntilReady()` and `waitForInitialization()`. The behavior of `waitUntilReady()` is equivalent to the `ready` event. The promise resolves when the client receives its initial flag data. As with all promises, you can either use `.then()` to provide a callback, or use `await` if you are writing asynchronous code.
+The SDK has two methods that return a promise for initialization: `waitUntilReady()` and `waitForInitialization()`. The behavior of `waitUntilReady()` is equivalent to the `ready` event. The promise resolves when the client receives its initial flag data. As with all promises, you can either use `.then()` to provide a callback, or use `await` if you are writing asynchronous code.
 
 Here is an example:
 
@@ -356,12 +376,14 @@ Here is an example:
 
 ```js
 client.waitUntilReady().then(() => {
-  // initialization succeeded, flag values are now available
+  // initialization succeeded,
+  // flag values are now available through the client
 });
 
 // or, with await:
 await client.waitUntilReady();
-// initialization succeeded, flag values are now available
+// initialization succeeded,
+// flag values are now available through the client
 ```
 
 </CSTab>
@@ -395,16 +417,15 @@ try {
 
 The SDK only decides initialization has failed if it receives an error response indicating that the environment ID is invalid. If it has trouble connecting to LaunchDarkly, it will keep retrying until it succeeds.
 
-<Callout intent="alert">
-<CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
-<CalloutDescription>
+### Subscribe to updates
 
-You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the end user will receive the default value for that flag.
+The SDK does not subscribe to streaming real-time updates automatically when you initialize it.
 
-To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
+If you set the `streaming` configuration option to `true`, the client will always attempt to maintain a streaming connection. If you leave the `streaming` value undefined, which is the default, the client will open a streaming connection if you subscribe to `change` or `change:flag-key` events. In other words, subscribing to the SDK's change event by calling `.on('change').` causes the SDK to open a streaming connection to LaunchDarkly. This is the only way to receive real-time updates. To learn more, read [`streaming`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#streaming).
 
-</CalloutDescription>
-</Callout>
+If you do enable streaming, you will also need `EventSource`. If you also enable the SDK's [`useReport` configuration option](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#useReport), you will need LaunchDarkly's `EventSource` polyfill. To learn more, read [EventSource](/sdk/client-side/javascript/requirements-polyfills#eventsource).
+
+### Shut down the client
 
 Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#javascript).
 

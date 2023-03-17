@@ -14,6 +14,15 @@ Web browsers vary widely in their support of specific features and standards. It
 
 Three features that the LaunchDarkly JavaScript SDK uses that may not be available on every browser are `Promise`, `EventSource`, and `document.querySelectorAll()`.
 
+<Callout intent="info">
+<CalloutTitle>If you use <code>REPORT</code>, you need the LaunchDarkly EventSource polyfill</CalloutTitle>
+<CalloutDescription>
+
+If you enable the JavaScript SDK's [`useReport` configuration option](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#useReport) and want to use streaming, you must use the LaunchDarkly EventSource polyfill. This is true whether or not your browser already supports `EventSource`. To learn more, read [EventSource](#eventsource).
+
+</CalloutDescription>
+</Callout>
+
 ## Adding a polyfill
 
 For each of these features, there are two ways you can provide the polyfill script.
@@ -132,7 +141,28 @@ require('event-source-polyfill');
 </CSTab>
 </CodeSample>
 
-### `document.querySelectorAll()`
+If you enable the JavaScript SDK's [`useReport` configuration option](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#useReport) and want to use streaming, you must install the [LaunchDarkly EventSource polyfill](https://github.com/launchdarkly/js-eventsource) to provide streaming support. This is true whether or not your browser already supports `EventSource`.
+
+To install LaunchDarkly's EventSource polyfill:
+
+<CodeSample>
+<CSTab label="Installing LaunchDarkly's EventSource polyfill">
+
+```bash
+npm install launchdarkly-eventsource
+```
+
+</CSTab>
+<CSTab label="Loading LaunchDarkly's EventSource polyfill">
+
+```js
+<script src="/eventsource-polyfill.js"></script>
+```
+
+</CSTab>
+</CodeSample>
+
+### document.querySelectorAll()
 
 The JavaScript SDK uses `querySelectorAll` to support `click` events for Experimentation. **If you never use click conversion metrics, you do not need `querySelectorAll`.** To learn more, read [Click conversion metrics](/home/creating-experiments/metrics/click).
 

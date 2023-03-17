@@ -216,6 +216,11 @@ const options: LDElectron.LDOptions = {
 
 </CSTab>
 </CodeSample>
+
+The Electron SDK uses the `baseUrl` for the initial connection and subsequent `identify` calls.
+
+If you have enabled [streaming](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html#streaming), the SDK uses the `streamUrl` for subsequent connections. If you have enabled [`useReport`](https://launchdarkly.github.io/electron-client-sdk/interfaces/_launchdarkly_electron_client_sdk_.ldoptions.html#usereport), these subsequent requests will use the `REPORT` HTTP request method. These REPORT requests are streaming requests only if you have installed the [LaunchDarkly EventSource polyfill](https://github.com/launchdarkly/js-eventsource) to provide streaming support. Otherwise, these requests will be standard `REPORT` http requests. To learn more, read [EventSource](/sdk/client-side/javascript/requirements-polyfills#eventsource) under [Requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
+
 </Details>
 
 ### Flutter
@@ -356,6 +361,11 @@ const options: ld.LDOptions = {
 
 </CSTab>
 </CodeSample>
+
+The JavaScript SDK uses the `baseUrl` for the initial connection and subsequent `identify` calls.
+
+If you have enabled [streaming](/sdk/client-side/javascript#subscribe-to-updates), the SDK uses the `streamUrl` for subsequent connections. If you have enabled [`useReport`](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#useReport), these subsequent requests will use the `REPORT` HTTP request method. These REPORT requests are streaming requests only if you have installed the [LaunchDarkly EventSource polyfill](https://github.com/launchdarkly/js-eventsource) to provide streaming support. Otherwise, these requests will be standard `REPORT` http requests. To learn more, read [EventSource](/sdk/client-side/javascript/requirements-polyfills#eventsource) under [Requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
+
 </Details>
 
 ### Node.js (client-side)
@@ -415,6 +425,11 @@ const options: ld.LDOptions = {
 
 </CSTab>
 </CodeSample>
+
+The Node.js (client-side) SDK uses the `baseUrl` for the initial connection and subsequent `identify` calls.
+
+If you have enabled [streaming](/sdk/client-side/node-js#getting-started), the SDK uses the `streamUrl` for subsequent connections. If you have enabled [`useReport`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#useReport), these subsequent requests will use the `REPORT` HTTP request method. These REPORT requests are streaming requests only if you have installed the [LaunchDarkly EventSource polyfill](https://github.com/launchdarkly/js-eventsource) to provide streaming support. Otherwise, these requests will be standard `REPORT` http requests. To learn more, read [EventSource](/sdk/client-side/javascript/requirements-polyfills#eventsource) under [Requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
+
 </Details>
 
 ### React Native
@@ -512,6 +527,10 @@ const options = {
 
 </CSTab>
 </CodeSample>
+
+The React Web SDK uses the `baseUrl` for the initial connection and subsequent `identify` calls.
+
+If you have enabled [streaming](/sdk/client-side/react/react-web#subscribing-to-flag-changes), the SDK uses the `streamUrl` for subsequent connections. If you have enabled [`useReport`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#useReport), these subsequent requests will use the `REPORT` HTTP request method. These REPORT requests are streaming requests only if you have installed the [LaunchDarkly EventSource polyfill](https://github.com/launchdarkly/js-eventsource) to provide streaming support. Otherwise, these requests will be standard `REPORT` http requests. To learn more, read [EventSource](/sdk/client-side/javascript/requirements-polyfills#eventsource) under [Requirements and polyfills](/sdk/client-side/javascript/requirements-polyfills).
 
 To learn more, read [Configuring the React SDK](/sdk/client-side/react/react-web#configuring-the-react-sdk).
 
