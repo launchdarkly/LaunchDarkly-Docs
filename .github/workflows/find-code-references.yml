@@ -8,33 +8,17 @@ jobs:
     name: Find code references
     runs-on: ubuntu-latest
     steps:
-      - name: Evaluate flags
-        id: flags
-        uses: launchdarkly/gha-flags@eap
-        with:
-          base-uri: 'https://app.ld.catamorphic.com'
-          events-uri: 'https://events.ld.catamorphic.com'
-          stream-uri: 'https://stream.ld.catamorphic.com'
-          sdk-key: ${{ secrets.LD_SDK_KEY_PROD }}
-          flags: |
-            gha-code-references, true
-            gha-code-references-context-lines, 5
-            gha-code-references-debug, false
-            gha-code-references-ignore-service-errors, false
-            gha-code-references-lookback, 2
       - name: Checkout current repo
-        if: steps.flags.outputs.gha-code-references == 'true'
         uses: actions/checkout@v3
         with:
-          fetch-depth: ${{ steps.flags.outputs.gha-code-references-lookback }}
+          fetch-depth: 3 # scan previous two commits for extinctions
       - name: Find code references
-        if: steps.flags.outputs.gha-code-references == 'true'
         uses: launchdarkly/find-code-references@v2.10.0
         with:
           accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
           baseUri: https://app.ld.catamorphic.com
-          contextLines: ${{ steps.flags.outputs.gha-code-references-context-lines }}
-          debug: ${{ steps.flags.outputs.gha-code-references-debug }}
+          contextLines: 5
+          debug: true
           projKey: docs
-          lookback: ${{ steps.flags.outputs.gha-code-references-lookback }}
-          ignoreServiceErrors: ${{ steps.flags.outputs.gha-code-references-ignore-service-errors }}
+          lookback: 2
+          ignoreServiceErrors: true
