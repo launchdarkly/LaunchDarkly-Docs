@@ -106,18 +106,44 @@ LDUser user = User.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"context-key-123abc"`.
 
 <Callout intent="info">
-<CalloutTitle>Interpreting attribute types</CalloutTitle>
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
 The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attribute values can be any JSON type, including booleans, numbers, strings, arrays, or objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The client-side .NET SDK is strongly-typed, so be aware of this distinction.
 
-If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
-
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
+
+```csharp
+var context = Context.New(ContextKind.Of("organization"), "org-key-123abc");
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label=".NET SDK v3.0 (C#)">
+
+```csharp
+var userContext = Context.New("user-key-123abc");
+
+var orgContext = Context.New(ContextKind.Of("organization"), "org-key-123abc");
+
+var multiContext = Context.NewMulti(userContext, orgContext);
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the .NET (client-side) SDK, read [Private attributes](/sdk/features/private-attributes#net-client-side).
 
@@ -183,7 +209,7 @@ val user: LDUser = LDUser.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"context-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -191,10 +217,37 @@ The argument to `Builder` is the context's key. The key should uniquely identify
 
 The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user." Other attribute values can be any JSON type, including boolean, number, string, array, or object. The Android SDK is strongly-typed, so be aware of this distinction.
 
-If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
-
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Android SDK v4.0">
+
+```java
+LDContext context1 = LDContext.create(ContextKind.of("organization"), "org-key-123abc");
+```
+
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Android SDK v4.0">
+
+```java
+LDContext multiContext = LDContext.createMulti(
+    LDContext.create("user-key-123abc"),
+    LDContext.create(ContextKind.of("device"), "device-key-123abc")
+);
+```
+
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Android SDK, read [Private attributes](/sdk/features/private-attributes#android).
 
@@ -228,7 +281,7 @@ LDUserSetCustomAttributesJSON(user, attributes);
 </CSTab>
 </CodeSample>
 
-The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -294,7 +347,7 @@ const user: LDElectron.LDUser = {
 </CSTab>
 </CodeSample>
 
-The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The `key` property is the user's key. The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -333,7 +386,7 @@ LDUser user = LDUserBuilder('user-key-123abc')
 </CSTab>
 </CodeSample>
 
-The argument to `LDUserBuilder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `LDUserBuilder` is the user's key. The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -359,7 +412,7 @@ You can pass optional properties to the context object in iOS:
 <CSTab label="iOS SDK v8.0 (Swift)">
 
 ```swift
-var contextBuilder = LDContextBuilder(key: "user-key-123abc")
+var contextBuilder = LDContextBuilder(key: "context-key-123abc")
 contextBuilder.trySetValue("name", .string("Sandy"))
 contextBuilder.trySetValue("email", .string("sandy@example.com"))
 
@@ -400,9 +453,48 @@ user.email = @"sandy@example.com";
 
 This example sets a key and adds the end user's full name and email address.
 
-The `key` property should uniquely identify each context. You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+The `key` property should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"context-key-123abc"`.
+
+You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object. 
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 To learn more about the specific context properties that are available in this SDK, read [`LDContextBuilder`](https://launchdarkly.github.io/ios-client-sdk/Structs/LDContextBuilder.html).
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="iOS SDK v8.0 (Swift)">
+
+```swift
+var userBuilder = LDContextBuilder(key: "user-key-123abc")
+var deviceBuilder = LDContextBuilder(key: "device-key-123abc")
+deviceBuilder.kind("device")
+
+var multiBuilder = LDMultiContextBuilder()
+multiBuilder.addContext(try userBuilder.build().get())
+multiBuilder.addContext(try deviceBuilder.build().get())
+
+let context = try multiBuilder.build().get()
+```
+
+</CSTab>
+<CSTab label="iOS SDK v8.0 (Objective-C)">
+
+```objectivec
+LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"USER_CONTEXT_KEY"];
+LDContextBuilder *deviceBuilder = [[LDContextBuilder alloc] initWithKey:@"DEVICE_CONTEXT_KEY"];
+[deviceBuilder kindWithKind:@"device"];
+
+LDMultiContextBuilder *multiBuilder = [[LDMultiContextBuilder alloc] init];
+[multiBuilder addContextWithContext:userBuilder.build.success];
+[multiBuilder addContextWithContext:deviceBuilder.build.success];
+
+LDContext *multiContext = multiBuilder.build.success;
+```
+
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the iOS SDK, read [Private attributes](/sdk/features/private-attributes#ios).
 
@@ -480,9 +572,18 @@ const user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-The `key` property should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `user-key-123abc`.
+The `key` property should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `user-key-123abc`.
 
-The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user." Other attributes can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+<Callout intent="info">
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
+<CalloutDescription>
+
+The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user." Other attributes can be booleans, numbers, strings, arrays, or JSON objects.
+
+</CalloutDescription>
+</Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 <Callout intent="alert">
 <CalloutTitle>Personally-identifying context keys</CalloutTitle>
@@ -492,6 +593,52 @@ We recommend against using personally identifiable information (PII) in context 
 
 </CalloutDescription>
 </Callout>
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="JavaScript SDK v3.0">
+
+```js
+const context = {
+  kind: 'organization',
+  key: 'org-key-123abc'
+};
+const client = LDClient.initialize('client-side-id-123abc', context);
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="JavaScript SDK v3.0">
+
+```js
+const deviceContext = {
+  kind: 'device',
+  type: 'iPad',
+  key: 'device-key-123abc'
+}
+
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy',
+  role: 'doctor'
+}
+
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+
+const client = LDClient.initialize('client-side-id-123abc', multiContext)
+```
+
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the JavaScript SDK, read [Private attributes](/sdk/features/private-attributes#javascript).
 
@@ -573,9 +720,11 @@ const user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
-The `kind` and `name` attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use / as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use <code>/address/city</code> in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+The `kind` and `name` attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. 
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use <code>/address/city</code> in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 <Callout intent="alert">
 <CalloutTitle>Personally-identifying user keys</CalloutTitle>
@@ -585,6 +734,51 @@ By default, when the SDK requests feature flags from LaunchDarkly, it makes an H
 
 </CalloutDescription>
 </Callout>
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Node.js SDK v3.0 (JavaScript)">
+
+```js
+const context = {
+  kind: 'organization',
+  key: 'org-key-123abc'
+};
+const client = LaunchDarkly.initialize('client-side-id-123abc', context);
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Node.js SDK v3.0 (JavaScript)">
+
+```js
+const deviceContext = {
+  kind: 'device',
+  type: 'iPad',
+  key: 'device-key-123abc'
+}
+
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy',
+  role: 'doctor'
+}
+
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+
+const client = LaunchDarkly.initialize('client-side-id-123abc', multiContext)
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Node.js (client-side) SDK, read [Private attributes](/sdk/features/private-attributes#nodejs-client-side).
 
@@ -689,11 +883,59 @@ let user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-The first attribute in the object is the `key`. In the example, the value is `user-key-123abc`. In the React Native SDK, both `key` and `kind` required. They are the only mandatory attributes. If you mark the context as anonymous, the SDK can generate the key for you.
+The first attribute in the object is the `key`. In the React Native SDK, both `key` and `kind` are required. They are the only mandatory attributes. If you mark the context as anonymous, the SDK can generate the key for you. The combination of `key` and `kind` should uniquely identify each context. You can use any value for the key, such as a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the value is `user-key-123abc`. 
 
-The combination of `key` and `kind` should uniquely identify each context. You can use any value for the key, such as a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible.
+Other attributes can be booleans, numbers, strings, arrays, or JSON objects. 
 
-Other attributes can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="React Native v7.0 (JavaScript)">
+
+```js
+const context = {
+  kind: 'organization',
+  key: 'org-key-123abc'
+};
+
+await ldClient.configure(config, context);
+```
+
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="React Native v7.0 (JavaScript)">
+
+```js
+const deviceContext = {
+  kind: 'device',
+  type: 'iPad',
+  key: 'device-key-123abc'
+}
+
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy',
+  role: 'doctor'
+}
+
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+
+await ldClient.configure(config, multiContext);
+```
+
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the React Native SDK, read [Private attributes](/sdk/features/private-attributes#react-native).
 
@@ -721,6 +963,8 @@ user = LaunchDarklyUser("user-key-123abc")
 
 </CSTab>
 </CodeSample>
+
+The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 User objects can be customized with:
 
@@ -802,7 +1046,7 @@ LDUser user = User.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `context-key-123abc`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `context-key-123abc`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -810,10 +1054,39 @@ The argument to `Builder` is the context's key. The key should uniquely identify
 
 The optional name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. If the kind attribute is not specified, it is assumed to be "user". Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. The SDK uses the [`LdValue`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.LdValue.html) type to represent arrays and objects. The .NET SDK is strongly-typed, so be aware of this distinction.
 
-If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
-
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
+
+```csharp
+var context2 = Context.New(ContextKind.Of("organization"), "org-key-123abc");
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label=".NET SDK v7.0 (C#)">
+
+```csharp
+var userContext = Context.New("context-key-123abc");
+
+var deviceContext = Context.Builder("device-key-123abc")
+    .Kind("device")
+    .Build();
+
+var multiContext = Context.NewMulti(userContext, deviceContext);
+
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the .NET (server-side) SDK, read [Private attributes](/sdk/features/private-attributes#net-server-side).
 
@@ -848,7 +1121,7 @@ LDUser user = new LDUser.Builder('user-key-123abc')
 </CSTab>
 </CodeSample>
 
-The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `Builder` is the user's key. The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 To learn how to configure private attributes in the Apex SDK, read [Private attributes](/sdk/features/private-attributes#apex).
 
@@ -885,7 +1158,7 @@ LDUserSetCustom(user, custom);
 </CSTab>
 </CodeSample>
 
-The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 <CodeSample>
 <CSTab label="C/C++">
@@ -943,7 +1216,37 @@ User = ldclient_user:new_from_map(Map)
 </CSTab>
 </CodeSample>
 
-The `key` property is the context's key. The key is the only mandatory context attribute. The combination of key and kind should uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The `key` property is the context's key. The key is the only mandatory context attribute. The combination of key and kind should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
+
+You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user".
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+Context = ldclient_context:new(<<"org-key-123abc">>, <<"organization">>)
+%% Or as a map
+Context = #{kind => <<"organization">>, key => <<"org-key-123abc">>}
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Erlang SDK v2.0">
+
+```erlang
+Context = ldclient_context:new_multi_from([
+  %% Using `new/1` creates a context with a kind of <<"user">>.
+  ldclient_context:new(<<"user-key-123abc">>),
+  %% Using `new/2` creates a context of the specified kind (<<"device">>).
+  ldclient_context:new(<<"device-key-123abc">>, <<"device">>)]). %% kind = device
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Erlang SDK, read [Private attributes](/sdk/features/private-attributes#erlang).
 
@@ -1007,7 +1310,7 @@ user2 := lduser.NewUserBuilder("user-key-456def").
 </CSTab>
 </CodeSample>
 
-The most common attribute is the context's key. In this case we used the strings `"context-key-123abc"` and `"context-key-456def"`. The key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". You can use a primary key, a hash, or some other value, as long as the same context always has the same key. We recommend using a hash if possible.
+The most common attribute is the context's key. The key is the only mandatory context attribute. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this case, the key and hash are `"context-key-123abc"` and `"context-key-456def"`.
 
 To learn more about the available attributes, read [`Context`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#Context) and [`Builder`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldcontext#Builder).
 
@@ -1015,12 +1318,53 @@ To learn more about the available attributes, read [`Context`](https://pkg.go.de
 <CalloutTitle>Interpreting attribute types</CalloutTitle>
 <CalloutDescription>
 
-The kind and name attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
-
-If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+The kind and name attributes expect string values. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. These types are all represented by the [`ldvalue.Value`](https://pkg.go.dev/github.com/launchdarkly/go-sdk-common/v3@v3.0.0/ldvalue#Value) type. The Go SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Go SDK v6.0">
+
+```go
+context1 := ldcontext.NewWithKind("organization", "org-key-123abc")
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Go SDK v6.0">
+
+```go
+multiContext := ldcontext.NewMulti(
+    ldcontext.New("user-key-123abc"),
+    ldcontext.NewWithKind("device", "device-key-123abc")
+)
+```
+</CSTab>
+</CodeSample>
+
+Each individual context within a multi-context can have the same attributes as a basic context. The only restriction is that each context has to have a different context `kind` from the others within the multi-context.
+
+You can also use the context builder to create each of the individual contexts:
+
+<CodeSample>
+<CSTab label="Go SDK v6.0">
+
+```go
+multiContext := ldcontext.NewMulti(
+    ldcontext.NewBuilder("user-key-123abc").Name("Sandy").Build(),
+    ldcontext.NewBuilder("device-key-123abc").Kind("device").Name("iPad").Build(),
+)
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Go SDK, read [Private attributes](/sdk/features/private-attributes#go).
 
@@ -1079,7 +1423,31 @@ user2 = (makeUser "user-key-456def")
 </CSTab>
 </CodeSample>
 
-The argument to `makeUser` is the context's key. The key is the only mandatory attribute. The combination of the key and kind should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same end user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `makeUser` is the context's key. The key is the only mandatory attribute. The combination of the key and kind should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+makeContext "context-key-123abc" "organization"
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Haskell SDK v4.0">
+
+```haskell
+makeMultiContext [ makeContext "user-key-123abc" "user"
+                 , makeContext "device-key-123abc" "device"
+                 ]
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Haskell SDK, read [Private attributes](/sdk/features/private-attributes#haskell).
 
@@ -1123,7 +1491,7 @@ LDUser user = new LDUser.Builder("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
+The argument to `Builder` is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"context-key-123abc"`.
 
 Our Javadoc for [ContextBuilder](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/ContextBuilder.html) shows you all the attributes that LaunchDarkly supports by default.
 
@@ -1133,10 +1501,35 @@ Our Javadoc for [ContextBuilder](https://javadoc.io/doc/com.launchdarkly/launchd
 
 The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user." Other attribute values can be booleans, numbers, strings, arrays, or objects. If you pass a value that looks like a number or a boolean, the SDK interprets it that way. The Java SDK is strongly-typed, so be aware of this distinction.
 
-If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
-
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Java SDK v6.0">
+
+```java
+LDContext context1 = LDContext.create(ContextKind.of("organization"), "org-key-123abc");
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Java SDK v6.0">
+
+```java
+LDContext multiContext = LDContext.createMulti(
+    LDContext.create("user-key-123abc"),
+    LDContext.create(ContextKind.of("device"), "device-key-123abc")
+);
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Java SDK, read [Private attributes](/sdk/features/private-attributes#java).
 
@@ -1167,7 +1560,7 @@ local user = ld.makeUser({
 </CSTab>
 </CodeSample>
 
-The argument to `ld.makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The argument to `ld.makeUser` is the user's key. The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 To learn more about configuration options, read the [API docs](https://launchdarkly.github.io/lua-server-sdk/index.html#makeUser).
 
@@ -1249,16 +1642,60 @@ const user: ld.LDUser
 </CSTab>
 </CodeSample>
 
-The `key` property is the context key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"user-key-123abc"`.
+The `key` property is the context key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user." Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user." Other attribute values can be booleans, numbers, strings, arrays, or JSON objects.
 
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
+
+```js
+const context = {
+   kind: 'device',
+   key: 'device-key-123abc'
+}
+```
+
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Node.js SDK v7.0 (JavaScript)">
+
+```js
+const context = {
+  kind: 'multi',
+  user: { key: 'user-key-123abc' },
+  device: { key: 'device-key-123abc' }
+}
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.0 (TypeScript)">
+
+```ts
+const context: ld.LDContext = {
+  kind: 'multi',
+  user: { key: 'user-key-123abc' },
+  device: { key: 'device-key-123abc' }
+}
+```
+
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Node.js (server-side) SDK, read [Private attributes](/sdk/features/private-attributes#nodejs-server-side).
 
@@ -1311,6 +1748,32 @@ The kind and name attributes expect string values. Other attribute values can be
 </CalloutDescription>
 </Callout>
 
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
+
+```php
+$context = LDContext::create("context-key-123abc", "organization");
+```
+
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="PHP SDK v5.0">
+
+```php
+$deviceContext = LDContext::create("device-key", "device");
+$orgContext = LDContext::create("org-key", "org");
+$multiContext = LDContext::createMulti($deviceContext, $orgContext);
+```
+
+</CSTab>
+</CodeSample>
+
 To learn how to configure private attributes in the PHP SDK, read [Private attributes](/sdk/features/private-attributes#php).
 
 To learn how to configure anonymous contexts in the PHP SDK, read [Anonymous contexts and users](/sdk/features/anonymous#php).
@@ -1356,7 +1819,7 @@ user = {
 </CSTab>
 </CodeSample>
 
-The argument to `Context.builder` is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example the hash is `"context-key-123abc"`.
+The argument to `Context.builder` is the context's key. The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"context-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
@@ -1364,10 +1827,35 @@ The argument to `Context.builder` is the context's key. The key should uniquely 
 
 The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user." Other attribute values can be booleans, numbers, strings, arrays, or objects.
 
-If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
-
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Python SDK v8.0">
+
+```python
+context1 = Context.create("org-key-123abc", "organization")
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Python SDK v8.0">
+
+```python
+multi_context = Context.create_multi(
+    Context.create("user-key-123abc"),
+    Context.create("device-key-123abc", "device")
+)
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Python SDK, read [Private attributes](/sdk/features/private-attributes#python).
 
@@ -1393,7 +1881,7 @@ context = LaunchDarkly::LDContext.create({
     lastName: "Smith",
     email: "sandy@example.com",
     groups: ["Google", "Microsoft"]
-}
+})
 ```
 
 </CSTab>
@@ -1414,7 +1902,7 @@ user = {
 </CSTab>
 </CodeSample>
 
-The `key` property is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash string, as long as the same context always has the same key. We recommend using a hash string if possible. In this example the hash string is `"user-key-123abc"`.
+The `key` property is the context's key. The key should uniquely identify each context. You can use a primary key, an email address, or a hash string, as long as the same context always has the same key. We recommend using a hash string if possible. In this example, the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Context attribute keys must be symbols</CalloutTitle>
@@ -1431,10 +1919,35 @@ All context attribute keys, for both built-in and custom attributes, must be sym
 
 The optional name and kind attributes expect string values. If the "kind" attribute is not specified, it is assumed to be "user" and the hash is assumed to be in the legacy user format. Other attribute values can be booleans, numbers, strings, arrays, or objects. If you enter a custom value on the **Contexts** list that looks like a number or a boolean, the SDK interprets it that way.
 
-If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
-
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
+
+```ruby
+context = LaunchDarkly::LDContext.with_key("context-key-123abc", "organization")
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Ruby SDK v7.0">
+
+```ruby
+multi_context = LaunchDarkly::LDContext.create_multi([
+    LaunchDarkly::LDContext.with_key("user-key-123abc"),
+    LaunchDarkly::LDContext.with_key("device-key-123abc", "device"),
+])
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Ruby SDK, read [Private attributes](/sdk/features/private-attributes#ruby).
 
@@ -1491,7 +2004,9 @@ let user2 = builder.build();
 </CSTab>
 </CodeSample>
 
-The most common attribute is the context's key. In the example, the string `"context-key-123abc"` is the context key. The context key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". For the context key, you can use a primary key, a hash string, or some other value, as long as the same context always has the same key. We recommend using a hash string if possible.
+The most common attribute is the context's key. The key is the only mandatory context attribute. The combination of the key and kind should also uniquely identify each context. For the context key, you can use a primary key, a hash string, or some other value, as long as the same context always has the same key. We recommend using a hash string if possible. In this example, the hash is `"context-key-123abc"`.
+
+You can set the kind, or, if you do not set it, LaunchDarkly assumes that the context kind is "user". 
 
 To learn more about the available attributes, read [`Context`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Context.html) and [`ContextBuilder`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.ContextBuilder.html).
 
@@ -1501,10 +2016,45 @@ To learn more about the available attributes, read [`Context`](https://docs.rs/l
 
 The optional name and kind attributes, which you can set with `.name()` and `.kind()`, expect string values. Other attribute values can be any JSON type, including booleans, numbers, strings, arrays, or objects. These types are all represented by the [`AttributeValue`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.AttributeValue.html) type. The Rust SDK is strongly-typed, so be aware of this distinction.
 
-If an attribute is an object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
-
 </CalloutDescription>
 </Callout>
+
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+Here's how to construct a basic context with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="Rust SDK v1">
+
+```rust
+let context = ContextBuilder::new("context-key-123abc")
+    .kind("organization")
+    .build()?;
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="Rust SDK v1">
+
+```rust
+let user_context = ContextBuilder::new("user-key-123abc").build()?;
+client.identify(user_context.clone());
+
+let device_context = ContextBuilder::new("device-key-123abc").kind("device").build()?;
+client.identify(device_context.clone());
+
+let multi_context = MultiContextBuilder::new()
+.add_context(user_context)
+.add_context(device_context)
+.build()?;
+
+client.identify(multi_context);
+```
+</CSTab>
+</CodeSample>
 
 To learn how to configure private attributes in the Rust SDK, read [Private attributes](/sdk/features/private-attributes#rust).
 

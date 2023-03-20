@@ -74,11 +74,46 @@ When you create a context kind, you provide a name and key. Then, any attributes
 
 ## Multi-contexts
 
-When you evaluate a feature flag within your application, the flag's targeting rules can use information from one or more kinds of contexts. For example, you might evaluate a flag using only the "user" context. Or, you might evaluate a flag using both the "user" context and the "device" context simultaneously. We refer to evaluations with more than one context as a multi-context.
+When you evaluate a feature flag within your application, the flag's targeting rules can use information from more than one kind of context at the same time. Contexts that include multiple context kinds are called "multi-contexts."
 
-This illustration shows two multi-contexts:
+Here's an example of the "user," "organization," and "device" context kinds from the previous section combined into one multi-context:
 
-![Two multi-contexts with three contexts each of "user," "organization," and "location."](contexts-multi.png)
+<CodeSample>
+<CSTab label="Example multi-context">
+
+```json
+"context": {
+  "kind": "multi",
+  "user": {
+    "kind": "user",
+    "key": "user-key-123abc",
+    "name": "Sandy",
+    "email": "sandy@example.com",
+    "gymMember": "true"
+    },
+  "organization": {
+    "kind": "organization",
+    "key": "organization-key-123abc",
+    "name": "Global Health Gym",
+    "address": {
+      "street": "123 Main Street",
+      "city": "Springfield"
+      }
+    },
+  "device": {
+    "kind": "device",
+    "key": "device-key-123abc",
+    "type": "iPad",
+    "operating_system": "iPadOS 15",
+    "deviceId": 12345
+    }
+}
+```
+
+</CSTab>
+</CodeSample>
+
+This configuration allows you to target the user, organization, and device all together to ensure you serve the correct variation. This helps eliminate risk and ensure accuracy in complex deliveries.
 
 To learn more, read [Multi-contexts](/home/contexts#multi-contexts).
 
