@@ -275,45 +275,6 @@ This table explains available code reference actions:
 
 </Details>
 
-## Context actions
-
-<Details summary="Expand Context actions">
-
-`context` is a child of both a project and environments. A code sample is below:
-
-<CodeSample>
-<CSTab label="Context resource">
-
-```json
-proj/*:env/*:context/*
-```
-
-</CSTab>
-</CodeSample>
-
-To learn more, read [The Contexts list](/home/contexts/contexts-list).
-
-This table explains available context actions:
-
-<Table>
-  <TableHeader>
-    <TableHeadCell>Action</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell>
-        <code>deleteContextInstance</code>
-      </TableCell>
-      <TableCell>
-        Delete a context's instances.
-      </TableCell>
-    </TableRow>
-  </TableBody>
-</Table>
-
-</Details>
-
 ## Context kind actions
 
 <Details summary="Expand Context kind actions">
@@ -477,6 +438,14 @@ This table explains available environments actions:
         <code>deleteEnvironment</code>
       </TableCell>
       <TableCell>Delete an existing environment.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteContextInstance</code>
+      </TableCell>
+      <TableCell>
+        Delete a context's instances.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
