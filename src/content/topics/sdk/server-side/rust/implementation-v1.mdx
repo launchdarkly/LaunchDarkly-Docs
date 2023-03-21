@@ -150,7 +150,7 @@ In the beta Rust SDK, the user object included several built-in attributes for d
 
 In version 1, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. `Kind`, `key`, and `name` are strings, and `anonymous` is a boolean.
 
-You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object.
+You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object. In version 1, you do not need to add custom attributes within a `custom` object.
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
@@ -176,10 +176,20 @@ let user2 = builder.build();
 <CSTab label="1.0 syntax, context with attributes">
 
 ```rust
-let context = ContextBuilder::new("user-key-123abc")
-    .name("Sandy")
+// Context with only a key
+let context = ContextBuilder::new("context-key-123abc").build()?;
+
+// Context with a key plus other attributes
+let custom = hashmap! {
+    "groups".into() => vec!["Google", "Microsoft"].into(),
+};
+let context = ContextBuilder::new("context-key-123abc")
+    .set_value("first_name", "Sandy".into())
+    .set_value("last_name", "Smith".into())
     .set_value("email", "sandy@example.com".into())
-    .build()?;
+    .set_value("Google", "groups".into())
+    .set_value("Microsoft", "groups".into())
+    .build();
 ```
 </CSTab>
 </CodeSample>

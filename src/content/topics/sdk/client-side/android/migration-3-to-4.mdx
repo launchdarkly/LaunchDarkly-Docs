@@ -120,7 +120,7 @@ In previous SDK versions, the user object included several built-in attributes f
 
 In version 4.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. `Kind`, `key`, and `name` are strings, and `anonymous` is a boolean.
 
-You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object.
+You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object. In version 4.0, you do not need to add custom attributes within a `custom` object.
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
@@ -131,6 +131,7 @@ Here's how to construct a context with additional attributes, as compared with c
 LDUser user = new LDUser.Builder("user-key-123abc")
   .name("Sandy")
   .email("sandy@example.com")
+  .custom("group", "Microsoft")
   .build();
 ```
 
@@ -141,6 +142,7 @@ LDUser user = new LDUser.Builder("user-key-123abc")
 LDContext context = LDContext.builder("user-key-123abc")
   .name("Sandy")
   .set("email", "sandy@example.com")
+  .set("group", "Microsoft")
   .build();
 ```
 

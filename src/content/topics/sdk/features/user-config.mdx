@@ -661,9 +661,7 @@ const context = {
   firstName: 'Sandy',
   lastName: 'Smith',
   email: 'sandy@example.com',
-  custom: {
-    groups: ['Google', 'Microsoft']
-  }
+  groups: ['Google', 'Microsoft']
 };
 ```
 
@@ -679,9 +677,7 @@ const context: ld.LDContext = {
   firstName: 'Sandy',
   lastName: 'Smith',
   email: 'sandy@example.com',
-  custom: {
-    groups: ['Google', 'Microsoft'],
-  },
+  groups: ['Google', 'Microsoft']
 };
 ```
 
@@ -1282,6 +1278,8 @@ context2 := ldcontext.NewBuilder("context-key-456def").
     SetValue("address", ldvalue.ObjectBuild().
         SetString("street", "123 Main Street").
         SetString("city", "Springfield")).
+    SetValue("groups", ldvalue.ArrayOf(
+      ldvalue.String("Google"), ldvalue.String("Microsoft"))).
     Build()
 ```
 

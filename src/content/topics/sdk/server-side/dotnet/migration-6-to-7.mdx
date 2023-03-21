@@ -153,7 +153,7 @@ In previous SDK versions, the user object included several built-in attributes f
 
 In version 7.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. `Kind`, `key`, and `name` are strings, and `anonymous` is a boolean.
 
-You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object.
+You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object.  In version 7.0, you do not need to add custom attributes within a `custom` object.
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
@@ -164,6 +164,7 @@ Here's how to construct a context with additional attributes, as compared with c
 var user = User.Builder("user-key-123abc")
     .Name("Sandy")
     .Email("sandy@example.com")
+    .Custom("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValue.Of("Microsoft")))
     .Build();
 ```
 </CSTab>
@@ -173,6 +174,7 @@ var user = User.Builder("user-key-123abc")
 var context = Context.Builder("context-key-123abc")
     .Name("Sandy")
     .Set("email", "sandy@example.com")
+    .Set("groups", LdValue.ArrayOf(LdValue.Of("Google"), LdValue.Of("Microsoft")))
     .Build();
 ```
 </CSTab>

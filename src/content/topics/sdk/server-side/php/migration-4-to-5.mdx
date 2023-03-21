@@ -128,7 +128,9 @@ $multiContext = LDContext::createMulti($deviceContext, $orgContext);
 
 In previous SDK versions, the user object included several built-in attributes for describing the user. It also included optional custom attributes, which you could add to a `custom` object within the user object and then populate.
 
-In version 5.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. You can define additional attributes for a context by passing in a name and value for each. The value can be any JSON type, including boolean, number, string, array, or object.
+In version 5.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`.
+
+You can define additional attributes for a context by passing in a name and value for each. The value can be any JSON type, including boolean, number, string, array, or object. In version 5.0, you do not need to add custom attributes within a `custom` object.
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
@@ -139,15 +141,17 @@ Here's how to construct a context with additional attributes, as compared with c
 $user = (new LDUserBuilder("user-key-123abc"))
     ->name("Sandy")
     ->email("sandy@example.com)
+    ->custom(["groups" => ["Google", "Microsoft"]])
     ->build();
 ```
 </CSTab>
 <CSTab label="5.0 syntax, context with attributes">
 
 ```php
-$context = LDContext::builder("context-key-123abc"))
+$context = LDContext::builder("context-key-123abc")
     ->name("Sandy")
     ->set("email", "sandy@example.com")
+    ->set("groups", ["Google", "Microsoft"])
     ->build();
 ```
 </CSTab>

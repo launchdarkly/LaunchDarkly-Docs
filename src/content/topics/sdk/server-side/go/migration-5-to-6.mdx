@@ -170,7 +170,9 @@ This section describes the changes to built-in and custom attributes in the 6.0 
 
 In previous SDK versions, the user object included several built-in attributes for describing the user. It also included optional custom attributes, which you could add to a `custom` object within the user object and then populate.
 
-In version 6.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. You can define additional attributes for a context kind by passing in a name and value for each. The value can be any JSON type, including boolean, number, string, array, or object.
+In version 6.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. 
+
+You can define additional attributes for a context kind by passing in a name and value for each. The value can be any JSON type, including boolean, number, string, array, or object. In version 6.0, you do not need to add custom attributes within a `custom` object.
 
 Here's how to construct a context with additional attributes, as compared with constructing a similar user:
 
@@ -181,6 +183,8 @@ Here's how to construct a context with additional attributes, as compared with c
 user2 := lduser.NewUserBuilder("user-key-123abc").
     Name("Sandy").
     Email("sandy@example.com").
+    Custom("groups", ldvalue.ArrayOf(
+        ldvalue.String("Google"), ldvalue.String("Microsoft"))).
     Build()
 ```
 </CSTab>
@@ -190,6 +194,8 @@ user2 := lduser.NewUserBuilder("user-key-123abc").
 context2 := ldcontext.NewBuilder("user-key-123abc").
     Name("Sandy").
     SetString("email", "sandy@example.com").
+    SetValue("groups", ldvalue.ArrayOf(
+      ldvalue.String("Google"), ldvalue.String("Microsoft"))).
     Build()
 ```
 </CSTab>
