@@ -34,146 +34,37 @@ To learn more, read [Projects](/home/organize/projects) and [Environments](/home
 
 Applications are a part of your code base for which you want to track deployments. Applications usually correspond to a single repository in your version control system. To learn more, read [Applications](/home/accelerate/get-started-accelerate/applications).
 
-## Getting started
+## Get started
 
-You can get started with Accelerate by following the instructions in the "Let's get you set up" prompts in the Accelerate user interface (UI). The release frequency and flag health metrics are available as soon as you access Accelerate and don't need any additional configuration.
+To get started using Accelerate, first reach out to your Early Access Program (EAP) account contact and confirm that Accelerate is enabled for your account.
 
-The setup instructions guide you through configuring deployment information, installing the GitHub app, and setting up code references:
-
-![The "Welcome to Accelerate" dialog in Accelerate.](accelerate-set-up.png)
-
-You can click the **arrow** icon next to each step to view detailed instructions. Alternatively, you can follow the instructions below.
-
-Here's how to get started using Accelerate:
-
-1. [Join the Early Access Program](#step-1-join-the-early-access-program)
-2. [Configure your application to send deployment information](#step-2-configure-your-application-to-send-deployment-information)
-3. [Install the GitHub app](#step-3-install-the-github-app)
-4. [Set up code references](#step-4-set-up-code-references)
-5. [Confirm your setup](#step-5-confirm-your-setup)
-
-### Step 1: Join the Early Access Program
-
-Reach out to your Early Access Program (EAP) account contact and confirm that Accelerate is enabled for your account. After they enable it, you can access Accelerate from the product switcher menu in the LaunchDarkly user interface.
+After you are part of the EAP program, you can access Accelerate from the product switcher menu in the LaunchDarkly user interface.
 
 From your feature flag list, click the product switcher menu and choose **Accelerate**:
 
 ![The product switcher menu, with "Accelerate" highlighted.](accelerate-product-switcher.png)
 
-### Step 2: Configure your application to send deployment information
+The release frequency and flag health metrics are available as soon as you access Accelerate. They don't need any additional configuration. To learn more, read [Release frequency](/home/accelerate/accelerate-metrics/release) and [Flag health](/home/accelerate/accelerate-metrics/flag-health).
 
-Configuring your application to send deployment information to Accelerate lets Accelerate track the frequency and timing of your deployments. We calculate deployment frequency by receiving deployment start and end times from your pipeline.
+To enable other metrics, follow the instructions in the "Welcome to Accelerate" dialog. The setup instructions guide you through configuring deployment information, installing the GitHub app, and setting up code references:
 
-Until you configure it, the application will prompt you to set up your deployment pipeline:
+![The "Welcome to Accelerate" dialog in Accelerate.](accelerate-set-up.png)
 
-![The deployment frequency metric prompting you to set up to your deployment pipeline.](accelerate-deployment-frequency-setup.png)
+You can click the **arrow** icon next to each step to view detailed instructions. Alternatively, you can follow the instructions below:
 
-Click **Set up** to view the instructions or **Dismiss** to hide the prompt. If you dismiss the prompt, you can still read the instructions for setting up your deployment pipeline using the **Get started** button at the bottom of the screen.
+1. [Send deployment information to Accelerate](/home/accelerate/config-deployment-accelerate)
+2. [Install the GitHub app](/home/accelerate/github-app-accelerate)
+3. [Set up code references](/home/accelerate/code-refs-accelerate)
 
-There are two options for sending deployment information:
+After you complete these steps, you can confirm your setup.
 
-* Option 1: You can [set the application identifier and application version](#option-1-set-the-application-identifier-and-version) configuration options for the LaunchDarkly SDK, and update the application version each time you want to indicate a new deployment.
-* Option 2: You can [configure webhooks](#option-2-configure-webhooks) from your deployment pipeline to send your deployment events to Accelerate.
-
-### Option 1: Set the application identifier and version
-
-We recommend option 1, setting the application identifier and version, if you want to minimize instrumenting your deployment pipeline. Using this method means all communication about deployment events occurs through LaunchDarkly SDK calls.
-
-<Details summary="Expand application configuration instructions">
-
-You can set application identifier and application version configuration options for your LaunchDarkly SDKs.
-
-Accelerate assumes the application identifier is the application key. Typically this is the name of one of the GitHub repositories that you use in this project. Accelerate automatically creates a new application each time you send a unique application identifier.
-
-You can set the application version to any string that includes only letters, numbers, periods (`.`), hyphens (`-`), or underscores (`_`). For example, you could set this to the semantic version of your application.
-
-We recommend setting the application version to one of the following options:
-
-* the full SHA of the GitHub commit for this deployment
-* the tag associated with the GitHub commit for this deployment
-
-When you use the SHA or tag, Accelerate automatically detects and reports which pull requests (PRs) are part of a deployment. Otherwise, Accelerate cannot associate deployments with PRs or commits.
-
-To retrieve the SHA for your deployment:
-
-1. From the branch you are deploying, run `git rev-parse HEAD`.
-2. Add an environment variable, such as `APPLICATION_VERSION`.
-3. Use that environment variable when you initialize your SDK.
-
-In some cases, the SHA may not be available when you deploy. If you package the SHA into your build artifact, you can avoid using environment variables. For example, Go applications often inject version information using `ldflags`. To learn more, read [Using ldflags to Set Version Information for Go Applications](https://www.digitalocean.com/community/tutorials/using-ldflags-to-set-version-information-for-go-applications).
-
-The following client-side SDKs support the application identifier and application version configuration options:
-
-- [Android](/sdk/features/app-config#android)
-- [iOS](/sdk/features/app-config#ios)
-- [JavaScript](/sdk/features/app-config#javascript)
-- [Node.js (client-side)](/sdk/features/app-config#nodejs-client-side)
-- [React Native](/sdk/features/app-config#react-native)
-- [React Web](/sdk/features/app-config#client-side-sdks)
-
-The following server-side SDKs support the application identifier and application version configuration options:
-
-- [Erlang](/sdk/features/app-config#erlang)
-- [Go](/sdk/features/app-config#go)
-- [Haskell](/sdk/features/app-config#haskell)
-- [Java](/sdk/features/app-config#java)
-- [Node.js (server-side)](/sdk/features/app-config#nodejs-server-side)
-- [PHP](/sdk/features/app-config#php)
-- [Python](/sdk/features/app-config#python)
-- [Ruby](/sdk/features/app-config#ruby)
-- [Rust](/sdk/features/app-config#rust)
-
-</Details>
-
-### Option 2: Configure webhooks
-
-We recommend option 2, configuring webhooks, in the following scenarios:
-
-* You are using an SDK that does not support the application identifier and version configuration options.
-* You anticipate having a large number of application versions reporting at once. For example, if you have a large front-end application, especially a single-page application, you might have dozens of application versions being reported, because you have end users working from long-running versions. It may simplify your [deployment frequency metrics](/home/accelerate/accelerate-metrics/deployment) to send information directly from your deployment pipeline rather than relying on SDK calls.
-* You want to monitor how long your deployments take to complete. If you use application identifier and version configuration options, then Accelerate will report when a deployment occurred. If you use webhooks to send separate events for each deployment's start and finish, then Accelerate will report on deployment duration as well.
-
-<Details summary="Expand webhook configuration instructions">
-
-You can configure webhooks from your deployment pipeline to send your deployment events to Accelerate.
-
-Everyone's deployment pipeline is different. We recommend sending deployment events when each deployment has started, finished, or failed. To learn how to construct a deployment event request, read [Deployment events API](/home/accelerate/get-started-accelerate/deployment-events-api).
-
-</Details>
-
-### Step 3: Install the GitHub app
-
-Adding the LaunchDarkly GitHub app to your existing GitHub organization lets Accelerate track pull request and commit frequency and timing. Accelerate uses this information to calculate deployment lead time and other metrics.
-
-Until you configure it, the application will prompt you to connect to GitHub:
-
-![The lead time metric prompting you to connect to GitHub.](accelerate-lead-time-setup.png)
-
-Click **Set up** to view the instructions or **Dismiss** to hide the prompt. If you dismiss the prompt, you can still read the instructions for connecting to GitHub using the **Get started** button at the bottom of the screen.
-
-Follow the OAuth workflow to install the app automatically. After you accept the installation, you'll be redirected back to Accelerate.
-
-After you install the app, activity data for the repositories you chose will flow into Accelerate. Historical data from the repositories will populate in Accelerate automatically.
-
-### Step 4: Set up code references
-
-Set up code references for each code base in which you use flags. This allows Accelerate to correlate changes to flags in code with PRs and deployments.
-
-Until you configure it, the application will prompt you to set up code references:
-
-![The flag coverage metric prompting you to set up code references.](accelerate-flag-coverage-setup.png)
-
-Click **Set up** to view the instructions or **Dismiss** to hide the prompt. If you dismiss the prompt, you can still read the instructions for setting up code references using the **Get started** button at the bottom of the screen.
-
-To learn how to set up code references, read [Code references](/home/code/code-references).
-
-### Step 5: Confirm your setup
+## Confirm your setup
 
 To confirm you have set up everything correctly:
 
 - Check for data on the [Deployment frequency](/home/accelerate/accelerate-metrics/deployment) metric view. After you have set up and sent at least one deployment event, the deployment frequency chart and the deployments table will start filling with data.
 
-- Check for data on the [Lead time](/home/accelerate/accelerate-metrics/lead-time) metric view. After you have set up the GitHub app, Accelerate will start receiving commit and PR information for all future PRs. Accelerate will also backfill events for the last 90 days, although this can take up to 24 hours to complete. The lead time chart and the pull requests list will start filling with data.
+- Check for data on the [Lead time](/home/accelerate/accelerate-metrics/lead-time) metric view. After you have set up the GitHub app, Accelerate will start receiving commit and pull request (PR) information for all future PRs. Accelerate will also backfill events for the last 90 days, although this can take up to 24 hours to complete. The lead time chart and the pull requests list will start filling with data.
 
 - Check for code reference data on the pull requests list on the [Flag coverage](/home/accelerate/accelerate-metrics/flag-coverage) metric view. After you set up code references, future PRs that add, remove, or change a flag in code will show the flags modified in the "Flags" column.
 

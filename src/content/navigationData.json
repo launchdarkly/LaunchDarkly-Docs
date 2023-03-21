@@ -478,6 +478,18 @@
         "svg": "checkbox-marked-circle",
         "items": [
           {
+            "label": "Send deployment information",
+            "path": "/home/accelerate/config-deployment-accelerate"
+          },
+          {
+            "label": "Install the Accelerate GitHub app",
+            "path": "/home/accelerate/github-app-accelerate"
+          },
+          {
+            "label": "Set up code references for Accelerate",
+            "path": "/home/accelerate/code-refs-accelerate"
+          },
+          {
             "label": "Applications",
             "path": "/home/accelerate/get-started-accelerate/applications"
           },

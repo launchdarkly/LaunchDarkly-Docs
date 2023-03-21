@@ -1,0 +1,69 @@
+---
+path: /home/accelerate/github-app-accelerate
+title: Install the Accelerate GitHub app
+description: This topic explains how to install the GitHub app for Accelerate and how to associate repositories and projects.
+published: true
+tags: ['setup', 'accelerate', 'lead time', 'github']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+  <CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+  <CalloutDescription>
+
+Accelerate is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to install the GitHub app for Accelerate and how to associate repositories and projects.
+
+Adding the LaunchDarkly GitHub app to your existing GitHub organization lets Accelerate track pull request and commit frequency and timing. Accelerate uses this information to calculate [deployment lead time](/home/accelerate/accelerate-metrics/deployment) and other metrics.
+
+Until you configure it, the application will prompt you to connect to GitHub:
+
+![The lead time metric prompting you to connect to GitHub.](accelerate-lead-time-setup.png)
+
+Click **Set up** to view the instructions or **Dismiss** to hide the prompt. If you dismiss the prompt, you can still read the instructions for connecting to GitHub using the **Get started** button at the bottom of the screen, or by clicking your **display picture** and selecting "Setup."
+
+## Install the GitHub app
+
+To install the LaunchDarkly GitHub app:
+
+1. Click **Install now** from the setup panel.
+
+  <Callout intent="info">
+  <CalloutTitle>Accelerate does not request or store your source code</CalloutTitle>
+  <CalloutDescription>
+    The GitHub app asks for read access to code, metadata, and pull requests for the repositories you select. Accelerate does not request or store any code contents, only pull request and commit metadata.
+  </CalloutDescription>
+  </Callout>
+
+2. Follow the OAuth workflow to install the app automatically. After you accept the installation, you'll be redirected back to Accelerate.
+
+After you install the app, activity data for the repositories you chose will flow into Accelerate. Historical data from the repositories will populate in Accelerate automatically.
+
+## Associate repositories with projects
+
+Accelerate automatically creates repository associations when it receives deployments or code references. Optionally, you can manually configure additional associations. This allows you to see code-based metrics before you send deployments.
+
+To associate repositories with projects before sending deployments:
+
+1. From within Accelerate, click your **display picture** and choose "Settings" from the menu.
+
+  If you haven't sent any pull requests yet, then the lead time setup card will be empty. In this case, you can click **View repository associations** from the lead time setup card.
+
+2. In the Repository menu, select a repository.
+
+  Only the repositories that you selected when you installed the GitHub app are available. To add more repositories, adjust the settings for the GitHub app in your GitHub account.
+
+3. In the Project name menu, select a project. All of your LaunchDarkly projects are available.
+4. Click **Save configuration**.
+
+![The Associate repositories with projects setup screen.](accelerate-associate-repos-with-projects.png)
+
+## Additional Accelerate setup
+
+To finish setting up Accelerate, you may also need to [Send deployment information to Accelerate](/home/accelerate/config-deployment-accelerate) and [Set up code references](/home/accelerate/code-refs-accelerate). To learn more, read [Confirm your setup](/home/accelerate/get-started-accelerate#confirm-your-setup).
