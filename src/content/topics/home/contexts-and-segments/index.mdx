@@ -99,7 +99,7 @@ Here's an example of what each context looks like:
 </CSTab>
 </CodeSample>
 
-### Multi-contexts
+## Multi-contexts
 
 Sometimes you want to have your feature flags target based on data from multiple contexts. For example, maybe you want to serve one variation to doctors like Anna who work at the Global Health Services Springfield location. But you want to serve a different variation to nurses at the Springfield location, and you want to serve a third variation to doctors at the Midway location. In this situation, you can have the LaunchDarkly SDK send multiple contexts at once during the flag evaluation, so that LaunchDarkly can evaluate targeting rules using data from both the "user" and "organization" contexts at the same time. 
 

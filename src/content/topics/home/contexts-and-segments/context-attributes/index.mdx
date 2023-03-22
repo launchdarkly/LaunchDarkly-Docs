@@ -16,7 +16,8 @@ This topic explains what context attributes are, how to configure them, and how 
 
   Some LaunchDarkly SDKs do not yet support context-based feature flagging. Instead, they rely on legacy user objects.
 
-  To learn which SDKs are available to use with contexts, read [SDKs](/sdk).
+  To learn which SDKs are available to use with contexts, read [SDKs](/sdk). To learn more about upgrading to contexts, read [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
+
 
   </CalloutDescription>
 </Callout>
@@ -33,17 +34,17 @@ Each context has a context kind that you can use to categorize context instances
 
 To learn more, read [Context kinds](/home/contexts/context-kinds).
 
+A more precise way to refer to a context when you are using it to evaluate a feature flag is an "evaluation context." An evaluation context is the object that the SDK uses to evaluate a feature flag. It can contain a single context or a multi-context. It includes all of the information about a context that LaunchDarkly can use for a feature flag evaluation. To learn more, read [Contexts and segments](/home/contexts).
+
+By default, the **Contexts** list displays a context's attribute values. If you mark a context attribute as private within your SDK, it will not display in the LaunchDarkly user interface (UI) but you can still use it in flag evaluations. To learn more, read [Using private context attributes](#using-private-context-attributes).
+
+### Multi-contexts
+
 When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you might evaluate a flag using only the "user" context. Or you might evaluate a flag using both the "user" context and the "device" context simultaneously. We refer to this kind of evaluation as a multi-context.
 
 This illustration shows a flag evaluating two multi-contexts:
 
 ![Two multi-contexts with three contexts each of "user," "organization," and "location."](contexts-multi.png)
-
-A more precise way to refer to a context when you are using it to evaluate a feature flag is an "evaluation context." An evaluation context is the object that the SDK uses to evaluate a feature flag. It can contain a single context or a multi-context. It includes all of the information about a context that LaunchDarkly can use for a feature flag evaluation. To learn more, read [Contexts and segments](/home/contexts).
-
-By default, the **Contexts** list displays a context's attribute values. You can mark any context attribute as private if you only want to use it during flag evaluation, and do not want to display it in the LaunchDarkly user interface (UI). To learn more, read [Using private context attributes](#using-private-context-attributes).
-
-To learn more about upgrading to contexts, read [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
 
 ## Targeting based on context attributes
 

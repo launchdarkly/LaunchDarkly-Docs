@@ -12,18 +12,32 @@ This topic explains what custom attributes are and how to configure them.
 
 LaunchDarkly allows you to target contexts based on arbitrary custom attributes, which means you can control who receives features based on any criteria that you send to us.
 
-Here is an example context which contains custom attributes:
+Here are example contexts containing custom attributes:
 
 <CodeSample>
-<CSTab label="Context with custom attributes">
+<CSTab label="Contexts with custom attributes">
 
 ```json
+// A single context
 "context": {
   "kind": "user",
   "name": "Anna",
   "key": "user-key-123abc",
   "email": "anna@globalhealthexample.com",
   "jobFunction": "doctor"
+}
+
+// A multi-context
+"kind": "multi",
+"organization": {
+  "key": "organization-key-123abc",
+  "name": "Acme, Inc",
+  "city": "Midway"
+},
+"user": {
+  "key": "user-key-123abc",
+  "name": "Jesse",
+  "city": "Springfield"
 }
 ```
 

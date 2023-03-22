@@ -16,22 +16,20 @@ The **Contexts** list shows you all of the contexts that have encountered featur
 
 The **Contexts** list populates automatically when different contexts encounter a feature flag and are evaluated by a LaunchDarkly SDK. The data in the list is populated from the data you send in variation calls, as well as data from identify calls. To learn more about evaluating contexts in the SDK, read [Evaluating flags](/sdk/features/evaluating). To learn more about contexts and attributes, read [Context attributes](/home/contexts/attributes).
 
-<Callout intent="alert">
-<CalloutTitle>You cannot add contexts manually</CalloutTitle>
-<CalloutDescription>
+Here is an image of the **Contexts** list:
 
-You cannot create contexts in the <strong>Contexts</strong> list. The list only includes contexts that have already been evaluated by a LaunchDarkly SDK.
-
-</CalloutDescription>
-</Callout>
+![The "Contexts" list.](contexts-list.png)
 
 <Callout intent="info">
-<CalloutTitle>Send the context name in the variation call</CalloutTitle>
+<CalloutTitle>Multi-contexts appear individually in the <strong>Contexts</strong> list</CalloutTitle>
 <CalloutDescription>
 
-You must send the context name in the <code>variation</code> call in the LaunchDarkly SDK for the name to display in the LaunchDarkly user interface (UI). To learn more, read [Example: Contexts that affect Anna's experience](/home/contexts#example-contexts-that-affect-annas-experience).
+Your application may evaluate a feature flag for a multi-context, that is, one that contains multiple context kinds. For example, your application may send a multi-context that contains the "user," "organization," and "device" context kinds, all in one evaluation call in the LaunchDarkly SDK. When you do this, all three individual contexts appear separately in your **Contexts** list. You can use the context kind filters to search for them separately.
+
 </CalloutDescription>
 </Callout>
+
+From the list, you can filter contexts by name, kind, or attribute. You can also sort the list to identify the oldest or most recent contexts evaluated in your LaunchDarkly account. By default, the most recently active contexts appear first. Click the toggle arrow on the "Last seen" column to sort the list by least recently active contexts.
 
 If a context's attributes change within five minutes of the previous evaluation, and the context key stays the same, the list deduplicates the context and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
 
@@ -44,30 +42,29 @@ The SDK only evaluates flags based on the context you provide in the evaluation 
 </CalloutDescription>
 </Callout>
 
-Here is an image of the **Contexts** list:
-
-![The "Contexts" list.](contexts-list.png)
-
-From the list, you can filter contexts by name, kind, or attribute. You can also sort the list to identify the oldest or most recent contexts evaluated in your LaunchDarkly account. By default, the most recently active contexts appear first. Click the toggle arrow on the "Last seen" column to sort the list by least recently active contexts.
-
-<Callout intent="info">
-<CalloutTitle>Contexts appear individually in the <strong>Contexts</strong> list</CalloutTitle>
-<CalloutDescription>
-
-Your application may evaluate a feature flag for a multi-context, that is, one that contains multiple context kinds. For example, your application may send a multi-context that contains the "user," "organization," and "device" context kinds, all in one evaluation call in the LaunchDarkly SDK. When you do this, all three individual contexts appear separately in your **Contexts** list. You can use the context kind filters to search for them separately.
-
-</CalloutDescription>
-</Callout>
-
 To learn more about how the **Contexts** list is populated, and how you might exceed the 100,000,000 context limit, read [Anonymous contexts](/home/contexts/anonymous-contexts).
-
-To learn how to create context kinds, read [Creating context kinds](/home/contexts/context-kinds#creating-context-kinds).
 
 <LearnMore>
 
 You can also use the REST API: [Get contexts](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContexts), [Get context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextInstances)
 
 </LearnMore>
+
+### Creating contexts
+
+You cannot create contexts from the <strong>Contexts</strong> list in the LaunchDarkly user interface (UI). The list only includes contexts that have already been evaluated by a LaunchDarkly SDK.
+
+To learn how to configure contexts in your SDK, read [Context and user configuration](/sdk/features/user-context-config).
+
+<Callout intent="info">
+<CalloutTitle>Send the context name in the variation call</CalloutTitle>
+<CalloutDescription>
+
+You must send the context name in the <code>variation</code> call in the LaunchDarkly SDK for the name to display in the LaunchDarkly user interface (UI). To learn more, read [Example: Contexts that affect Anna's experience](/home/contexts#example-contexts-that-affect-annas-experience).
+</CalloutDescription>
+</Callout>
+
+To learn how to create context kinds, read [Creating context kinds](/home/contexts/context-kinds#creating-context-kinds).
 
 ## Filtering contexts
 

@@ -16,7 +16,7 @@ LaunchDarkly allows you to target contexts based on built-in attributes. To lear
 
 The built-in attributes are kind, key, name, and anonymous. Kind, key, and name attributes must be strings, and anonymous attributes must be booleans. You can define additional attributes for a context by passing in a name and value for each.
 
-The context kind and key are the only mandatory attributes. All other attributes are optional.
+The context kind and key are the only mandatory attributes. All other attributes are optional. Some SDKs will automatically set the kind to "user" if you do not provide a value.
 
 <Callout intent="info">
 <CalloutTitle>LaunchDarkly does not automatically populate built-in attributes</CalloutTitle>
