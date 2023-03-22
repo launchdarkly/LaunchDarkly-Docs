@@ -10,7 +10,7 @@ tags: ['guide', 'serverless', 'sdk', 'feature store']
 
 This guide provides best practice advice for using LaunchDarkly in serverless and short-lived environments. While most uses of serverless architecture require no extra configuration, some apps may benefit from additional configuration to ensure consistent high performance.
 
-In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server. To learn how to configure the Relay Proxy in your environment, read [The Relay Proxy](/home/relay-proxy).
+In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server. To learn more about common uses cases for the Relay Proxy, read [Deciding whether to use the Relay Proxy](/home/relay-proxy#deciding-whether-to-use-the-relay-proxy). To learn how to configure the Relay Proxy in your environment, read [The Relay Proxy](/home/relay-proxy).
 
 If you are working in a strictly serverless environment and cannot use the Relay Proxy, an alternative option is described here. This guide assumes that you have already chosen to use serverless functions in your application architecture.
 
@@ -104,11 +104,11 @@ To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The example below is a five-step process to configure a feature store:
 
-  1. You can use a cloud-local storage service to act as a flag store.
-  2. You can use a dedicated AWS Lambda function to update the flag store when a flag configuration changes.
-  3. You can use an AWS API Gateway endpoint to give the Lambda function a consistent HTTPS URL.
-  4. You can create a LaunchDarkly webhook to send flag changes to the API Gateway URL.
-  5. You can configure the LaunchDarkly SDK to read flags from the persistent flag store.
+  1. Use a cloud-local storage service to act as a flag store.
+  2. Use a dedicated AWS Lambda function to update the flag store when a flag configuration changes.
+  3. Use an AWS API Gateway endpoint to give the Lambda function a consistent HTTPS URL.
+  4. Create a LaunchDarkly webhook to send flag changes to the API Gateway URL.
+  5. Configure the LaunchDarkly SDK to read flags from the persistent flag store.
 
 Most LaunchDarkly server-side SDKs can use a Redis database for persistent feature storage. AWS ElastiCache is compatible with Redis, and we use it as an example here, but other services will work as well.
 
