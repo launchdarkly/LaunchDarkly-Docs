@@ -8,21 +8,29 @@ tags: ['analyze', 'result', 'experiment', 'experimentation', 'enterprise']
 
 ## Overview
 
-This topic explains how to read and understand an experiment's results graph and table.
+This topic explains how to read and understand an experiment's results tab.
 
-An experiment's results graph and table provides information about each variation's performance in the experiment, how it compares to the other variations, and which variations are likely to be best out of all the tested options. Understanding how to read them can help you make informed decisions about when to edit, stop, or choose a winning variation for your experiments.
+An experiment's results tab provides information about each variation's performance in the experiment, how it compares to the other variations, and which variations are likely to be best out of all the tested options. Understanding how to read this tab can help you make informed decisions about when to edit, stop, or choose a winning variation for your experiments.
 
-## Experiment result graphs
+## The traffic count table
 
-The data an experiment has collected is represented in a results graph and table:
+The traffic count table displays how many contexts have encountered each variation within the experiment:
 
-![An experiment's results graph and table.](experiment-results-table-graph.png)
+![An experiment's traffic count table showing each variation's total number of contexts.](experiment-traffic-count.png)
+
+The table displays total unique contexts, not total experiment events. This means that if a context encounters the experiment more than once, it is counted only once in this table, instead of each time it is in the experiment.
+
+## The results graph
+
+An experiment's results graph provides a visual representation of the performance of each variation tested in an experiment:
+
+![An experiment's results graph.](experiment-results-graph.png)
 
 To hide any of the variations from the results graph, uncheck the box next to the variation's name:
 
-![An experiment's results graph with two variations unchecked.](experiment-results-graph-unchecked.png)
+![An experiment's results graph with two variations unchecked.](experiment-results-graph-unchecked-callout.png)
 
-Each Experimentation results chart is unique, and how you interpret the results depends on what metric you're measuring and the hypothesis of your experiment. However, we've provided some general guidelines for interpreting experiment results.
+Each Experimentation results graph is unique, and how you interpret the results depends on what metric you're measuring and the hypothesis of your experiment. However, we've provided some general guidelines for interpreting experiment results.
 
 <LearnMore>
 
@@ -52,13 +60,27 @@ The vertical y-axis measures probability. You can determine how probable it is t
 
 In the example above, the green variation has a high probability that the metric will measure 0.4 for any given context. In other words, if someone encounters the green variation, there's a high probability that the metric will measure 0.4 for that person.
 
-## Experiment results tables
+### Viewing metric event values
 
-Each experiment has a results table with a row for each variation tested and a column for the variation's probability to be best, relative difference from the control, credible interval, and mean. This section explains how to interpret each of these columns in your results table.
+In each metrics results table you can view metric event values per unique context as an average or a sum, depending on your needs.
+
+Click the **View metric event values per unique context as** radio button to change your view selection:
+
+![The "View metric event values per unique context as" option.](experiment-results-graph-view-values-callout.png)
+
+Imagine you are tracking purchases made by customers using a new checkout flow. A customer makes three purchases for $15 each. If you view metric event values as an average, the average of their purchases is $15. If you view metric event values as a sum, the sum of their purchases is $45. If your goal is to increase revenue per customer, viewing metric event values as a sum makes the most sense.
+
+Alternatively, imagine you want to decrease the time to checkout per transaction. If a customer takes two minutes for their first purchase, four minutes for their second purchase, and three minutes for their third purchase, their average checkout time is three minutes, but their total checkout time is nine minutes. In this case, viewing metric event values as an average makes the most sense.
+
+## The results table
+
+Each experiment has a results table with a row for each variation tested and a column for the variation's probability to be best, relative difference from the control, credible interval, and mean:
 
 ![An experiment's results table.](experiment-results-table.png)
 
-Imagine you want to test offering a discount for your online store, to see if more customers complete their purchase when you offer a discount. You run an experiment using a click conversion metric when you offer various discounts. For your control variation, you offer no discount. The sections below explain what each column means.
+The sections below explain what each column means.
+
+Imagine you want to test offering a discount for your online store, to see if more customers complete their purchase when you offer a discount. You run an experiment using a click conversion metric when you offer various discounts. For your control variation, you offer no discount.
 
 ### Probability to be best
 
@@ -93,18 +115,6 @@ The mean is the average value of the posterior distribution of the variation. If
 In the above example, if you continued to run the experiment, you could expect that offering a 15% discount in your store will result in customers checking out about 71% of the time.
 
 All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling). LaunchDarkly automatically performs checks on the results data, to make sure that actual context traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
-
-### Viewing metric event values
-
-In each metrics results table you can view metric event values per unique context as an average or a sum, depending on your needs.
-
-Here's the **View metric event values per unique user as** option in a metric results table:
-
-![A metric results table with "View metric event values per unique user as" called out.](experiment-card-view-metric-event-callout.png)
-
-Imagine you are tracking purchases made by customers using a new checkout flow. A customer makes three purchases for $15 each. If you view metric event values as an average, the average of their purchases is $15. If you view metric event values as a sum, the sum of their purchases is $45. If your goal is to increase revenue per customer, viewing metric event values as a sum makes the most sense.
-
-Alternatively, imagine you want to decrease the time to checkout per transaction. If a customer takes two minutes for their first purchase, four minutes for their second purchase, and three minutes for their third purchase, their average checkout time is three minutes, but their total checkout time is nine minutes. In this case, viewing metric event values as an average makes the most sense.
 
 ## Choosing a winning variation
 
