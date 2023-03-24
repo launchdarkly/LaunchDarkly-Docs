@@ -116,6 +116,32 @@ In the above example, if you continued to run the experiment, you could expect t
 
 All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling). LaunchDarkly automatically performs checks on the results data, to make sure that actual context traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
 
+## Slicing results by attribute
+
+Data slicing by attribute allows you to break down your experiment results by certain cross-sections of your experiment audience. For example, if you're interested in how variations perform for end users in Canada as compared to end users in Mexico, you could slice your data by the "country" context attribute. This would allow you to compare performance of variations in each individual country, in addition to seeing the variation that performs best overall.
+
+To be able to slice results by attribute, you must add attributes to slice results by in the "Select metrics" step when you create an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+You can then slice your results by the different values of one of those attributes. 
+
+To slice experiment results by attribute:
+
+1. Navigate to your experiment's **Results** tab.
+2. Select one or more attribute values in the "Attribute filters" section. The "Experiment traffic from:" section updates to display results from all attributes, and from the attribute value you selected:
+
+![Experiment results sliced by attribute.](experiment-results-by-attribute.png)
+
+3. Scroll down to the "Probability report" section to view the probability to be best for all attributes, and for the attribute you selected.
+
+<Callout intent="info">
+<CalloutTitle>You cannot slice results for anonymous contexts or private attributes</CalloutTitle>
+<CalloutDescription>
+
+Private attributes and contexts with the <code>anonymous</code> property set to <code>true</code> are not available for data slicing. Private attributes and anonymous context attributes do not appear in the "Attribute filters" menus.
+
+</CalloutDescription>
+</Callout>
+
 ## Choosing a winning variation
 
 The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations tested. To learn more, read [Winning variations](/home/analyzing-experiments/winning-variation).
