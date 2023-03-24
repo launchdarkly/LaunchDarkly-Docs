@@ -93,7 +93,7 @@ For example, if your LaunchDarkly account is set up to have different "Android",
 
 All SDKs open a [Server-Sent Events](https://en.wikipedia.org/wiki/Server-sent_events) streaming connection to LaunchDarkly. The initial payload from the streaming connection contains the variations a context instance receives.
 
-By default, most client-side and server-side SDKs receive updated flag values when you change a flag. Server-side SDKs receive flag configuration changes over the stream, while client-side SDKs receive flag value changes for a specific context.
+By default, most client-side and server-side SDKs receive updated flag values when you change a flag. Server-side SDKs receive flag configuration changes over the stream, while client-side SDKs receive flag value changes for a specific context. SDKs may periodically drop streaming connections. When the SDK loses connectivity to LaunchDarkly, it continues to try to reestablish a streaming connection until it succeeds.
 
 Mobile applications are more likely than web or desktop software to lose their network connection. To account for this, our mobile SDKs monitor the connection state to LaunchDarkly and use different connection types depending on whether the app is in the foreground or in the background.
 
