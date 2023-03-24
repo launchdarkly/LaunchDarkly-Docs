@@ -80,7 +80,7 @@ jobs:
         with:
           node-version: '16.x'
           cache: 'yarn'
-      - uses: aws-actions/configure-aws-credentials@v1
+      - uses: aws-actions/configure-aws-credentials@v2
         if: steps.build-status.outputs.deploy == 'true'
         with:
           aws-access-key-id: ${{ secrets.STG_AWS_ACCESS_KEY_ID }}
