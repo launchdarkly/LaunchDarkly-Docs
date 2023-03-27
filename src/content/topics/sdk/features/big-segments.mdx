@@ -241,7 +241,7 @@ import java.time.Duration;
 LDConfig config = new LDConfig.Builder()
     .bigSegments(
         Components.bigSegments(
-            Redis.dataStore()
+            Redis.bigSegmentStore()
                 .uri(URI.create("redis://my-redis:6379"))
                 .prefix("my-key-prefix")
         )
