@@ -20,6 +20,12 @@ An [experiment's](#experiment) `audience` is the combination of the targeting ru
 
 To learn more, read [Allocating experiment audiences](/home/creating-experiments/allocation).
 
+### Attribute
+
+An `attribute` is a field in a [context](#context) that you can use in targeting rules for flags and segments. Each context that encounters a feature flag in your product can have a different value for a given attribute.
+
+To learn more, read [Context attributes](/home/contexts/attributes).
+
 ## C
 
 ### Context
@@ -39,6 +45,14 @@ To learn more, read [Understanding contexts and context kinds](/home/contexts#un
 A `context instance` is a unique combination of one or more contexts that have encountered a feature flag in your product.
 
 To learn more, read [Understanding context instances](/home/contexts#understanding-context-instances).
+
+## D
+
+### Default rule
+
+A `default rule` describes the feature flag [variation](#variation) to serve to the contexts that don't match any of the individual targets or rules you have previously specified for the flag. It is sometimes called the "fallthrough" rule because all of the rules preceding it have been evaluated, and the context encountering the flag has "fallen through" to this last rule. To learn more, read [Setting the default rule](/home/flags/targeting-rules#setting-the-default-rule).
+
+The default rule only applies when the flag is toggled on. If the flag is toggled off, then LaunchDarkly will serve the "default off variation" for the flag. In the LaunchDarkly user interface (UI), the default off variation is specified in the field labeled "If targeting is off, serve." To learn more, read [Setting the default off variation](/home/flags/targeting-rules#setting-the-default-off-variation).
 
 ## E
 
@@ -62,13 +76,26 @@ To learn more, read [About Experimentation](/home/about-experimentation).
 
 ## F
 
+### Fallback value
+
+The `fallback value` is the flag [variation](#variation) that LaunchDarkly serves in the following two situations:
+
+* If your application cannot connect to LaunchDarkly.
+* If your application can connect to LaunchDarkly, but the flag is toggled off and you have not specified a default off variation. To learn more, read [Setting the default off variation](/home/flags/targeting-rules#setting-the-default-off-variation).
+
+Regardless of how you configure targeting for your feature flag, each time you evaluate a flag from the SDK, you must include a fallback value as one of the parameters. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+### Fallthrough rule
+
+A `fallthrough rule` is a synonym for [default rule](#default-rule).
+
 ### Flag
 
 A `flag` is the basic unit of feature management. It describes the different variations of a feature and the rules that allow different entities to access them. Different entities that access your features could be a percentage of your application's traffic, individuals, or people or software entities who share common characteristics like location, email domain, or type of mobile device. The entities that encounter feature flags in your product are called [contexts](#context).
 
 To learn more, read [Using feature management](/home/getting-started#using-feature-management).
 
-## I 
+## I
 
 ### Iteration
 
@@ -91,6 +118,18 @@ A `metric` is a tool that allows you to measure specific end-user behaviors as p
 To learn more, read [Creating metrics](/home/creating-experiments/metrics).
 
 ## P
+
+### Percentage rollout
+
+A `percentage rollout` is a targeting [rule](#rule) that serves a given flag [variation](#variation) to a specified percentage of contexts that encounter the flag. A common use case for percentage rollouts is to increment the percentage of customers targeted by a flag over time until 100% of the customers receive one variation of a flag.
+
+To learn more, read [Percentage rollouts](/home/flags/rollouts).
+
+### Prerequisite
+
+You can make flags depend on other flags being enabled to take effect. A `prerequisite` flag is one on which a second flag depends. When the second flag is evaluated, the prerequisite flag must be on, and the [target](#target) must be receiving the variation of the prerequisite flag that you specify. If the prerequisite flag is toggled off, the target will receive the default off variation of the dependent flag.
+
+To learn more, read [Flag prerequisites](/home/flags/prerequisites/).
 
 ### Project
 
@@ -116,6 +155,18 @@ Every member must have at least one role or custom role assigned to them, either
 
 To learn more, read [LaunchDarkly's built-in roles](/home/members/built-in-roles), [Custom roles](/home/members/custom-roles), and [Custom role concepts](/home/members/role-concepts).
 
+### Rule
+
+A `rule` or `targeting rule` is a description of which flag variations your application should serve to which contexts.
+
+Targeting rules can have one or more conditions. Each condition has three parts:
+
+* A context kind and attribute, which defines the scope of the condition's impact, such as only targeting an email address for the selected context kind.
+* An operator, which sets differentiating characteristics of the attribute, such as limiting the condition to emails that end with certain extensions.
+* A value, which identifies the attribute by a value you specify, such as `.edu`.
+
+To learn more, read [Targeting rules](/home/flags/targeting-rules).
+
 ## S
 
 ### SDK
@@ -128,7 +179,23 @@ When your application starts, your code should initialize the LaunchDarkly SDK y
 
 To learn more, read [Setting up an SDK](/home/getting-started/setting-up) and [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side). For more information about the differences between the LaunchDarkly SDK and the LaunchDarkly REST API, read [Comparing LaunchDarkly's SDKs and REST API](/guide/api/comparing-sdk-rest-api).
 
+### Segment
+
+A `segment` is a list of contexts that you can use to manage flag [targeting](#target) behavior in bulk. Segments are useful for keeping groups of contexts, like `beta-users` or `enterprise-customers`, up to date. They are [environment-specific](#environment).
+
+LaunchDarkly supports two types of segments. A standard segment supports up to 15,000 contexts. A Big Segment supports more, and can be backed by an external data store, such as an Amplitude cohort.
+
+To learn more, read [Segments](/home/contexts/segments).
+
+Segment is also the name of a third-party software application that collects and integrates customer data across tools. You can use Segment as a destination for LaunchDarkly's Data Export feature. To learn more, read [Segment](/home/data-export/segment).
+
 ## T
+
+### Target
+
+To `target` (verb), is to specify that LaunchDarkly should serve certain flag [variations](#variation) to specific [contexts](#context) that encounter [feature flags](#flag) in your application. A `target` (noun) is an individual context or a set of contexts described by a targeting [rule](#rule).
+
+To learn more, read [Targeting with flags](/home/flags/targeting).
 
 ### Team
 
