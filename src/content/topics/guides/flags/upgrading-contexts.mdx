@@ -269,7 +269,7 @@ If you use prerequisite flags, do not update a prerequisite flag for contexts un
 
 ### Segments
 
-Standard segments can target by multiple context kinds. Big Segments can target by only the "user" context kind. When contexts are no longer part of the EAP and are generally available, Big Segments will be able to target by any single context kind. To learn more, read [Segments](/home/contexts/segments).
+Standard segments can target by multiple context kinds. Big Segments can target by any single context kind. To learn more, read [Segments](/home/contexts/segments).
 
 If you use segments, we recommend that you do not update a segment for contexts until all of the flags targeting that segment are ready to be updated for contexts. If you use standard segments with targeting rules, but not all related flags are ready to be updated yet, you can add new context targeting rules while keeping the segment's existing user targeting rules. Later, after you have updated all related flags for contexts, remove the segment's old user targeting rules.
 
@@ -290,6 +290,20 @@ If your new context kinds don't appear at the top of the **Contexts** list as fi
 To learn more, read [Filtering contexts](/home/contexts/contexts-list#filtering-contexts).
 
 You should also be able to look at individual context details pages to view the context's attributes and instances. To learn more, read [The context details page](/home/contexts/context-details).
+
+### Understanding context instance versions
+
+The context details page displays attribute information from the evaluation contexts that your SDK has sent to LaunchDarkly for evaluation. In some cases, there may be multiple context instance versions available on this page. A context instance version is a context instance that's recorded from a unique source application or LaunchDarkly SDK.
+
+If you are using multiple SDKs in your application, you might have two SDKs that evaluate contexts with the same `kind` and `key`, for example, an organization with context kind "organization" and context key "org-key-123abc." These appear on the context details page as separate context instance versions. On the context details page, you can use the "From source" dropdown in the "Attributes" section to view these two context instance versions.
+
+![The "From source" menu with two context instance versions displayed.](context-details-multiple-instance-versions.png)
+
+Suppose one of your two SDKs sends an evaluation context with one additional custom attribute, and the other SDK sends an evaluation context with the same `kind` and `key`, and with six additional custom attributes. You'll need to use the "From source" dropdown to switch between the different context instance versions and view all of the attributes.
+
+In the analogous situation when working with users, LaunchDarkly merged these attributes, and the users detail page showed a single user with seven custom attributes.
+
+To learn more, read [Attributes](/home/contexts/context-details#attributes) and [Understanding context instances](/home/contexts#understanding-context-instances).
 
 ## Remove legacy targeting from flags
 
