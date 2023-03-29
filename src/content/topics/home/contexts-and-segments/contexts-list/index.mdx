@@ -150,6 +150,53 @@ This table lists all of the available operators and related examples:
   <TableBody>
   <TableRow>
     <TableCell>
+    <code>after</code>
+    </TableCell>
+    <TableCell>
+      Returns true if any of the values in a field, which should be dates, are after or equal to the provided datetime. Valid match values should be numbers in unix epoch milliseconds, or date time strings in RFC-3339 format.
+    </TableCell>
+    <TableCell>
+      <code>user.signup after "2022-09-21T19:03:15+00:00"</code>
+    </TableCell>
+  </TableRow>
+
+  <TableRow>
+    <TableCell>
+      <code>anyOf</code>
+    </TableCell>
+    <TableCell>
+      Returns true if any of the values in a field match any of the values in the match value. This operator is only available for the following fields: <code>applicationId</code>, <code>id</code>, <code>key</code>, <code>kind</code>, <code>kindKey</code>, <code>kindKeys</code>.
+    </TableCell>
+    <TableCell>
+      <code>applicationId anyOf [44]</code><br />
+      <code>kind anyOf ["device","org"]</code><br />
+      <code>key anyOf [1,2,3,4]</code><br />
+    </TableCell>
+  </TableRow>
+
+  <TableRow>
+    <TableCell><code>before</code></TableCell>
+    <TableCell>Returns true if any of the values in a field, which should be dates, are before or equal to the provided datetime. Valid match values should be numbers in unix epoch milliseconds, or date time strings in RFC-3339 format.</TableCell>
+    <TableCell>
+      <code>user.signup before "2022-09-21T19:03:15+00:00"</code>
+    </TableCell>
+  </TableRow>
+
+  <TableRow>
+    <TableCell>
+      <code>contains</code>
+    </TableCell>
+    <TableCell>
+      Returns true if all the match values are also found in the values of the field. This operator is only available for the following fields: <code>kindKeys</code>, <code>kinds</code>.
+    </TableCell>
+    <TableCell>
+      <code>kindKeys contains ["Sandy","Jesse"]</code><br />
+      <code>kinds contains ["s"]</code><br />
+    </TableCell>
+  </TableRow>
+
+  <TableRow>
+    <TableCell>
       <code>equals</code>
     </TableCell>
     <TableCell>
@@ -163,61 +210,20 @@ This table lists all of the available operators and related examples:
       <code>user.name equals ["Sandy", "Jesse"]</code>
     </TableCell>
   </TableRow>
-    <TableRow>
-    <TableCell>
-      <code>anyOf</code>
-    </TableCell>
-    <TableCell>
-      Returns true if any of the values in a field match any of the values in the match value. This operator is only available for the following fields: <code>applicationId</code>, <code>id</code>, <code>key</code>, <code>kind</code>, <code>kindKey</code>, <code>kindKeys</code>.
-    </TableCell>
-    <TableCell>
-      <code>applicationId anyOf [44]</code><br />
-      <code>kind anyOf ["device","org"]</code><br />
-      <code>key anyOf [1,2,3,4]</code><br />
-    </TableCell>
-  </TableRow>
+
   <TableRow>
     <TableCell>
-      <code>contains</code>
+      <code>exists</code>
     </TableCell>
     <TableCell>
-      Returns true if all the match values are also found in the values of the field. This operator is only available for the following fields: <code>kindKeys</code>, <code>kinds</code>. 
+      Returns true if the field matches the specified existence. For example, if you pass <code>true</code> and the field exists, this returns the context. This operator is only available for custom attributes.
     </TableCell>
     <TableCell>
-      <code>kindKeys contains ["Sandy","Jesse"]</code><br />
-      <code>kinds contains ["s"]</code><br />
+      <code>organization.name exists true</code><br />
+      <code>device.option exists false</code><br />
     </TableCell>
   </TableRow>
-  <TableRow>
-    <TableCell>
-      <code>startsWith</code>
-    </TableCell>
-    <TableCell>
-      Returns true the value in a field, which should be a singular string, begins with the provided substring.
-    </TableCell>
-    <TableCell>
-      <code>user.name startsWith San</code><br />
-      <code>device.os startsWith "iOS"</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>
-    <code>after</code>
-    </TableCell>
-    <TableCell>
-      Returns true if any of the values in a field, which should be dates, are after or equal to the provided datetime. Valid match values should be numbers in unix epoch milliseconds, or date time strings in RFC-3339 format.
-    </TableCell>
-    <TableCell>
-      <code>user.signup after "2022-09-21T19:03:15+00:00"</code>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell><code>before</code></TableCell>
-    <TableCell>Returns true if any of the values in a field, which should be dates, are before or equal to the provided datetime. Valid match values should be numbers in unix epoch milliseconds, or date time strings in RFC-3339 format.</TableCell>
-    <TableCell>
-      <code>user.signup before "2022-09-21T19:03:15+00:00"</code>
-    </TableCell>
-  </TableRow>
+
   <TableRow>
     <TableCell>
       <code>notEquals</code>
@@ -231,6 +237,19 @@ This table lists all of the available operators and related examples:
       <code>device.option notEquals true</code><br />
       <code>organization.number notEquals [1,2,3,4]</code><br />
       <code>user.name notEquals ["Sandy", "Jesse"]</code><br />
+    </TableCell>
+  </TableRow>
+
+  <TableRow>
+    <TableCell>
+      <code>startsWith</code>
+    </TableCell>
+    <TableCell>
+      Returns true the value in a field, which should be a singular string, begins with the provided substring.
+    </TableCell>
+    <TableCell>
+      <code>user.name startsWith San</code><br />
+      <code>device.os startsWith "iOS"</code>
     </TableCell>
   </TableRow>
   </TableBody>
