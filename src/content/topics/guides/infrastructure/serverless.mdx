@@ -72,18 +72,18 @@ Here is a code sample that shows how to evaluate a feature flag with the NodeJS 
 <CSTab label="JavaScript">
 
 ```javascript
-var LaunchDarkly = require('launchdarkly-node-server-sdk');
-var client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY);
-var ready = client.waitUntilReady();
+const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY);
 
-exports.handler = (event, context, callback) => {
+exports.handler = async event => {
 
-    ready.then(() => {
-        /*
-            ...evaluate your flags and do your work here...
-        */
-        callback();
-    }, callback);
+    try {
+      await client.waitForInitialization();
+      // Initialization complete
+    } catch (err) {
+      // Initialization failed
+    }
+
 }
 ```
 
