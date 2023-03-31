@@ -1,0 +1,26 @@
+name: Get SSM Secrets
+description: 'Action for getting release secrets from AWS SSM'
+on: workflow_call
+inputs:
+  aws_assume_role:
+    description: 'The ARN of an AWS IAM role to assume. Used to auth with AWS to upload results to S3.'
+    required: true
+  # This uses this format to allow using the GetParameters action.
+  ssm_parameter_pairs:
+    description: 'A series of pairs of paths to environment mappings. "/path = ENV_NAME", "/path2 = ENV_NAME2'
+    required: false
+  # If we add S3, then just have a list of S3 paths.
+
+runs:
+  using: composite
+  steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1-node16
+      with:
+        audience: https://github.com/launchdarkly
+        role-to-assume: ${{ inputs.aws_assume_role }}
+        aws-region: us-east-1
+    - uses: dkershner6/aws-ssm-getparameters-action@v1
+      with:
+        parameterPairs: ${{ inputs.ssm_parameter_pairs }}
+        withDecryption: "true"
