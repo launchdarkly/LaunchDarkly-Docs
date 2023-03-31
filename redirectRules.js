@@ -4,6 +4,10 @@ module.exports = [
     fromPath: '/accelerate-eap/home/about-accelerate/',
     toPath: '/home/accelerate',
   },
+  {
+    fromPath: '/home/accelerate/accelerate-metrics/flag-coverage',
+    toPath: '/home/accelerate/accelerate-metrics',
+  },
   // Redirects for users-to-contexts
   {
     fromPath: '/home/flags/debugger/',
