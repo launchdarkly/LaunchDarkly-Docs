@@ -797,6 +797,10 @@ module.exports = [
     fromPath: '/guides/best-practices/experimentation/',
     toPath: '/home/creating-experiments',
   },
+  {
+    fromPath: '/guides/blog/',
+    toPath: '/guides/additional-resources',
+  },
   // Redirect from the readme-hosted docs site
   {
     fromPath: '/',

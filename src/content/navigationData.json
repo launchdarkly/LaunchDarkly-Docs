@@ -1792,8 +1792,8 @@
         ]
       },
       {
-        "label": "LaunchDarkly blog",
-        "path": "/guides/blog",
+        "label": "Additional resources",
+        "path": "/guides/additional-resources",
         "svg": "documents"
       }
     ]
