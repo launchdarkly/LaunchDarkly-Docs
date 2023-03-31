@@ -141,7 +141,6 @@ federal
 file
 filter
 flag
-flag coverage
 flag lifecycle
 flag name
 flag status

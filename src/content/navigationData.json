@@ -518,10 +518,6 @@
             "path": "/home/accelerate/accelerate-metrics/lead-time"
           },
           {
-            "label": "Flag coverage",
-            "path": "/home/accelerate/accelerate-metrics/flag-coverage"
-          },
-          {
             "label": "Flag health",
             "path": "/home/accelerate/accelerate-metrics/flag-health"
           }
