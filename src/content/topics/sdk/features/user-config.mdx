@@ -27,7 +27,7 @@ Every LaunchDarkly SDK lets you configure context or user objects to return spec
 
 Every object is required to have a `key`. Keys are always transmitted to LaunchDarkly. Typically, you supply the key when you create the context. If you are using a client-side SDK and mark the context as anonymous, the SDK can generate the key for you. To learn more, read [Anonymous contexts and users](/sdk/features/anonymous).
 
-Keys must be a string type. Keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). Keys must be consistent, which means the same person must correspond to the same key across different services to contribute to consistent flag evaluations and accurate monthly active users (MAU). You can use a primary key or a hash, as long as the same person always has the same key. We recommend using a hash if possible.
+Keys must be a string type. Keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). Keys must be consistent, which means the same person must correspond to the same key across different services to contribute to consistent flag evaluations and accurate monthly context instances (MCI). You can use a primary key or a hash, as long as the same person always has the same key. We recommend using a hash if possible.
 
 ### Using built-in and custom attributes
 

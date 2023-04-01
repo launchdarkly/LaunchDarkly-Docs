@@ -237,7 +237,6 @@ mock
 mode
 monitor
 mparticle
-mtc
 multi-context
 multivariate
 mutually exclusive
