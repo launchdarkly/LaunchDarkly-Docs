@@ -62,7 +62,7 @@ In LaunchDarkly, experiments can:
 - drive revenue and conversion rate by rolling out successful variations to the rest of your user base,
 - and more.
 
-You can create an experiment by connecting any flag to a metric you want to track. Because you can wrap any part of your technology stack or product in a feature flag, you can use experiments to test for much more than the efficacy of user interface (UI) changes.
+You can create an experiment by connecting any boolean, string, or number flag to a metric you want to track. Because you can wrap any part of your technology stack or product in a feature flag, you can use experiments to test for much more than the efficacy of user interface (UI) changes.
 
 ### What hypotheses are and how they relate to experiments
 
@@ -155,7 +155,7 @@ An experiment also requires determining who or what will be randomly assigned to
 
 Before building the experiment, you need to decide how many variations you want to test, and what those variations are. For example, will you be testing a red checkout button versus a blue checkout button, or will you be testing a red versus a blue versus a green checkout button?
 
-Then, you need to add the variations you choose to the flag you are including in your experiment. To learn more, read [Creating flag variations](/home/flags/variations).
+Then, you need to add the variations you choose to the flag you are including in your experiment. You can run experiments on boolean, string, and number flags, but not JSON flags. To learn more, read [Creating flag variations](/home/flags/variations).
 
 ## Setting experiment metrics
 
@@ -215,8 +215,7 @@ If you’re not ready to roll out the winning variation yet, you can change the 
 
 ## Conclusion
 
-In this guide you have learned some of the key concepts of experimentation and
-how to design an experiment using feature flags.
+In this guide you have learned some of the key concepts of experimentation and how to design experiments using feature flags.
 
 <Callout intent="primary" site="launchDarkly">
 <CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
