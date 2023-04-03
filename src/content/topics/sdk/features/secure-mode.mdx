@@ -316,7 +316,9 @@ var hashString = BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
 
 ## Configuring secure mode in the JavaScript client-side SDK
 
-You should send the computed secure mode hash for your user as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#hash) in the `LDOptions` object during client initialization and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify) if subsequently identifying new contexts:
+You should send the computed secure mode hash for your context as the [`hash` attribute](https://launchdarkly.github.io/js-client-sdk/interfaces/LDOptions.html#hash) in the `LDOptions` object during client initialization, and as the [`hash` parameter](https://launchdarkly.github.io/js-client-sdk/interfaces/LDClient.html#identify) if subsequently identifying new contexts.
+
+Here's how:
 
 <CodeSample>
 <CSTab label="JavaScript SDK v3.0">
@@ -383,4 +385,6 @@ client.identify(newUser, hash, function () {
 </CSTab>
 </CodeSample>
 
-To use secure mode, context objects must contain a predefined `key` attribute. Secure mode is not compatible with the SDK's ability to [automatically generate keys for anonymous contexts](/sdk/features/anonymous#javascript) because the SDK needs a correctly calculated `hash` value.
+To use secure mode, you must generate the hash based on a unique identifier for the context. This unique identifier is called a "canonical key" and is a concatenation of the `kind` and `key` attributes, separated by a colon (`:`). For example, if a user context has a key of "user-key-123abc," this means you must generate the hash using a canonical key of `user:user-key-123abc`. If the context is a multi-context, the canonical key must include the `key` and `kind` attribute for each context kind. For example, if a multi-context contains an organization context kind and a user context kind, and they have the keys "org-key-123abc" and "user-key-123abc", the canonical key is `organization:org-key-123abc:user:user-key-123abc`.
+
+Secure mode is not compatible with the SDK's ability to automatically generate keys for anonymous contexts because the SDK needs a correctly calculated `hash` value. To learn more, read [Anonymous contexts and users](/sdk/features/anonymous#javascript).
