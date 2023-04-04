@@ -94,7 +94,7 @@ These features are affected when you use a shared key between anonymous contexts
 
 Before they log in, an end user might be represented by a device context. After they log in, they might be represented by two contexts, with one context kind based on their device and the second context kind based on their user information. This one person is now represented by two unique context keys. Both contexts are counted toward your MCI limit.
 
-If you want to associate two contexts with each other, you can identify a multi-context that includes both individual contexts when you want the association to occur. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+If you want to associate two contexts with each other, you should identify a multi-context that includes both individual contexts when you want the association to occur. Unlike the aliasing method, the association doesn't persist between calls. You must send the contexts you want to associate in each `variation` or `identify` call and each `track` call. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
 
 If you are not yet using an SDK version that supports contexts, you can associate an anonymous user with a specific, logged-in user using the `alias` method.
 

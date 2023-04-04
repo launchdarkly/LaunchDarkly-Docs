@@ -376,7 +376,7 @@ With the introduction of contexts, the person in this scenario is represented by
 
 The 7.0 version of the SDK removes the ability to send an `alias` event. If you currently [alias users](/sdk/features/aliasing-users), you will need to remove this code when you migrate to version 7.0.
 
-If you want to continue associating two contexts with each other, you can use two different context kinds, and then identify a multi-context that includes both individual contexts when you want the association to occur.
+If you want to continue associating two contexts with each other, you can use two different context kinds, and then identify a multi-context that includes both individual contexts when you want the association to occur. Unlike the aliasing method, the association doesn't persist between calls. You must send the contexts you want to associate in each `variation` or `identify` call and each `track` call.
 
 Here's how:
 

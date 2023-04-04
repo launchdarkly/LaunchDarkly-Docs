@@ -96,7 +96,7 @@ Not all SDKs support contexts at this time. If you are still using SDKs that do 
 
 Some SDK functionality is changing as part of upgrading to contexts. For a full list of changing features, [read your SDK's migration guide](/sdk).
 
-One significant feature change is that SDKs that support contexts no longer support user aliasing. Instead, if you want to associate two contexts with each other, you can identify a multi-context. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+One significant feature change is that SDKs that support contexts no longer support user aliasing. Instead, if you want to associate two contexts with each other, you should identify a multi-context. Unlike the aliasing method, the association doesn't persist between calls. You must send the contexts you want to associate in each `variation` or `identify` call and each `track` call. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
 
 ## Choose your context kinds
 
