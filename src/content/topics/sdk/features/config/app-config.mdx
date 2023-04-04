@@ -59,6 +59,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 This feature is available in the following client-side SDKs:
 
 - [Android](#android)
+- [Flutter](#flutter)
 - [iOS](#ios)
 - [JavaScript](#javascript)
 - [Node.js (client-side)](#nodejs-client-side)
@@ -101,6 +102,29 @@ val ldConfig: LDConfig = LDConfig.Builder()
 </CodeSample>
 
 To learn more, read [`ApplicationInfoBuilder`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/integrations/ApplicationInfoBuilder.html).
+
+</Details>
+
+### Flutter
+
+<Details summary="Expand Flutter code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeSample>
+<CSTab label="Dart">
+
+```dart
+LDConfig ldConfig = LDConfigBuilder("mobile-key-123abc")
+  .applicationId("authentication-service")
+  .applicationVersion("1.0.0")
+  .build();
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`LDConfigBuilder`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDConfigBuilder-class.html).
 
 </Details>
 
