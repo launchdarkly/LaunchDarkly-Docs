@@ -777,6 +777,10 @@
             "path": "/integrations/elastic-stack"
           },
           {
+            "label": "Grafana",
+            "path": "/integrations/grafana"
+          },
+          {
             "label": "Honeycomb",
             "path": "/integrations/honeycomb",
             "items": [
@@ -1538,8 +1542,8 @@
             "path": "/sdk/server-side/rust",
             "items": [
               {
-              "label": "Rust SDK v1 implementation guide",
-              "path": "/sdk/server-side/rust/implementation-v1"
+                "label": "Rust SDK v1 implementation guide",
+                "path": "/sdk/server-side/rust/implementation-v1"
               }
             ]
           }
