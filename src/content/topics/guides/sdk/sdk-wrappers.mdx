@@ -119,7 +119,7 @@ This is helpful if you evaluate specific flags in multiple places in your codeba
 
 An SDK wrapper catches evaluation failures and uses the `EvaluationReason` to handle them appropriately. This is useful when specific failure types should raise an exception instead of only serving the fallback value.
 
-For example, an SDK wrapper can use the `EvaluationReason` to handle situations where the code needs to be sure that a `false` value is coming from the flag evaluation, and not a fallback value served due to lack of connection to or data from LaunchDarkly. Another example is that rules that use Big Segments may also evaluate as `true` even if the Big Segment data is unavailable. The only way to diagnose this problem is by checking the `EvaluationReason`.
+For example, an SDK wrapper can use the `EvaluationReason` to handle situations where the code needs to be sure that a `false` value is coming from the flag evaluation, and not a fallback value served due to lack of connection to or data from LaunchDarkly.
 
 ### Combining the SDK & API client behind one interface
 
