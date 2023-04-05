@@ -89,13 +89,13 @@ Configuration config = Configuration.Builder("mobile-key-123abc")
 
 If you set this option, you must still specify a non-null key as a placeholder when you construct the `Context`, because the SDK does not allow a `Context` to exist with a null key. When you pass this context to SDK methods like `Init` or `Identify`, the SDK replaces the placeholder key with a generated key.
 
-In this example, the placeholder key is "unknown-context-key", but it could be any non-empty string:
+In this example, the placeholder key is "placeholder-key", but it could be any non-empty string:
 
 <CodeSample>
 <CSTab label=".NET SDK v3.0 (C#)">
 
 ```csharp
-Context context = Context.Builder("unknown-context-key")
+Context context = Context.Builder("placeholder-key")
     .Anonymous(true)
     .Build();
 ```
@@ -175,6 +175,29 @@ LDUserSetAnonymous(user, true);
 
 </CSTab>
 </CodeSample>
+
+When you mark the context as anonymous, you can leave the key parameter null. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
+
+<CodeSample>
+<CSTab label="C">
+
+```c
+struct LDUser *user = LDUserNew(NULL);
+LDUserSetAnonymous(user, LDBooleanTrue);
+```
+
+</CSTab>
+<CSTab label="C++">
+
+```c
+LDUser *user = LDUserNew(nullptr);
+LDUserSetAnonymous(user, true);
+```
+
+</CSTab>
+</CodeSample>
+
+
 </Details>
 
 ### Electron
@@ -234,7 +257,7 @@ To distinguish logged-in end users from anonymous end users in the SDK:
 <CSTab label="Dart">
 
 ```dart
-LDUser user = LDUserBuilder('user key')
+LDUser user = LDUserBuilder('user-key-123abc')
     .anonymous(true)
     .build();
 ```
@@ -356,7 +379,7 @@ const multiContext = {
   user: anonymousUserContext,
   org: {
     key: 'org-key-123abc',
-    name: 'Example organization name'
+    name: 'Acme, Inc.'
   }
 }
 ```
@@ -614,9 +637,18 @@ LDUser user = new LDUser.Builder('abc123')
 To distinguish logged-in end users from anonymous end users in the SDK:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C">
 
 ```c
+struct LDUser *user = LDUserNew("placeholder-key");
+LDUserSetAnonymous(user, LDBooleanTrue);
+```
+
+</CSTab>
+<CSTab label="C++">
+
+```c
+LDUser *user = LDUserNew("placeholder-key");
 LDUserSetAnonymous(user, true);
 ```
 
