@@ -23,6 +23,8 @@ Here is a screenshot of flag status indicators on the **Feature flags** list:
 ![The "Feature flags" list with flag status indicators called out.](flag-status-indicators-callout.png)
 
 
+## Flag status definitions
+
 The various flag statuses are explained below:
 
 <Table>
@@ -48,7 +50,8 @@ The various flag statuses are explained below:
 
 </TableCell>
         <TableCell>Active</TableCell>
-        <TableCell>LaunchDarkly is receiving requests for this flag.</TableCell>
+        <TableCell>LaunchDarkly is receiving requests for this flag, but there are either multiple variations configured, or it is toggled off, or there have been changes to configuration in the past seven days.
+        </TableCell>
     </TableRow>
     <TableRow>
 <TableCell>
@@ -57,7 +60,7 @@ The various flag statuses are explained below:
 
 </TableCell>
       <TableCell>Launched</TableCell>
-<TableCell>The launched icon appears when all context instances have been receiving one variation of this flag, with no configuration changes, for seven days or more. This includes the off variation.<br/>This is calculated by tracking flag evaluations and configuration changes over a seven-day period. For example, if a flag is evaluated and returns the same variation each time to everyone who evaluates it in a seven-day period, and no configuration changes are made to the flag during that period, its status changes to "launched."<br/>You may be able to remove this flag from your code.</TableCell>
+      <TableCell>LaunchDarkly is receiving requests for this flag, it is toggled on, there is only one variation configured, and there have been no changes to configuration in the past seven days.<br/><br/>You may be able to remove this flag from your code.</TableCell>
     </TableRow>
     <TableRow>
 <TableCell>
@@ -66,7 +69,24 @@ The various flag statuses are explained below:
 
 </TableCell>
       <TableCell>Inactive</TableCell>
-<TableCell>The flag has not been requested for at least seven days.<br/>You may be able to remove this flag from your code.</TableCell>
+      <TableCell>The flag has not been requested for at least seven days.<br/><br/>You may be able to remove this flag from your code.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
+
+For example, if a flag is evaluated and returns the same variation each time to everyone who evaluates it in a seven-day period, and no configuration changes are made to the flag during that period, its status changes to "launched." If configuration changes are made to the flag during that period, its status changes to "active."
+
+<Callout intent="info">
+<CalloutTitle>Accelerate uses slightly different definitions</CalloutTitle>
+<CalloutDescription>
+
+If you are part of the Accelerate Early Access Program, be aware that Accelerate uses slightly different definitions on the flag health metric view.
+
+Accelerate defines a Launched flag as one for which the flag is toggled on, and over the past seven days, all context instances have been receiving one variation of the flag and there have been no changes to configuration.
+
+Accelerate defines an Active flag as one for which some context instances have been receiving different variations of the flag, or it is toggled off, or there have been changes to configuration in the past seven days.
+
+To learn more, read [Flag health](/home/accelerate/accelerate-metrics/flag-health).
+
+</CalloutDescription>
+</Callout>
