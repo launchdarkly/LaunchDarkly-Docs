@@ -263,25 +263,25 @@ As in previous versions of the SDK, you can mark specific attributes of a contex
 
 In version 2.0, there are two scopes for which you can mark attributes as private:
 
-  * Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
-  * Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+* Across all contexts of any context kind. You might use this if you want to ensure that the SDK never stores an "email" attribute in LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
+* Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
 
-  In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
+In the first example, all attributes are marked private for all contexts. Only the context key and kind are sent to LaunchDarkly. In the second example, the "email" and "address" attributes are private for all contexts:
 
-  <CodeSample>
-  <CSTab label="2.0 syntax, all attributes marked private">
+<CodeSample>
+<CSTab label="2.0 syntax, all attributes marked private">
 
-  ```erlang
-  ldclient:start_instance("your-sdk-key", #{private_attributes => all}).
-  ```
-  </CSTab>
-  <CSTab label="2.0 syntax, two attributes marked private">
+```erlang
+ldclient:start_instance("your-sdk-key", #{private_attributes => all}).
+```
+</CSTab>
+<CSTab label="2.0 syntax, two attributes marked private">
 
-  ```erlang
-  ldclient:start_instance("your-sdk-key", #{private_attributes => [<<"email">>, <<"address">>]}).
-  ```
-  </CSTab>
-  </CodeSample>
+```erlang
+ldclient:start_instance("your-sdk-key", #{private_attributes => [<<"email">>, <<"address">>]}).
+```
+</CSTab>
+</CodeSample>
 
 To learn more, read [`ldclient_context:set_private_attributes/2` API docs](https://launchdarkly.github.io/erlang-server-sdk/doc/ldclient_context.html#set_private_attributes-2) and [`ldclient_config` API docs](https://launchdarkly.github.io/erlang-server-sdk/doc/ldclient_config.html).
 

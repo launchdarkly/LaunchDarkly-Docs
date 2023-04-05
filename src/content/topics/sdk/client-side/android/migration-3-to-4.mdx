@@ -191,7 +191,7 @@ As in previous versions of the SDK, you can mark specific attributes of a contex
 
 In version 4.0, there are two scopes for which you can mark attributes as private:
 
-* Across all contexts of any context kind. You might use this if you want to ensure that the SDK never sends an "email" attribute to LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
+* Across all contexts of any context kind. You might use this if you want to ensure that the SDK never stores an "email" attribute in LaunchDarkly, no matter whether it occurs in a user context, an organization context, or something else.
 * Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
 
 In the first example, all attributes are marked private for all contexts. In the second example, the "email" and "address" attributes are private for all contexts:
