@@ -612,16 +612,16 @@
         "svg": "database-export",
         "items": [
           {
+            "label": "Amazon Kinesis",
+            "path": "/home/data-export/kinesis"
+          },
+          {
             "label": "Azure Event Hubs",
             "path": "/home/data-export/event-hub"
           },
           {
             "label": "Google Cloud Pub/Sub",
             "path": "/home/data-export/google-pubsub"
-          },
-          {
-            "label": "Amazon Kinesis",
-            "path": "/home/data-export/kinesis"
           },
           {
             "label": "mParticle",
