@@ -514,9 +514,9 @@ As before, if you want to force the SDK to use the same versions of these depend
 
 ## Implementing custom components
 
-Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/data-stores) provided by LaunchDarkly, including Consul, DynamoDB, and Redis. However, the data store interface, formerly called "feature store", has always been public so developers can write their own integrations.
+Most applications use either the default in-memory storage or one of the [database integrations](/sdk/concepts/data-stores) provided by LaunchDarkly, including Consul, DynamoDB, and Redis. However, the data store interface, formerly called "feature store," has always been public so developers can write their own integrations.
 
-Starting in Java SDK 5.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same: the SDK defines its own "data kinds", such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds, without knowing anything about their properties except the key and version.
+Starting in Java SDK 5.0, this model has been changed to make it easier to implement database integrations. The basic concepts are the same: the SDK defines its own "data kinds," such as feature flags and user segments. The data store must provide a way to add and update items of any of these kinds, without knowing anything about their properties except the key and version.
 
 The main changes are:
 

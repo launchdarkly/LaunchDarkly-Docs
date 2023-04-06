@@ -90,7 +90,7 @@ A CloudFormation template is available in the [GitHub repository](https://github
 5. Review the details and click **Create stack**. Wait for creation to complete before you continue. This can take several minutes.
 6. When the S3 bucket is ready, search for "S3" in the AWS console and locate the bucket you created.
 7. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing both the existing site's `index.html` and `logo.png`, and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close."
-8. Select the `site` directory in your bucket. From the Actions pull down select "Make public", click to confirm and then click "Close."
+8. Select the `site` directory in your bucket. From the Actions pull down select "Make public," click to confirm and then click "Close."
 
 ### Manually setting up an S3 bucket
 
@@ -99,7 +99,7 @@ First, you must set up the S3 bucket and put the web site resources into it.
 1. Search for "S3" in the AWS console and click **Create bucket**.
 2. Give the bucket a human-readable name, choose `US East` as the AWS Region, and disable the "block public access" option.
 3. Click **Upload** and then **Add folder**. From the [source repository](https://github.com/launchdarkly-labs/launchDarklyLambda), upload the `/site` folder containing both the existing site's `index.html` and `logo.png`, and a `/beta` folder containing the new site. Click "Upload" and, when the procedure completes, click "Close."
-4. Select the `site` directory in your bucket. From the Actions menu, select "Make public", click to confirm and click **Close**.
+4. Select the `site` directory in your bucket. From the Actions menu, select "Make public," click to confirm and click **Close**.
 5. Click on the "Properties" tab for the S3 bucket. Scroll all the way down to "Static website hosting." Click **Edit** and then choose "Enable." Specify `index.html` as your index document and **Save changes**.
 
 ![Setting up static web hosting in AWS.](aws-static-hosting.png)
@@ -357,7 +357,7 @@ Now you can enable the trigger. Here's how:
 
 3. When you configure the CloudFront trigger, change the CloudFront event to "Viewer request." This ensures that the Lambda will execute on every request before the cache is checked.
 
- If you used the default, which is "Origin request", the cache would be checked first and flag changes after the initial run would pull from this cache. That means flag changes would not impact the redirect.
+ If you used the default, which is "Origin request," the cache would be checked first and flag changes after the initial run would pull from this cache. That means flag changes would not impact the redirect.
 
 4. Accept the defaults for the remaining properties and click "Deploy." You may get asked to do this a second time. If you are, choose "Viewer request" both times.
 
@@ -365,7 +365,7 @@ Now you can enable the trigger. Here's how:
 
 Finally, test to confirm this works. Here's how:
 
-1. Click the "CloudFront" box in the "Function Overview". **Configuration** > **Triggers settings** appears.
+1. Click the "CloudFront" box in the "Function Overview." **Configuration** > **Triggers settings** appears.
 2. Click the link next to the CloudFront trigger that has your CloudFront distribution ID. The CloudFront distribution appears in a new tab.
 3. In the "Details" section of the CloudFront distribution tab, copy the URL for this distribution.
 4. If necessary, wait for the CloudFront distribution to finish deploying. If you paste this URL in the browser, it will direct you to either the old version of the page or the new one.
@@ -526,7 +526,7 @@ Before closing the client, flush any pending analytics events to LaunchDarkly. Y
 
 Here are the steps:
 
-1. Open your Lambda function, go to the Layers section at the bottom of the page, and choose "Add a layer".
+1. Open your Lambda function, go to the Layers section at the bottom of the page, and choose "Add a layer."
 2. Leave the "AWS layers" option selected. In the dropdown, select "LambdaInsightsExtension" under the "AWS provided" heading, then click "Add."
 
 After you add the extension, you can listen for the `SIGTERM` event that indicates that the Lambda is being shut down, and run code at that time.

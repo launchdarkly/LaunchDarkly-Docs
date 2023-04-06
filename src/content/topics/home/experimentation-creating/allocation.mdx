@@ -178,7 +178,7 @@ This new random assignment prevents carryover bias by ensuring that contexts fro
 
 ### Using variation reassignment
 
-It may seem counterintuitive to allow the experiment to reassign contexts to different variations, especially if you are used to the way rollouts work in LaunchDarkly outside of experimentation. However, allowing reassignment has advantages, provided the change you are experimenting on is not disruptive to end users. In practice, this is the case for many experiments. A common example is "user-day experiments", which run for only one day at a time.
+It may seem counterintuitive to allow the experiment to reassign contexts to different variations, especially if you are used to the way rollouts work in LaunchDarkly outside of experimentation. However, allowing reassignment has advantages, provided the change you are experimenting on is not disruptive to end users. In practice, this is the case for many experiments. A common example is "user-day experiments," which run for only one day at a time.
 
 For experiments where contexts should not leave the variation they're initially allocated to, such as significant navigation menu changes or large user interface (UI) changes, you can disable variation reassignment. However, keeping contexts in the same variations incurs additional risk.
 

@@ -279,7 +279,7 @@ curl -X GET 'https://app.launchdarkly.com/api/v2/projects/default/environments?f
 </CSTab>
 </CodeSample>
 
-You must URL-encode any non-alphanumeric characters before you can use them in your request. This means you must convert characters such as punctuation marks to a different string, based on their ASCII encoding. In the example, if you wanted to find environments that contained "local dev" rather than just "local", then you would need to use `filter=query:local%20dev"` because `%20` is the encoding for a space. To learn more about URL-encoding, read [HTML URL Encoding Reference](https://www.w3schools.com/tags/ref_urlencode.ASP).
+You must URL-encode any non-alphanumeric characters before you can use them in your request. This means you must convert characters such as punctuation marks to a different string, based on their ASCII encoding. In the example, if you wanted to find environments that contained "local dev" rather than just "local," then you would need to use `filter=query:local%20dev"` because `%20` is the encoding for a space. To learn more about URL-encoding, read [HTML URL Encoding Reference](https://www.w3schools.com/tags/ref_urlencode.ASP).
 
 If you include multiple query parameters, the API returns only results that match all of the queries. That is, the query parameters are "and"-ed together. In the example, the final request returns only those environments with 'local' in their name or key that also have a "temporary" tag.
 
