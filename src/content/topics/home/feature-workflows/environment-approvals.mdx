@@ -1,10 +1,16 @@
 ---
 path: /home/feature-workflows/environment-approvals
-title: Configuring approvals by environment
+title: Configuring approvals for an environment
 description: This topic explains how to customize who can approve a request for each environment in your LaunchDarkly project.
 published: true
 tags: ['approval', 'feature workflows', 'environment', 'enterprise', 'pro']
 ---
+
+## Overview
+
+This topic explains how to customize approval requests for each environment in your LaunchDarkly project. For example, you can prevent LaunchDarkly from applying a proposed change if any reviewer declines an approval request for the Production environment. Or you may allow anyone, including the person making the approval request, to approve and apply a proposed change in the QA environment.
+
+You can also require approvals on changes to flags in any environment.
 
 <Callout intent="primary">
 <CalloutTitle>Requiring approvals by environment is an Enterprise feature</CalloutTitle>
@@ -14,12 +20,6 @@ Requiring approvals by environment is available to customers on an Enterprise pl
 
 </CalloutDescription>
 </Callout>
-
-## Overview
-
-This topic explains how to customize how approval requests work for each environment in your LaunchDarkly project. You can also require approvals on flag-level changes in any environment.
-
-For example, you can prevent a proposed change from being applied if any reviewer declines an approval request for the Production environment. Or you may allow anyone, including the person making the approval request, to approve and apply a proposed change in the QA environment.
 
 ## Configuring approval settings
 
@@ -54,61 +54,31 @@ In the **Approval settings** panel, you can configure the following fields:
 
 ![The "Approval settings" panel.](approvals-approval-settings.png)
 
-## Requiring approvals in an environment
-
-You can require any change made to a flag in this environment to go through an approval process. This creates a workflow where any environment-specific flag change must have a reviewer's approval before it can be implemented.
-
-To require approvals on flag changes:
-
-1. Navigate to the **Account settings** page.
-2. Click the **Projects** tab.
-3. Click the name of the project you would like to configure approvals for. The **Environments** tab appears.
-4. Next to the environment you wish to modify, click the **overflow menu**.
-5. Choose "Approval settings":
-
-    ![An environment's overflow menu, with the "Approval settings" option called out.](approvals-environment-overflow-callout.png)
-6. Select the **Require approvals for this environment** checkbox:
-
-    ![The "Approval settings" menu with the "Require approvals for this environment" checkbox called out.](approvals-settings-require-callout.png)<br/>
-
-7. Choose whether to require approvals for all flags, or just flags with specific tags.
-8. Choose whether to allow members to delete previously approved scheduled changes without an approval.
-9. Choose whether requestors can approve or decline their own requests.
-10. Enter a minimum number of approvals required.
-11. Click **Save settings**.
-
-### Understanding how required approvals work
+### Understanding how required approvals work for flag targeting
 
 When you select the **Require approvals for this environment** checkbox in the "Approval settings" menu, it requires any flag targeting change to receive an approval before implementation.
 
 If you enable this feature, the following behaviors change:
+
 * When you toggle a flag on or off from the flags list, the "Request approvals" dialog appears.
 * After any change to flag configuration on the flag's **Targeting** tab, the **Review and save** button changes to **Request approval**. When you click it, the "Request approval" dialog appears.
 * On the **Contexts** page, when you change flag targeting for a context, the **Save changes** button changes to **Request approval**. When you click it, the "Request approval" dialog appears.
 
 For all three of these changes, the flag state does not change until a reviewer approves and applies the change.
 
-<Callout intent="alert">
-<CalloutTitle>Required approvals apply only to environment-level changes</CalloutTitle>
-<CalloutDescription>
+### Understanding how required approvals work for flag variations
 
-Approval workflows only impact flag targeting settings within an environment. When you select the **Require approvals for this environment** checkbox, project-level flag changes are not included.
+Changes to flag variations take effect in all environments within your project. To determine whether an approval is required or not, LaunchDarkly aggregates all environment-level approval settings, and applies the strictest settings to the approval flow. 
 
-</CalloutDescription>
-</Callout>
+If at least one environment in a project requires approvals, changes to the value of a flag's variation, including deleting a variation, will be sent through a required approval workflow. Changes to variation names, descriptions, or variations that the flag isn't serving, including creating a new variation, do not require approval.
 
-The following actions do **not** trigger an approval request:
+Examples of enforcing the strictest approval settings to variations changes include:
 
-* Changes to the flag's name
-* Changes to the flag's maintainer
-* Changes to the flag's description
-* Changes to the flag's tags
-* Changes to the flag's variations
-* Creating a flag
-* Archiving a flag
-* Deleting a flag
-
-To prevent members from making these kinds of changes, you can configure and assign custom roles that deny these actions. To learn how, read [Custom roles](/home/members/custom-roles).
+* If one environment requires approvals and another does not, the change will require approval
+* If one environment requires one approval, and another environment requires four approvals, the change will require four approvals 
+* If one environment allows members to review their own requests, and another does not allow members to review their own requests, the change cannot be reviewed by the requesting member
+* If one environment uses ServiceNow as an approval system, and another uses LaunchDarkly, the approval will be routed through ServiceNow
+* If one environment requires approvals for flags tagged "customer" and another environment requires approvals for flags tagged "beta," changes will require approvals for all flags that include either of those tags. 
 
 ### Bypassing required approvals
 

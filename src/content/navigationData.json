@@ -176,7 +176,7 @@
             "path": "/home/feature-workflows/approvals",
             "items": [
               {
-                "label": "Configuring approvals by environment",
+                "label": "Configuring approvals for an environment",
                 "path": "/home/feature-workflows/environment-approvals"
               }
             ]
