@@ -32,6 +32,21 @@ The results tab includes information about attribute filters, experiment traffic
 
 To learn more about interpreting an experiment's results, read [Reading experiment results](/home/analyzing-experiments/results).
 
+## Determining how long to run an experiment
+
+You may not always know how long to run an experiment for. To help decide, you should consider:
+
+- The current probability of the winning variation being the best and how long it would take to improve your confidence, and
+- the level of risk involved in rolling out the winning variation to all contexts.
+
+Each experiment provides a sample size estimator that gives an estimate of how many more contexts need to encounter your experiment before reaching your chosen probability to be best.
+
+In this example, for a 90% probability of being best, 164 more user contexts should be in the experiment before you stop the iteration and roll out the winning variation to all contexts:
+
+![An experiment's sample size estimator results.](experiment-sample-size-estimator.png)
+
+To be confident that the winning variation is the best out of the variations tested, wait until the sample size estimator indicates you have reached the needed number of contexts. Alternatively, if there is a low level of risk in rolling out the winning variation early, or if you don't anticipate a significant impact on your user base, you can end the experiment before you reach that number.
+
 ## Choosing a winning variation
 
 The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations tested. To learn more, read [Winning variations](/home/analyzing-experiments/winning-variation).
