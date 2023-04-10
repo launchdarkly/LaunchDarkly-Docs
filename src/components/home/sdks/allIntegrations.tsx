@@ -140,6 +140,12 @@ const AllIntegrations = () => {
       svg: 'integrations/google',
     },
     {
+      label: 'Grafana',
+      shortLabel: 'Grafana',
+      path: '/integrations/grafana',
+      svg: 'integrations/grafana',
+    },
+    {
       label: 'Heap',
       shortLabel: 'Heap',
       path: '/integrations/heap',
