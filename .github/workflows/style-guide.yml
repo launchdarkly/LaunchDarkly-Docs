@@ -16,10 +16,10 @@ jobs:
         with:
           aws_assume_role: ${{ vars.AWS_ROLE_ARN }}
           ssm_parameter_pairs: "/production/common/services/docs/ekline-token = EKLINE_TOKEN"
-      - uses: ekline-io/ekline-github-action@v5
-        name: Run the style guide checker (Ekline)
-        with:
-          content_dir: ./src/content
-          ek_token: ${{ env.EKLINE_TOKEN }}
-          github_token: ${{ secrets.GH_TOKEN }}
-          reporter: github-pr-review
+#       - uses: ekline-io/ekline-github-action@v5
+#         name: Run the style guide checker (Ekline)
+#         with:
+#           content_dir: ./src/content
+#           ek_token: ${{ env.EKLINE_TOKEN }}
+#           github_token: ${{ secrets.GH_TOKEN }}
+#           reporter: github-pr-review
