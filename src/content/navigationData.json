@@ -176,6 +176,14 @@
             "path": "/home/feature-workflows/approvals",
             "items": [
               {
+                "label": "Requesting approvals",
+                "path": "/home/feature-workflows/request-approvals"
+              },
+              {
+                "label": "Reviewing approval requests",
+                "path": "/home/feature-workflows/review-approvals"
+              },
+              {
                 "label": "Configuring approvals for an environment",
                 "path": "/home/feature-workflows/environment-approvals"
               }

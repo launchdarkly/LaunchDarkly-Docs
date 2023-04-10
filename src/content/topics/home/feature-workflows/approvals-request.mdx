@@ -1,0 +1,128 @@
+---
+path: /home/feature-workflows/request-approvals
+title: Requesting approvals
+description: This topic explains how to create and delete approval requests.
+published: true
+tags: ['approval', 'feature workflows', 'enterprise', 'pro']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Approvals is a Pro and Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Approvals is available to customers on a Pro or Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+Requiring approvals by environment is available only to customers on an Enterprise plan. To learn more, read [Configuring approvals by environment](/home/feature-workflows/environment-approvals).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to create and delete approval requests.
+
+## Creating an approval request
+
+You can request approval on changes to a flag's targeting or variations from any member or team within your LaunchDarkly organization. You can do this any time after you create a flag. Members that do not have permission to approve requests can still view the change.
+
+Here's how:
+
+1. Make a change to any flag.
+2. Click the **dropdown icon** in the **Review and save** button. The additional actions menu appears:
+
+   ![The "Review and save" button with the additional actions menu expanded.](approvals-request-menu.png)
+
+<Callout intent="info">
+<CalloutTitle>Your environment may require approvals</CalloutTitle>
+<CalloutDescription>
+
+If your environment requires approvals, **Review and request approval** is the default option. To learn more, read [Configuring approvals for an environment](/home/feature-workflows/environment-approvals).
+
+</CalloutDescription>
+</Callout>
+
+3. Click "Request approval." The "Save changes" dialog appears.
+
+![The "Save changes" dialog.](approvals-request.png)
+
+4. Review and confirm the changes displayed in the dialog.
+5. Enter a **Reason** to add details that help your reviewers understand the changes you made.
+6. Choose one or more reviewers from the **Reviewers** menu.
+7. Click **Request approval**. The approval request appears.
+
+Reviewers receive an email, an in-app inbox notification, and, if they use the LaunchDarkly Slack or Microsoft Teams app, a Slack or Teams notification asking them to approve your flag changes.
+
+The flag's **Targeting** tab also updates with a number next to the **Pending changes** icon to indicate that there are pending changes waiting for review:
+
+![The "Pending changes" icon a flag.](workflows-pending-changes-icon.png)
+
+<LearnMore>
+
+You can also use the REST API: [Create approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postApprovalRequestForFlag)
+
+</LearnMore>
+
+### Required approvals
+
+Enterprise customers can require approval requests for specific environments.
+
+If your environment requires approvals, then when you make a flag change, **Review and request approval** is the default option.
+
+When you copy flag settings between environments, if the environment you're copying changes to requires approval, then **Review and request approval** is the default option. To learn more, read [Comparing and copying flag settings between two environments](/home/code/flag-compare-copy#comparing-and-copying-flag-settings-between-two-environments) and [Configuring approvals for an environment](/home/feature-workflows/environment-approvals).
+
+<LearnMore>
+
+You can also use the REST API: [Create approval request to copy flag configurations across environments](https://apidocs.launchdarkly.com/tag/Approvals/#operation/postFlagCopyConfigApprovalRequest)
+
+</LearnMore>
+
+## Deleting an approval request
+
+You may delete your request for changes to a flag at any point before the changes are applied. You can do this in several ways:
+
+- from the Approval dashboard, or
+- from the "Pending changes" panel, or
+- from the approval request.
+
+<LearnMore>
+
+You can also use the REST API: [Delete approval request for a flag](https://apidocs.launchdarkly.com/tag/Approvals/#operation/deleteApprovalRequestForFlag)
+
+</LearnMore>
+
+### Deleting an approval request from the Approval dashboard
+
+To delete approval requests from the Approval dashboard:
+
+1. Navigate to the Approval dashboard. Find the request you wish to delete and click the **overflow menu**.
+
+![The overflow menu with the "Delete request" option called out.](approval-delete-request-dashboard.png)
+
+2. Choose "Delete request." A confirmation dialog appears.
+3. Type the flag's key to confirm.
+4. Click **Delete**. The request is deleted.
+
+### Deleting an approval request from the "Pending changes" panel
+
+To delete approval requests from a flag's "Pending changes" panel:
+
+1. Navigate to the flag's **Targeting** or **Variations** tab and click the **Pending changes** icon. The "Pending changes" panel appears.
+2. Find the change you wish to delete and click the **overflow menu**. Additional options appear:
+
+![The "Delete" option in the overflow menu.](workflows-pending-changes-overflow.png)
+
+3. Choose "Delete." A confirmation dialog appears.
+4. Type the flag's name or key to confirm.
+5. Click **Delete**. The request is deleted.
+
+### Deleting an approval request from the request details screen
+
+To delete an approval request from the request details screen:
+
+1. Navigate to the request details screen from the Approvals dashboard, flag, or approval notification.
+2. Click the **overflow menu** and choose "Delete request." A confirmation dialog appears:
+
+![The overflow menu expanded with the "Delete request" option.](approvals-delete-overflow.png)
+
+3. Enter the flag's name or key to confirm.
+4. Click **Delete request**. The request is deleted.

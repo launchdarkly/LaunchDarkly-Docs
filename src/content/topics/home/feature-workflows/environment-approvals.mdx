@@ -1,7 +1,7 @@
 ---
 path: /home/feature-workflows/environment-approvals
 title: Configuring approvals for an environment
-description: This topic explains how to customize who can approve a request for each environment in your LaunchDarkly project.
+description: This topic explains how to customize approval requests for each environment in your LaunchDarkly project.
 published: true
 tags: ['approval', 'feature workflows', 'environment', 'enterprise', 'pro']
 ---
@@ -40,7 +40,6 @@ To configure approvals by environment:
 6. The "Approval settings for environment" panel appears. Make other configuration changes you wish. Information on configurable fields in the "Approval settings" panel is below, after this procedure.
 7. Click **Save settings**.
 
-
 In the **Approval settings** panel, you can configure the following fields:
 
 * **Approval system**: Select to manage approvals either within LaunchDarkly or with a third-party tool.
@@ -54,7 +53,7 @@ In the **Approval settings** panel, you can configure the following fields:
 
 ![The "Approval settings" panel.](approvals-approval-settings.png)
 
-### Understanding how required approvals work for flag targeting
+## Understanding how required approvals work for flag targeting
 
 When you select the **Require approvals for this environment** checkbox in the "Approval settings" menu, it requires any flag targeting change to receive an approval before implementation.
 
@@ -66,7 +65,7 @@ If you enable this feature, the following behaviors change:
 
 For all three of these changes, the flag state does not change until a reviewer approves and applies the change.
 
-### Understanding how required approvals work for flag variations
+## Understanding how required approvals work for flag variations
 
 Changes to flag variations take effect in all environments within your project. To determine whether an approval is required or not, LaunchDarkly aggregates all environment-level approval settings, and applies the strictest settings to the approval flow. 
 
@@ -80,7 +79,7 @@ Examples of enforcing the strictest approval settings to variations changes incl
 * If one environment uses ServiceNow as an approval system, and another uses LaunchDarkly, the approval will be routed through ServiceNow
 * If one environment requires approvals for flags tagged "customer" and another environment requires approvals for flags tagged "beta," changes will require approvals for all flags that include either of those tags. 
 
-### Bypassing required approvals
+## Bypassing required approvals
 
 If you want to grant workflows or members the ability to make flag changes without requesting approval, there is a custom role action that allows them to bypass the approval request process. This is helpful when you need to toggle off a flag immediately, such as during an incident or other end user-facing problem. This action is limited to the environment level, so no one with permission to bypass approval requests can make changes to your LaunchDarkly project unless otherwise allowed by their role.
 
