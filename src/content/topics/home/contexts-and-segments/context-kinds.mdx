@@ -37,7 +37,11 @@ The context kinds list includes all of the built-in and manually created context
 The context kinds list includes the following columns:
 
 - In use: indicates whether an SDK has ever sent a context with this kind to LaunchDarkly
-- Available for targeting: indicates whether you can use this context kind in flag and segment targeting rules. Check or uncheck the "Show hidden context kinds" checkbox to display or hide contexts kinds that are not available for targeting.
+- Available for targeting: indicates whether you can use this context kind in flag and segment targeting rules.
+  - Contexts kinds that are not available for targeting are automatically hidden from the list. Check the "Show hidden context kinds" checkbox to show them:
+
+  ![The context kinds list with the "Show hidden context kinds" checkbox called out.](contexts-kinds-tab-hidden.png)
+
 - Available for experiments: indicates whether you can use this context kind as a randomization unit in experiments. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
 
 You can filter contexts based on their context kind from the **Contexts** list. To learn more, read [The Contexts list](/home/contexts/contexts-list).
@@ -91,7 +95,7 @@ To create a context kind in the LaunchDarkly UI:
 
 7. (Optional) Enter a **Description** for the context kind.
 
-8. (Optional) Uncheck the "Available for targeting" checkbox if you do not want members to be able to use this context kind in flag and segment targeting rules.
+8. (Optional) Uncheck the "Available for targeting" checkbox if you do not want members to be able to use this context kind in flag and segment targeting rules. Unchecking this box also hides the context kind from the context kinds list.
 
 9. (Optional) Check the "Available for experiments" checkbox if you want to be able to use this context kind as a randomization unit in experiments. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
   - Select an industry-standard randomization unit to map the context kind to.
@@ -115,3 +119,15 @@ To create a context kind automatically, create a context object in your LaunchDa
 You can also use the REST API: [Create or update context kind](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/putContextKind)
 
 </LearnMore>
+
+## Removing context kinds
+
+To hide a context kind from the context kinds list and make it unavailable in flag and segment targeting:
+
+1. Find the context kind you want to make unavailable and click the **pencil** icon. The "Edit context kind" dialog appears.
+2. Uncheck "Available for targeting."
+3. Click **Save**.
+
+The context kind is now hidden from the contexts kinds list and is not available in flag and segment targeting rules. 
+
+To view hidden context kinds, click the "Show hidden context kinds" checkbox at the top of the context kinds list.
