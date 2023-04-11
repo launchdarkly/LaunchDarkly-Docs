@@ -30,6 +30,10 @@
             "path": "/home/getting-started/in-app-options"
           },
           {
+            "label": "LaunchDarkly's architecture",
+            "path": "/home/getting-started/architecture"
+          },
+          {
             "label": "LaunchDarkly vocabulary",
             "path": "/home/getting-started/vocabulary"
           }

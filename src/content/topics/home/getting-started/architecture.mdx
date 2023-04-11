@@ -1,0 +1,43 @@
+---
+path: /home/getting-started/architecture
+title: LaunchDarkly's architecture
+description: This topic gives a high-level explanation of LaunchDarkly's platform architecture.
+published: true
+tags: ['variation', 'sdk', 'fdn', 'cdn']
+---
+
+## Overview
+
+This topic gives a high-level explanation of LaunchDarkly's platform architecture. You may want to read this topic if you are a developer considering implementing LaunchDarkly in your project, or an administrator who wants to understand how LaunchDarkly interacts with your app. If you're an end user of the LaunchDarkly user interface (UI), you may not need to know what's explained in this topic.
+
+## How LaunchDarkly connects to your application
+
+Your application uses a LaunchDarkly SDK to connect to LaunchDarkly's flag delivery network, and uses that connection to evaluate and serve feature flag variations to anything you specify: individuals, device types, geographic regions, infrastructure components, operating system versions, and more. This is true regardless of whether LaunchDarkly serves the flag variation to a desktop, laptop, or mobile device. LaunchDarkly SDKs are available in dozens of languages. To learn more, read [SDKs](/sdk).
+
+The flag delivery network is comprised of a third-party content delivery network (CDN) and LaunchDarkly's distributed core architecture components. LaunchDarkly's core architecture is secure, highly available, and spans multiple cloud availability zones, which enables fast responses and consistent experiences anywhere in the world.
+
+![A diagram showing the flag delivery network connecting LaunchDarkly flags and rules to client-side and server-side SDKs.](architecture-fdn-diagram.png)
+
+## How your application receives flag values
+
+In your application, the LaunchDarkly SDK creates a list of flag values. If this is unreachable, the SDK can access in-app default flag values that you specify. Optionally, you can use the LaunchDarkly Relay Proxy to provide even more availability. To learn more, read [Optional components of a LaunchDarkly installation](#optional-components-of-a-launchdarkly-installation).
+
+When you integrate a LaunchDarkly SDK with your app, flag evaluation can begin. After the application launches, the LaunchDarkly SDK initializes within that application code. When it initializes, the SDK pulls down the initial feature flag payload and makes it available to the application. This payload is stored and evaluated in your application memory, which lets the app serve feature flag variations near-instantly. The SDK then sends information about that flag evaluation back to LaunchDarkly.
+
+![A diagram showing the end-to-end connection between LaunchDarkly's flag delivery network and your application.](architecture-ld-app-diagram.png)
+
+If you update a flag's targeting rules, the update streams to the CDN, and then to all connected SDKs. Updates stream by default, but sometimes streaming isn't available, or you do not want your app to maintain long-lived connections to LaunchDarkly. This may be the case if your applications are primarily available on mobile devices, where long-lived connections can consume their end users' limited data. To support those use cases, LaunchDarkly SDKs can fall back on polling connections to send and receive flag updates.
+
+There are two different types of LaunchDarkly SDKs that can connect your application to LaunchDarkly: Server-side SDKs and client-side SDKs. Client-side SDKs also include SDKs that support mobile devices. To learn more about how each type of SDK works, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+## Optional components of a LaunchDarkly installation
+
+In addition to LaunchDarkly's built-in core architecture, two optional components are available for you to configure. You do not have to use either of these components, but if you do, you can use either or both. Whatever you choose, you install and configure the components, and you control the data that flows in or out of them.
+
+The Relay Proxy is an optional component that provides a cache of flag values for a LaunchDarkly environment. To learn more, read [The Relay Proxy](/home/relay-proxy).
+
+![A diagram showing the end-to-end connection between LaunchDarkly's flag delivery network and your application, including an optional Relay Proxy.](architecture-fdn-diagram-rp.png)
+
+Data Export is an optional feature that allows you to stream event data to different destination services so you can analyze information using your preferred tools. To learn more, read [Data Export](/home/data-export).
+
+![A diagram showing the end-to-end connection between LaunchDarkly's flag delivery network and your application, including an optional Data Export destination.](architecture-fdn-diagram-de.png)
