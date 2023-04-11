@@ -10,9 +10,52 @@ tags: ['analyze', 'result', 'experiment', 'experimentation', 'enterprise']
 
 This topic explains how to read and understand an experiment's results tab.
 
-An experiment's results tab provides information about each variation's performance in the experiment, how it compares to the other variations, and which variations are likely to be best out of all the tested options. Understanding how to read this tab can help you make informed decisions about when to edit, stop, or choose a winning variation for your experiments.
+An experiment's **Results** tab provides information about each variation's performance in the experiment, how it compares to the other variations, and which variations are likely to be best out of all the tested options. Understanding how to read this tab can help you make informed decisions about when to edit, stop, or choose a winning variation for your experiments.
 
-## The traffic count table
+An experiment's **Results** tab includes the following sections:
+
+- [Attribute filters](#attribute-filters)
+- [Traffic count](#traffic-count)
+- [Sample ratio mismatch](#sample-ratio-mismatch)
+- [Results graph](#results-graph)
+- [Results table](#results-table)
+
+## Attribute filters
+
+<Callout intent="info">
+<CalloutTitle>You may not be able to use attribute filters</CalloutTitle>
+<CalloutDescription>
+
+Some customers do not have access to attribute filters. This section may not be present in your experiments' <strong>Results</strong> tabs.
+
+</CalloutDescription>
+</Callout>
+
+Attribute filters allow you to slice your experiment results by certain cross-sections of your experiment audience. For example, if you're interested in how variations perform for end users in Canada as compared to end users in Mexico, you could slice your data by the "country" context attribute. This would allow you to compare performance of variations in each individual country, in addition to seeing the variation that performs best overall.
+
+To be able to slice results by attribute, you must add attributes in the "Select metrics" step when you create an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
+
+You can then slice your results by the different values of one of those attributes. 
+
+To slice experiment results by attribute:
+
+1. Navigate to your experiment's **Results** tab.
+2. Select one or more attribute values in the "Attribute filters" section. The "Experiment traffic from:" section updates to display results from all attributes, and from the attribute value you selected:
+
+![Experiment results sliced by attribute.](experiment-results-by-attribute.png)
+
+3. Scroll down to the "Probability report" section to view the probability to be best for all attributes, and for the attribute you selected.
+
+<Callout intent="info">
+<CalloutTitle>You cannot slice results for anonymous contexts or private attributes</CalloutTitle>
+<CalloutDescription>
+
+Private attributes and contexts with the <code>anonymous</code> property set to <code>true</code> are not available for data slicing. Private attributes and anonymous context attributes do not appear in the "Attribute filters" menus.
+
+</CalloutDescription>
+</Callout>
+
+## Traffic count
 
 The traffic count table displays how many contexts have encountered each variation within the experiment:
 
@@ -20,7 +63,11 @@ The traffic count table displays how many contexts have encountered each variati
 
 The table displays total unique contexts, not total experiment events. This means that if a context encounters the experiment more than once, it is counted only once in this table, instead of each time it is in the experiment.
 
-## The results graph
+## Sample ratio mismatch
+
+If your experiment has a sample ratio mismatch, it means there may be an issue with your JavaScript-based SDKs. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
+
+## Results graph
 
 An experiment's results graph provides a visual representation of the performance of each variation tested in an experiment:
 
@@ -68,31 +115,52 @@ Click the **View metric event values per unique context as** radio button to cha
 
 ![The "View metric event values per unique context as" option.](experiment-results-graph-view-values-callout.png)
 
-Imagine you are tracking purchases made by customers using a new checkout flow. A customer makes three purchases for $15 each. If you view metric event values as an average, the average of their purchases is $15. If you view metric event values as a sum, the sum of their purchases is $45. If your goal is to increase revenue per customer, viewing metric event values as a sum makes the most sense.
+Here are examples of when to view metric event values by sum and by average:
 
-Alternatively, imagine you want to decrease the time to checkout per transaction. If a customer takes two minutes for their first purchase, four minutes for their second purchase, and three minutes for their third purchase, their average checkout time is three minutes, but their total checkout time is nine minutes. In this case, viewing metric event values as an average makes the most sense.
+- **Viewing event values as a sum:** Imagine you are tracking purchases made by customers using a new checkout flow. A customer makes three purchases for $15 each. If you view metric event values as an average, the average of their purchases is $15. If you view metric event values as a sum, the sum of their purchases is $45. If your goal is to increase revenue per customer, viewing metric event values as a sum makes the most sense.
+- **Viewing event values as an average:** Imagine you want to decrease the time to checkout per transaction. If a customer takes two minutes for their first purchase, four minutes for their second purchase, and three minutes for their third purchase, their average checkout time is three minutes, but their total checkout time is nine minutes. In this case, viewing metric event values as an average makes the most sense.
 
-## The results table
+## Results table
 
 Each experiment has a results table with a row for each variation tested and a column for the variation's probability to be best, relative difference from the control, credible interval, and mean:
 
 ![An experiment's results table.](experiment-results-table.png)
 
-The sections below explain what each column means.
-
-Imagine you want to test offering a discount for your online store, to see if more customers complete their purchase when you offer a discount. You run an experiment using a click conversion metric when you offer various discounts. For your control variation, you offer no discount.
-
 ### Probability to be best
 
-The probability to be best is the likelihood that a variation had the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is the best option to choose as a winner. In this example, the "15% off" variation has the highest probability to be best.
+Probability to be best is the likelihood that a variation had the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is the best option to choose as a winner. In this example, the "15% off" variation has the highest probability to be best.
+
+Use the "probability to be best" column to decide which variation is the winning variation in your experiment. LaunchDarkly provides additional advanced analysis for further information, but you do not need to use these statistics to make a decision about the winning variation. To learn more about how to choose a variation to roll out to your customers, read [Winning variations](/home/analyzing-experiments/winning-variation).
+
+### Advanced analysis
+
+<Callout intent="warning">
+<CalloutTitle>This section includes advanced concepts</CalloutTitle>
+<CalloutDescription>
+
+This section includes an explanation of advanced statistical concepts. We provide them for informational purposes, but you do not need to understand these concepts in order to use Experimentation.
+
+</CalloutDescription>
+</Callout>
+
+<Details summary="Expand Advanced analysis section">
+
+<Callout intent="info">
+<CalloutTitle>These columns may be in your experiment's Statistics details tab</CalloutTitle>
+<CalloutDescription>
+
+If you have access to attribute filters, these columns will appear in an experiment's results table under the <strong>Statistics details</strong> tab.
+
+</CalloutDescription>
+</Callout>
 
 ### Relative difference from [the control]
 
-The relative difference from the control variation is the range that contains 90% of the variation's probable values. It is written as a percentage of the values from the control variation.
+The relative difference from the control variation is the difference between the mean of the control variation, and the upper and lower bounds of the credible interval of the variation you're testing. This range contains 90% of the variation's probable values.
 
-This means the effect of the variation on the metric you're measuring, compared to the control variation, has a 90% probability of falling within this range. In the above example, the "15% off" variation has a relative difference of [0.61%, 101.96%]. You can have 90% confidence that the effect of the variation on the metric, for any given customer who encounters it, will be between 0.61% and 101.96% higher than the control variation.
+For example, imagine you have a control variation with a mean of 1%, and the variation you're testing has a lower credible interval of 1.1% and an upper credible interval of 1.5%. The difference between 1 and 1.1 is 10%, and the difference between 1 and 1.5 is 50%, so the treatment's relative difference from control is 10% to 50%.
 
-To summarize this column, you can have 90% confidence that offering a 15% discount in your store will result in customers checking out between about 1% to about 102% more often than those who receive no discount.
+In the above example, the "15% off" variation has a relative difference of [0.61%, 101.96%]. You can have 90% confidence that the effect of the variation on the metric, for any given customer who encounters it, will be between 0.61% and 101.96% higher than the control variation.
 
 The longer you run an experiment, the more the width of this interval decreases. This is because the more data you gather, the more confidence you can have because the range of plausible values is smaller.
 
@@ -116,32 +184,4 @@ In the above example, if you continued to run the experiment, you could expect t
 
 All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling). LaunchDarkly automatically performs checks on the results data, to make sure that actual context traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
 
-## Slicing results by attribute
-
-Data slicing by attribute allows you to break down your experiment results by certain cross-sections of your experiment audience. For example, if you're interested in how variations perform for end users in Canada as compared to end users in Mexico, you could slice your data by the "country" context attribute. This would allow you to compare performance of variations in each individual country, in addition to seeing the variation that performs best overall.
-
-To be able to slice results by attribute, you must add attributes to slice results by in the "Select metrics" step when you create an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
-
-You can then slice your results by the different values of one of those attributes. 
-
-To slice experiment results by attribute:
-
-1. Navigate to your experiment's **Results** tab.
-2. Select one or more attribute values in the "Attribute filters" section. The "Experiment traffic from:" section updates to display results from all attributes, and from the attribute value you selected:
-
-![Experiment results sliced by attribute.](experiment-results-by-attribute.png)
-
-3. Scroll down to the "Probability report" section to view the probability to be best for all attributes, and for the attribute you selected.
-
-<Callout intent="info">
-<CalloutTitle>You cannot slice results for anonymous contexts or private attributes</CalloutTitle>
-<CalloutDescription>
-
-Private attributes and contexts with the <code>anonymous</code> property set to <code>true</code> are not available for data slicing. Private attributes and anonymous context attributes do not appear in the "Attribute filters" menus.
-
-</CalloutDescription>
-</Callout>
-
-## Choosing a winning variation
-
-The winning variation for a completed experiment is the variation that is most likely to be the best option out of all of the variations tested. To learn more, read [Winning variations](/home/analyzing-experiments/winning-variation).
+</Details>
