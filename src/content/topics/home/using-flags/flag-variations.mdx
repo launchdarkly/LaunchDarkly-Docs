@@ -72,6 +72,17 @@ If you modify a flag's default values, the updated defaults only apply to new en
 
 Multivariate flags let you use one flag to serve more than two variations of a feature simultaneously. There is no limit to the number of variations you can add to a multivariate flag, making it useful for complex use cases and for managing multiple variations of a feature.
 
+<Callout intent="warning">
+<CalloutTitle>Do not edit flag variations that are in use</CalloutTitle>
+<CalloutDescription>
+
+Do not edit the values of flag variations that are in use. Flag variations are global across all environments within a project. This means that editing the value of a flag variation can have unexpected consequences in other environments, particularly your production environments. 
+
+Instead, create a new variation with the new value, and update your targeting rules to serve the new variation where needed.
+
+</CalloutDescription>
+</Callout>
+
 Multivariate flag variation types include strings, numbers, or JSON. To learn more, read [Understanding flag types](/sdk/concepts/flag-types#understanding-flag-types).
 
 You can use a percentage rollout to refine the rollout of a feature. For example, a multivariate flag that serves strings as variations can be used to enable different customer checkout types, serving a percentage rollout of those types to customers. In this example, the default rule serves one-click checkout to 10% of customers, two-click checkout to 10% of customers, and the original checkout flow to 80% of customers.

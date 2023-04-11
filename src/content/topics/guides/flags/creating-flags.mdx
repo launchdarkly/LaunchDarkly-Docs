@@ -158,6 +158,19 @@ You can make new flags available to client-side and mobile SDKs from the "Create
 
 For existing flags, you can make flags available to client-side and mobile SDKs from the flag's **Settings** tab.
 
+## When not to use flags
+
+Feature flags are not appropriate for every change you make to your codebase.
+
+We recommend against using flags in the following scenarios:
+
+- As a replacement for secrets management, or for targeting on secrets or credentials.
+- As a replacement for configuration management.
+    - Don't use feature flags with configuration that is static or rarely changes. Only use flags for this type of configuration if you need an emergency shut-off switch. 
+    - Don't use feature flags on configuration that, if disabled, would completely block the application from starting. For example, a database hostname or API URLs. 
+- As a database or file store. Instead, keep variations small and avoid complex JSON payloads where possible. Consider breaking up complex flags into smaller individual flags.
+- For every commit, sprint, or other small change. Flagging very small changes is usually not worth the cost of flag upkeep. Instead, wrap features as a whole.
+
 ## Conclusion
 
 In this guide, you have learned about:

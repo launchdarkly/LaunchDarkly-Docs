@@ -78,8 +78,8 @@ Test the fallback values of permanent flags periodically to ensure they are up t
 The flags list provides the status of every flag and when it was last evaluated. Statuses include:
 
 - **New/Never Requested**: You created the flag fewer than seven days ago and it has never been requested.
-- **Active**: LaunchDarkly is currently receiving requests for the flag using your production SDK.
-- **Launched**: All context instances have been receiving one variation of the flag for seven days or more.
+- **Active**: LaunchDarkly is receiving requests for this flag, but there are either multiple variations configured, or it is toggled off, or there have been changes to configuration in the past seven days.
+- **Launched**: LaunchDarkly is receiving requests for this flag, it is toggled on, there is only one variation configured, and there have been no changes to configuration in the past seven days.
 - **Inactive**: The flag has not been requested for at least seven days.
 
 To learn more, read [Flag statuses](/home/code/flag-status).
@@ -152,6 +152,19 @@ A flag should have limited scope. Having a flag that controls more than one feat
 Imagine the smallest unit of logic needed for the most responsive flag. If there are multiple parts to a feature that have to work together, you can create a main flag with other flags dependent on it.
 
 For example, you launch a new dashboard with three widgets. To manage them, create four flags: one flag for each widget, with a dependency on a fourth flag for the main dashboard. In this scenario, if one widget causes problems, you can disable it and still serve the dashboard with the two remaining widgets.
+
+### Only using flags where necessary
+
+You do not need to use feature flags for every change you make to your codebase. Limit the use of flags in certain situations to help manage your flag debt.
+
+We recommend against using flags in the following scenarios:
+
+- As a replacement for secrets management, or for targeting on secrets or credentials.
+- As a replacement for configuration management.
+    - Don't use feature flags with configuration that is static or rarely changes. Only use flags for this type of configuration if you need an emergency shut-off switch. 
+    - Don't use feature flags on configuration that, if disabled, would completely block the application from starting. For example, a database hostname or API URLs. 
+- As a database or file store. Instead, keep variations small and avoid complex JSON payloads where possible. Consider breaking up complex flags into smaller individual flags.
+- For every commit, sprint, or other small change. Flagging very small changes is usually not worth the cost of flag upkeep. Instead, wrap features as a whole.
 
 ### Scheduling regular flag reviews
 
