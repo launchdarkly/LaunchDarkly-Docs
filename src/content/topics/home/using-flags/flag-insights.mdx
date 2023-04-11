@@ -26,5 +26,6 @@ The flag evaluations graph shows you how flag evaluations change over time. Chan
 
 Flag evaluations graphs are generated on a per-flag evaluation basis, not a per-context instance basis. This means that if the same context instance is evaluated 20 times, the flag evaluations graph records and displays all 20 evaluations. New evaluations appear on the flag evaluations graph within 1-2 minutes.
 
-Each graph also has annotations powered by LaunchDarkly's audit log entries. They tell you about changes to your flag and when those changes were made. This gives you input about how changes affect what your end users receive.
+Each graph also has annotations, indicated by dashed vertical lines. The annotations pull from audit log entries to tell you about changes to your flag and when those changes were made. This gives you input about how changes affect what your end users receive.
 
+To view the annotations from the flag evaluations graph, hover over an annotation line. To view the audit log entries for this change, click the annotation line. A panel of audit log entries appears.
