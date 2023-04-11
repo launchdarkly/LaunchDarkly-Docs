@@ -63,18 +63,18 @@ To use SSO in test-drive mode:
 
 ## User provisioning with SAML
 
-LaunchDarkly automatically creates accounts for new account members who sign in through your IdP. Every time an account member signs in, LaunchDarkly also updates the account member's profile with user attributes from the IdP. To learn more, read [Understanding default roles](/home/account-security/sso#understanding-default-roles).
-
-You can configure your identity provider to send the following attributes when the account member signs in to LaunchDarkly. Each attribute is optional. Specify attribute names with the "basic" format. You can also manage custom attributes in LaunchDarkly.
-
 <Callout intent="info">
 <CalloutTitle>New account members must sign into LaunchDarkly through your IdP</CalloutTitle>
 <CalloutDescription>
 
-New account members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once.
+New account members will not be able to sign in from LaunchDarkly's login screen until they have accessed LaunchDarkly through your IdP at least once. To learn how, read [Initiating login through your IdP](/home/getting-started/your-account#initiating-login-through-your-idp).
 
 </CalloutDescription>
 </Callout>
+
+LaunchDarkly automatically creates accounts for new account members who sign in through your IdP. Every time an account member signs in, LaunchDarkly also updates the account member's profile with user attributes from the IdP. To learn more, read [Understanding default roles](/home/account-security/sso#understanding-default-roles).
+
+You can configure your identity provider to send the following attributes when the account member signs in to LaunchDarkly. Each attribute is optional. Specify attribute names with the "basic" format. You can also manage custom attributes in LaunchDarkly.
 
 ### NameID field formatting
 
