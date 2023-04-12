@@ -608,7 +608,246 @@ To learn more, read [Your first feature flag](/home/getting-started/feature-flag
 
 Some feature flag actions affect only the current environment. Other feature flag actions affect all environments in a project.
 
-This table explains available feature flag actions that affect only the current environment:
+This table explains feature flag actions related to targeting changes. Unless otherwise specified, these actions affect only the current environment:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>updateFallthrough</code>
+      </TableCell>
+      <TableCell>
+        Update the default rule, also called the "fallthrough" rule.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFeatureWorkflows</code>
+      </TableCell>
+      <TableCell>
+        Change a flag's feature workflows.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagVariations</code>
+      </TableCell>
+      <TableCell>
+        Change the flag's variations. This action affects all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateGlobalArchived</code>
+      </TableCell>
+      <TableCell>
+        Change whether a flag is archived. Impacts all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOffVariation</code>
+      </TableCell>
+      <TableCell>
+        Update the variation returned when flag is toggled off.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOn</code>
+      </TableCell>
+      <TableCell>
+        Toggle a flag on or off.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updatePrerequisites</code>
+      </TableCell>
+      <TableCell>
+        Update flag prerequisites.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateRules</code>
+      </TableCell>
+      <TableCell>
+        Update custom targeting rules.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateScheduledChanges</code>
+      </TableCell>
+      <TableCell>
+        Change the scheduled updates on a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTargets</code>
+      </TableCell>
+      <TableCell>
+        Update individual context targeting rules.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+This table explains feature flag actions related to flag settings. Each of these actions affect all environments in a project:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createFlag</code>
+      </TableCell>
+      <TableCell>
+        Create a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteFlag</code>
+      </TableCell>
+      <TableCell>
+        Delete a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateClientSideFlagAvailability</code>
+      </TableCell>
+      <TableCell>
+        Change whether the flag is available to client-side SDKs.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateDescription</code>
+      </TableCell>
+      <TableCell>
+        Change the description of a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagCustomProperties</code>
+      </TableCell>
+      <TableCell>
+        Update custom properties attached to a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagDefaultVariations</code>
+      </TableCell>
+      <TableCell>
+        Change the default flag variations used by newly-created environments for a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateIncludeInSnippet</code>
+      </TableCell>
+      <TableCell>
+        Change whether the flag is available to front-end code with the <a href="/sdk/client-side/javascript">JavaScript SDK</a>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>
+        Change the name of a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTags</code>
+      </TableCell>
+      <TableCell>
+        Update tags associated with a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTemporary</code>
+      </TableCell>
+      <TableCell>
+        Mark a flag temporary or permanent.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+This table explains feature flag actions related to environment-specific settings:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createTriggers</code>
+      </TableCell>
+      <TableCell>
+        Create a new trigger.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteTriggers</code>
+      </TableCell>
+      <TableCell>
+        Delete a trigger.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagFallthroughTrackEvents</code>
+      </TableCell>
+      <TableCell>
+        Change whether to send detailed event information for a flag in a given environment when the SDK selects the default rule, also called the "fallthrough" rule.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagSalt</code>
+      </TableCell>
+      <TableCell>Update a flag's salt.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTrackEvents</code>
+      </TableCell>
+      <TableCell>
+        Change whether to send detailed event information for a flag in a given environment.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateTriggers</code>
+      </TableCell>
+      <TableCell>
+        Update an existing trigger.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+This table explains feature flag actions related to collaboration:
 
 <Table>
   <TableHeader>
@@ -634,22 +873,6 @@ This table explains available feature flag actions that affect only the current 
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>copyFlagConfigFrom</code>
-      </TableCell>
-      <TableCell>
-        Copy settings from a feature flag.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>copyFlagConfigTo</code>
-      </TableCell>
-      <TableCell>
-        Copy settings to a feature flag.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>createApprovalRequest</code>
       </TableCell>
       <TableCell>
@@ -658,10 +881,10 @@ This table explains available feature flag actions that affect only the current 
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>createTriggers</code>
+        <code>createFlagLink</code>
       </TableCell>
       <TableCell>
-        Create a new trigger.
+        Create a flag link.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -674,24 +897,18 @@ This table explains available feature flag actions that affect only the current 
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteExperimentResults</code>
-      </TableCell>
-      <TableCell>Delete legacy experiment results. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>deleteFlagAttachedGoalResults</code>
+        <code>deleteFlagLink</code>
       </TableCell>
       <TableCell>
-        Reset legacy experiment results for a flag in a given environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Delete a flag link. This affects all environments in a project.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteTriggers</code>
+        <code>manageFlagFollowers</code>
       </TableCell>
       <TableCell>
-        Delete a trigger.
+        Manage the list of members who receive flag change notifications.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -712,10 +929,53 @@ This table explains available feature flag actions that affect only the current 
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateExperimentActive</code>
+        <code>updateMaintainer</code>
       </TableCell>
       <TableCell>
-        Stop a legacy experiment in an environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Update the flag maintainer. This affects all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateFlagLink</code>
+      </TableCell>
+      <TableCell>
+        Update a flag link. This affects all environments in a project.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+This table explains feature flag actions related to other flag changes:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>cloneFlag</code>
+      </TableCell>
+      <TableCell>
+        Create a new flag with settings based on an existing flag. To clone a flag, members need to have the <code>cloneFlag</code> permission on the source flag, as well as the <code>createFlag</code> permission for the new flag. This affects all environments in a project.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>copyFlagConfigFrom</code>
+      </TableCell>
+      <TableCell>
+        Copy settings from a flag.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>copyFlagConfigTo</code>
+      </TableCell>
+      <TableCell>
+        Copy settings to a flag.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -736,118 +996,16 @@ This table explains available feature flag actions that affect only the current 
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateFallthrough</code>
-      </TableCell>
-      <TableCell>
-        Update the <strong>On</strong> default rule, also called the "fallthrough" rule.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFeatureWorkflows</code>
-      </TableCell>
-      <TableCell>
-        Change a flag's feature workflows.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagFallthroughTrackEvents</code>
-      </TableCell>
-      <TableCell>
-        Change whether to send detailed event information for a flag in a given environment when the SDK selects the <strong>On</strong> default rule, also called the "fallthrough" rule.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>updateFlagRuleDescription</code>
       </TableCell>
       <TableCell>
         Update the description for custom targeting rules.
       </TableCell>
     </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagSalt</code>
-      </TableCell>
-      <TableCell>Update a feature flag's salt.</TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateOffVariation</code>
-      </TableCell>
-      <TableCell>
-        Update the variation returned when flag toggle is set to <code>off</code>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateOn</code>
-      </TableCell>
-      <TableCell>
-        Toggle a feature flag on or off.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updatePrerequisites</code>
-      </TableCell>
-      <TableCell>
-        Update flag prerequisites.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateRules</code>
-      </TableCell>
-      <TableCell>
-        Update custom targeting rules.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateScheduledChanges</code>
-      </TableCell>
-      <TableCell>
-        Change the scheduled updates on a feature flag.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTargets</code>
-      </TableCell>
-      <TableCell>
-        Update individual context targeting rules.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTrackEvents</code>
-      </TableCell>
-      <TableCell>
-        Change whether to send detailed event information for a flag in a given environment.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTriggers</code>
-      </TableCell>
-      <TableCell>
-        Update an existing trigger.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>manageFlagFollowers</code>
-      </TableCell>
-      <TableCell>
-        Manage the list of members who receive flag change notifications.
-      </TableCell>
-    </TableRow>
   </TableBody>
 </Table>
 
-This table explains available feature flag actions that affect all environments within a project:
+This table explains feature flag actions related to legacy experiments. To learn more about legacy experiments, read [Legacy experiments](/home/analyzing-experiments/managing#legacy-experiments). To review actions on experiments, read [Experiment actions](#experiment-actions).
 
 <Table>
   <TableHeader>
@@ -857,34 +1015,10 @@ This table explains available feature flag actions that affect all environments 
   <TableBody>
     <TableRow>
       <TableCell>
-        <code>cloneFlag</code>
-      </TableCell>
-      <TableCell>
-        Create a new flag with settings based on an existing flag. To clone a flag, members need to have the <code>cloneFlag</code> permission on the source flag, as well as the <code>createFlag</code> permission for the new flag. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
         <code>createExperiment</code>
       </TableCell>
       <TableCell>
         Create a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>createFlag</code>
-      </TableCell>
-      <TableCell>
-        Create a feature flag. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>createFlagLink</code>
-      </TableCell>
-      <TableCell>
-        Create a flag link. Impacts all environments in a project.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -897,18 +1031,16 @@ This table explains available feature flag actions that affect all environments 
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>deleteFlag</code>
+        <code>deleteExperimentResults</code>
       </TableCell>
-      <TableCell>
-        Delete a flag. Impacts all environments in a project.
-      </TableCell>
+      <TableCell>Delete legacy experiment results. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.</TableCell>
     </TableRow>
-        <TableRow>
+    <TableRow>
       <TableCell>
-        <code>deleteFlagLink</code>
+        <code>deleteFlagAttachedGoalResults</code>
       </TableCell>
       <TableCell>
-        Delete a flag link. Impacts all environments in a project.
+        Reset legacy experiment results for a flag in a given environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -921,18 +1053,10 @@ This table explains available feature flag actions that affect all environments 
     </TableRow>
     <TableRow>
       <TableCell>
-        <code>updateClientSideFlagAvailability</code>
+        <code>updateExperimentActive</code>
       </TableCell>
       <TableCell>
-        Change whether the feature flag is available to client-side SDKs. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateDescription</code>
-      </TableCell>
-      <TableCell>
-        Change the description of a feature flag. Impacts all environments in a project.
+        Stop a legacy experiment in an environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -941,86 +1065,6 @@ This table explains available feature flag actions that affect all environments 
       </TableCell>
       <TableCell>
         Change a flag's baseline variation for a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagCustomProperties</code>
-      </TableCell>
-      <TableCell>
-        Update custom properties attached to a flag. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagDefaultVariations</code>
-      </TableCell>
-      <TableCell>
-        Change the default flag variations used by newly created environments for a feature flag. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagLink</code>
-      </TableCell>
-      <TableCell>
-        Update a flag link. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateFlagVariations</code>
-      </TableCell>
-      <TableCell>
-        Change the flag's variations. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateGlobalArchived</code>
-      </TableCell>
-      <TableCell>
-        Change whether a flag is archived. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateIncludeInSnippet</code>
-      </TableCell>
-      <TableCell>
-        Change whether the feature flag is available to front-end code with the <a href="/sdk/client-side/javascript">JavaScript SDK</a>. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateMaintainer</code>
-      </TableCell>
-      <TableCell>
-        Update the flag maintainer. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateName</code>
-      </TableCell>
-      <TableCell>
-        Change the name of a feature flag. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTags</code>
-      </TableCell>
-      <TableCell>
-        Update tags associated with a flag. Impacts all environments in a project.
-      </TableCell>
-    </TableRow>
-    <TableRow>
-      <TableCell>
-        <code>updateTemporary</code>
-      </TableCell>
-      <TableCell>
-        Marks a flag temporary or permanent. Impacts all environments in a project.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1394,7 +1438,7 @@ This table explains available project actions:
       <TableCell>
         <code>updateDefaultClientSideAvailability</code>
       </TableCell>
-      <TableCell>Change whether new feature flags are made available to client-side SDKs.</TableCell>
+      <TableCell>Change whether new flags are made available to client-side SDKs.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
