@@ -77,7 +77,7 @@ tags: ['custom role', 'permission', 'access', 'resource', 'policy']
 * `site`: This indicates whether the functionality described in the topic is applicable to the commercial LaunchDarkly instance only, or also to the federal instance of LaunchDarkly.
   * If you exclude this, the "LaunchDarkly docs" and "Federal docs" versions of this topic will have the same base content. (The "Federal docs" version will have relevant URLs changed from `.com` to `.us`, but that change is based entirely on which docs site version the reader has selected. It is not controlled by this frontmatter.)
   * If you include this and set the value to `launchDarklyOnly`, then when the reader selects to view the "Federal docs" version of the docs, there will be a callout displayed at the top of this topic, indicating that the functionality is not available for the federal instance of LaunchDarkly.
-* `siteAlertTitle`: This indicates the title for the callout at the top of this topic. The callout will appear if `site` is `launchDarklyOnly` and the reader selects to view the "Federal docs" version of the docs. If not specified, the default is `<title> is not FedRAMP compliant`.
+* `siteAlertTitle`: This indicates the title for the callout at the top of this topic. The callout will appear if `site` is `launchDarklyOnly` and the reader selects to view the "Federal docs" version of the docs. If not specified, the default is `<title> is not available in federal environments`.
 
 ## Writing docs in the LaunchDarkly style
 
@@ -335,12 +335,6 @@ Include a blank line between the opening and closing `<CalloutDescription>` tags
 ## Code samples
 
 Code samples allow you display code in one or multiple tabs within a code block.
-
-_For example, this code:_
-
-
-_Renders this:_
-
 
 To create a code sample:
 1. Write code block as markdown as usual.

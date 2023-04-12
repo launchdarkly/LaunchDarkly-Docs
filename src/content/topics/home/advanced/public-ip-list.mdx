@@ -4,6 +4,8 @@ title: Public IP list
 description: This topic explains how to access LaunchDarkly through one of our public IPs. If you're using a firewall, add a LaunchDarkly IP range to your firewall settings.
 published: true
 tags: ['ip', 'url', 'json']
+site: launchDarklyOnly
+siteAlertTitle: The Public IP list for federal environments is not published
 ---
 
 ## Overview
@@ -14,7 +16,20 @@ This topic explains how to access LaunchDarkly through one of our public IPs. If
 
 To help you access LaunchDarkly services through your firewall, we provide a list of LaunchDarkly's public IP ranges.
 
-Access the list of public IP ranges from this URL: [https://app.launchdarkly.com/api/v2/public-ip-list](https://app.launchdarkly.com/api/v2/public-ip-list).
+Access the list of public IP ranges from this URL:
+
+<CodeSample>
+  <CSTab label="Access public IP ranges">
+
+  ```bash
+    https://app.launchdarkly.com/api/v2/public-ip-list
+  ```
+  ```bash site=federal
+    https://app.launchdarkly.com/api/v2/public-ip-list
+  ```
+
+  </CSTab>
+</CodeSample>
 
 The public IP endpoint returns a JSON object with two attributes:
 
