@@ -1,0 +1,119 @@
+---
+path: /guides/flags/accelerate-metrics
+title: Using Accelerate metrics
+description: This guide describes strategies for reviewing and responding to Accelerate metrics.
+published: true
+tags: ['guide', 'accelerate', 'dora', 'flag lifecycle']
+site: launchDarklyOnly
+siteAlertTitle: Accelerate is not available in federal environments
+---
+
+## Overview
+
+This guide describes strategies for reviewing and responding to Accelerate metrics.
+
+Accelerate enables you to measure and improve metrics that focus on collective outcomes around deployments, releases, and feature management. Reviewing these metrics regularly, establishing baselines for your engineering teams, and thinking about your organizational goals can help you decide what to look for and what improving each metric means for your team. As you review, it's crucial to keep your overall business goals in mind, rather than the improvement of any particular metric.
+
+## Prerequisites
+
+To complete this guide, you must have the following prerequisites:
+
+* You must be a member of LaunchDarkly's Early Access Program (EAP). If you are not yet a member, you can [join the EAP](https://launchdarkly.com/eap).
+* You must have set up Accelerate, so that you can view all the metrics discussed in this guide. To complete these steps, read [Getting started with Accelerate](/home/accelerate/get-started-accelerate).
+* You should have a basic understanding of the metrics available in Accelerate. To learn more, read [Accelerate dashboard metrics](/home/accelerate/accelerate-metrics).
+
+## Deployment frequency
+
+For most organizations, a higher [deployment frequency](/home/accelerate/accelerate-metrics/deployment) is desirable.
+
+You might want a higher deployment frequency because frequent deploys provide fast feedback loops, and can indicate a high degree of collaboration. Additionally, more frequent deploys are strongly correlated with higher overall delivery performance. For example, the DevOps Research and Assessment (DORA) studies after which Accelerate is named found that high performing teams have multiple deploys per day. In contrast, low deployment frequency can mean inefficient processes and a lack of collaboration, and can make it difficult for your teams to resolve issues quickly.
+
+Here are some strategies to increase your deployment frequency:
+
+* **Work with smaller changesets**. If the size of each change is smaller, you'll likely be able to develop, review, and test it more quickly. You'll also be able to complete more of these smaller changes, because the amount of your team's work in progress (WIP) will be smaller.
+
+* **Use feature flags to deploy new features in smaller parts**. For example, if you want to update a particular multi-page customer flow in your application, you'll need to update many different pages. You could put all of the new pages into one changeset, but it would be a single, large, and relatively high-risk deployment. Alternatively, you could deploy each page or partial page separately. If all of the pages are behind a feature flag, then none of your customers will experience any of the new pages until you turn on the feature flag and roll out the entire new flow to a percentage of your user base. We've seen this strategy be highly effective. Our survey data indicates that using feature management can lead to a 9x increase in deployments.
+
+* **Encourage collaboration**. If your deployment frequency is lower than you'd like, encourage collaboration between teams through processes or automation. Sometimes when knowledge is siloed in different teams, deployment and release frequency metrics are lower.
+
+Conversely, focusing too much on increasing your deployment frequency can result in an engineering team that concentrates on deploying many small changes, and not on deploying changes with measurable value to the business. Also, remember that high deployment frequency does not automatically imply success. For example, high deployment frequency can occur with or without good testing and monitoring practices, but testing and monitoring are important for overall product quality.
+
+Regardless of what your deployment frequency is today, you may also want to watch the relative stability of your deployment frequency. If your teams work in one- or two-week iterations, are your deploys spread evenly throughout this cycle, or do they all come at the end? If your deployment frequency is "lumpy" and you have a higher number of incidents than you would prefer, consider aligning your iteration boundaries with a time when you have adequate staff available to respond. For example, if the majority of your deploys happen at the end of an iteration, consider having your iterations end on Wednesdays instead of Fridays, so that your team is better able to respond to any issues that arise with a larger number of deployments.
+
+## Release frequency
+
+For most organizations, a higher [release frequency](/home/accelerate/accelerate-metrics/release) is desirable.
+
+You might want a higher release frequency because the more often your team delivers, the more opportunities it has to make an impact on your business.
+
+Traditional DORA metrics use deployment frequency as a way to measure the "batch size" of a release. Smaller batch sizes can reduce cycle times and variability, increase the rate of feedback you receive from customers, improve your overall engineering efficiency, and make it easier to measure impact on your business, including course correcting quickly if needed.
+
+Introducing feature flags means releasing code in two ways: through code deploys and through feature flags. To measure end-to-end value delivered and efficiency, it's critical to measure both. Higher release frequency indicates that you're delivering value to your end users safely and incrementally. It also indicates that your team has the flexibility to quickly roll back changes if something unexpected happens. A low release frequency can indicate that either feature flags are not being used or features are not being released in a predictable way.
+
+Here are some strategies to change your release frequency:
+
+* **Understand your batch size**. When you read your Flag change frequency chart, a flatter curve indicates that your release or "batch" size is relatively stable.
+
+* **Review the flag changes for impact**. You probably don't want to regularly make a large number of high impact changes at the same time. A large number of flag changes is not necessarily indicative of a large number of high impact changes in your application, but it can be. Time periods with a large number of flag changes should correspond to a section of the Flag changes table that includes mostly lower impact changes.
+
+* **Use flags for gradual rollouts**. You can use percentage rollouts to release a feature gradually. As you receive early feedback and become more confident that your feature is working as intended, you can increase the percentage over time. This will increase both the flag changes and the release frequency, while keeping the release sizes small. To learn more, read [Percentage rollouts](/home/flags/rollouts).
+
+Finally, consider your organizational goals and how you can best serve your customers before making too many changes to your release frequency. Remember that speed does not necessarily equal value. Although many high performing engineering teams have a high release frequency, not all organizations serve customers who can or want to cope with change frequently. For example, in regulated industries, such as banking or health care, each release may mean required training. This can slow down your end users while they adapt to changes.
+
+## Lead time
+
+For most organizations, a lower [lead time](/home/accelerate/accelerate-metrics/lead-time) is desirable.
+
+You might want a lower lead time because it enables you to respond quickly when you need to deliver a fix rapidly and with high confidence. This can happen when you have a defect or an outage. The DORA studies after which Accelerate is named found that high performing teams have lead times of less than an hour, and that a high lead time can be indicative of your engineering team having too much work in progress. Lower lead times can be indicative of having a lower amount of work in progress, which translates to faster throughput.
+
+Here are some strategies to decrease your lead time:
+
+* **Review your team processes**. Accelerate automatically breaks lead time down into several steps. These steps include coding time, pull request (PR) lifespan, waiting for deploy, and deploy duration. Reviewing the processes your teams use during each of these steps is the best first action you can take to decrease lead time. Consider: Where is there wait time? Where are there manual approvals? Where is there duplication of effort?
+
+* **Use flags for most code changes**. Adopting feature flags reduces the risk of each change, because a change with unintended consequences is easier to turn off or mitigate if it's controlled by a flag, rather than requiring a deploy. Reduced risk for individual changes is generally correlated with lower overhead to get changes through.
+
+* **Review your pull request lifespan**. Typically, the vast majority of the PR lifespan step is spent in review. Reducing PR review time is a common and much-discussed way to decrease your lead time. Are there parts of review that you could automate? Are you appropriately prioritizing and rewarding having engineers promptly spend time on code review in your organization? Is your initial code quality high enough, and if not, what kinds of onboarding or other professional development could you invest in for your team?
+
+* **Investigate the waiting for deploy step**. It's also common for the waiting for deploy step of the lead time to be long. This is something that could be straightforward to investigate, and can lead to large decreases in your overall lead time. For example, at LaunchDarkly, the deploy pipeline for one of our heaviest traffic repositories included a "bake" step for each merge, before a commit entered the staging deploy pipeline. At first, that bake step ran sequentially. When we changed our pipeline to allow the "bake" step to include multiple commits, we were able to improve the overall speed of each deploy significantly.
+
+Conversely, focusing too much on decreasing lead time can mean a drop in quality. For example, putting too much incentive on lowering the time spent in PR review could lead to inattentive reviews, which may introduce problems when the feature is released.
+
+## Flag health
+
+For most organizations, a lower [stale flag percentage](/home/accelerate/accelerate-metrics/flag-health) is desirable.
+
+When you look at flag health in one environment, you might want to decrease your stale flag percentage because most stale flags represent tech debt that you need to clean up or remove.
+
+We strongly recommend looking at flag health across environments as well. Differences in flag statuses between environments could indicate a problem. For example, if a flag is "Launched" in all but one environment and "Inactive" in the final environment, maybe you forgot to roll it out. You can use the "Select environments to compare status" feature as an opportunity to double-check your release procedures. To learn more, read [Flag health](/home/accelerate/accelerate-metrics/flag-health).
+
+Here are some strategies to decrease your stale flag percentage:
+
+* Rolling out flags in all relevant environments
+* Removing or archiving flags when you're done with them
+* Marking flags permanent, when it's warranted
+
+Focusing too much on decreasing your stale flag percentage can lead to bad practices in your flag health processes. For example, marking a temporary flag as permanent will decrease your stale flag percentage, because only temporary flags can be stale. But most of the time, a temporary flag should not be set as permanent.
+
+Instead, discuss your overall goals for flag health as a team. You can talk through the flag lifecycle and decide on organizational standards for topics including naming conventions, tags, making flags permanent, and archiving and deleting flags. To learn more, read [Reducing technical debt from feature flags](/guides/flags/technical-debt).
+
+## Conclusion
+
+In this guide, you learned some strategies for reviewing and responding to Accelerate metrics. We encourage you to consider these strategies as a starting point for discussion within your team. As with any set of metrics, it's crucial to think not just about improving your metrics but more importantly about what values or trends in the metrics are best for your team in order to serve your business. Ensure that any changes you want to make to your team processes are aligned with how your engineering team is providing value to your organization as a whole.
+
+### Related information
+
+For more additional information on some of the concepts discussed in this guide, you can also review:
+
+* [Beyond DORA Metrics](https://launchdarkly.com/blog/webinar-beyond-dora-metrics/), article and recorded webinar on the LaunchDarkly blog
+* *Accelerate*, Forsgren, Humble, Kim (2018)
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

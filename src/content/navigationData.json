@@ -1624,6 +1624,10 @@
             "path": "/guides/flags/testing-code"
           },
           {
+            "label": "Using Accelerate metrics",
+            "path": "/guides/flags/accelerate-metrics"
+          },
+          {
             "label": "Using entitlements to manage customer experience",
             "path": "/guides/flags/entitlements"
           },
