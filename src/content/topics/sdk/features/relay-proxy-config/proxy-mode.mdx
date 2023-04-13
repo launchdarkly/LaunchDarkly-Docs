@@ -291,6 +291,15 @@ In version 6.x and earlier, the config properties were named `streamUri`, `pollU
 
 <Details summary="Expand Roku code sample">
 
+<Callout intent="warning">
+<CalloutTitle>The Relay Proxy only works with the Roku SDK in polling mode</CalloutTitle>
+<CalloutDescription>
+
+The Relay Proxy works when the Roku SDK is in polling mode only. You cannot use the Relay Proxy if the Roku SDK is in streaming mode.
+
+</CalloutDescription>
+</Callout>
+
 To connect the SDK to the Relay Proxy, use the `setStreamURI`, `setAppURI`, and `setEventsURI` methods to specify the base URI of your Relay Proxy:
 
 <CodeSample>
