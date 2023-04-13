@@ -79,7 +79,7 @@ Each element in the array is a statement represented as a JSON object with three
 <CalloutTitle>Inverse resource and action sets</CalloutTitle>
 <CalloutDescription>
 
-You can only create a statement using `notActions` or `notResources` in the advanced editor. To learn more about the advanced editor, read [Writing policies in the advanced editor](#writing-policies-in-the-advanced-editor).
+You can only create a statement using `notActions` or `notResources` in the advanced editor. To learn more about the advanced editor, read [Using the advanced editor](/home/members/advanced-editor).
 
 </CalloutDescription>
 </Callout>
@@ -100,89 +100,4 @@ In these expressions `KEY` is the key of the project, environment, or flag. You 
 
 The colon `:` within a policy indicates that the resource after the `:` resides within the resource before the `:`. For example, `proj/account-management:env/production` refers to the `production` environment within the `account-management` project only. To learn more, read [Understanding the resource specifier syntax](/home/members/role-resources#understanding-the-resource-specifier-syntax).
 
-### Writing policies in the advanced editor
-
-The LaunchDarkly UI has a structured series of fields you can use to create policies. If you want to write a policy by hand, however, you can use the advanced editor.
-
-To access the advanced editor:
-
-1. Navigate to **Account settings**.
-2. Click into the **Roles** tab.
-3. Click **Create role**. The "Create custom role" panel appears.
-4. Click **Advanced editor**. The advanced editor appears:
-
-![The advanced editor.](settings-roles-advanced-editor.png)
-
-<Callout intent="alert">
-<CalloutTitle>Resources are case-sensitive</CalloutTitle>
-<CalloutDescription>
-
-When constructing your policy by hand with the advanced editor, make sure to use the resource key, which is case sensitive. If the Production environment of your default project has the key `production` then `proj/default:env/Production` will not allow actions to be taken in your default project's production environment.
-
-</CalloutDescription>
-</Callout>
-
-The following example policy denies access to the `account-management` project. It also allows all actions on the `checkout-flow` flag in all projects and environments.
-
-Here's the example policy:
-
-<CodeSample>
-<CSTab label="Policy">
-
-```json
-[
-  {
-    "effect": "deny",
-    "actions": ["viewProject"],
-    "notResources": ["proj/account-management"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*:flag/checkout-flow"]
-  }
-]
-```
-
-</CSTab>
-</CodeSample>
-
-In the next example, the environment key `production` represents the account's Production environment. This statement denies the member from modifying any feature flags in production:
-
-<CodeSample>
-<CSTab label="Statement">
-
-```json
-[
-  {
-    "effect": "deny",
-    "actions": ["*"],
-    "resources": ["proj/*:env/production:flag/*"]
-  }
-]
-```
-
-</CSTab>
-</CodeSample>
-
-You can also name an "inverse" set of resources by using `notResources` in a statement. This statement explicitly allows all actions to feature flags across all environments _except_ the production environment.
-
-Here's how:
-
-<CodeSample>
-<CSTab label="notResources statement">
-
-```json
-[
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "notResources": ["proj/*:env/production:flag/*"]
-  }
-]
-```
-
-</CSTab>
-</CodeSample>
-
-For more advanced policy examples, read [Example policies and templates](/home/members/example-policies).
+You can create detailed and complex policies with the advanced editor. To learn more, read [Using the advanced editor](/home/members/advanced-editor).

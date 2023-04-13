@@ -330,6 +330,10 @@
                 "path": "/home/members/role-tags"
               },
               {
+                "label": "Using the advanced editor",
+                "path": "/home/members/advanced-editor"
+              },
+              {
                 "label": "Example policies and templates",
                 "path": "/home/members/example-policies"
               }

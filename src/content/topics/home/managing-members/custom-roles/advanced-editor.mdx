@@ -1,0 +1,117 @@
+---
+path: /home/members/advanced-editor
+title: Using the advanced editor
+description: This topic explains how to access and use the advanced editor to create complex custom roles and policies.
+published: true
+tags: ['advanced editor', 'policy', 'member', 'resource', 'custom role']
+---
+
+## Overview
+
+The advanced editor is a tool for experienced LaunchDarkly members who want to create their own custom roles. You can use it to create custom roles and policies that are more complex and detailed than those supported by the simple editor. For example, inverse action and resource sets (`notActions` and `notResources`, respectively) are only available in the advanced editor.
+
+You can copy example roles or templates that assign the same permissions as LaunchDarkly's built-in roles from the topic [Example roles](/home/members/example-policies). In the advanced editor, you can modify those templates to do exactly what you want.
+
+<Callout intent="alert">
+<CalloutTitle>The advanced editor is powerful</CalloutTitle>
+<CalloutDescription>
+
+The advanced editor can cause large permissions changes to sensitive or confidential resources. If you use the advanced editor incorrectly, it is possible to disable your LaunchDarkly project, lock yourself out of your account, or cause other irrevocable changes.<br/><br/>
+
+It is critically important that you read all the documentation in the "Custom roles" section thoroughly before you use the advanced editor to create or modify any custom roles.<br/><br/>
+
+To learn more, read <a href="/home/members/role-concepts">Custom role concepts</a>.
+
+</CalloutDescription>
+</Callout>
+
+## Creating custom role policies with the advanced editor
+
+To access the advanced editor:
+
+1. Navigate to **Account settings**.
+2. Click into the **Roles** tab.
+3. Click **Create role**. The "Create custom role" panel appears.
+4. Click **Advanced editor**. The advanced editor appears.
+
+![The advanced editor.](settings-roles-advanced-editor.png)
+
+5. (Optional) If you do not wish to use the advanced editor, click **Simple editor** to close the advanced editor.
+6. Specify the effects, resources, and actions you wish.
+7. Click **Save role**.
+
+When you create a policy with the advanced editor, you must use resource keys, which are case sensitive. If the production environment of your default project has the key `production` then `proj/default:env/Production` will not allow actions to be taken in your default project's production environment.
+
+To ensure you're using the correct resource key, type **CMD** + **period ( `.` )** to launch the resource finder. Alternatively, click the link beneath the advanced editor.
+
+![The advanced editor, with the resource finder link called out.](settings-roles-resource-finder-callout.png)
+
+## Example policies created with the advanced editor
+
+The following example policy denies access to the `account-management` project. It also allows all actions on the `checkout-flow` flag in all projects and environments.
+
+Here's the example policy:
+
+<CodeSample>
+<CSTab label="Policy">
+
+```json
+[
+  {
+    "effect": "deny",
+    "actions": ["viewProject"],
+    "resources": ["proj/account-management"]
+  },
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "resources": ["proj/*:env/*:flag/checkout-flow"]
+  }
+]
+```
+
+</CSTab>
+</CodeSample>
+
+In the next example, the environment key `production` represents the account's Production environment. This statement denies the member from modifying any feature flags in production:
+
+<CodeSample>
+<CSTab label="Statement">
+
+```json
+[
+  {
+    "effect": "deny",
+    "actions": ["*"],
+    "resources": ["proj/*:env/production:flag/*"]
+  }
+]
+```
+
+</CSTab>
+</CodeSample>
+
+You can also name an "inverse" set of resources by using `notResources` in a statement. `notResources` explicitly allows all actions to feature flags across all environments _except_ an environment you specify. 
+
+In the example below, the combination of `notResources` and the `allow` effect gives access to all environments _except_ the production environment.
+
+
+Here's how:
+
+<CodeSample>
+<CSTab label="notResources statement">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": ["*"],
+    "notResources": ["proj/*:env/production:flag/*"]
+  }
+]
+```
+
+</CSTab>
+</CodeSample>
+
+For more advanced policy examples, read [Example policies and templates](/home/members/example-policies).
