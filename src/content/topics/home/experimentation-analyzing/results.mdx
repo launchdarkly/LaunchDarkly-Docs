@@ -57,11 +57,14 @@ Private attributes and contexts with the <code>anonymous</code> property set to 
 
 ## Traffic count
 
-The traffic count table displays how many contexts have encountered each variation within the experiment:
+The traffic count table displays how many unique contexts have encountered each variation within the experiment:
 
 ![An experiment's traffic count table showing each variation's total number of contexts.](experiment-traffic-count.png)
 
-The table displays total unique contexts, not total experiment events. This means that if a context encounters the experiment more than once, it is counted only once in this table, instead of each time it is in the experiment.
+Here's how the table counts unique contexts:
+
+- The table only counts contexts with the same context kind as the experiment's randomization unit. For example, if your experiment's randomization unit is `user`, then the table counts only `user` contexts. The table won't include any `device` or `organization` contexts that are in the experiment. To learn more, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
+- If the same context is in the experiment multiple times, the table counts the context only once.
 
 ## Sample ratio mismatch
 
