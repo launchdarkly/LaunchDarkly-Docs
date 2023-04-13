@@ -455,7 +455,7 @@ This example sets a key and adds the end user's full name and email address.
 
 The `key` property should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"context-key-123abc"`.
 
-You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object. 
+You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object.
 
 If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -718,7 +718,7 @@ const user: ld.LDUser = {
 
 The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
-The `kind` and `name` attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects. 
+The `kind` and `name` attributes expect string values. Other attribute values can be booleans, numbers, strings, arrays, or JSON objects.
 
 If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use <code>/address/city</code> in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -879,9 +879,9 @@ let user: ld.LDUser = {
 </CSTab>
 </CodeSample>
 
-The first attribute in the object is the `key`. In the React Native SDK, both `key` and `kind` are required. They are the only mandatory attributes. If you mark the context as anonymous, the SDK can generate the key for you. The combination of `key` and `kind` should uniquely identify each context. You can use any value for the key, such as a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the value is `user-key-123abc`. 
+The first attribute in the object is the `key`. In the React Native SDK, both `key` and `kind` are required. They are the only mandatory attributes. If you mark the context as anonymous, the SDK can generate the key for you. The combination of `key` and `kind` should uniquely identify each context. You can use any value for the key, such as a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the value is `user-key-123abc`.
 
-Other attributes can be booleans, numbers, strings, arrays, or JSON objects. 
+Other attributes can be booleans, numbers, strings, arrays, or JSON objects.
 
 If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
@@ -948,10 +948,17 @@ Unlike the JavaScript SDK, the React SDK does not require a context object for i
 
 <Details summary="Expand Roku code sample">
 
-You can create a user object with:
+You can create a context object with:
 
 <CodeSample>
-<CSTab label="BrightScript">
+<CSTab label="Roku SDK v2.0 (BrightScript)">
+
+```brightscript
+context = LaunchDarklyCreateContext({"key": "user-key-123abc", "kind": "user"})
+```
+
+</CSTab>
+<CSTab label="Roku SDK v1.x (BrightScript)">
 
 ```brightscript
 user = LaunchDarklyUser("user-key-123abc")
@@ -960,33 +967,22 @@ user = LaunchDarklyUser("user-key-123abc")
 </CSTab>
 </CodeSample>
 
-The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
+The key should uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
-User objects can be customized with:
+<Callout intent="info">
+<CalloutTitle>Interpreting custom attribute types</CalloutTitle>
+<CalloutDescription>
 
-<CodeSample>
-<CSTab label="BrightScript">
+The optional `name` and `kind` attributes expect string values. If the `kind` attribute is not specified, it is assumed to be "user." Other attributes can be booleans, numbers, strings, arrays, or JSON objects.
 
-```brightscript
-user.setFirstName(String)
+</CalloutDescription>
+</Callout>
 
-user.setLastName(String)
-
-user.setEmail(String)
-
-user.setName(String)
-
-user.setAvatar(String)
-
-user.setCustom(AssociativeArray)
-```
-
-</CSTab>
-</CodeSample>
+If an attribute is a JSON object, then in your flag or segment targeting, you can use `/` as a delimiter to refer to specific object fields. For example, if you have an "address" attribute that includes several fields, then you could use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
 
 To learn how to configure private attributes in the Roku SDK, read [Private attributes](/sdk/features/private-attributes#roku).
 
-To learn how to configure anonymous users in the Roku SDK, read [Anonymous contexts and users](/sdk/features/anonymous#roku).
+To learn how to configure anonymous contexts in the Roku SDK, read [Anonymous contexts and users](/sdk/features/anonymous#roku).
 </Details>
 
 ## Server-side SDKs

@@ -376,7 +376,7 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand Roku code sample">
 
-The `*variation` methods determine which variation of a feature flag a user receives. `*variation` calls take a feature flag key and a default value.
+The `*variation` methods determine which variation of a feature flag a context receives. `*variation` calls take a feature flag key and a default value.
 
 Here is an example:
 
@@ -400,7 +400,7 @@ myValue = launchDarkly.variation("flag-key-123abc", false)
 </CSTab>
 </CodeSample>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 

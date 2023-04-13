@@ -8,6 +8,17 @@ site: launchDarklyOnly
 siteAlertTitle: The LaunchDarkly Roku SDK is not available in federal environments
 ---
 
+<Callout intent="info">
+<CalloutTitle>Version 2 of the Roku SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product.
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Roku SDK 1.x to 2.0 migration guide](/sdk/client-side/roku/migration-1-to-2).
+
+</CalloutDescription>
+</Callout>
+
 ## Overview
 
 This topic documents how to get started with the client-side Roku SDK, and links to reference information on all of the supported features. The Roku SDK is written in BrightScript.
@@ -74,7 +85,25 @@ Mobile keys are not secret and you can expose them in your client-side code with
 Here's how:
 
 <CodeSample>
-<CSTab label="BrightScript">
+<CSTab label="Roku SDK v2.0 (BrightScript)">
+
+```brightscript
+REM get a reference to the task
+launchDarklyNode = m.top.findNode("my-node-name")
+
+REM create configuration
+config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyNode)
+
+REM create a context
+context = LaunchDarklyCreateContext({"key": "user-key-123abc", "kind": "user"})
+
+REM initialize the client
+LaunchDarklySGInit(config, context)
+
+```
+
+</CSTab>
+<CSTab label="Roku SDK v1.x (BrightScript)">
 
 ```brightscript
 REM get a reference to the task
@@ -84,7 +113,7 @@ REM create configuration
 config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyNode)
 
 REM create a user
-user = LaunchDarklyUser("user-key")
+user = LaunchDarklyUser("user-key-123abc")
 
 REM initialize the client
 LaunchDarklySGInit(config, user)
@@ -126,7 +155,7 @@ It's important to create a single client instance. The client instance maintains
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the user will receive the default value for that flag.
+You must make feature flags available to mobile SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the context will receive the default value for that flag.
 
 To make a flag available to this SDK, check the **SDKs using Mobile key** checkbox during flag creation, or on the flag's Settings tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Mobile key** checkbox in your project [Settings](https://app.launchdarkly.com/settings/projects).
 
@@ -138,11 +167,37 @@ Creating a client outside of the SceneGraph API is similar. In the legacy API yo
 Here's how:
 
 <CodeSample>
-<CSTab label="BrightScript">
+<CSTab label="Roku SDK v2.0 (BrightScript)">
 
 ```brightscript
 REM get a reference to the task
-launchDarklyNode = m.top.findNode("MY_NODE_NAME")
+launchDarklyNode = m.top.findNode("my-node-name")
+
+REM create configuration
+config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyNode)
+
+REM create a context
+context = LaunchDarklyCreateContext({"key": "user-key-123abc", "kind": "user"})
+
+
+REM create message port
+messagePort = createObject("roMessagePort")
+
+REM initialize the client
+launchDarkly = LaunchDarkly(config, context, messagePort)
+
+
+REM use the client
+value = launchDarkly.boolVariation("flag-key-123abc", false)
+
+```
+
+</CSTab>
+<CSTab label="Roku SDK v1.x (BrightScript)">
+
+```brightscript
+REM get a reference to the task
+launchDarklyNode = m.top.findNode("my-node-name")
 
 REM create configuration
 config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyNode)
@@ -194,7 +249,9 @@ end while
 This SDK supports the following features:
 
 - [Anonymous contexts and users](/sdk/features/anonymous#roku)
-- [Configuration](/sdk/features/config#roku)
+- [Configuration](/sdk/features/config#roku), including
+  - [Application metadata configuration](/sdk/features/app-config#roku)
+  - [Service endpoint configuration](/sdk/features/service-endpoint-configuration#roku)
 - [Evaluating flags](/sdk/features/evaluating#roku)
 - [Flag evaluation reasons](/sdk/features/evaluation-reasons#roku)
 - [Flushing events](/sdk/features/flush#roku)

@@ -592,19 +592,43 @@ Alert.alert('identify', 'success');
 
 <Details summary="Expand Roku code sample">
 
-The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous context before they log in, and a different context after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163946) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 To do this:
 
 <CodeSample>
-<CSTab label="BrightScript">
+<CSTab label="Roku SDK v2.0 (BrightScript)">
 
 ```brightscript
-user = LaunchDarklyUser("abc")
+REM before the end user logs in
+device = {
+  "kind": "device",
+  "key": "device-key-123abc",
+  "type": "tablet"
+}
+context = LaunchDarklyCreateContext(device)
+
+REM after the end user logs in
+multi = {
+  "kind": "multi",
+  "device": device,
+  "user": {"key": "user-key-123abc", "name": "Sandy"},
+  "organization": {"key": "org-key-123abc", "name": "Acme, Inc."}
+}
+
+launchDarkly.identify(multi)
+
+```
+
+</CSTab>
+<CSTab label="Roku SDK v1.x (BrightScript)">
+
+```brightscript
+user = LaunchDarklyUser("user-key-123abc")
 
 launchDarkly.identify(user)
 

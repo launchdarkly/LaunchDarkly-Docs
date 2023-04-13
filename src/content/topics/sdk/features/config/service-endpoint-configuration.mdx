@@ -49,6 +49,7 @@ This feature is available in the following client-side SDKs:
 * [Node.js (client-side)](#nodejs-client-side)
 * [React Native](#react-native)
 * [React Web](#react-web)
+* [Roku](#roku)
 
 ### .NET (client-side)
 
@@ -534,6 +535,40 @@ If you have enabled [streaming](/sdk/client-side/react/react-web#subscribing-to-
 
 To learn more, read [Configuring the React SDK](/sdk/client-side/react/react-web#configuring-the-react-sdk).
 
+</Details>
+
+### Roku
+
+<Details summary="Expand Roku code sample">
+
+<Callout intent="alert" site="federal">
+<CalloutTitle>The Roku SDK is not supported in the federal instance of LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+The Roku SDK supports service endpoint configuration. However, you should use this feature when working with the Relay Proxy only. The Roku SDK is not supported in the federal instance of LaunchDarkly. To learn more, read [LaunchDarkly in federal environments](/home/advanced/federal).
+
+</CalloutDescription>
+</Callout>
+
+To configure an alternate service endpoint for the SDK, use the `setStreamURI`, `setAppURI`, and `setEventsURI` methods to specify the base URIs:
+
+<CodeSample>
+<CSTab label="BrightScript, connecting to Relay Proxy">
+
+```brightscript
+REM for a legacy Roku application
+config = LaunchDarklyConfig("mobile-key-123abc")
+
+REM for a SceneGraph Roku Application
+config = LaunchDarklyConfig("mobile-key-123abc", CLIENT_SCENEGRAPH_NODE)
+
+config.setStreamURI("https://your-relay-proxy.com:8030")
+config.setAppURI("https://your-relay-proxy.com:8030")
+config.setEventsURI("https://your-relay-proxy.com:8030")
+```
+
+</CSTab>
+</CodeSample>
 </Details>
 
 ## Server-side SDKs

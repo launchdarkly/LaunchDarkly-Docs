@@ -1538,7 +1538,13 @@
   },
   {
     "name": "Roku",
+    "u2cVersion": "2.0",
     "versions": [
+      {
+        "versionMajorMinor": "2.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "04-13"
+      },
       {
         "versionMajorMinor": "1.2",
         "releaseYear": 2021,

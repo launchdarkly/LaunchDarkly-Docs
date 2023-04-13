@@ -1405,7 +1405,13 @@
           },
           {
             "label": "Roku SDK reference",
-            "path": "/sdk/client-side/roku"
+            "path": "/sdk/client-side/roku",
+            "items": [
+              {
+                "label": "Roku SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/client-side/roku/migration-1-to-2"
+              }
+            ]
           },
           {
             "label": "Vue SDK reference",

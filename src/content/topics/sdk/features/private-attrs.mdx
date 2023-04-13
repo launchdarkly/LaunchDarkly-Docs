@@ -798,13 +798,51 @@ All context-related functionality provided by the [JavaScript SDK](#javascript) 
 
 <Details summary="Expand Roku code sample">
 
-To mark specific attributes as private:
+You can configure this option in the configuration object, to apply to all contexts, either for all attributes or some attributes:
+
+<CodeSample>
+<CSTab label="Mark all attributes private in config object">
+
+```brightscript
+config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyTaskNode)
+config.setAllAttributesPrivate(true)
+
+LaunchDarklySGInit(config, context)
+client = LaunchDarklySG(launchDarklyTaskNode)
+```
+
+</CSTab>
+<CSTab label="Mark some attributes private in config object">
+
+```brightscript
+config = LaunchDarklyConfig("mobile-key-123abc", launchDarklyTaskNode)
+config.addPrivateAttribute("email")
+config.addPrivateAttribute("address")
+
+LaunchDarklySGInit(config, context)
+client = LaunchDarklySG(launchDarklyTaskNode)
+```
+
+</CSTab>
+</CodeSample>
+
+You can also mark an attribute as private for a particular context:
 
 <CodeSample>
 <CSTab label="BrightScript">
 
 ```brightscript
-user.addPrivateAttribute(String)
+REM when creating a context
+context = LaunchDarklyCreateContext({
+    "kind": "user",
+    "key": "context-key-123-abc",
+    "email": "sandy@example.com",
+    "_meta": { privateAttributes: ["email"] }
+})
+
+REM for an existing context
+context.addPrivateAttribute("email")
+context.addPrivateAttribute("/address/street")
 ```
 
 </CSTab>

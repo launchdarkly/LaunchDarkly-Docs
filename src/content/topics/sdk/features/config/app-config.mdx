@@ -65,6 +65,7 @@ This feature is available in the following client-side SDKs:
 - [Node.js (client-side)](#nodejs-client-side)
 - [React Native](#react-native)
 - [React Web](#javascript): The React SDK relies on the JavaScript SDK for this functionality.
+- [Roku](#roku)
 
 ### Android
 
@@ -276,6 +277,30 @@ await ldClient.configure(config, context);
 To learn more about the specific configuration options that are available in this SDK, read the [`LDConfig`](https://launchdarkly.github.io/react-native-client-sdk/index.html#LDConfig).
 </Details>
 
+### Roku
+
+<Details summary="Expand Roku code sample">
+
+This code sample shows you how to configure the application identifier and application version:
+
+<CodeSample>
+<CSTab label="BrightScript">
+
+```brightscript
+REM for a legacy Roku application
+config = LaunchDarklyConfig("mobile-key-123abc")
+
+REM for a SceneGraph Roku Application
+config = LaunchDarklyConfig("mobile-key-123abc", CLIENT_SCENEGRAPH_NODE)
+
+REM configure the application identifier and application version
+config.setApplicationInfoValue("id", "authentication-service")
+config.setApplicationInfoValue("version", "1.0.0")
+```
+
+</CSTab>
+</CodeSample>
+</Details>
 
 ## Server-side SDKs
 
