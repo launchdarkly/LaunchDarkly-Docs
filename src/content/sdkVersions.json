@@ -1546,6 +1546,11 @@
         "releaseMonthDay": "04-13"
       },
       {
+        "versionMajorMinor": "1.3",
+        "releaseYear": 2023,
+        "releaseMonthDay": "04-11"
+      },
+      {
         "versionMajorMinor": "1.2",
         "releaseYear": 2021,
         "releaseMonthDay": "07-23"
