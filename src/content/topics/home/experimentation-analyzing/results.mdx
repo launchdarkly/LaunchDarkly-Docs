@@ -1,7 +1,7 @@
 ---
 path: /home/analyzing-experiments/results
 title: Reading experiment results
-description: This topic explains how to read and understand an experiment's results graph and table.
+description: This topic explains how to read and understand an experiment's results tab.
 published: true
 tags: ['analyze', 'result', 'experiment', 'experimentation', 'enterprise']
 ---
@@ -17,7 +17,7 @@ An experiment's **Results** tab includes the following sections:
 - [Attribute filters](#attribute-filters)
 - [Traffic count](#traffic-count)
 - [Sample ratio mismatch](#sample-ratio-mismatch)
-- [Results graph](#results-graph)
+- [Probability chart](#probability-chart)
 - [Results table](#results-table)
 
 ## Attribute filters
@@ -70,17 +70,19 @@ Here's how the table counts unique contexts:
 
 If your experiment has a sample ratio mismatch, it means there may be an issue with your JavaScript-based SDKs. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
 
-## Results graph
+## Probability chart
 
-An experiment's results graph provides a visual representation of the performance of each variation tested in an experiment:
+An experiment's probability chart provides a visual representation of the performance of each variation tested in an experiment:
 
-![An experiment's results graph.](experiment-results-graph.png)
+![An experiment's probability chart.](experiment-results-graph.png)
 
-To hide any of the variations from the results graph, uncheck the box next to the variation's name:
+To hide any of the variations from the probability chart, uncheck the box next to the variation's name:
 
-![An experiment's results graph with two variations unchecked.](experiment-results-graph-unchecked-callout.png)
+![An experiment's probability chart with two variations unchecked.](experiment-results-graph-unchecked-callout.png)
 
-Each Experimentation results graph is unique, and how you interpret the results depends on what metric you're measuring and the hypothesis of your experiment. However, we've provided some general guidelines for interpreting experiment results.
+To hide the chart completely, click **Hide probability chart**.
+
+Each Experimentation probability chart is unique, and how you interpret the results depends on what metric you're measuring and the hypothesis of your experiment. However, we've provided some general guidelines for interpreting experiment results.
 
 <LearnMore>
 
@@ -100,7 +102,7 @@ How wide a curve is on the x-axis determines the credible interval. Narrower cur
 
 In the example below, the green variation has a more precise credible interval than the purple variation:
 
-![An example experiment results graph.](experiment-results-graph-example.png)
+![An example experiment probability chart.](experiment-results-graph-example.png)
 
 To learn more, read [Credible interval](#credible-interval).
 
@@ -148,15 +150,6 @@ This section includes an explanation of advanced statistical concepts. We provid
 
 <Details summary="Expand Advanced analysis section">
 
-<Callout intent="info">
-<CalloutTitle>These columns may be in your experiment's Statistics details tab</CalloutTitle>
-<CalloutDescription>
-
-If you have access to attribute filters, these columns will appear in an experiment's results table under the <strong>Statistics details</strong> tab.
-
-</CalloutDescription>
-</Callout>
-
 ### Relative difference from [the control]
 
 The relative difference from the control variation is the difference between the mean of the control variation, and the upper and lower bounds of the credible interval of the variation you're testing. This range contains 90% of the variation's probable values.
@@ -179,9 +172,9 @@ If you view metric event values per unique context as a sum instead of an averag
 
 The longer you run an experiment, the more the width of this interval decreases. This is because the more data you gather, the more confidence you can have because the range of plausible values is smaller.
 
-### Mean
+### Posterior mean
 
-The mean is the average value of the posterior distribution of the variation. If you were to continue collecting data, the mean is the future average numeric value for the variation that you should expect. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
+The posterior mean is the average value of the posterior distribution of the variation. If you were to continue collecting data, the posterior mean is the future average numeric value for the variation that you should expect. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
 
 In the above example, if you continued to run the experiment, you could expect that offering a 15% discount in your store will result in customers checking out about 71% of the time.
 
