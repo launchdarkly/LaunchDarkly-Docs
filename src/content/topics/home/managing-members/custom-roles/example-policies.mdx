@@ -337,11 +337,6 @@ Copy this Reader role and make any modifications to it to suit your needs:
   {
     "effect": "deny",
     "actions": ["*"],
-    "resources": ["proj/*:env/*:context/*"]
-  },
-  {
-    "effect": "deny",
-    "actions": ["*"],
     "resources": ["proj/*:context-kind/*"]
   },
   {
@@ -431,11 +426,6 @@ Copy this Writer role and make any modifications to it to suit your needs:
     "effect": "allow",
     "actions": ["*"],
     "resources": ["proj/*:env/*:destination/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*:context/*"]
   },
   {
     "effect": "allow",
@@ -533,11 +523,6 @@ Copy this Admin role and make any modifications to it to suit your needs:
     "effect": "allow",
     "actions": ["*"],
     "resources": ["webhook/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*:env/*:context/*"]
   },
   {
     "effect": "allow",
