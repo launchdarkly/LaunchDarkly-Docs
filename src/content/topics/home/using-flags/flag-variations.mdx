@@ -38,7 +38,7 @@ When you add, edit, or delete a feature flag's variations, the change impacts al
 <CalloutTitle>Deleting variations</CalloutTitle>
 <CalloutDescription>
 
-When you delete a variation, custom rules that return that variation are also deleted. If a custom rule has a percentage rollout, the rollout for that variation is set to zero. If the default rule returns the deleted variation, it will change to return the default off value instead.
+When you delete a variation, individual targeting and custom rules that return that variation are also deleted. If a custom rule has a percentage rollout, the rollout for that variation is set to zero. If the default rule returns the deleted variation, it will change to return the default off value instead.
 
 LaunchDarkly allows you to delete variations that are designated to be served when targeting is off. Make sure that your application is able to handle a null value when targeting is off in case this happens.
 
@@ -76,7 +76,7 @@ Multivariate flags let you use one flag to serve more than two variations of a f
 <CalloutTitle>Do not edit flag variations that are in use</CalloutTitle>
 <CalloutDescription>
 
-Do not edit the values of flag variations that are in use. Flag variations are global across all environments within a project. This means that editing the value of a flag variation can have unexpected consequences in other environments, particularly your production environments. 
+Do not edit the values of flag variations that are in use. Flag variations are global across all environments within a project. This means that editing the value of a flag variation can have unexpected consequences in other environments, particularly your production environments.
 
 Instead, create a new variation with the new value, and update your targeting rules to serve the new variation where needed.
 
