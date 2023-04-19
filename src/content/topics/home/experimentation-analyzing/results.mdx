@@ -74,11 +74,11 @@ If your experiment has a sample ratio mismatch, it means there may be an issue w
 
 An experiment's probability chart provides a visual representation of the performance of each variation tested in an experiment:
 
-![An experiment's probability chart.](experiment-results-graph.png)
+![An experiment's probability chart.](experiment-probability-chart.png)
 
 To hide any of the variations from the probability chart, uncheck the box next to the variation's name:
 
-![An experiment's probability chart with two variations unchecked.](experiment-results-graph-unchecked-callout.png)
+![An experiment's probability chart with a variation unchecked.](experiment-probability-chart-unchecked-callout.png)
 
 To hide the chart completely, click **Hide probability chart**.
 
@@ -102,7 +102,7 @@ How wide a curve is on the x-axis determines the credible interval. Narrower cur
 
 In the example below, the green variation has a more precise credible interval than the purple variation:
 
-![An example experiment probability chart.](experiment-results-graph-example.png)
+![An example experiment probability chart.](experiment-probability-chart-example.png)
 
 To learn more, read [Credible interval](#credible-interval).
 
@@ -118,7 +118,7 @@ In each metrics results table you can view metric event values per unique contex
 
 Click the **View metric event values per unique context as** radio button to change your view selection:
 
-![The "View metric event values per unique context as" option.](experiment-results-graph-view-values-callout.png)
+![The "View metric event values per unique context as" option.](experiment-probability-chart-view-values-callout.png)
 
 Here are examples of when to view metric event values by sum and by average:
 
@@ -127,13 +127,15 @@ Here are examples of when to view metric event values by sum and by average:
 
 ## Results table
 
-Each experiment has a results table with a row for each variation tested and a column for the variation's probability to be best, relative difference from the control, credible interval, and mean:
+Each experiment has a results table with a row for each variation tested and a column for the variation's probability to be best, relative difference from the control, credible interval, and posterior mean:
 
 ![An experiment's results table.](experiment-results-table.png)
 
 ### Probability to be best
 
-Probability to be best is the likelihood that a variation had the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is the best option to choose as a winner. In this example, the "15% off" variation has the highest probability to be best.
+Probability to be best is the likelihood that a variation had the biggest effect on the primary metric. Of all the variations in the experiment, the one with highest probability is the best option to choose as a winner. 
+
+In the above example, imagine that you are tracking the number of customers who complete a purchase on your website when offered a 15% off discount ("true") versus those who are offered no discount ("false"). The "true" variation has a probability to be best of 77%, while the "false" variation has a probability to be best of 23%, so you know the "true" variation is the best choice of the variations tested.
 
 Use the "probability to be best" column to decide which variation is the winning variation in your experiment. LaunchDarkly provides additional advanced analysis for further information, but you do not need to use these statistics to make a decision about the winning variation. To learn more about how to choose a variation to roll out to your customers, read [Winning variations](/home/analyzing-experiments/winning-variation).
 
@@ -152,11 +154,9 @@ This section includes an explanation of advanced statistical concepts. We provid
 
 ### Relative difference from [the control]
 
-The relative difference from the control variation is the difference between the mean of the control variation, and the upper and lower bounds of the credible interval of the variation you're testing. This range contains 90% of the variation's probable values.
+The relative difference from the control variation is the difference between the mean of the control variation, and the upper and lower bounds of the credible interval of the variation you're testing. This range contains 90% of the variation's probable values. For example, imagine you have a control variation with a mean of 1%, and the variation you're testing has a lower credible interval of 1.1% and an upper credible interval of 1.5%. The difference between 1 and 1.1 is 10%, and the difference between 1 and 1.5 is 50%, so the treatment's relative difference from control is 10% to 50%.
 
-For example, imagine you have a control variation with a mean of 1%, and the variation you're testing has a lower credible interval of 1.1% and an upper credible interval of 1.5%. The difference between 1 and 1.1 is 10%, and the difference between 1 and 1.5 is 50%, so the treatment's relative difference from control is 10% to 50%.
-
-In the above example, the "15% off" variation has a relative difference of [0.61%, 101.96%]. You can have 90% confidence that the effect of the variation on the metric, for any given customer who encounters it, will be between 0.61% and 101.96% higher than the control variation.
+In the above example, the "true" variation has a relative difference of [-7.41%, 35.01%]. You can have 90% confidence that the effect of the variation on the metric, for any given customer who encounters it, will be between -7.41% lower and 35.01% higher than the control variation. This means 90% of your customers who receive the 15% discount are checking out somewhere between 7.41% less and 35.01% more than those who receive no discount.
 
 The longer you run an experiment, the more the width of this interval decreases. This is because the more data you gather, the more confidence you can have because the range of plausible values is smaller.
 
@@ -164,9 +164,7 @@ The longer you run an experiment, the more the width of this interval decreases.
 
 The credible interval is the range that contains 90% of probable values.
 
-This means the effect of the variation on the metric you're measuring has a 90% probability of falling between these two numbers. In the above example, the "15% off" variation has a credible interval of [43.12%, 86.55%]. This means you can have 90% confidence that the probable values of the metric, for any given customer who encounters it, will be between 43.12% and 86.55%. 
-
-To summarize this column, you can have 90% confidence that offering a 15% discount in your store will result in customers checking out between about 43% to 87% of the time.
+This means the effect of the variation on the metric you're measuring has a 90% probability of falling between these two numbers. In the above example, the "true" variation has a credible interval of [0.57, 0.84]. This means you can have 90% confidence that the probable value of the metric, for any given customer who encounters it, will be between 0.57 and 0.84.
 
 If you view metric event values per unique context as a sum instead of an average, the credible interval will be expressed in values rather than percentages. To learn more, read [Viewing metric event values](#viewing-metric-event-values).
 
@@ -176,7 +174,7 @@ The longer you run an experiment, the more the width of this interval decreases.
 
 The posterior mean is the average value of the posterior distribution of the variation. If you were to continue collecting data, the posterior mean is the future average numeric value for the variation that you should expect. It doesn’t capture the uncertainty in the measurement, so it should not be the only measurement you use to make decisions.
 
-In the above example, if you continued to run the experiment, you could expect that offering a 15% discount in your store will result in customers checking out about 71% of the time.
+In the above example, the posterior mean for "true" is 0.70 and the posterior mean for "false" is 0.62. If you continued to run the experiment, you could expect that offering a 15% discount in your store will result in customers checking out about 0.70% of the time, as opposed to 0.62% of the time with no discount.
 
 All of the data in the results table are based on a posterior distribution. To learn more about posterior distributions, read [Frequentist and Bayesian modeling](/guides/experimentation/bayesian#frequentist-and-bayesian-modeling). LaunchDarkly automatically performs checks on the results data, to make sure that actual context traffic matches the allocation you set. To learn more, read [Understanding sample ratios](/home/analyzing-experiments/sample-ratios).
 
