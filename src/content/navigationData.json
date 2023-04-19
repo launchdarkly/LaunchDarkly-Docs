@@ -899,6 +899,10 @@
                 "path": "/integrations/slack/webhooks"
               }
             ]
+          },
+          {
+            "label": "Confluence",
+            "path": "/integrations/confluence"
           }
         ]
       },

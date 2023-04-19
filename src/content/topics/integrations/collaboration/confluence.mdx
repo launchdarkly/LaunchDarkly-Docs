@@ -1,0 +1,36 @@
+---
+path: /integrations/confluence
+title: Confluence
+description: This topic explains how to use the Confluence embedded pages integration, which allows you to embed Confluence pages in feature flag descriptions.
+published: true
+tags: ['confluence', 'integration']
+site: launchDarklyOnly
+---
+
+## Overview
+
+This topic explains how to use the Confluence embedded pages integration.
+
+You can use the integration to embed Confluence pages in feature flag descriptions. These embedded pages let your LaunchDarkly team members to view, edit, and comment on Confluence pages without leaving LaunchDarkly. This is particularly useful if the feature flag is associated with a feature or service that is documented in Confluence.
+
+To use the integration, include one or more Confluence URLs in a feature flag's description. No additional configuration is required.
+
+![The LaunchDarkly user interface with the a modal containing an embedded Confluence page.](confluence-modal.png)
+
+## Adding a Confluence embedded page button to a flag description
+
+The LaunchDarkly Confluence integration automatically detects Confluence links in flag descriptions and transforms them into buttons that open the embedded Confluence page when clicked.
+
+![An example feature flag description with a Confluence embedded page button highlighted.](confluence-button.png)
+
+To learn how to create feature flags, read [Creating a feature flag](/home/getting-started/feature-flags#creating-a-feature-flag). To learn how to modify an existing feature flag's description, read [Other flag settings](/home/flags/settings).
+
+## Enabling third-party cookies
+
+The LaunchDarkly Confluence integration requires you to enable third-party cookies in your browser settings. 
+
+If your browser's cookie settings are too restrictive, you will see the following dialog after clicking a Confluence embedded page button:
+
+![The Confluence embedded pages troubleshooting modal.](confluence-troubleshooting-modal.png)
+
+For more information on how to adjust your browser's cookie settings, read [Login issues related to browser cookies](https://support.atlassian.com/atlassian-account/docs/login-issues-related-to-browser-cookies/).
