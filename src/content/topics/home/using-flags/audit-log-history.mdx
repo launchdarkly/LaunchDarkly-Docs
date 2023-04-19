@@ -1,14 +1,14 @@
 ---
 path: /home/flags/audit-log-history
 title: The audit log and history tabs
-description: This topic explains how to use the audit log and history tabs to track changes made in LaunchDarkly. The Audit Log is a running tally of changes made to feature flags in a given environment.
+description: This topic explains how to use the Audit log and History tabs to track changes made in LaunchDarkly. The audit log is a running tally of changes made to feature flags in a given environment.
 published: true
 tags: ['audit log', 'history', 'account', 'pro', 'enterprise']
 ---
 
 ## Overview
 
-This topic explains how to use the audit log and history tabs to track changes made in LaunchDarkly.
+This topic explains how to use the **Audit log** and **History** tabs to track changes made in LaunchDarkly.
 
 ## Using the audit log
 
@@ -25,11 +25,11 @@ The **Audit log** is a running tally of changes made to feature flags in a given
 
 The audit log displays changes to feature flags for your current environment only. To view the changes for other environments, use the **Switch environment** menu at the top of your sidenav.
 
-By default, the audit log displays the most recent ten entries. You can use the date picker to change the date range of entries the audit log displays.
+By default, the audit log displays the most recent ten entries. Use the **Show:** menu to change the date range of entries the audit log displays.
 
 Here is an image of the audit log:
 
-![The audit log.](audit-log.png)
+![The audit log, with the "Show:" menu called out.](audit-log.png)
 
 Click the **Details** button for more information about each change. JSON patch changes include representations of the JSON patch operation, and a diff from the old and new JSON, if available.
 
@@ -45,7 +45,9 @@ You can also use the REST API: [Audit log](https://apidocs.launchdarkly.com/tag/
 
 ## Using the history tabs
 
-The user interface (UI) also contains **History** tabs on the **Account settings**, **Feature flags**, and **Segments** pages, as well as on individual team and member pages. These contain a record of the changes made in LaunchDarkly to those resources.
+The user interface (UI) also contains a **History** tab on the **Account settings** page, as well as on individual feature flag, segment, team, and member pages. Each **History** tab contains a record of the changes made in LaunchDarkly to those resources.
+
+On the **History** tab for the flag, segment, team, and members pages, use the **Actions:** menu to filter for specific actions.
 
 <Callout intent="primary">
 <CalloutTitle>The audit log for account changes is an Enterprise feature</CalloutTitle>
@@ -64,3 +66,316 @@ You can also receive audit log notifications by creating [webhooks](/home/connec
 
 </CalloutDescription>
 </Callout>
+
+## Actions recorded in the Audit log and History tabs
+
+The **Audit log** and **History** tabs record each action taken on a flag. A particular entry may include one or more actions.
+
+In the LaunchDarkly UI, the **Audit log** and **History** tabs display a description of each action or set of actions, as entered by the member who performed them. If you use the REST API to review the audit log, the API response also includes a list of the specific actions.
+
+The following sections describe the actions that the **Audit log** and **History** tabs record. On the **History** tabs, use the **Actions:** menu to filter for specific actions.
+
+<Details summary="Expand for actions related to targeting changes">
+
+The following table includes the actions related to targeting changes that are recorded in the **Audit log** and **History** tabs. Unless otherwise specified, these actions affect only the current environment:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action on flag</TableHeadCell>
+    <TableHeadCell>Name in REST response</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+
+  <TableRow>
+    <TableCell>Update fallthrough</TableCell>
+    <TableCell><code>updateFallthrough</code></TableCell>
+    <TableCell>Update the default rule, also called the "fallthrough" rule.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update flag variations</TableCell>
+    <TableCell><code>updateFlagVariations</code></TableCell>
+    <TableCell>Change the flag's variations. This action affects all environments in a project.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update feature workflows</TableCell>
+    <TableCell><code>updateFeatureWorkflows</code></TableCell>
+    <TableCell>Change a flag's feature workflows.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update global archived</TableCell>
+    <TableCell><code>updateGlobalArchived</code></TableCell>
+    <TableCell>Change whether a flag is archived. This action affects all environments in a project.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update off variation</TableCell>
+    <TableCell><code>updateOffVariation</code></TableCell>
+    <TableCell>Update the variation returned when the flag is toggled off.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update on</TableCell>
+    <TableCell><code>updateOn</code></TableCell>
+    <TableCell>Toggle a flag on or off.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update prerequisites</TableCell>
+    <TableCell><code>updatePrerequisites</code></TableCell>
+    <TableCell>Update flag prerequisites.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update rules</TableCell>
+    <TableCell><code>updateRules</code></TableCell>
+    <TableCell>Update custom targeting rules.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update scheduled changes</TableCell>
+    <TableCell><code>updateScheduledChanges</code></TableCell>
+    <TableCell>Change the scheduled updates on a feature flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update targets</TableCell>
+    <TableCell><code>updateTargets</code></TableCell>
+    <TableCell>Update individual context targeting rules.</TableCell>
+  </TableRow>
+
+  </TableBody>
+</Table>
+
+</Details>
+
+<Details summary="Expand for actions related to flag settings">
+
+The following table includes the actions related to flag settings that are recorded in the **Audit log** and **History** tabs. Each of these actions affect all environments in a project:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action on flag</TableHeadCell>
+    <TableHeadCell>Name in REST response</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+
+  <TableRow>
+    <TableCell>Create flag</TableCell>
+    <TableCell><code>createFlag</code></TableCell>
+    <TableCell>Create a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Delete flag</TableCell>
+    <TableCell><code>deleteFlag</code></TableCell>
+    <TableCell>Delete a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update client-side flag availability</TableCell>
+    <TableCell><code>updateClientSideFlagAvailability</code></TableCell>
+    <TableCell>Change whether the flag is available to client-side SDKs.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update description</TableCell>
+    <TableCell><code>updateDescription</code></TableCell>
+    <TableCell>Change the description of a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update flag custom properties</TableCell>
+    <TableCell><code>updateFlagCustomProperties</code></TableCell>
+    <TableCell>Update custom properties attached to a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update flag default variations</TableCell>
+    <TableCell><code>updateFlagDefaultVariations</code></TableCell>
+    <TableCell>Change the default flag variations used by newly-created environments for a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+      <TableCell>Update include in snippet</TableCell>
+    <TableCell><code>updateIncludeInSnippet</code></TableCell>
+    <TableCell>Change whether the feature flag is available to front-end code with the JavaScript SDK.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update name</TableCell>
+    <TableCell><code>updateName</code></TableCell>
+    <TableCell>Change the name of a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update tags</TableCell>
+    <TableCell><code>updateTags</code></TableCell>
+    <TableCell>Update tags associated with a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update temporary</TableCell>
+    <TableCell><code>updateTemporary</code></TableCell>
+    <TableCell>Mark a flag temporary or permanent.</TableCell>
+  </TableRow>
+
+  </TableBody>
+</Table>
+
+</Details>
+
+<Details summary="Expand for actions related to environment-specific settings">
+
+The following table includes the actions related to environment-specific settings that are recorded in the **Audit log** and **History** tabs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action on flag</TableHeadCell>
+    <TableHeadCell>Name in REST response</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+
+  <TableRow>
+    <TableCell>Create triggers</TableCell>
+    <TableCell><code>createTriggers</code></TableCell>
+    <TableCell>Create a new trigger.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Delete triggers</TableCell>
+    <TableCell><code>deleteTriggers</code></TableCell>
+    <TableCell>Delete a trigger.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update flag fallthrough track events</TableCell>
+    <TableCell><code>updateFlagFallthroughTrackEvents</code></TableCell>
+    <TableCell>Change whether to send detailed event information for a flag in a given environment when the SDK selects the default rule, also called the "fallthrough" rule.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update flag salt</TableCell>
+    <TableCell><code>updateFlagSalt</code></TableCell>
+    <TableCell>Update a flag's salt.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update track events</TableCell>
+    <TableCell><code>updateTrackEvents</code></TableCell>
+    <TableCell>Change whether to send detailed event information for a flag in a given environment.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update triggers</TableCell>
+    <TableCell><code>updateTriggers</code></TableCell>
+    <TableCell>Update an existing trigger.</TableCell>
+  </TableRow>
+
+  </TableBody>
+</Table>
+
+</Details>
+
+<Details summary="Expand for actions related to collaboration">
+
+The following table includes the actions related to collaboration that are recorded in the **Audit log** and **History** tabs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action on flag</TableHeadCell>
+    <TableHeadCell>Name in REST response</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+
+  <TableRow>
+    <TableCell>Apply approval request</TableCell>
+    <TableCell><code>applyApprovalRequest</code></TableCell>
+    <TableCell>Apply an approved approval request for a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Bypass required approval</TableCell>
+    <TableCell><code>bypassRequiredApproval</code></TableCell>
+    <TableCell>Bypass required approvals in the environment.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Create approval request</TableCell>
+    <TableCell><code>createApprovalRequest</code></TableCell>
+    <TableCell>Create an approval request for a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Create flag link</TableCell>
+    <TableCell><code>createFlagLink</code></TableCell>
+    <TableCell>Create a flag link. This affects all environments in a project.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Delete approval request</TableCell>
+    <TableCell><code>deleteApprovalRequest</code></TableCell>
+    <TableCell>Delete an approval request for a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Delete flag link</TableCell>
+    <TableCell><code>deleteFlagLink</code></TableCell>
+    <TableCell>Delete a flag link. This affects all environments in a project.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Manage flag followers</TableCell>
+    <TableCell><code>manageFlagFollowers</code></TableCell>
+    <TableCell>Manage the list of members who receive flag change notifications.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Review approval request</TableCell>
+    <TableCell><code>reviewApprovalRequest</code></TableCell>
+    <TableCell>Review an approval request for a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update approval request</TableCell>
+    <TableCell><code>updateApprovalRequest</code></TableCell>
+    <TableCell>Update an existing approval request for a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update maintainer</TableCell>
+    <TableCell><code>updateMaintainer</code></TableCell>
+    <TableCell>Update the flag maintainer. This affects all environments in a project.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update flag link</TableCell>
+    <TableCell><code>updateFlagLink</code></TableCell>
+    <TableCell>Update a flag link. This affects all environments in a project.</TableCell>
+  </TableRow>
+
+  </TableBody>
+</Table>
+
+</Details>
+
+<Details summary="Expand for actions related to other flag changes">
+
+The following table includes the actions related to other flag changes that are recorded in the **Audit log** and **History** tabs:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action on flag</TableHeadCell>
+    <TableHeadCell>Name in REST response</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+
+  <TableRow>
+    <TableCell>Clone flag</TableCell>
+    <TableCell><code>cloneFlag</code></TableCell>
+    <TableCell>Create a new flag with settings based on an existing flag. This affects all environments in a project.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Copy flag config from</TableCell>
+    <TableCell><code>copyFlagConfigFrom</code></TableCell>
+    <TableCell>Copy settings from a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Copy flag config to</TableCell>
+    <TableCell><code>copyFlagConfigTo</code></TableCell>
+    <TableCell>Copy settings to a flag.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update expiring rules</TableCell>
+    <TableCell><code>updateExpiringRules</code></TableCell>
+    <TableCell>Change a flag's expiring custom targeting rules.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update expiring targets</TableCell>
+    <TableCell><code>updateExpiringTargets</code></TableCell>
+    <TableCell>Change a flag's expiring individual context targeting rules.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell>Update flag rule description</TableCell>
+    <TableCell><code>updateFlagRuleDescription</code></TableCell>
+    <TableCell>Update the description for custom targeting rules.</TableCell>
+  </TableRow>
+
+  </TableBody>
+</Table>
+
+</Details>
