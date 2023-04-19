@@ -1,0 +1,463 @@
+---
+path: /guides/account/large-teams
+title: LaunchDarkly for large enterprise teams
+description: This guide explains how to plan a LaunchDarkly implementation for a large enterprise organization.
+published: true
+tags: ['guide', 'enterprise', 'migrate', 'admin', 'account']
+---
+
+<Callout intent="primary">
+<CalloutTitle>Many of these features are available for Enterprise plans</CalloutTitle>
+<CalloutDescription>
+
+Many of the features discussed in this guide are available only to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This guide explains how to plan a LaunchDarkly implementation for a large enterprise organization.
+
+When you set up LaunchDarkly for the first time, it’s important to carefully plan how you want to standardize your use of the product across teams and projects. This is especially true for very large organizations with thousands of members. Thoughtful configuration choices as you implement LaunchDarkly can make the adoption process run more smoothly.
+
+Here is the order of actions we recommend you take to prepare your LaunchDarkly instance for your large organization:
+
+1. [Configure member authentication](#authentication) through a single sign-on (SSO) provider.
+2. [Create naming conventions for your resources](#naming-conventions).
+3. [Decide how to structure your LaunchDarkly projects and environments](#projects-and-environments), and enforce a naming convention for them.
+4. [Decide how to structure your LaunchDarkly teams](#teams-and-custom-roles), and assign custom roles to those teams. Enforce a naming convention for both teams and custom roles.
+5. [Add members to your teams](#adding-members).
+6. [Decide what type of flag changes should require approvals](#approvals), and configure approval settings.
+7. [Configure code references](#managing-flags) and create a schedule or procedure for managing flag debt.
+8. Optional: [Configure workflow templates](#workflows).
+9. [Configure context kinds](#context-kinds-and-attributes), and create a naming convention for new context kinds.
+10. Optional: [Set up Experimentation](#experimentation).
+11. Optional: [Set up integrations](#integrations).
+12. [Configure SDK wrappers](#sdk-wrappers).
+13. Optional: [Set up related professional services](#professional-services).
+
+This guide covers each of these steps in detail.
+
+## Authentication
+
+To begin, we recommend setting up SSO, preferably with a system for cross-domain identity management (SCIM).
+
+SSO lets your team authenticate with LaunchDarkly using the same identity provider (IdP) you use for other internal and external services. Using SSO ensures compliance with your internal access control policies, and makes managing multiple large teams easier. To learn more about SSO, read [Single sign-on](/home/account-security/sso).
+
+SCIM facilitates user provisioning, which means your IdP can create, update, and deactivate members in LaunchDarkly. We have SCIM integrations with Okta and OneLogin. To learn more about SCIM provisioning, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
+
+## Naming conventions
+
+Before you start creating entities within LaunchDarkly, create a naming convention for projects, environments, flags, teams, context kinds, and context attributes. Later in this guide, we'll talk about naming conventions for each of these resources in more detail.
+
+Although creating a naming convention is more work up front, having a schema that your organization can refer back to will save your teams time and make it easier for different parts of your organization to understand what other teams are working on.
+
+For example, a good flag naming convention should convey:
+- The intended behavior and impact on the application when the flag serves a variation.
+- The scope and target of the behavior.
+- The purpose of the feature flag in both the flags list and source code.
+
+Poorly-named flags can result in the following consequences:
+- Unclear or ambiguous flag impact and intent. For example, does a flag named "Dark mode" turn on dark mode, or allow end users to choose dark mode?
+- Flags used for multiple purposes in an application by mistake.
+- Difficulty remembering and adhering to the naming convention.
+- Difficulty discovering and searching for flags from the flags list.
+
+For examples of flag naming conventions, read [Creating naming conventions for flags](/guides/flags/flag-naming).
+
+## Projects and environments
+
+Next, decide how you plan to structure projects and environments across your organization. You can create multiple projects per account, and each project has its own unique set of environments and feature flags.
+
+Different teams may need to use projects and environments differently. Even if this is the case, a general organization schema informs the way your account members interact with the platform and how they manage flags.
+
+### Planning projects
+
+To help decide how to structure your projects, consider which of your applications and services you will use with LaunchDarkly, and which applications and services need to coordinate releases. We recommend sharing projects where possible to help with lower overhead and coordination of dependent releases.
+
+There are some common approaches you can take to organizing your projects, with pros and cons to each:
+- Separate accounts for each team
+- One account with separate projects for each app or executable
+- One account with separate projects for each product
+- One account with separate projects for each service
+
+Expand each section below to read about that organizational schema.
+
+<Details summary="Expand Separate accounts for each team">
+
+### Separate accounts for each team
+
+In this model, each team has its own dedicated account.
+
+This approach is the simplest way to manage access and permissions. You don’t need to create custom roles to prevent the team from accessing another team’s resources. It also lets you further separate the account into sub-projects and environments, and makes usage reporting straightforward.
+
+The cons to this approach are that it requires significant effort for each team. Each individual account must set up things like SSO, integrations, teams, and so on individually. If you need to create a new account for a new team, it’s not as easy as creating a new project. Instead, you must work with your LaunchDarkly account representative to create a new account.
+
+There is also no way to share resources between accounts including flags, experiments, segments, account activity, and usage metrics. If you choose this approach, you must be sure it's acceptable that these resources are completely siloed.
+</Details>
+
+<Details summary="Expand Separate projects for each app or executable">
+
+### Separate projects for each app or executable
+
+This approach is best when you are rolling out LaunchDarkly to the whole organization, or you have microservices that are functionally distinct from one another or share few dependencies. This option lets you manage permissions for members on a per-project basis easily. You can also use LaunchDarkly teams to manage access and permissions. 
+
+One disadvantage to this method is that you can’t apply flags from one project to another project. You may also need to manage multiple SDK instances within the same project, which adds complexity.
+</Details>
+
+<Details summary="Expand Separate projects for each product">
+
+### Separate projects for each product
+
+If you want to share flags across a set of components that's presented to your end users as a single product, you can use one project per product. For example, a mobile app, web app, and back-end services that you present as one product might all fit into one project.
+
+This approach can be helpful if you have a microservice architecture for your product and you want to share flags across multiple services. We do not recommend this approach if there is no overlap in your architecture between unrelated groups of services, and do not need to share flags, teams, and other resources between them.
+</Details>
+
+<Details summary="Expand Separate projects for each service">
+
+### Separate projects for each service
+
+In the shared services model, you have one project that refers to the product line and a second project that supports the shared service. You can initialize multiple instances of an SDK and write a wrapper around them to move the complexity away from your developers while still having feature flags for all your services. However, this model can be complex to manage.
+</Details>
+
+Whatever schema you choose, restrict the ability to create new projects to a select group of administrators who can enforce your organization’s project structure and project naming convention. This guide discusses member permissions in detail in the [Teams and custom roles section](#teams-and-custom-roles).
+
+### Planning environments
+
+Each project comes with two default environments: Test and Production. You can make as many additional environments as you need. However, we recommend you destroy temporary environments, such as those you make for automated testing, when you are done using them. This keeps your environment list manageable and easy to use. As with other resources, using a naming convention will help you understand what an environment is for and when it can be deleted.
+
+Connect your SDKs to each environment individually as needed. To learn how, read [Setting up an SDK](/home/getting-started/setting-up).
+
+![An example project with two environments.](env-tab.png)
+
+## Teams and custom roles
+
+Using teams and custom roles together lets you manage large numbers of LaunchDarkly members at scale, without having to update access and permissions for each individual member.
+
+When considering how to structure your roles and teams, consider the security boundaries you need around your LaunchDarkly resources.
+
+Here are some example boundaries you can use to structure your teams permissions:
+- By production status: permissions scoped to environments. Production environments have more restrictive controls than testing environments, such as requiring approvals.
+- By project: permissions scoped to individual or groups of projects.
+- By component or platform: permissions scoped to specific components within a project, such as "backend."
+- By person or objective: permissions scoped to flags with a specific purpose, such as "incident response."
+- By kind: permissions scoped to a kind of flag, such as short-lived release flags or long-lived configuration flags.
+
+### Building teams
+
+Similar to projects and environments, it’s important to decide how you will structure your teams before you start building them. A common approach is to build teams that reflect your permissions structure.
+
+For example, if you have a project called "eCommerce" you might create the following teams:
+- eCommerce: Developer
+- eCommerce: Product owner
+- eCommerce: QA
+- eCommerce: Director
+
+If you have a second project called "Mobile app" you could create analogous teams for this project:
+- Mobile app: Developer
+- Mobile app: Product owner
+- Mobile app: QA
+- Mobile app: Director
+
+Your list of teams would look like this:
+
+![A list of potential LaunchDarkly teams.](guide-large-teams-teams-list.png)
+
+Like projects and environments, create and follow a naming convention for teams before you create them. This makes them easier to search for in the teams list and understand their purpose.
+
+Assign each team multiple team maintainers. A team’s maintainer can update and manage the team, without necessarily being a member of that team. Having multiple maintainers ensures that if one person is unavailable or leaves the company, you can still update teams as needed. To learn more, read [Managing team maintainers](/home/teams/managing#managing-team-maintainers).
+
+### Creating custom roles
+
+Custom roles let you define the precise level of access each team should have to resources in LaunchDarkly.
+
+We recommend creating granular custom roles that you can mix and match to individual teams as needed. LaunchDarkly’s custom roles are additive, so if a member has multiple custom roles, they will receive a superset of the permissions in each individual role.
+
+If there are conflicting permissions between roles, the member will receive the more permissive set of permissions. For example, if one custom role allows access to a project, and another custom role restricts access to that project, the team member will be able to access the project.
+
+In the following custom role examples, we've scoped permissions by project, production status, and role. The naming convention for these custom roles follows an "Action - Project - Environment" pattern.
+
+These custom roles would allow these actions:
+- `SDK key viewer - eCommerce - Production`: can view the SDK key, mobile key, and client-side IDs of the eCommerce Production environment
+- `SDK key viewer - eCommerce - Test`: can view the SDK key, mobile key, and client-side IDs of the eCommerce Test environment
+- `Viewer - eCommerce - All`: can view everything in the eCommerce project
+- `Variation manager - eCommerce - All`: can edit flag variations in all environments of the eCommerce project
+- `SDK manager - eCommerce - All`: can view and edit the SDK key, mobile key, and client-side IDs in all environments of the eCommerce project
+- `Release manager - eCommerce - Production`: can view and edit flags and experiments in the eCommerce Production environment
+- `Release manager - eCommerce - Test`: can view and edit flags and experiments in the eCommerce Test environment
+- `Archiver - eCommerce - Production`: can archive flags in the eCommerce Production environment
+- `Archiver - eCommerce - Test`: can archive flags in the eCommerce Test environment
+
+Here is an example of how to build the `SDK key viewer - eCommerce - Production` custom role in the advanced editor:
+
+<CodeSample>
+<CSTab label="SDK key viewer - eCommerce - Production">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": ["viewSdkKey"],
+    "resources": ["proj/ecommerce:env/production"]
+  }
+]
+```
+
+</CSTab>
+</CodeSample>
+
+For a full guide on custom roles, read [Creating custom roles](/guides/teams-roles/custom-roles).
+
+### Assigning custom roles to teams
+
+Now that you have created your teams and custom roles, add at least one custom role to each team. This way, when you add individuals to teams, they inherit the team's custom roles. Their access will automatically update when they're removed from or added to a new team to reflect their updated teams’ access. To learn more, read [Building teams in LaunchDarkly](/guides/teams-roles/teams).
+
+For example, you might assign all eCommerce teams the `Viewer - eCommerce - All` role, while only assigning the Director and Product owner teams the `Release manager - eCommerce - Production` role.
+
+Here is an example of what a team’s Permissions tab would look like:
+
+![A list of permissions assigned to a team.](guide-large-teams-permissions.png)
+
+Another method of granting access is to tag resources certain teams should have access to, then grant those teams permissions on resources with those tags. For example, you could create a `backend` tag and allow access to resources with that tag assigned. However, this method can be brittle and we don’t recommend it in all situations.
+
+You may have many teams and many similar, but not identical, custom roles you want to apply to them. For example, you may have a "QA" role that you want to apply to many teams, with the only difference being which project the team has access to. You can use an Open Policy Agent (OPA) to manage these roles instead of copying and pasting the custom role for each team. You can view an example of managing custom rules using Terraform in the LaunchDarkly Labs [ps-reference-implementation GitHub repo](https://github.com/launchdarkly-labs/ps-reference-implementation).
+
+### Using approvals to manage permissions
+
+There maybe be certain flag actions that you want to restrict within LaunchDarkly. We recommend using approvals, rather than custom roles, to manage changes to flags. Approvals are a more flexible way of managing changes because multiple people can be in the approving group, so one particular person isn’t required to be available for a change to take effect. To learn more, read [Approvals](#approvals).
+
+![An approval request.](approvals-approval-screen.png)
+
+## Adding members
+
+After you have created your teams and assigned custom roles to those teams, it’s time to add members to your LaunchDarkly account.
+
+Depending on your SSO provider, you can use SSO with SCIM provisioning to add members to teams at the same time you add the member to LaunchDarkly. This means you can add a member to LaunchDarkly, assign them to a team, and grant them permissions all in one step.
+
+To learn more about enabling SCIM provisioning with Okta and OneLogin, read [Enabling SCIM provisioning](/home/account-security/sso/scim).
+
+If, for some reason, you can’t add members using your SSO provider, you can add members to LaunchDarkly directly, in bulk. However, we recommend this method only if SSO is unavailable. To learn more, read [Adding members to LaunchDarkly](/home/members/managing#adding-members-to-launchdarkly).
+
+## Approvals
+
+You can use approvals to manage flag changes in certain environments by requiring approval before changes take effect.
+
+To use approvals, you will need to decide:
+
+- Which environments to require approvals in
+- Whether to use LaunchDarkly or ServiceNow as the approval system
+- Whether to require approvals for all flags within the environment, or only those matching certain tags
+- Whether requestors can approve their own request if they have admin permissions or a custom role that allows approving changes
+- The minimum number of approvals required per change
+- Whether a member can apply changes if one or more reviewers declines, but at least one member approves
+
+Anyone with a Writer, Admin, Owner, or a custom role with certain permissions can approve, update, or apply a flag change.
+
+Here's how to build a custom role with review, update, and apply permissions for approvals in the `production` environment of the `ecommerce` project:
+
+<CodeSample>
+<CSTab label="Review and update approval requests">
+
+```json
+[
+  {
+    "effect": "allow",
+    "actions": ["reviewApprovalRequest", "updateApprovalRequest", "applyApprovalRequest"],
+    "resources": ["proj/ecommerce:env/production:flag/*"]
+  }
+]
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [Approvals](/home/feature-workflows/approvals).
+
+## Managing flags
+
+As with projects, environments, and teams, we strongly recommend creating a flag naming convention before you begin creating flags. Your team members should know what behavior the flag controls and how it will change just by looking at the flag name and its variations. Creating a comprehensive and well-documented naming convention requires some initial effort, but results in members being able to quickly and easily find flags, name flags, and understand their purposes. To learn how, read [Creating naming conventions for flags](/guides/flags/flag-naming).
+
+Set flag maintainers to teams, rather than individuals. To learn how, read [Flag settings](/home/flags/settings). This helps encourage shared ownership of a flag, and you can update the flag maintainer to a new team as the flag moves through its lifecycle. As the flag nears the end of its lifecycle, the maintaining team is responsible for archiving it and removing it from your code base using code references.
+
+### Migrating from your existing solution
+
+As part of adopting LaunchDarkly, you may be migrating from an existing homegrown or third-party feature-flagging application. For a guide on how to do this, read [Migrating your existing feature flag solution to LaunchDarkly](/guides/account/migrating-solutions).
+
+### Code references
+
+This is also a good time to start thinking about how to manage technical debt in the long term. Using code references is essential for managing flag debt. Code references identify where your codebase uses flags and automatically update references with every commit. You can view code references to check how a flag is used in your code and remove them when you no longer need them.
+
+To learn about the different CI/CD providers LaunchDarkly integrates with, read [Code references](/home/code/code-references).
+
+![The "Code references" tab of a feature flag.](flag-code-references.png)
+
+After you set up code references, establish a regular schedule or procedure for reviewing and removing stale flags from your code. For suggestions and best practices, read [Reducing technical debt from feature flags](/guides/flags/technical-debt).
+
+## Workflows
+
+Use workflow templates to standardize the way you release features. For example, if you typically roll out your feature in 10% increments over the course of several days, you can set up a workflow template that multiple teams can use, standardizing the release strategy across your organization. To learn how, read [Workflows](/home/feature-workflows/workflows).
+
+## Context kinds and attributes
+
+Custom contexts let you create targeting rules for feature flags based on whatever entity type you need to target. For example, if you typically target mobile phones and tablets with your feature flags, you will likely want to use a custom context kind of "device." If you’re a business-to-business (B2B) company that targets organizations rather than devices, you may want to target a custom context kind of "organization." There is no limit to the number of context kinds you can use, and you can target multiple kinds at once using multi-contexts. To learn more, read [Contexts and segments](/home/contexts).
+
+![Different context kinds on the Contexts list.](contexts-list.png)
+
+Before you start creating custom context kinds, create a naming convention for your contexts and context attributes. Although you may use a limited number of context kinds, you may want to add many attributes, and a naming convention will help keep their meaning clear across teams. Context attribute names are case-sensitive, so it’s important for different teams to use them consistently.
+
+### Context attributes
+
+`kind`, `key`, `name`, and `anonymous` are the only built-in context attributes. A value for `kind` and `key` are required.
+
+You can create custom context attributes to capture whatever additional data you need about your contexts. `firstName`, `email`, `location`, and `deviceType` are all examples of custom attributes. To learn more, read [Context attributes](/home/contexts/attributes).
+
+This table includes examples of context kinds and possible custom attributes:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Context kind</TableHeadCell>
+    <TableHeadCell>Use</TableHeadCell>
+    <TableHeadCell>Attributes</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+  <TableRow>
+    <TableCell><code>User</code></TableCell>
+    <TableCell>Authenticated user sessions</TableCell>
+    <TableCell>
+      <code>key</code>: universally unique identifier (UUID)<br />
+      <code>anonymous</code>: always false<br />
+      <code>name</code>: first and last name<br />
+      <code>created-at</code>: date the SDK created the user
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>Session</code></TableCell>
+    <TableCell>Unauthenticated user sessions</TableCell>
+    <TableCell>
+      <code>key</code>: random UUID stored in session-bound storage<br />
+      <code>anonymous</code>: always true
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>Application</code></TableCell>
+    <TableCell>Application or service metadata</TableCell>
+    <TableCell>
+      <code>key</code>: per instance/process UUID<br />
+      <code>application-name</code>: name of the application or service<br />
+      <code>application-version</code>: application version loaded from manifest<br />
+      <code>build-timestamp</code>: date the build artifact was created<br />
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>Platform</code></TableCell>
+    <TableCell>Information about the platform, operating system, and device</TableCell>
+    <TableCell>
+      <code>key</code>: device ID<br />
+      <code>device</code>: device identifier<br />
+      <code>device-vendor</code>: vendor of the device<br />
+      <code>device-kind</code>: type of device<br />
+      <code>os</code>: operating system<br />
+      <code>browser-vendor</code>: vendor of the browser<br />
+      <code>browser-version</code>: semantic version of the browser<br />
+    </TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>Request</code></TableCell>
+    <TableCell>Request- or transaction-specific metadata, often populated from HTTP headers</TableCell>
+    <TableCell>
+      <code>key</code>: request ID<br />
+      <code>request-path</code>: HTTP request path<br />
+      <code>request-method</code>: HTTP request method<br />
+      <code>request-client</code>: name of the requesting client application<br />
+      <code>api-version</code>: API version from the X-API version header<br />
+    </TableCell>
+  </TableRow>
+</TableBody>
+</Table>
+
+Use private attributes when you target on personally identifying information (PII) or other sensitive data. To learn how to mark attributes as private, read [Using private context attributes](/home/contexts/attributes#using-private-context-attributes).
+
+## Experimentation
+
+If you plan to use LaunchDarkly’s Experimentation product, decide on what types of experiments you want to run, and on what kind of flags.
+
+Some questions to consider include:
+
+- What types of flags will you run experiments on?
+- Who will be in charge of creating, starting, and stopping experiments?
+- What type of metrics do you want to measure?
+
+To learn more, read [Designing experiments](/guides/experimentation/designing-experiments).
+
+## Integrations
+
+The larger your organization is, the harder it can be for disparate teams to know what a particular flag is for. Having an easy way to find out exactly what a flag does is important, particularly when experiencing an incident or when things aren’t behaving as expected. Integrations can help with this visibility.
+
+We recommend setting up the following integrations:
+- Slack or Microsoft Teams
+- An APM tool
+- Flag links
+- Terraform, if it is already part of your existing workflow
+
+### Slack or Microsoft Teams
+
+If you use Slack or Microsoft Teams, you can receive flag change notifications, toggle flags on or off, manage approval requests, and more, depending on your integration. These tools can help disparate teams understand updates to relevant flags as they happen. To learn more, read [Collaboration tools](/integrations/collaboration).
+
+### APM tools
+
+Application performance management (APM) tools make it possible to surface flag change events and display them in context with other events or metrics you’re monitoring. You can use APM tools to catch when flagged code introduces bugs. To read about example APM tool uses, read [Diagnosing flag-related performance changes](/guides/integrations/integrations-use-cases#diagnosing-flag-related-performance-changes).
+
+To learn about APM tools LaunchDarkly integrates with, read [APM tools](/integrations/app-performance).
+
+### Flag links
+
+Flag links are another useful way to connect relevant information about your flags to the flag itself. If you use Slack, Jira, or Trello as part of your workflow, integrating with LaunchDarkly lets you easily attach Slack conversations, Jira tickets, or Trello boards to specific flags. You can also manually create flag links using a URL. To learn how, read [Flag links](/home/flags/links).
+
+### Terraform
+
+If you use Terraform, you can use the LaunchDarkly Terraform provider to manage LaunchDarkly resources as Terraform resources. This lets you use Terraform scripts to configure and control feature flags, environments, projects, teams, and more. You can also build Terraform modules that make resources like custom roles repeatable. To learn more, read [Terraform](/integrations/terraform).
+
+## SDK wrappers
+
+An SDK wrapper is a data type or struct that acts as a [facade](https://en.wikipedia.org/wiki/Facade_pattern) around the LaunchDarkly SDK.  We strongly recommend that you use an SDK wrapper to standardize interactions between LaunchDarkly SDKs and your codebase. Your application source code will use the wrapper instead of directly interfacing with our SDK APIs, simplifying your workflow by making the SDK easier to use and more accessible to your codebase.
+
+Wrappers help standardize your teams' usage of LaunchDarkly because they automate configuration options for your developers, increasing onramp speed and simplifying SDK usage. They also help you implement consistent practices for your internal policies around features like proxies, streaming versus polling, naming conventions, and private attributes.
+
+For example, you can write an SDK wrapper that lets you call `FlagRollout` instead of `BoolVariation`. If you're working with multiple SDKs, you can write a wrapper that calls the SDK with some pre-defined limitations to standardize the call. For more information about what you can use SDK wrappers for, read [Use cases for SDK wrappers](/guides/sdk/sdk-wrappers).
+
+The earlier you implement an SDK wrapper, the better. They don’t have to start with much, or any, functionality, but after they are in place it’s easy to add functions to the wrapper later.
+
+## Professional services
+
+After you decide to invest in LaunchDarkly, investing in available professional services can help ensure you’re configuring the app in a way that will be sustainable over the long term.
+
+In particular, we recommend these services to make sure that your platform and your application are ready to launch:
+- [LaunchDarkly Platform Readiness](https://launchdarkly.com/platform-readiness/)
+- [LaunchDarkly Application Readiness](https://launchdarkly.com/application-readiness/)
+ 
+To help with onboarding, you may also be interested in our [LaunchDarkly Academy](https://academy.launchdarkly.com/).
+
+## Conclusion
+
+In this guide, you learned about the planning steps necessary to implement LaunchDarkly for your large enterprise organization. Carefully planning account configuration is important for a smooth and successful implementation.
+
+Here are further resources to assist with implementing LaunchDarkly at scale:
+
+- [An introduction to contexts](/guides/flags/intro-contexts)
+- [Designing experiments](/guides/experimentation/designing-experiments)
+- [Managing flags with Terraform](/guides/infrastructure/terraform)
+- [About LaunchDarkly integrations](/guides/integrations/using-integrations)
+- Blog post: [The five stages of feature flag adoption](https://launchdarkly.com/blog/the-five-stages-of-feature-flag-adoption/)
+
+<Callout intent="primary" site="launchDarkly">
+<CalloutTitle>Want to know more? Start a trial.</CalloutTitle>
+<CalloutDescription>
+
+Your 14-day trial begins as soon as you sign up. Learn to use LaunchDarkly with the app's built-in tutorial. You'll discover how easy it is to manage the whole feature lifecycle from concept to launch to control.<br/><br/>
+
+Want to try it out? [Start a trial](https://launchdarkly.com/start-trial/).
+
+</CalloutDescription>
+</Callout>

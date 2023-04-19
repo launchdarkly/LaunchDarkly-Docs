@@ -1587,6 +1587,10 @@
         "svg": "bank-account",
         "items": [
           {
+            "label": "LaunchDarkly for large enterprise teams",
+            "path": "/guides/account/large-teams"
+          },
+          {
             "label": "Merging LaunchDarkly accounts",
             "path": "/guides/account/merge-accounts"
           },
