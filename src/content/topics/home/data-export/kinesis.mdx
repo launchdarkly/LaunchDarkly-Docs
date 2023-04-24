@@ -99,11 +99,27 @@ This section explains how to create a cross-account IAM role for LaunchDarkly to
 To create a cross-account IAM role:
 
 1. Log into AWS and [access the IAM section](https://console.aws.amazon.com/iamhome#/roles$new?step=type&roleType=crossAccount).
-2. Enter `554582317989` into the **Account ID** field. This allows LaunchDarkly to assume the role:
+2. Copy the account ID:
 
-![The Account ID field in the "Create role" screen.](kinesis-create-role.png)
+  <CodeSample>
+  <CSTab label="Account ID">
 
-3. Add the policy you created earlier to this role. Write down or save the role ARN.
+  ```bash site=federal
+  341100992732
+  ```
+
+  ```bash
+  554582317989
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+3. Enter the account ID into the **Account ID** field. This allows LaunchDarkly to assume the role:
+
+  ![The Account ID field in the "Create role" screen.](kinesis-create-role.png)
+
+4. Add the policy you created earlier to this role. Write down or save the role ARN.
 
 <Callout intent="alert">
 <CalloutTitle>Restricting trust</CalloutTitle>
