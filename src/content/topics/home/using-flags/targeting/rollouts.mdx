@@ -54,24 +54,30 @@ The attribute must have either string values or integer numeric values. If you u
 
 Contexts are designed to let you target different types of entities, such as devices and organizations, precisely. However, if your application requires a user login, you will probably use a "user" context, at least for some of the attributes you are storing. When your application has both anonymous and logged-in states, you want to maintain the customer experience across both states.
 
-To associate pre-login (anonymous end user) behaviors with post-login (known end user) behaviors to get a singular view of a user flow, you can set an attribute in a "user" context and set your percentage rollouts to roll out based on that attribute.
+There are two approaches to maintaining the customer experience across pre-login (anonymous end user) and post-login (known end user) states.
+
+The first approach uses single contexts. You can set an attribute in a user context and set your percentage rollouts to roll out based on that attribute.
 
 Here's how to do this:
 
-1. Store a unique identifier for the anonymous user into a cookie. A session ID or UUID works well.
-2. Use this unique identifier as both the context's key and an attribute in the "user" context until the user logs in. The attribute can be named anything, but for this example it is named `uniqueId`.
-3. While the user is logged in, set the context's key to their real (primary) context key, but continue to use the unique identifier stored in the cookie as the contexts's `uniqueId` custom attribute.
+1. Store a unique identifier for the anonymous end user. A session ID or UUID works well.
+  * You can store this identifier in local storage or a cookie.
+  * If you are using a mobile SDK, the SDK can generate the unique identifier for you and use it as the context key. To learn more, read [Anonymous contexts and users](/sdk/features/anonymous).
+2. Use this unique identifier as both the context's key and an attribute in the user context until the end user logs in. The attribute can be named anything, for example, `uniqueId`.
+3. While the end user is logged in, set the context's key to their real (primary) context key, but continue to use the stored unique identifier as the context's `uniqueId` attribute.
 4. For all flags, or for those that may affect logged out users, set your flags to serve percentage rollouts based on the `uniqueId` attribute.
 
-To learn more about anonymous users, read [Anonymous users](/home/contexts/anonymous-contexts).
+To learn more about anonymous contexts, read [Anonymous contexts](/home/contexts/anonymous-contexts).
 
-Alternatively, you can use an attribute in a non-user context and set flags' percentage rollouts based on that attribute.
+One disadvantage to this approach is that using a `uniqueId` attribute, rather than context key, means that you cannot easily convert the rollout strategy from percentage rollout to experiment. To learn more, read [Allocating audiences](/home/creating-experiments/allocation#allocating-audiences).
+
+The second approach uses multi-contexts. You can use an attribute, such as the context key, in a non-user context and set flags' percentage rollouts based on that attribute.
 
 Here's how to do this:
 
-1. Store a unique identifier for the anonymous end user in a different kind of context, such as a device context. A device ID or UUID works well.
-2. Target the end user based on this unique identifier while they are not yet logged in.
+1. Store a unique identifier for the anonymous end user as the context key in a different kind of context, such as a device context. A device ID or UUID works well.
+2. Target the end user based on this context key while they are not yet logged in.
 3. After the end user logs in, store their user information in a user context. Associate the device context and the user context with each other. To do this, identify a multi-context that includes both individual contexts when you want the association to occur.
 4. For all flags, or for those that may affect logged out users, set your flags to serve percentage rollouts based on the unique identifier in the device context.
 
-To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+To learn more, read [Multi-contexts](/home/contexts#multi-contexts) and [Identifying and changing contexts](/sdk/features/identify).
