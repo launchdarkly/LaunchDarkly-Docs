@@ -805,9 +805,13 @@ module.exports = [
     fromPath: '/guides/blog/',
     toPath: '/guides/additional-resources',
   },
-  // Redirect from the readme-hosted docs site
+  // Redirect from the readme-hosted docs site. Any redirect from a `/docs/` URL should go in this section.
   {
     fromPath: '/',
     toPath: '/home',
   },
+  {
+    fromPath: '/docs/public-ip-list',
+    toPath: '/home/advanced/public-ip-list',
+  }
 ]
