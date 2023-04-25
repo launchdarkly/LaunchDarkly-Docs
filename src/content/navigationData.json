@@ -907,6 +907,20 @@
         ]
       },
       {
+        "label": "Experimentation tools",
+        "path": "/integrations/experimentation",
+        "items": [
+          {
+            "label": "Census",
+            "path": "/integrations/census"
+          },
+          {
+            "label": "Snowplow",
+            "path": "/integrations/snowplow"
+          }
+        ]
+      },
+      {
         "label": "IDE connectors",
         "path": "/integrations/ide",
         "items": [

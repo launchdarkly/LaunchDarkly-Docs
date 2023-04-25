@@ -86,6 +86,12 @@ const AllIntegrations = () => {
       svg: 'integrations/circleci',
     },
     {
+      label: 'Census',
+      shortLabel: 'Census',
+      path: '/integrations/census',
+      svg: 'integrations/census',
+    },
+    {
       label: 'Cloudflare',
       shortLabel: 'Cloudflare',
       path: '/integrations/cloudflare',
@@ -246,6 +252,12 @@ const AllIntegrations = () => {
       shortLabel: 'Sleuth',
       path: '/integrations/sleuth',
       svg: 'integrations/sleuth',
+    },
+    {
+      label: 'Snowplow',
+      shortLabel: 'Snowplow',
+      path: '/integrations/snowplow',
+      svg: 'integrations/snowplow',
     },
     {
       label: 'Splunk',
