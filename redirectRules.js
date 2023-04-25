@@ -813,5 +813,5 @@ module.exports = [
   {
     fromPath: '/docs/public-ip-list',
     toPath: '/home/advanced/public-ip-list',
-  }
+  },
 ]

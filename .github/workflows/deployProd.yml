@@ -59,7 +59,7 @@ jobs:
       - if: steps.build-status.outputs.deploy == 'true'
         uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - if: steps.build-status.outputs.deploy == 'true'
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -134,7 +134,7 @@ jobs:
         uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
           cache: 'yarn'
       - name: Yarn install
         run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
