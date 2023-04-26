@@ -104,6 +104,12 @@ const AllIntegrations = () => {
       svg: 'integrations/compass-logo',
     },
     {
+      label: 'Confluence',
+      shortLabel: 'Confluence',
+      path: '/integrations/confluence',
+      svg: 'integrations/confluence',
+    },
+    {
       label: 'Datadog',
       shortLabel: 'Datadog',
       path: '/integrations/datadog',
