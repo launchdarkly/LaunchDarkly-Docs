@@ -77,7 +77,8 @@ Examples of enforcing the strictest approval settings to variations changes incl
 * If one environment requires one approval, and another environment requires four approvals, the change will require four approvals 
 * If one environment allows members to review their own requests, and another does not allow members to review their own requests, the change cannot be reviewed by the requesting member
 * If one environment uses ServiceNow as an approval system, and another uses LaunchDarkly, the approval will be routed through ServiceNow
-* If one environment requires approvals for flags tagged "customer" and another environment requires approvals for flags tagged "beta," changes will require approvals for all flags that include either of those tags. 
+* If one environment requires approvals for flags tagged "customer" and another environment requires approvals for flags tagged "beta," changes will require approvals for all flags that include either of those tags
+* If a flag serves a variation exclusively in environments that do not require approval, changes to that variation will not require approval
 
 ## Bypassing required approvals
 
