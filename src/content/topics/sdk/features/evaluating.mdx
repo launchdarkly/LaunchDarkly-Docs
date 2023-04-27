@@ -229,7 +229,7 @@ Both of these methods are synchronous. The client always has the last known flag
 
 <Details summary="Expand Flutter code sample">
 
-The `variation` methods determine the flag value for the current user. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
+The `variation` methods determine the flag value for the current context. `variation` calls take the feature flag key and a fallback value. When `LDClient` is initialized for the first time at app launch, end users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
 
 In Flutter, there is  a `variation` method for each type, such as `boolVariation` or `stringVariation`.
 
@@ -245,7 +245,7 @@ bool variationResult = await LDClient.boolVariation(flagKey, false);
 </CSTab>
 </CodeSample>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 

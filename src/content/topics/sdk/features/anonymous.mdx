@@ -254,7 +254,18 @@ const anonymousUser: LDElectron.LDUser = { anonymous: true };
 To distinguish logged-in end users from anonymous end users in the SDK:
 
 <CodeSample>
-<CSTab label="Dart">
+<CSTab label="Flutter SDK v2.0 (Dart)">
+
+```dart
+LDContextBuilder builder = LDContextBuilder();
+builder.kind('user', 'user-key-123abc')
+    .anonymous(true);
+LDContext context = builder.build();
+
+```
+
+</CSTab>
+<CSTab label="Flutter SDK v1.x (Dart)">
 
 ```dart
 LDUser user = LDUserBuilder('user-key-123abc')

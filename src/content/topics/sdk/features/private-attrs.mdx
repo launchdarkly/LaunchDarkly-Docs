@@ -317,34 +317,42 @@ In the above example, the SDK sends only the `key` and `name` back to LaunchDark
 
 <Details summary="Expand Flutter code sample">
 
-In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `privateAttributeNames` method, which takes in a set of custom or built-in attributes as a parameter. If any user has a custom or built-in attribute named in this set, the SDK removes it before sending the user to LaunchDarkly.
+In the Flutter SDK, you can define private attributes for the **entire** LaunchDarkly client. When you create the `LDConfig` object, you can call the `privateAttributeNames` method, which takes in a set of attributes as a parameter. If any context has an attribute named in this set, the SDK removes it before sending the context to LaunchDarkly.
 
 <CodeSample>
 <CSTab label="Dart">
 
 ```dart
-Set<String> privateAttributes =
-  { 'name' // built-in attribute
-  , 'group' // custom attribute
-  };
-
 LDConfig ldConfig = new LDConfigBuilder()
-    .privateAttributeNames(privateAttributes)
+    .privateAttributeNames(['name', 'group'])
     .build();
 ```
 
 </CSTab>
 </CodeSample>
 
-You can also mark attributes as private when building the user object by using the private versions of the builder methods to set the attributes. For example:
+You can also mark attributes as private when building the context object by using the `privateAttributes` method. For example:
 
 <CodeSample>
-<CSTab label="Dart">
+<CSTab label="Flutter SDK v2.0 (Dart)">
+
+```dart
+LDContextBuilder builder = LDContextBuilder();
+builder.kind('user', 'user-key-123abc')
+    .name('Sandy')
+    .set('email', LDValue.ofString('sandy@example.com'))
+    .set('group', LDValue.ofString('microsoft'))
+    .privateAttributes(['name', 'group'])
+LDContext context = builder.build();
+```
+
+</CSTab>
+<CSTab label="Flutter SDK v1.x (Dart)">
 
 ```dart
 LDUser user = LDUserBuilder('user-key-123abc')
     .email('sandy@example.com')
-    .privateName('Jane')
+    .privateName('Sandy')
     .privateCustom('group', LDValue.ofString('microsoft'))
     .build();
 ```
@@ -352,7 +360,7 @@ LDUser user = LDUserBuilder('user-key-123abc')
 </CSTab>
 </CodeSample>
 
-When the SDK sends this user back to LaunchDarkly, the `name` and `group` attributes are removed.
+When the SDK sends this context back to LaunchDarkly, the `name` and `group` attributes are removed.
 
 </Details>
 

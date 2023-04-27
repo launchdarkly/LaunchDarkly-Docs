@@ -251,7 +251,7 @@ LDFlagUpdatedCallback listener = (String flagKey) {
   });
 };
 
-await LDClient.registerFeatureFlagListener('yourFlagKey', listener);
+await LDClient.registerFeatureFlagListener('flag-key-123abc', listener);
 ```
 
 </CSTab>
@@ -271,7 +271,7 @@ await LDClient.unregisterFeatureFlagListener(flagKey, listener);
 </CSTab>
 </CodeSample>
 
-Additionally, we provide a listener interface if you want to be notified any time the flag cache is updated. The application provides a callback that is activated whenever the SDK receives new flag data from the service. It calls with a list of flag keys that were updated. If no flag values changed, this list is empty.
+Additionally, the SDK provides a listener interface if you want to be notified any time the flag cache is updated. The application provides a callback that is activated whenever the SDK receives new flag data from the service. It calls with a list of flag keys that were updated. If no flag values changed, this list is empty.
 
 <CodeSample>
 <CSTab label="Dart">

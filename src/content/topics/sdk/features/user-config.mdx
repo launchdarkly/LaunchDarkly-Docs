@@ -367,12 +367,26 @@ To learn how to configure anonymous users in the Electron SDK, read [Anonymous c
 
 <Details summary="Expand Flutter code sample">
 
-In the Flutter SDK, use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct users.
+In the Flutter SDK, use a [builder pattern](https://en.wikipedia.org/wiki/Builder_pattern) to construct contexts.
 
 Here's an example:
 
 <CodeSample>
-<CSTab label="Dart">
+<CSTab label="Flutter SDK v2.0 (Dart)">
+
+```dart
+LDContextBuilder builder = LDContextBuilder();
+builder.kind('user', 'user-key-123abc')
+    .set('email', LDValue.ofString('sandy@example.com'))
+    .set('firstName', LDValue.ofString('Sandy'))
+    .set('lastName', LDValue.ofString('Smith'))
+    .set('group', LDValue.ofString('microsoft'));
+
+LDContext context = builder.build();
+```
+
+</CSTab>
+<CSTab label="Flutter SDK v1.x (Dart)">
 
 ```dart
 LDUser user = LDUserBuilder('user-key-123abc')
@@ -386,13 +400,13 @@ LDUser user = LDUserBuilder('user-key-123abc')
 </CSTab>
 </CodeSample>
 
-The argument to `LDUserBuilder` is the user's key. The key should uniquely identify each user. You can use a primary key or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
+The arguments to `LDContextBuilder` are the context's kind and key. This combination must uniquely identify each context. You can use a primary key or a hash, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. Custom attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way. The Flutter SDK is strongly-typed, so be aware of this distinction.
+The required `kind` and optional `name` attributes expect string values. Other attribute values can be any JSON type, including boolean, number, string, array, or object. Attribute values in the Flutter SDK use the `LDValue` class to support the various underlying types for the values. The Flutter SDK is strongly-typed, so be aware of this distinction.
 
 </CalloutDescription>
 </Callout>

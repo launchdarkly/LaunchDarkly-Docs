@@ -147,7 +147,21 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 Here's how:
 
 <CodeSample>
-<CSTab label="Dart">
+<CSTab label="Flutter SDK v2.0 (Dart)">
+
+```dart
+LDConfig ldConfig = LDConfigBuilder('mobile-key-123abc')
+    .offline(true)
+    .build();
+
+await LDClient.startWithContext(ldConfig, context);
+
+// Or to switch an already-instantiated client to offline mode:
+await LDClient.setOnline(false);
+```
+
+</CSTab>
+<CSTab label="Flutter SDK v1.x (Dart)">
 
 ```dart
 LDConfig ldConfig = LDConfigBuilder('mobile-key-123abc')

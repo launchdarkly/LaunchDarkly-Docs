@@ -254,16 +254,41 @@ To learn more, read [`identify`](https://launchdarkly.github.io/electron-client-
 
 <Details summary="Expand Flutter code sample">
 
-The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+The `identifyWithContext()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identifyWithContext()` so that the person receives the correct feature flag settings for their account.
 
-<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163930) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identifyWithContext()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
 <CodeSample>
-<CSTab label="Dart">
+<CSTab label="Flutter SDK v2.0 (Dart), single context">
+
+```dart
+LDContextBuilder builder = LDContextBuilder();
+builder.kind('user', 'user-key-123abc')
+    .set('email', LDValue.ofString('sandy@example.com'));
+LDContext updatedContext = builder.build();
+
+await LDClient.identifyWithContext(updatedContext);
+```
+
+</CSTab>
+<CSTab label="Flutter SDK v2.0 (Dart), multi-context">
+
+```dart
+LDContextBuilder builder = LDContextBuilder();
+builder.kind('user', 'user-key-123abc');
+builder.kind('device', 'device-key-123abc');
+
+LDContext updatedMultiContext = builder.build();
+
+await LDClient.identifyWithContext(updatedMultiContext);
+```
+
+</CSTab>
+<CSTab label="Flutter SDK v1.x (Dart)">
 
 ```dart
 LDUser updatedUser = LDUserBuilder('user key')
@@ -276,7 +301,7 @@ await LDClient.identify(updatedUser);
 </CSTab>
 </CodeSample>
 
-To learn more, read [identify method](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/identify.html).
+To learn more, read [`identifyWithContext`](https://launchdarkly.github.io/flutter-client-sdk/launchdarkly_flutter_client_sdk/LDClient/identifyWithContext.html).
 
 </Details>
 

@@ -484,9 +484,9 @@ Subscribing to `change` events automatically turns on streaming mode as well, un
 
 <Details summary="Expand Flutter code sample">
 
-The Flutter SDK exposes some of its internal status through APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnosing potential reasons for the flag cache to be out of date.
+The Flutter SDK exposes some of its internal status through APIs to let your application monitor it. This allows the application to determine how recently the internal flag cache has been updated with the most recent values, as well as diagnose potential reasons for the flag cache to be out of date.
 
-The SDK also stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure that lets you retrieve these fields.
+The SDK stores a timestamp of the most recent successful and failed connections to LaunchDarkly, as well as information related to the most recent failed connection. The `LDClient` method `getConnectionInformation()` returns a structure that lets you retrieve these fields.
 
 <CodeSample>
 <CSTab label="Dart">

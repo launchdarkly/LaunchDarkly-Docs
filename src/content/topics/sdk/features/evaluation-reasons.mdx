@@ -264,12 +264,30 @@ To learn more about the `LDVariationDetails` structure, inspect [`client.h`](htt
 
 <Details summary="Expand Flutter code sample">
 
-The `variationDetail` methods, such as `boolVariationDetail`, work the same as `variation`. They also provide additional "reason" information about how a flag value was calculated, such as if the user matched a specific rule. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+The `variationDetail` methods, such as `boolVariationDetail`, work the same as `variation`. They also provide additional "reason" information about how a flag value was calculated. For example, you can find out if the context was individually targeted for the flag or was matched by one of the flag's rules. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
 
 Here is an example:
 
 <CodeSample>
-<CSTab label="Dart">
+<CSTab label="Flutter SDK v2.0 (Dart)">
+
+```dart
+final LDConfig config = LDConfigBuilder("mobile-key-123abc")
+  .evaluationReasons(true)
+  .build();
+await LDClient.startWithContext(config, context);
+
+LDEvaluationDetail<bool> detail =
+  await LDClient.boolVariationDetail("flag-key", false);
+  // or stringVariationDetail for a string-valued flag, and so on.
+
+bool value = detail.value;
+int index = detail.variationIndex;
+LDEvaluationReason reason = detail.reason;
+```
+
+</CSTab>
+<CSTab label="Flutter SDK v1.x (Dart)">
 
 ```dart
 final LDConfig config = LDConfigBuilder("mobile-key-123abc")
