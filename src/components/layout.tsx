@@ -17,7 +17,7 @@ import { AllSdks } from './home/sdks/exploreSdks'
 import ReactSdks from './home/sdks/reactSdks'
 import ServerSideSdks from './home/sdks/serverSideSdks'
 import Callout, { CalloutDescription, CalloutTitle } from './mdx/callout'
-import { Code, CodeSample, CodeTabs, CSTab } from './mdx/code'
+import { Code, CodeSample, CSTab } from './mdx/code'
 import Details from './mdx/details'
 import Feature from './mdx/feature'
 import Figure, { FigCaption } from './mdx/figure'
@@ -59,7 +59,6 @@ const components = {
   CalloutDescription,
   LearnMore,
   Link,
-  CodeTabs,
   CodeSample,
   CSTab,
   Homepage,
