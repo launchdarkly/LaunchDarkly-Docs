@@ -137,20 +137,129 @@ Here's an example:
 
 This configuration allows you to target the user and organization together to ensure you serve the correct variation. This helps eliminate risk and ensure accuracy in complex deliveries.
 
+The multiple contexts that appear in a multi-context are called **associated contexts**. For example, we might say that the `Anna` user context and the `Global Health Services` organization context are associated contexts.
+
 ## Understanding context instances
 
-We refer to any unique combination of one or more contexts that have encountered a feature flag as a **context instance**. For example, suppose a hospital's employee app uses organization, device, and user contexts. This means you can target features based on the location and affiliation of each hospital, separately target features based on individual end users, and separately target features based on the device employees use to log in.
+We refer to any unique combination of one or more contexts that have encountered a feature flag as a **context instance**.
 
-When Anna from Global Health Services logs into your application from her Android in Springfield, that's recorded as a context instance. When Anna logs into your app from her iPad in Midway, that's recorded as another context instance.
+For example, suppose a hospital's employee app uses organization, device, and user contexts. When Anna from Global Health Services logs into your application from her Android in Springfield, that's recorded as one instance. When Anna logs into your app from her iPad in Midway, that's recorded as second instance. Even though Anna's user context appears in both, LaunchDarkly considers these two different context instances because they contain different combinations of context keys.
 
-The context instances would then be the combination of the associated contexts:
+The two context instances are the combination of their associated contexts:
 
 * Anna, Springfield, Android device
 * Anna, Midway, iPad
 
-The multiple contexts that appear in this context instance are called **associated contexts**. For example, we might say that Anna is one of several users associated with the `organization: Global Health Services` context.
+Here is what these two context instances would look like:
 
-Depending on how your application is set up, LaunchDarkly records one or more **context instance versions** each time Anna logs in. A context instance version is a context instance that's recorded from a unique source application or LaunchDarkly SDK. For example, if your application uses both the Android SDK and the Go SDK, then you'll see two different context instance versions, one from Anna from Global Health Services on an Android from the Android SDK, and another from Anna from the Go SDK.
+<CodeSample>
+<CSTab label="Two context instances">
+
+```json
+// The first context instance
+"context": {
+  "kind": "multi",
+  "user": {
+    "key": "user-key-123abc",
+    "name": "Anna",
+    "email": "anna@globalhealthexample.com",
+    "jobFunction": "doctor"
+    },
+  "organization": {
+    "key": "org-key-123abc",
+    "name": "Springfield Global Health Services",
+    "address": {
+      "street": "123 Main Street",
+      "city": "Springfield"
+      }
+    },
+  "device": {
+    "key": "device-key-123abc",
+    "name": "Pixel 7",
+    "os": "Android 13"
+    }
+  }
+
+// The second context instance
+"context": {
+  "kind": "multi",
+  "user": {
+    "key": "user-key-123abc",
+    "name": "Anna",
+    "email": "anna@globalhealthexample.com",
+    "jobFunction": "doctor"
+    },
+  "organization": {
+    "key": "org-key-456def",
+    "name": "Midway Global Health Services",
+    "address": {
+      "street": "456 1st Ave",
+      "city": "Midway"
+      }
+    },
+  "device": {
+    "key": "device-key-456def",
+    "name": "iPad",
+    "os": "iOS"
+    }
+  }
+```
+
+</CSTab>
+</CodeSample>
+
+For billing purposes, customers being billed by monthly context instances (MCI) would be billed for two context instances. Although there are five different contexts, one user, two organizations, and two devices, there are only two unique instances of these combinations. To learn more, read [Calculating client-side MCI](/home/billing/usage-metrics#calculating-client-side-mci).
+
+A context appearing alone, without any other associated contexts, is also considered a context instance. For example, this stand-alone context and this multi-context also represent two context instances:
+
+<CodeSample>
+<CSTab label="Two context instances">
+
+```json
+// The first context instance
+"context": {
+  "kind": "user",
+  "key": "user-key-123abc",
+  "name": "Anna",
+  "email": "anna@globalhealthexample.com",
+  "jobFunction": "doctor"
+  }
+
+// The second context instance
+"context": {
+  "kind": "multi",
+  "user": {
+    "key": "user-key-123abc",
+    "name": "Anna",
+    "email": "anna@globalhealthexample.com",
+    "jobFunction": "doctor"
+    },
+  "organization": {
+    "key": "org-key-456def",
+    "name": "Midway Global Health Services",
+    "address": {
+      "street": "456 1st Ave",
+      "city": "Midway"
+      }
+    },
+  "device": {
+    "key": "device-key-456def",
+    "name": "iPad",
+    "os": "iOS"
+    }
+  }
+```
+
+</CSTab>
+</CodeSample>
+
+Like the previous example, customers being billed by monthly context instances (MCI) would be billed for two context instances.
+
+If two different SDKs encounter the same context but with different context attributes, they are not considered separate contexts, or separate context instances. Instead, they are two different **versions** of the same context instance.
+
+### Context instance versions
+
+A **context instance version** is a context instance that's recorded from a unique source application or LaunchDarkly SDK. Depending on how your application is set up, LaunchDarkly may record one or more context instance versions each time Anna logs in. For example, if your application uses both the Android SDK and the Go SDK in different places, and Anna logs in from both places, then you'll see two different context instance versions: one from Anna from the Android SDK, and another from Anna from the Go SDK.
 
 This illustration shows example contexts, context instances, and context instance versions:
 
