@@ -33,7 +33,7 @@ To complete this procedure, you must have the following prerequisites:
 
 ## Generate a new LaunchDarkly access token
 
-The Compass integration requires a LaunchDarkly personal or service API access token with a role policy that allows the token to perform the `createIntegration` and `deleteIntegration` actions. 
+The Compass integration requires a LaunchDarkly personal or service API access token with a role policy that allows the token to perform the `createIntegration`, `deleteIntegration`, and `viewProject` actions.
 
 Here's how to create an API access token with the appropriate inline policy:
 
@@ -41,7 +41,7 @@ Here's how to create an API access token with the appropriate inline policy:
 2. Click **Create token**. The "Create an access token" panel appears.
 3. Give your token a human-readable **Name**, such as "Compass integration."
 4. Give your token an "Inline policy" **Role**.
-5. Click the **Advanced editor** button and specify the following policy in the **Editor** field to allow the token to perform the `createIntegration` and `deleteIntegration` actions on integration resources:
+5. Click the **Advanced editor** button and specify the following policy in the **Editor** field to allow the token to perform the `createIntegration` and `deleteIntegration` actions on integration resources and the `viewProject` action on project resources:
 
 <CodeSample>
 <CSTab label="Compass integration Inline policy">
@@ -52,6 +52,11 @@ Here's how to create an API access token with the appropriate inline policy:
     "actions": ["createIntegration", "deleteIntegration"],
     "effect": "allow",
     "resources": ["integration/*"]
+  },
+  {
+    "resources": ["proj/*"],
+    "effect": "allow",
+    "actions": ["viewProject"]
   }
 ]
 ```
