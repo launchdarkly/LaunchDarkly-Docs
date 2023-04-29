@@ -326,6 +326,10 @@ module.exports = [
     fromPath: '/home/advanced/relay-proxy-enterprise/',
     toPath: '/home/relay-proxy/enterprise',
   },
+  {
+    fromPath: '/home/relay-proxy/performance',
+    toPath: '/home/relay-proxy/monitoring',
+  },
   // Redirects from integrations section
   {
     fromPath: '/integrations/triggers/',

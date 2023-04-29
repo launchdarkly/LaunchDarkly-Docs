@@ -1,0 +1,75 @@
+---
+path: /home/relay-proxy/guidelines
+title: Relay Proxy guidelines
+description: This topic includes guidelines for configuring and using the Relay Proxy successfully.
+published: true
+tags: ['configure', 'relay proxy']
+---
+
+## Overview
+
+This topic includes guidelines for configuring and using the Relay Proxy successfully. These guidelines are not exhaustive or required. The most effective practices for your organization may be different based on your configuration and deployment requirements.
+
+To learn more about deploying and starting the Relay Proxy, read [Deploying the Relay Proxy](/home/relay-proxy/deploying).
+
+To learn more about performance expectations once the Relay Proxy is running, read [Monitoring the Relay Proxy](/home/relay-proxy/monitoring).
+
+## Architectural guidelines
+
+The Relay Proxy’s hardware footprint is small relative to its bandwidth consumption. An idle Relay Proxy serving no SDKs consumes approximately 11 [mebibytes](https://simple.wikipedia.org/wiki/Mebibyte) of memory, and has nearly zero CPU utilization.
+
+The Relay Proxy's processing and memory usage varies based on your number of client connections, connection type, number of LaunchDarkly projects and environments, flag and segment size, and the number of events proxied.
+
+Position the Relay Proxy effectively within your network architecture. Your application must be able to access the Relay Proxy for it to work, and that architecture varies based on the type of app you have. For example, do not put the Relay Proxy inside a firewall if you intend to connect it to any client-side apps.
+
+If you have deployed your application to multiple regions, consider running one or more Relay Proxy instances in each of those regions in close proximity to your application. This limits latency between your application and the Relay Proxy.
+
+### Deployment recommendations
+
+For a reliable Relay Proxy deployment, we recommend:
+
+- A minimum of three Relay Proxy instances in at least two availability zones per region, fronted by a load balancer, which can also forward to stream.launchdarkly.com
+- A highly-available load balancer with support for SSE connections
+
+To be a viable alternative to connecting to LaunchDarkly directly, your relay array should have comparable availability to LaunchDarkly, which is 99.99%.
+
+If you have security requirements, such as enforcing the use of a particular authentication scheme, place the Relay Proxy behind a general purpose proxy so traffic from LaunchDarkly SDKs flows through the general purpose proxy before it reaches the Relay Proxy. The Relay Proxy does not replicate the functionality of a general purpose proxy.
+
+### Instance sizing
+
+We have tested and developed the Relay Proxy to work with an AWS `m4.xlarge` instance, but you can use the Relay Proxy with any technical equivalent. The `m4.xlarge` instances we tested against have 4 vCPUs and 16GiB of memory, but that is not a hard requirement. The Relay Proxy may use significantly less memory and CPU than the `m4.xlarge` instance offers. More importantly, the `m4.xlarge` instance has sufficient networking performance that the Relay Proxy should perform well.
+
+To learn more about instance sizing, read [Amazon's documentation on EC2 instance types](https://aws.amazon.com/ec2/instance-types/).
+
+The Relay Proxy works best with LaunchDarkly's server-side SDKs and with SDKs configured for polling. It does not handle streaming connections from client-side SDKs efficiently. When you use LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, be sure to monitor and scale the Relay Proxy accordingly.
+
+### Scaling guidelines
+
+As your application usage grows, your Relay Proxy usage may need to grow with it. It is difficult to predict your Relay Proxy's bandwidth requirements ahead of time because there are many variables that affect bandwidth usage. Instead, we recommend monitoring the Relay Proxy as you use it, and sizing up as needed. To learn more, read [Monitoring the Relay Proxy](/home/relay-proxy/monitoring).
+
+If you want to size or scale up your Relay Proxy, the most important thing to consider is the amount of dedicated network bandwidth available to it. The computational requirements for the Relay Proxy are fairly minimal and are not CPU or memory intensive, so these are unlikely to be performance bottlenecks. However, the Relay Proxy does require a significant amount of network bandwidth, because it makes many small requests, very frequently.
+
+Provision the Relay Proxy the same way you would an HTTPS proxy, and plan for at least twice the number of concurrent connections you expect to see. We recommend setting up monitoring to ensure that the Relay Proxy cluster has the capacity to handle your workload, and then scaling it as needed.
+
+## Caching guidelines
+
+You can use the Relay Proxy's in-memory caching or you can cache flag data in a persistent feature store. 
+
+Whether or not you utilize a persistent feature store impacts how the Relay Proxy handles inbound feature flag requests on initialization, before it establishes a connection to LaunchDarkly.
+
+If you use a persistent feature store, the Relay Proxy uses previously known-good values that were stored in the persistent feature store. Without a persistent feature store, however, the Relay Proxy doesn't know about any feature flags yet. SDKs use fallback flag values until the Relay Proxy establishes a connection to LaunchDarkly.
+
+### Using a persistent feature store
+
+You may want to use a persistent feature store if you want the Relay Proxy to remain operational even when it can’t connect to LaunchDarkly, such as in an environment with inconsistent connectivity. If you want to use Big Segments, you must use a persistent feature store.
+
+When you use a persistent store, the Relay Proxy keeps flag configurations in its in-memory cache and only fetches new ones from the store when those cached items expire. The default cache time-to-live (TTL) is 30 seconds, but you can change this in the Relay Proxy configuration.
+
+If the connection to the persistent store is lost, here’s how the Relay Proxy and connected SDKs will behave while the store is unavailable:
+
+- The Relay Proxy first notices the store’s unavailability when it tries to read or update the store. The Relay Proxy tries to read or update the store when it receives new requests from SDKs, and items have expired from the Relay Proxy’s in-memory cache.
+- The Relay Proxy in-memory cache drops expired items whether or not it has reinstated a connection to the store. When this happens, flags evaluate to their fallback values, with an `EvaluationReason` of `FLAG_NOT_FOUND`.
+- If the Relay Proxy receives flag updates from LaunchDarkly while the store is disconnected, it sends the updates to connected SDKs. It keeps the updates in the in-memory cache until they can be written to the store.
+- If the Relay Proxy loses and then regains a store connection, it has no way of checking whether the store is up to date with flag configurations. If the Relay Proxy receives updates from LaunchDarkly while the store is unavailable, then it writes those updates to the store as soon as the connection returns. Otherwise, it assumes that the store is up to date. To fix a persistent store that may have missing or corrupted data, start or restart the Relay Proxy so that it downloads the latest environment states from LaunchDarkly and writes them to the store.
+
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores) and [Persistent storage](https://github.com/launchdarkly/ld-relay#persistent-storage).

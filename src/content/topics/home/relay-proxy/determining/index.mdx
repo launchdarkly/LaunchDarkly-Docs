@@ -1,0 +1,30 @@
+---
+path: /home/relay-proxy/determining
+title: Determining whether to use the Relay Proxy
+description: This category contains topics about how to decide whether to use the Relay Proxy.
+published: true
+tags: ['relay proxy', 'php', 'cache']
+---
+
+## Overview
+
+This category contains topics about how to decide whether to use the Relay Proxy.
+
+We recommend using the Relay Proxy in certain situations. The Relay Proxy is not appropriate for all customer configurations.
+
+You may want to use the Relay Proxy to:
+
+- reduce costs incurred by cloud providers for outbound network connections
+- improve performance when using many SDK clients on a single host
+- use with short lived client-instances or a Function-as-a-Service (FaaS)
+- use with PHP
+- reduce initialization latency in a serverless environment
+- reduce operational work when creating new projects and environments
+- increase availability in countries with strict network policies
+- reduce redundant database traffic
+- use Big Segments or segments synced from Amplitude with server-side SDKs
+
+To learn more, read [Relay Proxy use cases](/home/relay-proxy/use-cases).
+
+If you decide the Relay Proxy is appropriate for your use case, you should follow our architectural and caching guidelines. To learn more, read [Relay Proxy guidelines](/home/relay-proxy/guidelines).
+

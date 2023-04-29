@@ -1,0 +1,141 @@
+---
+path: /home/relay-proxy/monitoring
+title: Monitoring the Relay Proxy
+description: This topic explains best practices for monitoring the Relay Proxy as it runs, as well as information about exporting metrics and other data.
+published: true
+tags: ['monitor', 'relay proxy']
+---
+
+## Overview
+
+This topic explains best practices for monitoring the Relay Proxy as it runs, as well as information about exporting metrics and other data.
+
+## Using the Relay Proxy's status resource
+
+The Relay Proxy exposes a status resource containing details about its health. To learn about the status resource, read [Status (health check)](https://github.com/launchdarkly/ld-relay/blob/v7/docs/endpoints.md#status-health-check).
+
+## Validating your Relay Proxy configuration
+
+Fluctuating network conditions can cause a temporary loss of connection. The Relay proxy is self-healing and will re-establish connectivity with LaunchDarkly automatically.
+
+You can check your Relay Proxy configuration using status requests and flag evaluation tests.
+
+### Status requests
+
+You can make a `GET` request to the `/status` URL path for information about the Relay Proxy's configured environments. There is no authentication required for this request.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="Status request">
+
+```bash
+curl -X REPORT localhost:8030/status \
+```
+
+</CSTab>
+</CodeSample>
+
+To view an example output for this request, read [Service endpoints](https://github.com/launchdarkly/ld-relay/blob/v7/docs/endpoints.md).
+
+### Testing feature flag evaluations
+
+If your environment configurations are valid, you can check your connection by evaluating a feature flag.
+
+Here's how to test your connection and evaluate a flag:
+
+1. Start your SDK. If the SDK connects successfully, the Relay Proxy is working.
+
+<Callout intent="alert">
+<CalloutTitle>Look for connection or environment-related errors</CalloutTitle>
+<CalloutDescription>
+
+Error messages on initialization, including messages saying an environment was not found, may indicate that you configured the Relay Proxy incorrectly. These messages may appear when LaunchDarkly cannot validate an SDK key or when there is a connection issue to LaunchDarkly.
+
+</CalloutDescription>
+</Callout>
+
+2. In the LaunchDarkly user interface (UI), change the value of a feature flag so you will receive a different variation in production.
+3. Verify in your application that the flag value has changed.
+
+Alternatively, you can validate your Relay Proxy with `curl`. You must specify your Relay Proxy base URI, SDK key, and evaluation context in the command.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="Evaluate a feature flag, Relay Proxy v7.0">
+
+```bash
+curl -X REPORT localhost:8030/sdk/evalx/context \
+  -H "Authorization: sdk-key-123abc" \
+  -H "Content-Type: application/json" \
+  -d '{"key": "context-key-123abc", "email":"sandy@example.com"}'
+```
+
+</CSTab>
+<CSTab label="Evaluate a feature flag, Relay Proxy v6.x">
+
+```bash
+curl -X REPORT localhost:8030/sdk/eval/user \
+  -H "Authorization: sdk-key-123abc" \
+  -H "Content-Type: application/json" \
+  -d '{"key": "user-key-123abc", "email":"sandy@example.com"}'
+```
+
+</CSTab>
+</CodeSample>
+
+## Testing Relay Proxy performance
+
+Load tests designed to measure the Relay Proxy’s performance under load should initialize LaunchDarkly client instances and connect them to your Relay Proxy hardware.
+
+<Callout intent="alert">
+<CalloutTitle>The load testing framework is unsupported</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly does not provide official support for the load testing framework. We do provide guidance on how to use it, described below, but we don't officially support or update the framework.
+
+</CalloutDescription>
+</Callout>
+
+We developed a load testing framework for the Relay Proxy based on [Locust](https://locust.io/). You can find it on [in the LaunchDarkly Labs GitHub repository](https://github.com/launchdarkly-labs/ld-relay-locustfile). Locust tests events, client-side SDKs, and server-side SDKs. Locust's internal nomenclature uses the term "users" to refer to simulated SDKs. Do not mistake Locust's "users" with LaunchDarkly's user contexts. They are not the same thing.
+
+The Relay Proxy instance you test against should be:
+
+- Deployed on the same type of hardware you intend to use for your production deployment
+- Configured to manage LaunchDarkly environments comparable to production
+
+Performance is always dependent on specific workload and environment. You can run benchmarks against your own infrastructure and LaunchDarkly configuration for more accurate information. We recommend that you configure the Relay Proxy to be highly available, which reduces load on any particular server. To learn more, read [Relay Proxy guidelines](/home/relay-proxy/guidelines).
+
+A single server-side SDK can support many customers. In the case of client-side SDKs, this may correlate with a specific end user, because a client-side SDK is configured for a particular context.
+
+## Monitoring Relay Proxy performance
+
+When the Relay Proxy is running, you can monitor performance by tracking the following statistics:
+
+- Overall memory utilization
+- CPU utilization
+- Number of requests coming into the Relay Proxy
+
+These numbers help you understand how frequently the Relay Proxy is used and how resource-intensive it is.
+
+### Monitoring the Relay Proxy with a data store
+
+If you have connected the Relay Proxy to a data store, you should also monitor the capacity of the data store and how many hits or misses occur during data lookups. If there are a lot of misses or the data store is nearing capacity, it may be overflowing during high-traffic periods and need more capacity.
+
+To learn more about monitoring your data store, read the documentation from your data store provider.
+
+## Exporting metrics and traces
+
+You can configure the Relay Proxy to export statistics, requests received, and route traces to Datadog, Stackdriver, and Prometheus by using the OpenCensus protocol.
+
+<Callout intent="alert">
+<CalloutTitle>You cannot export metrics and traces about the Relay Proxy from LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+You can only export Relay Proxy-related metrics with the OpenCensus protocol. The core LaunchDarkly app and API do not export data in this way.
+
+</CalloutDescription>
+</Callout>
+
+To learn more about configuring the Relay Proxy to export metrics and traces, read the instructions in our [GitHub repository](https://github.com/launchdarkly/ld-relay#exporting-metrics-and-traces).

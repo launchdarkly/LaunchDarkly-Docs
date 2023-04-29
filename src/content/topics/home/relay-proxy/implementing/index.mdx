@@ -1,0 +1,42 @@
+---
+path: /home/relay-proxy/implementing
+title: Implementing the Relay Proxy
+description: This topic explains how to implement the Relay Proxy.
+published: true
+tags: ['relay proxy', 'deploy']
+---
+
+## Overview
+
+This topic explains how to implement the Relay Proxy.
+
+Before you begin, decide whether the Relay Proxy is appropriate for your configuration by reading [Relay Proxy use cases](/home/relay-proxy/use-cases).
+
+If you are a customer on an Enterprise plan, [Relay Proxy Enterprise](/home/relay-proxy/enterprise) has additional functionality available.
+
+## Relay Proxy implementation
+
+Before you implement the the Relay Proxy, read the [Relay Proxy guidelines](/home/relay-proxy/guidelines).
+
+Here is the process for implementing the Relay Proxy:
+
+1. Decide whether to run the Relay Proxy in [proxy mode or daemon mode](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+1. Plan your Relay Proxy architecture, including:
+    - [Whether to use a persistent store](/home/relay-proxy/using#using-a-persistent-store).
+    - What servers to use.
+    - How to manage load balancing.
+1. [Configure the Relay Proxy](/home/relay-proxy/deploying#configuring-the-relay-proxy).
+    - (Optional) [Configure the Relay Proxy for Big Segments](/home/relay-proxy/using#configuring-the-relay-proxy-for-big-segments), if applicable.
+    - (Optional) If you're using Relay Proxy Enterprise, set up [automatic configuration](/home/relay-proxy/automatic-configuration) or configure [offline mode](/home/relay-proxy/offline).
+1. [Deploy the Relay Proxy](/home/relay-proxy/deploying#deploying-the-relay-proxy).
+1. [Configure your SDKs to use the Relay Proxy](/home/relay-proxy/using).
+1. [Plan for scaling](/home/relay-proxy/guidelines#scaling-guidelines).
+1. [Monitor the Relay Proxy's performance](/home/relay-proxy/monitoring) over time.
+
+Read the topics in this category to learn how to complete these steps.
+
+## Related content
+
+Here are the topics in this category:
+
+<ChildPageList path="/home/relay-proxy/implementing" unsorted="true" />

@@ -1,82 +1,37 @@
 ---
 path: /home/relay-proxy
 title: The Relay Proxy
-description: This topic explains what the Relay Proxy is and how to use it. The Relay Proxy is an open-source application that connects to LaunchDarkly. The Relay Proxy lets servers connect to a local stream instead of making outbound connections to LaunchDarkly's streaming service.
+description: This topic explains what the Relay Proxy is and how to use it. The Relay Proxy is a small Go application that connects to the LaunchDarkly streaming API and proxies that connection to clients within your organization's network.
 published: true
-tags: ['relay proxy', 'php', 'cache']
+tags: ['relay proxy']
 ---
 
 ## Overview
 
 This topic explains what the Relay Proxy is and how to use it.
 
-The Relay Proxy is a small Go application that connects to the LaunchDarkly streaming API and proxies that connection to clients within an organization's network.
+## About the Relay Proxy
+
+The LaunchDarkly Relay Proxy is a small Go application that runs on your own infrastructure. It connects to the LaunchDarkly streaming API and proxies that connection to clients within your organization's network.
+
+Here is a diagram illustrating how LaunchDarkly SDKs work when you are not using the Relay Proxy:
+
+![An illustration of how LaunchDarkly SDKs work in their default configuration.](relay-proxy-diagram-default-config.png)
 
 The Relay Proxy lets multiple servers connect to a local stream instead of making a large number of outbound connections to LaunchDarkly's streaming service (`stream.launchdarkly.com`). Each of your servers connects only to the Relay Proxy, and the Relay Proxy maintains the connection to LaunchDarkly. You can configure the Relay Proxy to carry multiple environment streams from multiple projects.
 
+Here is a diagram illustrating how LaunchDarkly SDKs work when you are using the Relay Proxy:
+
+![An illustration of how LaunchDarkly SDKs work with the Relay Proxy.](relay-proxy-diagram-with-the-rp.png)
+
 The Relay Proxy is an open-source project supported by LaunchDarkly. The full source is in a [GitHub repository](https://github.com/launchdarkly/ld-relay). There's also a Docker image on [Docker Hub](https://hub.docker.com/r/launchdarkly/ld-relay).
 
-## Deciding whether to use the Relay Proxy
+If you are a customer on an Enterprise plan, [Relay Proxy Enterprise](/home/relay-proxy/enterprise) has additional functionality available.
 
-We recommend using the Relay Proxy if you have certain specific configuration requirements, which are explained below. If you don't meet those requirements, using the Relay Proxy is optional.
+To help decide whether the Relay Proxy is appropriate for your configuration, read [Relay Proxy use cases](/home/relay-proxy/use-cases). To learn how to implement the Relay Proxy, read [Implementing the Relay Proxy](/home/relay-proxy/implementing).
 
-Here are some common use cases for the Relay Proxy:
-- [Reducing your app's outbound connections](#you-want-to-reduce-outbound-connections-to-launchdarkly)
-- [Keeping user data private](/guides/account/user-data#evaluating-flags-against-a-relay-proxy)
-- Facilitating faster connections
-- Meeting continuation of service requirements
-- Reducing firewall configuration complexity for your customers
-- [Increasing startup speed for serverless functions](#you-want-to-reduce-initialization-latency-in-a-serverless-environment)
-- Reducing operational work when creating new projects and environments
+## Related content
 
-Some customers may find operating the Relay Proxy cost-prohibitive for their use case, especially customers on Pro or Starter plans.
+Here are the topics in this category:
 
-## Determining if your configuration is a good use case for the Relay Proxy
-
-Adding the Relay Proxy to your LaunchDarkly configuration introduces architectural complexity that may not be necessary for smaller deployments.
-
-The LaunchDarkly client-side and server-side SDKs you use also impact whether you should use the Relay Proxy. The Relay Proxy provides performance and resilience improvements for all server-side SDKs and for SDKs configured to poll. To learn more, read [Understanding the different types of SDKs](/sdk/concepts/client-side-server-side#understanding-the-different-types-of-sdks). If you choose to use the Relay Proxy, you must configure your SDKs to connect to your Relay Proxy. To learn more, read [Relay Proxy configuration](/sdk/features/relay-proxy-configuration).
-
-The Relay Proxy works best with the default SDK configurations for all server-side SDKs and for the [client-side JavaScript SDK](/sdk/client-side/javascript). It does not scale well when it has to maintain streaming connections with a large number of client-side SDKs, including mobile SDKs. If you're utilizing LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, connecting directly to LaunchDarkly's main service may give you the best performance. You could also bootstrap flag rules from the server-side, without using the client-side SDK, in this situation.
-
-The Relay Proxy was developed to address specific scenarios, and it works best when you use it for those purposes.
-
-Those scenarios are:
-
-### You use PHP
-
-PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests. You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
-
-### You want to reduce outbound connections to LaunchDarkly
-
-A large number of servers, such as thousands or tens of thousands, can present too many outbound persistent connections to LaunchDarkly's streaming API for a proxy or firewall to realistically handle. Use the Relay Proxy in **proxy mode** so your servers can connect directly to hosts in your own datacenter, instead of connecting directly to LaunchDarkly's streaming API. On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API.
-
-### You want to reduce initialization latency in a serverless environment
-
-In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server.
-
-### You want to reduce redundant database traffic
-
-If you use a persistent data store and you have a large number of servers connected to LaunchDarkly, each server attempts to update the data store when a flag update occurs. This behavior is safe, but inefficient. Instead, you can use the Relay Proxy in **daemon mode** by setting your LaunchDarkly SDKs to daemon mode. You can then delegate flag updates to a small number of Relay Proxy instances and reduce the number of redundant update calls to your data store. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
-
-### You want to use Big Segments or sync segments from Amplitude with server-side SDKs
-
-If you want to use Big Segments or sync segments from Amplitude with server-side SDKs, you must use the Relay Proxy. To learn more, read [Big Segments](/home/contexts/big-segments) and [Syncing Big Segments from Amplitude cohorts](/home/contexts/synced-segments).
-
-## Understanding the cost of using the Relay Proxy
-
-There are several considerations that go into determining the total cost of ownership for managing the Relay Proxy at scale.
-
-The time cost for onboarding and operating the Relay Proxy varies greatly between organizations, depending on your processes for introducing new technology.
-
-For the ongoing machine cost, following our [Scaling guidelines](/home/relay-proxy/guidelines#scaling-guidelines), most customers find that they have plenty of capacity using three machines, with a load balancer in front of them. For customers who decide to use a database, there will be an ongoing machine cost for that as well. To learn more, read [Caching guidelines](/home/relay-proxy/guidelines#caching-guidelines). There will also likely be a cost when you turn [monitoring](/home/relay-proxy/monitoring) on, which will depend on your monitoring solution. You may want to consider the cost of adding this information to your runbooks as well.
-
-For the ongoing personnel cost, as a general guideline we recommend that customers estimate an hour or so per week of a DevOps engineer's time to monitor and maintain the cluster. We also recommend that your on-call rotation is familiar with this technology and that you set up your [monitoring](/home/relay-proxy/monitoring) to make sure that you can capture abnormalities when they occur.
-
-The Relay Proxy has certain features that are available to customers on an Enterprise plan, including automatic configuration and offline mode. Access to these features may make using the Relay Proxy more beneficial than it would be with only its out-of-the-box feature set. To learn more, read [Relay Proxy Enterprise](/home/relay-proxy/enterprise).
-
-In general, customers on Enterprise plans may be more tolerant of the infrastructural costs associated with using the Relay Proxy's Enterprise features than customers with more limited budgets. If you're on LaunchDarkly's Starter or Pro plan, you can use the Relay Proxy but the operating costs associated with onboarding and maintaining it may be prohibitive. To learn more, read [Relay Proxy guidelines](/home/relay-proxy/guidelines).
-
-## Using Relay Proxy in environments requiring FIPS 140-2 validated encryption
-
-If you are using the LaunchDarkly Relay Proxy in an environment that requires the use of FIPS 140-2 validated encryption modules, such as the [LaunchDarkly federal instance](/home/advanced/federal), you may need to take additional steps to ensure compliance. To learn more, read [LaunchDarkly in environments requiring FIPS 140-2 validated encryption modules](/home/advanced/fips-140-2-encryption).
+<ChildPageList path="/home/relay-proxy" unsorted="true" />

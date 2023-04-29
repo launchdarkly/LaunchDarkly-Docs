@@ -1,14 +1,123 @@
 ---
 path: /home/relay-proxy/deploying
-title: Deploying the Relay Proxy
-description: This topic explains how to deploy and start the Relay Proxy.
+title: Configuring and deploying the Relay Proxy
+description: This topic explains how to configure and deploy the Relay Proxy.
 published: true
 tags: ['deploy', 'docker', 'relay proxy', 'environment', 'variable', 'big segment', 'sdk']
 ---
 
 ## Overview
 
-This topic explains how to deploy and start the Relay Proxy.
+This topic explains how to configure and deploy the Relay Proxy.
+
+## Configuring the Relay Proxy
+
+After you have downloaded or built the Relay Proxy, you need to set its configuration options. 
+
+You can set these options by either:
+- using a configuration file, or 
+- using environment variables.
+
+If you are using Relay Proxy Enterprise, you can also use automatic configuration. To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
+
+Expand each section below to learn how to configure the Relay Proxy.
+
+<Details summary="Expand Using a configuration file">
+
+### Using a configuration file
+
+It's common to use a configuration file when you deploy the Relay Proxy from a release binary or build it from source.
+
+You can also use a configuration file when you run the Relay Proxy from a Docker container, but it is less convenient to do because you *must* place the configuration file at `/ldr/ld-relay.conf`.
+
+To use a configuration file:
+
+1. Create a new file:
+
+  <CodeSample>
+  <CSTab label="Basic example">
+
+  ```text
+  # A single environment which only proxies server-side SDKs
+  [environment "environment-key-123abc"]
+      sdkKey = "sdk-key-123abc"
+  ```
+
+  </CSTab>
+  <CSTab label="Multiple environments">
+
+  ```text
+  # An environment which proxies SDKs with SDK keys or client-side IDs
+  [environment "Production"]
+      sdkKey = "sdk-key-123abc"
+      envId = "environment-key-123abc"
+
+  # An environment which proxies SDKs with SDK keys or mobile keys
+  [environment "Mobile Production"]
+      sdkKey = "sdk-key-123abc"
+      mobileKey = "mobile-key-123abc"
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+  To learn more about the supported configuration options, read [Configuration](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md) in the Relay Proxy GitHub repository.
+
+2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`.
+
+  Run the following code:
+
+  <CodeSample>
+  <CSTab label="Run the binary">
+
+  ```bash
+  $GOPATH/bin/ld-relay --config ./ld-relay.conf
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+If you're using Relay Proxy Enterprise and want to enable automatic configuration or offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
+</Details>
+
+<Details summary="Expand Using environment variables">
+
+### Using environment variables
+
+The other way to configure your Relay Proxy is with environment variables. This method is available regardless of how you deploy the Relay Proxy, although it is most commonly used with Docker containers.
+
+To use environment variables:
+
+1. Confirm that all of your Relay Proxy configuration values are specified with the appropriate environment variables.
+
+  For example, to specify the SDK key for an environment named `MyEnvName`:
+
+  <CodeSample>
+  <CSTab label="Example environment variable">
+
+  ```bash
+  export LD_ENV_MyEnvName=<sdk-key-123abc>
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+  To learn more about supported environment variables, read [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md#configuration-file-format-and-environment-variables) in the Relay Proxy GitHub repository.
+
+2. Run the Relay Proxy binary while passing the `--from-env` argument. The following command assumes that the `ld-relay` binary is in `$GOPATH/bin`.
+
+  <CodeSample>
+  <CSTab label="Run the binary">
+
+  ```bash
+  $GOPATH/bin/ld-relay --from-env
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+If you're using Relay Proxy Enterprise and want to enable automatic configuration or offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
+</Details>
 
 ## Deploying the Relay Proxy
 
@@ -18,6 +127,10 @@ You can deploy the Relay Proxy in one of four ways. In order from most common to
 * using Helm to run the Relay Proxy in Kubernetes,
 * downloading a Relay Proxy release binary, or
 * building the Relay Proxy from source.
+
+Expand the sections below to learn how to use each method.
+
+<Details summary="Expand Starting the Relay Proxy from a Docker image">
 
 ### Starting the Relay Proxy from a Docker image
 
@@ -41,7 +154,7 @@ To deploy the Relay Proxy with Docker:
 
 The simplest way to specify the configuration is with environment variables, using the `-e` option of `docker run`. An example configuration that uses environment variables appears below.
 
-For examples and a full list of allowable variables, read the documentation in the GitHub repository on [Using with Docker](https://github.com/launchdarkly/ld-relay/blob/v6/docs/docker.md) and [Configuration](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md).
+For examples and a full list of allowable variables, read the documentation in the GitHub repository on [Using with Docker](https://github.com/launchdarkly/ld-relay/blob/v7/docs/docker.md) and [Configuration](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md).
 
 In the following example, the Relay Proxy is configured to have two LaunchDarkly environments.
 
@@ -65,6 +178,10 @@ docker run --name ld-relay              \
 
 </CSTab>
 </CodeSample>
+
+</Details>
+
+<Details summary="Expand Using Helm to run the Relay Proxy in Kubernetes">
 
 ### Using Helm to run the Relay Proxy in Kubernetes
 
@@ -112,6 +229,9 @@ helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
 </CodeSample>
 
 You can find examples and full documentation on all configuration options in the [GitHub repository](https://github.com/launchdarkly/ld-relay-helm).
+</Details>
+
+<Details summary="Expand Downloading a Relay Proxy release binary">
 
 ### Downloading a Relay Proxy release binary
 
@@ -124,6 +244,9 @@ If you want to download a release binary from the GitHub repository, you should 
 * **.deb** and **.rpm** files are intended for use with a package manager.
 
 When executing the binary, you'll need to tell the Relay Proxy about your desired configuration. You can do so either with a configuration file or environment variables. Continue reading for more information.
+</Details>
+
+<Details summary="Expand Building the Relay Proxy from source">
 
 ### Building the Relay Proxy from source
 
@@ -138,7 +261,7 @@ After you do this, the executable binary `ld-relay` appears in the directory.
 There is also a shortcut command that can replace the longer procedure above. This command downloads the code and builds it in a single step. After you enter the command, the executable binary `ld-relay` appears in `$GOPATH/bin`. You can move it to any other location.
 
 <CodeSample>
-<CSTab label="Download and build Relay Proxy">
+<CSTab label="Download and build the Relay Proxy">
 
 ```bash
 go install github.com/launchdarkly/ld-relay/v6@latest
@@ -148,116 +271,4 @@ go install github.com/launchdarkly/ld-relay/v6@latest
 </CodeSample>
 
 When you execute the binary, you must tell the Relay Proxy about your desired configuration. You can do this either with a configuration file or environment variables.
-
-## Configuring the Relay Proxy
-
-Once you have downloaded or built the Relay Proxy, you need to set its configuration options. You can set these options using a configuration file or using environment variables.
-
-If you are using Relay Proxy Enterprise, you can also use automatic configuration. To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
-
-### Using a configuration file
-
-It's common to use a configuration file when you deploy the Relay Proxy from a release binary or build it from source.
-
-You can also use a configuration file when you run the Relay Proxy from a Docker container, but it is less convenient to do because you *must* place the configuration file at `/ldr/ld-relay.conf`.
-
-To use a configuration file:
-
-1. Create a new file:
-
-  <CodeSample>
-  <CSTab label="Basic example">
-
-  ```text
-  # A single environment which only proxies server-side SDKs
-  [environment "environment-key-123abc"]
-      sdkKey = "sdk-key-123abc"
-  ```
-
-  </CSTab>
-  <CSTab label="Multiple environments">
-
-  ```text
-  # An environment which proxies SDKs with SDK keys or client-side IDs
-  [environment "Production"]
-      sdkKey = "sdk-key-123abc"
-      envId = "environment-key-123abc"
-
-  # An environment which proxies SDKs with SDK keys or mobile keys
-  [environment "Mobile Production"]
-      sdkKey = "sdk-key-123abc"
-      mobileKey = "mobile-key-123abc"
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-  To learn more about the supported configuration options, read [Configuration](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md) in the Relay Proxy GitHub repository.
-
-2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`.
-
-  Run the following code:
-
-  <CodeSample>
-  <CSTab label="Run the binary">
-
-  ```bash
-  $GOPATH/bin/ld-relay --config ./ld-relay.conf
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-
-### Using environment variables
-
-The other way to configure your Relay Proxy is with environment variables. This method is available regardless of how you deploy the Relay Proxy, although it is most commonly used with Docker containers.
-
-To use environment variables:
-
-1. Confirm that all of your Relay Proxy configuration values are specified with the appropriate environment variables.
-
-  For example, to specify the SDK key for an environment named `MyEnvName`:
-
-  <CodeSample>
-  <CSTab label="Example environment variable">
-
-  ```bash
-  export LD_ENV_environment-key-123abc=<sdk-key-123abc>
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-  To learn more about supported environment variables, read [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v6/docs/configuration.md#configuration-file-format-and-environment-variables) in the Relay Proxy GitHub repository.
-
-2. Run the Relay Proxy binary while passing the `--from-env` argument. The following command assumes that the `ld-relay` binary is in `$GOPATH/bin`.
-
-  <CodeSample>
-  <CSTab label="Run the binary">
-
-  ```bash
-  $GOPATH/bin/ld-relay --from-env
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-## Configuring the Relay Proxy for Big Segments
-
-<Callout intent="alert">
-<CalloutTitle>This feature is not available on all versions of the Relay Proxy</CalloutTitle>
-<CalloutDescription>
-
-If you want to use Big Segments with server-side SDKs, you must upgrade the Relay Proxy to version <b>6.4.0</b> or above.
-
-</CalloutDescription>
-</Callout>
-
-To use Big Segments with the Relay Proxy, you must configure the Relay Proxy to use either Redis or DynamoDB for persistent storage. The Relay Proxy stores Big Segment data in the persistent data store, which your SDK then uses for flag evaluation. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
-
-If you use a server-side SDK, you must use the Relay Proxy and configure your server-side SDKs to use the same persistent storage as the Relay Proxy. To learn how to configure server-side SDKs for Big Segments, read [Big Segments](/sdk/features/big-segments).
-
-If you use a client-side SDK, there's no additional setup required to use Big Segments. However, if you use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
-
-To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v6/docs/persistent-storage.md) and [Big Segments](/home/contexts/big-segments).
+</Details>

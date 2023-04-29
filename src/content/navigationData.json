@@ -688,20 +688,18 @@
         "svg": "relay-proxy",
         "items": [
           {
-            "label": "Deploying the Relay Proxy",
-            "path": "/home/relay-proxy/deploying"
-          },
-          {
-            "label": "Relay Proxy guidelines",
-            "path": "/home/relay-proxy/guidelines"
-          },
-          {
-            "label": "Using the Relay Proxy",
-            "path": "/home/relay-proxy/using"
-          },
-          {
-            "label": "Monitoring the Relay Proxy",
-            "path": "/home/relay-proxy/monitoring"
+          "label": "Determining whether to use the Relay Proxy",
+          "path": "/home/relay-proxy/determining",
+          "items": [
+              {
+                "label": "Relay Proxy use cases",
+                "path": "/home/relay-proxy/use-cases"
+              },
+              {
+                "label": "Relay Proxy guidelines",
+                "path": "/home/relay-proxy/guidelines"
+              }
+            ]
           },
           {
             "label": "Relay Proxy Enterprise",
@@ -718,8 +716,22 @@
             ]
           },
           {
-            "label": "Testing Relay Proxy performance",
-            "path": "/home/relay-proxy/performance"
+            "label": "Implementing the Relay Proxy",
+            "path": "/home/relay-proxy/implementing",
+            "items": [
+              {
+                "label": "Deploying the Relay Proxy",
+                "path": "/home/relay-proxy/deploying"
+              },
+              {
+                "label": "Configuring SDKs for the Relay Proxy",
+                "path": "/home/relay-proxy/using"
+              },
+              {
+                "label": "Monitoring the Relay Proxy",
+                "path": "/home/relay-proxy/monitoring"
+              }
+            ]
           },
           {
             "label": "Versioning policy",
