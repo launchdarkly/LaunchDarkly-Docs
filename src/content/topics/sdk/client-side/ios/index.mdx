@@ -395,7 +395,7 @@ Here's how:
 <CSTab label="Swift">
 
 ```swift
-let showFeature = client.boolVariation(forKey: "flag-key", defaultValue: false)
+let showFeature = client.boolVariation(forKey: "flag-key-123abc", defaultValue: false)
 
 if showFeature {
   // Application code to show the feature
@@ -408,7 +408,7 @@ else {
 <CSTab label="Objective-C">
 
 ```objectivec
-BOOL showFeature = [client boolVariationForKey:@"flag-key" defaultValue:NO];
+BOOL showFeature = [client boolVariationForKey:@"flag-key-123abc" defaultValue:NO];
 if (showFeature) {
     // Application code to show the feature
 } else {

@@ -496,8 +496,8 @@ let context = try multiBuilder.build().get()
 <CSTab label="iOS SDK v8.0 (Objective-C)">
 
 ```objectivec
-LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"USER_CONTEXT_KEY"];
-LDContextBuilder *deviceBuilder = [[LDContextBuilder alloc] initWithKey:@"DEVICE_CONTEXT_KEY"];
+LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"user-key-123abc"];
+LDContextBuilder *deviceBuilder = [[LDContextBuilder alloc] initWithKey:@"device-key-123abc"];
 [deviceBuilder kindWithKind:@"device"];
 
 LDMultiContextBuilder *multiBuilder = [[LDMultiContextBuilder alloc] init];
@@ -1196,7 +1196,7 @@ Here's an example of a context:
     Context = ldclient_context:set(<<"name">>, <<"Sandy Smith">>,
         ldclient_context:set(<<"email">>, <<"sandy@example.com">>,
         ldclient_context:set(<<"group">>, [<<"microsoft">>, <<"google">>],
-        ldclient_context:new(<<"user-key">>, <<"user">>)))),
+        ldclient_context:new(<<"user-key-abc123">>, <<"user">>)))),
 ```
 
 </CSTab>
@@ -1214,7 +1214,7 @@ Map = #{
     avatar => <<"avatar-123abc">>,
     name => <<"Sandy Smith">>,
     anonymous => false,
-    <<"custom-key">> => <<"custom-value">>
+    <<"custom-attr-name">> => <<"custom-value">>
 },
 User = ldclient_user:new_from_map(Map)
 ```
@@ -1774,8 +1774,8 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CSTab label="PHP SDK v5.0">
 
 ```php
-$deviceContext = LDContext::create("device-key", "device");
-$orgContext = LDContext::create("org-key", "org");
+$deviceContext = LDContext::create("device-key-123abc", "device");
+$orgContext = LDContext::create("org-key-123abc", "org");
 $multiContext = LDContext::createMulti($deviceContext, $orgContext);
 ```
 

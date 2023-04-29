@@ -175,28 +175,28 @@ Here is an an example using the new parameter name:
 <CSTab label="4.x syntax (Swift)">
 
 ```swift
-let flagValue = LDClient.shared.variation(forKey: "flag-key", fallback: false)
+let flagValue = LDClient.shared.variation(forKey: "flag-key-123abc", fallback: false)
 ```
 
 </CSTab>
 <CSTab label="5.0 syntax (Swift)">
 
 ```swift
-let flagValue = LDClient.get()!.variation(forKey: "flag-key", defaultValue: false)
+let flagValue = LDClient.get()!.variation(forKey: "flag-key-123abc", defaultValue: false)
 ```
 
 </CSTab>
 <CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
-BOOL flagValue = [[LDClient sharedInstance] boolVariationForKey:@"flag-key" fallback:NO];
+BOOL flagValue = [[LDClient sharedInstance] boolVariationForKey:@"flag-key-123abc" fallback:NO];
 ```
 
 </CSTab>
 <CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
-BOOL flagValue = [[LDClient get] boolVariationForKey:@"flag-key" defaultValue:NO];
+BOOL flagValue = [[LDClient get] boolVariationForKey:@"flag-key-123abc" defaultValue:NO];
 ```
 
 </CSTab>
@@ -214,28 +214,28 @@ Here is an example using the new naming method:
 <CSTab label="4.x syntax (Swift)">
 
 ```swift
-let flagValueDetail: EvaluationDetail<Bool> = LDClient.shared.variationDetail(forKey: "flag-key", fallback: false)
+let flagValueDetail: EvaluationDetail<Bool> = LDClient.shared.variationDetail(forKey: "flag-key-123abc", fallback: false)
 ```
 
 </CSTab>
 <CSTab label="5.0 syntax (Swift)">
 
 ```swift
-let flagValueDetail: LDEvaluationDetail<Bool> = LDClient.get()!.variationdetail(forKey: "flag-key", defaultValue: false)
+let flagValueDetail: LDEvaluationDetail<Bool> = LDClient.get()!.variationdetail(forKey: "flag-key-123abc", defaultValue: false)
 ```
 
 </CSTab>
 <CSTab label="4.x syntax (Objective-C)">
 
 ```objectivec
-ObjCBoolEvaluationDetail *flagValueDetail = [[LDClient sharedInstance] boolVariationDetailForKey:@"flag-key" fallback:NO];
+ObjCBoolEvaluationDetail *flagValueDetail = [[LDClient sharedInstance] boolVariationDetailForKey:@"flag-key-123abc" fallback:NO];
 ```
 
 </CSTab>
 <CSTab label="5.0 syntax (Objective-C)">
 
 ```objectivec
-LDBoolEvaluationDetail *flagValueDetail = [[LDClient get] boolVariationDetailForKey:@"flag-key" defaultValue:NO];
+LDBoolEvaluationDetail *flagValueDetail = [[LDClient get] boolVariationDetailForKey:@"flag-key-123abc" defaultValue:NO];
 ```
 
 </CSTab>

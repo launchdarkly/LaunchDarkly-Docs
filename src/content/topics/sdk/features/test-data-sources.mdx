@@ -292,9 +292,9 @@ td.Update(td.Flag("flag-key-789ghi")
 <CSTab label=".NET SDK v6.x (C#)">
 
 ```csharp
-// This flag is true for the user key "some-user-key" and false for everyone else
+// This flag is true for the user key "user-key-123abc" and false for everyone else
 td.Update(td.Flag("flag-key-456def")
-    .VariationForUser("some-user-key", true)
+    .VariationForUser("user-key-123abc", true)
     .FallthroughVariation(false));
 
 // This flag returns the string variation "green" for users who have the custom
@@ -367,10 +367,10 @@ There are other ways you can configure flag behavior using a test data source. H
 <CSTab label="C/C++">
 
 ```c
-// This flag is true for the user key "some-user-key"
+// This flag is true for the user key "user-key-123abc"
 // and false for everyone else.
 struct LDFlagBuilder *flag2 = LDTestDataFlag(td, "flag-key-456def");
-LDFlagBuilderVariationForUserBoolean(flag2, "some-user-key", LDBooleanTrue);
+LDFlagBuilderVariationForUserBoolean(flag2, "user-key-123abc", LDBooleanTrue);
 LDFlagBuilderFallthroughVariationBoolean(flag2, LDBooleanFalse);
 LDTestDataUpdate(td, flag2);
 
@@ -468,10 +468,10 @@ ldclient_testdata:update(UpdatedFlag),
 <CSTab label="Erlang SDK v1.x">
 
 ```erlang
-%% This flag is true for the user key "some-user-key" and false for everyone else
+%% This flag is true for the user key "user-key-123abc" and false for everyone else
 {ok, Flag2} = ldclient_testdata:flag("flag-key-456def"),
 UpdatedFlag2 = ldclient_flagbuilder:fallthrough_variation(false,
-  ldclient_flagbuilder:variation_for_user(<<"some-user-key">>, true, Flag2)),
+  ldclient_flagbuilder:variation_for_user(<<"user-key-123abc">>, true, Flag2)),
 
 %% This flag returns the string variation "green" for users who have the custom
 %% attribute "admin" with a value of true, and "red" for everyone else.
@@ -584,7 +584,7 @@ td.Update(td.Flag("flag-key-789ghi").
 ```go
 // This flag is true for the user key "context-key-123abc" and false for everyone else.
 td.Update(td.Flag("flag-key-456def").
-    VariationForUser("some-user-key", true).
+    VariationForUser("user-key-123abc", true).
     FallthroughVariation(false));
 
 
@@ -805,7 +805,7 @@ const client = new LDClient('sdk-key-123abc', { updateProcessor: td });
 
 // flags can be updated at any time:
 td.update(td.flag('flag-key-456def')
-    .variationForUser('some-user-key', true)
+    .variationForUser('user-key-123abc', true)
     .fallthroughVariation(false));
 
 ```
@@ -886,10 +886,10 @@ $td->update(
 <CSTab label="PHP SDK v4.x">
 
 ```php
-// This flag is true for the user key "some-user-key" and false for everyone else
+// This flag is true for the user key "user-key-123abc" and false for everyone else
 $td->update(
     $td->flag("flag-key-456def")
-       ->variationForUser("some-user-key", true)
+       ->variationForUser("user-key-123abc", true)
        ->fallthroughVariation(false)
 );
 
@@ -982,10 +982,10 @@ td.update(
 <CSTab label="Python SDK v7.x">
 
 ```python
-# This flag is true for the user key "some-user-key" and false for everyone else.
+# This flag is true for the user key "user-key-123abc" and false for everyone else.
 td.update(
     td.flag("flag-key-456def") \
-        .variation_for_user("some-user-key", True)
+        .variation_for_user("user-key-123abc", True)
         .fallthrough_variation(False)
 )
 
@@ -1054,9 +1054,9 @@ There are other ways you can configure flag behavior using a test data source. H
 <CSTab label="Ruby SDK v7.0">
 
 ```ruby
-# This flag is true for the context key "some-context-key" and false for everyone else
+# This flag is true for the context key "context-key-123abc" and false for everyone else
 td.update(td.flag("flag-key-456def").
-    variation_for_key("some-context-key", true).
+    variation_for_key("context-key-123abc", true).
     fallthrough_variation(false))
 
 # This flag returns the string variation "green" for contexts who have the custom
@@ -1071,9 +1071,9 @@ td.update(td.flag("flag-key-789ghi").
 <CSTab label="Ruby SDK v6.x">
 
 ```ruby
-# This flag is true for the user key "some-user-key" and false for everyone else
+# This flag is true for the user key "user-key-123abc" and false for everyone else
 td.update(td.flag("flag-key-456def").
-    variation_for_user("some-user-key", true).
+    variation_for_user("user-key-123abc", true).
     fallthrough_variation(false))
 
 # This flag returns the string variation "green" for users who have the custom

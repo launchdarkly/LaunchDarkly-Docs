@@ -272,13 +272,13 @@ In the first example, all attributes are marked private for all contexts. Only t
 <CSTab label="2.0 syntax, all attributes marked private">
 
 ```erlang
-ldclient:start_instance("your-sdk-key", #{private_attributes => all}).
+ldclient:start_instance("sdk-key-123abc", #{private_attributes => all}).
 ```
 </CSTab>
 <CSTab label="2.0 syntax, two attributes marked private">
 
 ```erlang
-ldclient:start_instance("your-sdk-key", #{private_attributes => [<<"email">>, <<"address">>]}).
+ldclient:start_instance("sdk-key-123abc", #{private_attributes => [<<"email">>, <<"address">>]}).
 ```
 </CSTab>
 </CodeSample>

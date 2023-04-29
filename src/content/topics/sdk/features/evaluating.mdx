@@ -263,16 +263,16 @@ Here is an example:
 <CSTab label="Swift">
 
 ```swift
-let boolFlagValue = LDClient.get()!.boolVariation(forKey: "bool-flag-key", defaultValue: false)
-let jsonFlagValue = LDClient.get()!.jsonVariation(forKey: "json-flag-key", defaultValue: ["enabled": false, "special": "none"])
+let boolFlagValue = LDClient.get()!.boolVariation(forKey: "bool-flag-key-123abc", defaultValue: false)
+let jsonFlagValue = LDClient.get()!.jsonVariation(forKey: "json-flag-key-456def", defaultValue: ["enabled": false, "special": "none"])
 ```
 
 </CSTab>
 <CSTab label="Objective-C">
 
 ```objectivec
-BOOL boolFlagValue = [[LDClient get] boolVariationForKey:@"bool-flag-key" defaultValue:NO];
-LDValue* jsonFlagValue = [[LDClient get] jsonVariationForKey:@"json-flag-key" defaultValue:[LDValue ofNull]];
+BOOL boolFlagValue = [[LDClient get] boolVariationForKey:@"bool-flag-key-123abc" defaultValue:NO];
+LDValue* jsonFlagValue = [[LDClient get] jsonVariationForKey:@"json-flag-key-456def" defaultValue:[LDValue ofNull]];
 ```
 
 </CSTab>

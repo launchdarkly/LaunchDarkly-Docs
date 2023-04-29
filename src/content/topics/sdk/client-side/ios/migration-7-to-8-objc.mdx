@@ -90,8 +90,8 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CSTab label="8.0 syntax, multi-context">
 
 ```objectivec
-LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"USER_CONTEXT_KEY"];
-LDContextBuilder *deviceBuilder = [[LDContextBuilder alloc] initWithKey:@"DEVICE_CONTEXT_KEY"];
+LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"user-key-123abc"];
+LDContextBuilder *deviceBuilder = [[LDContextBuilder alloc] initWithKey:@"device-key-123abc"];
 [deviceBuilder kindWithKind:@"device"];
 
 LDMultiContextBuilder *multiBuilder = [[LDMultiContextBuilder alloc] init];
@@ -194,7 +194,7 @@ In the first example, all attributes are marked private for all contexts. In the
 <CSTab label="8.0 syntax, all attributes marked private">
 
 ```objectivec
-LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"MOBILE_KEY"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 [config setAllContextAttributesPrivate:YES];
 [LDClient startWithConfiguration:config context:context completion:nil];
 ```
@@ -212,7 +212,7 @@ NSDictionary<NSString *, LDValue *> *address = @{
 };
 LDContext *context = builder.build.success;
 
-LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"MOBILE_KEY"];
+LDConfig *config = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 [config setPrivateContextAttributes:@[@"email", @"address"]];
 ```
 
@@ -309,8 +309,8 @@ Here's how:
 <CSTab label="8.0 syntax, associating two contexts">
 
 ```objectivec
-LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"USER_CONTEXT_KEY"];
-LDContextBuilder *deviceBuilder = [[LDContextBuilder alloc] initWithKey:@"DEVICE_CONTEXT_KEY"];
+LDContextBuilder *userBuilder = [[LDContextBuilder alloc] initWithKey:@"user-key-123abc"];
+LDContextBuilder *deviceBuilder = [[LDContextBuilder alloc] initWithKey:@"device-key-123abc"];
 [deviceBuilder kindWithKind:@"device"];
 
 LDMultiContextBuilder *multiBuilder = [[LDMultiContextBuilder alloc] init];

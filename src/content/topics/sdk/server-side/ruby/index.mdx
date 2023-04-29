@@ -183,7 +183,7 @@ To use LaunchDarkly with the Rails application preloader [Spring](https://github
 
 ```ruby
 Spring.after_fork do
-  Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.client = LaunchDarkly::LDClient.new('sdk-key-123abc')
 end
 ```
 
@@ -197,7 +197,7 @@ Similarly, with [Unicorn](https://bogomips.org/unicorn/), you'll need to specify
 
 ```ruby
 after_fork do |server,worker|
-  Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.client = LaunchDarkly::LDClient.new('sdk-key-123abc')
 end
 ```
 
@@ -211,7 +211,7 @@ If you use the [Puma](https://github.com/puma/puma) web server, we recommend ini
 
 ```ruby
 on_worker_boot do
-  Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
+  Rails.configuration.client = LaunchDarkly::LDClient.new('sdk-key-123abc')
 end
 ```
 
@@ -226,7 +226,7 @@ If you use the [Passenger](https://www.phusionpassenger.com/library/indepth/ruby
 ```ruby
 if defined?(PhusionPassenger)
   PhusionPassenger.on_event(:starting_worker_process) do |forked|
-    Rails.configuration.client = LaunchDarkly::LDClient.new('SDK KEY')
+    Rails.configuration.client = LaunchDarkly::LDClient.new('sdk-key-123abc')
   end
 end
 ```

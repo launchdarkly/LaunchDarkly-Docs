@@ -116,8 +116,8 @@ Here's how to construct a multi-context, which includes multiple context kinds:
 <CSTab label="5.0 syntax, multi-context">
 
 ```php
-$deviceContext = LDContext::create("device-key", "device");
-$orgContext = LDContext::create("org-key", "org");
+$deviceContext = LDContext::create("device-key-123abc", "device");
+$orgContext = LDContext::create("org-key-123abc", "org");
 $multiContext = LDContext::createMulti($deviceContext, $orgContext);
 ```
 
@@ -235,8 +235,8 @@ Here's how:
 <CSTab label="5.0 syntax, associating two contexts">
 
 ```php
-$deviceContext = LDContext::create("device-key", "device");
-$orgContext = LDContext::create("org-key", "org");
+$deviceContext = LDContext::create("device-key-123abc", "device");
+$orgContext = LDContext::create("org-key-123abc", "org");
 $multiContext = LDContext::createMulti($deviceContext, $orgContext);
 
 $client->identify($multiContext);

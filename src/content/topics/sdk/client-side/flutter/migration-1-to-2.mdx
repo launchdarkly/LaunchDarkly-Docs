@@ -207,7 +207,7 @@ In the first example, all attributes are marked private for all contexts. In the
 <CSTab label="2.0 syntax, all attributes private">
 
 ```dart
-LDConfig config = LDConfigBuilder(MOBILE_SDK_KEY)
+LDConfig config = LDConfigBuilder('mobile-key-123abc')
     .allAttributesPrivate(true)
     .build();
 ```
@@ -216,7 +216,7 @@ LDConfig config = LDConfigBuilder(MOBILE_SDK_KEY)
 <CSTab label="2.0 syntax, two attributes private">
 
 ```dart
-LDConfig config = LDConfigBuilder(MOBILE_SDK_KEY)
+LDConfig config = LDConfigBuilder('mobile-key-123abc')
     .privateAttributeNames(['email', 'address'])
     .build();
 ```

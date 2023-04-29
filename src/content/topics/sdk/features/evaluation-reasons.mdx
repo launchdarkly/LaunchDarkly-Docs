@@ -126,7 +126,7 @@ LDConfig ldConfig = new LDConfig.Builder()
 LDClient client = LDClient.init(this.getApplication(), ldConfig, context, secondsToBlock);
 
 EvaluationDetail<Boolean> detail =
-  client.boolVariationDetail("flag-key", false);
+  client.boolVariationDetail("flag-key-123abc", false);
   // or stringVariationDetail for a string-valued flag, etc.
 
 boolean value = detail.getValue();
@@ -139,13 +139,13 @@ EvaluationReason reason = detail.getReason();
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-  .mobileKey("YOUR_MOBILE_KEY")
+  .mobileKey("mobile-key-123abc")
   .evaluationReasons(true)
   .build();
 LDClient client = LDClient.init(this.getApplication(), ldConfig, user, secondsToBlock);
 
 EvaluationDetail<Boolean> detail =
-  client.boolVariationDetail("flag-key", false);
+  client.boolVariationDetail("flag-key-123abc", false);
   // or stringVariationDetail for a string-valued flag, and so on.
 
 boolean value = detail.getValue();
@@ -278,7 +278,7 @@ final LDConfig config = LDConfigBuilder("mobile-key-123abc")
 await LDClient.startWithContext(config, context);
 
 LDEvaluationDetail<bool> detail =
-  await LDClient.boolVariationDetail("flag-key", false);
+  await LDClient.boolVariationDetail("flag-key-123abc", false);
   // or stringVariationDetail for a string-valued flag, and so on.
 
 bool value = detail.value;
@@ -296,7 +296,7 @@ final LDConfig config = LDConfigBuilder("mobile-key-123abc")
 await LDClient.start(config, user);
 
 LDEvaluationDetail<bool> detail =
-  await LDClient.boolVariationDetail("flag-key", false);
+  await LDClient.boolVariationDetail("flag-key-123abc", false);
   // or stringVariationDetail for a string-valued flag, and so on.
 
 bool value = detail.value;
@@ -363,7 +363,7 @@ Here is an example:
 ldConfig.evaluationReasons = true
 LDClient.start(config: ldConfig, context: context)
 
-let detail = client.boolVariationDetail(forKey: "flag-key", defaultValue: false);
+let detail = client.boolVariationDetail(forKey: "flag-key-123abc", defaultValue: false);
 
 let value: Bool = detail.value
 let variationIndex: Int? = detail.variationIndex
@@ -377,7 +377,7 @@ let reason: [String: LDValue]? = detail.reason
 config.evaluationReasons = true;
 [LDClient startWithConfiguration:config context:result.success completion: nil];
 
-LDBoolEvaluationDetail *detail = [[LDClient get] boolVariationDetailForKey:@"flag-key" defaultValue:NO];
+LDBoolEvaluationDetail *detail = [[LDClient get] boolVariationDetailForKey:@"flag-key-123abc" defaultValue:NO];
 
 BOOL value = detail.value;
 NSInteger variationIndex = detail.variationIndex;
@@ -391,7 +391,7 @@ NSDictionary<NSString*, LDValue*> *reason = detail.reason;
 ldConfig.evaluationReasons = true
 LDClient.start(config: ldConfig, user: user)
 
-let detail = client.boolVariationDetail(forKey: "flag-key", defaultValue: false);
+let detail = client.boolVariationDetail(forKey: "flag-key-123abc", defaultValue: false);
 
 let value: Bool = detail.value
 let variationIndex: Int? = detail.variationIndex
@@ -465,7 +465,7 @@ Here is an example:
 const options = { evaluationReasons: true };
 const client = LDClient.initialize('client-side-id-123abc', user, options);
 
-const detail = client.variationDetail('flag-key', false);
+const detail = client.variationDetail('flag-key-123abc', false);
 
 const value = detail.value;
 const index = detail.variationIndex;
@@ -586,7 +586,7 @@ Here is an example:
 
 ```csharp
 EvaluationDetail<bool> detail =
-    client.BoolVariationDetail("flag-key", myContext, false);
+    client.BoolVariationDetail("flag-key-123abc", myContext, false);
     // or StringVariationDetail for a string-valued flag, etc.
 
 bool value = detail.Value;
@@ -767,7 +767,7 @@ Here is an example:
 <CSTab label="Go SDK v6.0">
 
 ```go
-value, detail, err := client.BoolVariationDetail("flag-key", context, false)
+value, detail, err := client.BoolVariationDetail("flag-key-123abc", context, false)
 // or StringVariationDetail for a string-valued flag, etc.
 
 index := detail.VariationIndex
@@ -779,7 +779,7 @@ reason := detail.Reason
 <CSTab label="Go SDK v5.x">
 
 ```go
-value, detail, err := client.BoolVariationDetail("flag-key", myUser, false)
+value, detail, err := client.BoolVariationDetail("flag-key-123abc", myUser, false)
 // or StringVariationDetail for a string-valued flag, and so on.
 
 index := detail.VariationIndex
@@ -925,7 +925,7 @@ EvaluationReason reason = detail.getReason();
 import com.launchdarkly.sdk.*;
 
 EvaluationDetail<Boolean> detail =
-  client.boolVariationDetail("flag-key", myUser, false);
+  client.boolVariationDetail("flag-key-123abc", myUser, false);
   // or stringVariationDetail for a string-valued flag, and so on.
 
 boolean value = detail.getValue();
@@ -1135,7 +1135,7 @@ $reason = $detail->getReason();
 
 ```php
 
-$detail = $client->variationDetail("flag-key", $myUser, false);
+$detail = $client->variationDetail("flag-key-123abc", $myUser, false);
 
 $value = $detail->getValue();
 $index = $detail->getVariationIndex();
@@ -1265,7 +1265,7 @@ Here is an example:
 <CSTab label="Ruby SDK v7.0">
 
 ```ruby
-detail = client.variation_detail("flag-key", my_context, false)
+detail = client.variation_detail("flag-key-123abc", my_context, false)
 value = detail.value
 index = detail.variation_index
 reason = detail.reason
@@ -1275,7 +1275,7 @@ reason = detail.reason
 <CSTab label="Ruby SDK v6.x">
 
 ```ruby
-detail = client.variation_detail("flag-key", my_user, false)
+detail = client.variation_detail("flag-key-123abc", my_user, false)
 value = detail.value
 index = detail.variation_index
 reason = detail.reason
@@ -1328,7 +1328,7 @@ Here is an example:
 <CSTab label="Rust SDK v1">
 
 ```rust
-let detail = client.bool_variation_detail(&context, "flag-key", false);
+let detail = client.bool_variation_detail(&context, "flag-key-123abc", false);
 
 let value = detail.value;
 let index = detail.variation_index;
@@ -1338,7 +1338,7 @@ let reason = detail.reason;
 <CSTab label="Rust SDK beta">
 
 ```rust
-let detail = client.bool_variation_detail(&user, "flag-key", false);
+let detail = client.bool_variation_detail(&user, "flag-key-123abc", false);
 
 let value = detail.value;
 let index = detail.variation_index;

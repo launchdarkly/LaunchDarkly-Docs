@@ -56,7 +56,7 @@ local ld = require("launchdarkly_server_sdk")
 local os = require("os")
 
 local config = {
-    key = os.getenv("LD_SDK_KEY")
+    key = os.getenv("sdk-key-123abc")
 }
 
 local client = ld.clientInit(config, 1000)

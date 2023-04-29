@@ -109,7 +109,7 @@ The `track` method allows you to record `custom` events in your application with
 <CSTab label="C/C++">
 
 ```c
-LDClientTrack(client, "YOUR_EVENT_KEY");
+LDClientTrack(client, "event-key-123abc");
 ```
 
 </CSTab>
@@ -134,7 +134,7 @@ You can also explicitly send an event with any data you like using the `track` f
 <CSTab label="JavaScript">
 
 ```js
-client.track('my-custom-event-key', { customProperty: someValue });
+client.track('custom-event-key-123abc', { customProperty: someValue });
 ```
 
 </CSTab>
@@ -331,13 +331,13 @@ Here's how:
 
 ```brightscript
 REM without optional data
-launchDarkly.track("YOUR_EVENT_KEY")
+launchDarkly.track("event-key-123abc")
 
 REM with optional data
-launchDarkly.track("YOUR_EVENT_KEY", {"customField": 123})
+launchDarkly.track("event-key-123abc", {"customField": 123})
 
 REM with optional numeric metric
-launchDarkly.track("YOUR_EVENT_KEY", invalid, 52.3)
+launchDarkly.track("event-key-123abc", invalid, 52.3)
 
 ```
 

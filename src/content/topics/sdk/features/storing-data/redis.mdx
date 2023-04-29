@@ -100,7 +100,7 @@ The C/C++ integration is part of the main SDK distribution.
 #include <launchdarkly/api.h>
 #include <launchdarkly/store/redis.h>
 
-struct LDConfig *config = LDConfigNew("my-key");
+struct LDConfig *config = LDConfigNew("sdk-key-123abc");
 struct LDRedisConfig *redisConfig = LDRedisConfigNew();
 struct LDStoreInterface *store = LDStoreInterfaceRedisNew(redisConfig);
 

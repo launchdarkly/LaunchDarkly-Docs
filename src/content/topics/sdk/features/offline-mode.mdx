@@ -56,7 +56,7 @@ Here's how:
 <CSTab label="C#">
 
 ```csharp
-Configuration config = Configuration.Builder("SDK_KEY")
+Configuration config = Configuration.Builder("sdk-key-123abc")
     .Offline(true)
     .Build();
 LdClient client = LdClient.Init(config);
@@ -94,7 +94,7 @@ client.setOffline();
 
 ```kotlin
 val config: LDConfig = LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+    .setMobileKey("mobile-key-123abc")
     .setOffline(true)
     .build()
 
@@ -109,7 +109,7 @@ client.setOffline()
 
 ```java
 LDConfig ldConfig = new LDConfig.Builder()
-    .setMobileKey("YOUR_MOBILE_KEY")
+    .setMobileKey("mobile-key-123abc")
     .setOffline(true)
     .build();
 
@@ -272,7 +272,7 @@ Here's how:
 <CSTab label="C#">
 
 ```csharp
-Configuration config = Configuration.Builder("SDK_KEY")
+Configuration config = Configuration.Builder("sdk-key-123abc")
     .Offline(true)
     .Build();
 LdClient client = new LdClient(config);

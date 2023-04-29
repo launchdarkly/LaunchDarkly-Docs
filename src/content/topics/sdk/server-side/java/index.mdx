@@ -171,7 +171,7 @@ LDUser user = new LDUser.Builder("user-key-123abc")
   .name("Sandy")
   .build();
 
-boolean flagValue = client.boolVariation(FEATURE_FLAG_KEY, user, false);
+boolean flagValue = client.boolVariation("flag-key-123abc", user, false);
 
 if (flagValue) {
   // Application code to show the feature
