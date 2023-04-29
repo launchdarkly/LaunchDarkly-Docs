@@ -321,6 +321,7 @@ This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
+* [Cloudflare](#cloudflare)
 * [Go](#go)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
@@ -432,6 +433,31 @@ myCustomLogger(const LDLogLevel level, const char *const text)
 
 LDConfigureGlobalLogger(LD_LOG_TRACE, myCustomLogger);
 
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+In the default configuration, the SDK sends output to the console and enables all log levels except debug.
+
+For full control over logging behavior, you can set the logger option to an object that implements the LDLogger interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/LDLogger.html).
+
+This example shows how to use BasicLogger to enable debug-level logging in your SDK configuration:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+import { BasicLogger, LDOptions } from '@launchdarkly/cloudflare-server-sdk';
+
+const options: LDOptions = {
+  logger: new BasicLogger({ level: 'debug', }),
+};
 ```
 
 </CSTab>

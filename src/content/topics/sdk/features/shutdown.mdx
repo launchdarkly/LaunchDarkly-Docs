@@ -230,6 +230,7 @@ This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
+* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -271,6 +272,23 @@ To shut down:
 
 ```c
 LDClientClose(client);
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+[close](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#close) safely shuts down the client instance:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```ts
+client.close();
 ```
 
 </CSTab>

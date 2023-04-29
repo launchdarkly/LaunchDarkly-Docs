@@ -21,19 +21,19 @@ The Cloudflare integration is available to customers on an Enterprise plan. To l
 This topic explains how to use LaunchDarkly's Cloudflare integration. This integration enables flag evaluation within Cloudflare Workers by writing the latest flag data from the configured environment directly to your Workers KV. To learn more about Cloudflare Workers KV, read [How KV Works](https://developers.cloudflare.com/workers/learning/how-kv-works).
 
 <Callout intent="info">
-  <CalloutTitle>This integration requires LaunchDarkly's Cloudflare Edge SDK</CalloutTitle>
+  <CalloutTitle>This integration requires LaunchDarkly's Cloudflare SDK</CalloutTitle>
   <CalloutDescription>
 
-You must install and configure the Cloudflare Edge SDK in your Cloudflare Worker to use this integration. To learn more, read [Cloudflare Edge SDK](/sdk/server-side/node-js/cloudflare-edge-sdk).
+You must install and configure the Cloudflare SDK in your Cloudflare Worker to use this integration. To learn more, read [Cloudflare SDK](/sdk/server-side/cloudflare).
 
   </CalloutDescription>
 </Callout>
 
 You can use the Cloudflare integration to bootstrap your application with the latest client-side feature flags. This eliminates the initial remote call to LaunchDarkly, providing zero-latency client-side feature flags with no flash of original content or shift in content layout. The Cloudflare integration also enables flag evaluations within a Worker.
 
-## Creating a Cloudflare Worker with the LaunchDarkly Cloudflare Edge SDK
+## Creating a Cloudflare Worker with the LaunchDarkly Cloudflare SDK
 
-To create a new Cloudflare Worker project with the LaunchDarkly Cloudflare Edge SDK using the LaunchDarkly Cloudflare Worker template:
+To create a new Cloudflare Worker project with the LaunchDarkly Cloudflare SDK using the LaunchDarkly Cloudflare Worker template:
 
 1. Install [Wrangler](https://developers.cloudflare.com/workers/get-started/guide#2-install-the-workers-cli), the Workers CLI.
 
@@ -93,7 +93,21 @@ wrangler kv:namespace create "LD_KV"
 
 Wrangler responds with the namespace ID of the newly created namespace.
 
-6. Bind your Worker with the new KV namespace by adding the code Wrangler returned in step 5 to the `kv_namespaces` array in your Worker's `wrangler.toml` file:
+6. Add the `nodejs_compat` flag to `wrangler.toml`. This is required because the Cloudflare SDK uses `node:events`, which needs to be enabled:
+
+<CodeSample>
+<CSTab label="wrangler.toml">
+
+```toml
+compatibility_flags = [ "nodejs_compat" ]
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [Node.js compatibility](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#enable-nodejs-with-workers).
+
+7. Bind your Worker with the new KV namespace by adding the code Wrangler returned in step 5 to the `kv_namespaces` array in your Worker's `wrangler.toml` file:
 
 <CodeSample>
 <CSTab label="wrangler.toml">
@@ -107,7 +121,7 @@ kv_namespaces = [
 </CSTab>
 </CodeSample>
 
-7. (Optional) If you intend to use `wrangler dev` for local development, you can also create a preview namespace:
+8. (Optional) If you intend to use `wrangler dev` for local development, you can also create a preview namespace:
 
 <CodeSample>
 <CSTab label="Console">
@@ -135,7 +149,7 @@ kv_namespaces = [
 
 Each LaunchDarkly Cloudflare integration only populates one KV namespace. If you are using a preview KV namespace, it will require its own integration. To learn more, read [Configuring the LaunchDarkly Cloudflare integration](#configuring-the-launchdarkly-cloudflare-integration).
 
-8. (Optional) If you set up a preview namespace, you may run your worker locally:
+9. (Optional) If you set up a preview namespace, you may run your worker locally:
 
 <CodeSample>
 <CSTab label="Console">
@@ -149,7 +163,7 @@ wrangler dev
 
 To learn more about the `wrangler dev` command, read [`dev`](https://developers.cloudflare.com/workers/cli-wrangler/commands#dev).
 
-9. Publish your Worker to Cloudflare:
+10. Publish your Worker to Cloudflare:
 
 <CodeSample>
 <CSTab label="Console">
@@ -182,7 +196,7 @@ You can create and manage Cloudflare integrations on the [Integrations page](htt
 
 ![The LaunchDarky "Create Cloudflare configuration" panel.](cloudflare-create-integration.png)
 
-You can evaluate flags using the flag data that is set up to write to your Worker KV using the [Cloudflare Edge SDK](/sdk/server-side/node-js/cloudflare-edge-sdk).
+You can evaluate flags using the flag data that is set up to write to your Worker KV using the [Cloudflare SDK](/sdk/server-side/cloudflare).
 
 ## Using the Cloudflare integration to bootstrap feature flags
 
@@ -195,15 +209,15 @@ To serve HTML injected with feature flags:
 
 ```js
 const { getAssetFromKV } = require('@cloudflare/kv-asset-handler')
-const { init } = require('launchdarkly-cloudflare-edge-sdk')
+const { init } = require('@launchdarkly/cloudflare-server-sdk')
 
 let ldClient
 
 const initLdClient = () => {
   if (!ldClient) {
-    // LD_KV and LD_CLIENT_SIDE_ID are runtime variables that the Workers runtime provides to your code.
+    // LD_CLIENT_SIDE_ID and LD_KV are runtime variables that the Workers runtime provides to your code.
     // For more information read https://developers.cloudflare.com/workers/platform/environment-variables
-    ldClient = init(LD_KV, LD_CLIENT_SIDE_ID)
+    ldClient = init(LD_CLIENT_SIDE_ID, LD_KV)
     return ldClient.waitForInitialization()
   }
 
@@ -214,8 +228,8 @@ class FlagsStateInjector {
   async element(element) {
     // fetch all flag values for client-side SDKs as evaluated for an anonymous context
     // use a more appropriate context key if needed
-    const evalContext = { key: 'context-key-123abc' }
-    const allFlags = await ldClient.allFlagsState(evalContext, { anonymous: true })
+    const context = { kind: 'user', key: 'context-key-123abc', anonymous: true }
+    const allFlags = await ldClient.allFlagsState(context)
     element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true })
   }
 }
@@ -238,8 +252,6 @@ async function handleRequest(event) {
 
 </CSTab>
 </CodeSample>
-
-<!-- question about line 268 above: should it be anonymous: true, since client-side SDKs set key?  Also, do we need to specify a context kind? SC-164921 -->
 
 This uses `HTMLRewriter` to inject a script tag into the head of your document that saves your set of feature flags to `window.ldFlags`. To learn more about `HTMLRewriter`, read [Cloudflare's documentation](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter).
 

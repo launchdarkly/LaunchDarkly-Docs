@@ -570,6 +570,31 @@ LDConfigSetEventsFlushInterval(config, 30000);
 For a complete list of configuration options, read the [SDK's API docs](https://launchdarkly.github.io/c-server-sdk/config_8h.html).
 </Details>
 
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. The Cloudflare SDK only supports the logger configuration option.
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+import { BasicLogger, init, LDOptions } from '@launchdarkly/cloudflare-server-sdk';
+
+const options: LDOptions = {
+  logger: new BasicLogger({ destination: console.log }),
+};
+
+client = init('sdk-key-123abc', env.LD_KV, options);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/types/LDOptions.html).
+</Details>
+
 ### Erlang
 
 <Details summary="Expand Erlang code sample">

@@ -1,14 +1,14 @@
 ---
 path: /guides/infrastructure/cloudflare-workers
 title: Using LaunchDarkly with Cloudflare Workers
-description: This guide explains how to use the LaunchDarkly Cloudflare Edge SDK to integrate LaunchDarkly within Cloudflare Workers.
+description: This guide explains how to use the LaunchDarkly Cloudflare SDK to integrate LaunchDarkly within Cloudflare Workers.
 published: true
 tags: ['guide', 'edge', 'sdk', 'cloudflare', 'worker']
 ---
 
 ## Overview
 
-This guide explains how to connect LaunchDarkly to Cloudflare Workers using [LaunchDarkly's Cloudflare Edge SDK](/sdk/server-side/node-js/cloudflare-edge-sdk).
+This guide explains how to connect LaunchDarkly to Cloudflare Workers using [LaunchDarkly's Cloudflare SDK](/sdk/server-side/cloudflare).
 
 Cloudflare Workers are serverless functions that run "at the edge" within Cloudflare's Content Delivery Network (CDN). Unlike traditional serverless functions that are deployed to a single region, edge functions like Cloudflare Workers are deployed across a global CDN network. This means that requests are routed to the nearest CDN, allowing the function response to be extremely fast.
 
@@ -57,7 +57,7 @@ npm install -g wrangler
 ```
 
 </CSTab>
-<CSTab label="Yarn">
+<CSTab label="yarn">
 
 ```bash
 yarn global add wrangler
@@ -71,15 +71,6 @@ After you install it, use the `wrangler login` command to open a browser window.
 ### Setting up local development for Cloudflare Workers
 
 This guide uses [Workers Sites](https://developers.cloudflare.com/workers/platform/sites) that allow you to deploy an application with a static site generator (SSG) or front end framework to a worker. You can publish a simple static site built with the [Hugo SSG](https://gohugo.io) by following Cloudflare's documentation on [starting from an existing project](https://developers.cloudflare.com/workers/platform/sites/start-from-existing).
-
-<Callout intent="info">
-<CalloutTitle>A custom Worker build is required in Wrangler 2</CalloutTitle>
-<CalloutDescription>
-
-Wrangler 2 supports a new, streamlined Workers integration with Pages, Cloudflare's solution for deploying sites. However, the Cloudflare Pages integration with Workers does not allow for providing a custom Webpack configuration, which is required for LaunchDarkly's Cloudflare Edge SDK. For this reason, you will need to configure your Workers to use a [custom build](https://developers.cloudflare.com/workers/wrangler/configuration/#custom-builds).
-
-</CalloutDescription>
-</Callout>
 
 Here's how to set up local development:
 
@@ -188,114 +179,6 @@ async function handleEvent(event: FetchEvent) {
 </CSTab>
 </CodeSample>
 
-### Using Webpack to create a custom build
-
-The LaunchDarkly Cloudflare Edge SDK requires that you build the Edge Worker code using a [custom build](https://developers.cloudflare.com/workers/wrangler/configuration/#custom-builds) with [Webpack 4](https://webpack.js.org/). Here's how to set up Webpack 4 and tell wrangler to perform a custom build:
-
-1. Install Webpack 4, the Webpack CLI, and the TypeScript loader for Webpack:
-
-  <CodeSample>
-  <CSTab label="npm">
-
-  ```bash
-  npm i -D webpack@4 webpack-cli ts-loader@8
-  ```
-
-  </CSTab>
-  <CSTab label="Yarn">
-
-  ```bash
-  yarn add -D webpack@4 webpack-cli ts-loader@8
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-2. Add a new file to your project named `webpack.config.js` and populate it with the following:
-
-  <CodeSample>
-  <CSTab label="webpack.config.js">
-
-  ```js
-  const path = require('path')
-
-  module.exports = {
-    entry: './src/index.ts',
-    target: 'webworker',
-    module: {
-      rules: [
-        {
-          test: /\.ts$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-      ],
-    },
-    resolve: {
-      extensions: ['.ts', '.js'],
-    },
-    output: { path: path.resolve(__dirname, 'worker'), filename: 'script.js' },
-    performance: { hints: false },
-    mode: 'production',
-    node: {
-      fs: 'empty',
-      tls: 'empty',
-      net: 'empty',
-    },
-  }
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-3. Replace the contents of `tsconfig.json` with the following:
-
-  <CodeSample>
-  <CSTab label="tsconfig.json">
-
-  ```json
-  {
-    "compilerOptions": {
-      "target": "ES2020",
-      "module": "CommonJS",
-      "lib": ["ES2020"],
-      "types": ["@cloudflare/workers-types"]
-    },
-    "files": ["./src/index.ts"]
-  }
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-4. Modify `wrangler.toml` to tell Wrangler that you want to perform a [custom build](https://developers.cloudflare.com/workers/wrangler/configuration/#custom-builds) before your Worker is published:
-
-  <CodeSample>
-  <CSTab label="wrangler.toml">
-
-  ```toml
-  // Point Wrangler at the output of the transpiled Worker script.
-  main = "worker/script.js"
-
-  [build]
-  command = "npx webpack"
-  ```
-
-  </CSTab>
-  </CodeSample>
-
-5. Use Wrangler to run the site locally again to confirm your Worker builds successfully:
-
-  <CodeSample>
-  <CSTab label="Console">
-
-  ```bash
-  wrangler dev
-  ```
-
-  </CSTab>
-  </CodeSample>
-
 ### Setting up the LaunchDarkly Cloudflare integration
 
 LaunchDarkly's Cloudflare integration synchronizes flag data from a LaunchDarkly project and environment with a KV connected to your Worker in Cloudflare. This means that it makes the latest flag data immediately available to the LaunchDarkly client within your Worker without the need for additional external calls. This makes it extremely fast.
@@ -304,13 +187,13 @@ To set up the integration, you need a minimum of one KV created to sync values w
 
 Here's how to set up the integration:
 
-1. Verify that your account ID is in the `wrangler.toml`:
+1. Add the `nodejs_compat` flag to your `wrangler.toml`:
 
   <CodeSample>
   <CSTab label="wrangler.toml">
 
   ```toml
-  account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
+  compatibility_flags = [ "nodejs_compat" ]
   ```
 
   </CSTab>
@@ -324,13 +207,13 @@ Here's how to set up the integration:
   <CSTab label="Console">
 
   ```bash
-  wrangler kv:namespace create "MY_KV"
+  wrangler kv:namespace create "LD_KV"
   ```
 
   </CSTab>
   </CodeSample>
 
-  The namespace name on Cloudflare is a combination of the name you provided (`MY_KV`) and the project name. For example, if your project is named `cfworkers-ld`, the name of the created namespace on Cloudflare will be `cfworkers-ld-MY_KV`. After the namespace is created, Wrangler returns the ID of the new KV namespace.
+  The namespace name on Cloudflare is a combination of the name you provided (`LD_KV`) and the project name. For example, if your project is named `cfworkers-ld`, the name of the created namespace on Cloudflare will be `cfworkers-ld-LD_KV`. After the namespace is created, Wrangler returns the ID of the new KV namespace.
 
 4. Open `wrangler.toml` and add the namespace ID to the `kv_namespaces` configuration. If this configuration key does not exist yet, create it. If it does exist with the KV namespace that was created for your site assets, add the new namespace to the array of namespaces.
 
@@ -341,7 +224,7 @@ Here's how to set up the integration:
 
   ```toml
   kv_namespaces = [
-     {binding = "MY_KV", id="<MY_KV NAMESPACE_ID>"},
+     {binding = "LD_KV", id="<LD_KV NAMESPACE_ID>"},
   ]
   ```
 
@@ -354,7 +237,7 @@ Here's how to set up the integration:
   <CalloutTitle>Cloudflare Workers preview service</CalloutTitle>
   <CalloutDescription>
 
-  If you plan to use the [Cloudflare Workers preview service](https://cloudflareworkers.com/), you will need to create a preview namespace as well. To set this up, follow the [Cloudflare integration docs](/integrations/cloudflare#creating-a-cloudflare-worker-with-the-launchdarkly-cloudflare-edge-sdk).
+  If you plan to use the [Cloudflare Workers preview service](https://cloudflareworkers.com/), you will need to create a preview namespace as well. To set this up, follow the [Cloudflare integration docs](/integrations/cloudflare#creating-a-cloudflare-worker-with-the-@launchdarkly/cloudflare-server-sdk).
 
   </CalloutDescription>
   </Callout>
@@ -407,7 +290,7 @@ If you want to verify that the information is correct, click **Validate Connecti
 
 ### Initializing LaunchDarkly within a Worker
 
-Before you can get flag values from within a Worker, you need to import and initialize the Cloudflare Edge SDK.
+Before you can get flag values from within a Worker, you need to import and initialize the Cloudflare SDK.
 
 Here's how:
 
@@ -417,14 +300,14 @@ Here's how:
   <CSTab label="npm">
 
   ```bash
-  npm i launchdarkly-cloudflare-edge-sdk
+  npm i @launchdarkly/cloudflare-server-sdk
   ```
 
   </CSTab>
   <CSTab label="Yarn">
 
   ```bash
-  yarn add launchdarkly-cloudflare-edge-sdk
+  yarn add @launchdarkly/cloudflare-server-sdk
   ```
 
   </CSTab>
@@ -440,11 +323,11 @@ Here's how:
   <CSTab label="TypeScript">
 
   ```js
-  import { init, LDClient } from "launchdarkly-cloudflare-edge-sdk";
+  import { init, LDClient } from "@launchdarkly/cloudflare-server-sdk";
 
-  // Declare MY_KV as a global variable
+  // Declare LD_KV as a global variable
   declare global {
-    var MY_KV: KVNamespace;
+    var LD_KV: KVNamespace;
   }
 
   let ldClient: LDClient;
@@ -464,7 +347,7 @@ Here's how:
 
   ```ts
   if (!ldClient) {
-    ldClient = init(MY_KV, '<LAUNCHDARKLY_CLIENT_ID>', {})
+    ldClient = init('<LD_CLIENT_SIDE_ID>', LD_KV)
     await ldClient.waitForInitialization()
   }
   ```
@@ -550,7 +433,7 @@ Here's how to bootstrap the client-side flag values:
   ```ts
   class FlagsStateInjector {
     async element(element: Element) {
-      // fetch all flag values for client-side SDKs 
+      // fetch all flag values for client-side SDKs
       // as evaluated for a context that has not logged in
       // use a more appropriate context key if needed
       const context = { key: 'guest' }
@@ -577,7 +460,7 @@ Here's how to bootstrap the client-side flag values:
   </CSTab>
   </CodeSample>
 
-5. Open the `/assets/custom.js` file and add the following code at the top of the file, replacing `<LAUNCHDARKLY_CLIENT_ID>` with your LaunchDarkly project's client ID. This tells LaunchDarkly to [bootstrap the client](/guides/flags/static-sites#bootstrapping-the-client) using the injected script.
+5. Open the `/assets/custom.js` file and add the following code at the top of the file, replacing `<LD_CLIENT_SIDE_ID>` with your LaunchDarkly project's client ID. This tells LaunchDarkly to [bootstrap the client](/guides/flags/static-sites#bootstrapping-the-client) using the injected script.
 
   Here's how to bootstrap the client:
 
@@ -586,7 +469,7 @@ Here's how to bootstrap the client-side flag values:
 
   ```js
   const client = LDClient.initialize(
-    '<LAUNCHDARKLY_CLIENT_ID>',
+    '<LD_CLIENT_SIDE_ID>',
     {
       key: 'anonymous',
     },

@@ -1478,6 +1478,16 @@
             "svg": "c"
           },
           {
+            "label": "Cloudflare SDK reference",
+            "path": "/sdk/server-side/cloudflare",
+            "items": [
+              {
+                "label": "Cloudflare SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/server-side/cloudflare/migration-1-to-2"
+              }
+            ]
+          },
+          {
             "label": "Erlang SDK reference",
             "path": "/sdk/server-side/erlang",
             "items": [
@@ -1535,10 +1545,6 @@
             "path": "/sdk/server-side/node-js",
             "svg": "nodejs",
             "items": [
-              {
-                "label": "Cloudflare Edge SDK",
-                "path": "/sdk/server-side/node-js/cloudflare-edge-sdk"
-              },
               {
                 "label": "Node.js (server-side) SDK 6.x to 7.0 migration guide",
                 "path": "/sdk/server-side/node-js/migration-6-to-7"

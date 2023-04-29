@@ -1,4 +1,8 @@
 module.exports = [
+  {
+    fromPath: '/sdk/server-side/node-js/cloudflare-edge-sdk',
+    toPath: '/sdk/server-side/cloudflare',
+  },
   // Redirects for Accelerate
   {
     fromPath: '/accelerate-eap/home/about-accelerate/',

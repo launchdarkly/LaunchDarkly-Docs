@@ -95,7 +95,6 @@ const AllIntegrations = () => {
       label: 'Cloudflare',
       shortLabel: 'Cloudflare',
       path: '/integrations/cloudflare',
-      svg: 'integrations/cloudflare',
     },
     {
       label: 'Compass',

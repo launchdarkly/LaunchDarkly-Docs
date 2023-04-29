@@ -279,13 +279,13 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
+* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
 * [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
-* [Node.js (Cloudflare)](#nodejs-cloudflare)
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
@@ -361,6 +361,28 @@ struct LDJSON *allFlags = LDAllFlags(client, user);
 </CodeSample>
 
 To learn more, read the [API documentation](https://launchdarkly.github.io/c-server-sdk/variations_8h.html#a51ba0df725bdcd4a005e6efe7bb4f944).
+</Details>
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
+
+To use the all flags feature:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```js
+const allFlags = await client.allFlagsState(context);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#allFlagsState).
+
 </Details>
 
 ### Erlang
@@ -540,10 +562,6 @@ client.allFlagsState(user, options, (err, flagsState) => {
 To learn more, read the [API documentation](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#allFlagsState).
 
 </Details>
-
-### Node.js (Cloudflare)
-
-This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
 
 ### PHP
 

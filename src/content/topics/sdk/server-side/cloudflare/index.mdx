@@ -1,0 +1,232 @@
+---
+path: /sdk/server-side/cloudflare
+title: Cloudflare SDK reference
+description: This topic documents how to get started with the Cloudflare SDK, and links to reference information on all of the supported features.
+tags: ['cloudflare', 'edge', 'worker', 'sdk']
+published: true
+---
+
+<Callout intent="info">
+<CalloutTitle>Version 2 of the Cloudflare SDK replaces users with contexts</CalloutTitle>
+<CalloutDescription>
+
+A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
+
+Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Cloudflare 1.x to 2.0 migration guide](/sdk/server-side/cloudflare/migration-1-to-2) and [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic documents how to get started with the Cloudflare SDK, and links to reference information on all of the supported features.
+
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and sample applications:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell><a href="https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/">SDK API docs</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/js-core/tree/main/packages/sdk/cloudflare">js-core/packages/sdk/cloudflare</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Sample application</TableCell>
+      <TableCell><a href="https://github.com/launchdarkly/js-core/tree/main/packages/sdk/cloudflare/example">Example app</a></TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Published module</TableCell>
+      <TableCell><a href="https://www.npmjs.com/package/@launchdarkly/cloudflare-server-sdk">npm</a></TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+  <CalloutTitle>This SDK requires LaunchDarkly's Cloudflare integration</CalloutTitle>
+  <CalloutDescription>
+
+Configure the Cloudflare integration to use this SDK successfully. To learn more, read [Cloudflare](/integrations/cloudflare).
+
+The Cloudflare integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+<CalloutTitle>For use in Cloudflare Workers only</CalloutTitle>
+<CalloutDescription>
+
+This SDK is intended only for use in multi-user Cloudflare Workers. Choose one of the other JavaScript-based SDKs for browser, server, or mobile environments.
+
+<br/>
+
+Client-side browser environments:
+- For React applications, read the [React SDK reference](/sdk/client-side/react).
+- For Vue applications, read the [Vue SDK reference](/sdk/client-side/vue).
+- For all other client-side browser JavaScript applications, read the [JavaScript SDK reference](/sdk/client-side/javascript).
+
+Non-browser environments:
+
+- For server-side Node applications, read the [Node SDK reference (server-side)](/sdk/server-side/node-js).
+- For client-side Node applications, read the [Node SDK reference (client-side)](/sdk/client-side/node-js).
+- For React Native mobile applications read the [React Native SDK reference](/sdk/client-side/react/react-native).
+- For Electron desktop applications, read the [Electron SDK reference](/sdk/client-side/electron).
+
+To learn more about LaunchDarkly's different SDK types, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+
+</CalloutDescription>
+</Callout>
+
+The sample code snippets for this SDK are available in both JavaScript and TypeScript, where the sample code differs. To learn more, read [Using LaunchDarkly with TypeScript](https://launchdarkly.com/blog/using-launchdarkly-with-typescript/).
+
+## Daemon mode
+
+The Cloudflare SDK operates in daemon mode using the Cloudflare KV as a persistent feature store without connecting to LaunchDarkly. The Cloudflare SDK does not support streaming and does not send any analytics events to LaunchDarkly.
+
+To learn more, read [Persistent data stores](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
+
+## Getting started
+
+After you complete the [Getting Started process](/home/getting-started), follow these instructions to start using the LaunchDarkly SDK in your Cloudflare Worker.
+
+First, install the LaunchDarkly SDK as a dependency in your application using your application's dependency manager.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="yarn">
+
+```bash
+yarn add @launchdarkly/cloudflare-server-sdk
+```
+
+</CSTab>
+<CSTab label="npm">
+
+```bash
+npm i @launchdarkly/cloudflare-server-sdk
+```
+
+</CSTab>
+</CodeSample>
+
+Next, import the LaunchDarkly client in your application code:
+
+<CodeSample>
+<CSTab label="TypeScript/JavaScript ES6">
+
+```ts
+import { init } from '@launchdarkly/cloudflare-server-sdk';
+```
+
+</CSTab>
+<CSTab label="JavaScript CJS">
+
+```js
+const { init } = require('@launchdarkly/cloudflare-server-sdk');
+```
+
+</CSTab>
+
+</CodeSample>
+
+After you install and import the SDK, create an instance of `LDClient`. Specify your client-side SDK key and Cloudflare KV namespace here. The client-side SDK key is only used to query the KV namespace, not to connect with LaunchDarkly servers.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```js
+const client = initLD(sdkKey, env.LD_KV);
+await client.waitForInitialization();
+```
+
+</CSTab>
+</CodeSample>
+
+Await the `waitForInitialization` function after you initialize the client. When `waitForInitialization` is resolved the client can serve feature flags.
+
+Using `client`, you can check which variation a particular context will receive for a given feature flag. In your Cloudflare Worker application, place the `client.variation` code so that it is invoked as needed.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const context = {
+   "kind": 'user',
+   "key": 'user-key-123abc',
+   "name": 'Sandy'
+};
+
+const flagValue = await client.variation('flag-key-123abc', context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+## Example Worker
+
+This is an example Cloudflare Worker application that initializes the ldClient and evaluates a feature flag for a context.
+<CodeSample>
+<CSTab label="TypeScript">
+
+```ts
+import { init } from '@launchdarkly/cloudflare-server-sdk';
+
+export default {
+  async fetch(request: Request, env: Bindings): Promise<Response> {
+    const context = { kind: 'user', key: 'test-user-key-1' };
+
+    // init the ldClient, wait and finally evaluate
+    const client = init('sdk-key', env.LD_KV);
+    await client.waitForInitialization();
+    const flagValue = await client.variation('flag-key', context, false);
+
+    return new Response(`${flagValue}`);
+  },
+};
+```
+
+</CSTab>
+</CodeSample>
+
+See the full example in [github](https://github.com/launchdarkly/js-core/tree/main/packages/sdk/cloudflare/example).
+
+## Promises and async
+
+All asynchronous SDK methods that return a `Promise` are compatible with `then/catch` or `async/await`. You can use either.
+
+## Shutting down
+
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#cloudflare).
+
+## Supported features
+
+This SDK supports the following features:
+
+- [Anonymous contexts and users](/sdk/features/anonymous#cloudflare)
+- [Configuration](/sdk/features/config#cloudflare)
+- [Evaluating flags](/sdk/features/evaluating#cloudflare)
+- [Flag evaluation reasons](/sdk/features/evaluation-reasons#cloudflare)
+- [Getting all flags](/sdk/features/all-flags#cloudflare)
+- [Logging configuration](/sdk/features/logging#cloudflare)
+- [Secure mode](/sdk/features/secure-mode#cloudflare)
+- [Shutting down](/sdk/features/shutdown#cloudflare)
+- [User and context configuration](/sdk/features/user-context-config#cloudflare)

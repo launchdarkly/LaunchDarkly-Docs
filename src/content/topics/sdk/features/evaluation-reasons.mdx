@@ -561,13 +561,13 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
+* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
 * [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
-* [Node.js (Cloudflare)](#nodejs-cloudflare)
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
@@ -727,6 +727,30 @@ LDDetailsClear(&details);
 </CodeSample>
 
 To learn more about the `LDDetails` structure, inspect [`variations.h`](https://launchdarkly.github.io/c-server-sdk/structLDDetails.html).
+</Details>
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The `variationDetail` method lets you evaluate a feature flag using the same parameters as you would for `variation` and receive more information about how the value was calculated.
+
+The SDK returns the variation detail in an object that contains both the result value and a "reason" object. These tell you, for instance, if the flag individually targeted the context or if the context matched one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const { value, variationIndex, reason } = await client.variationDetail(flagKey, context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`variationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#variationDetail), [`LDEvaluationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/LDEvaluationDetail.html) and [`LDEvaluationReason`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/platform.LDEvaluationReason.html).
+
 </Details>
 
 ### Erlang
@@ -1101,12 +1125,6 @@ function printReason(reason) {
 To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDEvaluationReason.html).
 
 </Details>
-
-### Node.js (Cloudflare)
-
-This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
-
-To learn more, read [`variationDetail`](https://launchdarkly.github.io/cloudflare-edge-sdk/interfaces/LDClient.html#variationDetail).
 
 ### PHP
 

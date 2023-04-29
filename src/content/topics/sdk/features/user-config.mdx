@@ -1006,6 +1006,7 @@ Here are the configuration options for context and user entities in server-side 
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
+* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -1181,6 +1182,14 @@ When you are done with an `LDUser` ensure that you free the structure.
 To learn how to configure private attributes in the C/C++ (server-side) SDK, read [Private attributes](/sdk/features/private-attributes#cc-server-side).
 
 To learn how to configure anonymous users in the C/C++ (server-side) SDK, read [Anonymous contexts and users](/sdk/features/anonymous#cc-server-side).
+</Details>
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The Cloudflare SDK does not support sending events so private attributes are not supported. To configure contexts, the Cloudflare SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
+
 </Details>
 
 ### Erlang

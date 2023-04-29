@@ -383,6 +383,21 @@
     ]
   },
   {
+    "name": "Cloudflare",
+    "versions": [
+      {
+        "versionMajorMinor": "2.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "04-28"
+      },
+      {
+        "versionMajorMinor": "1.0",
+        "releaseYear": 2022,
+        "releaseMonthDay": "10-13"
+      }
+    ]
+  },
+  {
     "name": "Electron",
     "versions": [
       {

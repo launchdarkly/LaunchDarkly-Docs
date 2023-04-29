@@ -411,13 +411,13 @@ This feature is available for all of our server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
+* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
 * [Lua](#lua)
 * [Node.js (server-side)](#nodejs-server-side)
-* [Node.js (Cloudflare)](#nodejs-cloudflare)
 * [PHP](#php)
 * [Python](#python)
 * [Ruby](#ruby)
@@ -514,6 +514,28 @@ bool value = LDBoolVariation(client, user, "your.feature.key", false, NULL);
 </CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+
+</Details>
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a default value.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const flagValue = await client.variation('flag-key-123abc', context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -723,10 +745,6 @@ client.variation('flag-key-123abc', user, false,
 You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
-
-### Node.js (Cloudflare)
-
-This SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
 
 ### PHP
 

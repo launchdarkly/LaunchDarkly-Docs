@@ -1,0 +1,311 @@
+---
+path: /sdk/server-side/cloudflare/migration-1-to-2
+title: Cloudflare SDK 1.x to 2.0 migration guide
+description: This topic explains the changes in the Cloudflare SDK 2.0 release and how to migrate to that version.
+published: true
+tags: ['cloudflare', 'migration', 'sdk', 'server-side', 'context']
+---
+
+## Overview
+
+This topic explains the changes in the Cloudflare SDK 2.0 release and how to adapt code that uses a 1.0 version of the [Cloudflare SDK](/sdk/server-side/cloudflare) to use version 2.0 or later.
+
+**Version 2.0 includes several breaking changes**.
+
+## Understanding changes to package namespace
+
+The Cloudflare SDK is now published under a new npm namespace.
+
+<CodeSample>
+<CSTab label="1.0">
+
+```shell
+yarn add launchdarkly-cloudflare-edge-sdk
+```
+
+</CSTab>
+<CSTab label="2.0">
+
+```shell
+yarn add @launchdarkly/cloudflare-server-sdk
+```
+
+</CSTab>
+</CodeSample>
+
+## Understanding changes to Node.js dependencies
+
+The Cloudflare SDK uses `node:events` which needs to be enabled in your Worker configuration. To do this, add the `nodejs_compat` flag to `wrangler.toml`.
+
+<CodeSample>
+<CSTab label="wrangler.toml">
+
+```toml
+compatibility_flags = [ "nodejs_compat" ]
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [Node.js compatibility](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#enable-nodejs-with-workers).
+
+## Understanding changes to init function
+
+The function signature for the `init` function has changed.
+
+<CodeSample>
+<CSTab label="1.x">
+
+```typescript
+const client = initLD(env.LD_KV, sdkKey);
+```
+
+</CSTab>
+<CSTab label="2.0">
+
+```typescript
+const client = initLD(sdkKey, env.LD_KV);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`SDK API Documentation`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/functions/init.html).
+
+## Understanding changes to polyfill requirements
+
+The Cloudflare Edge SDK v1.x is a wrapper of the LaunchDarkly Node.js (server-side) SDK. A bundler is needed to polyfill Node.js dependencies that are not supported in the Cloudflare Worker runtime.
+
+The Cloudflare SDK v2.0 is not a wrapper of the LaunchDarkly Node.js (server-side) SDK. It uses only Node.js dependencies which are supported in the Cloudflare Worker runtime. You no longer need to use a bundler like webpack or esbuild to polyfill unsupported Node.js dependencies.
+
+## Understanding contexts
+
+Many LaunchDarkly customers create targeting rules for feature flags based on a variety of different information, including attributes pertaining to users, organizations, devices, and more. In previous versions of the LaunchDarkly SDK, you could define this information in a user object, using a combination of built-in and custom attributes. Now you can define this information in a more structured way, using **contexts**.
+
+Each context has a required attribute called `kind` that you can use to categorize context instances for targeting and Experimentation. You can also add other attributes. Attributes can be strings, booleans, numbers, arrays, or JSON objects.
+
+When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. For example, you may know:
+
+  * the username, first name, last name, and email address of a person, as part of a context with `kind` of "user"
+  * the company, department, and location of an organization, as part of a context with `kind` of "organization"
+  * the device, model, and operating system of an environment, as part of a context with `kind` of "device"
+
+This new version of the LaunchDarkly SDK requires you to evaluate feature flags using an **evaluation context**, which is an object containing one or more contexts.
+
+To learn more about contexts, read [Contexts and segments](/home/contexts).
+
+## Migrating from users to contexts
+
+The 2.0 version of this SDK lets you use contexts. When you migrate from version 1.0, replace every instance of a user with a context. If there are any instances you do not replace, the 2.0 version of the Cloudflare SDK will convert each `LDUser` parameter it receives to `LDContext` and call the `LDContext`-specific version of the method.
+
+<Callout intent="info">
+<CalloutTitle>LaunchDarkly assumes older versions of the SDK use <code>user</code> contexts</CalloutTitle>
+<CalloutDescription>
+
+A context always has a `kind` attribute. When older versions of the Cloudflare SDK send events to LaunchDarkly, LaunchDarkly will convert the users in those events to contexts with a `kind` of `user`.
+
+If a flag configuration specifies any context `kind`s other than `user`, older versions of the Cloudflare SDK will not evaluate the flag correctly. You must upgrade your SDK if you are going to use context `kind`s other than `user` in your flag configurations.
+
+</CalloutDescription>
+</Callout>
+
+The primary differences between working with users and working with contexts include the following:
+
+* [Changes to flag evaluation](#understanding-changes-to-flag-evaluation): The methods for evaluating flags now require contexts, rather than users.
+* [Create contexts, not users](#understanding-differences-between-users-and-contexts): Where you previously created users, now you can create contexts.
+* [Changes to attributes](#understanding-changes-to-built-in-and-custom-attributes): There are now fewer built-in attributes. You can still add as many custom attributes as you like, although the format has changed slightly. A flag's targeting rules can now address fields within a JSON object.
+
+### Understanding changes to flag evaluation
+
+The methods for [evaluating flags](/sdk/features/evaluating) and determining [flag evaluation reasons](/sdk/features/evaluation-reasons) have changed slightly. The 2.0 version of the SDK includes the following changes:
+
+* The `variation` and `variationDetail` methods now take a context, rather than a user, as a parameter. To learn more, read [variation](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#variation) and [variationDetail](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#variationDetail).
+
+* The `USER_NOT_SPECIFIED` evaluation error code was previously defined as, the user object or user key was not provided. It has been redefined to mean that the context was not provided or was invalid.
+
+Here's how to evaluate a flag using a context:
+
+<CodeSample>
+<CSTab label="2.0 syntax">
+
+```typescript
+const context = {
+   kind: 'user',
+   key: 'user-key-123abc',
+   name: 'Sandy'
+};
+
+const flagValue = await client.variation('flag-key-123abc', context, false);
+```
+</CSTab>
+</CodeSample>
+
+### Understanding differences between users and contexts
+
+Where you previously created users, now you can create contexts.
+
+Here's how to construct a basic context, as compared with constructing a user:
+
+<CodeSample>
+<CSTab label="1.0 syntax, user with key">
+
+```ts
+const user = {
+  key: 'user-key-123abc',
+}
+```
+</CSTab>
+<CSTab label="2.0 syntax, context with key">
+
+```ts
+const context = {
+   kind: 'user',
+   key: 'user-key-123abc',
+};
+```
+</CSTab>
+</CodeSample>
+
+<Callout intent="alert">
+<CalloutTitle>Omitting the <code>kind</code> creates a user object, not a context</CalloutTitle>
+<CalloutDescription>
+
+If you omit the `kind` attribute when you create a context, then LaunchDarkly will assume the context kind is "user" when evaluating flags. Additionally, the SDK will assume you are working with a user object, rather than a context.
+
+Overall, this should make your upgrade easier, because your existing code will continue to work, as long as you don't make changes to your flag configuration or [bucket users based on the "secondary" attribute](#removing-the-secondary-attribute).
+
+However, if you are using version 2.0 of the SDK and you are omitting the `kind` attribute, then the following caveats apply:
+
+<ul>
+<li>The fields in your user object must be <code>LDUser</code> fields, not <code>LDContext</code> fields. For example, to mark an attribute as private, you must use <code>privateAttributeNames</code> in the user object, not <code>_meta.privateAttributes</code> as you would for a context object. To learn more, read <a href="#understanding-changes-to-private-attributes">Understanding changes to private attributes</a>.</li>
+<li>Any additional attributes in your user object need to be inside the <code>custom</code> property of the <code>LDUser</code>, not at the top-level as they would in a context object. To learn more, read <a href="#working-with-built-in-and-custom-attributes">Working with built-in and custom attributes</a>.</li>
+</ul>
+
+We strongly recommend upgrading your SDK to take advantage of the context functionality.
+</CalloutDescription>
+</Callout>
+
+Here's how to construct a basic context, with a context kind of something other than "user":
+
+<CodeSample>
+<CSTab label="2.0 syntax, single context with key">
+
+```ts
+const context = {
+  kind: 'organization',
+  key: 'org-key-123abc',
+}
+```
+</CSTab>
+</CodeSample>
+
+Here's how to construct a multi-context, which includes multiple context kinds:
+
+<CodeSample>
+<CSTab label="2.0 syntax, multi-context">
+
+```ts
+const deviceContext = {
+  kind: 'device',
+  type: 'iPad',
+  key: 'device-key-123abc'
+}
+
+const userContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  name: 'Sandy',
+  role: 'doctor'
+}
+
+const multiContext = {
+  kind: 'multi',
+  user: userContext,
+  device: deviceContext
+}
+```
+</CSTab>
+</CodeSample>
+
+### Understanding changes to built-in and custom attributes
+
+This section describes the changes to built-in and custom attributes in the 2.0 version of the SDK.
+
+#### Working with built-in and custom attributes
+----
+<br/>
+
+In previous SDK versions, the user object included several built-in attributes for describing the user. It also included optional custom attributes, which you could add to a `custom` object within the user object and then populate.
+
+In version 2.0, the only built-in attributes are `kind`, `key`, `name`, and `anonymous`. `Kind`, `key`, and `name` are strings, and `anonymous` is a boolean.
+
+You can define additional attributes for a context by passing in a name and value for each. Additional attributes can be any JSON type, including boolean, number, string, array, or object. In version 2.0, you do not need to add custom attributes within a `custom` object.
+
+Here's how to construct a context with additional attributes, as compared with constructing a similar user:
+
+<CodeSample>
+<CSTab label="1.x syntax, user with attributes">
+
+```js
+const user = {
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  custom: {
+    groups: ['Google', 'Microsoft']
+  }
+};
+```
+</CSTab>
+<CSTab label="2.0 syntax, context with attributes">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com'
+  groups: ['Google', 'Microsoft']
+};
+```
+</CSTab>
+</CodeSample>
+
+#### Referencing properties of an attribute object
+----
+<br/>
+
+In previous versions of the SDK, if you set the value of a user's custom attribute to an object, you could not reference that object in evaluations. In version 2.0, if a context attribute's value is a JSON object, you can reference properties of that object as the attribute in the targeting rules for a flag or segment.
+
+Here's how to add object attributes to a context:
+
+<CodeSample>
+<CSTab label="2.0 syntax, context with object attributes">
+
+```js
+const context = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  address: {
+    street: '123 Main St',
+    city: 'Springfield'
+  }
+};
+```
+</CSTab>
+</CodeSample>
+
+In your flag or segment targeting, use `/` as the delimiter to refer to specific object fields. For example, you can use `/address/city` in your targeting. To learn more, read [Targeting with flags](/home/flags/targeting).
+
+#### Removing the secondary attribute
+----
+<br/>
+
+In previous versions of the SDK, you could set the value of a user's `secondary` attribute, as an optional secondary key for a user. The SDK would incorporate this attribute into the variation bucket assignment hash.
+
+In version 2.0, the `secondary` attribute has been removed. If you were previously using this attribute as part of distinguishing [percentage rollouts](/home/flags/rollouts#understanding-percentage-rollout-logic), that will no longer work for your users.
