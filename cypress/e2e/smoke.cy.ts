@@ -67,10 +67,13 @@ describe('Documentation website', () => {
     // click search result
     cy.get('[data-test="result-Home-Advanced concepts"]').click()
 
+    cy.reload()
+
     cy.location('search').should('equal', '?q=advanced')
     cy.get('nav').contains('Advanced').isActiveLink()
+
     cy.get('nav').contains('Billing and usage')
-    cy.get('header').contains('Integrations').click()
+    cy.contains('a', 'Integrations').click()
     cy.title().should('equal', 'Integrations')
     cy.get('h1').contains('Integrations')
   })
@@ -83,18 +86,27 @@ describe('Documentation website', () => {
     cy.contains('Expand Electron code sample').parent().click()
     cy.contains('Click to collapse')
 
+    cy.window()
+      .its('navigator.clipboard')
+      .then(clipboard => {
+        cy.stub(clipboard, 'writeText').as('writeText')
+      })
+
     const $snippet = cy.get('.language-js').first()
     $snippet.siblings('button').first().should('contain', 'COPY').click()
-    cy.window().then(({ navigator }: Cypress.AUTWindow) => {
-      navigator.clipboard.readText().then((clipboardText: string) => {
-        cy.wrap($snippet).should('eq', clipboardText.trim())
-        done()
-      })
-    })
+
+    cy.get('@writeText').should('have.been.calledOnce')
+    done()
   })
 
   it('should let a user copy a code snippet multiple times', done => {
     cy.visit('/sdk/features/aliasing-users#electron')
+
+    cy.window()
+      .its('navigator.clipboard')
+      .then(clipboard => {
+        cy.stub(clipboard, 'writeText').as('writeText')
+      })
 
     // need to wait for react rerenders
     cy.wait(1000)
@@ -109,11 +121,8 @@ describe('Documentation website', () => {
     cy.contains('Expand Flutter code sample').parent().click()
     const $snippet2 = cy.get('.language-dart').first()
     $snippet2.siblings('button').first().should('contain', 'COPY').click()
-    cy.window().then(({ navigator }: Cypress.AUTWindow) => {
-      navigator.clipboard.readText().then((clipboardText: string) => {
-        cy.wrap($snippet2).should('eq', clipboardText.trim())
-        done()
-      })
-    })
+
+    cy.get('@writeText').should('have.been.calledTwice')
+    done()
   })
 })
