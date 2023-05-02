@@ -49,12 +49,12 @@ Accelerate assumes the application identifier is the application key. Typically 
 
 You can set the application version to any string that includes only letters, numbers, periods (`.`), hyphens (`-`), or underscores (`_`). For example, you could set this to the semantic version of your application.
 
-We recommend setting the application version to one of the following options:
+To enable Accelerate to detect and report which pull requests (PRs) are part of a deployment, set the application version to one of the following options:
 
 * the full SHA of the GitHub commit for this deployment
 * the tag associated with the GitHub commit for this deployment
 
-When you use the SHA or tag, Accelerate automatically detects and reports which pull requests (PRs) are part of a deployment. Otherwise, Accelerate cannot associate deployments with PRs or commits.
+Accelerate can only associate deployments with PRs or commits if you use one of these options.
 
 To retrieve the SHA for your deployment:
 
