@@ -10,7 +10,7 @@ type SdkLinkProps = {
   navItem: SideNavItem
 }
 
-const SdkLink: FunctionComponent<SdkLinkProps> = ({ navItem }) => {
+const SdkLink: FunctionComponent<React.PropsWithChildren<SdkLinkProps>> = ({ navItem }) => {
   const { theme } = useGitGatsbyTheme()
   const { label, shortLabel, path, svg } = navItem
   const display = shortLabel ?? label.split(' ')[0]
@@ -35,7 +35,7 @@ type SdkLinksProps = {
   sideNavItems: Array<SideNavItem>
   heading: string
 }
-const SdkLinks: FunctionComponent<SdkLinksProps> = ({ heading, sideNavItems }) => {
+const SdkLinks: FunctionComponent<React.PropsWithChildren<SdkLinksProps>> = ({ heading, sideNavItems }) => {
   const numAcross = sideNavItems.length < 6 ? sideNavItems.length : 5
   return (
     <li>

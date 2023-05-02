@@ -21,7 +21,11 @@ interface FeatureProps {
  * nesting of markdown elements under react elements.
  *
  */
-const Feature: FunctionComponent<FeatureProps> = ({ flagKey, showWhenVariation = true, children }) => {
+const Feature: FunctionComponent<React.PropsWithChildren<FeatureProps>> = ({
+  flagKey,
+  showWhenVariation = true,
+  children,
+}) => {
   const flags = useFlags()
   const flagValue = flags[flagKey]
 

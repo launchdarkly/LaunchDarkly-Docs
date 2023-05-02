@@ -19,7 +19,12 @@ const markStyles = {
     borderBottom: (theme: Theme) => `0.1rem solid ${theme.colors.grayBase}`,
   },
 }
-const ResultRow: FunctionComponent<ResultRowProps> = ({ hit, insights, onClick, position }) => {
+const ResultRow: FunctionComponent<React.PropsWithChildren<ResultRowProps>> = ({
+  hit,
+  insights,
+  onClick,
+  position,
+}) => {
   const { path, displayCategory, _highlightResult, title } = hit
   // At the moment, query will only be used for page text,
   // not categories or title

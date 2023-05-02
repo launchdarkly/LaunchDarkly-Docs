@@ -7,7 +7,10 @@ interface MetadataProps {
   timeToRead: number
   lastModifiedDateFormatted: string
 }
-const Metadata: FunctionComponent<MetadataProps> = ({ timeToRead, lastModifiedDateFormatted }) => {
+const Metadata: FunctionComponent<React.PropsWithChildren<MetadataProps>> = ({
+  timeToRead,
+  lastModifiedDateFormatted,
+}) => {
   return (
     <div
       sx={{

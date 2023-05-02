@@ -35,7 +35,7 @@ interface LayoutProps {
 
 const theme = {}
 
-const Layout: FunctionComponent<LayoutProps> = ({
+const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
   data: {
     mdx: { body },
   },

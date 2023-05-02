@@ -19,7 +19,7 @@ const caseInsensitiveAlphabeticalComparison = (a: NavItem, b: NavItem): number =
 
 const identityComparison = (_a: NavItem, _b: NavItem): number => 0
 
-const ChildPageList: FC<Props> = ({ path, omit = '', append = [], unsorted = false }) => {
+const ChildPageList: FC<React.PropsWithChildren<Props>> = ({ path, omit = '', append = [], unsorted = false }) => {
   const { theme } = useGitGatsbyTheme()
   const items = useNavItemChildren(path)
   const pathsToOmit = omit.split(',')

@@ -36,7 +36,11 @@ type SystemLayoutProps = {
   description: string
 }
 
-const SystemLayout: FunctionComponent<SystemLayoutProps> = ({ title, description, children }) => {
+const SystemLayout: FunctionComponent<React.PropsWithChildren<SystemLayoutProps>> = ({
+  title,
+  description,
+  children,
+}) => {
   return (
     <Fragment>
       <Reset />

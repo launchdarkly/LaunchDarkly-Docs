@@ -185,7 +185,12 @@ function Node({
 
 // Hamburger maxDepth is 3 since root topics are displayed.
 // Desktop sideNav maxDepth is 2 since root topics are displayed in the top nav.
-const TreeNode: FunctionComponent<TreeNodeProps> = ({ nodes, currentPath, maxDepth = 2, depth = 0 }) => {
+const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
+  nodes,
+  currentPath,
+  maxDepth = 2,
+  depth = 0,
+}) => {
   const flags = useFlags()
   const { theme } = useGitGatsbyTheme()
 

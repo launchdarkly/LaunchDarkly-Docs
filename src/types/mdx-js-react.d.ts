@@ -4,7 +4,7 @@ declare module '@mdx-js/react' {
 
   type ComponentMap = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [name: string]: ComponentType<any>
+    [name: string]: ComponentType<React.PropsWithChildren<any>>
   }
 
   type MDXProps = {

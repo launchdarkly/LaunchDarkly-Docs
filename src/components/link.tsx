@@ -18,7 +18,7 @@ const ThemedGatsbyLink: ForwardRef<HTMLAnchorElement, CombinedLinkProps> = Theme
 type ExternalLinkProps = LinkProps & OutboundLinkProps
 const ThemedExternalLink: ForwardRef<HTMLAnchorElement, ExternalLinkProps> = ThemeUILink
 
-const Link: FunctionComponent<CombinedLinkProps> = ({ to, href, ...props }) => {
+const Link: FunctionComponent<React.PropsWithChildren<CombinedLinkProps>> = ({ to, href, ...props }) => {
   const [site] = useSite()
   const { enableSiteSelection } = useFlags()
   const {

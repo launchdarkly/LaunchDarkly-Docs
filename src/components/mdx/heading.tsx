@@ -13,7 +13,7 @@ type HeadingTag = keyof Pick<IntrinsicSxElements, 'h1' | 'h2' | 'h3' | 'h4' | 'h
 type HeadingProps = { id: string }
 
 function createHeading(tag: HeadingTag) {
-  const Heading: React.FunctionComponent<HeadingProps> = props => {
+  const Heading: React.FunctionComponent<React.PropsWithChildren<HeadingProps>> = props => {
     const Tag = Themed[tag]
 
     const copyLinkToClipboard = () => {

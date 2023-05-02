@@ -11,7 +11,7 @@ type EditOnGithubLinkProps = {
   fileAbsolutePath: string
 }
 
-const EditOnGithubLink: FunctionComponent<EditOnGithubLinkProps> = ({ fileAbsolutePath }) => {
+const EditOnGithubLink: FunctionComponent<React.PropsWithChildren<EditOnGithubLinkProps>> = ({ fileAbsolutePath }) => {
   const relativePath = fileAbsolutePath.split('/src/')[1]
   const githubUrl = `${GITHUB_ROOT_URL}/${relativePath}`
   return (

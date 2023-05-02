@@ -9,7 +9,7 @@ interface ResultCountProps {
   count: number
 }
 
-const ResultCount: FunctionComponent<ResultCountProps> = ({ count }) => {
+const ResultCount: FunctionComponent<React.PropsWithChildren<ResultCountProps>> = ({ count }) => {
   const { theme } = useGitGatsbyTheme()
   return (
     <Box

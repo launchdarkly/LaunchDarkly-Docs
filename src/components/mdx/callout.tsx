@@ -20,7 +20,7 @@ export type CalloutProps = {
   site?: SiteType
 }
 
-export const CalloutTitle: FC = ({ children }) =>
+export const CalloutTitle: FC<React.PropsWithChildren<unknown>> = ({ children }) =>
   children && (
     <Text mb={3} mr={6} sx={{ fontSize: 4, lineHeight: 'regular' }}>
       {children}
@@ -28,7 +28,7 @@ export const CalloutTitle: FC = ({ children }) =>
   )
 
 const descriptionStyles: ThemeUIStyleObject = { fontSize: 3, lineHeight: 'spaced', mb: 1, overflowWrap: 'break-word' }
-export const CalloutDescription: FC = ({ children }) => (
+export const CalloutDescription: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
   <Text sx={{ ...descriptionStyles, '& p': { ...descriptionStyles } }}>{children}</Text>
 )
 

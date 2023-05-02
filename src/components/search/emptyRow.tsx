@@ -5,7 +5,7 @@ import { Box, jsx } from 'theme-ui'
 interface EmptyRowProps {
   query: string
 }
-const EmptyRow: FunctionComponent<EmptyRowProps> = ({ query }) => {
+const EmptyRow: FunctionComponent<React.PropsWithChildren<EmptyRowProps>> = ({ query }) => {
   return (
     <Box p={6} color="text" sx={{ fontSize: 5, overflowWrap: 'break-word' }}>
       No results for{' '}

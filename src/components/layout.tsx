@@ -114,7 +114,7 @@ interface LayoutProps {
   }
 }
 
-const Layout: FunctionComponent<LayoutProps> = ({
+const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
   data: {
     site: {
       siteMetadata: { title: siteTitle, siteUrl },

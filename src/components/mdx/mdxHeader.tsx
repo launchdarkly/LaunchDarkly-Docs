@@ -21,7 +21,7 @@ type MdxHeaderProps = {
   siteAlertTitle?: string
 }
 
-const MdxHeader: FunctionComponent<MdxHeaderProps> = ({
+const MdxHeader: FunctionComponent<React.PropsWithChildren<MdxHeaderProps>> = ({
   fileAbsolutePath,
   title,
   timeToRead,

@@ -13,21 +13,21 @@ export function CodeSample({ children }: CodeSampleProps) {
   if (!children) {
     throw new Error(`Error: There is a ${CodeSample.name} that is missing a child component. Add a CSTab.`)
   } else {
-    const validChildren = Children.toArray(children).filter((child: { props: { mdxType?: string } }) => {
+    const validChildren = Children.toArray(children).filter((child: JSX.Element) => {
       return child.props.mdxType === 'CSTab'
     })
     const selectedChild = validChildren.find((_child, index: number) => {
       return index === selectedIndex
     })
     console.log('validChildren', validChildren)
-    validChildren.forEach((CSTabItem: { props: CSTabProps }, index: number) => {
+    validChildren.forEach((CSTabItem: JSX.Element, index: number) => {
       throwErrorIfLabelMissing(CSTabItem, index)
     })
     return (
       <Card variant="code">
         <Flex sx={{ flexDirection: 'column' }}>
           <Box sx={{ marginBottom: 4 }}>
-            {validChildren.map((child: { props: { label: string } }, index: number) => {
+            {validChildren.map((child: JSX.Element, index: number) => {
               const { label } = child.props
               return (
                 <Button

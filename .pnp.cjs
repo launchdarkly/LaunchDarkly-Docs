@@ -47,9 +47,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@reach/router", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.3.4"],\
             ["@svgr/cli", "npm:6.2.1"],\
             ["@svgr/webpack", "npm:6.2.1"],\
-            ["@testing-library/jest-dom", "npm:5.16.4"],\
-            ["@testing-library/react", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:12.1.4"],\
-            ["@testing-library/react-hooks", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:8.0.1"],\
+            ["@testing-library/jest-dom", "npm:5.16.5"],\
+            ["@testing-library/react", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:14.0.0"],\
             ["@types/babel__core", "npm:7.1.19"],\
             ["@types/babel__preset-env", "npm:7.9.2"],\
             ["@types/body-scroll-lock", "npm:3.1.0"],\
@@ -64,10 +63,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prismjs", "npm:1.26.0"],\
             ["@types/qs", "npm:6.9.7"],\
             ["@types/reach__router", "npm:1.3.10"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["@types/react-helmet", "npm:6.1.5"],\
-            ["@types/react-instantsearch-core", "npm:6.10.8"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
+            ["@types/react-helmet", "npm:6.1.6"],\
+            ["@types/react-instantsearch-core", "npm:6.26.3"],\
             ["@types/react-instantsearch-dom", "npm:6.12.3"],\
             ["@types/rimraf", "npm:3.0.2"],\
             ["@types/segment-analytics", "npm:0.0.34"],\
@@ -129,8 +128,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prism-react-renderer", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.1.0"],\
             ["prismjs", "npm:1.27.0"],\
             ["qs", "npm:6.11.0"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["react-helmet", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.1.0"],\
             ["react-instantsearch-core", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.24.3"],\
             ["react-instantsearch-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.24.3"],\
@@ -153,6 +152,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["yarn", "npm:1.22.18"]\
           ],\
           "linkType": "SOFT"\
+        }]\
+      ]],\
+      ["@adobe/css-tools", [\
+        ["npm:4.2.0", {\
+          "packageLocation": "./.yarn/cache/@adobe-css-tools-npm-4.2.0-26da6de88a-dc5cc92ba3.zip/node_modules/@adobe/css-tools/",\
+          "packageDependencies": [\
+            ["@adobe/css-tools", "npm:4.2.0"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["@algolia/cache-browser-local-storage", [\
@@ -6306,9 +6314,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/utils", "npm:1.1.0"],\
             ["@emotion/weak-memoize", "npm:0.2.5"],\
             ["@types/babel__core", "npm:7.1.19"],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["hoist-non-react-statics", "npm:3.3.2"],\
-            ["react", "npm:17.0.2"]\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@babel/core",\
@@ -6375,8 +6383,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/utils", "npm:1.1.0"],\
             ["@types/babel__core", "npm:7.1.19"],\
             ["@types/emotion__react", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@babel/core",\
@@ -6524,12 +6532,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@gatsbyjs-reach-router-virtual-1c53f0d633/0/cache/@gatsbyjs-reach-router-npm-1.3.9-c0e167a0a0-4e6155026b.zip/node_modules/@gatsbyjs/reach-router/",\
           "packageDependencies": [\
             ["@gatsbyjs/reach-router", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:1.3.9"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["invariant", "npm:2.2.4"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["react-lifecycles-compat", "npm:3.0.4"]\
           ],\
           "packagePeers": [\
@@ -8423,8 +8431,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@mdx-js-react-virtual-f0f697c289/0/cache/@mdx-js-react-npm-1.6.22-57e4c05c2b-bc84bd514b.zip/node_modules/@mdx-js/react/",\
           "packageDependencies": [\
             ["@mdx-js/react", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.6.22"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\
@@ -9698,13 +9706,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@reach-router-virtual-f64400e777/0/cache/@reach-router-npm-1.3.4-edba1cdd2e-f64372497e.zip/node_modules/@reach/router/",\
           "packageDependencies": [\
             ["@reach/router", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.3.4"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["create-react-context", "virtual:f64400e77733a3393ecfe1d4a00d8d455524a983a94680f2a0a5d7263a3de7312ead34dd08cdea36d50c2b6b46c74d0f6e80d0fbdde9e98efde99a4490b39cca#npm:0.3.0"],\
             ["invariant", "npm:2.2.4"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["react-lifecycles-compat", "npm:3.0.4"]\
           ],\
           "packagePeers": [\
@@ -10463,32 +10471,32 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@testing-library/dom", [\
-        ["npm:8.11.1", {\
-          "packageLocation": "./.yarn/cache/@testing-library-dom-npm-8.11.1-d1ef937c19-082104b104.zip/node_modules/@testing-library/dom/",\
+        ["npm:9.2.0", {\
+          "packageLocation": "./.yarn/cache/@testing-library-dom-npm-9.2.0-8830c42fff-b145f43cd0.zip/node_modules/@testing-library/dom/",\
           "packageDependencies": [\
-            ["@testing-library/dom", "npm:8.11.1"],\
+            ["@testing-library/dom", "npm:9.2.0"],\
             ["@babel/code-frame", "npm:7.16.7"],\
             ["@babel/runtime", "npm:7.16.7"],\
-            ["@types/aria-query", "npm:4.2.2"],\
+            ["@types/aria-query", "npm:5.0.1"],\
             ["aria-query", "npm:5.0.0"],\
             ["chalk", "npm:4.1.2"],\
             ["dom-accessibility-api", "npm:0.5.10"],\
-            ["lz-string", "npm:1.4.4"],\
+            ["lz-string", "npm:1.5.0"],\
             ["pretty-format", "npm:27.4.6"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@testing-library/jest-dom", [\
-        ["npm:5.16.4", {\
-          "packageLocation": "./.yarn/cache/@testing-library-jest-dom-npm-5.16.4-0bdb383307-4240501223.zip/node_modules/@testing-library/jest-dom/",\
+        ["npm:5.16.5", {\
+          "packageLocation": "./.yarn/cache/@testing-library-jest-dom-npm-5.16.5-b6d1f4e02f-94911f901a.zip/node_modules/@testing-library/jest-dom/",\
           "packageDependencies": [\
-            ["@testing-library/jest-dom", "npm:5.16.4"],\
+            ["@testing-library/jest-dom", "npm:5.16.5"],\
+            ["@adobe/css-tools", "npm:4.2.0"],\
             ["@babel/runtime", "npm:7.16.7"],\
             ["@types/testing-library__jest-dom", "npm:5.14.5"],\
             ["aria-query", "npm:5.0.0"],\
             ["chalk", "npm:3.0.0"],\
-            ["css", "npm:3.0.0"],\
             ["css.escape", "npm:1.5.1"],\
             ["dom-accessibility-api", "npm:0.5.14"],\
             ["lodash", "npm:4.17.21"],\
@@ -10498,60 +10506,28 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@testing-library/react", [\
-        ["npm:12.1.4", {\
-          "packageLocation": "./.yarn/cache/@testing-library-react-npm-12.1.4-8a17fe6c11-944c5f8d4a.zip/node_modules/@testing-library/react/",\
+        ["npm:14.0.0", {\
+          "packageLocation": "./.yarn/cache/@testing-library-react-npm-14.0.0-84fecd033b-4a54c8f56c.zip/node_modules/@testing-library/react/",\
           "packageDependencies": [\
-            ["@testing-library/react", "npm:12.1.4"]\
+            ["@testing-library/react", "npm:14.0.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:12.1.4", {\
-          "packageLocation": "./.yarn/__virtual__/@testing-library-react-virtual-2bcc497bb5/0/cache/@testing-library-react-npm-12.1.4-8a17fe6c11-944c5f8d4a.zip/node_modules/@testing-library/react/",\
+        ["virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:14.0.0", {\
+          "packageLocation": "./.yarn/__virtual__/@testing-library-react-virtual-2f825ba4d9/0/cache/@testing-library-react-npm-14.0.0-84fecd033b-4a54c8f56c.zip/node_modules/@testing-library/react/",\
           "packageDependencies": [\
-            ["@testing-library/react", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:12.1.4"],\
+            ["@testing-library/react", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:14.0.0"],\
             ["@babel/runtime", "npm:7.16.7"],\
-            ["@testing-library/dom", "npm:8.11.1"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"]\
+            ["@testing-library/dom", "npm:9.2.0"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react-dom",\
             "@types/react",\
             "react-dom",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["@testing-library/react-hooks", [\
-        ["npm:8.0.1", {\
-          "packageLocation": "./.yarn/cache/@testing-library-react-hooks-npm-8.0.1-e0c7be6ffb-7fe44352e9.zip/node_modules/@testing-library/react-hooks/",\
-          "packageDependencies": [\
-            ["@testing-library/react-hooks", "npm:8.0.1"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:8.0.1", {\
-          "packageLocation": "./.yarn/__virtual__/@testing-library-react-hooks-virtual-2c7bc1a68e/0/cache/@testing-library-react-hooks-npm-8.0.1-e0c7be6ffb-7fe44352e9.zip/node_modules/@testing-library/react-hooks/",\
-          "packageDependencies": [\
-            ["@testing-library/react-hooks", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:8.0.1"],\
-            ["@babel/runtime", "npm:7.16.7"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["@types/react-test-renderer", null],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
-            ["react-error-boundary", "virtual:2c7bc1a68ecfc5a82938682aebf5ce7b33df66e410e58858eaf14970afa5e2e841bf86d03ae727e37c729c58541335bd7139cd94a6e4594c8381a35f3ce5f3ed#npm:3.1.4"],\
-            ["react-test-renderer", null]\
-          ],\
-          "packagePeers": [\
-            "@types/react-dom",\
-            "@types/react-test-renderer",\
-            "@types/react",\
-            "react-dom",\
-            "react-test-renderer",\
             "react"\
           ],\
           "linkType": "HARD"\
@@ -10573,9 +10549,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@theme-ui/core", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@theme-ui/css", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@types/emotion__react", null],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["deepmerge", "npm:4.2.2"],\
-            ["react", "npm:17.0.2"]\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -10604,9 +10580,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@styled-system/space", "npm:5.1.2"],\
             ["@theme-ui/css", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@types/emotion__react", null],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["@types/styled-system", "npm:5.1.14"],\
-            ["react", "npm:17.0.2"]\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -10633,9 +10609,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@theme-ui/css", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@theme-ui/parse-props", "virtual:fd52f73979a8d859215e0a847e1ee5e1accc1bca35ce5f0cf97412bb5955825331ed9e0e7f038ea9cbc77ef554300630c14b30106818b27d8da46a0b5190e4ef#npm:0.14.5"],\
             ["@types/emotion__react", null],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["deepmerge", "npm:4.2.2"],\
-            ["react", "npm:17.0.2"]\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -10687,8 +10663,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@theme-ui/css", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@types/emotion__react", null],\
             ["@types/mdx-js__react", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -10716,8 +10692,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", null],\
             ["@theme-ui/css", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@types/emotion__react", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -10746,8 +10722,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@theme-ui/css", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@theme-ui/mdx", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@types/emotion__react", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@emotion/react",\
@@ -10852,10 +10828,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/aria-query", [\
-        ["npm:4.2.2", {\
-          "packageLocation": "./.yarn/cache/@types-aria-query-npm-4.2.2-c7fefe27a4-6f2ce11d91.zip/node_modules/@types/aria-query/",\
+        ["npm:5.0.1", {\
+          "packageLocation": "./.yarn/cache/@types-aria-query-npm-5.0.1-5c01a56741-69fd7cceb6.zip/node_modules/@types/aria-query/",\
           "packageDependencies": [\
-            ["@types/aria-query", "npm:4.2.2"]\
+            ["@types/aria-query", "npm:5.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11053,7 +11029,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["@types/enzyme", "npm:3.10.12"],\
             ["@types/cheerio", "npm:0.22.31"],\
-            ["@types/react", "npm:17.0.38"]\
+            ["@types/react", "npm:18.0.28"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11455,26 +11431,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-reach__router-npm-1.3.10-0e2a3d099f-fdcb761d3b.zip/node_modules/@types/reach__router/",\
           "packageDependencies": [\
             ["@types/reach__router", "npm:1.3.10"],\
-            ["@types/react", "npm:17.0.38"]\
+            ["@types/react", "npm:18.0.28"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@types/react", [\
-        ["npm:17.0.38", {\
-          "packageLocation": "./.yarn/cache/@types-react-npm-17.0.38-e8f2055f5b-4079f4f959.zip/node_modules/@types/react/",\
+        ["npm:18.0.28", {\
+          "packageLocation": "./.yarn/cache/@types-react-npm-18.0.28-c6157151cc-e752df9611.zip/node_modules/@types/react/",\
           "packageDependencies": [\
-            ["@types/react", "npm:17.0.38"],\
-            ["@types/prop-types", "npm:15.7.4"],\
-            ["@types/scheduler", "npm:0.16.2"],\
-            ["csstype", "npm:3.0.10"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:17.0.45", {\
-          "packageLocation": "./.yarn/cache/@types-react-npm-17.0.45-09fff34e88-3cc13a0282.zip/node_modules/@types/react/",\
-          "packageDependencies": [\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["@types/prop-types", "npm:15.7.4"],\
             ["@types/scheduler", "npm:0.16.2"],\
             ["csstype", "npm:3.0.10"]\
@@ -11483,21 +11449,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@types/react-dom", [\
-        ["npm:17.0.16", {\
-          "packageLocation": "./.yarn/cache/@types-react-dom-npm-17.0.16-b9820cbeb2-2f41a45ef9.zip/node_modules/@types/react-dom/",\
+        ["npm:18.2.1", {\
+          "packageLocation": "./.yarn/cache/@types-react-dom-npm-18.2.1-4d56bce9b4-4e607a9d08.zip/node_modules/@types/react-dom/",\
           "packageDependencies": [\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["@types/react", "npm:17.0.45"]\
+            ["@types/react-dom", "npm:18.2.1"],\
+            ["@types/react", "npm:18.0.28"]\
           ],\
           "linkType": "HARD"\
         }]\
       ]],\
       ["@types/react-helmet", [\
-        ["npm:6.1.5", {\
-          "packageLocation": "./.yarn/cache/@types-react-helmet-npm-6.1.5-f6dfe85617-d059cc084d.zip/node_modules/@types/react-helmet/",\
+        ["npm:6.1.6", {\
+          "packageLocation": "./.yarn/cache/@types-react-helmet-npm-6.1.6-5b3822b661-81560c56bf.zip/node_modules/@types/react-helmet/",\
           "packageDependencies": [\
-            ["@types/react-helmet", "npm:6.1.5"],\
-            ["@types/react", "npm:17.0.38"]\
+            ["@types/react-helmet", "npm:6.1.6"],\
+            ["@types/react", "npm:18.0.28"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11507,19 +11473,19 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-react-instantsearch-core-npm-6.10.6-3551f1f7bf-51ce2ebc9d.zip/node_modules/@types/react-instantsearch-core/",\
           "packageDependencies": [\
             ["@types/react-instantsearch-core", "npm:6.10.6"],\
-            ["@types/react", "npm:17.0.38"],\
+            ["@types/react", "npm:18.0.28"],\
             ["algoliasearch", "npm:4.12.0"],\
-            ["algoliasearch-helper", "virtual:2bdc3e505bb4165de6515c2d1b51ffeb796a32233b84528cd1f86e33e1e09c2a5b88ed99e0fa3b5ac32419a4d4d85b0971841c8c301048a32c515e738fa36506#npm:3.7.0"]\
+            ["algoliasearch-helper", "virtual:56860606759c3b6638cc3d855bf30256a2fb1736b0d2f348c003014304ecd92c43830c5496bfbdfb77ac792355a036ae5a0a5360089dc55b21161d0fda68cca1#npm:3.7.0"]\
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:6.10.8", {\
-          "packageLocation": "./.yarn/cache/@types-react-instantsearch-core-npm-6.10.8-2bdc3e505b-a4872ba9a6.zip/node_modules/@types/react-instantsearch-core/",\
+        ["npm:6.26.3", {\
+          "packageLocation": "./.yarn/cache/@types-react-instantsearch-core-npm-6.26.3-5686060675-4fd762199d.zip/node_modules/@types/react-instantsearch-core/",\
           "packageDependencies": [\
-            ["@types/react-instantsearch-core", "npm:6.10.8"],\
-            ["@types/react", "npm:17.0.38"],\
+            ["@types/react-instantsearch-core", "npm:6.26.3"],\
+            ["@types/react", "npm:18.0.28"],\
             ["algoliasearch", "npm:4.12.0"],\
-            ["algoliasearch-helper", "virtual:2bdc3e505bb4165de6515c2d1b51ffeb796a32233b84528cd1f86e33e1e09c2a5b88ed99e0fa3b5ac32419a4d4d85b0971841c8c301048a32c515e738fa36506#npm:3.7.0"]\
+            ["algoliasearch-helper", "virtual:56860606759c3b6638cc3d855bf30256a2fb1736b0d2f348c003014304ecd92c43830c5496bfbdfb77ac792355a036ae5a0a5360089dc55b21161d0fda68cca1#npm:3.7.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -11529,7 +11495,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-react-instantsearch-dom-npm-6.12.3-12ae21ffeb-ca0802a43a.zip/node_modules/@types/react-instantsearch-dom/",\
           "packageDependencies": [\
             ["@types/react-instantsearch-dom", "npm:6.12.3"],\
-            ["@types/react", "npm:17.0.38"],\
+            ["@types/react", "npm:18.0.28"],\
             ["@types/react-instantsearch-core", "npm:6.10.6"]\
           ],\
           "linkType": "HARD"\
@@ -12658,20 +12624,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:2bdc3e505bb4165de6515c2d1b51ffeb796a32233b84528cd1f86e33e1e09c2a5b88ed99e0fa3b5ac32419a4d4d85b0971841c8c301048a32c515e738fa36506#npm:3.7.0", {\
-          "packageLocation": "./.yarn/__virtual__/algoliasearch-helper-virtual-749048bff5/0/cache/algoliasearch-helper-npm-3.7.0-1e0b4c6909-34afebf5aa.zip/node_modules/algoliasearch-helper/",\
-          "packageDependencies": [\
-            ["algoliasearch-helper", "virtual:2bdc3e505bb4165de6515c2d1b51ffeb796a32233b84528cd1f86e33e1e09c2a5b88ed99e0fa3b5ac32419a4d4d85b0971841c8c301048a32c515e738fa36506#npm:3.7.0"],\
-            ["@algolia/events", "npm:4.0.1"],\
-            ["@types/algoliasearch", null],\
-            ["algoliasearch", "npm:4.12.0"]\
-          ],\
-          "packagePeers": [\
-            "@types/algoliasearch",\
-            "algoliasearch"\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["virtual:4b6b42ae661d36eb23f55f0780a34b77631501a5be4c0493f5071d94303df0efa1305100db6fe5ed7c10118d52f6bc62c14214cd545c6b79bab18ec58aa9e59c#npm:3.8.2", {\
           "packageLocation": "./.yarn/__virtual__/algoliasearch-helper-virtual-f467fb52b6/0/cache/algoliasearch-helper-npm-3.8.2-df6b64d2eb-fc4daa23f7.zip/node_modules/algoliasearch-helper/",\
           "packageDependencies": [\
@@ -12679,6 +12631,20 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@algolia/events", "npm:4.0.1"],\
             ["@types/algoliasearch", null],\
             ["algoliasearch", "npm:4.13.0"]\
+          ],\
+          "packagePeers": [\
+            "@types/algoliasearch",\
+            "algoliasearch"\
+          ],\
+          "linkType": "HARD"\
+        }],\
+        ["virtual:56860606759c3b6638cc3d855bf30256a2fb1736b0d2f348c003014304ecd92c43830c5496bfbdfb77ac792355a036ae5a0a5360089dc55b21161d0fda68cca1#npm:3.7.0", {\
+          "packageLocation": "./.yarn/__virtual__/algoliasearch-helper-virtual-56cca44273/0/cache/algoliasearch-helper-npm-3.7.0-1e0b4c6909-34afebf5aa.zip/node_modules/algoliasearch-helper/",\
+          "packageDependencies": [\
+            ["algoliasearch-helper", "virtual:56860606759c3b6638cc3d855bf30256a2fb1736b0d2f348c003014304ecd92c43830c5496bfbdfb77ac792355a036ae5a0a5360089dc55b21161d0fda68cca1#npm:3.7.0"],\
+            ["@algolia/events", "npm:4.0.1"],\
+            ["@types/algoliasearch", null],\
+            ["algoliasearch", "npm:4.12.0"]\
           ],\
           "packagePeers": [\
             "@types/algoliasearch",\
@@ -13232,15 +13198,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/at-least-node-npm-1.0.0-2b36e661fa-463e2f8e43.zip/node_modules/at-least-node/",\
           "packageDependencies": [\
             ["at-least-node", "npm:1.0.0"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["atob", [\
-        ["npm:2.1.2", {\
-          "packageLocation": "./.yarn/cache/atob-npm-2.1.2-bcb583261e-dfeeeb7009.zip/node_modules/atob/",\
-          "packageDependencies": [\
-            ["atob", "npm:2.1.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -15688,10 +15645,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["create-react-context", "virtual:f64400e77733a3393ecfe1d4a00d8d455524a983a94680f2a0a5d7263a3de7312ead34dd08cdea36d50c2b6b46c74d0f6e80d0fbdde9e98efde99a4490b39cca#npm:0.3.0"],\
             ["@types/prop-types", null],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["gud", "npm:1.0.0"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["warning", "npm:4.0.3"]\
           ],\
           "packagePeers": [\
@@ -15845,18 +15802,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@cspell/cspell-pipe", "npm:5.20.0"],\
             ["fs-extra", "npm:10.1.0"],\
             ["gensequence", "npm:3.1.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["css", [\
-        ["npm:3.0.0", {\
-          "packageLocation": "./.yarn/cache/css-npm-3.0.0-ef426b63b3-4273ac816d.zip/node_modules/css/",\
-          "packageDependencies": [\
-            ["css", "npm:3.0.0"],\
-            ["inherits", "npm:2.0.4"],\
-            ["source-map", "npm:0.6.1"],\
-            ["source-map-resolve", "npm:0.6.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -17114,10 +17059,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["downshift", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.1.9"],\
             ["@babel/runtime", "npm:7.18.9"],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["compute-scroll-into-view", "npm:1.0.17"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["react-is", "npm:17.0.2"],\
             ["tslib", "npm:2.4.0"]\
           ],\
@@ -19621,8 +19566,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@parcel/core", "npm:2.6.2"],\
             ["@pmmmwh/react-refresh-webpack-plugin", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:0.5.10"],\
             ["@types/http-proxy", "npm:1.17.8"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["@typescript-eslint/eslint-plugin", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:4.33.0"],\
             ["@typescript-eslint/parser", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:4.33.0"],\
             ["@vercel/webpack-asset-relocator-loader", "npm:1.7.0"],\
@@ -19735,9 +19680,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prop-types", "npm:15.8.1"],\
             ["query-string", "npm:6.14.1"],\
             ["raw-loader", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:4.0.2"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["react-dev-utils", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:12.0.1"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["react-refresh", "npm:0.14.0"],\
             ["react-server-dom-webpack", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:0.0.0-experimental-c8b778b7f-20220825"],\
             ["redux", "npm:4.1.2"],\
@@ -19932,12 +19877,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@gatsbyjs/reach-router", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:1.3.9"],\
             ["@types/gatsbyjs__reach-router", null],\
             ["@types/reach__router", "npm:1.3.10"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["gatsby-page-utils", "npm:2.25.0"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"]\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@gatsbyjs/reach-router",\
@@ -20111,12 +20056,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-google-gtag", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.13.0"],\
             ["@babel/runtime", "npm:7.16.7"],\
             ["@types/gatsby", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.25.6"],\
             ["minimatch", "npm:3.1.2"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"]\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/gatsby",\
@@ -20143,11 +20088,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-google-tagmanager", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.25.0"],\
             ["@babel/runtime", "npm:7.16.7"],\
             ["@types/gatsby", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.25.6"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["web-vitals", "npm:1.1.2"]\
           ],\
           "packagePeers": [\
@@ -20174,10 +20119,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["gatsby-plugin-launchdarkly", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:0.4.0"],\
             ["@types/gatsby", null],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.25.6"],\
             ["launchdarkly-react-client-sdk", "virtual:a42556a955655b36705c7b61a177562e794e9e5530ab210d3f8313575028ae59b262656b139b1afb42bacff9f433c6f84261d9b7b1eb1ae6e1504a5c383f41fb#npm:2.29.2"],\
-            ["react", "npm:17.0.2"]\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/gatsby",\
@@ -20240,8 +20185,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/gatsby", null],\
             ["@types/mdx-js__mdx", null],\
             ["@types/mdx-js__react", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["camelcase-css", "npm:2.0.1"],\
             ["change-case", "npm:3.1.0"],\
             ["core-js", "npm:3.20.2"],\
@@ -20262,8 +20207,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["mkdirp", "npm:1.0.4"],\
             ["p-queue", "npm:6.6.2"],\
             ["pretty-bytes", "npm:5.6.0"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["remark", "npm:10.0.1"],\
             ["remark-retext", "npm:3.1.3"],\
             ["retext-english", "npm:3.0.4"],\
@@ -20339,7 +20284,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-react-helmet", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:5.13.0"],\
             ["@babel/runtime", "npm:7.16.7"],\
             ["@types/gatsby", null],\
-            ["@types/react-helmet", "npm:6.1.5"],\
+            ["@types/react-helmet", "npm:6.1.6"],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.25.6"],\
             ["react-helmet", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.1.0"]\
           ],\
@@ -20464,13 +20409,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-plugin-sitemap", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:5.13.0"],\
             ["@babel/runtime", "npm:7.16.7"],\
             ["@types/gatsby", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["common-tags", "npm:1.8.2"],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.25.6"],\
             ["minimatch", "npm:3.1.2"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["sitemap", "npm:7.1.0"]\
           ],\
           "packagePeers": [\
@@ -20511,10 +20456,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/emotion__react", null],\
             ["@types/gatsby", null],\
             ["@types/mdx-js__react", null],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["@types/theme-ui", null],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.25.6"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["theme-ui", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:0.14.5"]\
           ],\
           "packagePeers": [\
@@ -20695,11 +20640,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.16.7"],\
             ["@gatsbyjs/reach-router", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:1.3.9"],\
             ["@types/gatsbyjs__reach-router", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"]\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@gatsbyjs/reach-router",\
@@ -20809,10 +20754,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["gatsby-script", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:1.10.0"],\
             ["@gatsbyjs/reach-router", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:1.3.9"],\
             ["@types/gatsbyjs__reach-router", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@gatsbyjs/reach-router",\
@@ -24389,12 +24334,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/launchdarkly-react-client-sdk-virtual-49726838ce/0/cache/launchdarkly-react-client-sdk-npm-2.29.2-f45324727f-89d318cad9.zip/node_modules/launchdarkly-react-client-sdk/",\
           "packageDependencies": [\
             ["launchdarkly-react-client-sdk", "virtual:a42556a955655b36705c7b61a177562e794e9e5530ab210d3f8313575028ae59b262656b139b1afb42bacff9f433c6f84261d9b7b1eb1ae6e1504a5c383f41fb#npm:2.29.2"],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["@types/react-dom", null],\
             ["hoist-non-react-statics", "npm:3.3.2"],\
             ["launchdarkly-js-client-sdk", "npm:2.24.2"],\
             ["lodash.camelcase", "npm:4.3.0"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["react-dom", null]\
           ],\
           "packagePeers": [\
@@ -24450,9 +24395,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@reach/router", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.3.4"],\
             ["@svgr/cli", "npm:6.2.1"],\
             ["@svgr/webpack", "npm:6.2.1"],\
-            ["@testing-library/jest-dom", "npm:5.16.4"],\
-            ["@testing-library/react", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:12.1.4"],\
-            ["@testing-library/react-hooks", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:8.0.1"],\
+            ["@testing-library/jest-dom", "npm:5.16.5"],\
+            ["@testing-library/react", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:14.0.0"],\
             ["@types/babel__core", "npm:7.1.19"],\
             ["@types/babel__preset-env", "npm:7.9.2"],\
             ["@types/body-scroll-lock", "npm:3.1.0"],\
@@ -24467,10 +24411,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/prismjs", "npm:1.26.0"],\
             ["@types/qs", "npm:6.9.7"],\
             ["@types/reach__router", "npm:1.3.10"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["@types/react-helmet", "npm:6.1.5"],\
-            ["@types/react-instantsearch-core", "npm:6.10.8"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
+            ["@types/react-helmet", "npm:6.1.6"],\
+            ["@types/react-instantsearch-core", "npm:6.26.3"],\
             ["@types/react-instantsearch-dom", "npm:6.12.3"],\
             ["@types/rimraf", "npm:3.0.2"],\
             ["@types/segment-analytics", "npm:0.0.34"],\
@@ -24532,8 +24476,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["prism-react-renderer", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.1.0"],\
             ["prismjs", "npm:1.27.0"],\
             ["qs", "npm:6.11.0"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["react-helmet", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.1.0"],\
             ["react-instantsearch-core", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.24.3"],\
             ["react-instantsearch-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.24.3"],\
@@ -25287,10 +25231,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["lz-string", [\
-        ["npm:1.4.4", {\
-          "packageLocation": "./.yarn/cache/lz-string-npm-1.4.4-59a2091d3f-54e31238a6.zip/node_modules/lz-string/",\
+        ["npm:1.5.0", {\
+          "packageLocation": "./.yarn/cache/lz-string-npm-1.5.0-3860794e30-1ee98b4580.zip/node_modules/lz-string/",\
           "packageDependencies": [\
-            ["lz-string", "npm:1.4.4"]\
+            ["lz-string", "npm:1.5.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -28528,8 +28472,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/prism-react-renderer-virtual-c303bc7db2/0/cache/prism-react-renderer-npm-1.1.0-6f48fd247d-26fdd4c333.zip/node_modules/prism-react-renderer/",\
           "packageDependencies": [\
             ["prism-react-renderer", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.1.0"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\
@@ -28984,12 +28928,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["react", [\
-        ["npm:17.0.2", {\
-          "packageLocation": "./.yarn/cache/react-npm-17.0.2-99ba37d931-b254cc17ce.zip/node_modules/react/",\
+        ["npm:18.2.0", {\
+          "packageLocation": "./.yarn/cache/react-npm-18.2.0-1eae08fee2-88e38092da.zip/node_modules/react/",\
           "packageDependencies": [\
-            ["react", "npm:17.0.2"],\
-            ["loose-envify", "npm:1.4.0"],\
-            ["object-assign", "npm:4.1.1"]\
+            ["react", "npm:18.2.0"],\
+            ["loose-envify", "npm:1.4.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -29045,45 +28988,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["react-dom", [\
-        ["npm:17.0.2", {\
-          "packageLocation": "./.yarn/cache/react-dom-npm-17.0.2-f551215af1-1c1eaa3bca.zip/node_modules/react-dom/",\
+        ["npm:18.2.0", {\
+          "packageLocation": "./.yarn/cache/react-dom-npm-18.2.0-dd675bca1c-7d323310be.zip/node_modules/react-dom/",\
           "packageDependencies": [\
-            ["react-dom", "npm:17.0.2"]\
+            ["react-dom", "npm:18.2.0"]\
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2", {\
-          "packageLocation": "./.yarn/__virtual__/react-dom-virtual-74fbd20b24/0/cache/react-dom-npm-17.0.2-f551215af1-1c1eaa3bca.zip/node_modules/react-dom/",\
+        ["virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0", {\
+          "packageLocation": "./.yarn/__virtual__/react-dom-virtual-94523c0710/0/cache/react-dom-npm-18.2.0-dd675bca1c-7d323310be.zip/node_modules/react-dom/",\
           "packageDependencies": [\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
-            ["@types/react", "npm:17.0.45"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
+            ["@types/react", "npm:18.0.28"],\
             ["loose-envify", "npm:1.4.0"],\
-            ["object-assign", "npm:4.1.1"],\
-            ["react", "npm:17.0.2"],\
-            ["scheduler", "npm:0.20.2"]\
-          ],\
-          "packagePeers": [\
-            "@types/react",\
-            "react"\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["react-error-boundary", [\
-        ["npm:3.1.4", {\
-          "packageLocation": "./.yarn/cache/react-error-boundary-npm-3.1.4-2310dba89e-f36270a5d7.zip/node_modules/react-error-boundary/",\
-          "packageDependencies": [\
-            ["react-error-boundary", "npm:3.1.4"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
-        ["virtual:2c7bc1a68ecfc5a82938682aebf5ce7b33df66e410e58858eaf14970afa5e2e841bf86d03ae727e37c729c58541335bd7139cd94a6e4594c8381a35f3ce5f3ed#npm:3.1.4", {\
-          "packageLocation": "./.yarn/__virtual__/react-error-boundary-virtual-40cbef597b/0/cache/react-error-boundary-npm-3.1.4-2310dba89e-f36270a5d7.zip/node_modules/react-error-boundary/",\
-          "packageDependencies": [\
-            ["react-error-boundary", "virtual:2c7bc1a68ecfc5a82938682aebf5ce7b33df66e410e58858eaf14970afa5e2e841bf86d03ae727e37c729c58541335bd7139cd94a6e4594c8381a35f3ce5f3ed#npm:3.1.4"],\
-            ["@babel/runtime", "npm:7.16.7"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["react", "npm:18.2.0"],\
+            ["scheduler", "npm:0.23.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\
@@ -29122,10 +29041,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/react-helmet-virtual-d4839c5a1c/0/cache/react-helmet-npm-6.1.0-20fd5447ff-a4998479da.zip/node_modules/react-helmet/",\
           "packageDependencies": [\
             ["react-helmet", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.1.0"],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["object-assign", "npm:4.1.1"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["react-fast-compare", "npm:3.2.0"],\
             ["react-side-effect", "virtual:d4839c5a1c2db403ec0a22ac0ffe4b10c3ea9d4451881f195574df0efae0caa992831640a1bbfaa58c417126f91ba9a19e01708e1b8ebadad6475834d1c66fea#npm:2.1.1"]\
           ],\
@@ -29150,11 +29069,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-instantsearch-core", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.24.3"],\
             ["@babel/runtime", "npm:7.16.7"],\
             ["@types/algoliasearch", null],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["algoliasearch", "npm:4.13.0"],\
             ["algoliasearch-helper", "virtual:4b6b42ae661d36eb23f55f0780a34b77631501a5be4c0493f5071d94303df0efa1305100db6fe5ed7c10118d52f6bc62c14214cd545c6b79bab18ec58aa9e59c#npm:3.8.2"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["react-fast-compare", "npm:3.2.0"]\
           ],\
           "packagePeers": [\
@@ -29180,14 +29099,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["react-instantsearch-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.24.3"],\
             ["@babel/runtime", "npm:7.16.7"],\
             ["@types/algoliasearch", null],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
             ["algoliasearch", "npm:4.13.0"],\
             ["algoliasearch-helper", "virtual:4b6b42ae661d36eb23f55f0780a34b77631501a5be4c0493f5071d94303df0efa1305100db6fe5ed7c10118d52f6bc62c14214cd545c6b79bab18ec58aa9e59c#npm:3.8.2"],\
             ["classnames", "npm:2.3.1"],\
             ["prop-types", "npm:15.8.1"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"],\
             ["react-fast-compare", "npm:3.2.0"],\
             ["react-instantsearch-core", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:6.24.3"]\
           ],\
@@ -29262,12 +29181,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/react-server-dom-webpack-virtual-ff083dd39c/0/cache/react-server-dom-webpack-npm-0.0.0-experimental-c8b778b7f-20220825-b0e92c72ae-55fc67030b.zip/node_modules/react-server-dom-webpack/",\
           "packageDependencies": [\
             ["react-server-dom-webpack", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:0.0.0-experimental-c8b778b7f-20220825"],\
-            ["@types/react", "npm:17.0.45"],\
+            ["@types/react", "npm:18.0.28"],\
             ["@types/webpack", null],\
             ["acorn", "npm:6.4.2"],\
             ["loose-envify", "npm:1.4.0"],\
             ["neo-async", "npm:2.6.2"],\
-            ["react", "npm:17.0.2"],\
+            ["react", "npm:18.2.0"],\
             ["webpack", "virtual:6dd1f7e0b09ec2b756ce88a24a15cd667059dba10216629a381a55d375c0a7a83f0a68a4abecd7fd6591bd4cbaf28436de3d1584e5769421e68b4eeaabe5a028#npm:5.65.0"]\
           ],\
           "packagePeers": [\
@@ -29291,8 +29210,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/react-side-effect-virtual-93c35977de/0/cache/react-side-effect-npm-2.1.1-52222d7f8f-324511ea8f.zip/node_modules/react-side-effect/",\
           "packageDependencies": [\
             ["react-side-effect", "virtual:d4839c5a1c2db403ec0a22ac0ffe4b10c3ea9d4451881f195574df0efae0caa992831640a1bbfaa58c417126f91ba9a19e01708e1b8ebadad6475834d1c66fea#npm:2.1.1"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["react", "npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["react", "npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react",\
@@ -30203,12 +30122,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["scheduler", [\
-        ["npm:0.20.2", {\
-          "packageLocation": "./.yarn/cache/scheduler-npm-0.20.2-90beaecfba-c4b35cf967.zip/node_modules/scheduler/",\
+        ["npm:0.23.0", {\
+          "packageLocation": "./.yarn/cache/scheduler-npm-0.23.0-a379a6bc3b-d79192eeaa.zip/node_modules/scheduler/",\
           "packageDependencies": [\
-            ["scheduler", "npm:0.20.2"],\
-            ["loose-envify", "npm:1.4.0"],\
-            ["object-assign", "npm:4.1.1"]\
+            ["scheduler", "npm:0.23.0"],\
+            ["loose-envify", "npm:1.4.0"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -30832,17 +30750,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/source-map-js-npm-1.0.1-c86a8e0dcb-22606113d6.zip/node_modules/source-map-js/",\
           "packageDependencies": [\
             ["source-map-js", "npm:1.0.1"]\
-          ],\
-          "linkType": "HARD"\
-        }]\
-      ]],\
-      ["source-map-resolve", [\
-        ["npm:0.6.0", {\
-          "packageLocation": "./.yarn/cache/source-map-resolve-npm-0.6.0-6e67c9e55f-fe503b9e5d.zip/node_modules/source-map-resolve/",\
-          "packageDependencies": [\
-            ["source-map-resolve", "npm:0.6.0"],\
-            ["atob", "npm:2.1.2"],\
-            ["decode-uri-component", "npm:0.2.2"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -31840,10 +31747,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@theme-ui/css", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@theme-ui/mdx", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
             ["@theme-ui/theme-provider", "virtual:97c91983d51797fa571f6bca26e52c10a4c079d9ae64f3b633d362fbd602cf52889432c0f756c4dcea9d63e47535fd6ff5a0d1ede829561cb02422a822ffbdf4#npm:0.14.5"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react-dom",\
@@ -33062,10 +32969,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/use-local-storage-state-virtual-ca526d3407/0/cache/use-local-storage-state-npm-17.2.0-882599ee1d-1aead2d3f3.zip/node_modules/use-local-storage-state/",\
           "packageDependencies": [\
             ["use-local-storage-state", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.2.0"],\
-            ["@types/react", "npm:17.0.45"],\
-            ["@types/react-dom", "npm:17.0.16"],\
-            ["react", "npm:17.0.2"],\
-            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:17.0.2"]\
+            ["@types/react", "npm:18.0.28"],\
+            ["@types/react-dom", "npm:18.2.1"],\
+            ["react", "npm:18.2.0"],\
+            ["react-dom", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:18.2.0"]\
           ],\
           "packagePeers": [\
             "@types/react-dom",\

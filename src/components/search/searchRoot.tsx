@@ -16,7 +16,7 @@ type SearchInputProps = {
   refine(input: string): void
 }
 
-const SearchInput: FunctionComponent<SearchInputProps> = ({ currentRefinement, refine }) => {
+const SearchInput: FunctionComponent<React.PropsWithChildren<SearchInputProps>> = ({ currentRefinement, refine }) => {
   const inputRef = useRef(null)
   const onClearSearch = () => {
     inputRef.current.value = ''

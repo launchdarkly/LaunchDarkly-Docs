@@ -12,7 +12,12 @@ type QuickLinkType = {
   blurp: string
   navItems: Array<SideNavItem>
 }
-const QuickLink: FunctionComponent<QuickLinkType> = ({ iconName, heading, blurp, navItems }) => {
+const QuickLink: FunctionComponent<React.PropsWithChildren<QuickLinkType>> = ({
+  iconName,
+  heading,
+  blurp,
+  navItems,
+}) => {
   return (
     <li sx={{ display: 'flex', mb: 6, '&:last-child': { mb: 0 } }}>
       <Icon

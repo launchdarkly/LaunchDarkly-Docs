@@ -1,15 +1,18 @@
 /** @jsx jsx */
-import { FunctionComponent } from 'react'
+import { ReactNode } from 'react'
 import { Card, jsx } from 'theme-ui'
 
-const Table: FunctionComponent = ({ children }) => (
+type TableProps = {
+  children: ReactNode
+}
+const Table = (props: TableProps) => (
   <Card variant="table">
-    <table sx={{ width: '100%' }}>{children}</table>
+    <table sx={{ width: '100%' }}>{props.children}</table>
   </Card>
 )
 export default Table
 
-export const TableHeader: FunctionComponent = ({ children }) => (
+export const TableHeader = (props: TableProps) => (
   <thead
     sx={{
       borderBottomStyle: 'solid',
@@ -17,15 +20,17 @@ export const TableHeader: FunctionComponent = ({ children }) => (
       borderColor: 'grayMed',
     }}
   >
-    <tr>{children}</tr>
+    <tr>{props.children}</tr>
   </thead>
 )
 
-export const TableHeadCell: FunctionComponent = ({ children }) => (
-  <th sx={{ p: [1, 2], overflow: 'hidden', textAlign: 'center', fontSize: [3, 4], fontWeight: 400 }}>{children}</th>
+export const TableHeadCell = (props: TableProps) => (
+  <th sx={{ p: [1, 2], overflow: 'hidden', textAlign: 'center', fontSize: [3, 4], fontWeight: 400 }}>
+    {props.children}
+  </th>
 )
 
-export const TableRow: FunctionComponent = ({ children }) => (
+export const TableRow = (props: TableProps) => (
   <tr
     sx={{
       borderBottomStyle: 'solid',
@@ -36,18 +41,18 @@ export const TableRow: FunctionComponent = ({ children }) => (
       },
     }}
   >
-    {children}
+    {props.children}
   </tr>
 )
 
-export const TableCell: FunctionComponent = ({ children }) => (
+export const TableCell = (props: TableProps) => (
   <td
     sx={{
       p: [1, 2],
     }}
   >
-    {children}
+    {props.children}
   </td>
 )
 
-export const TableBody: FunctionComponent = ({ children }) => <tbody>{children}</tbody>
+export const TableBody = (props: TableProps) => <tbody>{props.children}</tbody>

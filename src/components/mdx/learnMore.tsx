@@ -4,7 +4,7 @@ import { Box, Card, Flex, jsx } from 'theme-ui'
 
 import Icon from '../icon'
 
-const LearnMore: FC = ({ children }): ReactElement => {
+const LearnMore: FC<React.PropsWithChildren<unknown>> = ({ children }): ReactElement => {
   return (
     <Card variant="learnMore">
       <Flex>

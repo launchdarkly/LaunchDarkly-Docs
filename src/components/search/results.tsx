@@ -15,7 +15,7 @@ interface ResultsProps {
   searchState: SearchState
   searchResults: SearchResults
 }
-const Results: FunctionComponent<ResultsProps> = ({ searchState, searchResults }) => {
+const Results: FunctionComponent<React.PropsWithChildren<ResultsProps>> = ({ searchState, searchResults }) => {
   const { query } = searchState
   const hasQuery = !!query
   const hasResults = searchResults && searchResults.nbHits !== 0
