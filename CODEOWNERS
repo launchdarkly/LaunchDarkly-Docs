@@ -1,8 +1,6 @@
 # more about codeowners below:
 # https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
 
-* @launchdarkly/team-app-platform-product
-
 # Content
 .cspell/custom-words.txt @launchdarkly/team-docs
 *.md @launchdarkly/team-docs
