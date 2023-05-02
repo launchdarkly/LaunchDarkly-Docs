@@ -136,7 +136,7 @@ Mobile keys are not secret and you can expose them in your client-side code with
 
 It's important to make `LDClient` a singleton for each LaunchDarkly project. The client instance maintains internal state that allows LaunchDarkly to serve feature flags without making any remote requests. Do not instantiate a new client with every request.
 
-If you have multiple LaunchDarkly projects, you can create one `LDClient` for each. In this situation, the clients operate independently. For example, they do not share a single connection to LaunchDarkly.
+If you have multiple LaunchDarkly projects, you should use the multiple environments feature. To learn more, read [Multiple environments](/sdk/features/multiple-environments#react-native).
 
 </CalloutDescription>
 </Callout>

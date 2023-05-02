@@ -23,9 +23,9 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 ## Client-side SDKs
 
-Some LaunchDarkly client-side SDKs support having multiple `LDClient` instances tied to separate mobile keys. This allows the SDK to evaluate flags from multiple environments. The SDK can evaluate flags from different environments whether they are all in the same LaunchDarkly project or different LaunchDarkly projects.
+Some LaunchDarkly client-side mobile SDKs support having multiple `LDClient` instances tied to separate mobile keys. This allows the SDK to evaluate flags from multiple environments. The SDK can evaluate flags from different environments whether they are all in the same LaunchDarkly project or different LaunchDarkly projects.
 
-Other LaunchDarkly client-side SDKs do not support multiple `LDClient` instances, but you can configure the one SDK instance to connect to multiple environments.
+However, other LaunchDarkly client-side mobile SDKs, including Android, iOS, and React Native, do not support multiple `LDClient` instances. Instead, you can configure the one SDK instance to connect to multiple environments. 
 
 This feature is available in the following client-side SDKs:
 
@@ -38,6 +38,8 @@ This feature is available in the following client-side SDKs:
 <Details summary="Expand Android code sample">
 
 All `LDClient` instances evaluate against the same `LDContext`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
+
+Here's how:
 
 <CodeSample>
 <CSTab label="Android SDK v4.0 (Java)">
@@ -122,14 +124,21 @@ LDClient.init(application, ldConfig, user)
 </CSTab>
 </CodeSample>
 
- To access the secondary mobile key instances, use the `getForMobileKey` method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance.
+ To access the secondary mobile key instances, use the `getForMobileKey` method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance. Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+
+ Here's how:
 
 <CodeSample>
 <CSTab label="Java">
 
 ```java
 LDClient coreInstance = LDClient.getForMobileKey("core");
+// Variation determines whether or not a flag is enabled for a specific context
 coreInstance.boolVariation("core-flag", false);
+// allFlags produces a map of feature flag keys to their values
+coreInstance.allFlags();
+// track records actions end users take in your app
+coreInstance.track("metric-key-123abc", data);
 ```
 
 </CSTab>
@@ -137,13 +146,20 @@ coreInstance.boolVariation("core-flag", false);
 
 ```kotlin
 val coreInstance: LDClient = LDClient.getForMobileKey("core")
+// Variation determines whether or not a flag is enabled for a specific context
 coreInstance.boolVariation("core-flag", false)
+// allFlags produces a map of feature flag keys to their values
+coreInstance.allFlags()
+// track records actions end users take in your app
+coreInstance.track("metric-key-123abc", data)
 ```
 
 </CSTab>
 </CodeSample>
 
-As all the client instances use the same LDContext object, some calls affect all instances.
+As all the client instances use the same LDClient object, some calls affect all instances.
+
+These methods include:
 
 <CodeSample>
 <CSTab label="Android SDK v4.0 (Java)">
@@ -204,7 +220,7 @@ coreInstance.close()
 </CSTab>
 </CodeSample>
 
-Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+To learn more, read [`LDClient`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html).
 </Details>
 
 ### iOS
@@ -219,7 +235,7 @@ All `LDClient` instances evaluate against the same `LDContext`. The mobile keys 
 ```swift
 let context = try LDContextBuilder(key: "context-key-123abc").build().get()
 var config = LDConfig(mobileKey: "mobile-key-123abc")
-// Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
+// The SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
 try! config.setSecondaryMobileKeys(["platform": "platform-mobile-key-123abc", "core": "core-mobile-key-123abc"])
 LDClient.start(config: config, context: context)
 ```
@@ -244,7 +260,7 @@ NSError *err = nil;
 ```swift
 let user = LDUser(key: "user-key-123abc")
 var config = LDConfig(mobileKey: "mobile-key-123abc")
-// Note that the SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
+// The SDK throws error strings if you add duplicate keys or put the primary key or name in secondaryMobileKeys.
 try! config.setSecondaryMobileKeys(["platform": "platform-mobile-key-456def", "core": "core-mobile-key-789ghi"])
 LDClient.start(config: config, user: user)
 ```
@@ -265,28 +281,42 @@ NSError *err = nil;
 </CSTab>
 </CodeSample>
 
-To access the secondary mobile key instances, use the `LDClient.get` static method, passing the identifier assigned to your environment key in the `secondaryMobileKeys` map.
+To access the secondary mobile key instances, use the `LDClient.get` static method on LDClient. This method takes the identifier name assigned to your environment key in the `secondaryMobileKeys` map and returns the associated LDClient instance. Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+
+Here's how:
 
 <CodeSample>
 <CSTab label="Swift">
 
 ```swift
-var coreInstance = LDClient.get(environment: "core")
-let coreFlagValue = coreInstance?.variation(forKey: "core-flag-key-123abc", defaultValue: false)
+let coreInstance = LDClient.get(environment: "core")
+// Variation determines whether or not a flag is enabled for a specific context
+let coreFlagValue = coreInstance?.boolVariation(forKey: "core-flag-key-123abc", defaultValue: false)
+// allFlags produces a map of feature flag keys to their values
+let allFlags: [String: LDValue]? = coreInstance?.allFlags
+// track records actions end users take in your app
+try coreInstance?.track(key: "track-event-key-123abc", data: data)
 ```
 
 </CSTab>
 <CSTab label="Objective-C">
 
 ```objectivec
-LDClient *coreInstance = [LDClient getEnvironment:@"core"];
-let coreFlagValue = [coreInstance boolVariationForKey:@"core-flag-key-123abc" defaultValue:NO];
+LDClient *coreInstance = [LDClient getWithEnvironment:@"core"];
+// Variation determines whether or not a flag is enabled for a specific context
+BOOL coreFlagValue = [coreInstance boolVariationForKey:@"core-flag-key-123abc" defaultValue:NO];
+// allFlags produces a map of feature flag keys to their values
+NSDictionary<NSString*, LDValue*> * allFlags = [coreInstance allFlags];
+// track records actions end users take in your app
+[coreInstance trackWithKey:@"MY_TRACK_EVENT_NAME" data:data];
 ```
 
 </CSTab>
 </CodeSample>
 
-As all the client instances use the same `LDContext` object, some SDK functionality affects all instances.
+As all the client instances use the same `LDClient` object, some SDK functionality affects all instances.
+
+These methods include:
 
 <CodeSample>
 <CSTab label="Swift">
@@ -294,7 +324,7 @@ As all the client instances use the same `LDContext` object, some SDK functional
 ```swift
 coreInstance.identify(/*Context Object*/)
 coreInstance.flush()
-coreInstance.setOnline(true)
+coreInstance.setOnline(/*true or false*/)
 coreInstance.close()
 ```
 
@@ -304,21 +334,21 @@ coreInstance.close()
 ```objectivec
 [coreInstance identifyWithContext:/*Context Object*/];
 [coreInstance flush];
-[coreInstance setOnline:true];
+[coreInstance setOnline:/*true false*/];
 [coreInstance close];
 ```
 
 </CSTab>
 </CodeSample>
 
-Track calls, listeners, and flag evaluation are all tied to the client instance they are evaluated against.
+To learn more, read [`LDClient`](https://launchdarkly.github.io/ios-client-sdk/Classes/LDClient.html).
 </Details>
 
 ### React Native
 
 <Details summary="Expand React Native code sample">
 
-You cannot create more than one React Native SDK instance. Instead, configure one SDK instance to connect to multiple environments. Specify the environment names and their corresponding mobile keys in a `secondaryMobileKeys` map passed to your `LDConfig` object.
+All `LDClient` instances evaluate against the same `LDContext`. The mobile keys for additional environments are specified, along with identifying names, in a map passed to your `LDConfig` object.
 
 Here's how:
 
@@ -392,4 +422,50 @@ await client.configure(config, user);
 </CodeSample>
 
 To use functionality with a secondary environment, provide the name of the desired secondary environment as the `environment` parameter value to many `LDClient` methods. Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments. To learn more, read [`LDClient`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html).
+
+To use functionality with a secondary environment, provide the name of the desired secondary environment as the `environment` parameter value to many `LDClient` methods. 
+
+Here's how:
+
+<CodeSample>
+<CSTab label="React Native SDK v7.0 (JavaScript)">
+
+```js
+// Here, 'core' is the name of a secondary environment
+
+// Variation determines whether or not a flag is enabled for a specific context
+let boolResult = await client.boolVariation('bool-flag-key-123abc', false, 'core');
+// allFlags produces a map of feature flag keys to their values
+let allFlagsResult = client.allFlags('core');
+allFlagsResult.then(values => {
+  console.log(values);
+});
+
+// track records actions end users take in your app
+client.track('metric-flag-key-123abc', false, 'core');
+```
+
+</CSTab>
+</CodeSample>
+
+Some `LDClient` methods do not have an optional `environment` parameter because they act across all environments.
+
+These methods include:
+
+<CodeSample>
+<CSTab label="React Native SDK v7.0 (JavaScript)">
+
+```js
+identify(context);
+flush();
+setOnline();
+setOffline();
+isOffline():
+close();
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`LDClient`](https://launchdarkly.github.io/react-native-client-sdk/classes/LDClient.html).
 </Details>
