@@ -64,7 +64,7 @@ Here is an example:
 
 ```csharp
 client.DataSourceStatusProvider.StatusChanged +=
-    (sender, status) -> {
+    (sender, status) => {
         Console.WriteLine("new status is: {0}", status);
     };
 ```
@@ -684,7 +684,7 @@ Here is an example:
 
 ```csharp
 client.DataSourceStatusProvider.StatusChanged +=
-    (sender, status) -> {
+    (sender, status) => {
         Console.WriteLine("new status is: {0}", status);
     };
 ```
