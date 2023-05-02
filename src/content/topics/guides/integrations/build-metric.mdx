@@ -67,13 +67,13 @@ For a custom metric integration, we suggest that partners use an API key.
 
 ### Creation
 
-The endpoint to create a new environment accepts a POST body in JSON format. The minimum set of required parameters is:
+The endpoint to create a new metric accepts a POST body in JSON format. The minimum set of required parameters is:
 
 * `key`: The metric key
-* `kind`: This should be `custom`
-* `isNumeric`: Whether to track numeric changes in value against a baseline (`true`) or to track a conversion when users taken an action (`false`).
-* `unit`: Required if `isNumeric` is `true`.
-* `eventKey`: This should be equal to the 
+* `kind`: This kind of event your metric will track. This should be `custom`.
+* `isNumeric`: Whether to track numeric changes in value against a baseline (`true`) or to track a conversion when users taken an action (`false`)
+* `unit`: The unit of measure for numeric custom metrics
+* `eventKey`: This should be equal to the event name you're using in your code
 
 <LearnMore>
 
