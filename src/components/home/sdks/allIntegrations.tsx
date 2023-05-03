@@ -217,6 +217,12 @@ const AllIntegrations = () => {
       svg: 'integrations/okta',
     },
     {
+      label: 'Okteto',
+      shortLabel: 'Okteto',
+      path: '/integrations/okteto',
+      svg: 'integrations/okteto',
+    },
+    {
       label: 'OneLogin',
       shortLabel: 'OneLogin',
       path: '/home/account-security/onelogin',

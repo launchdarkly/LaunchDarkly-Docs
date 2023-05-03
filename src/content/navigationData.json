@@ -1031,6 +1031,10 @@
             "path": "/integrations/logdna"
           },
           {
+            "label": "Okteto",
+            "path": "/integrations/okteto"
+          },
+          {
             "label": "Pendo",
             "path": "/integrations/pendo"
           },

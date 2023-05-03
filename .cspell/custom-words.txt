@@ -177,6 +177,7 @@ Nonnull
 NRQL
 objc
 okhttp
+Okteto
 onelogin
 optin
 overrepresent
