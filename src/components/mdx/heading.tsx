@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import React from 'react'
 import { Themed } from '@theme-ui/mdx'
-import { IntrinsicSxElements, jsx } from 'theme-ui'
+import { jsx } from 'theme-ui'
 
 import { copyToClipboard } from '../../utils/copyToClipboard'
 import Icon from '../icon'
@@ -9,7 +9,7 @@ import Icon from '../icon'
 // This module defines custom heading components to be used in place
 // of the default HTML elements that Markdown compiles to.
 
-type HeadingTag = keyof Pick<IntrinsicSxElements, 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'>
+type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
 type HeadingProps = { id: string }
 

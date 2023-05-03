@@ -18,6 +18,41 @@ if (isStaging && !process.env.GATSBY_BUCKET_PREFIX) {
 }
 
 const plugins = [
+  {
+    resolve: 'gatsby-plugin-mdx',
+    options: {
+      mdxOptions: {
+        remarkPlugins: [require('remark-slug'), require('remark-unwrap-images')],
+      },
+      gatsbyRemarkPlugins: [
+        // {
+        //   resolve: 'gatsby-remark-relative-images',
+        // },
+        {
+          resolve: 'gatsby-remark-images',
+          options: {
+            maxWidth: 640,
+            showCaptions: true,
+            // solution based loosely on https://github.com/gatsbyjs/gatsby/issues/15241#issuecomment-1022846561
+            wrapperStyle(image) {
+              let maxImageWidth
+              let maxImageHeight
+              // force the max in either direction to be 640, then scale
+              if (image.aspectRatio < 1) {
+                maxImageWidth = image.aspectRatio * 640
+                maxImageHeight = 640
+              } else {
+                maxImageWidth = 640
+                maxImageHeight = image.aspectRatio * 640
+              }
+              return `max-width: ${maxImageWidth}px; max-height: ${maxImageHeight}px; margin-left: auto; margin-right: auto;`
+            },
+          },
+        },
+        'gatsby-remark-copy-linked-files',
+      ],
+    },
+  },
   'gatsby-plugin-theme-ui',
   'gatsby-plugin-react-helmet',
   'gatsby-plugin-typescript',

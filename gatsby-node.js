@@ -14,18 +14,18 @@ const getLastModifiedFromGitLog = absolutePath => {
 
 exports.onCreateNode = async ({ node, actions }) => {
   const { createNodeField } = actions
+  const readingTime = require('reading-time')
   const {
-    fileAbsolutePath,
-    internal: { type },
+    internal: { type, contentFilePath },
   } = node
-  if (fileAbsolutePath && type === 'Mdx') {
+  if (contentFilePath && type === 'Mdx') {
     const repoPrefix = 'ld-docs-private/src/'
-    const fileRelativePath = fileAbsolutePath.substring(fileAbsolutePath.indexOf(repoPrefix) + repoPrefix.length)
+    const fileRelativePath = contentFilePath.substring(contentFilePath.indexOf(repoPrefix) + repoPrefix.length)
 
     let lastModifiedTime
     if (isDev) {
       // for local dev use local git commits to speed up the build
-      lastModifiedTime = getLastModifiedFromGitLog(fileAbsolutePath)
+      lastModifiedTime = getLastModifiedFromGitLog(contentFilePath)
     } else {
       const gitCommits = JSON.parse(
         execSync(`
@@ -36,7 +36,7 @@ exports.onCreateNode = async ({ node, actions }) => {
       )
 
       // the first commit is most recent one. Fallback to git log.
-      lastModifiedTime = gitCommits[0]?.commit?.author?.date ?? getLastModifiedFromGitLog(fileAbsolutePath)
+      lastModifiedTime = gitCommits[0]?.commit?.author?.date ?? getLastModifiedFromGitLog(contentFilePath)
 
       // if lastModified is still empty then use today's date
       if (!lastModifiedTime || lastModifiedTime === '') {
@@ -55,6 +55,16 @@ exports.onCreateNode = async ({ node, actions }) => {
       name: 'isLandingPage',
       node,
       value: !!node.frontmatter.isLandingPage,
+    })
+    createNodeField({
+      name: 'fileAbsolutePath',
+      node,
+      value: contentFilePath,
+    })
+    createNodeField({
+      node,
+      name: 'timeToRead',
+      value: readingTime(node.body),
     })
   }
 }
@@ -92,6 +102,9 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
             path
             isInternal
           }
+          internal {
+            contentFilePath
+          }
         }
       }
     }
@@ -102,12 +115,12 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const mdxFiles = result.data.allMdx.nodes
-  mdxFiles.forEach(({ id, frontmatter }) => {
+  mdxFiles.forEach(({ internal, id, frontmatter }) => {
     createPage({
       path: frontmatter.path,
       component: frontmatter.isInternal
-        ? path.resolve('./src/components/internalLayout.tsx')
-        : path.resolve('./src/components/layout.tsx'),
+        ? `${path.resolve('./src/components/internalLayout.tsx')}?__contentFilePath=${internal.contentFilePath}`
+        : `${path.resolve('./src/components/layout.tsx')}?__contentFilePath=${internal.contentFilePath}`,
       context: { id },
     })
   })
@@ -127,6 +140,10 @@ exports.createSchemaCustomization = ({ actions }) => {
     }
     type NavigationDataJsonItemsItemsItems {
       flagKey: String
+    }
+    type Mdx implements Node {
+     fileAbsolutePath: String @proxy(from: "fields.fileAbsolutePath")
+     timeToRead: Float @proxy(from: "fields.timeToRead.minutes")
     }
   `
   createTypes(typeDefs)

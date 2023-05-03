@@ -33,10 +33,10 @@ To learn more, read [App privacy details on the App Store](https://developer.app
 
 You can use these SDKs to build apps for Apple's platforms:
 
-* [Client-side .NET](/sdk/client-side/dotnet)
-* [Flutter](/sdk/client-side/flutter)
-* [iOS](/sdk/client-side/ios)
-* [React Native](/sdk/client-side/react/react-native)
+- [Client-side .NET](/sdk/client-side/dotnet)
+- [Flutter](/sdk/client-side/flutter)
+- [iOS](/sdk/client-side/ios)
+- [React Native](/sdk/client-side/react/react-native)
 
 This topic applies to each of these SDKs unless otherwise specified.
 
@@ -44,7 +44,7 @@ To learn more about how Apple uses the below data types, read [Apple's documenta
 
 ## Collection practices
 
-The tables below summarize the data that LaunchDarkly SDKs collect by default. These tables do *not* include optional fields you can provide when you use an SDK.
+The tables below summarize the data that LaunchDarkly SDKs collect by default. These tables do _not_ include optional fields you can provide when you use an SDK.
 
 ### Contact info
 
@@ -297,11 +297,15 @@ This table explains the identifier information LaunchDarkly SDKs collect by defa
   <TableBody>
     <TableRow>
       <TableCell>Context ID</TableCell>
-      <TableCell>LaunchDarkly collects a unique identifier, as provided by your application code, for each of your contexts.</TableCell>
-      <TableCell><ul>
+      <TableCell>
+        LaunchDarkly collects a unique identifier, as provided by your application code, for each of your contexts.
+      </TableCell>
+      <TableCell>
+        <ul>
           <li>This data is used for product personalization.</li>
           <li>This data may be linked to a user context depending on how your application specifies context IDs.</li>
-        </ul></TableCell>
+        </ul>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Device ID</TableCell>
@@ -358,10 +362,12 @@ This table explains the usage data LaunchDarkly SDKs collect by default:
     <TableRow>
       <TableCell>Other usage data</TableCell>
       <TableCell>LaunchDarkly collects counters of flag evaluations.</TableCell>
-      <TableCell><ul>
+      <TableCell>
+        <ul>
           <li>This data is used for analytics.</li>
           <li>This data is not linked to end users.</li>
-        </ul></TableCell>
+        </ul>
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -388,31 +394,37 @@ This table explains the diagnostics information LaunchDarkly SDKs collect by def
     </TableRow>
     <TableRow>
       <TableCell>Performance data</TableCell>
-      <TableCell>LaunchDarkly collects:
+      <TableCell>
+        LaunchDarkly collects:
         <ul>
-            <li>the duration taken to connect to LaunchDarkly's streaming services, and</li>
-            <li>whether or not streaming connections are successfully established.</li>
+          <li>the duration taken to connect to LaunchDarkly's streaming services, and</li>
+          <li>whether or not streaming connections are successfully established.</li>
         </ul>
       </TableCell>
-      <TableCell><ul>
+      <TableCell>
+        <ul>
           <li>This data is used for analytics.</li>
           <li>This data is not linked to end users.</li>
-        </ul></TableCell>
+        </ul>
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Other diagnostic data</TableCell>
-      <TableCell>LaunchDarkly collects:
+      <TableCell>
+        LaunchDarkly collects:
         <ul>
-            <li>parts of the SDK configuration,</li>
-            <li>high-level information about the underlying platform, operating system, and device type,</li>
-            <li>metrics about LaunchDarkly event processing, and</li>
-            <li>metrics about LaunchDarkly context indexing.</li>
+          <li>parts of the SDK configuration,</li>
+          <li>high-level information about the underlying platform, operating system, and device type,</li>
+          <li>metrics about LaunchDarkly event processing, and</li>
+          <li>metrics about LaunchDarkly context indexing.</li>
         </ul>
       </TableCell>
-      <TableCell><ul>
+      <TableCell>
+        <ul>
           <li>This data is used for analytics.</li>
           <li>This data is not linked to end users.</li>
-        </ul></TableCell>
+        </ul>
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -437,17 +449,20 @@ This table explains the device and operating system information LaunchDarkly SDK
     </TableRow>
     <TableRow>
       <TableCell>Other data types</TableCell>
-      <TableCell>LaunchDarkly collects:
+      <TableCell>
+        LaunchDarkly collects:
         <ul>
-            <li>device model descriptors,</li>
-            <li>operating system names, and</li>
-            <li>operating system versions.</li>
+          <li>device model descriptors,</li>
+          <li>operating system names, and</li>
+          <li>operating system versions.</li>
         </ul>
       </TableCell>
-      <TableCell><ul>
+      <TableCell>
+        <ul>
           <li>This data is used for product personalization.</li>
           <li>This data is linked to the context ID.</li>
-        </ul></TableCell>
+        </ul>
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>

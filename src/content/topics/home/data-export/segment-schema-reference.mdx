@@ -16,10 +16,10 @@ To learn more about the Segment destination, read [Segment's documentation](http
 
 There are four different event kinds exported to Segment. They are:
 
-* [Feature events](#feature-events): This event is emitted when a feature flag is evaluated.
-* [Click events](#click-events): This event is emitted when an end user clicks on a CSS selector for which they have configured a metric in an experiment.
-* [Page view events](#page-view-events): This event is emitted when an end user loads a page associated with an experiment metrics.
-* [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a `custom` event.
+- [Feature events](#feature-events): This event is emitted when a feature flag is evaluated.
+- [Click events](#click-events): This event is emitted when an end user clicks on a CSS selector for which they have configured a metric in an experiment.
+- [Page view events](#page-view-events): This event is emitted when an end user loads a page associated with an experiment metrics.
+- [Custom events](#custom-events): This event is emitted when LaunchDarkly SDK sends a `custom` event.
 
 LaunchDarkly no longer supports `alias` events for SDKs upgraded to contexts. LaunchDarkly continues to support sending and receiving alias events for older SDK versions. For a list of SDKs that still support `alias` events, read [Aliasing users](/sdk/features/aliasing-users).
 
@@ -36,30 +36,46 @@ These properties are:
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell><code>event</code></TableCell>
-      <TableCell>The event kind. This field maps onto <a href="https://segment.com/docs/connections/spec/track/">Segment's event field</a>.
+      <TableCell>
+        <code>event</code>
+      </TableCell>
+      <TableCell>
+        The event kind. This field maps onto
+        <a href="https://segment.com/docs/connections/spec/track/">Segment's event field</a>.
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>environment</code></TableCell>
+      <TableCell>
+        <code>environment</code>
+      </TableCell>
       <TableCell>The LaunchDarkly environment ID corresponding to event.</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>project</code></TableCell>
+      <TableCell>
+        <code>project</code>
+      </TableCell>
       <TableCell>The LaunchDarkly project ID corresponding to the event.</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>key</code></TableCell>
-      <TableCell>The flag key corresponding to the event. In the case of Experimentation events, this will be the metric key for the experiment.</TableCell>
+      <TableCell>
+        <code>key</code>
+      </TableCell>
+      <TableCell>
+        The flag key corresponding to the event. In the case of Experimentation events, this will be the metric key for
+        the experiment.
+      </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>userId</code></TableCell>
-      <TableCell>The key of the user object associated with the emitted event.
-      For example, in client-side SDKs, this is the key of the currently
-      identified user. This field maps onto <a href="https://segment.com/docs/connections/spec/track/">Segment's userId field</a>.
+      <TableCell>
+        <code>userId</code>
       </TableCell>
-   </TableRow>
-   </TableBody>
+      <TableCell>
+        The key of the user object associated with the emitted event. For example, in client-side SDKs, this is the key
+        of the currently identified user. This field maps onto{' '}
+        <a href="https://segment.com/docs/connections/spec/track/">Segment's userId field</a>.
+      </TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 
 ## Feature events
@@ -73,44 +89,73 @@ This table explains `feature` event properties:
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell><code>value</code></TableCell>
+      <TableCell>
+        <code>value</code>
+      </TableCell>
       <TableCell>The value of the evaluated flag.</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>flagVersion</code></TableCell>
+      <TableCell>
+        <code>flagVersion</code>
+      </TableCell>
       <TableCell>The version of the evaluated flag.</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>inExperiment</code></TableCell>
-      <TableCell><code>true</code> if this flag evaluation was allocated to an experiment. <br/> To learn more, read <a href="/home/creating-experiments/allocation">Allocating experiment audiences</a>.
+      <TableCell>
+        <code>inExperiment</code>
+      </TableCell>
+      <TableCell>
+        <code>true</code> if this flag evaluation was allocated to an experiment. <br /> To learn more, read{' '}
+        <a href="/home/creating-experiments/allocation">Allocating experiment audiences</a>.
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>reasonKind</code></TableCell>
-      <TableCell>The evaluation reason for the flag. <br/>
-To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reasons</a>.
+      <TableCell>
+        <code>reasonKind</code>
+      </TableCell>
+      <TableCell>
+        The evaluation reason for the flag. <br />
+        To learn more, read <a href="/sdk/concepts/evaluation-reasons">Evaluation reasons</a>.
       </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>prereqOf</code></TableCell>
-      <TableCell>Set to another flag’s key if this flag evaluation was only performed in order to determine whether the prerequisite values were met for the indicated flag. <br/> To learn more, read <a href="/home/flags/prerequisites">Flag prerequisites</a>.
-</TableCell>
+      <TableCell>
+        <code>prereqOf</code>
+      </TableCell>
+      <TableCell>
+        Set to another flag’s key if this flag evaluation was only performed in order to determine whether the
+        prerequisite values were met for the indicated flag. <br /> To learn more, read{' '}
+        <a href="/home/flags/prerequisites">Flag prerequisites</a>.
+      </TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>default</code></TableCell>
+      <TableCell>
+        <code>default</code>
+      </TableCell>
       <TableCell>Indicates whether the flag value was the result of the default variation being evaluated.</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>variation</code></TableCell>
-      <TableCell>The variation of the flag requested. The SDK stores flag variation values in an array. This value corresponds to the index of the variation the array. Boolean flags show as <code>0</code> or <code>1</code> for <code>true</code> and <code>false</code>, and other flag types are numbered starting with <code>0</code> for their different variations.</TableCell>
+      <TableCell>
+        <code>variation</code>
+      </TableCell>
+      <TableCell>
+        The variation of the flag requested. The SDK stores flag variation values in an array. This value corresponds to
+        the index of the variation the array. Boolean flags show as <code>0</code> or <code>1</code> for{' '}
+        <code>true</code> and <code>false</code>, and other flag types are numbered starting with <code>0</code> for
+        their different variations.
+      </TableCell>
     </TableRow>
-        <TableRow>
-      <TableCell><code>variationName</code></TableCell>
-      <TableCell>The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.</TableCell>
+    <TableRow>
+      <TableCell>
+        <code>variationName</code>
+      </TableCell>
+      <TableCell>
+        The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't
+        appear.
+      </TableCell>
     </TableRow>
-   </TableBody>
+  </TableBody>
 </Table>
-
 
 ## Click events
 
@@ -123,14 +168,20 @@ This table explains `click` event properties:
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell><code>url</code></TableCell>
+      <TableCell>
+        <code>url</code>
+      </TableCell>
       <TableCell>The URL from which a user context triggered a flag evaluation.</TableCell>
     </TableRow>
     <TableRow>
-      <TableCell><code>selector</code></TableCell>
-      <TableCell>The CSS selector corresponding to the <code>click</code> event.</TableCell>
+      <TableCell>
+        <code>selector</code>
+      </TableCell>
+      <TableCell>
+        The CSS selector corresponding to the <code>click</code> event.
+      </TableCell>
     </TableRow>
-   </TableBody>
+  </TableBody>
 </Table>
 
 ## Page view events
@@ -144,10 +195,12 @@ This table explains `page view` event properties:
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell><code>url</code></TableCell>
+      <TableCell>
+        <code>url</code>
+      </TableCell>
       <TableCell>The URL from which a user context triggered a flag evaluation.</TableCell>
     </TableRow>
-   </TableBody>
+  </TableBody>
 </Table>
 
 ## Custom events
@@ -163,9 +216,13 @@ This table explains `custom` event properties not listed in that section:
   </TableHeader>
   <TableBody>
     <TableRow>
-      <TableCell><code>metricValue</code></TableCell>
-      <TableCell>The numeric value of a metric if it is specified in the event.
-      If no metric value was provided, this field doesn't appear.</TableCell>
+      <TableCell>
+        <code>metricValue</code>
+      </TableCell>
+      <TableCell>
+        The numeric value of a metric if it is specified in the event. If no metric value was provided, this field
+        doesn't appear.
+      </TableCell>
     </TableRow>
-   </TableBody>
+  </TableBody>
 </Table>

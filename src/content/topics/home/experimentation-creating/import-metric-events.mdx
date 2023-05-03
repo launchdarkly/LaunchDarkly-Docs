@@ -47,34 +47,61 @@ Here's how to structure your import metric request:
     <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
-  <TableRow>
-    <TableCell>Base URL</TableCell>
-    <TableCell><code>https://events.launchdarkly.com</code></TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Resource</TableCell>
-    <TableCell><code>/import/environments/client-side-id-123abc/metrics</code><br/><br/> Replace <code>client-side-id-123abc</code> with the client-side ID for the environment your metric events pertain to. Your client-side ID is available under <strong>Environments</strong> on the <strong>Projects</strong> tab on the <a href="https://app.launchdarkly.com/settings#/projects"><strong>Account settings</strong></a> page.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>REST method</TableCell>
-    <TableCell><code>POST</code></TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Headers</TableCell>
-    <TableCell>
-      <ul>
-        <li><code>Content-Type: application/json</code>, required</li>
-        <li><code>X-LaunchDarkly-Event-Schema: 4</code>, required</li>
-        <li><code>LD-API-Version: beta</code>, required</li>
-        <li><code>X-LaunchDarkly-Payload-ID: YOUR_PAYLOAD_ID</code>, optional. Use this to send a unique ID for the payload, which you can use to <a href="#retrying-failed-requests">retry failed requests</a>.</li>
-        <li><code>User-Agent: MetricImport-YOUR_COMPANY_NAME-int/VERSION</code>, required. This helps us identify the source of traffic and debug issues. <code>VERSION</code> can be any format, but you should update it if you make major changes to your implementation.</li>
-      </ul>
-    </TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell>Request body</TableCell>
-    <TableCell>The events to import, represented as a JSON array.</TableCell>
-  </TableRow>
+    <TableRow>
+      <TableCell>Base URL</TableCell>
+      <TableCell>
+        <code>https://events.launchdarkly.com</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Resource</TableCell>
+      <TableCell>
+        <code>/import/environments/client-side-id-123abc/metrics</code>
+        <br />
+        <br /> Replace <code>client-side-id-123abc</code> with the client-side ID for the environment your metric events
+        pertain to. Your client-side ID is available under <strong>Environments</strong> on the{' '}
+        <strong>Projects</strong> tab on the{' '}
+        <a href="https://app.launchdarkly.com/settings#/projects">
+          <strong>Account settings</strong>
+        </a>
+        {' '}page.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>REST method</TableCell>
+      <TableCell>
+        <code>POST</code>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Headers</TableCell>
+      <TableCell>
+        <ul>
+          <li>
+            <code>Content-Type: application/json</code>, required
+          </li>
+          <li>
+            <code>X-LaunchDarkly-Event-Schema: 4</code>, required
+          </li>
+          <li>
+            <code>LD-API-Version: beta</code>, required
+          </li>
+          <li>
+            <code>X-LaunchDarkly-Payload-ID: YOUR_PAYLOAD_ID</code>, optional. Use this to send a unique ID for the
+            payload, which you can use to <a href="#retrying-failed-requests">retry failed requests</a>.
+          </li>
+          <li>
+            <code>User-Agent: MetricImport-YOUR_COMPANY_NAME-int/VERSION</code>, required. This helps us identify the
+            source of traffic and debug issues. <code>VERSION</code> can be any format, but you should update it if you
+            make major changes to your implementation.
+          </li>
+        </ul>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>Request body</TableCell>
+      <TableCell>The events to import, represented as a JSON array.</TableCell>
+    </TableRow>
   </TableBody>
 </Table>
 
@@ -93,9 +120,9 @@ The request body must consist of a <strong>JSON array</strong> of `custom` event
     "creationDate": 16420388151234,
     "metricValue": 32.0,
     "contextKeys": {
-      "user": "jim",
+      "user": "jim"
     }
-  },
+  }
   // ... more events
 ]
 ```
@@ -111,27 +138,49 @@ Here are the details of each `custom` event field:
     <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
-  <TableRow>
-    <TableCell><code>kind</code></TableCell>
-    <TableCell>A string, must be set to <code>custom</code>.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell><code>key</code></TableCell>
-    <TableCell>Identifies your metric. When you create your metric in LaunchDarkly, its <strong>Event name</strong> must exactly match this value. To learn more, read <a href="/home/creating-experiments/metrics">Creating metrics</a>.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell><code>creationDate</code></TableCell>
-    <TableCell>Timestamp of when the event is created, in Unix milliseconds.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell><code>metricValue</code></TableCell>
-    <TableCell>The value of the metric. For numeric metrics, this is required. For conversion metrics, this is optional and LaunchDarkly will ignore it if provided.</TableCell>
-  </TableRow>
-  <TableRow>
-    <TableCell><code>contextKeys</code></TableCell>
-    <TableCell>A JSON object with two properties named <code>user</code> and <code>anonymousUser</code>. The value of the <code>user</code> property is the context key and must uniquely identify the context that the metric is about. The context key must exactly match the context key provided to any LaunchDarkly SDKs evaluating flags that will be used in the experiments.
-    </TableCell>
-  </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>kind</code>
+      </TableCell>
+      <TableCell>
+        A string, must be set to <code>custom</code>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>key</code>
+      </TableCell>
+      <TableCell>
+        Identifies your metric. When you create your metric in LaunchDarkly, its <strong>Event name</strong> must
+        exactly match this value. To learn more, read <a href="/home/creating-experiments/metrics">Creating metrics</a>.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>creationDate</code>
+      </TableCell>
+      <TableCell>Timestamp of when the event is created, in Unix milliseconds.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>metricValue</code>
+      </TableCell>
+      <TableCell>
+        The value of the metric. For numeric metrics, this is required. For conversion metrics, this is optional and
+        LaunchDarkly will ignore it if provided.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>contextKeys</code>
+      </TableCell>
+      <TableCell>
+        A JSON object with two properties named <code>user</code> and <code>anonymousUser</code>. The value of the{' '}
+        <code>user</code> property is the context key and must uniquely identify the context that the metric is about.
+        The context key must exactly match the context key provided to any LaunchDarkly SDKs evaluating flags that will
+        be used in the experiments.
+      </TableCell>
+    </TableRow>
   </TableBody>
 </Table>
 
@@ -166,7 +215,13 @@ Clients should expect to receive the following response status codes from the AP
   <TableBody>
     <TableRow>
       <TableCell>202 Accepted</TableCell>
-      <TableCell> The request completed successfully and the metric events were accepted for import. Note that they may still not be recorded if their format does not confirm to the required JSON schema. To learn more, read <a href="#known-limitations">Known limitations</a>. </TableCell>
+      <TableCell>
+        {' '}
+        The request completed successfully and the metric events were accepted for import. Note that they may still not be
+        recorded if their format does not confirm to the required JSON schema. To learn more, read <a href="#known-limitations">
+          Known limitations
+        </a>.{' '}
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>400 Bad Request</TableCell>
@@ -174,15 +229,25 @@ Clients should expect to receive the following response status codes from the AP
     </TableRow>
     <TableRow>
       <TableCell>403 Forbidden</TableCell>
-      <TableCell> Your account does not have access to the metric import API, or the <code>LD-API-Version</code> header is not set to <code>beta</code>. </TableCell>
+      <TableCell>
+        {' '}
+        Your account does not have access to the metric import API, or the <code>LD-API-Version</code> header is not set
+        to <code>beta</code>.{' '}
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>404 Not Found</TableCell>
-      <TableCell> The <code>clientSideID</code> specified in the URL is invalid. </TableCell>
+      <TableCell>
+        {' '}
+        The <code>clientSideID</code> specified in the URL is invalid.{' '}
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>406 Not Acceptable</TableCell>
-      <TableCell> The <code>X-LaunchDarkly-Event-Schema</code> header is not set to <code>4</code>. </TableCell>
+      <TableCell>
+        {' '}
+        The <code>X-LaunchDarkly-Event-Schema</code> header is not set to <code>4</code>.{' '}
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>429 Too Many Requests</TableCell>
@@ -190,7 +255,10 @@ Clients should expect to receive the following response status codes from the AP
     </TableRow>
     <TableRow>
       <TableCell>5xx</TableCell>
-      <TableCell> The metric import API is temporarily unavailable. In this case the metric events may not have been accepted for import. </TableCell>
+      <TableCell>
+        {' '}
+        The metric import API is temporarily unavailable. In this case the metric events may not have been accepted for import.{' '}
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -200,10 +268,11 @@ Clients should expect to receive the following response status codes from the AP
 5xx error responses should be rare, and indicate the metrics may not have been accepted for import. To learn more, read [Retrying failed requests](#retrying-failed-requests).
 
 ## Known limitations
+
 Because the metric import API is still in beta, there are a few known limitations. These include the following:
 
-* There is a limit on the request body size of 10MB per request. If you need to batch-upload a large number of historical events, please contact us for more information.
-* The API does not validate that request bodies conform to the required JSON schema. Invalid request bodies, or JSON objects within a request body that do not conform to the schema, will not be processed.
+- There is a limit on the request body size of 10MB per request. If you need to batch-upload a large number of historical events, please contact us for more information.
+- The API does not validate that request bodies conform to the required JSON schema. Invalid request bodies, or JSON objects within a request body that do not conform to the schema, will not be processed.
 
 ## Best practices
 
@@ -217,8 +286,8 @@ Clients should not retry requests receiving 4xx responses, with the exception of
 
 429 and 5xx responses indicate transient issues, so it is appropriate to retry requests receiving these responses, in order to ensure that their events are accepted for import. Clients that retry requests must follow these instructions when doing so:
 
-* Clients must not retry immediately, but must back off, preferably with an exponentially increasing delay.
-* To ensure events are only processed once when retrying, all requests must include the `X-LaunchDarkly-Payload-ID` header. This header must contain a freshly generated payload id for each request. However, when retrying, the retries must _reuse the same payload id_ as the original request. LaunchDarkly will use this header to deduplicate repeated requests and ensure events are only processed once.
+- Clients must not retry immediately, but must back off, preferably with an exponentially increasing delay.
+- To ensure events are only processed once when retrying, all requests must include the `X-LaunchDarkly-Payload-ID` header. This header must contain a freshly generated payload id for each request. However, when retrying, the retries must _reuse the same payload id_ as the original request. LaunchDarkly will use this header to deduplicate repeated requests and ensure events are only processed once.
 
 ## Billing implications
 
@@ -226,5 +295,5 @@ While the metric import API is in Early Access, there is no separate charge for 
 
 However, imported events may count toward usage of the following features:
 
-* If the imported events are recorded in an experiment and you are on an older contract that bills by [Experimentation events](/home/about-experimentation/events), then the imported events may count toward Experimentation usage. This does not apply to the current Experimentation billing model introduced in 2022, which is based on unique context keys.
-* Imported events will be included in the [Data Export](/home/data-export), and count toward Data Export usage.
+- If the imported events are recorded in an experiment and you are on an older contract that bills by [Experimentation events](/home/about-experimentation/events), then the imported events may count toward Experimentation usage. This does not apply to the current Experimentation billing model introduced in 2022, which is based on unique context keys.
+- Imported events will be included in the [Data Export](/home/data-export), and count toward Data Export usage.

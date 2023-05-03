@@ -25,7 +25,7 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 The identify feature's behavior differs between client-side and server-side SDKs.
 
-Client-side SDKs are configured to operate for one end user at a time, identified or anonymous. In these SDKs, the identify feature allows you to change the context, such as when an end user logs in or changes their settings. Identifying contexts and users causes LaunchDarkly to index them. To associate two contexts with each other, such as an end user before and after they log in, call identify with a multi-context that contains both contexts. The association doesn't persist between calls, so you must call identify with the multi-context each time. 
+Client-side SDKs are configured to operate for one end user at a time, identified or anonymous. In these SDKs, the identify feature allows you to change the context, such as when an end user logs in or changes their settings. Identifying contexts and users causes LaunchDarkly to index them. To associate two contexts with each other, such as an end user before and after they log in, call identify with a multi-context that contains both contexts. The association doesn't persist between calls, so you must call identify with the multi-context each time.
 
 Server-side SDKs operate for multiple end users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because contexts or users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying contexts and users is that they are added to the **Contexts** and **Users** lists, respectively. However, in most applications this is not needed because they are automatically indexed when used for a flag evaluation. Instead, you should provide the evaluation object in a variation or all flags call to get the expected flag evaluation. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Getting all flags](/sdk/features/all-flags).
 
@@ -33,24 +33,24 @@ To learn more about the differences in how SDKs identify and use users and conte
 
 Details about each SDK's identify feature are available in the SDK-specific sections below.
 
-* [Client-side SDKs](#client-side-sdks)
-* [Server-side SDKs](#server-side-sdks)
+- [Client-side SDKs](#client-side-sdks)
+- [Server-side SDKs](#server-side-sdks)
 
 ## Client-side SDKs
 
 This feature is available in the following client-side SDKs:
 
-* [.NET (client-side)](#net-client-side)
-* [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
-* [Electron](#electron)
-* [Flutter](#flutter)
-* [iOS](#ios)
-* [JavaScript](#javascript)
-* [Node.js (client-side)](#nodejs-client-side)
-* [React](#react)
-* [React Native](#react-native)
-* [Roku](#roku)
+- [.NET (client-side)](#net-client-side)
+- [Android](#android)
+- [C/C++ (client-side)](#cc-client-side)
+- [Electron](#electron)
+- [Flutter](#flutter)
+- [iOS](#ios)
+- [JavaScript](#javascript)
+- [Node.js (client-side)](#nodejs-client-side)
+- [React](#react)
+- [React Native](#react-native)
+- [Roku](#roku)
 
 ### .NET (client-side)
 
@@ -100,6 +100,7 @@ await client.IdentifyAsync(updatedUser);
 </CodeSample>
 
 To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_Identify_) and [`IdentifyAsync`](https://launchdarkly.github.io/dotnet-client-sdk/api/LaunchDarkly.Sdk.Client.LdClient.html#LaunchDarkly_Sdk_Client_LdClient_IdentifyAsync_).
+
 </Details>
 
 ### Android
@@ -165,7 +166,8 @@ The `identify()` call loads any saved flag values for the new user context and i
 
 `identify()` returns a [Future](https://developer.android.com/reference/java/util/concurrent/Future) to indicate completion. If you want to be sure subsequent code is using the latest values from the server, you can wait for the Future using `get`.
 
-To learn more, read [`identify`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#identify(com.launchdarkly.sdk.LDContext)).
+To learn more, read [`identify`](<https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#identify(com.launchdarkly.sdk.LDContext)>).
+
 </Details>
 
 ### C/C++ (client-side)
@@ -176,7 +178,7 @@ The `Identify()` method tells the client to change the current user and obtain t
 
 In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify` so that the person receives the correct feature flag settings for their account.
 
-<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-174758) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+{/* cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-174758) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable */}
 
 You can use the `LDClientIdentify` method to switch users:
 
@@ -191,6 +193,7 @@ LDClientIdentify(client, newUser);
 </CodeSample>
 
 The `LDClientIdentify()` call loads any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, you should should not call it at high frequency. The intended use case for switching user contexts is the login/logout flow. To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#a7ee43b2353f00798979ba51cfebb1a53).
+
 </Details>
 
 ### Electron
@@ -201,7 +204,7 @@ The `identify()` method tells the client to change the current user and obtain t
 
 In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163925) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+{/* cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163925) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable */}
 
 Here's how:
 
@@ -209,38 +212,39 @@ Here's how:
 <CSTab label="JavaScript">
 
 ```js
-const newUser = { key: 'user-key-123abc', name: 'Sandy' };
+const newUser = { key: 'user-key-123abc', name: 'Sandy' }
 
-client.identify(newUser, (newFlags) => {
-  console.log('value of flag for this user is: ' + newFlags['flag-key-123abc']);
-  console.log('this should be the same: ' + client.variation('flag-key-123abc'));
-});
+client.identify(newUser, newFlags => {
+  console.log('value of flag for this user is: ' + newFlags['flag-key-123abc'])
+  console.log('this should be the same: ' + client.variation('flag-key-123abc'))
+})
 
 // or:
-client.identify(newUser).then((newFlags) => {
+client.identify(newUser).then(newFlags => {
   // as above
-});
+})
 ```
 
 </CSTab>
 <CSTab label="TypeScript">
 
 ```ts
-import * as LDElectron from 'launchdarkly-electron-client-sdk';
+import * as LDElectron from 'launchdarkly-electron-client-sdk'
 
 const newUser: LDElectron.LDUser = {
-  key: 'someone-else', name: 'John',
-};
+  key: 'someone-else',
+  name: 'John',
+}
 
-client.identify(newUser, (newFlags) => {
-  console.log('value of flag for this user is: ' + newFlags['flag-key-123abc']);
-  console.log('this should be the same: ' + client.variation('flag-key-123abc'));
-});
+client.identify(newUser, newFlags => {
+  console.log('value of flag for this user is: ' + newFlags['flag-key-123abc'])
+  console.log('this should be the same: ' + client.variation('flag-key-123abc'))
+})
 
 // or:
-client.identify(newUser).then((newFlags) => {
+client.identify(newUser).then(newFlags => {
   // as above
-});
+})
 ```
 
 </CSTab>
@@ -378,7 +382,7 @@ LDUser *newUser = [[LDUser alloc] initWithKey:@"user-key-123abc"];
 </CSTab>
 </CodeSample>
 
-To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/c:@M@LaunchDarkly@objc(cs)LDClient(im)identifyWithContext:).
+To learn more, read [`identify`](<https://launchdarkly.github.io/ios-client-sdk/Classes/ObjcLDClient.html#/c:@M@LaunchDarkly@objc(cs)LDClient(im)identifyWithContext:>).
 
 </Details>
 
@@ -400,9 +404,9 @@ Here's how:
 <CSTab label="JavaScript SDK v3.0, single context">
 
 ```js
-client.identify(newContext, hash, function() {
-  console.log("New context's flags available");
-});
+client.identify(newContext, hash, function () {
+  console.log("New context's flags available")
+})
 ```
 
 </CSTab>
@@ -414,26 +418,26 @@ const newMultiContext = {
   user: {
     key: 'user-key-123abc',
     name: 'Anna',
-    role: 'doctor'
+    role: 'doctor',
   },
   device: {
     key: 'device-key-123abc',
-    platform: 'Android'
-  }
+    platform: 'Android',
+  },
 }
 
-client.identify(newMultiContext, hash, function() {
-  console.log("New context's flags available");
-});
+client.identify(newMultiContext, hash, function () {
+  console.log("New context's flags available")
+})
 ```
 
 </CSTab>
 <CSTab label="JavaScript SDK v2.x">
 
 ```js
-client.identify(newUser, hash, function() {
-  console.log("New user's flags available");
-});
+client.identify(newUser, hash, function () {
+  console.log("New user's flags available")
+})
 ```
 
 </CSTab>
@@ -470,13 +474,13 @@ Here's how:
 
 ```js
 client.identify(newContext, () => {
-  console.log("New context's flags available");
-});
+  console.log("New context's flags available")
+})
 
 // or, with a Promise:
 client.identify(newContext).then(() => {
-  console.log("New context's flags available");
-});
+  console.log("New context's flags available")
+})
 ```
 
 </CSTab>
@@ -488,22 +492,22 @@ const newMultiContext = {
   user: {
     key: 'aa0ceb',
     name: 'Anna',
-    role: 'doctor'
+    role: 'doctor',
   },
   device: {
     key: 'device-key-123abc',
-    platform: 'Android'
-  }
+    platform: 'Android',
+  },
 }
 
 client.identify(newMultiContext, () => {
-  console.log("New context's flags available");
-});
+  console.log("New context's flags available")
+})
 
 // or, with a Promise:
 client.identify(newMultiContext).then(() => {
-  console.log("New context's flags available");
-});
+  console.log("New context's flags available")
+})
 ```
 
 </CSTab>
@@ -511,13 +515,13 @@ client.identify(newMultiContext).then(() => {
 
 ```js
 client.identify(newUser, () => {
-  console.log("New user's flags available");
-});
+  console.log("New user's flags available")
+})
 
 // or, with a Promise:
 client.identify(newUser).then(() => {
-  console.log("New user's flags available");
-});
+  console.log("New user's flags available")
+})
 ```
 
 </CSTab>
@@ -543,13 +547,13 @@ Here's how:
 <CSTab label="JavaScript">
 
 ```js
-import { useLDClient } from 'launchdarkly-react-client-sdk';
+import { useLDClient } from 'launchdarkly-react-client-sdk'
 
-let ldClient = useLDClient();
+let ldClient = useLDClient()
 
 ldClient.identify(newContext, null, () => {
-  console.log("New context's flags available");
-});
+  console.log("New context's flags available")
+})
 ```
 
 </CSTab>
@@ -573,40 +577,40 @@ Here's how:
 <CSTab label="React Native SDK v7.0 (JavaScript)">
 
 ```js
-let context = {'key': 'user-key-123abc', 'kind': 'user'};
-await client.identify(context); // promise resolves to null
-Alert.alert('identify', 'success');
+let context = { key: 'user-key-123abc', kind: 'user' }
+await client.identify(context) // promise resolves to null
+Alert.alert('identify', 'success')
 ```
 
 </CSTab>
 <CSTab label="React Native SDK, v6.x (JavaScript)">
 
 ```js
-let user = {'key': 'user-key-123abc'};
-await client.identify(user); //promise resolves to nil/null
-Alert.alert('identify', 'success');
+let user = { key: 'user-key-123abc' }
+await client.identify(user) //promise resolves to nil/null
+Alert.alert('identify', 'success')
 ```
 
 </CSTab>
 <CSTab label="React Native SDK v7.0 (TypeScript)">
 
 ```ts
-import { LDContext } from 'launchdarkly-react-native-client-sdk';
+import { LDContext } from 'launchdarkly-react-native-client-sdk'
 
-let context: LDContext = {'key': 'user-key-123abc', 'kind': 'user'};
-await client.identify(context); // promise resolves to null
-Alert.alert('identify', 'success');
+let context: LDContext = { key: 'user-key-123abc', kind: 'user' }
+await client.identify(context) // promise resolves to null
+Alert.alert('identify', 'success')
 ```
 
 </CSTab>
 <CSTab label="React Native SDK, v6.x (TypeScript)">
 
 ```ts
-import LDClient, * as ld from 'launchdarkly-react-native-client-sdk';
+import LDClient, * as ld from 'launchdarkly-react-native-client-sdk'
 
-let user: ld.LDUser = {'key': 'minimal_user'};
-await client.identify(user); //promise resolves to nil/null
-Alert.alert('identify', 'success');
+let user: ld.LDUser = { key: 'minimal_user' }
+await client.identify(user) //promise resolves to nil/null
+Alert.alert('identify', 'success')
 ```
 
 </CSTab>
@@ -667,19 +671,19 @@ launchDarkly.identify(user)
 
 This feature is available in the following server-side SDKs:
 
-* [.NET (server-side)](#net-server-side)
-* [Apex](#apex)
-* [C/C++ (server side)](#cc-server-side)
-* [Erlang](#erlang)
-* [Go](#go)
-* [Haskell](#haskell)
-* [Java](#java)
-* [Lua](#lua)
-* [Node.js (server side)](#nodejs-server-side)
-* [PHP](#php)
-* [Python](#python)
-* [Ruby](#ruby)
-* [Rust](#rust)
+- [.NET (server-side)](#net-server-side)
+- [Apex](#apex)
+- [C/C++ (server side)](#cc-server-side)
+- [Erlang](#erlang)
+- [Go](#go)
+- [Haskell](#haskell)
+- [Java](#java)
+- [Lua](#lua)
+- [Node.js (server side)](#nodejs-server-side)
+- [PHP](#php)
+- [Python](#python)
+- [Ruby](#ruby)
+- [Rust](#rust)
 
 ### .NET (server-side)
 
@@ -709,6 +713,7 @@ client.Identify(user);
 </CodeSample>
 
 To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_Identify_).
+
 </Details>
 
 ### Apex
@@ -741,6 +746,7 @@ client.identify(user);
 </CodeSample>
 
 To learn more, read [Other methods](https://github.com/launchdarkly/apex-server-sdk/blob/main/doc.md#other-methods-1).
+
 </Details>
 
 ### C/C++ (server-side)
@@ -764,6 +770,7 @@ LDClientIdentify(client, user);
 </CodeSample>
 
 To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-server-sdk/client_8h.html#a696a5bebe952dc076488e9fb2562b091).
+
 </Details>
 
 ### Erlang
@@ -794,6 +801,7 @@ ldclient:identify(#{key => <<"user-key-123abc">>})
 </CodeSample>
 
 To learn more, read [`identify`](https://hexdocs.pm/launchdarkly_server_sdk/ldclient.html#identify-1).
+
 </Details>
 
 ### Go
@@ -824,6 +832,7 @@ client.Identify(user)
 </CodeSample>
 
 To learn more, read [`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-server-sdk.v5#LDClient.Identify).
+
 </Details>
 
 ### Haskell
@@ -884,7 +893,8 @@ client.identify(user);
 </CSTab>
 </CodeSample>
 
-To learn more, read [`identify`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#identify(com.launchdarkly.sdk.LDContext)).
+To learn more, read [`identify`](<https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#identify(com.launchdarkly.sdk.LDContext)>).
+
 </Details>
 
 ### Lua
@@ -908,6 +918,7 @@ client:identify(user)
 </CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/lua-server-sdk/modules/launchdarkly-server-sdk.html#identify).
+
 </Details>
 
 ### Node.js (server-side)
@@ -924,20 +935,21 @@ To use `identify`:
 <CSTab label="Node.js SDK v6">
 
 ```js
-client.identify(context);
+client.identify(context)
 ```
 
 </CSTab>
 <CSTab label="Node.js SDK v5.x">
 
 ```js
-client.identify(user);
+client.identify(user)
 ```
 
 </CSTab>
 </CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#identify).
+
 </Details>
 
 ### PHP
@@ -999,6 +1011,7 @@ ldclient.get().identify(user)
 </CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly-python-sdk.readthedocs.io/en/latest/api-main.html#ldclient.client.LDClient.identify).
+
 </Details>
 
 ### Ruby
@@ -1029,6 +1042,7 @@ client.identify(user)
 </CodeSample>
 
 To learn more, read [`identify`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#identify-instance_method).
+
 </Details>
 
 ### Rust
@@ -1047,14 +1061,17 @@ To use `identify`:
 ```rust
 client.identify(context);
 ```
+
 </CSTab>
 <CSTab label="Rust SDK beta">
 
 ```rust
 client.identify(user);
 ```
+
 </CSTab>
 </CodeSample>
 
 To learn more, read [`identify`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.identify).
+
 </Details>

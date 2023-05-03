@@ -74,9 +74,9 @@ export const onClientEntry = () => {
   }
 }
 
-export const replaceHydrateFunction = () => {
-  return (element, container) => {
-    const root = createRoot(container)
-    root.render(element)
-  }
-}
+// export const replaceHydrateFunction = () => {
+//   return (element, container) => {
+//     const root = createRoot(container)
+//     root.render(element)
+//   }
+// }

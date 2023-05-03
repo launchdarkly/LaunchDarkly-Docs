@@ -114,12 +114,12 @@ interface LayoutProps {
 }
 
 const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
+  children,
   data: {
     site: {
       siteMetadata: { title: siteTitle, siteUrl },
     },
     mdx: {
-      body,
       toc,
       timeToRead,
       fields: { isLandingPage, lastModifiedTime, modifiedDate },
@@ -199,7 +199,7 @@ const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
               site={site}
               siteAlertTitle={siteAlertTitle}
             />
-            <MDXProvider components={components}>{body}</MDXProvider>
+            <MDXProvider components={components}>{children}</MDXProvider>
             <footer sx={{ height: '7rem' }}></footer>
           </article>
           {!isLandingPage && <TableOfContents toc={toc} />}
@@ -218,9 +218,7 @@ export const pageQuery = graphql`
       }
     }
     mdx(id: { eq: $id }, frontmatter: { published: { eq: true } }) {
-      body
       toc: tableOfContents(maxDepth: 2)
-      timeToRead
       fields {
         isLandingPage
         lastModifiedTime(formatString: "MMM DD, YYYY")
@@ -234,6 +232,7 @@ export const pageQuery = graphql`
         siteAlertTitle
       }
       fileAbsolutePath
+      timeToRead
     }
   }
 `
