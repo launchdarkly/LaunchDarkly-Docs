@@ -2,7 +2,6 @@
 import { FunctionComponent } from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { graphql } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { jsx, ThemeProvider } from 'theme-ui'
 
 import Callout, { CalloutDescription, CalloutTitle } from './mdx/callout'
@@ -44,9 +43,7 @@ const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
     <ThemeProvider theme={theme}>
       <Reset />
       <main sx={{ width: '40rem', margin: '0 auto', my: 6 }}>
-        <MDXProvider components={components}>
-          <MDXRenderer>{body}</MDXRenderer>
-        </MDXProvider>
+        <MDXProvider components={components}>{body}</MDXProvider>
       </main>
     </ThemeProvider>
   )

@@ -4,7 +4,6 @@ import { Helmet } from 'react-helmet'
 import { MDXProvider } from '@mdx-js/react'
 import { graphql, withPrefix } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
 import pluralize from 'pluralize'
 import { Card, jsx, ThemeProvider } from 'theme-ui'
 
@@ -200,9 +199,7 @@ const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
               site={site}
               siteAlertTitle={siteAlertTitle}
             />
-            <MDXProvider components={components}>
-              <MDXRenderer>{body}</MDXRenderer>
-            </MDXProvider>
+            <MDXProvider components={components}>{body}</MDXProvider>
             <footer sx={{ height: '7rem' }}></footer>
           </article>
           {!isLandingPage && <TableOfContents toc={toc} />}
