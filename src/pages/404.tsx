@@ -2,8 +2,9 @@
 import { Fragment } from 'react'
 import { Helmet } from 'react-helmet'
 import { CSSObject, keyframes } from '@emotion/react'
+import { Themed } from '@theme-ui/mdx'
 import { graphql, useStaticQuery } from 'gatsby'
-import { jsx, Theme, Themed, ThemeUICSSObject } from 'theme-ui'
+import { jsx, Theme, ThemeUICSSObject } from 'theme-ui'
 
 import Link from '../components/link'
 import Reset from '../components/resetStyles'
