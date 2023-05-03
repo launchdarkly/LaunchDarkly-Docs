@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import React from 'react'
-import { IntrinsicSxElements, jsx, Themed } from 'theme-ui'
+import { Themed } from '@theme-ui/mdx'
+import { IntrinsicSxElements, jsx } from 'theme-ui'
 
 import { copyToClipboard } from '../../utils/copyToClipboard'
 import Icon from '../icon'
