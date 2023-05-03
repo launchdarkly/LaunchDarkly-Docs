@@ -1011,6 +1011,10 @@
             "path": "/integrations/cloudflare"
           },
           {
+            "label": "Cloudquery",
+            "path": "/integrations/cloudquery"
+          },
+          {
             "label": "Compass",
             "path": "/integrations/compass"
           },

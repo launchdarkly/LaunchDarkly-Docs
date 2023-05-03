@@ -41,6 +41,7 @@ circleci
 classname
 classpath
 clientstream
+cloudquery
 cmake
 cmci
 cocoapods
