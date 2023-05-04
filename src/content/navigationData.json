@@ -1011,6 +1011,10 @@
             "path": "/integrations/cloudflare"
           },
           {
+            "label": "Cloudquery",
+            "path": "/integrations/cloudquery"
+          },
+          {
             "label": "Compass",
             "path": "/integrations/compass"
           },
@@ -1025,6 +1029,10 @@
           {
             "label": "LogDNA",
             "path": "/integrations/logdna"
+          },
+          {
+            "label": "Okteto",
+            "path": "/integrations/okteto"
           },
           {
             "label": "Pendo",

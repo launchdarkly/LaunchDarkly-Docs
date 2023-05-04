@@ -41,6 +41,7 @@ circleci
 classname
 classpath
 clientstream
+cloudquery
 cmake
 cmci
 cocoapods
@@ -176,6 +177,7 @@ Nonnull
 NRQL
 objc
 okhttp
+Okteto
 onelogin
 optin
 overrepresent

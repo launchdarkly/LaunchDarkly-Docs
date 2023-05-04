@@ -97,6 +97,12 @@ const AllIntegrations = () => {
       path: '/integrations/cloudflare',
     },
     {
+      label: 'Cloudquery',
+      shortLabel: 'Cloudquery',
+      path: '/integrations/cloudquery',
+      svg: 'integrations/cloudquery',
+    },
+    {
       label: 'Compass',
       shortLabel: 'Compass',
       path: '/integrations/compass',
@@ -209,6 +215,12 @@ const AllIntegrations = () => {
       shortLabel: 'Okta',
       path: '/home/account-security/okta',
       svg: 'integrations/okta',
+    },
+    {
+      label: 'Okteto',
+      shortLabel: 'Okteto',
+      path: '/integrations/okteto',
+      svg: 'integrations/okteto',
     },
     {
       label: 'OneLogin',
