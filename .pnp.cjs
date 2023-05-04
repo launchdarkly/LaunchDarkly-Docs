@@ -97,6 +97,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.5.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:7.0.0"],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:5.9.0"],\
+            ["gatsby-core-utils", "npm:4.9.0"],\
             ["gatsby-parcel-config", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.9.0"],\
             ["gatsby-plugin-algolia", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.0.3"],\
             ["gatsby-plugin-catch-links", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:5.9.0"],\
@@ -24466,6 +24467,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-react-hooks", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:4.5.0"],\
             ["eslint-plugin-simple-import-sort", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:7.0.0"],\
             ["gatsby", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:5.9.0"],\
+            ["gatsby-core-utils", "npm:4.9.0"],\
             ["gatsby-parcel-config", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.9.0"],\
             ["gatsby-plugin-algolia", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.0.3"],\
             ["gatsby-plugin-catch-links", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:5.9.0"],\
