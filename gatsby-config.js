@@ -25,9 +25,6 @@ const plugins = [
         remarkPlugins: [require('remark-slug'), require('remark-unwrap-images')],
       },
       gatsbyRemarkPlugins: [
-        // {
-        //   resolve: 'gatsby-remark-relative-images',
-        // },
         {
           resolve: 'gatsby-remark-images',
           options: {

@@ -1,6 +1,7 @@
 const { execSync } = require('child_process')
 const path = require('path')
 const slug = require('slug')
+const readingTime = require('reading-time')
 const redirectRules = require('./redirectRules')
 const getFinalDestination = require('./getFinalDestination')
 const isDev = process.env.GATSBY_ACTIVE_ENV === 'development'
@@ -14,7 +15,6 @@ const getLastModifiedFromGitLog = absolutePath => {
 
 exports.onCreateNode = async ({ node, actions }) => {
   const { createNodeField } = actions
-  const readingTime = require('reading-time')
   const {
     internal: { type, contentFilePath },
   } = node
@@ -56,11 +56,13 @@ exports.onCreateNode = async ({ node, actions }) => {
       node,
       value: !!node.frontmatter.isLandingPage,
     })
+
     createNodeField({
       name: 'fileAbsolutePath',
       node,
       value: contentFilePath,
     })
+
     createNodeField({
       node,
       name: 'timeToRead',

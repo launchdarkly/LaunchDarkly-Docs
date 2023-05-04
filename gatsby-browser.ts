@@ -1,4 +1,3 @@
-import { createRoot } from 'react-dom/client'
 import aa from 'search-insights'
 import { TrackJS } from 'trackjs'
 
@@ -73,10 +72,3 @@ export const onClientEntry = () => {
     }
   }
 }
-
-// export const replaceHydrateFunction = () => {
-//   return (element, container) => {
-//     const root = createRoot(container)
-//     root.render(element)
-//   }
-// }
