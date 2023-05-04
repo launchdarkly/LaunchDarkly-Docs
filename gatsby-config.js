@@ -1,9 +1,20 @@
+const path = require('path')
 const { queries } = require('./src/utils/algolia')
 
 const isStaging = process.env.GATSBY_ACTIVE_ENV === 'staging'
 const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
 
 const buildDevIndex = !!process.env.BUILD_DEV_ALGOLIA_INDEX
+
+const staticImageFolder = path.join(__dirname, "/src/content/images")
+const wrapESMPlugin = name =>
+  function wrapESM(opts) {
+    return async (...args) => {
+      const mod = await import(name)
+      const plugin = mod.default(opts)
+      return plugin(...args)
+    }
+  }
 
 // These are useful to debug build issues
 console.log(`
@@ -21,10 +32,17 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-mdx',
     options: {
+      extensions: [`.mdx`, `.md`],
       mdxOptions: {
-        remarkPlugins: [require('remark-slug'), require('remark-unwrap-images')],
+        remarkPlugins: [wrapESMPlugin('rehype-slug'), wrapESMPlugin('remark-unwrap-images')],
       },
       gatsbyRemarkPlugins: [
+        {
+          resolve: 'gatsby-remark-mdx-relative-images',
+          options: {
+            staticFolderName: staticImageFolder,
+          }
+        },
         {
           resolve: 'gatsby-remark-images',
           options: {
