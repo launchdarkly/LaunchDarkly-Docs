@@ -1,7 +1,6 @@
 /** @jsx jsx */
 import { FunctionComponent } from 'react'
 import { MDXProvider } from '@mdx-js/react'
-import { graphql } from 'gatsby'
 import { jsx, ThemeProvider } from 'theme-ui'
 
 import Callout, { CalloutDescription, CalloutTitle } from './mdx/callout'
@@ -25,36 +24,20 @@ const components = {
 }
 
 interface LayoutProps {
-  data: {
-    mdx: {
-      body: string
-    }
-  }
+  children: React.ReactNode
 }
 
 const theme = {}
 
-const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
-  data: {
-    mdx: { body },
-  },
-}) => {
+const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <Reset />
       <main sx={{ width: '40rem', margin: '0 auto', my: 6 }}>
-        <MDXProvider components={components}>{body}</MDXProvider>
+        <MDXProvider components={components}>{children}</MDXProvider>
       </main>
     </ThemeProvider>
   )
 }
-
-export const pageQuery = graphql`
-  query InternalLayoutQuery($id: String) {
-    mdx(id: { eq: $id }) {
-      body
-    }
-  }
-`
 
 export default Layout

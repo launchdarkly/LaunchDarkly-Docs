@@ -1,6 +1,6 @@
 /** @jsx jsx */
+import type { NavigateFn } from '@reach/router'
 import { useSelect } from 'downshift'
-import { navigate } from 'gatsby'
 import { Button, jsx } from 'theme-ui'
 
 import { SiteType } from '../../types/siteType'
@@ -14,7 +14,10 @@ const items: SiteType[] = ['launchDarkly', 'federal']
 
 const getLabel = (site: SiteType) => (site === 'federal' ? 'Federal docs' : 'LaunchDarkly docs')
 
-const SiteSelector = () => {
+type SiteSelectorProps = {
+  navigateFn: NavigateFn
+}
+const SiteSelector = ({ navigateFn }: SiteSelectorProps) => {
   const [site, setSite] = useSite()
   const { isOpen, getToggleButtonProps, getMenuProps, highlightedIndex, selectedItem, getItemProps } = useSelect({
     items,
@@ -25,7 +28,7 @@ const SiteSelector = () => {
   function onSelectedItemChange({ selectedItem: selectedSite }: { selectedItem?: SiteType }) {
     trackSiteSelection(selectedSite)
     setSite(selectedSite)
-    navigate(addRemoveSiteParam('', selectedSite, true), { replace: true })
+    navigateFn(addRemoveSiteParam('', selectedSite, true), { replace: true })
   }
   const dropdownWidth = '11rem'
 
