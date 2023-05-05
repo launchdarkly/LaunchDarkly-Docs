@@ -28,11 +28,11 @@ A large number of servers, such as thousands or tens of thousands, can present t
 
 ### Using PHP
 
-PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests. You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests. You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates. To learn more, read [Using PHP](https://github.com/launchdarkly/ld-relay/blob/v7/docs/php.md).
 
-### Reducing initialization latency in a serverless environment
+### Reducing initialization latency in short-lived and serverless environments
 
-In most cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server.
+In most cases, the best way to use LaunchDarkly in short-lived and serverless environments is with the Relay Proxy hosted on a long-lived server.
 
 ### Using Big Segments or segments synced from Amplitude with server-side SDKs
 

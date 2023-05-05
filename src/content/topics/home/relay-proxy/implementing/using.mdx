@@ -20,7 +20,7 @@ The values you may replace are:
 
 - The base URI for the polling service. The default value is `https://app.launchdarkly.com`, `https://sdk.launchdarkly.com`, or `https://clientsdk.launchdarkly.com`, depending on which SDK you use.
 - The base URI for the streaming service. The default value is `https://stream.launchdarkly.com` for server-side SDKs and `https://clientstream.launchdarkly.com` for client-side and mobile SDKs.
-- The base URI for the events service. The default value is `https://events.launchdarkly.com` or `https://mobile.launchdarkly.com`, depending on which SDK you use.
+- The base URI for the events service. The default value is `https://events.launchdarkly.com` or `https://mobile.launchdarkly.com`, depending on which SDK you use. To learn more, read [Event forwarding](https://github.com/launchdarkly/ld-relay/blob/v7/docs/events.md).
 
 Each SDK uses these values to determine where to request flag updates. Change the values to point to the Relay Proxy URI instead of directly to LaunchDarkly's services. In some SDKs, you must set the base URI of each service to the Relay Proxy's base URI, using a separate configuration property for each service but setting each one to the same value. In other SDKs, you can set the base URI for all services with a single configuration property.
 
@@ -45,7 +45,7 @@ The Relay Proxy's two modes are not mutually exclusive. If you have configured m
 
 ### Using proxy mode
 
-Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default. Client-side SDKs must use proxy mode.
+Proxy mode is the most common use case for connecting to the Relay Proxy. LaunchDarkly SDKs are configured to run in proxy mode by default. Client-side SDKs must use proxy mode. To learn more about configuring the Relay Proxy for client-side SDKs, read [Client-side/mobile connections](https://github.com/launchdarkly/ld-relay/blob/v7/docs/client-side.md).
 
 In proxy mode, several Relay Proxy instances should exist in a high-availability configuration behind a load balancer. Relay Proxy nodes do not need to communicate with each other. There is no master node or cluster.
 
@@ -55,7 +55,9 @@ Here is a diagram showing how the Relay Proxy works in proxy mode:
 
 ![SDKs configured to use the Relay Proxy while in proxy mode.](relayproxy-proxy-mode.png)
 
-You should not use a persistent feature store between the Relay Proxy and your application in proxy mode.
+You should not use a persistent feature store between the Relay Proxy and your application in proxy mode. 
+
+To learn more, read the Relay Proxy GitHub repository's [Proxy mode](https://github.com/launchdarkly/ld-relay/blob/v7/docs/proxy-mode.md) and [Using TLS docs](https://github.com/launchdarkly/ld-relay/blob/v7/docs/tls.md).
 </Details>
 
 <Details summary="Expand Using daemon mode">
@@ -66,7 +68,11 @@ Daemon mode requires that you configure server-side LaunchDarkly SDKs to communi
 
 There is no need to put a load balancer in front of the Relay Proxy when your SDKs are configured to run in daemon mode. You need only one instance of the Relay Proxy to keep the persistent store up to date. Multiple instances do not help the Relay Proxy to scale with the number of connected clients. 
 
-The persistent store will contain the flag and segment rules for your configured environments. The amount of data is typically quite small. The data will be the same information returned by the streaming and polling endpoints.
+The persistent store will contain the flag and segment rules for your configured environments. The amount of data is typically quite small. The data will be the same information returned by the streaming and polling endpoints. To learn more about using daemon mode, read the Relay Proxy GitHub repository's [Daemon mode docs](https://github.com/launchdarkly/ld-relay/blob/v7/docs/daemon-mode.md).
+
+Here is a diagram showing how the Relay Proxy works in daemon mode:
+
+![SDKs configured to use the Relay Proxy while in daemon mode.](relayproxy-daemon-mode.png)
 
 To use daemon mode:
 
@@ -85,11 +91,6 @@ If you have set your SDK to daemon mode and wish to restore proxy mode, you can 
 </Callout>
 
 We recommend that you use a monitoring service, such as Datadog, when your SDKs are configured to run in daemon mode. Because the Relay Proxy's data store communicates directly with the SDKs when the Relay Proxy is in daemon mode, an external monitoring service can provide information about problems that might otherwise be lost during an outage.
-
-Here is a diagram showing how the Relay Proxy works in daemon mode:
-
-![SDKs configured to use the Relay Proxy while in daemon mode.](relayproxy-daemon-mode.png)
-
 </Details>
 
 ## Configuring the Relay Proxy for Big Segments
@@ -124,11 +125,15 @@ To learn more, read [Big Segments](/home/contexts/big-segments) and [Evaluation 
 
 ## Using a persistent store
 
-You can use either DynamoDB or Redis as a persistent store with the Relay Proxy.
+If you are using Big Segments with server-side SDKs, you must use a persistent store with the Relay Proxy. You can use either DynamoDB or Redis as a persistent store with the Relay Proxy.
+
+We recommend setting an infinite time to live (TTL) on the cache for your persistent store so flags do not evaluate to their fallback values if the Relay Proxy loses its connection to the persistent store. To learn more, read [Using a persistent feature store](/home/relay-proxy/guidelines#using-a-persistent-feature-store).
 
 Here is a diagram showing how a persistent store works with the Relay Proxy:
 
 ![SDKs configured to use a persistent store and the Relay Proxy.](relay-proxy-diagram-persistent-store.png)
+
+If you are not using Big Segments, we do not recommend using a persistent store. To learn more, read the Relay Proxy GitHub repository's [Persistent storage docs](https://github.com/launchdarkly/ld-relay/blob/v7/docs/persistent-storage.md).
 
 <Details summary="Expand Using DynamoDB with the Relay Proxy">
 
@@ -152,8 +157,6 @@ We generally recommend using DynamoDB for persistent storage with the Relay Prox
 
 If you use Redis with the Relay Proxy, each of your Redis hosts will need enough RAM to load the full set of segments and flag configurations, because the Relay Proxy doesn't support Redis in cluster mode or other sharding. The Relay Proxy will not realize that Redis is empty if it became empty after the Relay Proxy fully initialized. Redis’ default configuration empties the database on reboot, so you must put Redis in persistent storage mode.
 </Details>
-
-To learn more, read [Persistent storage](https://github.com/launchdarkly/ld-relay/blob/v7/docs/persistent-storage.md).
 
 ## Securing connections to and from the Relay Proxy
 
