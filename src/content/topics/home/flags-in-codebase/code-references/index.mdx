@@ -160,13 +160,13 @@ Metadata sent to LaunchDarkly if [`extinctions`](#understanding-extinction-event
 - All of the metadata listed in the section above
 - Commit message when extinction was recorded
 
-[`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) is open source and available for review. Code reference give your team additional insights, such as surfacing flag usage in the code base to provide additional safety checks when archiving flags, during the lifecycle of the flag while still maintaining a secure SDLC.
+[`ld-find-code-refs`](https://github.com/launchdarkly/ld-find-code-refs/) is open source and available for review. Code reference give your team additional insights, such as surfacing flag usage in the codebase to provide additional safety checks when archiving flags, during the lifecycle of the flag while still maintaining a secure SDLC.
 
 ## Finding flag aliases
 
 Aliases help you find indirect references to feature flags, such as flag keys stored in variables or in wrapped SDK code.
 
-Here's how to find references to `firstFeatureFlag` throughout your code base:
+Here's how to find references to `firstFeatureFlag` throughout your codebase:
 
 <CodeSample>
 <CSTab label="Example flag variable">
@@ -189,7 +189,7 @@ aliases:
 </CSTab>
 </CodeSample>
 
-This identifies all references to `firstFeatureFlag` in your code base.
+This identifies all references to `firstFeatureFlag` in your codebase.
 
 To learn more about aliases, read the [aliases documentation](https://github.com/launchdarkly/ld-find-code-refs/blob/main/docs/ALIASES.md).
 
