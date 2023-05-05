@@ -97,8 +97,8 @@ const AllIntegrations = () => {
       path: '/integrations/cloudflare',
     },
     {
-      label: 'Cloudquery',
-      shortLabel: 'Cloudquery',
+      label: 'CloudQuery',
+      shortLabel: 'CloudQuery',
       path: '/integrations/cloudquery',
       svg: 'integrations/cloudquery',
     },
