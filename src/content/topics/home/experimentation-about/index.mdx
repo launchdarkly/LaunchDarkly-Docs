@@ -233,7 +233,7 @@ You can also use the REST API: [Experiments (beta)](https://apidocs.launchdarkly
 
 Experiments are billed monthly based on the number of unique context keys in each experiment. To learn more about context keys, read [Built-in attributes](/home/contexts/built-in-attributes).
 
-Your billing month begins on the same day of the month your contract began with LaunchDarkly. For example, if your contract with LaunchDarkly began on January 15th, your Experimentation billing month resets the 15th of every month. To estimate your Experimentation billing costs, multiply the number of experiments you run each month by the number of unique context keys in your experiment audiences. If an experiment has multiple iterations, it is still counted as one experiment. If the same context key appears in two different experiments, they key is counted twice for billing purposes.
+Your billing month begins on the same day of the month your contract began with LaunchDarkly. For example, if your contract with LaunchDarkly began on January 15th, your Experimentation billing month resets the 15th of every month. To estimate your Experimentation billing costs, multiply the number of experiments you run each month by the number of unique context keys in your experiment audiences. If an experiment has multiple iterations, LaunchDarkly still counts it as one experiment. If the same context key appears in two different experiments, LaunchDarkly counts the key twice for billing purposes.
 
 <Callout intent="info">
 <CalloutTitle>You may be billed for experiment events instead of keys</CalloutTitle>
