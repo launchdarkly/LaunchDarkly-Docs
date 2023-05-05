@@ -57,14 +57,14 @@ The function signature for the `init` function has changed.
 <CSTab label="1.x">
 
 ```typescript
-const client = initLD(env.LD_KV, sdkKey);
+const client = init(env.LD_KV, sdkKey);
 ```
 
 </CSTab>
 <CSTab label="2.0">
 
 ```typescript
-const client = initLD(sdkKey, env.LD_KV);
+const client = init(sdkKey, env.LD_KV);
 ```
 
 </CSTab>
