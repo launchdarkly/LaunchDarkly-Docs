@@ -19,7 +19,7 @@ env:
 jobs:
   build-deploy:
     if: ${{ github.event.pull_request.number != '' || github.event.inputs.PR_NUMBER != '' || endsWith(github.ref_name, '-eap') }}
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     name: Deploy to s3 staging
     environment:
       name: staging
