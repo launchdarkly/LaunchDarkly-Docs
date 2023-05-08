@@ -19,7 +19,7 @@ export function CodeSample({ children }: CodeSampleProps) {
     const selectedChild = validChildren.find((_child, index: number) => {
       return index === selectedIndex
     })
-    console.log('validChildren', validChildren)
+
     validChildren.forEach((CSTabItem: JSX.Element, index: number) => {
       throwErrorIfLabelMissing(CSTabItem, index)
     })
