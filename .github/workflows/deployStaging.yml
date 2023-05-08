@@ -103,6 +103,7 @@ jobs:
         if: steps.build-status.outputs.deploy == 'true'
         run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
       - name: Build and deploy
+        timeout-minutes: 15
         if: steps.build-status.outputs.deploy == 'true'
         run: yarn build-deploy-staging
         env:
