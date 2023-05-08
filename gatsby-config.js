@@ -1,4 +1,3 @@
-const path = require('path')
 const { queries } = require('./src/utils/algolia')
 
 const isStaging = process.env.GATSBY_ACTIVE_ENV === 'staging'
@@ -6,7 +5,7 @@ const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
 
 const buildDevIndex = !!process.env.BUILD_DEV_ALGOLIA_INDEX
 
-const staticImageFolder = path.join(__dirname, '/src/content/images')
+// const staticImageFolder = path.join(__dirname, '/src/content/images')
 const wrapESMPlugin = name =>
   function wrapESM(opts) {
     return async (...args) => {
@@ -28,7 +27,50 @@ if (isStaging && !process.env.GATSBY_BUCKET_PREFIX) {
   throw new Error("There's no GATSBY_BUCKET_PREFIX to deploy to staging")
 }
 
+const loadImagesAndTopics = () => {
+  // Omit mdx images in fast dev mode
+  if (process.env.DEV_FAST !== 'true') {
+    return [
+      {
+        resolve: 'gatsby-source-filesystem',
+        options: {
+          name: 'mdx-images',
+          path: `${__dirname}/src/content/images`,
+        },
+      },
+      {
+        resolve: 'gatsby-source-filesystem',
+        options: {
+          path: `${__dirname}/src/content/topics`,
+          name: 'mdx',
+        },
+      },
+    ]
+  }
+
+  return [
+    {
+      resolve: 'gatsby-source-filesystem',
+      options: {
+        path: `${__dirname}/src/content/topics`,
+        name: 'mdx',
+        // Omit all mdx but getting-started, managing-flags, managing-users in fast dev mode
+        ignore: [
+          '**/guides',
+          '**/integrations',
+          '**/sdk',
+          '**/home/account-security',
+          '**/home/advanced',
+          '**/home/about-experimentation',
+          '**/home/billing',
+        ],
+      },
+    },
+  ]
+}
+
 const plugins = [
+  ...loadImagesAndTopics(),
   {
     resolve: 'gatsby-plugin-mdx',
     options: {
@@ -38,10 +80,7 @@ const plugins = [
       },
       gatsbyRemarkPlugins: [
         {
-          resolve: 'gatsby-remark-mdx-relative-images',
-          options: {
-            staticFolderName: staticImageFolder,
-          },
+          resolve: 'gatsby-remark-relative-images-v2',
         },
         {
           resolve: 'gatsby-remark-images',
@@ -159,44 +198,6 @@ const plugins = [
     },
   },
 ]
-
-// Omit mdx images in fast dev mode
-if (process.env.DEV_FAST !== 'true') {
-  plugins.push(
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'mdx-images',
-        path: `${__dirname}/src/content/images`,
-      },
-    },
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        path: `${__dirname}/src/content/topics`,
-        name: 'mdx',
-      },
-    },
-  )
-} else {
-  plugins.push({
-    resolve: 'gatsby-source-filesystem',
-    options: {
-      path: `${__dirname}/src/content/topics`,
-      name: 'mdx',
-      // Omit all mdx but getting-started, managing-flags, managing-users in fast dev mode
-      ignore: [
-        '**/guides',
-        '**/integrations',
-        '**/sdk',
-        '**/home/account-security',
-        '**/home/advanced',
-        '**/home/about-experimentation',
-        '**/home/billing',
-      ],
-    },
-  })
-}
 
 if (isStaging || isProd || buildDevIndex) {
   plugins.push({

@@ -38,7 +38,7 @@
     "gatsby-plugin-theme-ui": "^0.15.7",
     "gatsby-remark-copy-linked-files": "6.9.0",
     "gatsby-remark-images": "^7.9.0",
-    "gatsby-remark-mdx-relative-images": "^1.1.1",
+    "gatsby-remark-relative-images-v2": "^0.1.5",
     "gatsby-source-filesystem": "^5.9.0",
     "gatsby-transformer-json": "^5.9.0",
     "gatsby-transformer-sharp": "^5.9.0",
