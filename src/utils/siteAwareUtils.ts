@@ -7,7 +7,7 @@ import { SiteType } from '../types/siteType'
 const siteAwareSubdomains = ['app', 'clientsdk', 'clientstream', 'events', 'sdk', 'status', 'stream'] as const
 
 type SubdomainMap = {
-  [key in typeof siteAwareSubdomains[number]]?: {
+  [key in (typeof siteAwareSubdomains)[number]]?: {
     searchValue: string
     searchRegExp: RegExp
     replaceValue: string

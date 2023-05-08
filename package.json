@@ -143,7 +143,7 @@
     "build-deploy-prod": "NODE_OPTIONS=--max-old-space-size=8192 yarn build-prod && gatsby-plugin-s3 deploy --yes",
     "prettier": "prettier --write \"**/*.{js,ts,tsx,json,yml}\" --loglevel warn",
     "prettierf": "prettier",
-    "start": "yarn build-nav-data && GATSBY_WEBPACK_LOGGING='develop' gatsby develop",
+    "start": "NODE_OPTIONS=--max-old-space-size=8192 yarn build-nav-data && GATSBY_WEBPACK_LOGGING='develop' gatsby develop",
     "dev": "NODE_OPTIONS=--max-old-space-size=8192 yarn && yarn start",
     "dev-fast": "yarn build-nav-data && DEV_FAST=true gatsby develop",
     "serve-dev": "GATSBY_ACTIVE_ENV=development gatsby serve",
