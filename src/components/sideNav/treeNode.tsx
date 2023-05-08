@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { LinkGetProps } from '@reach/router'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
@@ -140,10 +141,12 @@ function Node({
   const isActive = isActiveNodeOrAncestor(currentPath, node)
 
   useEffect(() => {
-    if (isPristine && isActive && isCollapsed) {
-      setIsPristine(false)
-      onFirstExpand(node)
-    }
+    flushSync(() => {
+      if (isPristine && isActive && isCollapsed) {
+        setIsPristine(false)
+        onFirstExpand(node)
+      }
+    })
   }, [node, isPristine, isActive, isCollapsed, onFirstExpand, setIsPristine])
 
   const handleExpandCollapse = () => {
