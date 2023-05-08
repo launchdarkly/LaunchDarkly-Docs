@@ -69,6 +69,7 @@ module.exports = {
     // https://github.com/prettier/eslint-config-prettier/blob/master/README.md#forbid-unnecessary-backticks
     quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }],
 
+    'react/no-unknown-property': ['error', { 'ignore': ['sx'] }],
     // Disable prop-types as we use TypeScript for type checking
     'react/prop-types': 'off',
     'react-hooks/rules-of-hooks': 'error',
