@@ -9216,7 +9216,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.13.0":
+"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.13.0, enhanced-resolve@npm:^5.7.0":
   version: 5.13.0
   resolution: "enhanced-resolve@npm:5.13.0"
   dependencies:
@@ -11315,6 +11315,18 @@ __metadata:
     react: ">=18"
     theme-ui: ^0.15.7
   checksum: 18900a23e808508b964cf75e1179e5ea1ca1469688ac498c842147250012a5d8cd7fa58c2cfd722e5cd81b6178e57ca3d2eedca52371ae9bef74ce65f9c55e6e
+  languageName: node
+  linkType: hard
+
+"gatsby-plugin-tsconfig-paths@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "gatsby-plugin-tsconfig-paths@npm:1.0.6"
+  dependencies:
+    lodash: 4.17.21
+    tsconfig-paths-webpack-plugin: ^3.2.0
+  peerDependencies:
+    gatsby: ~2.x.x || ~3.x.x || ~4.x.x || ~5.x.x
+  checksum: 987553344dc38716657e1dd16264a6d36bb9347fc7e172e196e657251fb0936b02af3b52951ce19c3d449b2ae9c096ab457066e43b2d5769688934b7c7bd755a
   languageName: node
   linkType: hard
 
@@ -14575,6 +14587,7 @@ __metadata:
     gatsby-plugin-sitemap: ^6.9.0
     gatsby-plugin-svgr-loader: ^0.1.0
     gatsby-plugin-theme-ui: ^0.15.7
+    gatsby-plugin-tsconfig-paths: ^1.0.6
     gatsby-plugin-typescript: ^5.9.0
     gatsby-remark-copy-linked-files: 6.9.0
     gatsby-remark-images: ^7.9.0
@@ -14608,6 +14621,7 @@ __metadata:
     ts-jest: ^27.1.4
     ts-loader: ^9.3.0
     ts-node: ^10.7.0
+    tsconfig-paths: ^4.2.0
     typescript: 4.5.5
     ua-parser-js: ^1.0.33
     use-local-storage-state: 17
@@ -14940,17 +14954,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash@npm:4.17.21, lodash@npm:^4.15.0, lodash@npm:^4.17.10, lodash@npm:^4.17.12, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.7.0, lodash@npm:~4.17.0":
+  version: 4.17.21
+  resolution: "lodash@npm:4.17.21"
+  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
+  languageName: node
+  linkType: hard
+
 "lodash@npm:4.17.5":
   version: 4.17.5
   resolution: "lodash@npm:4.17.5"
   checksum: 9ae12b708f68c54f2701daae072c5e3f648ed7cbe78b9308ce12209cd41053de9856d59df11464d8a3f35c3828a8d9add11051e3efc8bb75672271bb7c9da393
-  languageName: node
-  linkType: hard
-
-"lodash@npm:^4.15.0, lodash@npm:^4.17.10, lodash@npm:^4.17.12, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.7.0, lodash@npm:~4.17.0":
-  version: 4.17.21
-  resolution: "lodash@npm:4.17.21"
-  checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
   languageName: node
   linkType: hard
 
@@ -20519,7 +20533,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths@npm:^3.14.1":
+"tsconfig-paths-webpack-plugin@npm:^3.2.0":
+  version: 3.5.2
+  resolution: "tsconfig-paths-webpack-plugin@npm:3.5.2"
+  dependencies:
+    chalk: ^4.1.0
+    enhanced-resolve: ^5.7.0
+    tsconfig-paths: ^3.9.0
+  checksum: e7872f45b10684204d4a6cbc7989073d885c99e0c9eb5222de6b2b83d2e1594bccb647f52d2f8e00c53da5b9a3084e47a2de44f41c6f7a607ec2b17330a8d9e9
+  languageName: node
+  linkType: hard
+
+"tsconfig-paths@npm:^3.14.1, tsconfig-paths@npm:^3.9.0":
   version: 3.14.2
   resolution: "tsconfig-paths@npm:3.14.2"
   dependencies:
@@ -20528,6 +20553,17 @@ __metadata:
     minimist: ^1.2.6
     strip-bom: ^3.0.0
   checksum: a6162eaa1aed680537f93621b82399c7856afd10ec299867b13a0675e981acac4e0ec00896860480efc59fc10fd0b16fdc928c0b885865b52be62cadac692447
+  languageName: node
+  linkType: hard
+
+"tsconfig-paths@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "tsconfig-paths@npm:4.2.0"
+  dependencies:
+    json5: ^2.2.2
+    minimist: ^1.2.6
+    strip-bom: ^3.0.0
+  checksum: 28c5f7bbbcabc9dabd4117e8fdc61483f6872a1c6b02a4b1c4d68c5b79d06896c3cc9547610c4c3ba64658531caa2de13ead1ea1bf321c7b53e969c4752b98c7
   languageName: node
   linkType: hard
 

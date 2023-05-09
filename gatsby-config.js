@@ -70,6 +70,7 @@ const loadImagesAndTopics = () => {
 }
 
 const plugins = [
+  'gatsby-plugin-tsconfig-paths',
   ...loadImagesAndTopics(),
   {
     resolve: 'gatsby-plugin-mdx',
