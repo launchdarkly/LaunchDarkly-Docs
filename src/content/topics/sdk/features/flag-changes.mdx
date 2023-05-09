@@ -479,6 +479,7 @@ This feature is available in the following server-side SDKs:
 * [Go](#go)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
+* [Ruby](#ruby)
 
 ### .NET (server-side)
 
@@ -779,6 +780,69 @@ client.on('update', (param) => {
 client.on('update:flag-key-123abc', () => {
   console.log('the flag-key-123abc flag was changed');
 });
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Ruby
+
+<Details summary="Expand Ruby code sample">
+
+<Callout intent="info">
+<CalloutTitle>This feature is not available in all SDK versions</CalloutTitle>
+<CalloutDescription>
+
+The Ruby SDK only supports subscribing to flag changes in versions 7.2.0 and higher.
+
+</CalloutDescription>
+</Callout>
+
+The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient#flag_tracker`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#flag_tracker-instance_method) method returns an interface for this mechanism, [`FlagTracker`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagTracker.html).
+
+Calling [`flag_tracker.add_listener`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagTracker.html#add_listener-instance_method) calls your listener with a [`FlagChange`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagChange.html) event whenever there is a change to any of the following: 
+
+* the flag's configuration
+* the prerequisite flag's configuration 
+* a segment used by the flag
+
+
+The event data consists only of the flag key. It does not contain a flag value, because server-side SDKs only evaluate flags when you provide a specific context.
+
+The listener method is called from a worker thread.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="Ruby">
+
+```ruby
+class Listener
+    def update(status)
+        puts "Flag #{status.key} has changed"
+    end
+end
+
+client.flag_tracker.add_listener(Listener.new)
+```
+
+</CSTab>
+</CodeSample>
+
+To listen for changes in flag values for a specific flag key and context, use [`flag_tracker.add_flag_value_change_listener`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagTracker.html#add_flag_value_change_listener-instance_method), which provides [`FlagValueChange`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagValueChange.html) events. This is equivalent to re-evaluating the flag for that context whenever `add_listener` reports a change in that flag.
+
+<CodeSample>
+<CSTab label="Ruby">
+
+```ruby
+class Listener
+    def update(changed)
+        puts "Flag #{changed.key} has changed from #{changed.old_value} to #{changed.new_value}"
+    end
+end
+
+client.flag_tracker.add_flag_value_change_listener("example-flag-key", context, Listener.new)
 ```
 
 </CSTab>

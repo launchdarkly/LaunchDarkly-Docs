@@ -649,6 +649,7 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Go](#go)
 * [Java](#java)
+* [Ruby](#ruby)
 
 ### .NET (server-side)
 
@@ -763,4 +764,36 @@ client.getDataSourceStatusProvider().addStatusListener(
 </CodeSample>
 
 To learn more, read [`DataSourceStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataSourceStatusProvider.html) and [`DataStoreStatusProvider`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/interfaces/DataStoreStatusProvider.html).
+</Details>
+
+### Ruby
+
+<Details summary="Expand Ruby code sample">
+
+To check the data source status:
+
+<CodeSample>
+<CSTab label="Ruby">
+
+```ruby
+status = client.data_source_status_provider.status
+```
+
+</CSTab>
+</CodeSample>
+
+Alternatively, you can register an event listener that receives a new status value whenever the status changes:
+
+<CodeSample>
+<CSTab label="Ruby">
+
+```ruby
+# listener#update will be called when the status is changed
+client.data_source_status_provider.add_listener(listener);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`DataSource::StatusProvider`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/DataSource/StatusProvider.html) and [`DataStore::StatusProvider`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/DataStore/StatusProvider.html).
 </Details>

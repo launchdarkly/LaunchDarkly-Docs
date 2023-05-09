@@ -21,7 +21,9 @@ Relay Proxy offline mode is available to customers on an Enterprise plan. To lea
 
 ## Benefits of offline mode
 
-Enabling offline mode on the Relay Proxy lets you run the Relay Proxy without ever connecting it to LaunchDarkly. Instead of retrieving flag and segment values from LaunchDarkly's servers, the Relay Proxy gets them from files located on your local host or filesystem.
+For most customers, we do not recommend running the Relay Proxy in offline mode. Running the Relay Proxy in offline mode means that any time you make changes to your flag rules, you must re-download the flag rule file, update it on the Relay Proxy's filesystem, and restart the Relay Proxy. In contrast, running the Relay Proxy in other modes handles these changes automatically. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+
+However, there are benefits to using offline mode in certain circumstances. Enabling offline mode on the Relay Proxy lets you run the Relay Proxy without ever connecting it to LaunchDarkly. Instead of retrieving flag and segment values from LaunchDarkly's servers, the Relay Proxy gets them from files located on your local host or filesystem.
 
 This allows you to run the Relay Proxy in a highly secure system, such as in your organization's air-gapped or FedRAMP-compliant system. By using offline mode, you can secure the Relay Proxy away from any external touchpoints. Alternatively, if your primary concern is FedRAMP-compliance, you can also use the LaunchDarkly federal instance. To learn more, read [LaunchDarkly in federal environments](/home/advanced/federal).
 
@@ -29,7 +31,7 @@ This allows you to run the Relay Proxy in a highly secure system, such as in you
 <CalloutTitle>Offline mode does not send events to LaunchDarkly</CalloutTitle>
 <CalloutDescription>
 
-When the Relay Proxy is in offline mode, it does not send events to LaunchDarkly, and event-driven app features do not indicate new activity. For example, flag statuses and the flag evaluations graph do not update to reflect evaluations from an offline Relay Proxy.
+When the Relay Proxy is in offline mode, it does not send events to LaunchDarkly, and event-driven app features do not indicate new activity. For example, flag statuses and the flag evaluations graph do not update to reflect evaluations from an offline Relay Proxy. To learn more, read [Events in offline mode](https://github.com/launchdarkly/ld-relay/blob/v7/docs/events.md#events-in-offline-mode).
 
 </CalloutDescription>
 </Callout>

@@ -27,7 +27,7 @@ This technical guide explores a database migration strategy. To use it successfu
 
 When managing a migration, you should avoid a sudden switch-over from your old code to your new code. When your old code and new code are large and complex, it’s better to make the change gradual and easy to reverse. We recommend making both versions available at the same time, and gradually increasing the percentage or types of traffic sent to the new code.
 
-The traditional method is to separate your old code and new code into different code bases or branches. This may require separate deployment clusters and differentiation at a network level. This can be challenging, as it depends on the network being easily segmentable, involves changing configurations in multiple places, and doesn’t have much room for granularity.
+The traditional method is to separate your old code and new code into different codebases or branches. This may require separate deployment clusters and differentiation at a network level. This can be challenging, as it depends on the network being easily segmentable, involves changing configurations in multiple places, and doesn’t have much room for granularity.
 
 A more efficient method is to have both the old code and new code in the same service, with logic in the code deciding which to use for a particular request. This concentrates the decision logic in one place. It gives you more flexibility and granularity, though you may still need to depend on your network configuration in some cases depending on how much contextual info is sent in the request message.
 

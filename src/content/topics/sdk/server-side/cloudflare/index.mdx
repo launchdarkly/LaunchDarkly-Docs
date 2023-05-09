@@ -124,6 +124,18 @@ npm i @launchdarkly/cloudflare-server-sdk
 </CSTab>
 </CodeSample>
 
+Then turn on the Node.js compatibility flag in your `wrangler.toml`. This allows the SDK to use `node:events`:
+
+<CodeSample>
+<CSTab label="wrangler.toml">
+
+```shell
+compatibility_flags = [ "nodejs_compat" ]
+```
+
+</CSTab>
+</CodeSample>
+
 Next, import the LaunchDarkly client in your application code:
 
 <CodeSample>
@@ -152,7 +164,7 @@ Here's how:
 <CSTab label="TypeScript">
 
 ```js
-const client = initLD(sdkKey, env.LD_KV);
+const client = init(sdkKey, env.LD_KV);
 await client.waitForInitialization();
 ```
 

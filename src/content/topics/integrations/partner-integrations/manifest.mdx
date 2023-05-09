@@ -24,14 +24,68 @@ Here is an example in VSCode:
 
 ![An example manifest in VSCode](integrations-manifest-vscode.png)
 
-## Building your manifest
+## Filling out your manifest
+
+The `manifest.json` file includes information about your organization, your integration, and how it works with LaunchDarkly.
+
+### Organization and contact information
 
 The first part of your manifest should describe your organization, contacts, URLs, and a few items LaunchDarkly needs to list your integration properly.
 
 LaunchDarkly uses most of this information to render your integration card and configuration form in the LaunchDarkly user interface (UI).
 
+Fill out the `name`, `version`, `author`, `supportEmail`, `links`, and `categories` fields.
+
+### Descriptions of your integration
+
+There are two fields in the manifest that describe your integration to LaunchDarkly account members.
+
+The `overview` field is a one-line summary that appears on the **Integrations** list in the LaunchDarkly UI:
+
+![A portion of the integration panel on the "Integrations" list in the LaunchDarkly UI, with the manifest.json "overview" field displayed.](integrations-slack-app-overview.png)
+
+The `description` field is a longer definition that appears when a member clicks **Add integration** from the **Integrations** list in the LaunchDarkly UI:
+
+![An add integration panel in the LaunchDarkly UI, with the manifest.json "description" field displayed.](integrations-slack-app-description.png)
+
+Here are some suggestions for filling out these fields:
+
+* Start your `overview` with a verb. Describe as succinctly as you can the most important action that members can accomplish if they use your integration.
+
+* For your `description`, use two or three sentences to describe what your product is or does and how that provides value to someone working in LaunchDarkly.
+
+* For both fields, use present tense and active voice. Focus on the specific actions that the account member can complete using your integration. When you're done, read your content out loud. If it doesn’t sound like something a human would say, your content needs to be edited.
+
+The `description` can accept simple [Markdown](https://daringfireball.net/projects/markdown/). The LaunchDarkly UI converts Markdown to HTML. To get the best results, only use simple Markdown, such as links and basic text formatting.
+
+### Icons
+
+The `icons` the manifest describes are in SVG format. LaunchDarkly does not accept other image formats.
+
+We use your organization's or integration's logo in the LaunchDarkly UI and in the public integrations listing on [launchdarkly.com/integrations](https://launchdarkly.com/integrations/). SVG files allow your logo to scale nicely on different devices. To ensure your logo appears correctly everywhere we use it, do not include any padding around the image.
+
+The `icon.square` and `icon.horizontal` properties point to relative paths. These paths are relative to your integration's directory. You can create any directories and files that support your integration.
+
+### Using OAuth
+
+Many integrations in LaunchDarkly use API tokens. However, if your API requires OAuth for authentication, LaunchDarkly can support that as well. To learn more, read [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
+
+If your integration requires OAuth, include the `requiresOAuth` field in your manifest and set it to `true`.
+
+### Form variables and capabilities
+
+Form variables and capabilities define the primary interactions that LaunchDarkly and others will have with your integration.
+
+To learn more, read [Using form variables](/integrations/partner-integrations/form-variables) and [Using integration framework capabilities](/integrations/partner-integrations/capabilities).
+
+## Example manifest
+
+To review an example manifest, look through the [`sample-integration` folder](https://github.com/launchdarkly/integration-framework/tree/main/integrations/sample-integration) in the LaunchDarkly `integration-framework` GitHub repository.
+
+Here is an example of part of the `manifest.json` file:
+
 <CodeSample>
-<CSTab label="Example manifest">
+<CSTab label="Example manifest.json">
 
 ```json
 {
@@ -56,21 +110,3 @@ LaunchDarkly uses most of this information to render your integration card and c
 
 </CSTab>
 </CodeSample>
-
-Some properties in the manifest, such as `description`, can accept simple [Markdown](https://daringfireball.net/projects/markdown/). The LaunchDarkly UI converts Markdown to HTML. To get the best results, only use simple Markdown, such as links and basic text formatting.
-
-The `icons` the manifest describes are in SVG format. LaunchDarkly does not accept other image formats.
-
-We use your organization's or integration's logo in the LaunchDarkly UI and in the public integrations listing on [launchdarkly.com/integrations](https://launchdarkly.com/integrations/). SVG files allow your logo to scale nicely on different devices. To ensure your logo appears correctly everywhere we use it, do not include any padding around the image.
-
-The `icon.square` and `icon.horizontal` properties point to relative paths. These paths are relative to your integration's directory. You can create any directories and files that support your integration.
-
-## Using OAuth
-
-Many integrations in LaunchDarkly use API tokens. However, if your API requires OAuth for authentication, LaunchDarkly can support that as well. To learn more, read [Registering a LaunchDarkly OAuth client](/integrations/partner-integrations/oauth-client-registration).
-
-## Form variables and capabilities
-
-Form variables and capabilities are the most important part of the manifest. They define the primary interactions that LaunchDarkly and others will have with your integration.
-
-To learn more, read [Using form variables](/integrations/partner-integrations/form-variables) and [Using integration framework capabilities](/integrations/partner-integrations/capabilities).

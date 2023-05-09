@@ -30,6 +30,8 @@ It's common to use a configuration file when you deploy the Relay Proxy from a r
 
 You can also use a configuration file when you run the Relay Proxy from a Docker container, but it is less convenient to do because you *must* place the configuration file at `/ldr/ld-relay.conf`.
 
+To learn more about the supported configuration options, read the Relay Proxy GitHub repository's [Configuration docs](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md).
+
 To use a configuration file:
 
 1. Create a new file:
@@ -61,8 +63,6 @@ To use a configuration file:
   </CSTab>
   </CodeSample>
 
-  To learn more about the supported configuration options, read [Configuration](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md) in the Relay Proxy GitHub repository.
-
 2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`.
 
   Run the following code:
@@ -86,6 +86,8 @@ If you're using Relay Proxy Enterprise and want to enable automatic configuratio
 
 The other way to configure your Relay Proxy is with environment variables. This method is available regardless of how you deploy the Relay Proxy, although it is most commonly used with Docker containers.
 
+To learn more about supported environment variables, read [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md#configuration-file-format-and-environment-variables).
+
 To use environment variables:
 
 1. Confirm that all of your Relay Proxy configuration values are specified with the appropriate environment variables.
@@ -101,8 +103,6 @@ To use environment variables:
 
   </CSTab>
   </CodeSample>
-
-  To learn more about supported environment variables, read [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md#configuration-file-format-and-environment-variables) in the Relay Proxy GitHub repository.
 
 2. Run the Relay Proxy binary while passing the `--from-env` argument. The following command assumes that the `ld-relay` binary is in `$GOPATH/bin`.
 
@@ -125,8 +125,8 @@ You can deploy the Relay Proxy in one of four ways. In order from most common to
 
 * starting the Relay Proxy from a Docker image,
 * using Helm to run the Relay Proxy in Kubernetes,
-* downloading a Relay Proxy release binary, or
-* building the Relay Proxy from source.
+* downloading a Relay Proxy standalone release binary, or
+* building within an existing Go app.
 
 Expand the sections below to learn how to use each method.
 
@@ -231,9 +231,9 @@ helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
 You can find examples and full documentation on all configuration options in the [GitHub repository](https://github.com/launchdarkly/ld-relay-helm).
 </Details>
 
-<Details summary="Expand Downloading a Relay Proxy release binary">
+<Details summary="Expand Downloading a Relay Proxy standalone release binary">
 
-### Downloading a Relay Proxy release binary
+### Downloading a Relay Proxy standalone release binary
 
 You can download one of the Relay Proxy's most recent release binaries from our GitHub repository. This repository has all versions of the Relay Proxy releases with details about what each release improves or fixes. We recommend using the most recent release.
 
@@ -243,20 +243,22 @@ If you want to download a release binary from the GitHub repository, you should 
 * **tar.gz** files are executables. You can use these to run the Relay Proxy directly.
 * **.deb** and **.rpm** files are intended for use with a package manager.
 
-When executing the binary, you'll need to tell the Relay Proxy about your desired configuration. You can do so either with a configuration file or environment variables. Continue reading for more information.
+When executing the binary, use either a [configuration file](#using-a-configuration-file) or [environment variables](#using-environment-variables) to set up your desired configuration.
+
+For an example of running the binary with Windows, read [Building and running in Windows](https://github.com/launchdarkly/ld-relay/blob/v7/docs/windows.md).
 </Details>
 
-<Details summary="Expand Building the Relay Proxy from source">
+<Details summary="Expand Building within an existing Go app">
 
-### Building the Relay Proxy from source
+### Building within an existing Go app
 
 To build the Relay Proxy from source:
 
-1. Install Go 1.16 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install).
+1. Install Go 1.18 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install).
 2. Check out the source code from the default branch of the repository: https://github.com/launchdarkly/ld-relay
-3. In the directory where you checked out the code, run this command: `go build .`
+3. In the directory where you checked out the code, run `go build .`
 
-After you do this, the executable binary `ld-relay` appears in the directory.
+The executable binary `ld-relay` appears in the directory.
 
 There is also a shortcut command that can replace the longer procedure above. This command downloads the code and builds it in a single step. After you enter the command, the executable binary `ld-relay` appears in `$GOPATH/bin`. You can move it to any other location.
 
@@ -270,5 +272,7 @@ go install github.com/launchdarkly/ld-relay/v6@latest
 </CSTab>
 </CodeSample>
 
-When you execute the binary, you must tell the Relay Proxy about your desired configuration. You can do this either with a configuration file or environment variables.
+When executing the binary, use either a [configuration file](#using-a-configuration-file) or [environment variables](#using-environment-variables) to set up your desired configuration.
+
+To learn more, read [Building within an application](https://github.com/launchdarkly/ld-relay/blob/v7/docs/in-app.md).
 </Details>

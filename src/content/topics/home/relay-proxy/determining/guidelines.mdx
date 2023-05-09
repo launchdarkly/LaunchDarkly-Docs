@@ -24,12 +24,14 @@ Position the Relay Proxy effectively within your network architecture. Your appl
 
 If you have deployed your application to multiple regions, consider running one or more Relay Proxy instances in each of those regions in close proximity to your application. This limits latency between your application and the Relay Proxy.
 
+You can also run multiple Relay Proxies for multiple use cases. For example, you could set up one Relay Proxy in proxy mode for your server-side SDKs that use Big Segments, and a separate Relay Proxy in daemon mode for a serverless environment.
+
 ### Deployment recommendations
 
 For a reliable Relay Proxy deployment, we recommend:
 
-- A minimum of three Relay Proxy instances in at least two availability zones per region, fronted by a load balancer, which can also forward to stream.launchdarkly.com
-- A highly-available load balancer with support for SSE connections
+- A minimum of three Relay Proxy instances in at least two availability zones per region, fronted by a load balancer, which can also forward to stream.launchdarkly.com. At least three instances ensures two can serve as a backup if you need to restart an instance.
+- A highly-available load balancer with support for server-sent events (SSE) connections.
 
 To be a viable alternative to connecting to LaunchDarkly directly, your relay array should have comparable availability to LaunchDarkly, which is 99.99%.
 
@@ -45,11 +47,9 @@ The Relay Proxy works best with LaunchDarkly's server-side SDKs and with SDKs co
 
 ### Scaling guidelines
 
-As your application usage grows, your Relay Proxy usage may need to grow with it. It is difficult to predict your Relay Proxy's bandwidth requirements ahead of time because there are many variables that affect bandwidth usage. Instead, we recommend monitoring the Relay Proxy as you use it, and sizing up as needed. To learn more, read [Monitoring the Relay Proxy](/home/relay-proxy/monitoring).
+As your application usage grows, your Relay Proxy usage may need to grow with it. It is difficult to predict your Relay Proxy's bandwidth requirements ahead of time because there are many variables that affect bandwidth usage. We recommend you provision the Relay Proxy the same way you would an HTTPS proxy, and plan for at least twice the number of concurrent connections you expect to see. Then, we recommend monitoring the Relay Proxy as you use it, and sizing up as needed. To learn more, read [Monitoring the Relay Proxy](/home/relay-proxy/monitoring).
 
 If you want to size or scale up your Relay Proxy, the most important thing to consider is the amount of dedicated network bandwidth available to it. The computational requirements for the Relay Proxy are fairly minimal and are not CPU or memory intensive, so these are unlikely to be performance bottlenecks. However, the Relay Proxy does require a significant amount of network bandwidth, because it makes many small requests, very frequently.
-
-Provision the Relay Proxy the same way you would an HTTPS proxy, and plan for at least twice the number of concurrent connections you expect to see. We recommend setting up monitoring to ensure that the Relay Proxy cluster has the capacity to handle your workload, and then scaling it as needed.
 
 ## Caching guidelines
 
@@ -63,12 +63,12 @@ If you use a persistent feature store, the Relay Proxy uses previously known-goo
 
 You may want to use a persistent feature store if you want the Relay Proxy to remain operational even when it can’t connect to LaunchDarkly, such as in an environment with inconsistent connectivity. If you want to use Big Segments, you must use a persistent feature store.
 
-When you use a persistent store, the Relay Proxy keeps flag configurations in its in-memory cache and only fetches new ones from the store when those cached items expire. The default cache time-to-live (TTL) is 30 seconds, but you can change this in the Relay Proxy configuration.
+When you use a persistent store, the Relay Proxy keeps flag configurations in its in-memory cache and only fetches new ones from the store when those cached items expire. The default cache time-to-live (TTL) is 30 seconds, but you can change this in the Relay Proxy configuration. We recommend setting an infinite TTL so flags do not evaluate to their fallback values if a connection to the persistent store is lost.
 
 If the connection to the persistent store is lost, here’s how the Relay Proxy and connected SDKs will behave while the store is unavailable:
 
 - The Relay Proxy first notices the store’s unavailability when it tries to read or update the store. The Relay Proxy tries to read or update the store when it receives new requests from SDKs, and items have expired from the Relay Proxy’s in-memory cache.
-- The Relay Proxy in-memory cache drops expired items whether or not it has reinstated a connection to the store. When this happens, flags evaluate to their fallback values, with an `EvaluationReason` of `FLAG_NOT_FOUND`.
+- The Relay Proxy in-memory cache drops expired items when it exceeds its TTL, whether or not it has reinstated a connection to the store. When this happens, flags evaluate to their fallback values, with an `EvaluationReason` of `FLAG_NOT_FOUND`.
 - If the Relay Proxy receives flag updates from LaunchDarkly while the store is disconnected, it sends the updates to connected SDKs. It keeps the updates in the in-memory cache until they can be written to the store.
 - If the Relay Proxy loses and then regains a store connection, it has no way of checking whether the store is up to date with flag configurations. If the Relay Proxy receives updates from LaunchDarkly while the store is unavailable, then it writes those updates to the store as soon as the connection returns. Otherwise, it assumes that the store is up to date. To fix a persistent store that may have missing or corrupted data, start or restart the Relay Proxy so that it downloads the latest environment states from LaunchDarkly and writes them to the store.
 

@@ -49,6 +49,22 @@ You can add multiple conditions to a rule. Here is how rules handle multiple con
 - If a condition has multiple values, LaunchDarkly considers the condition met if there is a match on *any* of the values.
 - If an attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
+### Rule Duplication
+
+You can create new targeting rules by duplicating a flag's existing targeting rule and modifying the new rule.
+
+To duplicate an existing targeting rule:
+
+1. Click on the flag rule's three-dot **overflow** menu and choose "Duplicate rule." A new rule appears.
+2. Make at least one change to the existing rule or the new rule.
+3. Click **Review and save**.
+
+Here is an image of the "Duplicate rule" option in the rule menu:
+
+![A feature flag's "Duplicate rule" option called out.](flag-duplicate-rule.png)
+
+The new rule appears below the original rule. You must make at least one change to either the existing rule or the new rule before saving your changes, to prevent two exact duplicate rules on the same flag.
+
 ### Percentage rollouts
 
 If you want only a portion of contexts matching a rule to receive a particular variation, you can serve a percentage rollout.
