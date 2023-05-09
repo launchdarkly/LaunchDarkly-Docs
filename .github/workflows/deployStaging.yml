@@ -19,6 +19,8 @@ env:
 jobs:
   build-deploy:
     if: ${{ github.event.pull_request.number != '' || github.event.inputs.PR_NUMBER != '' || endsWith(github.ref_name, '-eap') }}
+    # gatsby requires more ram with the upgrades
+    # ubuntu only limited to 7gb; this macos-latest provides up to 14gb
     runs-on: macos-latest
     name: Deploy to s3 staging
     environment:

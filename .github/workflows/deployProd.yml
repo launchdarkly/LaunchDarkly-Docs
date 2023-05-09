@@ -128,6 +128,8 @@ jobs:
 
   smoke-test:
     needs: build-deploy
+    # gatsby requires more ram with the upgrades
+    # ubuntu only limited to 7gb; this macos-latest provides up to 14gb
     runs-on: macos-latest
     name: Smoke test production
     steps:
