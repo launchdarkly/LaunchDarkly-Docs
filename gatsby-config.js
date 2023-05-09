@@ -277,4 +277,5 @@ module.exports = {
     siteUrl: 'https://docs.launchdarkly.com',
   },
   plugins,
+  trailingSlash: 'never',
 }
