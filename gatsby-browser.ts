@@ -1,4 +1,3 @@
-import { createRoot } from 'react-dom/client'
 import aa from 'search-insights'
 import { TrackJS } from 'trackjs'
 
@@ -71,12 +70,5 @@ export const onClientEntry = () => {
       // else no qs means launchDarkly by default
       // ls should already be launchDarkly so we do nothing here
     }
-  }
-}
-
-export const replaceHydrateFunction = () => {
-  return (element, container) => {
-    const root = createRoot(container)
-    root.render(element)
   }
 }
