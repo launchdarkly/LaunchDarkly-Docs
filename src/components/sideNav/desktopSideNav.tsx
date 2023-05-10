@@ -1,4 +1,5 @@
 /** @jsx jsx */
+import { useEffect, useState } from 'react'
 import { globalHistory } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import { jsx } from 'theme-ui'
@@ -6,8 +7,11 @@ import { jsx } from 'theme-ui'
 import { findRootTopic } from '../../utils/navigationDataUtils'
 
 import TreeNode from './treeNode'
+import { SideNavItem } from './types'
 
 const DesktopSideNav = () => {
+  const [currentNode, setCurrentNode] = useState<SideNavItem | null>(null)
+
   const {
     site: { pathPrefix },
     allNavigationData: { nodes: navigationData },
@@ -51,13 +55,16 @@ const DesktopSideNav = () => {
     }
   `)
 
-  const currentNode = findRootTopic(topics, navigationData, pathPrefix)
-  if (!currentNode) {
-    if (typeof window !== 'undefined') {
+  useEffect(() => {
+    const _currentNode = findRootTopic(topics, navigationData, pathPrefix)
+    if (!_currentNode) {
       console.error(`Can't find root topic! pathPrefix: ${pathPrefix}`)
     }
-    return null
-  }
+    setCurrentNode(_currentNode)
+  }, [topics, navigationData, pathPrefix])
+
+  if (!currentNode) return null
+
   return (
     <nav
       sx={{
