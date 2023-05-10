@@ -169,10 +169,10 @@ If you use anonymous contexts or private attributes, the **Contexts** list won't
 In the event that you accidentally send PII to LaunchDarkly, you should take the following steps to remove the information from LaunchDarkly:
 
 1. Revert the change or action you took that sent the data to LaunchDarkly.
-2. Find any context instances with exposed PII using the [search context instances API endpoint](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContextInstances).
+2. Find any context instances with exposed PII using the [search context instances API endpoint](https://apidocs.launchdarkly.com/tag/Contexts/#operation/searchContextInstances).
 3. Delete the affected context instances from the **Contexts** list in one of two ways:
   - [using the user interface (UI)](/home/contexts/contexts-list#removing-a-context-instance), or
-  - [using the API with the delete context instances endpoint](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/deleteContextInstances). If you want to delete all context instances out of an environment, you can find them using the [search context instances API endpoint](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContextInstances).
+  - [using the API with the delete context instances endpoint](https://apidocs.launchdarkly.com/tag/Contexts/#operation/deleteContextInstances). If you want to delete all context instances out of an environment, you can find them using the [search context instances API endpoint](https://apidocs.launchdarkly.com/tag/Contexts/#operation/searchContextInstances).
 
 <Callout intent="info">
 <CalloutTitle>Deleting context instances from the <strong>Contexts</strong> list does not impact flag evaluations</CalloutTitle>
