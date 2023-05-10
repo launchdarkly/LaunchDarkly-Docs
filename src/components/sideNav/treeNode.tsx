@@ -1,6 +1,5 @@
 /** @jsx jsx */
-import { ComponentProps, FunctionComponent, useEffect, useState } from 'react'
-import { flushSync } from 'react-dom'
+import { ComponentProps, FunctionComponent, useLayoutEffect, useState } from 'react'
 import { LinkGetProps } from '@reach/router'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
@@ -140,13 +139,12 @@ function Node({
   const showItem = flagKey ? flags[flagKey] : true
   const isActive = isActiveNodeOrAncestor(currentPath, node)
 
-  useEffect(() => {
-    flushSync(() => {
-      if (isPristine && isActive && isCollapsed) {
-        setIsPristine(false)
-        onFirstExpand(node)
-      }
-    })
+  // https://kentcdodds.com/blog/useeffect-vs-uselayouteffect#useeffect
+  useLayoutEffect(() => {
+    if (isPristine && isActive && isCollapsed) {
+      setIsPristine(false)
+      onFirstExpand(node)
+    }
   }, [node, isPristine, isActive, isCollapsed, onFirstExpand, setIsPristine])
 
   const handleExpandCollapse = () => {
