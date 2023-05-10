@@ -19,11 +19,12 @@ type SiteSelectorProps = {
 }
 const SiteSelector = ({ navigateFn }: SiteSelectorProps) => {
   const [site, setSite] = useSite()
-  const { isOpen, getToggleButtonProps, getMenuProps, highlightedIndex, selectedItem, getItemProps } = useSelect({
-    items,
-    selectedItem: site,
-    onSelectedItemChange,
-  })
+  const { isOpen, getToggleButtonProps, getMenuProps, getLabelProps, highlightedIndex, selectedItem, getItemProps } =
+    useSelect({
+      items,
+      selectedItem: site,
+      onSelectedItemChange,
+    })
 
   function onSelectedItemChange({ selectedItem: selectedSite }: { selectedItem?: SiteType }) {
     trackSiteSelection(selectedSite)
@@ -41,12 +42,18 @@ const SiteSelector = ({ navigateFn }: SiteSelectorProps) => {
           width: ['100%', dropdownWidth],
         }}
         {...getToggleButtonProps()}
+        id="dropdown-button"
+        aria-labelledby="dropdown-label"
       >
-        <span data-testid="dropdown-label">{getLabel(site)}</span>
+        <span data-testid="dropdown-label" {...getLabelProps()} id="dropdown-label" htmlFor="dropdown-button">
+          {getLabel(site)}
+        </span>
         <Icon name="expand-more" sx={{ height: 1, fill: ['grayscaleBlack300', 'grayscaleWhite'] }} />
       </Button>
       <ul
         {...getMenuProps()}
+        id="dropdown-menu"
+        aria-labelledby="dropdown-label"
         sx={{
           position: 'absolute',
           mt: '10px',
