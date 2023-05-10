@@ -95,6 +95,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   })
 
+  // https://github.com/algolia/gatsby-plugin-algolia#partial-updates
+  // internal.contentDigest is required
   const result = await graphql(`
     {
       allMdx(filter: { frontmatter: { published: { eq: true } } }) {
@@ -106,6 +108,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           }
           internal {
             contentFilePath
+            contentDigest
           }
         }
       }
