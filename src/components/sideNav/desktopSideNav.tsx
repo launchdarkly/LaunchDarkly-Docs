@@ -10,7 +10,7 @@ import TreeNode from './treeNode'
 import { SideNavItem } from './types'
 
 const DesktopSideNav = () => {
-  const [currentNode, setCurrentNode] = useState<SideNavItem | null>(null)
+  const [currentNode, setCurrentNode] = useState<SideNavItem>(null)
 
   const {
     site: { pathPrefix },
@@ -56,11 +56,7 @@ const DesktopSideNav = () => {
   `)
 
   useEffect(() => {
-    const _currentNode = findRootTopic(topics, navigationData, pathPrefix)
-    if (!_currentNode) {
-      console.error(`Can't find root topic! pathPrefix: ${pathPrefix}`)
-    }
-    setCurrentNode(_currentNode)
+    setCurrentNode(findRootTopic(topics, navigationData, pathPrefix))
   }, [topics, navigationData, pathPrefix])
 
   if (!currentNode) return null
