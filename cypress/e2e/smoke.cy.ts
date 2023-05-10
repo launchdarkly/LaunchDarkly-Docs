@@ -5,22 +5,16 @@ describe('Documentation website', () => {
     cy.title().should('equal', 'Welcome to LaunchDarkly docs')
 
     // navigate to a page
-    cy.get('main')
-      .contains(/^Getting started$/)
-      .scrollIntoView()
-      .click()
+    cy.contains('a', 'Getting started').click()
+    cy.wait(2000)
     cy.title().should('equal', 'Getting started')
 
     // interact with nav
-    cy.get('nav')
-      .contains(/^Getting started$/)
-      .isActiveLink()
+    cy.get('nav').contains('a', 'Getting started').isActiveLink()
     cy.get('nav').contains('Setting up an SDK')
 
     // close
-    cy.get('nav')
-      .contains(/^Getting started$/)
-      .click()
+    cy.get('nav').contains('a', 'Getting started').click()
     cy.get('nav').contains('Setting up an SDK').should('not.exist')
 
     // click a link in the table of contents
