@@ -2062,48 +2062,48 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@datadog/browser-core@npm:4.42.0":
-  version: 4.42.0
-  resolution: "@datadog/browser-core@npm:4.42.0"
-  checksum: 7282ae745257f91a1aeb3104d2e3024ae99b711a6e0078d3ec238fca2f0a3e6f3930f90dac53f9ccfbb0655b07d9fee377f9365227ceec1862bb90556073d886
+"@datadog/browser-core@npm:4.42.1":
+  version: 4.42.1
+  resolution: "@datadog/browser-core@npm:4.42.1"
+  checksum: 9136ea512a6aa0e056ed1a86fbd3304a3dd4b737f7d047b345fada3a30ae7e4f44fc50fefd9d2c9d384c06005b56458cc92ed665aaec7f9570fdf7e27a28ec9e
   languageName: node
   linkType: hard
 
 "@datadog/browser-logs@npm:^4.9.0":
-  version: 4.42.0
-  resolution: "@datadog/browser-logs@npm:4.42.0"
+  version: 4.42.1
+  resolution: "@datadog/browser-logs@npm:4.42.1"
   dependencies:
-    "@datadog/browser-core": 4.42.0
+    "@datadog/browser-core": 4.42.1
   peerDependencies:
-    "@datadog/browser-rum": 4.42.0
+    "@datadog/browser-rum": 4.42.1
   peerDependenciesMeta:
     "@datadog/browser-rum":
       optional: true
-  checksum: 1c5da04900018fca55037ab81b0bdd632092542430fbb53d126dcb936920fb2c18b8c202d2733aa23169bb5fda3e0950c1d0d010e272ee0fc91dc64c16a6b32d
+  checksum: 71486745ea06d965abb154564eda0dbddb9a120ae5bc40b531167a7c1e8c4edcad1e1b2bd83c358d4f489e73be24716b4fd0807a77085d7854d5dcf8d8eaeae6
   languageName: node
   linkType: hard
 
-"@datadog/browser-rum-core@npm:4.42.0":
-  version: 4.42.0
-  resolution: "@datadog/browser-rum-core@npm:4.42.0"
+"@datadog/browser-rum-core@npm:4.42.1":
+  version: 4.42.1
+  resolution: "@datadog/browser-rum-core@npm:4.42.1"
   dependencies:
-    "@datadog/browser-core": 4.42.0
-  checksum: dc093ec14fc1389fd7e6cc787e910d9d467df3e59dd4f2ea05cc8b1f370231ef0831d80952d1629827439460d03e281b30875575369d69b848c63764f25ed464
+    "@datadog/browser-core": 4.42.1
+  checksum: c106bdd12f43baa7a0f2363b460c8471f4e2240fb71bb49342119202d799f23814d0206ab72f1a39abda8fc2a99bceb648cc3990911657db573d663519212ec1
   languageName: node
   linkType: hard
 
 "@datadog/browser-rum-slim@npm:^4.9.0":
-  version: 4.42.0
-  resolution: "@datadog/browser-rum-slim@npm:4.42.0"
+  version: 4.42.1
+  resolution: "@datadog/browser-rum-slim@npm:4.42.1"
   dependencies:
-    "@datadog/browser-core": 4.42.0
-    "@datadog/browser-rum-core": 4.42.0
+    "@datadog/browser-core": 4.42.1
+    "@datadog/browser-rum-core": 4.42.1
   peerDependencies:
-    "@datadog/browser-logs": 4.42.0
+    "@datadog/browser-logs": 4.42.1
   peerDependenciesMeta:
     "@datadog/browser-logs":
       optional: true
-  checksum: 2f396f289a8c693fa440e73424220f0ed8c9735b7b529fa23d85f74b3682842cac2fbbb130dc2c2eefe1504fbbdfa6b225af6073e83d81ade2db113c6b61fc26
+  checksum: 0346a49950d0547250e779cb0ee94075e32f823779f7d9f9e2ac3620275eae3fa31eb93b8b5ce4abcfb811eae53bdc6b0dad048722a11e441bb238b4cd08344c
   languageName: node
   linkType: hard
 
@@ -2601,14 +2601,14 @@ __metadata:
   linkType: hard
 
 "@graphql-tools/merge@npm:^8.4.1":
-  version: 8.4.1
-  resolution: "@graphql-tools/merge@npm:8.4.1"
+  version: 8.4.2
+  resolution: "@graphql-tools/merge@npm:8.4.2"
   dependencies:
     "@graphql-tools/utils": ^9.2.1
     tslib: ^2.4.0
   peerDependencies:
     graphql: ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
-  checksum: badb094e2eb29688d39d451a83909dc6f92a28c98dbb485a2f745a963813ad1310b1624c7618e97477c90f7935c99b06792bf63c4957a58c642af1609bcec143
+  checksum: 96d57a3e810055a2883bf9d3450e88082da207ffb1406222c9fa954e47bac4a328696785fdb7eec95a030d5f75504f7b4c6484c94f248cee13e6ad25aca70c75
   languageName: node
   linkType: hard
 
@@ -4974,9 +4974,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:>=10.0.0":
-  version: 20.1.1
-  resolution: "@types/node@npm:20.1.1"
-  checksum: 47961ee23f873c14c3f6045422ff3059f3bfb10231ef3080a7a72d7215cc8c2623fa8cedb7b246305962fa9c1e0c9e381e04b12eb3e9ec5d076025c6231ac8da
+  version: 20.1.2
+  resolution: "@types/node@npm:20.1.2"
+  checksum: 9bb2cf0a846e60cc06c44a5622c1998d8373c8675b24d11c86845a29f32c60f5bca9627f2a2535640f902be3dbcc60f126a895abe8e10f12e1467ae3deaba56d
   languageName: node
   linkType: hard
 
@@ -4995,9 +4995,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:^18.16.0":
-  version: 18.16.6
-  resolution: "@types/node@npm:18.16.6"
-  checksum: 99417418952c0b1a6ff5dd40ccf01c2cd18db6a1c54bfaaff29c700c877e2e541aa31ea33090592f3817adb2b8c0946b86c7fb57049131e7c08252d70075f09b
+  version: 18.16.7
+  resolution: "@types/node@npm:18.16.7"
+  checksum: dbff7d41a050557cc81aa37cb186aaf3a799b3001bc4bb1015b240398abde1f9d0ac1e943959bba7f2ab2701292ae407a9ee2fc0f735a05b28bfc97d0b2b5e91
   languageName: node
   linkType: hard
 
@@ -6249,8 +6249,8 @@ __metadata:
   linkType: hard
 
 "aws-sdk@npm:^2.814.0":
-  version: 2.1375.0
-  resolution: "aws-sdk@npm:2.1375.0"
+  version: 2.1376.0
+  resolution: "aws-sdk@npm:2.1376.0"
   dependencies:
     buffer: 4.9.2
     events: 1.1.1
@@ -6262,7 +6262,7 @@ __metadata:
     util: ^0.12.4
     uuid: 8.0.0
     xml2js: 0.5.0
-  checksum: 9460a4cdc9eee5bbae4b70e3b0aeda1c15b324f0a1da146c31903c84765acc8f9a4f84d4de018b37c24a8b91aa0304bebc1e2e371d45565c3a2934f075991182
+  checksum: 2e3f71698e8ed53de6152c7306f4b7add5df51322dd13f02c29ec3ddbc95d968375b7e5a3a0bb142c04c32a813d761c9f5b88786333b34e78738c66381fe886c
   languageName: node
   linkType: hard
 
@@ -9178,9 +9178,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.388
-  resolution: "electron-to-chromium@npm:1.4.388"
-  checksum: 4a0117b3bdde350b5281de5bd3c33deff19979bb26350d70372b5b35aaed920421465ce93f56c48499add95d44cfb148bbedeb0be20bca2e770bc4539c38e67c
+  version: 1.4.391
+  resolution: "electron-to-chromium@npm:1.4.391"
+  checksum: 7e9021b092ddad8a7243a7dc49bf8a571c1c8e10d32ca74137ecd4347e8386783d4ec4e0167c4b84d63216378dee16489b30536c3bb9cb5901044db947af5c20
   languageName: node
   linkType: hard
 
@@ -9284,7 +9284,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.13.0, enhanced-resolve@npm:^5.7.0":
+"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.12.0, enhanced-resolve@npm:^5.14.0, enhanced-resolve@npm:^5.7.0":
   version: 5.14.0
   resolution: "enhanced-resolve@npm:5.14.0"
   dependencies:
@@ -15689,11 +15689,11 @@ __metadata:
   linkType: hard
 
 "micromark-extension-mdx-md@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "micromark-extension-mdx-md@npm:1.0.0"
+  version: 1.0.1
+  resolution: "micromark-extension-mdx-md@npm:1.0.1"
   dependencies:
     micromark-util-types: ^1.0.0
-  checksum: b4f205e1d5f0946b4755541ef44ffd0b3be8c7ecfc08d8b139b6a21fbd3ff62d8fdb6b7e6d17bd9a3b610450267f43a41703dc48b341da9addd743a28cdefa64
+  checksum: fdeaf8f4f973ec8ebefb74bb4cc1c25d2c3190e3ce4f8197e4cbc1ac325b39ac4dc2723a9f4ec8ff5b179d380e8ba37467acafa13c36dec8d312cd9822a5ab29
   languageName: node
   linkType: hard
 
@@ -21736,8 +21736,8 @@ __metadata:
   linkType: hard
 
 "webpack@npm:^5.75.0, webpack@npm:^5.76.0":
-  version: 5.82.0
-  resolution: "webpack@npm:5.82.0"
+  version: 5.82.1
+  resolution: "webpack@npm:5.82.1"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -21748,7 +21748,7 @@ __metadata:
     acorn-import-assertions: ^1.7.6
     browserslist: ^4.14.5
     chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.13.0
+    enhanced-resolve: ^5.14.0
     es-module-lexer: ^1.2.1
     eslint-scope: 5.1.1
     events: ^3.2.0
@@ -21768,7 +21768,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 499e7f5f24fccaa76f64f2a01f91f371073416f568ef6171dc73187a89078f0c33410d4c9f40d411f0827bab8455f8476eabd803ef4d2920d9a2e5f17efa2703
+  checksum: 747ee7ebd238c15249c2652060e3c6ca6d62cc66dcf7e4e2824ecd4875b7ea5e01fce8f4179080a3e84dfdb3c8d0992700444c7c5a05ef47b38c0623d3ac76de
   languageName: node
   linkType: hard
 
