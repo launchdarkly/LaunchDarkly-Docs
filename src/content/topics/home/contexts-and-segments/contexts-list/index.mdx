@@ -46,7 +46,7 @@ To learn more about how the **Contexts** list is populated, and how you might ex
 
 <LearnMore>
 
-You can also use the REST API: [Get contexts](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContexts), [Get context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/getContextInstances)
+You can also use the REST API: [Get contexts](https://apidocs.launchdarkly.com/tag/Contexts/#operation/getContexts), [Get context instances](https://apidocs.launchdarkly.com/tag/Contexts/#operation/getContextInstances)
 
 </LearnMore>
 
@@ -72,7 +72,7 @@ You can filter contexts on the **Contexts** list by context kind, name, key, or 
 
 To filter contexts:
 
-1. In the filter field, enter all or the beginning of a context kind, name, key, or attribute. 
+1. In the filter field, enter all or the beginning of a context kind, name, key, or attribute.
   - To filter by an attribute for a specific context kind, separate the context kind and its attribute with a period (`.`). For example, to search the "state" attribute of "user" contexts, use `user.state`.
 
 ![A search query for "user" context kinds.](contexts-filter-context-kind.png)<br />
@@ -81,7 +81,7 @@ To filter contexts:
 
 <LearnMore>
 
-You can also use the REST API: [Search for contexts](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContexts), [Search for context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/searchContextInstances)
+You can also use the REST API: [Search for contexts](https://apidocs.launchdarkly.com/tag/Contexts/#operation/searchContexts), [Search for context instances](https://apidocs.launchdarkly.com/tag/Contexts/#operation/searchContextInstances)
 
 </LearnMore>
 
@@ -131,10 +131,10 @@ Expand the advanced context filtering reference below to learn how to create fil
 A filter string contains three elements:
 
 - **Field**: The field is the first part of the filter string. It is a field in the contexts that you want to filter based on.
-  - If you're searching an attribute for a specific context kind, separate the context kind and its attribute with a period (`.`). 
+  - If you're searching an attribute for a specific context kind, separate the context kind and its attribute with a period (`.`).
   - Field names are always strings. If they appear within double quotes (`"`), then they are encoded as if they were a JSON string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
 - **Operator**: The operator is the second part of the filter string. It describes the conditions by which the filter identifies the match value. To learn about all of the available operators, view the ["Operators" table below](#operators).
-- **Match value**: The match value is the third part of the filter string. It describes the values that the filter will identify. 
+- **Match value**: The match value is the third part of the filter string. It describes the values that the filter will identify.
   - A match value must be in the same format as a JSON value or an unquoted string. Unquoted strings must escape commas `,`, pipes `|`, parentheses `()`, exclamation points `!`, slashes `\`, and whitespace by prefixing the character with `\`.
 
 ### Operators
@@ -291,10 +291,10 @@ The **overflow menu** only appears if there is exactly one context instance, due
 
 You can also delete context instances from the context details page. To learn how, read [Deleting a context instance](/home/contexts/context-details#deleting-a-context-instance).
 
-To learn more about context instances, read [Understanding context instances](/home/contexts#understanding-context-instances).
+To learn more about context instances, read [Context instances](/home/contexts/multi-contexts#context-instances).
 
 <LearnMore>
 
-You can also use the REST API: [Delete context instances](https://apidocs.launchdarkly.com/tag/Contexts-(beta)#operation/deleteContextInstances)
+You can also use the REST API: [Delete context instances](https://apidocs.launchdarkly.com/tag/Contexts/#operation/deleteContextInstances)
 
 </LearnMore>

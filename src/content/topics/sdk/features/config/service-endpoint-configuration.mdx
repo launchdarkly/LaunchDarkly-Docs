@@ -153,7 +153,7 @@ To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamUR
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
 LDConfigSetStreamURI(config, "https://clientstream.launchdarkly.us");
-LDConfigSetAppURI(config, "https://app.launchdarkly.us");
+LDConfigSetAppURI(config, "https://clientsdk.launchdarkly.us");
 LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
 ```
 
@@ -173,7 +173,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUrl`, `ba
 ```js
 const options = {
   streamUrl: 'https://clientstream.launchdarkly.us',
-  baseUrl: 'https://app.launchdarkly.us',
+  baseUrl: 'https://clientsdk.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us'
 };
 ```
@@ -186,7 +186,7 @@ import * as LDElectron from 'launchdarkly-electron-client-sdk';
 
 const options: LDElectron.LDOptions = {
   streamUrl: 'https://clientstream.launchdarkly.us',
-  baseUrl: 'https://app.launchdarkly.us',
+  baseUrl: 'https://clientsdk.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us'
 };
 ```
@@ -268,7 +268,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUrl`, `ba
 ```swift
 var ldConfig = LDConfig(mobileKey: "mobile-key-123abc")
 ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.us")
-ldConfig.baseUrl = URL(string: "https://app.launchdarkly.us")
+ldConfig.baseUrl = URL(string: "https://clientsdk.launchdarkly.us")
 ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
 ```
 
@@ -278,7 +278,7 @@ ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
 ```objectivec
 LDConfig *ldConfig = [[LDConfig alloc] initWithMobileKey:@"mobile-key-123abc"];
 ldConfig.streamUrl = URL(string: "https://clientstream.launchdarkly.us")
-ldConfig.baseUrl = URL(string: "https://app.launchdarkly.us")
+ldConfig.baseUrl = URL(string: "https://clientsdk.launchdarkly.us")
 ldConfig.eventsUrl = URL(string: "https://events.launchdarkly.us")
 ```
 
@@ -318,7 +318,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUrl`, `ba
 ```js
 const options = {
   streamUrl: 'https://clientstream.launchdarkly.us',
-  baseUrl: 'https://app.launchdarkly.us',
+  baseUrl: 'https://clientsdk.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us'
 };
 ```
@@ -331,7 +331,7 @@ import * as ld from 'launchdarkly-js-client-sdk';
 
 const options: ld.LDOptions = {
   streamUrl: 'https://clientstream.launchdarkly.us',
-  baseUrl: 'https://app.launchdarkly.us',
+  baseUrl: 'https://clientsdk.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us',
 };
 ```
@@ -381,7 +381,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUrl`, `ba
 ```js
 const options = {
   streamUrl: 'https://clientstream.launchdarkly.us',
-  baseUrl: 'https://app.launchdarkly.us',
+  baseUrl: 'https://clientsdk.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us'
 };
 
@@ -395,7 +395,7 @@ import * as ld from 'launchdarkly-node-client-sdk';
 
 const options: ld.LDOptions = {
   streamUrl: 'https://clientstream.launchdarkly.us',
-  baseUrl: 'https://app.launchdarkly.us',
+  baseUrl: 'https://clientsdk.launchdarkly.us',
   eventsUrl: 'https://events.launchdarkly.us',
 };
 ```
@@ -667,7 +667,7 @@ To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamUR
 ```c
 struct LDConfig *config = LDConfigNew("sdk-key-123abc");
 LDConfigSetStreamURI(config, "https://stream.launchdarkly.us");
-LDConfigSetBaseURI(config, "https://app.launchdarkly.us");
+LDConfigSetBaseURI(config, "https://sdk.launchdarkly.us");
 LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
 ```
 
@@ -779,7 +779,7 @@ import Data.Function ((&))
 config :: Config
 config = (makeConfig "sdk-key-123abc")
     & configSetStreamURI "https://stream.launchdarkly.us"
-    & configSetBaseURI "https://app.launchdarkly.us"
+    & configSetBaseURI "https://sdk.launchdarkly.us"
     & configSetEventsURI "https://events.launchdarkly.us"
 ```
 
@@ -817,7 +817,7 @@ To configure an alternate service endpoint for the SDK, use the `serviceEndpoint
 LDConfig config = new LDConfig.Builder()
   .serviceEndpoints(Components.serviceEndpoints()
     .streaming("https://stream.launchdarkly.us")
-    .polling("https://app.launchdarkly.us")
+    .polling("https://sdk.launchdarkly.us")
     .events("https://events.launchdarkly.us"))
   .build();
 ```
@@ -863,7 +863,7 @@ To configure an alternate service endpoint for the SDK, use the `streamURI`, `ba
 local config = {
     key = sdk-key-123abc,
     streamURI = "https://stream.launchdarkly.us",
-    baseUri = "https://app.launchdarkly.us",
+    baseUri = "https://sdk.launchdarkly.us",
     eventsURI = "https://events.launchdarkly.us",
 }
 ```
@@ -896,7 +896,7 @@ To configure an alternate service endpoint for the SDK, use the `streamUri`, `ba
 ```js
 const options = {
   streamUri: 'https://stream.launchdarkly.us',
-  baseUri: 'https://app.launchdarkly.us',
+  baseUri: 'https://sdk.launchdarkly.us',
   eventsUri: 'https://events.launchdarkly.us',
 };
 ```
@@ -909,7 +909,7 @@ import * as ld from 'launchdarkly-node-server-sdk';
 
 const options ld.LDOptions = {
   streamUri: 'https://stream.launchdarkly.us',
-  baseUri: 'https://app.launchdarkly.us',
+  baseUri: 'https://sdk.launchdarkly.us',
   eventsUri: 'https://events.launchdarkly.us',
 };
 ```
@@ -984,7 +984,7 @@ To configure an alternate service endpoint for the SDK, use the `stream_uri`, `b
 ```python
 config = Config(sdk_key='sdk-key-123abc',
   stream_uri="https://stream.launchdarkly.us",
-  base_uri="https://app.launchdarkly.us",
+  base_uri="https://sdk.launchdarkly.us",
   events_uri="https://events.launchdarkly.us")
 ```
 

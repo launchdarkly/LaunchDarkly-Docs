@@ -224,6 +224,10 @@
         "svg": "chart-pie",
         "items": [
           {
+            "label": "Multi-contexts and context instances",
+            "path": "/home/contexts/multi-contexts"
+          },
+          {
             "label": "The Contexts list",
             "path": "/home/contexts/contexts-list",
             "items": [
@@ -252,6 +256,10 @@
             "path": "/home/contexts/context-kinds"
           },
           {
+            "label": "Anonymous contexts",
+            "path": "/home/contexts/anonymous-contexts"
+          },
+          {
             "label": "Segments",
             "path": "/home/contexts/segments",
             "items": [
@@ -272,10 +280,6 @@
                 "path": "/home/contexts/bulk-edit-segments"
               }
             ]
-          },
-          {
-            "label": "Anonymous contexts",
-            "path": "/home/contexts/anonymous-contexts"
           }
         ]
       },
