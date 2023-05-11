@@ -1,12 +1,13 @@
 describe('Documentation website', () => {
   it('should be navigable', () => {
     cy.visit('/', { failOnStatusCode: false })
-
     cy.title().should('equal', 'Welcome to LaunchDarkly docs')
+    cy.wait(1000) // wait for hydration
 
     // navigate to a page
-    cy.contains('a', 'Getting started').click()
-    cy.wait(2000)
+    cy.get('main a').contains('Getting started').click()
+    cy.wait(1000) // wait for hydration
+
     cy.title().should('equal', 'Getting started')
 
     // interact with nav
@@ -55,13 +56,10 @@ describe('Documentation website', () => {
 
     cy.contains(/Results \(\d+\)/)
 
-    // if it's too fast the result won't be clickable because it detaches from the page during re-render
-    cy.wait(2000)
+    cy.wait(1000) // wait for hydration
 
     // click search result
     cy.get('[data-test="result-Home-Advanced concepts"]').click()
-
-    cy.reload()
 
     cy.location('search').should('equal', '?q=advanced')
     cy.get('nav').contains('Advanced').isActiveLink()
