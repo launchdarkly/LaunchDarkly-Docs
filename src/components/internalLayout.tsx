@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { FunctionComponent } from 'react'
-import { MDXProvider } from '@mdx-js/react'
+import { MDXProvider, useMDXComponents } from '@mdx-js/react'
+import { useThemedStylesWithMdx } from '@theme-ui/mdx'
 import { jsx, ThemeProvider } from 'theme-ui'
 
 import Callout, { CalloutDescription, CalloutTitle } from './mdx/callout'
@@ -30,11 +31,13 @@ interface LayoutProps {
 const theme = {}
 
 const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({ children }) => {
+  const componentsWithStyles = useThemedStylesWithMdx(useMDXComponents(components))
+
   return (
     <ThemeProvider theme={theme}>
       <Reset />
       <main sx={{ width: '40rem', margin: '0 auto', my: 6 }}>
-        <MDXProvider components={components}>{children}</MDXProvider>
+        <MDXProvider components={componentsWithStyles}>{children}</MDXProvider>
       </main>
     </ThemeProvider>
   )
