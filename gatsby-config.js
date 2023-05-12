@@ -5,7 +5,6 @@ const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
 
 const buildDevIndex = !!process.env.BUILD_DEV_ALGOLIA_INDEX
 
-// const staticImageFolder = path.join(__dirname, '/src/content/images')
 const wrapESMPlugin = name =>
   function wrapESM(opts) {
     return async (...args) => {
@@ -77,7 +76,8 @@ const plugins = [
     options: {
       extensions: ['.mdx', '.md'],
       mdxOptions: {
-        remarkPlugins: [wrapESMPlugin('rehype-slug'), wrapESMPlugin('remark-unwrap-images')],
+        rehypePlugins: [wrapESMPlugin('rehype-slug')],
+        remarkPlugins: [wrapESMPlugin('remark-unwrap-images')],
       },
       gatsbyRemarkPlugins: [
         {
