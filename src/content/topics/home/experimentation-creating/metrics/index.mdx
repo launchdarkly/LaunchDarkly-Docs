@@ -20,7 +20,7 @@ You can also use the REST API: [Metrics](https://apidocs.launchdarkly.com/tag/Me
 
 ## Understanding types of metrics
 
-Conversion metrics register events when an end user takes an action based on a feature flag they encounter. Conversion metrics can track `click`, `page view`, and `custom` event kinds. Numeric metrics measure numeric values against a baseline you set. Numeric metrics can track the `conversion` event kind. To learn more about event kinds, read [Analytics events](/sdk/concepts/events).
+Conversion metrics register events when an end user takes an action based on a feature flag they encounter. Conversion metrics can track `click`, `page view`, and `custom` event kinds. Numeric metrics measure numeric values against a baseline you set. Numeric metrics can track the `custom` event kind. To learn more about event kinds, read [Analytics events](/sdk/concepts/events).
 
 There are four metric options in LaunchDarkly:
 
@@ -148,7 +148,7 @@ This table includes examples of different kinds of data you can measure with dif
 
 ## Connecting a metric to an experiment
 
-After you create a metric, you can use it in one or more experiments. The randomization unit you map the metric to must match the context kind you want to randomize on. 
+After you create a metric, you can use it in one or more experiments. The randomization unit you map the metric to must match the context kind you want to randomize on.
 
 In this example, the experiment has a randomization unit of `customer`. It is compatible with the chosen metric, because the metric can measure events from `customer` context kinds.
 
