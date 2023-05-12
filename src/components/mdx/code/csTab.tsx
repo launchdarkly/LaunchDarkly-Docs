@@ -29,3 +29,5 @@ export function CSTab({ children }: PropsWithChildren<CSTabProps>) {
 
   return <>{siteAwareItem ?? defaultChild}</>
 }
+
+CSTab.displayName = 'CSTab'
