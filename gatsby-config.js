@@ -77,7 +77,6 @@ const plugins = [
       extensions: ['.mdx', '.md'],
       mdxOptions: {
         rehypePlugins: [wrapESMPlugin('rehype-slug')],
-        remarkPlugins: [wrapESMPlugin('remark-unwrap-images')],
       },
       gatsbyRemarkPlugins: [
         {
