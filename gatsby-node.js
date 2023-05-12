@@ -66,7 +66,7 @@ exports.onCreateNode = async ({ node, actions }) => {
     createNodeField({
       node,
       name: 'timeToRead',
-      value: readingTime(node.body),
+      value: Math.ceil(readingTime(node.body, { wordsPerMinute: 240 }).minutes),
     })
   }
 }
@@ -147,8 +147,8 @@ exports.createSchemaCustomization = ({ actions }) => {
       flagKey: String
     }
     type Mdx implements Node {
-     fileAbsolutePath: String @proxy(from: "fields.fileAbsolutePath")
-     timeToRead: Float @proxy(from: "fields.timeToRead.minutes")
+      fileAbsolutePath: String @proxy(from: "fields.fileAbsolutePath")
+      timeToRead: Int @proxy(from: "fields.timeToRead")
     }
   `
   createTypes(typeDefs)
