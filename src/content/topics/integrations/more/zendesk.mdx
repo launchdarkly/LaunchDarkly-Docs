@@ -71,7 +71,14 @@ To add a Zendesk custom User Field:
 ![The Admin screen with the User Fields menu item out.](zendesk-manage-user-fields-callout.png)
 
 3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **plus icon ( + )** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each User profile.
-4. Enter a "Field title" shown to agents and a "Field key" in the "Properties" panel. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly context keys or context kinds. Save the field key for the next section.
+4. Enter a "Field title" shown to agents and a "Field key" in the "Properties" panel. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly context keys or context kinds. For example, as a field title you might use:
+    
+  - "LaunchDarkly user key"
+  - "user ID"
+  - "member ID"
+
+  Save the field key for [the next section](#configuring-your-launchdarkly-application).
+
 5. Click **Create field**. The field now shows on all Zendesk user profiles.
 
 To add a Zendesk custom Organization Field:
@@ -79,7 +86,14 @@ To add a Zendesk custom Organization Field:
 1. Click the **Admin gear icon**.
 2. Under "Manage," select **Organization Fields**.
 3. Select the **Text** custom field type on the right and drag it to the active fields area. Alternatively, click the **plus icon ( + )** beside the "Text" field type, then drag and drop the field into the order you would like it to appear in each Organization profile.
-4. Enter a "Field title" shown to agents and a "Field key" in the "Properties" panel. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly context keys or context kinds. Save the field key for the next section.
+4. Enter a "Field title" shown to agents and a "Field key" in the "Properties" panel. These can be anything you want, but they should be descriptive enough for your agents to recognize them as LaunchDarkly context keys or context kinds. For example, as a field title you might use:
+    
+  - "LaunchDarkly organization key"
+  - "account ID"
+  - "organization ID"
+
+  Save the field key for [the next section](#configuring-your-launchdarkly-application).
+
 5. Click **Create field**. The field now shows on all Zendesk organization profiles.
 
 To learn more, read the [Zendesk documentation on custom field types](https://support.zendesk.com/hc/en-us/articles/203661866-About-custom-field-types).
@@ -95,7 +109,7 @@ To learn more, read the [Zendesk documentation on custom field types](https://su
 4. Enter the LaunchDarkly project and environment keys that you want to view customers' flag variations for.
 5. Add any optional tags you would like to use to filter the feature flags displayed.
 6. If you added the LaunchDarkly context key as a custom Organization field, check the box next to "LaunchDarkly user key is an Organization field." Otherwise, leave it blank.
-7. Enter the field key you defined in step 4 of the previous section into the LaunchDarkly context key field.
+7. Enter the field key you defined in step 4 of the [previous section](#installing-the-launchdarkly-application-from-zendesk-marketplace) into the LaunchDarkly context key field.
 8. Select whether or not you would like to enable role or group restrictions.
 9. Under "OAuth Authentication," click **Authorize with LaunchDarkly**. A new tab appears.
 10. Click **Authorize**. You are returned to the integration configuration page.
@@ -113,4 +127,10 @@ Unless the user is new or inactive, you may have entered an incorrect value in t
 
 ### "Error: LaunchDarkly user key not found"
 
-This error indicates that the **User key field** has been incorrectly configured. Review the [Configuring the context key and context kind fields](#configuring-the-context-key-and-context-kind-fields) section to ensure you have set it up correctly and that it is populated on the Zendesk User profile associated with the ticket you are viewing.
+This error indicates that the **User key field** has been incorrectly configured. 
+
+If you checked the "LaunchDarkly user key is an Organization field" box as part of step 6 of [Configuring your LaunchDarkly application](#configuring-your-launchdarkly-application), confirm that you also entered the field key into the context key field.
+
+Review the [Configuring the context key and context kind fields](#configuring-the-context-key-and-context-kind-fields) section to ensure you have set it up correctly and that it is populated on the Zendesk User profile associated with the ticket you are viewing.
+
+
