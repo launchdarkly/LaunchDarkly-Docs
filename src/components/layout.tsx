@@ -1,7 +1,8 @@
 /** @jsx jsx */
 import { FunctionComponent } from 'react'
 import { Helmet } from 'react-helmet'
-import { MDXProvider } from '@mdx-js/react'
+import { MDXProvider, useMDXComponents } from '@mdx-js/react'
+import { useThemedStylesWithMdx } from '@theme-ui/mdx'
 import { graphql, withPrefix } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import pluralize from 'pluralize'
@@ -25,6 +26,7 @@ import LearnMore from './mdx/learnMore'
 import MdxHeader from './mdx/mdxHeader'
 import Metadata from './mdx/metadata'
 import Pre from './mdx/pre'
+import { Span } from './mdx/span'
 import Table, { TableBody, TableCell, TableHeadCell, TableHeader, TableRow } from './mdx/table'
 import DesktopSideNav from './sideNav/desktopSideNav'
 import ChildPageList from './ChildPageList'
@@ -75,6 +77,7 @@ const components = {
   Feature,
   Details,
   AllIntegrations,
+  span: Span,
 }
 
 const theme = {}
@@ -129,6 +132,8 @@ const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
   },
 }) => {
   const { enableUserWayAccessibilityWidget } = useFlags()
+  const componentsWithStyles = useThemedStylesWithMdx(useMDXComponents(components))
+
   return (
     <ThemeProvider theme={theme}>
       <Reset />
@@ -199,7 +204,7 @@ const Layout: FunctionComponent<React.PropsWithChildren<LayoutProps>> = ({
               site={site}
               siteAlertTitle={siteAlertTitle}
             />
-            <MDXProvider components={components}>{children}</MDXProvider>
+            <MDXProvider components={componentsWithStyles}>{children}</MDXProvider>
             <footer sx={{ height: '7rem' }}></footer>
           </article>
           {!isLandingPage && <TableOfContents toc={toc} />}
