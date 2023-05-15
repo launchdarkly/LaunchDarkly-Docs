@@ -6,7 +6,9 @@ import { SiteType } from '../../types/siteType'
 import { errorOnInvalidSite } from '../../utils/siteAwareUtils'
 import Icon, { IconName } from '../icon'
 import { Intent } from '../intent'
-import useSite from '../siteSelector/useSite'
+
+import useSite from '@/components/siteSelector/useSite'
+import useGitGatsbyTheme from '@/hooks/useGitGatsbyTheme'
 
 const iconNames: { [key in Intent]: IconName } = {
   info: 'information',
@@ -28,9 +30,23 @@ export const CalloutTitle: FC<React.PropsWithChildren<unknown>> = ({ children })
   )
 
 const descriptionStyles: ThemeUIStyleObject = { fontSize: 3, lineHeight: 'spaced', mb: 1, overflowWrap: 'break-word' }
-export const CalloutDescription: FC<React.PropsWithChildren<unknown>> = ({ children }) => (
-  <Text sx={{ ...descriptionStyles, '& p': { ...descriptionStyles } }}>{children}</Text>
-)
+export const CalloutDescription: FC<React.PropsWithChildren<unknown>> = ({ children }) => {
+  const { theme } = useGitGatsbyTheme()
+
+  return (
+    <Text
+      sx={{
+        ...descriptionStyles,
+        '& p': { ...descriptionStyles },
+        ul: theme.styles.ul,
+        li: theme.styles.li,
+        a: theme.styles.a,
+      }}
+    >
+      {children}
+    </Text>
+  )
+}
 
 export default function Callout({ intent = 'info', site, children }: PropsWithChildren<CalloutProps>) {
   errorOnInvalidSite(site)
