@@ -10,6 +10,8 @@ require('dotenv').config({
 })
 console.log(`Using environment config: '${activeEnv}', indexing to: ${algoliaIndex}`)
 
+// https://github.com/algolia/gatsby-plugin-algolia#partial-updates
+// internal.contentDigest is required
 const pageQuery = `{
   mdx: allMdx(filter: {fileAbsolutePath: {regex: "/src/content/topics/"}}) {
     nodes {
@@ -26,6 +28,9 @@ const pageQuery = `{
       tableOfContents(maxDepth: 2)
       fields {
         lastModifiedTime
+      }
+      internal {
+        contentDigest
       }
     }
   }
