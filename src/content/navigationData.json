@@ -1035,6 +1035,10 @@
             "path": "/integrations/logdna"
           },
           {
+            "label": "ngrok",
+            "path": "/integrations/ngrok"
+          },
+          {
             "label": "Okteto",
             "path": "/integrations/okteto"
           },

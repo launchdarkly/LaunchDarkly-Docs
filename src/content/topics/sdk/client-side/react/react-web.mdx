@@ -363,7 +363,7 @@ The React SDK automatically subscribes to flag `change` events after your app ha
 <CalloutTitle>Making feature flags available to this SDK</CalloutTitle>
 <CalloutDescription>
 
-You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the context will receive the default value for that flag.
+You must make feature flags available to client-side SDKs before the SDK can evaluate those flags. If an SDK tries to evaluate a feature flag that is not available, the context will receive the fallback value for that flag.
 
 To make a flag available to this SDK, check the **SDKs using Client-side ID** checkbox during flag creation, or on the flag's **Settings** tab. To make all of a project's flags available to this SDK by default, check the **SDKs using Client-side ID** checkbox in your project [**Settings**](https://app.launchdarkly.com/settings/projects).
 
@@ -417,9 +417,9 @@ These are the properties:
 
   However, even if you defer SDK initialization, the SDK continues to load bootstrapped flag values as long as you provide the bootstrapped values as a map of flag keys and values. If you indicate that the SDK should bootstrap flags from local storage, this will not happen until the SDK initializes.
 
-- `flags`: A map of flag keys and default values. If you specify this property, the React SDK will only subscribe to updates to these flags. If you do not specify this property, the React SDK subscribes to all flags. This property is optional.
+- `flags`: A map of flag keys and fallback values. If you specify this property, the React SDK will only subscribe to updates to these flags. If you do not specify this property, the React SDK subscribes to all flags. This property is optional.
 
-  Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form as known to LaunchDarkly, rather than in their camel-cased form. The React SDK passes each flag's value to the underlying `variation` call as the default value to use in case of an error. To learn more, read [Evaluating flags](/sdk/features/evaluating#javascript) for the JavaScript SDK.
+  Specify the `flags` property as a map of flag keys and values. The flag keys must be in their original form as known to LaunchDarkly, rather than in their camel-cased form. The React SDK passes each flag's value to the underlying `variation` call as the fallback value to use in case of an error. To learn more, read [Evaluating flags](/sdk/features/evaluating#javascript) for the JavaScript SDK.
 
 The following is an example `ProviderConfig` object including each of the above properties:
 

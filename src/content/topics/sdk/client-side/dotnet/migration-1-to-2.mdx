@@ -294,7 +294,7 @@ var config = Configuration.Builder("mobile-key-123abc")
 ```
 ```csharp site=federal
 var config = Configuration.Builder("mobile-key-123abc")
-    .BaseUri(new Uri("https://app.mycompany.launchdarkly.us"))
+    .BaseUri(new Uri("https://clientsdk.mycompany.launchdarkly.us"))
     .StreamUri(new Uri("https://stream.mycompany.launchdarkly.us"))
     .EventsUri(new Uri("https://events.mycompany.launchdarkly.us"))
     .Build();
@@ -317,7 +317,7 @@ var config = Configuration.Builder("mobile-key-123abc")
 var config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints()
-            .Polling("https://app.mycompany.launchdarkly.us")
+            .Polling("https://clientsdk.mycompany.launchdarkly.us")
             .Streaming("https://stream.mycompany.launchdarkly.us")
             .Events("https://events.mycompany.launchdarkly.us")
     )

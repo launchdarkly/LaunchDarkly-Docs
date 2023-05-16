@@ -68,7 +68,7 @@ This feature is available for all of our client-side SDKs:
 
 The `Variation` method determines whether a flag is enabled or not for a specific context. In the client-side .NET SDK, there is  a `variation` method for each type, such as `BoolVariation` or `StringVariation`.
 
-`variation` calls take the feature flag key and a default value.
+`variation` calls take the feature flag key and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -203,7 +203,7 @@ if (boolFlagValue)  {
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
 
-The return value of `variation` is always either one of the variations you defined for your flag in the flag's **Targeting** tab, or the default value. The default value is the second parameter to `variation`.
+The return value of `variation` is always either one of the variations you defined for your flag in the flag's **Targeting** tab, or the [fallback value](/home/getting-started/vocabulary#fallback-value). The fallback value is the second parameter to `variation`.
 
 You can also fetch all flags for the current user.
 
@@ -253,7 +253,7 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand iOS code sample">
 
-The variation functions determine the flag value for the current context. Variation functions take the feature flag key and a default value as parameters. If the flag does not exist, cannot be cast to the correct return type, or the `LDClient` is not started, the function returns the default value.
+The variation functions determine the flag value for the current context. Variation functions take the feature flag key and a [fallback value](/home/getting-started/vocabulary#fallback-value) as parameters. If the flag does not exist, cannot be cast to the correct return type, or the `LDClient` is not started, the function returns the fallback value.
 
 In the iOS SDK, there is a variation method for each type, such as `boolVariation` or `jsonVariation`.
 
@@ -286,7 +286,7 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand JavaScript code sample">
 
-The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key and a default value.
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example of the `variation` method:
 
@@ -317,7 +317,7 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a default value.
+The `variation` method determines which variation of a feature flag a user receives. `variation` calls take the feature flag key and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -376,7 +376,7 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand Roku code sample">
 
-The `*variation` methods determine which variation of a feature flag a context receives. `*variation` calls take a feature flag key and a default value.
+The `*variation` methods determine which variation of a feature flag a context receives. `*variation` calls take a feature flag key and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -435,7 +435,7 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 * [`JsonVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_JsonVariation_)
 * [`StringVariation`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_StringVariation_).
 
-`Variation` calls take the feature flag key, a [`Context`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Context.html), and a default value.
+`Variation` calls take the feature flag key, a [`Context`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Context.html), and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -464,7 +464,7 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 <Details summary="Expand Apex code sample">
 
-The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`. The functions take an `LDUser`, feature flag key, and a default value.
+The `variation` family of methods determine the flag value for a specific user. In Apex, there is a `variation` method for each type, such as `boolVariation` or `stringVariation`. The functions take an `LDUser`, feature flag key, and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 <Callout intent="info">
 <CalloutTitle>Apex variation methods do not automatically add users to the Users list</CalloutTitle>
@@ -499,7 +499,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 The `variation` family of functions determine whether a flag is enabled or not for a specific user. In C, there is a `variation` function for each type, such as `LDBoolVariation` or `LDStringVariation`.
 
-The functions take an `LDClient`, `LDUser`, feature flag key, default value, and optional `LDDetails` struct for an evaluation explanation.
+The functions take an `LDClient`, `LDUser`, feature flag key, [fallback value](/home/getting-started/vocabulary#fallback-value), and optional `LDDetails` struct for an evaluation explanation.
 
 Here is an example:
 
@@ -521,7 +521,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 <Details summary="Expand Cloudflare code sample">
 
-The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a default value.
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -543,7 +543,7 @@ You must provide all relevant attributes for each evaluation for your targeting 
 
 <Details summary="Expand Erlang code sample">
 
-The `variation` function determines whether a flag is enabled or not for a specific context. The functions take a flag key, context, default value, and an instance tag. In the example below, the default value is false. The instance tag is optional.
+The `variation` function determines whether a flag is enabled or not for a specific context. The functions take a flag key, context, [fallback value](/home/getting-started/vocabulary#fallback-value), and an instance tag. In the example below, the fallback value is false. The instance tag is optional.
 
 <CodeSample>
 <CSTab label="Erlang SDK v2.0">
@@ -577,7 +577,7 @@ The `Variation` methods determine whether a flag is enabled or not for a specifi
 * [`StringVariation`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.StringVariation)
 * [`JSONVariation`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.JSONVariation), which can be any JSON type.
 
-`Variation` methods take the feature flag key, a context, and a default value. In the example below, the default value is `false`.
+`Variation` methods take the feature flag key, a context, and a [fallback value](/home/getting-started/vocabulary#fallback-value). In the example below, the fallback value is `false`.
 
 The `Variation` call generates analytics events to tell LaunchDarkly about the flag evaluation and the context attributes, so the context will be added to the **Contexts** list if a context with that key doesn't exist already.
 
@@ -620,7 +620,7 @@ The `variation` family of functions determine whether a flag is enabled or not f
 * [`stringVariation`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:stringVariation)
 * [`jsonVariation`](https://launchdarkly.github.io/haskell-server-sdk/LaunchDarkly-Server-Client.html#v:jsonVariation)
 
-The functions take a `Client`, `Context`, feature flag key, and a default value. In the example below, the default value is `False`.
+The functions take a `Client`, `Context`, feature flag key, and a [fallback value](/home/getting-started/vocabulary#fallback-value). In the example below, the fallback value is `False`.
 
 Here is an example:
 
@@ -659,7 +659,7 @@ In Java, there is a `variation` method for each type:
 - [`stringVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#stringVariation(java.lang.String,com.launchdarkly.sdk.LDContext,java.lang.String))
 - [`jsonValueVariation`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#jsonValueVariation(java.lang.String,com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.LDValue)), which can be of any JSON type.
 
-The `variation` methods take the feature flag key, an [`LDContext`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDContext.html), and a default value.
+The `variation` methods take the feature flag key, an [`LDContext`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/LDContext.html), and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -715,7 +715,7 @@ You must provide all relevant user attributes for each evaluation for your targe
 
 The `variation` method determines which variation of a feature flag a context receives.
 
-`variation` calls take the feature flag key, an `LDContext`, and a default value.
+`variation` calls take the feature flag key, an `LDContext`, and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -750,7 +750,7 @@ You must provide all relevant attributes for each evaluation for your targeting 
 
 <Details summary="Expand PHP code sample">
 
-The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a default value.
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -779,7 +779,7 @@ You must provide all relevant attributes for each evaluation for your targeting 
 
 <Details summary="Expand Python code sample">
 
-The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, a `Context`, and a default value.
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, a `Context`, and a [fallback value](/home/getting-started/vocabulary#fallback-value).
 
 Here is an example:
 
@@ -810,7 +810,7 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 The `variation` method determines which variation of a feature flag a context receives.
 
-`variation` calls take the feature flag key, an `LDContext` or user hash, and a default value. To learn more about constructing the context or user hash, read [User and context configuration](/sdk/features/user-context-config#ruby).
+`variation` calls take the feature flag key, an `LDContext` or user hash, and a [fallback value](/home/getting-started/vocabulary#fallback-value). To learn more about constructing the context or user hash, read [User and context configuration](/sdk/features/user-context-config#ruby).
 
 Here is an example:
 
@@ -846,7 +846,7 @@ The `variation` methods determine whether a flag is enabled or not for a specifi
 * [`str_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.str_variation) for strings, and
 * [`json_variation`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.json_variation), which can be any JSON type.
 
-`variation` methods take a `Context`, the feature flag key, and a default value. In the example below, the default value is `false`.
+`variation` methods take a `Context`, the feature flag key, and a [fallback value](/home/getting-started/vocabulary#fallback-value). In the example below, the fallback value is `false`.
 
 Here is an example:
 

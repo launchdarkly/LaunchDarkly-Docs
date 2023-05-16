@@ -205,6 +205,12 @@ const AllIntegrations = () => {
       svg: 'integrations/mparticle',
     },
     {
+      label: 'ngrok',
+      shortLabel: 'ngrok',
+      path: '/integrations/ngrok',
+      svg: 'integrations/ngrok',
+    },
+    {
       label: 'New Relic One',
       shortLabel: 'New Relic One',
       path: '/integrations/new-relic',

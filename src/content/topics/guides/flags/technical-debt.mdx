@@ -21,6 +21,8 @@ In this guide, we'll explore:
 
 Just like feature flags should be a core engineering practice, so should a strategy to address technical debt.
 
+
+
 ## Prerequisites
 
 To complete this guide, you must have the following prerequisites:
@@ -100,6 +102,8 @@ If you don't archive flags that no one is using, they can become a form of techn
 
 LaunchDarkly provides the options to archive and delete flags. We strongly recommend archiving flags rather than deleting them, because an archived flag's history remains in your LaunchDarkly project. To learn how to archive flags, read [Archiving and deleting flags](/home/code/flag-archive).
 
+If you use Accelerate, you can use the flag health metric to help manage flag removal. To learn more, read [Flag health](/home/accelerate/accelerate-metrics/flag-health).
+
 <Callout intent="warning">
 <CalloutTitle>Archive flags instead of deleting them whenever possible</CalloutTitle>
 <CalloutDescription>
@@ -123,7 +127,6 @@ Custom roles are available to customers on an Enterprise plan. To learn more, [r
 
 </CalloutDescription>
 </Callout>
-
 
 ## Eliminating flag debt
 
