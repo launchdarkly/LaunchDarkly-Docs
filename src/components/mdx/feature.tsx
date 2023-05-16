@@ -16,7 +16,7 @@ type FeatureProps = {
  * Note that we can't really target user contexts or account members because docs readers are public and there's no logins.
  *
  * @param {String} flagKey - This is the camelCased flag key in catfood
- * @param {Boolean|String} showWhenVariation - This is the flag value to show content.
+ * @param {Boolean|String|Number} showWhenVariation - This is the flag value to show content.
  * @param children - This is the content to be flagged. This needs to be a react element or html
  * element and not a markdown shorthand element.
  *
