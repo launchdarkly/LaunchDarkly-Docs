@@ -11,5 +11,6 @@ module.exports = {
   },
   moduleNameMapper: {
     '^gatsby-page-utils/(.*)$': 'gatsby-page-utils/dist/$1', // Workaround for https://github.com/facebook/jest/issues/9771
+    '@/(.*)': '<rootDir>/$1',
   },
 }

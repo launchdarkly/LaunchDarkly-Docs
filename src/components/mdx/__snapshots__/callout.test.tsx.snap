@@ -45,6 +45,60 @@ exports[`callout renders 1`] = `
   overflow-wrap: break-word;
 }
 
+.emotion-4 ul {
+  margin-bottom: 64px;
+  margin-left: 256px;
+  list-style-position: outside;
+  list-style-type: disc;
+}
+
+@media screen and (min-width: 40em) {
+  .emotion-4 ul {
+    margin-bottom: 64px;
+  }
+}
+
+@media screen and (min-width: 52em) {
+  .emotion-4 ul {
+    margin-bottom: 128px;
+  }
+}
+
+.emotion-4 li {
+  margin-bottom: 16px;
+  line-height: regular;
+}
+
+@media screen and (min-width: 40em) {
+  .emotion-4 li {
+    margin-bottom: 16px;
+  }
+}
+
+@media screen and (min-width: 52em) {
+  .emotion-4 li {
+    margin-bottom: 16px;
+  }
+}
+
+.emotion-4 a {
+  color: primary;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-4 a:hover {
+  color: accent;
+}
+
+.emotion-4 a:visited {
+  color: primary;
+}
+
+.emotion-4 a:active {
+  color: accent;
+}
+
 <div
     class="emotion-0"
   >
