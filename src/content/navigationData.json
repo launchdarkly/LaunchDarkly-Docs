@@ -933,6 +933,10 @@
           {
             "label": "Snowplow",
             "path": "/integrations/snowplow"
+          },
+          {
+            "label": "Sprig",
+            "path": "/integrations/sprig"
           }
         ]
       },

@@ -289,6 +289,12 @@ const AllIntegrations = () => {
       svg: 'integrations/splunk',
     },
     {
+      label: 'Sprig',
+      shortLabel: 'Sprig',
+      path: '/integrations/sprig',
+      svg: 'integrations/sprig',
+    },
+    {
       label: 'Terraform',
       shortLabel: 'Terraform',
       path: '/integrations/terraform',
