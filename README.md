@@ -246,3 +246,11 @@ cli param `GATSBY_ACTIVE_ENV`. For example, for staging, you would run the follo
 ```
 
 This will create an algolia index called `Pages_staging`.
+
+## Upgrading Packages
+
+This repo uses Yarn PnP (zero-installs) to reduce build times. 
+
+When upgrading package versions, you must commit cache files such as `.yarn/cache/...` and `.pnp.cjs` into `main` along with the `yarn.lock` and `package.json` files.
+
+To learn more about PnP, [read the documentation](https://yarnpkg.com/features/pnp).
