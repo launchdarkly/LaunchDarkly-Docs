@@ -59,14 +59,18 @@ Here's how to start:
 2. Navigate to it in your terminal.
 3. Run the following command:
 
+### 🚨 A note about `NODE_OPTIONS=--max-old-space-size=8192` 🚨
+
+Gatsby V5 updates unfortunately brought some performance issues into the mix. Gatsby requires a lot of memory to run its processes. If you run `yarn start` without the `NODE_OPTIONS` flag, you may see an "Out of memory" warning. Using this flag allocates more memory for the processes.
+
 ```shell
-yarn && yarn start
+NODE_OPTIONS=--max-old-space-size=8192 yarn && yarn start
 ```
 
 As a shortcut:
 
 ```shell
-yarn dev
+NODE_OPTIONS=--max-old-space-size=8192 yarn dev
 ```
 
 The site will build. Monitor the progress in your terminal, and when the build completes, navigate to [localhost:8000](http://localhost:8000).
@@ -74,7 +78,7 @@ The site will build. Monitor the progress in your terminal, and when the build c
 You can also run in a `fast` development mode which omits all mdx images and most mdx content except for `/home/getting-started`, `/home/flags` and `/home/contexts` :
 
 ```shell
-yarn && yarn dev-fast
+NODE_OPTIONS=--max-old-space-size=8192 yarn && yarn dev-fast
 ```
 
 This cuts the gatsby build time to just < 7 seconds as opposed to > 1 minute.
