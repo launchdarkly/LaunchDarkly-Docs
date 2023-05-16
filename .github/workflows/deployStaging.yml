@@ -83,8 +83,8 @@ jobs:
       - uses: aws-actions/configure-aws-credentials@v2
         if: steps.build-status.outputs.deploy == 'true'
         with:
-          aws-access-key-id: ${{ secrets.STG_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.STG_AWS_SECRET_ACCESS_KEY }}
+          audience: https://github.com/launchdarkly
+          role-to-assume: ${{ vars.AWS_STAGING_ROLE_ARN }}
           aws-region: us-east-1
       - name: Caching Gatsby
         # -eap builds are customer facing so we can't take any chances with build cache issues

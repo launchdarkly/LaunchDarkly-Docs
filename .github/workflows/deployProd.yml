@@ -61,10 +61,10 @@ jobs:
         with:
           node-version: '18.x'
       - if: steps.build-status.outputs.deploy == 'true'
-        uses: aws-actions/configure-aws-credentials@v2
+        uses: aws-actions/configure-aws-credentials@v1-node16
         with:
-          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+          audience: https://github.com/launchdarkly
+          role-to-assume: ${{ vars.AWS_PROD_ROLE_ARN }}
           aws-region: us-east-1
       - name: Yarn install
         if: steps.build-status.outputs.deploy == 'true'
