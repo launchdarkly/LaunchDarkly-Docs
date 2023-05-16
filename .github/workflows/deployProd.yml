@@ -61,7 +61,7 @@ jobs:
         with:
           node-version: '18.x'
       - if: steps.build-status.outputs.deploy == 'true'
-        uses: aws-actions/configure-aws-credentials@v1-node16
+      - uses: aws-actions/configure-aws-credentials@v2
         with:
           audience: https://github.com/launchdarkly
           role-to-assume: ${{ vars.AWS_PROD_ROLE_ARN }}
