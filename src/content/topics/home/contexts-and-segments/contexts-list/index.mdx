@@ -279,7 +279,7 @@ After 30 days with no new identify or flag evaluation events, contexts age out o
 
 If you want to keep contexts on the list for longer than 30 days between flags sending identify or flag evaluation events, you can manually call identify for all of the contexts that you wish to retain. To learn how to do this in your SDK, read [Identifying and changing contexts](/sdk/features/identify).
 
-Accounts are limited to 100,000,000 context instances. If you reach the context instance limit flag evaluations will still work for new contexts, but LaunchDarkly will begin deleting the oldest context instances on the list to make room for new context instances, even if they are not yet more than 30 days old. LaunchDarkly continues to delete old context instances as new ones are added to keep the list at no more than 100,000,000. To learn more, read [Understanding client-side MCI limits](/home/billing/usage-metrics#understanding-client-side-mci-limits).
+Accounts are limited to 100,000,000 context instances. If you reach the context instance limit flag evaluations will still work for new contexts, but LaunchDarkly will begin deleting the oldest context instances on the list to make room for new context instances, even if they are not yet more than 30 days old. LaunchDarkly continues to delete old context instances as new ones are added to keep the list at no more than 100,000,000. To learn more, read [Account usage metrics](/home/billing/usage-metrics).
 
 If you want to increase your client-side monthly context instance (MCI) limit to include more contexts from your client-side SDKs on the list, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
