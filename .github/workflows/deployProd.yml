@@ -8,6 +8,10 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 production
+    permissions:
+      id-token: write
+      contents: read
+      actions: write
     environment:
       name: production
       url: https://docs.launchdarkly.com/
@@ -63,8 +67,8 @@ jobs:
       - if: steps.build-status.outputs.deploy == 'true'
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws-access-key-id: ${{ secrets.PROD_AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.PROD_AWS_SECRET_ACCESS_KEY }}
+          audience: https://github.com/launchdarkly
+          role-to-assume: ${{ vars.AWS_PROD_ROLE_ARN }}
           aws-region: us-east-1
       - name: Yarn install
         if: steps.build-status.outputs.deploy == 'true'
