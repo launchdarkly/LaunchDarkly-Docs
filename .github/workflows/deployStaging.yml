@@ -24,6 +24,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      actions: write
     environment:
       name: staging
       url: http://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}

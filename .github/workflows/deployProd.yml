@@ -11,6 +11,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      actions: write
     environment:
       name: production
       url: https://docs.launchdarkly.com/
