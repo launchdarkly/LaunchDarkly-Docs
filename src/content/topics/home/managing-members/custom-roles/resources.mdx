@@ -355,3 +355,16 @@ Here is a reference list of all the supported resources in LaunchDarkly and thei
 </Table>
 
 For a list of all actions available to each resource, read [Using actions](/home/members/role-actions).
+
+<Callout intent="info">
+<CalloutTitle>The <code>user</code> resource is only relevant when working with older SDKs</CalloutTitle>
+<CalloutDescription>
+
+If you are working with older SDKs, which do not yet support custom contexts, you can also reference the `user` resource. The `user` resource is scoped to a project and environment. It has one action, `deleteUser`. This action allows you to delete context instances, including users, which appear as context instances on the **Contexts** list. To learn more, read [Removing a context instance](/home/contexts/contexts-list#removing-a-context-instance).
+
+If you are working with [SDKs that have been updated for custom contexts](/sdk), the equivalent action is `deleteContextInstance`, which is scoped to the environment resource. To learn more, read [Environment actions](/home/members/role-actions#environment-actions).
+
+We strongly encourage you to upgrade your SDKs to versions supporting contexts.
+
+</CalloutDescription>
+</Callout>
