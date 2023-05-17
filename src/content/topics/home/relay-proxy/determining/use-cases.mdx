@@ -32,7 +32,9 @@ PHP's shared-nothing architecture prevents LaunchDarkly from re-using the stream
 
 ### Reducing initialization latency in short-lived and serverless environments
 
-In most cases, the best way to use LaunchDarkly in short-lived and serverless environments is with the Relay Proxy hosted on a long-lived server.
+If you're using short-lived or serverless environments and your app is very sensitive to start up run times, you can use LaunchDarkly with the Relay Proxy hosted on a long-lived server to reduce initialization latency.
+
+Using the Relay Proxy in the same region or availability zone as your provider's server can reduce initialization times from, for example, 100-200 milliseconds to 10-20 milliseconds, depending on your location. If you are billed by the millisecond, this can help lower costs.
 
 ### Using Big Segments or segments synced from Amplitude with server-side SDKs
 
