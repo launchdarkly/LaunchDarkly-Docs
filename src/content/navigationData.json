@@ -1065,6 +1065,10 @@
             ]
           },
           {
+            "label": "Vercel",
+            "path": "/integrations/vercel"
+          },
+          {
             "label": "Zapier",
             "path": "/integrations/zapier"
           },
@@ -1630,6 +1634,21 @@
                 "path": "/sdk/server-side/rust/implementation-v1"
               }
             ]
+          }
+        ]
+      },
+      {
+        "label": "Edge SDKs",
+        "path": "/sdk/edge",
+        "svg": "database-export",
+        "items": [
+          {
+            "label": "Cloudflare SDK reference",
+            "path": "/sdk/edge/cloudflare"
+          },
+          {
+            "label": "Vercel SDK reference",
+            "path": "/sdk/edge/vercel"
           }
         ]
       }

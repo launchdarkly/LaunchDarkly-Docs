@@ -54,6 +54,9 @@ export const AllSdks = () => {
   const serverSdkItems = sdkNavItems.find((i: SideNavItem) =>
     i.items.some((ii: SideNavItem) => ii.path.startsWith('/sdk/server-side')),
   ).items
+  const edgeSdkItems = sdkNavItems.find((i: SideNavItem) =>
+    i.items.some((ii: SideNavItem) => ii.path.startsWith('/sdk/edge')),
+  ).items
 
   return (
     <div
@@ -71,6 +74,7 @@ export const AllSdks = () => {
       <ul sx={{ 'li:last-child': { mt: 6 } }}>
         <SdkLinks heading="CLIENT-SIDE / MOBILE SDKS" sideNavItems={clientSdkItems} />
         <SdkLinks heading="SERVER-SIDE SDKS" sideNavItems={serverSdkItems} />
+        <SdkLinks heading="EDGE SDKS" sideNavItems={edgeSdkItems} />
       </ul>
     </div>
   )

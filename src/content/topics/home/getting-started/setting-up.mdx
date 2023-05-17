@@ -10,9 +10,9 @@ This topic explains how to set up an SDK to begin using LaunchDarkly.
 
 ## Setting up an SDK
 
-The steps to integrate your application with LaunchDarkly are similar across all SDKs. We provide a variety of client-side, server-side, and mobile SDKs to choose from. To learn more about choosing an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
+The steps to integrate your application with LaunchDarkly are similar across all SDKs. We provide a variety of server-side, client-side, mobile, and edge SDKs to choose from. To learn more about choosing an SDK, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
-We auto-generate documentation for most our SDKs in Github Pages. The URL convention is `https://launchdarkly.github.io/<SDK-NAME>`. Some SDKs share functionality, which is reflected in their documentation. For example, our Node and JavaScript SDK have a common library found at [JS SDK Common](https://launchdarkly.github.io/js-sdk-common/).
+We provide reference documentation for all SDKs under [SDKs](/sdk). We auto-generate SDK API documentation each SDK, which is linked from each SDK's reference page.
 
 To set up LaunchDarkly:
 
@@ -40,7 +40,7 @@ You don't have to send contexts to LaunchDarkly in advance. After you create con
 </CalloutDescription>
 </Callout>
 
-5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly. If your application quits without this shutdown step, requests and the **Contexts** list may not be populated, because they are derived from analytics events. **You need to shut down the application manually only one time**. To learn more, read [Analytics events](/sdk/concepts/events).
+5. **Shut down the LaunchDarkly client when your application is about to terminate.** The client releases the resources it is using and sends pending analytics events to LaunchDarkly, if any. If your application quits without this shutdown step, requests and the **Contexts** list may not be populated, because they are derived from analytics events. **You need to shut down the application manually only one time**. To learn more, read [Analytics events](/sdk/concepts/events).
 
 ### Editor support
 

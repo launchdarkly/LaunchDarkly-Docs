@@ -13,6 +13,7 @@ import { SiteFrontmatter } from '../types/siteType'
 import Homepage from './home/landingPage'
 import AllIntegrations from './home/sdks/allIntegrations'
 import ClientSideSdks from './home/sdks/clientSideSdks'
+import EdgeSdks from './home/sdks/edgeSdks'
 import { AllSdks } from './home/sdks/exploreSdks'
 import ReactSdks from './home/sdks/reactSdks'
 import ServerSideSdks from './home/sdks/serverSideSdks'
@@ -65,6 +66,7 @@ const components = {
   AllSdks,
   ClientSideSdks,
   ServerSideSdks,
+  EdgeSdks,
   ReactSdks,
   SdksEndOfLife,
   RelayEndOfLife,

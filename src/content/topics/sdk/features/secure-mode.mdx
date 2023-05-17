@@ -52,10 +52,16 @@ You can enable secure mode at any time when you use LaunchDarkly SDKs. As a best
 
 ## Generating a secure mode hash
 
+Details about generating a secure mode hash are available in the SDK-specific sections below:
+
+* [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
+
+## Server-side SDKs
+
 You can use the following server-side SDKs to generate a secure mode hash:
 
 * [.NET (server-side)](#net-server-side)
-* [Cloudflare](#cloudflare)
 * [Go](#go)
 * [Haskell](#haskell)
 * [Java](#java)
@@ -85,25 +91,6 @@ var hash = client.SecureModeHash(context);
 
 ```csharp
 var hash = client.SecureModeHash(user);
-```
-
-</CSTab>
-</CodeSample>
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-The [secureModeHash](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#secureModeHash) method computes an HMAC signature of a context signed with the SDK key.
-
-Here is the method:
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```typescript
-const hash = client.secureModeHash(context);
 ```
 
 </CSTab>
@@ -306,6 +293,51 @@ client.secure_mode_hash(&context);
 ```rust
 client.secure_mode_hash(&user);
 ```
+</CSTab>
+</CodeSample>
+</Details>
+
+## Edge SDKs
+
+You can use the following edge SDKs to generate a secure mode hash:
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The [`secureModeHash`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#secureModeHash) method computes an HMAC signature of a context signed with the SDK key.
+
+Here is the method:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const hash = client.secureModeHash(context);
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+The [`secureModeHash`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/classes/LDClient.html#secureModeHash) method computes an HMAC signature of a context signed with the SDK key.
+
+Here is the method:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const hash = client.secureModeHash(context);
+```
+
 </CSTab>
 </CodeSample>
 </Details>

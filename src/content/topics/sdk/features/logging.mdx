@@ -16,6 +16,7 @@ LaunchDarkly SDKs rely on built-in logging packages and libraries to track event
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -321,7 +322,6 @@ This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
-* [Cloudflare](#cloudflare)
 * [Go](#go)
 * [Java](#java)
 * [Node.js (server-side)](#nodejs-server-side)
@@ -433,31 +433,6 @@ myCustomLogger(const LDLogLevel level, const char *const text)
 
 LDConfigureGlobalLogger(LD_LOG_TRACE, myCustomLogger);
 
-```
-
-</CSTab>
-</CodeSample>
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-In the default configuration, the SDK sends output to the console and enables all log levels except debug.
-
-For full control over logging behavior, you can set the logger option to an object that implements the LDLogger interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/LDLogger.html).
-
-This example shows how to use BasicLogger to enable debug-level logging in your SDK configuration:
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```typescript
-import { BasicLogger, LDOptions } from '@launchdarkly/cloudflare-server-sdk';
-
-const options: LDOptions = {
-  logger: new BasicLogger({ level: 'debug', }),
-};
 ```
 
 </CSTab>
@@ -720,5 +695,63 @@ There are two important things to consider before you enable the DEBUG log level
 
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
+
+</Details>
+
+## Edge SDKs
+
+This feature is available in the following edge SDKs:
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+In the default configuration, the SDK sends output to the console and enables all log levels except debug.
+
+For full control over logging behavior, you can set the logger option to an object that implements the LDLogger interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/LDLogger.html).
+
+This example shows how to use BasicLogger to enable debug-level logging in your SDK configuration:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+import { BasicLogger, LDOptions } from '@launchdarkly/cloudflare-server-sdk';
+
+const options: LDOptions = {
+  logger: new BasicLogger({ level: 'debug', }),
+};
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+In the default configuration, the SDK sends output to the console and enables all log levels except debug.
+
+This example shows how to use BasicLogger to enable debug-level logging in your SDK configuration:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+import { BasicLogger, LDOptions } from '@launchdarkly/vercel-server-sdk';
+
+const options: LDOptions = {
+  logger: new BasicLogger({ level: 'debug', }),
+};
+```
+
+</CSTab>
+</CodeSample>
+
+For full control over logging behavior, you can set the logger option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [`LDLogger`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/interfaces/LDLogger.html).
 
 </Details>

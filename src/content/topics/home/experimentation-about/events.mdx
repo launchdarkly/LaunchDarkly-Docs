@@ -19,7 +19,7 @@ An Experimentation event is any event an SDK produces that impacts your experime
 
 ### Understanding metric events
 
-All LaunchDarkly SDKs send `custom` metric events when you call the SDK's track method. To learn more about the track method, read [Sending custom events](/sdk/features/events).
+Server-side, client-side, and mobile LaunchDarkly SDKs send `custom` metric events when you call the SDK's track method. To learn more about the track method, read [Sending custom events](/sdk/features/events).
 
 In addition, the JavaScript SDK also sends a `click` metric event when an end user clicks on a page URL or anchor tag that you have included in a click conversion metric, and sends a `page view` metric event when an end user visits a URL that you have included in a page view conversion metric.
 
@@ -29,7 +29,7 @@ If you prefer to import metric events from your existing data pipeline, read [Im
 
 ### Understanding evaluation events
 
-All LaunchDarkly SDKs send a `feature` event when you call the SDK's variation method for a flag in an experiment. To learn more about the variation method, read [Evaluating flags](/sdk/features/evaluating).
+Server-side, client-side, and mobile LaunchDarkly SDKs send a `feature` conversion event when you call the SDK's variation method for a flag in an experiment. To learn more about the variation method, read [Evaluating flags](/sdk/features/evaluating).
 
 In addition, the JavaScript SDK and JavaScript-based SDKs also send a `variation` evaluation event when you call the SDK's `allFlags` method, unless you configure it not to. The React Web SDK automatically calls `allFlags` when you initialize the SDK, and when a context receives a new variation for a flag. To learn more, read [Getting all flags](/sdk/features/all-flags).
 

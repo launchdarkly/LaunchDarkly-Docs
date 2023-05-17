@@ -1,0 +1,162 @@
+---
+path: /sdk/edge/vercel
+title: Vercel SDK reference
+description: This topic documents how to get started with the Vercel SDK, and links to reference information on all of the supported features.
+tags: ['vercel', 'edge', 'sdk']
+published: true
+site: launchDarklyOnly
+---
+
+## Overview
+
+This topic documents how to get started with the Vercel SDK, and links to reference information on all of the supported features.
+
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and a sample application:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell>
+        <a href="https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/">SDK API docs</a>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell>
+        <a href="https://github.com/launchdarkly/js-core/tree/main/packages/sdk/vercel">LaunchDarkly Vercel SDK</a>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+  <CalloutTitle>This SDK requires LaunchDarkly's Vercel integration</CalloutTitle>
+  <CalloutDescription>
+
+Configure the Vercel integration to use this SDK successfully. To learn more, read [Vercel](/integrations/vercel).
+
+The Vercel integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+## Getting started
+
+To install and configure the Vercel SDK in an existing project:
+
+After you complete the [Creating a Vercel integration](/integrations/vercel#creating-a-vercel-integration) process, follow these instructions to start using the LaunchDarkly Vercel SDK.
+
+First, install the Vercel SDK as a dependency in your application using your application's dependency manager.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="yarn">
+
+```bash
+yarn add @launchdarkly/vercel-server-sdk
+```
+
+</CSTab>
+<CSTab label="npm">
+
+```bash
+npm i @launchdarkly/vercel-server-sdk
+```
+
+</CSTab>
+</CodeSample>
+
+Next, import the LaunchDarkly client in your application code:
+
+<CodeSample>
+<CSTab label="TypeScript/JavaScript ES6">
+
+```ts
+import init from '@launchdarkly/vercel-server-sdk';
+import { createClient } from '@vercel/edge-config';
+```
+
+</CSTab>
+<CSTab label="JavaScript CJS">
+
+```js
+const { init } = require('@launchdarkly/vercel-server-sdk');
+const { createClient } = require('@vercel/edge-config');
+```
+
+</CSTab>
+
+</CodeSample>
+
+After you install and import the SDK, create an edge client using your [Edge Config ID](https://vercel.com/docs/storage/edge-config). Then, initialize an `LDClient` using your LaunchDarkly client-side SDK key and this edge client.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```js
+const edgeClient = createClient(process.env.EDGE_CONFIG);
+const ldClient = init('sdk-key-123abc', edgeClient);
+
+await ldClient.waitForInitialization();
+```
+
+</CSTab>
+</CodeSample>
+
+After you initialize the client, wait for the `waitForInitialization` function to resolve. When `waitForInitialization` is resolved, the client can serve feature flags.
+
+Using the client, you can check which variation a particular context will receive for a given feature flag. In your Vercel Edge application, place the `client.variation` code so that it is invoked as needed.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const ldContext = {
+  kind: 'org',
+  key: 'org-key-123abc',
+  someAttribute: 'example-attribute-value',
+};
+const flagValue = await ldClient.variation('flag-key-123abc', ldContext, true);
+```
+
+</CSTab>
+</CodeSample>
+
+## Promises and async
+
+All asynchronous SDK methods that return a `Promise` are compatible with `then/catch` or `async/await`. You can use either.
+
+## Shutting down
+
+Lastly, shut down the client when your application terminates. To learn more, read [Shutting down](/sdk/features/shutdown#vercel).
+
+## Supported features
+
+This SDK supports the following features:
+
+- [Anonymous contexts and users](/sdk/features/anonymous#vercel)
+- [Configuration](/sdk/features/config#vercel)
+- [Evaluating flags](/sdk/features/evaluating#vercel)
+- [Flag evaluation reasons](/sdk/features/evaluation-reasons#vercel)
+- [Getting all flags](/sdk/features/all-flags#vercel)
+- [Logging configuration](/sdk/features/logging#vercel)
+- [Secure mode](/sdk/features/secure-mode#vercel)
+- [Shutting down](/sdk/features/shutdown#vercel)
+- [User and context configuration](/sdk/features/user-context-config#vercel)

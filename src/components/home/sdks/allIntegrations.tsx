@@ -95,6 +95,7 @@ const AllIntegrations = () => {
       label: 'Cloudflare',
       shortLabel: 'Cloudflare',
       path: '/integrations/cloudflare',
+      svg: 'cloudflare',
     },
     {
       label: 'CloudQuery',
@@ -311,6 +312,12 @@ const AllIntegrations = () => {
       shortLabel: 'Trello',
       path: '/integrations/trello',
       svg: 'integrations/trello',
+    },
+    {
+      label: 'Vercel',
+      shortLabel: 'Vercel',
+      path: '/integrations/vercel',
+      svg: 'vercel',
     },
     {
       label: 'Visual Studio Code',

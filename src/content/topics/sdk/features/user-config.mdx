@@ -54,6 +54,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -1006,7 +1007,6 @@ Here are the configuration options for context and user entities in server-side 
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
-* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -1182,14 +1182,6 @@ When you are done with an `LDUser` ensure that you free the structure.
 To learn how to configure private attributes in the C/C++ (server-side) SDK, read [Private attributes](/sdk/features/private-attributes#cc-server-side).
 
 To learn how to configure anonymous users in the C/C++ (server-side) SDK, read [Anonymous contexts and users](/sdk/features/anonymous#cc-server-side).
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-The Cloudflare SDK does not support sending events so private attributes are not supported. To configure contexts, the Cloudflare SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
-
 </Details>
 
 ### Erlang
@@ -2076,4 +2068,31 @@ client.identify(multi_context);
 To learn how to configure private attributes in the Rust SDK, read [Private attributes](/sdk/features/private-attributes#rust).
 
 To learn how to configure anonymous contexts in the Rust SDK, read [Anonymous contexts and users](/sdk/features/anonymous#rust).
+</Details>
+
+## Edge SDKs
+
+Here are the configuration options for context and user entities in edge SDKs.
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+To configure contexts, the Cloudflare SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
+
+The Cloudflare SDK does not support sending events, so [private attributes](/sdk/features/private-attributes) are not supported. 
+
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+To configure contexts, the Vercel SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
+
+The Vercel SDK does not support sending events, so [private attributes](/sdk/features/private-attributes) are not supported. 
+
 </Details>
