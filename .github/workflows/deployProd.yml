@@ -10,6 +10,7 @@ jobs:
     name: Deploy to s3 production
     permissions:
       id-token: write
+      contents: read
     environment:
       name: production
       url: https://docs.launchdarkly.com/
