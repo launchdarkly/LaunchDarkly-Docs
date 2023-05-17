@@ -8,6 +8,8 @@ jobs:
   build-deploy:
     runs-on: ubuntu-latest
     name: Deploy to s3 production
+    permissions:
+      id-token: write
     environment:
       name: production
       url: https://docs.launchdarkly.com/

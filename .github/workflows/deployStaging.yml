@@ -21,6 +21,8 @@ jobs:
     if: ${{ github.event.pull_request.number != '' || github.event.inputs.PR_NUMBER != '' || endsWith(github.ref_name, '-eap') }}
     runs-on: ubuntu-latest
     name: Deploy to s3 staging
+    permissions:
+      id-token: write
     environment:
       name: staging
       url: http://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}
