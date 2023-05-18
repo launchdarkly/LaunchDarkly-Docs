@@ -254,3 +254,13 @@ This repo uses Yarn PnP (zero-installs) to reduce build times.
 When upgrading package versions, you must commit cache files such as `.yarn/cache/...` and `.pnp.cjs` into `main` along with the `yarn.lock` and `package.json` files.
 
 To learn more about PnP, [read the documentation](https://yarnpkg.com/features/pnp).
+
+## Running Gatsby locally
+
+With the new version of Gatsby, you need to provide more memory to run the site locally. To do this, run the `yarn start` command with the `--max-old-space-size` flag, like this:
+
+```shell  NODE_OPTIONS="--max-old-space-size=8192" yarn start```
+
+OR 
+
+Add `export NODE_OPTIONS="--max-old-space-size=8192"` to your `~/.bachrc` file and run the `source ~/.bashrc` command to avoid having to do this every time. 
