@@ -147,7 +147,7 @@ jobs:
       - name: Resolve Cypress PNP
         run: yarn run cypress:pnp
       - name: Cypress run
-        uses: cypress-io/github-action@v5.7.1
+        uses: cypress-io/github-action@v5.7.2
         timeout-minutes: 7
         id: cypress
         continue-on-error: true
