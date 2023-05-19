@@ -5,6 +5,7 @@ import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
 import { Flex, jsx, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
 
+import { useFlaggedPagesConfig } from '../../hooks/useFlaggedPagesConfig'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 import isExternalLink from '../../utils/isExternalLink'
 import { stripTrailingSlash } from '../../utils/navigationDataUtils'
@@ -138,6 +139,7 @@ function Node({
   const { label, path, svg, flagKey, items } = node
   const showItem = flagKey ? flags[flagKey] : true
   const isActive = isActiveNodeOrAncestor(currentPath, node)
+  const { isPathDisabled } = useFlaggedPagesConfig()
 
   // https://kentcdodds.com/blog/useeffect-vs-uselayouteffect#useeffect
   useLayoutEffect(() => {
@@ -150,6 +152,8 @@ function Node({
   const handleExpandCollapse = () => {
     onExpandCollapse(node)
   }
+
+  if (isPathDisabled(path)) return null
 
   return showItem ? (
     <li sx={itemStyles}>

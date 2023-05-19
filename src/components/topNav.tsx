@@ -11,11 +11,15 @@ import { SideNavItem } from './sideNav/types'
 import Icon, { IconName } from './icon'
 import Link from './link'
 
+import { useFlaggedPagesConfig } from '@/hooks/useFlaggedPagesConfig'
+
 const variant = 'links.topNav'
 
 const TopNav = () => {
   const { theme } = useGitGatsbyTheme()
   const flags = useFlags()
+  const { isPathDisabled } = useFlaggedPagesConfig()
+
   const {
     allNavigationDataJson: { nodes: navigationData },
   } = useStaticQuery(graphql`
@@ -55,6 +59,9 @@ const TopNav = () => {
       {navigationData.map((rootItem: SideNavItem) => {
         const { label, path, flagKey, svg } = rootItem
         const showItem = flagKey ? flags[flagKey] : true
+
+        if (isPathDisabled(path)) return null
+
         return showItem ? (
           <li key={label} sx={{ display: 'flex', height: '100%', alignItems: 'center' }}>
             {isExternalLink(path) ? (
