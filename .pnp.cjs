@@ -79,6 +79,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["algoliasearch", "npm:4.17.0"],\
             ["babel-loader", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:8.3.0"],\
             ["body-scroll-lock", "npm:3.1.5"],\
+            ["camelcase", "npm:7.0.1"],\
             ["chai", "npm:4.3.7"],\
             ["chai-string", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.5.0"],\
             ["cspell", "npm:5.21.2"],\
@@ -11423,6 +11424,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["camelcase", "npm:6.3.0"]\
           ],\
           "linkType": "HARD"\
+        }],\
+        ["npm:7.0.1", {\
+          "packageLocation": "./.yarn/cache/camelcase-npm-7.0.1-d41d97bb0d-86ab8f3ebf.zip/node_modules/camelcase/",\
+          "packageDependencies": [\
+            ["camelcase", "npm:7.0.1"]\
+          ],\
+          "linkType": "HARD"\
         }]\
       ]],\
       ["caniuse-api", [\
@@ -20837,6 +20845,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["algoliasearch", "npm:4.17.0"],\
             ["babel-loader", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:8.3.0"],\
             ["body-scroll-lock", "npm:3.1.5"],\
+            ["camelcase", "npm:7.0.1"],\
             ["chai", "npm:4.3.7"],\
             ["chai-string", "virtual:b6f0e6fd9b2aee2f6a9ab5666dc955b62d57de0ff5295fd3271c651853163e67ee73621037d74e1e0e95ea9b50799192ec4875eaf8eb56725a431fef8079b906#npm:1.5.0"],\
             ["cspell", "npm:5.21.2"],\

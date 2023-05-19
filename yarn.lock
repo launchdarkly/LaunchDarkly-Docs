@@ -7038,6 +7038,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"camelcase@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "camelcase@npm:7.0.1"
+  checksum: 86ab8f3ebf08bcdbe605a211a242f00ed30d8bfb77dab4ebb744dd36efbc84432d1c4adb28975ba87a1b8be40a80fbd1e60e2f06565315918fa7350011a26d3d
+  languageName: node
+  linkType: hard
+
 "caniuse-api@npm:^3.0.0":
   version: 3.0.0
   resolution: "caniuse-api@npm:3.0.0"
@@ -14699,6 +14706,7 @@ __metadata:
     algoliasearch: ^4.13.0
     babel-loader: ^8.2.5
     body-scroll-lock: ^3.1.5
+    camelcase: ^7.0.1
     chai: ^4.3.6
     chai-string: ^1.5.0
     cspell: ^5.20.0
