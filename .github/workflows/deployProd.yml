@@ -76,7 +76,7 @@ jobs:
       - name: Build and deploy
         timeout-minutes: 30
         if: steps.build-status.outputs.deploy == 'true'
-        run: yarn build-deploy-prod
+        run: NODE_OPTIONS=--max-old-space-size=8192 yarn build-deploy-prod
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
