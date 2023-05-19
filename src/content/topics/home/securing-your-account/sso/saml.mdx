@@ -61,6 +61,12 @@ To use SSO in test-drive mode:
 
 ![The test-drive enablement option.](settings-security-sso-test-drive.png)
 
+4. (Optional) If you need to make changes to your setup, you can edit your SAML configuration while in test-drive mode.
+
+After your configuration is working as expected, you can set up user provisioning and enable SSO for your organization. You will automatically exit test-drive mode when you enable SSO.
+
+To exit test-drive mode and keep SSO disabled, delete the SAML configuration metadata from the SAML configuration panel.
+
 ## User provisioning with SAML
 
 <Callout intent="info">
@@ -172,3 +178,18 @@ To disable SSO:
 4. Click **Disable**:
 
 ![The "Disable SSO" confirmation dialog.](settings-security-sso-disable.png)
+
+## Changing SSO providers
+
+If you need to change SSO providers, you can test drive the new provider in between disconnecting your old provider and enabling your new provider.
+
+Here's how:
+
+1. [Disable SSO](#disabling-sso).
+2. [Update your SAML configuration](#configure-launchdarkly-saml) with the new certificate.
+3. [Enable test-drive mode](#test-drive-mode).
+4. Test the new SSO provider and confirm it is working as expected.
+6. (Optional) [Reconfigure your user provisioning](#user-provisioning-with-saml), if needed.
+5. [Re-enable SSO](#enabling-sso).
+
+Your logged-in account members can still use LaunchDarkly while SSO is disabled. However, if an account member logs out or their session expires while SSO is disabled, they will need to reset their password before they can log back in. For this reason, we recommend changing SSO providers during scheduled down time.
