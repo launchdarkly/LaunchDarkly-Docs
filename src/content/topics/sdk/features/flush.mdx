@@ -10,7 +10,7 @@ tags: ['flush', 'event', 'sdk']
 
 This topic explains how to use the flush feature. The flush feature is available on both server-side and client-side SDKs.
 
-All LaunchDarkly SDKs automatically flush pending analytics events to LaunchDarkly at regular intervals. This prevents the SDK from having to send constant network requests. The time between intervals varies by SDK, and is configurable. To learn how to configure your SDK's flush interval, read [Configuration](/sdk/features/config).
+Server-side, client-side, and mobile LaunchDarkly SDKs automatically flush pending analytics events to LaunchDarkly at regular intervals. This prevents the SDK from having to send constant network requests. The time between intervals varies by SDK, and is configurable. To learn how to configure your SDK's flush interval, read [Configuration](/sdk/features/config).
 
 You can manually call flush to send events immediately without waiting for the next interval. Most customers do not need to use the flush feature because SDKs automatically flush their pending analytics events on a periodic frequency. However, it can be useful if you are using the SDK in a short-lived serverless process or a test application, rather than in a long-running application. To learn more, read [Analytics events](/sdk/concepts/events).
 

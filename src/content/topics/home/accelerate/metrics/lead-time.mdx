@@ -20,7 +20,7 @@ Accelerate is only available to members of LaunchDarkly's Early Access Program (
 
 This topic explains how to use LaunchDarkly's lead time metric view.
 
-Accelerate defines lead time as the time between first code commit and successful deployment to an environment. This metric view breaks the total lead time into steps, including coding time, pull request (PR) lifespan, deployment wait time, and deployment duration. It also includes a table of recent PRs and the environments they were deployed to. Lead time allows you to analyze how efficiently your team is delivering code changes, and find where the bottlenecks are in your code delivery lifecycle.
+Accelerate defines lead time as the time between first code commit and successful deployment to an environment. This metric view breaks the total lead time into steps, including coding time, pull request (PR) lifespan, deployment wait time, and deployment duration. It also includes a table of recent PRs, their lead times, and the environments they were deployed to. Lead time allows you to analyze how efficiently your team is delivering code changes, and find where the bottlenecks are in your code delivery lifecycle.
 
 ## Understanding the lead time summary
 
@@ -43,7 +43,7 @@ You can use the "Group by" menu to group the results by application or environme
 
 ## Reading the lead time breakdown chart
 
-The lead time breakdown chart includes the average time spent on each of these steps for the time period selected:
+The lead time breakdown chart includes the average time spent on each of these steps for all PRs in the time period selected:
 
 - Coding time, which measures the time between when you made your first commit and when you opened a PR containing that commit
 - PR lifespan, which measures the time between when you opened the PR and when you merged the PR
@@ -56,14 +56,18 @@ Each step also displays a percentage showing the increase or decrease in time sp
 
 ## Using the pull requests list
 
+In the pull requests list you can review pull request, flag, and lead time information for individual PRs.
+
 The pull requests list displays the following information:
 
-- The PR title. Click on the PR title to view the PR within your GitHub repository.
+- The PR title and author. Click on the PR title to view the PR within your GitHub repository.
 - How long ago the PR was merged.
+- The total lines added and removed in the PR.
 - The environments the PR has been deployed to.
-- The total time the PR was open.
 - The number of flags referenced in the PR, if any. Hover over the "N flags updated" element to view the list of referenced flags. Click on a flag name to view the flag in your LaunchDarkly **Feature flags** list.
+- A breakdown of the lead time for the PR, including its coding time, PR lifespan, deployment wait time, and deployment duration. Hover to inspect details for each lead time stage.
+  - Accelerate uses the longest PR lead time for a specific deployment. To view a lead time breakdown for other deployments, click **Show more deployments**.
 
-You can filter the pull requests list by title, PR number, or author.
+You can filter the pull requests list by title, PR number, or author. You can sort the pull requests list by longest lead time, shortest lead time, or recently merged.
 
 ![The pull requests list.](accelerate-lead-time-pull-requests-list.png)

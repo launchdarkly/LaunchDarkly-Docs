@@ -8,7 +8,7 @@ tags: ['guide', 'edge', 'sdk', 'cloudflare', 'worker']
 
 ## Overview
 
-This guide explains how to connect LaunchDarkly to Cloudflare Workers using [LaunchDarkly's Cloudflare SDK](/sdk/server-side/cloudflare).
+This guide explains how to connect LaunchDarkly to Cloudflare Workers using [LaunchDarkly's Cloudflare SDK](/sdk/edge/cloudflare).
 
 Cloudflare Workers are serverless functions that run "at the edge" within Cloudflare's Content Delivery Network (CDN). Unlike traditional serverless functions that are deployed to a single region, edge functions like Cloudflare Workers are deployed across a global CDN network. This means that requests are routed to the nearest CDN, allowing the function response to be extremely fast.
 
@@ -18,7 +18,7 @@ This guide explains how to get set up within Cloudflare and set up the LaunchDar
 
 ## Setting up a project
 
-For this guide, we created a sample CloudFlare Workers project that demonstrates several uses of flags within a Worker. The finished code is [on GitHub](https://github.com/launchdarkly-labs/cfworkers-ld). You can use this code as a reference as you work through the steps in the guide. You can view the finished page running on [Cloudflare Workers](https://cfworkers-ld.remotesynth.workers.dev/).
+For this guide, we created a sample CloudFlare Workers project that demonstrates several uses of flags within a Worker. You can view the finished page running on [Cloudflare Workers](https://cfworkers-ld.remotesynth.workers.dev/).
 
 To create the project documented in this guide, clone the site assets from [this Github repository](https://github.com/launchdarkly-labs/cfworkers-ld-assets). The assets contain the code for the website without the Worker file or the custom client-side JavaScript that appear in the examples below.
 
@@ -141,7 +141,7 @@ Here's how to set up local development:
   </CSTab>
   </CodeSample>
 
-  You can view the site at the URL and port indicated in the console, typically `localhost:8787`.
+You can view the site at the URL and port indicated in the console, typically `localhost:8787`. You should see "Hello world," because the generated worker overrides the output of your site. You will modify this in the next section.
 
 ### Using a simple Cloudflare Worker
 
@@ -179,6 +179,8 @@ async function handleEvent(event: FetchEvent) {
 </CSTab>
 </CodeSample>
 
+After replacing the initial worker, you'll see an error that the KV is not set up yet. You will modify this in the next section.
+
 ### Setting up the LaunchDarkly Cloudflare integration
 
 LaunchDarkly's Cloudflare integration synchronizes flag data from a LaunchDarkly project and environment with a KV connected to your Worker in Cloudflare. This means that it makes the latest flag data immediately available to the LaunchDarkly client within your Worker without the need for additional external calls. This makes it extremely fast.
@@ -198,6 +200,8 @@ Here's how to set up the integration:
 
   </CSTab>
   </CodeSample>
+
+  The `compatibility_flags` should be above the site block in your `wrangler.toml`.
 
 2. Copy and store your account ID as you need it to enable the Cloudflare integration.
 
@@ -231,13 +235,20 @@ Here's how to set up the integration:
   </CSTab>
   </CodeSample>
 
+  The `kv_namespaces` should be above the site block in your `wrangler.toml`.
+
 5. Copy and store the namespace ID as you'll need it to enable LaunchDarkly's Cloudflare integration.
 
-  <Callout intent="info">
-  <CalloutTitle>Cloudflare Workers preview service</CalloutTitle>
+  <Callout intent="primary">
+  <CalloutTitle>Additional requirements for local testing</CalloutTitle>
   <CalloutDescription>
 
-  If you plan to use the [Cloudflare Workers preview service](https://cloudflareworkers.com/), you will need to create a preview namespace as well. To set this up, follow the [Cloudflare integration docs](/integrations/cloudflare#creating-a-cloudflare-worker-with-the-@launchdarkly/cloudflare-server-sdk).
+  If you plan to test locally, you will also need a Cloudflare Workers preview namespace and an additional parameter for starting your server:
+
+  <ul>
+  <li>If you plan to use the <a href="https://cloudflareworkers.com/">Cloudflare Workers preview service</a>, you will need to create a Cloudflare Workers preview namespace as well. To set this up, follow the <a href="/integrations/cloudflare#creating-a-cloudflare-worker-with-the-@launchdarkly/cloudflare-server-sdk">Cloudflare integration docs</a>.</li>
+  <li>If you are using the <code>nodejs_compat</code> compatibility flag, you must use <code>wrangler dev --experimental-local</code> to start your local server. To learn more, read <a href="https://developers.cloudflare.com/workers/wrangler/configuration/#node-compatibility">Cloudflare's Node compatibility docs</a>.</li>
+  </ul>
 
   </CalloutDescription>
   </Callout>
@@ -278,7 +289,7 @@ Here's how to set up the integration in LaunchDarkly:
 
   - **Name**: This is optional, but is useful for determining which Worker namespace this is connected to when you have multiple connections.
   - **Environment**: Which LaunchDarkly environment to use when syncing flags and values with the KV on Cloudflare.
-  - **Account ID**: Your Cloudflare account ID.
+  - **Account ID**: Your Cloudflare account ID. You can find this on the Worker home in Cloudflare, in the right side navigation, or by using the command `wrangler whoami`.
   - **KV Namespace ID**: The namespace ID for the KV connected to your Worker. If you also created a preview KV, you'll need a separate integration set up using the preview KV namespace ID as well.
   - **API token**: The Cloudflare API token you just created.
 
@@ -448,7 +459,7 @@ Here's how to bootstrap the client-side flag values:
   </CSTab>
   </CodeSample>
 
-4. Call the `HTMLRewriter` instance to alter the response. Instead of returning just `response` from within the `handleEvent()` method, wrap it in the rewriter's `transform()` method.
+4. Call the `HTMLRewriter` instance to alter the response. Replace the existing `return` statement in the `handleEvent()` method. Instead of returning just `response`, wrap the `response` in the rewriter's `transform()` method.
 
   <CodeSample>
   <CSTab label="TypeScript">

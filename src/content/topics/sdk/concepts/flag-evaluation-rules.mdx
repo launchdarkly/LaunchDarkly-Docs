@@ -23,7 +23,7 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 Client-side and server-side SDKs evaluate feature flags differently:
 
-- Server-side SDKs evaluate feature flags internally using embedded evaluation rules
+- Server-side SDKs and edge SDKs evaluate feature flags internally using embedded evaluation rules
 - Client-side SDKs evaluate feature flags by contacting LaunchDarkly, which runs the following evaluation rules on the backend
 
 SDKs evaluate flags based on an evaluation context, which may contain one or more specific contexts. The arguments needed to evaluate a flag are the _flag key_, _evaluation context_, and the _default variation value_.

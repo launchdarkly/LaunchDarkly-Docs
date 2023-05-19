@@ -31,6 +31,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -570,31 +571,6 @@ LDConfigSetEventsFlushInterval(config, 30000);
 For a complete list of configuration options, read the [SDK's API docs](https://launchdarkly.github.io/c-server-sdk/config_8h.html).
 </Details>
 
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. The Cloudflare SDK only supports the logger configuration option.
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```typescript
-import { BasicLogger, init, LDOptions } from '@launchdarkly/cloudflare-server-sdk';
-
-const options: LDOptions = {
-  logger: new BasicLogger({ destination: console.log }),
-};
-
-client = init('sdk-key-123abc', env.LD_KV, options);
-```
-
-</CSTab>
-</CodeSample>
-
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/types/LDOptions.html).
-</Details>
-
 ### Erlang
 
 <Details summary="Expand Erlang code sample">
@@ -896,4 +872,64 @@ let client = Client::build(config).unwrap();
 </CodeSample>
 
 The `Config` type lets you specify a variety of options. To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Config.html).
+</Details>
+
+## Edge SDKs
+
+This feature is available in the following edge SDKs:
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. The Cloudflare SDK only supports the logger configuration option.
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+import { BasicLogger, init, LDOptions } from '@launchdarkly/cloudflare-server-sdk';
+
+const options: LDOptions = {
+  logger: new BasicLogger({ destination: console.log }),
+};
+
+client = init('sdk-key-123abc', env.LD_KV, options);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/types/LDOptions.html).
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. The Vercel SDK only supports the logger configuration option.
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+import { createClient } from '@vercel/edge-config';
+import { BasicLogger, init, LDOptions } from '@launchdarkly/vercel-server-sdk';
+
+const edgeClient = createClient(process.env.EDGE_CONFIG);
+
+const options: LDOptions = {
+  logger: new BasicLogger({ destination: console.log }),
+};
+
+client = init('sdk-key-123abc', env.LD_KV, edgeClient);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more about the specific configuration options that are available in this SDK, read [`LDOptions`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/types/LDOptions.html).
 </Details>

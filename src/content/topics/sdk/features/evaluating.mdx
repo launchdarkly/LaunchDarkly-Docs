@@ -46,6 +46,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -411,7 +412,6 @@ This feature is available for all of our server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
-* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -514,28 +514,6 @@ bool value = LDBoolVariation(client, user, "your.feature.key", false, NULL);
 </CodeSample>
 
 You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
-
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a [fallback value](/home/getting-started/vocabulary#fallback-value).
-
-Here is an example:
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```typescript
-const flagValue = await client.variation('flag-key-123abc', context, false);
-```
-
-</CSTab>
-</CodeSample>
-
-You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>
 
@@ -868,5 +846,58 @@ let result = client.bool_variation(&user, "your.feature.key", false);
 </CodeSample>
 
 You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
+
+</Details>
+
+## Edge SDKs
+
+This feature is available for all of our edge SDKs:
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a default value.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const flagValue = await client.variation('flag-key-123abc', context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
+
+</Details>
+
+### Vercel
+
+
+<Details summary="Expand Vercel code sample">
+
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a fallback value.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const flagValue = await client.variation('flag-key-123abc', context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
 
 </Details>

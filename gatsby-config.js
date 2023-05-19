@@ -173,7 +173,7 @@ const plugins = [
   {
     resolve: 'gatsby-plugin-google-gtag',
     options: {
-      trackingIds: ['UA-44750782-3', 'G-P12DWV2SBZ', 'G-31EH4XPW51'],
+      trackingIds: ['G-P12DWV2SBZ', 'G-31EH4XPW51'],
       pluginConfig: {
         head: true,
       },

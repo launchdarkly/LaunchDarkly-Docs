@@ -20,7 +20,7 @@ If you use a firewall and would like to configure access based on IP addresses, 
 
 The LaunchDarkly SDKs access various base uniform resource identifiers (URIs) for different services.
 
-The SDKs use the streaming service and polling service to request flag updates. They use the events service to send data back to LaunchDarkly for experimentation analysis.
+The server-side, client-side, and mobile SDKs use the streaming service and polling service to request flag updates. They use the events service to send data back to LaunchDarkly for Experimentation analysis.
 
 The following table describes the default base URIs for each service for the server-side SDKs:
 
@@ -90,3 +90,5 @@ The following table describes the default base URIs for each service for the mob
   </TableRow>
   </TableBody>
 </Table>
+
+The edge SDKs do not use the streaming service or polling service to request flag updates. They get flag data from their provider-specific store. The edge SDKs also do not send events data back to LaunchDarkly.

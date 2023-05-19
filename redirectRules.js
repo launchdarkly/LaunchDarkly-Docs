@@ -221,6 +221,18 @@ module.exports = [
     toPath: '/guides/platform-specific/nginx',
   },
   {
+    fromPath: '/sdk/server-side/node-js/cloudflare-edge-sdk',
+    toPath: '/sdk/edge/cloudflare',
+  },
+  {
+    fromPath: '/sdk/server-side/cloudflare',
+    toPath: '/sdk/edge/cloudflare',
+  },
+  {
+    fromPath: '/sdk/server-side/cloudflare/migration-1-to-2',
+    toPath: '/sdk/edge/cloudflare/migration-1-to-2',
+  },
+  {
     fromPath: '/sdk/concepts/feature-store/',
     toPath: '/sdk/concepts/data-stores',
   },

@@ -10,9 +10,9 @@ tags: ['guide', 'serverless', 'sdk', 'feature store']
 
 This guide provides best practice advice for using LaunchDarkly in serverless and short-lived environments. While most uses of serverless architecture require no extra configuration, some apps may benefit from additional configuration to ensure consistent high performance.
 
-In many cases, the best way to use LaunchDarkly in serverless and short-lived environments is with the Relay Proxy hosted on a long-lived server. To learn more about common uses cases for the Relay Proxy, read [Relay Proxy use cases](/home/relay-proxy/use-cases). To learn how to configure the Relay Proxy in your environment, read [Implementing the Relay Proxy](/home/relay-proxy/implementing).
+If your app is very sensitive to start up run times, you may want to use LaunchDarkly with the Relay Proxy hosted on a long-lived server to reduce initialization latency. To learn more, read [Reducing initialization latency in short-lived and serverless environments](/home/relay-proxy/use-cases#reducing-initialization-latency-in-short-lived-and-serverless-environments).
 
-If you are working in a strictly serverless environment and cannot use the Relay Proxy, an alternative option is described here. This guide assumes that you have already chosen to use serverless functions in your application architecture.
+If you do not need to use the Relay Proxy, an alternative option is described here. This guide assumes that you have already chosen to use serverless functions in your application architecture.
 
 ## Concepts
 

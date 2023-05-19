@@ -35,6 +35,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -279,7 +280,6 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
-* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -361,28 +361,6 @@ struct LDJSON *allFlags = LDAllFlags(client, user);
 </CodeSample>
 
 To learn more, read the [API documentation](https://launchdarkly.github.io/c-server-sdk/variations_8h.html#a51ba0df725bdcd4a005e6efe7bb4f944).
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
-
-To use the all flags feature:
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```js
-const allFlags = await client.allFlagsState(context);
-```
-
-</CSTab>
-</CodeSample>
-
-To learn more, read the [API documentation](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#allFlagsState).
-
 </Details>
 
 ### Erlang
@@ -682,4 +660,56 @@ let state = ldclient.all_flags_detail(&user, FlagDetailConfig::new());
 </CodeSample>
 
 To learn more, read the [API documentation](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/struct.Client.html#method.all_flags_detail).
+</Details>
+
+## Edge SDKs
+
+This feature is available for all of our edge SDKs:
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
+
+To use the all flags feature:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```js
+const allFlags = await client.allFlagsState(context);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read the [API documentation](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#allFlagsState).
+
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
+
+To use the all flags feature:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```js
+const allFlags = await client.allFlagsState(context);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`allFlagsState`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/classes/LDClient.html#allFlagsState).
+
 </Details>

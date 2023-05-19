@@ -29,6 +29,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -561,7 +562,6 @@ This feature is available in the following server-side SDKs:
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
-* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -727,30 +727,6 @@ LDDetailsClear(&details);
 </CodeSample>
 
 To learn more about the `LDDetails` structure, inspect [`variations.h`](https://launchdarkly.github.io/c-server-sdk/structLDDetails.html).
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-The `variationDetail` method lets you evaluate a feature flag using the same parameters as you would for `variation` and receive more information about how the value was calculated.
-
-The SDK returns the variation detail in an object that contains both the result value and a "reason" object. These tell you, for instance, if the flag individually targeted the context or if the context matched one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
-
-Here is an example:
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```typescript
-const { value, variationIndex, reason } = await client.variationDetail(flagKey, context, false);
-```
-
-</CSTab>
-</CodeSample>
-
-To learn more, read [`variationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#variationDetail), [`LDEvaluationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/LDEvaluationDetail.html) and [`LDEvaluationReason`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/platform.LDEvaluationReason.html).
-
 </Details>
 
 ### Erlang
@@ -1395,5 +1371,61 @@ fn print_reason(reason: Reason) {
 </CodeSample>
 
 To learn more, read [`Reason`](https://docs.rs/launchdarkly-server-sdk/latest/launchdarkly_server_sdk/enum.Reason.html).
+
+</Details>
+
+## Edge SDKs
+
+This feature is available for all of our edge SDKs:
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+The `variationDetail` method lets you evaluate a feature flag using the same parameters as you would for `variation` and receive more information about how the value was calculated.
+
+The SDK returns the variation detail in an object that contains both the result value and a "reason" object. These tell you, for instance, if the flag individually targeted the context or if the context matched one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const { value, variationIndex, reason } = await client.variationDetail(flagKey, context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`variationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#variationDetail), [`LDEvaluationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/LDEvaluationDetail.html) and [`LDEvaluationReason`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/interfaces/platform.LDEvaluationReason.html).
+
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+The `variationDetail` method lets you evaluate a feature flag using the same parameters as you would for `variation` and receive more information about how the value was calculated.
+
+The SDK returns the variation detail in an object that contains both the result value and a "reason" object. These tell you more information. For example, they can tell you if the flag individually targeted the context, or if the context matched one of the flag's rules. It will also indicate if the flag returned the default value due to an error. You can examine the "reason" data programmatically, or, if you capture detailed analytics events for flags, view it with Data Export.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const { value, variationIndex, reason } = await client.variationDetail(flagKey, context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`variationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/classes/LDClient.html#variationDetail), [`LDEvaluationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/interfaces/LDEvaluationDetail.html) and [`LDEvaluationReason`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/interfaces/platform.LDEvaluationReason.html).
 
 </Details>

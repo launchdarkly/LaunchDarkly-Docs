@@ -21,7 +21,7 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 </CalloutDescription>
 </Callout>
 
-All SDKs send analytics events to LaunchDarkly as a result of feature flag evaluations and certain SDK calls. There are several kinds of analytics events.
+Client-side and server-side SDKs send analytics events to LaunchDarkly as a result of feature flag evaluations and certain SDK calls. There are several kinds of analytics events.
 
 Here is a list of analytics event kinds and their functions:
 - `summary` events describe a set of individual feature evaluations over an interval.
@@ -52,7 +52,7 @@ Here is a list of LaunchDarkly features that rely on analytics events:
 
 ## Event buffering and sending
 
-All LaunchDarkly SDKs automatically send pending analytics events to LaunchDarkly at regular intervals. This is called a flush interval. The buffer between flushes prevents the SDK from having to send constant network requests, and varies by SDK. By default, server-side SDK buffer time is usually a few seconds, and mobile SDK buffer time is around 30 seconds. A longer buffer time for mobile SDKs helps preserve the device's battery life, and events do not need to be flushed as often because events build up much more slowly for client-side SDKs with only a small number of contexts.
+Server-side, client-side, and mobile LaunchDarkly SDKs automatically send pending analytics events to LaunchDarkly at regular intervals. This is called a flush interval. The buffer between flushes prevents the SDK from having to send constant network requests, and varies by SDK. By default, server-side SDK buffer time is usually a few seconds, and mobile SDK buffer time is around 30 seconds. A longer buffer time for mobile SDKs helps preserve the device's battery life, and events do not need to be flushed as often because events build up much more slowly for client-side SDKs with only a small number of contexts.
 
 You can configure your SDK's buffer time between flushes. To learn how, read [Configuration](/sdk/features/config).
 

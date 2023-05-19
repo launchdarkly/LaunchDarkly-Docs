@@ -33,6 +33,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -230,7 +231,6 @@ This feature is available in the following server-side SDKs:
 
 * [.NET (server-side)](#net-server-side)
 * [C/C++ (server-side)](#cc-server-side)
-* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -272,23 +272,6 @@ To shut down:
 
 ```c
 LDClientClose(client);
-```
-
-</CSTab>
-</CodeSample>
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-[close](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#close) safely shuts down the client instance:
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```ts
-client.close();
 ```
 
 </CSTab>
@@ -438,6 +421,47 @@ To shut down:
 <CSTab label="Rust">
 
 ```rust
+client.close();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+## Edge SDKs
+
+This feature is available in the following edge SDKs:
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+[`close`](https://launchdarkly.github.io/js-core/packages/sdk/cloudflare/docs/classes/LDClient.html#close) safely shuts down the client instance:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```ts
+client.close();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+[`close`](https://launchdarkly.github.io/js-core/packages/sdk/vercel/docs/classes/LDClient.html#close) safely shuts down the client instance:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```ts
 client.close();
 ```
 

@@ -933,6 +933,10 @@
           {
             "label": "Snowplow",
             "path": "/integrations/snowplow"
+          },
+          {
+            "label": "Sprig",
+            "path": "/integrations/sprig"
           }
         ]
       },
@@ -1059,6 +1063,10 @@
                 "path": "/integrations/terraform/migration-1-to-2"
               }
             ]
+          },
+          {
+            "label": "Vercel",
+            "path": "/integrations/vercel"
           },
           {
             "label": "Zapier",
@@ -1626,6 +1634,21 @@
                 "path": "/sdk/server-side/rust/implementation-v1"
               }
             ]
+          }
+        ]
+      },
+      {
+        "label": "Edge SDKs",
+        "path": "/sdk/edge",
+        "svg": "database-export",
+        "items": [
+          {
+            "label": "Cloudflare SDK reference",
+            "path": "/sdk/edge/cloudflare"
+          },
+          {
+            "label": "Vercel SDK reference",
+            "path": "/sdk/edge/vercel"
           }
         ]
       }

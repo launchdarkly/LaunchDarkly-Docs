@@ -29,6 +29,7 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 * [Client-side SDKs](#client-side-sdks)
 * [Server-side SDKs](#server-side-sdks)
+* [Edge SDKs](#edge-sdks)
 
 ## Client-side SDKs
 
@@ -590,7 +591,6 @@ Here are the configuration options for anonymous contexts and users in server-si
 * [.NET (server-side)](#net-server-side)
 * [Apex](#apex)
 * [C/C++ (server-side)](#cc-server-side)
-* [Cloudflare](#cloudflare)
 * [Erlang](#erlang)
 * [Go](#go)
 * [Haskell](#haskell)
@@ -669,25 +669,6 @@ LDUserSetAnonymous(user, LDBooleanTrue);
 ```c
 LDUser *user = LDUserNew("placeholder-key");
 LDUserSetAnonymous(user, true);
-```
-
-</CSTab>
-</CodeSample>
-</Details>
-
-### Cloudflare
-
-<Details summary="Expand Cloudflare code sample">
-
-To distinguish logged-in end users from anonymous end users in the SDK:
-
-<CodeSample>
-<CSTab label="TypeScript">
-
-```ts
-import type { LDContext } from '@launchdarkly/cloudflare-server-sdk';
-
-const anonymousContext: LDContext = { kind: 'user', key: 'user-key-123abc', anonymous: true };
 ```
 
 </CSTab>
@@ -999,6 +980,51 @@ let user = User::with_key("user-key-123abc").
     anonymous(true).
     country("US").
     build();
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+## Edge SDKs
+
+Here are the configuration options for anonymous contexts and users in edge SDKs.
+
+* [Cloudflare](#cloudflare)
+* [Vercel](#vercel)
+
+### Cloudflare
+
+<Details summary="Expand Cloudflare code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```ts
+import type { LDContext } from '@launchdarkly/cloudflare-server-sdk';
+
+const anonymousContext: LDContext = { kind: 'user', key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### Vercel
+
+<Details summary="Expand Vercel code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```ts
+import type { LDContext } from '@launchdarkly/vercel-server-sdk';
+
+const anonymousContext: LDContext = { kind: 'user', key: 'user-key-123abc', anonymous: true };
 ```
 
 </CSTab>

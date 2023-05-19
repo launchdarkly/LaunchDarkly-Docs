@@ -114,7 +114,7 @@ This page is targeted at contributors to LaunchDarkly SDKs. If you are a LaunchD
   </CalloutDescription>
 </Callout>
 
-The SDKs send nine kinds of events:
+Most SDKs send nine kinds of events:
 
 - `summary` events describe a set of individual feature evaluations over an interval.
 - `feature` events include additional feature flag evaluation details for flags used in Experimentation and flags you enable detailed tracking for.
@@ -124,7 +124,9 @@ The SDKs send nine kinds of events:
 - `custom` events are sent when an application calls the SDK's track method.
 - `diagnostic` events report on how the SDK is configured and operating.
 
-SDKs must batch and send events to the LaunchDarkly server **asynchronously**. This is a requirement for all SDKs. Do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/bulk` for server-side SDKs, to `/events/bulk/{envId}` for client-side JavaScript SDKs, and to `/mobile/events/bulk` for mobile SDKs.
+Server-side, client-side, and mobile SDKs must batch and send events to the LaunchDarkly server **asynchronously**. This is a requirement. The edge SDKs must not send events.
+
+For server-side, client-side, and mobile SDKs, do this by creating a background job that runs every 30 seconds and makes a `POST` call to `/bulk` for server-side SDKs, to `/events/bulk/{envId}` for client-side JavaScript SDKs, and to `/mobile/events/bulk` for mobile SDKs.
 
 This call must have a `Content-Type` header set to `application/json` and must include a JSON body consisting of a list of events. Calls to server-side and mobile SDKs must have an `Authorization` header set to `api_key ${api_key}`. Client-side JavaScript SDKs do not need an `Authorization` header.
 
@@ -246,7 +248,7 @@ The technical details of how to implement `diagnostic` events in a LaunchDarkly 
 We've observed a few common mistakes in integrating the LaunchDarkly SDK at customer sites. It's helpful for the SDKs to introduce specific logging around these errors and handle them as gracefully as possible:
 
 - Passing `null` or the language equivalent as the context `key`, or omitting the `key` property altogether. SDKs should log this at error level and return the default value.
-- Including a trailing slash in the base URL of a custom config object. Example: `https://sdk.launchdarkly.com/`, which when appended to `/api`, yields `https://sdk.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.
+- Including a trailing slash in the base URL of a custom config object. Example: `https://sdk.launchdarkly.com/`, which when appended with `/api`, yields `https://sdk.launchdarkly.com//api`. SDKs should deal with this by trimming trailing slashes off of custom base URL parameters.
 
 ## More resources
 

@@ -95,6 +95,7 @@ const AllIntegrations = () => {
       label: 'Cloudflare',
       shortLabel: 'Cloudflare',
       path: '/integrations/cloudflare',
+      svg: 'cloudflare',
     },
     {
       label: 'CloudQuery',
@@ -289,6 +290,12 @@ const AllIntegrations = () => {
       svg: 'integrations/splunk',
     },
     {
+      label: 'Sprig',
+      shortLabel: 'Sprig',
+      path: '/integrations/sprig',
+      svg: 'integrations/sprig',
+    },
+    {
       label: 'Terraform',
       shortLabel: 'Terraform',
       path: '/integrations/terraform',
@@ -305,6 +312,12 @@ const AllIntegrations = () => {
       shortLabel: 'Trello',
       path: '/integrations/trello',
       svg: 'integrations/trello',
+    },
+    {
+      label: 'Vercel',
+      shortLabel: 'Vercel',
+      path: '/integrations/vercel',
+      svg: 'vercel',
     },
     {
       label: 'Visual Studio Code',
