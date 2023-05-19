@@ -14,7 +14,8 @@ export function CodeSample({ children }: CodeSampleProps) {
     throw new Error(`Error: There is a ${CodeSample.name} that is missing a child component. Add a CSTab.`)
   } else {
     const validChildren = Children.toArray(children).filter((child: JSX.Element) => {
-      return child.type.displayName === 'CSTab'
+      // mdx wraps the name and it ends up looking like: MdxComponents('CSTab')
+      return child.type.displayName.includes('CSTab')
     })
     const selectedChild = validChildren.find((_child, index: number) => {
       return index === selectedIndex

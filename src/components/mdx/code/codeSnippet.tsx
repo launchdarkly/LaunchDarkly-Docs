@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useCallback, useState } from 'react'
 import { Themed } from '@theme-ui/mdx'
-import Highlight, { defaultProps } from 'prism-react-renderer'
+import Highlight, { defaultProps, Language } from 'prism-react-renderer'
 import Prism from 'prismjs'
 import { Box, Button, jsx } from 'theme-ui'
 
@@ -39,13 +39,17 @@ export type CodeSnippetProps = {
   children: string
 }
 
-export function CodeSnippet({ children, className: languageClassName, ...props }: CodeSnippetProps) {
+export function CodeSnippet({ children, className, ...props }: CodeSnippetProps) {
   const [showCopied, setShowCopied] = useState(false)
 
-  let language = languageClassName && languageClassName.replace(/language-/, '')
+  const getLanguage = () => {
+    if (!className.includes('language-')) {
+      return 'text' as Language
+    }
 
-  if (!language) {
-    language = 'text'
+    const tokens = className.split(' ')
+    const languageToken = tokens.find(t => t.includes('language-'))
+    return languageToken.replace(/language-/, '') as Language
   }
 
   const onClickCopy = useCallback(() => {
@@ -65,7 +69,7 @@ export function CodeSnippet({ children, className: languageClassName, ...props }
         theme={undefined}
         // Override prism-react-renderer's vendored Prism and limited language list
         Prism={Prism as any}
-        language={language as any}
+        language={getLanguage()}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <Fragment>
