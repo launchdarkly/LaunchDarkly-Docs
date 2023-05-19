@@ -4,10 +4,11 @@ title: Flags in docs
 isInternal: false
 published: true
 ---
+import { docsDemoFlagBoolean } from '@/flags'
 
 # Flags in docs
 
-<Feature flagKey="docs-demo-flag-boolean" showWhenVariation={true}>
+<Feature flag={docsDemoFlagBoolean} showWhenVariation={true}>
 ## I am on
 
 <CodeSample>
@@ -26,7 +27,7 @@ npm install jest-launchdarkly-mock --save-dev
 
 </Feature>
 
-<Feature flagKey="docs-demo-flag-boolean" showWhenVariation={false}>
+<Feature flag={docsDemoFlagBoolean} showWhenVariation={false}>
 ## I am off
 </Feature>
 
