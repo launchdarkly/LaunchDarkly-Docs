@@ -248,6 +248,12 @@ const AllIntegrations = () => {
       svg: 'integrations/release',
     },
     {
+      label: 'Roost.ai',
+      shortLabel: 'Roost.ai',
+      path: '/integrations/roost-ai',
+      svg: 'integrations/roost-ai',
+    },
+    {
       label: 'Segment',
       shortLabel: 'Segment',
       path: '/home/data-export/segment',

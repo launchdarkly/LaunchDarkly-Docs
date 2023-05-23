@@ -1051,6 +1051,10 @@
             "path": "/integrations/pendo"
           },
           {
+            "label": "Roost.ai",
+            "path": "/integrations/roost-ai"
+          },
+          {
             "label": "Release",
             "path": "/integrations/release"
           },

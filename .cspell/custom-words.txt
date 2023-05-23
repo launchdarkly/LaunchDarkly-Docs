@@ -229,6 +229,7 @@ Retryable
 Riensche
 roadmap
 rollouts
+Roost.ai
 ruleset
 rulesets
 runbook
