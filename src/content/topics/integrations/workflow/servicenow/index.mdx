@@ -7,14 +7,6 @@ tags: ['servicenow', 'integration', 'enterprise']
 site: launchDarklyOnly
 ---
 
-## Overview
-
-This topic explains how to configure and use the ServiceNow approvals integration for use with LaunchDarkly's approval workflows. To learn more, read [Approvals](/home/feature-workflows/approvals).
-
-The ServiceNow approvals integration helps your team comply with company-wide change management policies by embedding LaunchDarkly approvals into ServiceNow workflow. It bridges LaunchDarkly approval requests with ServiceNow change management workflows.
-
-When you enable this integration, all approval requests created in a LaunchDarkly environment generate corresponding ServiceNow standard change requests. These requests populate with relevant information about the proposed change. LaunchDarkly uses the state of the corresponding standard change request to determine if the proposed change should be acknowledged as "approved" or "declined."
-
 <Callout intent="info">
   <CalloutTitle>The ServiceNow approvals integration is an Enterprise feature</CalloutTitle>
   <CalloutDescription>
@@ -24,12 +16,19 @@ The ServiceNow approvals integration is available to customers on an Enterprise 
   </CalloutDescription>
 </Callout>
 
+## Overview
+
+This topic explains how to configure and use the ServiceNow approvals integration for use with LaunchDarkly's approval workflows.
+
+The ServiceNow approvals integration helps your team comply with company-wide change management policies by embedding LaunchDarkly approvals into ServiceNow workflow. It bridges LaunchDarkly approval requests with ServiceNow change management workflows.
+
+When you enable this integration, all approval requests created in a LaunchDarkly environment generate corresponding ServiceNow standard change requests. These requests populate with relevant information about the proposed change. LaunchDarkly uses the state of the corresponding standard change request to determine if the proposed change should be acknowledged as "approved" or "declined."
+
+To learn more about approval workflows, read [Approvals](/home/feature-workflows/approvals).
 
 ## Getting started
 
-To set up the ServiceNow approvals integration, you must complete two steps:
+To use the ServiceNow approvals integration, you must complete the following steps:
 
-1. [Setting up the ServiceNow approvals integrations](/integrations/servicenow/setting-up).
-2. [Requesting approval](/integrations/servicenow/approvals).
-
-![An approval request dialog with the ServiceNow approvals integration configured.](servicenow-create-approval-request-modal.png)
+1. [Set up the ServiceNow approvals integration](/integrations/servicenow/setting-up).
+2. [Request approval for your flag changes](/integrations/servicenow/approvals).
