@@ -14,7 +14,7 @@ This topic explains how to create a custom conversion metric for an experiment i
 <CalloutTitle>Call track and flush when an end user is redirected</CalloutTitle>
 <CalloutDescription>
 
-SDKs send events at regular intervals, such as every five seconds. If a browser redirects an end user to another page, any events that occurred between when the SDK last sent events and when browser redirected the end user will be lost. To avoid this, call track and then flush when you know the browser will redirect an end user to another page, such as on click.
+SDKs send events at regular intervals, such as every five seconds. If a browser redirects an end user to another page, any events that occurred between when the SDK last sent events, and when the browser redirected the end user, will be lost. To avoid this, call track and then flush when you know the browser will redirect an end user to another page, such as on click.
 
 </CalloutDescription>
 </Callout>
@@ -47,7 +47,7 @@ To create a custom conversion metric:
 ![A custom metric event kind.](metrics-event-kind-custom.png)
 
 3. Select the **Conversion** radio button.
-4. Enter a human-readable **Event name**. This is the event name you will reference in your code snippet when you insert the metric information into your app.
+4. Enter a human-readable **Event name**. You will reference this event name in your code snippet when you insert the metric information into your app.
 5. Choose one or more context kinds available for experiments for the metric to measure events from.
 
 <Callout intent="warning">
@@ -59,9 +59,7 @@ Using invalid randomization units will result in invalid experiment results. To 
 </CalloutDescription>
 </Callout>
 
-6. Click **Save metric**:
-
-![The "Event information" section of the "Create a new metric" panel with a conversion metric configured.](metrics-event-information.png)
+6. Click **Save metric**.
 
 After you create a metric, you can connect it to an experiment. To learn how, read [Building experiments](/home/creating-experiments#building-experiments).
 
