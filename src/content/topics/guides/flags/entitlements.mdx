@@ -8,7 +8,7 @@ tags: ['guide', 'entitlement', 'target', 'segment', 'targeting rule']
 
 ## Overview
 
-This guide explains how you can use feature flags to create special access levels or variable experiences based on the customer type. Use this guide to understand how long-lived feature flags and precision flag targeting work together to ensure that every customer has access to the correct features. Providing different experiences for different customers based on context characteristics is referred to as "entitlement."
+This guide explains how you can use feature flags to create special access levels or variable experiences based on the customer type. Use this guide to understand how long-lived feature flags and precise flag targeting work together to ensure that every customer has access to the correct features. Providing different experiences for different customers based on context characteristics is referred to as "entitlement."
 
 Common use cases include:
 
@@ -22,9 +22,8 @@ Conceptually, entitlement is a subset of flag targeting. It is meant to deliver 
 
 In order to complete this guide, you must have the following prerequisites:
 
-* You must know how to create feature flag in LaunchDarkly
-* You must know how to configure flag targeting
-* You must know how to set targeting rules
+* You must know how to [create feature flags](/home/getting-started/feature-flags)
+* You must know how to [configure flag targeting rules](/home/flags/targeting-rules)
 
 ## Concepts
 
@@ -38,13 +37,11 @@ Targeting is when you use flag rules to determine which contexts or segments rec
 
 Flags with no specified end date, or "permanent" flags, are part of the everyday operation of the application. They don't have a determined lifespan, so you shouldn't remove them as you would a temporary flag. In LaunchDarkly, you can designate a flag as “permanent” when you create it. To learn more, read [Creating a feature flag](/home/getting-started/feature-flags#creating-a-feature-flag).
 
-### Pre-defined segment
+### Context segments
 
 You can group a set of contexts that should consistently get the same behavior from the application into a segment. A segment might be end users in a certain geographic area, servers with a known IP address range, or members of an internal testing group.
 
-Using a segment as the definition of a target makes behavior more repeatable and predictable. You can include test contexts in the segment to ensure the contexts are represented in test scenarios.
-
-To learn more, read [Segments](/home/contexts/segments).
+Targeting a segment makes app behavior more repeatable and predictable. You can include test contexts in the segment to ensure the contexts are represented in test scenarios. To learn more, read [Segments](/home/contexts/segments).
 
 ## Managing entitlements with feature flags
 
@@ -92,34 +89,37 @@ Every organization has different needs, but we find that these practices general
 
 ### Effective flag naming
 
-An entitlement flag name should clearly state what feature it controls. If it is a prerequisite flag, include the set of features. Because this is a long-lived flag, you may not be the person who is administering it in the future, so the name should be descriptive and the descriptions filled out.
+Creating and using a flag naming convention saves your teams time and makes it easier for different parts of your organization to understand what other teams are working on.
 
-This table includes an example of effective flag naming:
+For example, a good flag naming convention should convey:
+- The intended behavior and impact on the application when the flag serves a variation.
+- The scope and target of the behavior.
+- The purpose of the feature flag in both the flags list and source code.
 
-<Table>
-  <TableHeader>
-    <TableHeadCell>Flag name</TableHeadCell>
-    <TableHeadCell>Description</TableHeadCell>
-    <TableHeadCell>Tags</TableHeadCell>
-  </TableHeader>
-  <TableBody>
-  <TableRow>
-    <TableCell>perm-PaidCustomer</TableCell>
-    <TableCell>Prerequisite flag for paid customers. Dependent flags include perm-ShowPaywall, perm-ThanksSubscriber.</TableCell>
-    <TableCell>prerequisites, permanent, sr-lvl</TableCell>
-  </TableRow>
-  </TableBody>
-</Table>
+Poorly-named flags can result in the following consequences:
+- Unclear or ambiguous flag impact and intent. For example, does a flag named "Dark mode" turn on dark mode, or allow end users to choose dark mode?
+- Flags used for multiple purposes in an application by mistake.
+- Difficulty remembering and adhering to the naming convention.
+- Difficulty discovering and searching for flags from the flags list.
 
-As you read the flag information, you'll learn that this flag controls a couple of other flags. If you turn `perm-PaidCustomer` off, it will affect those flags. It is a permanent flag, so you know you shouldn’t delete it without extensive discussion. The tags help group it with similar flags and make sure that only senior-level operators can change it.
+For examples of flag naming conventions, read [Creating naming conventions for flags](/guides/flags/flag-naming).
 
-You can mark the flag **permanent** when you create it, but it is also useful to prepend the name with an agreed-on prefix, such as `perm-` or `entitle-`. Adding tags to your entitlements flags can also help you find and group them for administrative purposes. Use tags to limit who has access to control the flags, because any state change in an entitlement flag can be very visible to your members.
+### Using segments
 
-### Automated segments
+<Callout intent="primary">
+<CalloutTitle>Big Segments and syncing Big Segments are Enterprise features</CalloutTitle>
+<CalloutDescription>
 
-You can add and remove individual targets to and from entitlement flags as needed, but depending on how often your customers change, this can be inefficient. Instead, you can target segments if you can provide that targeting data to the LaunchDarkly client evaluating the rules.
+Big Segments and syncing Big Segments from Amplitude cohorts are available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
 
-For customers on Enterprise plans, targeting segments defined in SAML are dynamically generated and updated, and are a good source of truth for who your end users are and what level of entitlement and access they should have. It’s better to use those SAML-defined segments as the target of your rule than to try to maintain a correct listing in more than one place.
+</CalloutDescription>
+</Callout>
+
+You can add and remove individual targets to and from entitlement flags as needed, but depending on how often your customers change, this can be inefficient. Instead, consider the following strategies:
+
+- **Target segments instead of individual contexts:** Targeting segments lets you move individual contexts in and out of segments as needed, eliminating the need to update individual flags. However, you still have to manually maintain the segment.
+- **Target Big Segments synced with Amplitude:** If you use Amplitude, you can sync your Big Segments with Amplitude, eliminating the need to update your segments manually. To learn more, read [Syncing Big Segments from Amplitude cohorts](/home/contexts/synced-segments).
+- **Target context attributes mapped to SAML attributes:** You can map SAML attribute values from your app to LaunchDarkly context attribute values, and then either target on those attributes, or target a segment that targets those attributes. SAML-defined attributes are dynamically generated and updated, which means you don't have to manually track who your end users are and what level of entitlement and access they should have.
 
 ## Risks when using entitlement flags
 
