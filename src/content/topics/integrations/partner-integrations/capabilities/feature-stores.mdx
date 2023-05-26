@@ -1,0 +1,95 @@
+---
+path: /integrations/partner-integrations/feature-stores
+title: Feature stores capability
+description: This topic explains how to use the feature stores integration framework capability.
+published: true
+tags: ['integration', 'partner', 'capabilities']
+---
+
+## Overview
+
+This topic explains how to use the feature stores integration framework capability.
+
+## Using feature stores
+
+Feature stores let LaunchDarkly to write feature flag data to a given provider. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+
+The feature store capability lets you to specify an endpoint that can receive a payload containing up-to-date flag data from LaunchDarkly.
+
+In addition to `formVariables`, the `featureStore` has two properties:
+
+- [`featureStoreRequest`](#the-feature-store-request-property)
+- (optional) [`validationRequest`](#the-validation-request-property)
+
+To learn more about form variables, read [Using form variables](/integrations/partner-integrations/form-variables).
+
+### The feature store request property
+
+This specifies the request `endpoint` that LaunchDarkly makes when flag data are updated. You can do this using an `endpoint` and a `parser`. To learn more, read [Endpoints](/integrations/partner-integrations/endpoints).
+
+In addition to the form variables defined in your manifest, you can use the special variable `_featureStoreKey`. `_featureStoreKey` is provided by LaunchDarkly, and is unique per environment.
+
+### The validation request property
+
+Specifying an optional validation request lets members to verify that they have properly filled out the details to correctly make a request.
+
+The `parser` object lets LaunchDarkly interpret the response of the validation request. It allows a mapping of success and errors for the given response body of the request in the form of a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). The `parser` object has two properties: a required `success` and an optional `error`.
+
+Here is an example `parse` object:
+
+<CodeSample>
+<CSTab label="A parse object">
+
+```json
+    "parser": {
+      "success": "/success",
+      "error": "/error"
+    },
+```
+
+</CSTab>
+</CodeSample>
+
+Choose an endpoint with a response that will indicate that the specified form variables are correct, but has no side effects.
+
+Here is an example `featureStore` capability:
+
+<CodeSample>
+<CSTab label='The featureStore capability'>
+
+```json
+    "featureStoreRequest": {
+      "endpoint": {
+        "url": "https://example.com/{{accountId}}/dictionary/{{dictId}}/item/{{_featureStoreKey}}",
+        "method": "PUT",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{apiToken}}"
+          },
+          {
+            "name": "Content-Type",
+            "value": "text/plain"
+          }
+        ]
+      }
+    },
+    "validationRequest": {
+      "endpoint": {
+        "url": "https://example.com/{{accountId}}/dictionary/{{dictId}}/items",
+        "method": "GET",
+        "headers": [
+          {
+            "name": "Authorization",
+            "value": "Bearer {{apiToken}}"
+          }
+        ]
+      },
+      "parser": {
+        "success": "/success"
+      }
+    }
+```
+
+</CSTab>
+</CodeSample>

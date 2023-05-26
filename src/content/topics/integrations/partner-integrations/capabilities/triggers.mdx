@@ -1,0 +1,53 @@
+---
+path: /integrations/partner-integrations/triggers
+title: Triggers capability
+description: This topic explains how to use the triggers integration framework capability.
+published: true
+tags: ['integration', 'partner', 'capabilities']
+---
+
+## Overview
+
+This topic explains how to use the triggers integration framework capability.
+
+## Using triggers
+
+<Callout intent="primary">
+<CalloutTitle>Flag triggers is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+Flag triggers is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+Flag triggers let you turn flags on or off remotely from a third-party application. To learn more about the feature, read [Flag triggers](/home/feature-workflows/triggers).
+
+You can use the `trigger` capability to generate a unique webhook URL that your service can request to generate a user-defined flag change in LaunchDarkly. By default, the trigger URL contains a globally unique path parameter to provide security in the form of an unguessable URL. To learn more, read [Google's Unguessable URLs](https://www.schneier.com/blog/archives/2015/07/googles_unguess.html).
+
+The required `documentation` field must be a link to documentation outlining how webhooks should be configured in your service.
+
+If the integration offers the option to send test events or webhook requests, the optional `testEventNameRegexp` field lets you to specify regex to match the expected `eventName` value. This tells the integration framework not to make any real flag or resource changes associated with matching events.
+
+If your webhooks' request bodies are non-empty, you can specify the optional `parser` object with one or more of `eventName`, `value`, and `url`. The provided values will flow through LaunchDarkly into the resulting audit log messages when your service invokes a trigger in LaunchDarkly.
+
+Here is an example `trigger` capability:
+
+<CodeSample>
+<CSTab label="Trigger capability">
+
+```json
+    "trigger": {
+      "documentation": "https://example.com/configuring-webhooks",
+      "parser": {
+        "eventName": "/event",
+        "value": "/value",
+        "url": "/links/self/href"
+      },
+    }
+```
+
+</CSTab>
+</CodeSample>
+
+If an integration only has the trigger capability, the word "trigger" will be added to its name in the LaunchDarkly user interface (UI). For this reason, do not include the word "trigger" in the manifest name. For an example, read the [generic-trigger manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/generic-trigger/manifest.json).

@@ -1112,7 +1112,37 @@
           },
           {
             "label": "Using integration framework capabilities",
-            "path": "/integrations/partner-integrations/capabilities"
+            "path": "/integrations/partner-integrations/capabilities",
+            "items": [
+              {
+                "label": "Approvals capability",
+                "path": "/integrations/partner-integrations/approvals"
+              },
+              {
+                "label": "Audit log events hook capability",
+                "path": "/integrations/partner-integrations/audit-log"
+              },
+              {
+                "label": "Endpoints capability",
+                "path": "/integrations/partner-integrations/endpoints"
+              },
+              {
+                "label": "Feature stores capability",
+                "path": "/integrations/partner-integrations/feature-stores"
+              },
+              {
+                "label": "Flag links capability",
+                "path": "/integrations/partner-integrations/flag-links"
+              },
+              {
+                "label": "Reserved custom properties capability",
+                "path": "/integrations/partner-integrations/custom-properties"
+              },
+              {
+                "label": "Triggers capability",
+                "path": "/integrations/partner-integrations/triggers"
+              }
+            ]
           }
         ]
       }
