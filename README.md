@@ -59,18 +59,14 @@ Here's how to start:
 2. Navigate to it in your terminal.
 3. Run the following command:
 
-### 🚨 A note about `NODE_OPTIONS=--max-old-space-size=8192` 🚨
-
-Gatsby V5 updates unfortunately brought some performance issues into the mix. Gatsby requires a lot of memory to run its processes. If you run `yarn start` without the `NODE_OPTIONS` flag, you may see an "Out of memory" warning. Using this flag allocates more memory for the processes.
-
 ```shell
-NODE_OPTIONS=--max-old-space-size=8192 yarn && yarn start
+yarn && yarn start
 ```
 
 As a shortcut:
 
 ```shell
-NODE_OPTIONS=--max-old-space-size=8192 yarn dev
+yarn dev
 ```
 
 The site will build. Monitor the progress in your terminal, and when the build completes, navigate to [localhost:8000](http://localhost:8000).
@@ -78,7 +74,7 @@ The site will build. Monitor the progress in your terminal, and when the build c
 You can also run in a `fast` development mode which omits all mdx images and most mdx content except for `/home/getting-started`, `/home/flags` and `/home/contexts` :
 
 ```shell
-NODE_OPTIONS=--max-old-space-size=8192 yarn && yarn dev-fast
+yarn && yarn dev-fast
 ```
 
 This cuts the gatsby build time to just < 7 seconds as opposed to > 1 minute.
@@ -258,13 +254,3 @@ This repo uses Yarn PnP (zero-installs) to reduce build times.
 When upgrading package versions, you must commit cache files such as `.yarn/cache/...` and `.pnp.cjs` into `main` along with the `yarn.lock` and `package.json` files.
 
 To learn more about PnP, [read the documentation](https://yarnpkg.com/features/pnp).
-
-## Running Gatsby locally
-
-With the new version of Gatsby, you need to provide more memory to run the site locally. To do this, run the `yarn start` command with the `--max-old-space-size` flag, like this:
-
-```shell  NODE_OPTIONS="--max-old-space-size=8192" yarn start```
-
-OR 
-
-Add `export NODE_OPTIONS="--max-old-space-size=8192"` to your `~/.bachrc` file and run the `source ~/.bashrc` command to avoid having to do this every time. 
