@@ -1,0 +1,84 @@
+---
+path: /integrations/partner-integrations/endpoints
+title: Endpoints capability
+description: This topic explains how to use the endpoints integration framework capability.
+published: true
+tags: ['integration', 'partner', 'capabilities']
+---
+
+## Overview
+
+This topic explains how to use the endpoints integration framework capability.
+
+## Using endpoints
+
+Some capabilities require you to specify an endpoint that LaunchDarkly can make requests to. For example, you can specify an endpoint as follows:
+
+<CodeSample>
+<CSTab label="Endpoint example">
+
+```json
+    "endpoint": {
+        "url": "{{endpointUrl}}",
+        "method": "POST",
+        "headers": [
+            {
+                "name": "Content-Type",
+                "value": "application/json"
+            },
+            {
+                "name": "Authorization",
+                "value": "Bearer {{apiToken}}"
+            }
+        ]
+    },
+```
+
+</CSTab>
+</CodeSample>
+
+This specification must include all appropriate request semantics including the URL, method, and headers.
+
+In the example above, the properties `endpoint.url` and `endpoint.headers[].value` accept template variables. These template variables can reference any `formVariables` you've defined in your manifest. This lets you configure a dynamic endpoint based on the `formVariables` your integration collects from the end user. To learn more, read [Using form variables](/integrations/partner-integrations/form-variables).
+
+The templating language LaunchDarkly uses is based off of a subset of the Handlebars syntax. To learn more, read the [Handlebars documentation](https://handlebarsjs.com/).
+
+This example uses the `endpointUrl` form variable as the URL of the endpoint and the `apiToken` as a `Bearer` token in the `Authorization` header:
+
+<CodeSample>
+<CSTab label="Endpoint example">
+
+```json
+    "endpoint": {
+        "url": "{{endpointUrl}}",
+        "method": "POST",
+        "headers": [
+            {
+                "name": "Content-Type",
+                "value": "application/json"
+            },
+            {
+                "name": "Authorization",
+                "value": "Bearer {{apiToken}}"
+            }
+        ]
+    },
+```
+
+</CSTab>
+</CodeSample>
+
+This example uses the `apiToken` form variable as a query parameter on the URL:
+
+<CodeSample>
+<CSTab label="Endpoint example">
+
+```json
+    "endpoint": {
+        "url": "https://example.com/apiToken?={{apiToken}}",
+        "method": "POST"
+    },
+```
+
+</CSTab>
+</CodeSample>

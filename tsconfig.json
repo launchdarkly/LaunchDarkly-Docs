@@ -10,7 +10,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
     // cannot use baseUrl with gatsby
     // https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/#parcel-typescript-features
   },

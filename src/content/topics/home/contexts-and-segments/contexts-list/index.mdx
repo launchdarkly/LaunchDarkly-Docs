@@ -31,7 +31,7 @@ Your application may evaluate a feature flag for a multi-context, that is, one t
 
 From the list, you can filter contexts by name, kind, or attribute. You can also sort the list to identify the oldest or most recent contexts evaluated in your LaunchDarkly account. By default, the most recently active contexts appear first. Click the toggle arrow on the "Last seen" column to sort the list by least recently active contexts.
 
-If a context's attributes change within five minutes of the previous evaluation, and the context key stays the same, the list deduplicates the context and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
+If a context is re-evaluated, and its attributes change within five minutes of the previous evaluation, and the context key stays the same, the list deduplicates the context and does not reflect the latest evaluation. This does not affect variation calls, which always use the attribute values passed to them.
 
 <Callout intent="alert">
 <CalloutTitle>The SDK does not use the attributes on the <strong>Contexts</strong> list to evaluate flags</CalloutTitle>

@@ -1,0 +1,41 @@
+---
+path: /integrations/partner-integrations/custom-properties
+title: Reserved custom properties
+description: This topic explains how to use the reserved custom properties integration framework capability.
+published: true
+tags: ['integration', 'partner', 'capabilities']
+---
+
+## Overview
+
+This topic explains how to use the reserved custom properties integration framework capability.
+
+## Using reserved custom properties
+
+Custom properties let you store data in LaunchDarkly alongside a feature flag. For example, you can use custom properties to indicate flag-level associations with data on your service. If you don't have any flag-level associations or configurations, you don't need to use this capability.
+
+To learn more, read [Custom properties](/home/connecting/custom-properties).
+
+By default, members must specify a custom property name and key when they attach the custom property value to a feature flag. This step introduces the possibility of user error. To prevent this, developers can "reserve" a custom property for their integration, which makes it much easier for members to correctly add the property's value to feature flags.
+
+`reservedCustomProperties` require a `name` and `key`. Adding a `description` is optional.
+
+After a member configures your integration, the custom property appears in the dropdown on the flag's **Settings** page.
+
+For example, the [Datadog integration](https://github.com/launchdarkly/integration-framework/blob/main/integrations/datadog/manifest.json) uses the following `reservedCustomProperties`:
+
+<CodeSample>
+<CSTab label="The reservedCustomProperties capability">
+
+```json
+    "reservedCustomProperties": [
+      {
+        "name": "Datadog tags",
+        "description": "Tags are a way of adding additional dimension...",
+        "key": "datadog"
+      }
+    ]
+```
+
+</CSTab>
+</CodeSample>

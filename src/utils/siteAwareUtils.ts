@@ -4,7 +4,16 @@ import qs from 'qs'
 import useSite from '../components/siteSelector/useSite'
 import { SiteType } from '../types/siteType'
 
-const siteAwareSubdomains = ['app', 'clientsdk', 'clientstream', 'events', 'sdk', 'status', 'stream'] as const
+const siteAwareSubdomains = [
+  'app',
+  'clientsdk',
+  'clientstream',
+  'events',
+  'sdk',
+  'status',
+  'stream',
+  'support',
+] as const
 
 type SubdomainMap = {
   [key in (typeof siteAwareSubdomains)[number]]?: {
@@ -29,6 +38,11 @@ export const setSubdomain = (content: string, site: SiteType, enableSiteSelectio
   // We always write content for LaunchDarkly docs, we shouldn't do any manipulation of URLs
   // if the reader is viewing our LaunchDarkly docs.
   if (!enableSiteSelection || site === 'launchDarkly') {
+    return content
+  }
+
+  // We special-case the Customer Knowledge Base, because there is not a federal-specific version
+  if (content.includes('Customer-Knowledge-Base-')) {
     return content
   }
 

@@ -1,8 +1,4 @@
 module.exports = [
-  {
-    fromPath: '/sdk/server-side/node-js/cloudflare-edge-sdk',
-    toPath: '/sdk/server-side/cloudflare',
-  },
   // Redirects for Accelerate
   {
     fromPath: '/accelerate-eap/home/about-accelerate/',
@@ -275,6 +271,10 @@ module.exports = [
   {
     fromPath: '/sdk/client-side/javascript/default-variations/',
     toPath: '/sdk/client-side/javascript/default-values',
+  },
+  {
+    fromPath: '/sdk/server-side/node-js/cloudflare-edge-sdk',
+    toPath: '/sdk/server-side/cloudflare',
   },
   // Redirects from removing the Advanced section
   {
@@ -824,6 +824,11 @@ module.exports = [
   {
     fromPath: '/guides/blog/',
     toPath: '/guides/additional-resources',
+  },
+  // Other redirects
+  {
+    fromPath: '/home/getting-started/in-app-options',
+    toPath: '/home/getting-started/learning-center',
   },
   // Redirect from the readme-hosted docs site. Any redirect from a `/docs/` URL should go in this section.
   {

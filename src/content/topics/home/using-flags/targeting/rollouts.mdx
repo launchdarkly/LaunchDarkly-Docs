@@ -38,6 +38,20 @@ A common use case for percentage rollouts is to increment the percentage of cust
 
 To learn more about rollouts and variation assignments, read [Percentage rollouts](/sdk/concepts/flag-evaluation-rules#percentage-rollouts).
 
+### Targeting the same contexts in multiple percentage rollouts
+
+Different flags with percentage rollouts assign contexts to their variations independently from each other, even if the targeting rules and percentage rollouts are the same. If you want two flags to target the exact same set of contexts as part of their percentage rollouts, you must target a segment instead.
+
+For example, if you have two flags that you want to serve "true" to 10% of your contexts and "false" to 90% of your contexts, create a segment that targets 10% of your contexts. To learn how, read [Creating segments](/home/contexts/segments#creating-segments).
+
+Here is what your segment targeting rule might look like:
+
+![A segment targeting 10% of user contexts.](rollout-segment-percentage.png)
+
+Then, in each of your flags, serve "true" to all contexts in that segment. Each flag that targets that segment will include the same contexts in its targeting, assuming there are no other differences between the flags' targeting rules.
+
+![A flag rule targeting a segment.](rollout-targeting-segment-percentage.png)
+
 ## Rolling out by context attribute
 
 You can assign variations to contexts based on any attribute in the "by context" and "by attribute" menus.

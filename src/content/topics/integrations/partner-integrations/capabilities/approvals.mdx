@@ -1,0 +1,126 @@
+---
+path: /integrations/partner-integrations/approvals
+title: Approvals capability
+description: This topic explains how to use the approvals integration framework capability.
+published: true
+tags: ['integration', 'partner', 'capabilities']
+---
+
+## Overview
+
+This topic explains how to use the approvals integration framework capability.
+
+## Using approvals
+
+LaunchDarkly's approvals feature gives account members the ability to request approval for changes to feature flags in LaunchDarkly. To learn more, read about the [Approvals feature workflow](/home/feature-workflows/approvals).
+
+You can use the approval capability to specify third-party approval systems in LaunchDarkly. Once you enable them, these approval systems prevent changes to feature flags until an external approval process completes successfully.
+
+![The "Request ServiceNow approval" dialog.](servicenow-create-approval-request-modal.png)
+
+## Configuration
+
+You can specify global configuration details, such as API keys and subdomains, using [`formVariables`](/integrations/partner-integrations/form-variables). Additionally, you can utilize the `approval` capability's `environmentFormVariables` and `flagFormVariables` properties to provide more granular configuration options.
+
+### The environment form variables property
+
+The optional `environmentFormVariables` property provides an additional point of configuration for settings that are environment-specific. The settings appear as additional fields in the environment's "Approval settings" panel. To learn more, read [Configuring approvals for an environment](/home/feature-workflows/environment-approvals/).
+
+![The "Approval settings" panel with the ServiceNow approval system selected.](integrations-approval-settings-servicenow.png)<br /><br />
+
+For example, the [ServiceNow manifest](https://github.com/launchdarkly/integration-framework/blob/main/integrations/servicenow/manifest.json) uses `environmentFormVariables` to give members the ability to specify a different change request template for different environments.
+
+### The flag form variables property
+
+The optional `flagFormVariables` property adds additional integration-specific fields to the "Request approval" dialog for members to complete each time they create an approval request. The `flagFormVariables` schema matches the schema for the global `formVariables` property.
+
+## Lifecycle requests
+
+The approval capability makes several distinct requests to the third-party integration service throughout the lifecycle of a feature flag approval request.
+
+These requests are as follows:
+
+- [`creationRequest`](#the-creation-request-property)
+- [`statusRequest`](#the-status-request-property)
+- [`postApplyRequest`](#the-post-apply-request-property)
+- [`deletionRequest`](#the-deletion-request-property)
+- [`memberListRequest`](#the-member-list-request-property)
+
+Here is a sequence diagram of the requests:
+
+![A sequence diagram of approval requests.](integrations-lifecycle-requests.png)
+
+### The creation request property
+
+The `creationRequest` property describes the approval creation HTTP request and the parser it uses to process the JSON response.
+
+The following fields specify the request and response parsing:
+
+- `endpoint`: A templatable URL, method, and set of headers. To learn more, read [Endpoints](/integrations/partner-integrations/endpoints).
+- (optional) `jsonBody`: A template string used to represent the JSON payload sent in the approval creation HTTP request.
+- (optional) `parser`: A mapping of property names to locations in the JSON response payload specified by a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). To learn more, read [Approval status parser](#approval-status-parser).
+
+### The status request property
+
+The `statusRequest` property describes the approval status check HTTP request and the parser it uses to determine if the approval should be considered approved or rejected.
+
+The following fields specify the request and response parsing:
+
+- `endpoint`: A templatable URL, method, and set of headers. To learn more, read [Endpoints](/integrations/partner-integrations/endpoints).
+- (optional) `jsonBody`: A template string used to represent the JSON payload sent in the approval status HTTP request.
+- (optional) `parser`: A mapping of property names to locations in the JSON response payload specified by a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). To learn more, read [Approval status parser](#approval-status-parser).
+
+### The post apply request property
+
+The `postApplyRequest` property describes the HTTP request to make after you have applied the changes applied in LaunchDarkly.
+
+The following fields specify the request and response parsing:
+
+- `endpoint`: A templatable URL, method, and set of headers. To learn more, read [Endpoints](/integrations/partner-integrations/endpoints).
+- (optional) `jsonBody`: A template string used to represent the JSON payload sent in the approval status HTTP request.
+- (optional) `parser`: A mapping of property names to locations in the JSON response payload specified by a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). To learn more, read [Approval status parser](#approval-status-parser).
+
+### The deletion request property
+
+The `deletionRequest` property describes the HTTP request to make after you have rejected the changes in LaunchDarkly.
+
+The following fields specify the request and response parsing:
+
+- `endpoint`: A templatable URL, method, and set of headers. To learn more, read [Endpoints](/integrations/partner-integrations/endpoints).
+- (optional) `jsonBody`: A template string used to represent the JSON payload sent in the approval status HTTP request.
+- (optional) `parser`: A mapping of property names to locations in the JSON response payload specified by a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). To learn more, read [Approval status parser](#approval-status-parser).
+
+### The member list request property
+
+The `memberListRequest` describes the HTTP request used to fetch third-party member IDs and map them to LaunchDarkly members. LaunchDarkly makes this request immediately after configuring the integration.
+
+The following fields specify the request and response parsing:
+
+- `endpoint`: A templatable URL, method and set of headers. To learn more, read [Endpoints](/integrations/partner-integrations/endpoints).
+- (optional) `jsonBody`: A template string used to represent the JSON payload sent in the approval status HTTP request.
+- (optional) `parser`: A mapping of property names to locations in the JSON response payload specified by a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). To learn more, read [Member list parser](#member-list-parser).
+
+## Approval parsers
+
+There are two kinds of approval parsers: approval status parsers and member list parsers.
+
+### Approval status parser
+
+You can use the approval status parser to retrieve and coerce relevant data from the `approval` capability's lifecycle requests.
+
+The following properties specify this parser:
+
+- `statusValue`: The [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901) representation of a location in the HTTP response body that indicates the status of the approval request, typically numeric.
+- (optional) `statusDisplay`: The [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901) representation of a location in the HTTP response body that indicates the human-readable status of the approval request. If you do not specify `statusDisplay`, the LaunchDarkly UI will display the `statusValue`.
+- `approvalMatcher`: A regex pattern LaunchDarkly uses to determine if it should consider the parsed `statusValue` "approved."
+- (optional) `rejectionMatcher`: A regex pattern LaunchDarkly uses to determine if it should consider the parsed `statusValue` "rejected."
+- `urlTemplate`: A template string representing the canonical URL hosted on the third-party service.
+
+### Member list parser
+
+You can use the member list parser to retrieve and coerce lists of third-party member IDs and email addresses. This list of member data is used to associate the third-party member with the LaunchDarkly member.
+
+The following properties specify this parser:
+
+- `memberArrayPath`: The [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901) representation of a location in the HTTP response body that contains the list of member information.
+- `memberItems`: an object containing two required properties, `email` and `memberId`. These properties are [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901) representations of relative locations in a single-member item that correspond to the member's email address and ID, respectively.

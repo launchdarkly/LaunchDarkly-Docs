@@ -7,6 +7,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
+    'plugin:mdx/recommended',
   ],
   settings: {
     react: {

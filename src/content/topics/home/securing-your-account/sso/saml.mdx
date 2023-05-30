@@ -16,13 +16,15 @@ If you're a LaunchDarkly administrator or account owner, you can configure Launc
 
 To set up a LaunchDarkly connection, follow the instructions for your chosen IdP.
 
-We support the following IdP connectors:
+We provide support for the following IdP connectors:
 
 * [ADFS](/home/account-security/adfs)
 * [Azure](/home/account-security/azure)
 * [Google Apps](/home/account-security/google)
 * [Okta](/home/account-security/okta#configuring-okta-saml-sso-for-launchdarkly)
 * [OneLogin](/home/account-security/onelogin#adding-a-launchdarkly-saml-application)
+
+You can use other identity providers with LaunchDarkly, but we do not provide support or configuration guidance for other providers. To learn more, read [Supported external identity providers](/home/account-security/sso#supported-external-identity-providers).
 
 ### Configure LaunchDarkly SAML
 
@@ -46,6 +48,14 @@ To configure LaunchDarkly with an external IdP:
 1. Create the SAML application in your IdP. To do this, follow the instructions in the documentation for your IdP.
 2. Copy the SAML configuration metadata from the IdP into LaunchDarkly's [SAML configuration panel](https://app.launchdarkly.com/settings/security).
 3. Click **Save**.
+
+### Managing expired SAML certificates
+
+If your SAML certificate expires, you may not be able to log in to your LaunchDarkly account through SSO. If this happens, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+
+We will disable SSO for your account, allowing you to log in with your original email and password. If you have only ever logged in through SSO, you can use the "Forgot your password?" link to log in. To learn how, read [Resetting your password](/home/account-security/reset-password).
+
+You can then update your SAML certificate and re-enable SSO.
 
 ## Test-drive mode
 

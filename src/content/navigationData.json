@@ -27,7 +27,7 @@
           },
           {
             "label": "Using the learning center",
-            "path": "/home/getting-started/in-app-options"
+            "path": "/home/getting-started/learning-center"
           },
           {
             "label": "LaunchDarkly's architecture",
@@ -692,9 +692,9 @@
         "svg": "relay-proxy",
         "items": [
           {
-          "label": "Determining whether to use the Relay Proxy",
-          "path": "/home/relay-proxy/determining",
-          "items": [
+            "label": "Determining whether to use the Relay Proxy",
+            "path": "/home/relay-proxy/determining",
+            "items": [
               {
                 "label": "Relay Proxy use cases",
                 "path": "/home/relay-proxy/use-cases"
@@ -1051,6 +1051,10 @@
             "path": "/integrations/pendo"
           },
           {
+            "label": "Roost.ai",
+            "path": "/integrations/roost-ai"
+          },
+          {
             "label": "Release",
             "path": "/integrations/release"
           },
@@ -1108,7 +1112,37 @@
           },
           {
             "label": "Using integration framework capabilities",
-            "path": "/integrations/partner-integrations/capabilities"
+            "path": "/integrations/partner-integrations/capabilities",
+            "items": [
+              {
+                "label": "Approvals capability",
+                "path": "/integrations/partner-integrations/approvals"
+              },
+              {
+                "label": "Audit log events hook capability",
+                "path": "/integrations/partner-integrations/audit-log"
+              },
+              {
+                "label": "Endpoints capability",
+                "path": "/integrations/partner-integrations/endpoints"
+              },
+              {
+                "label": "Feature stores capability",
+                "path": "/integrations/partner-integrations/feature-stores"
+              },
+              {
+                "label": "Flag links capability",
+                "path": "/integrations/partner-integrations/flag-links"
+              },
+              {
+                "label": "Reserved custom properties capability",
+                "path": "/integrations/partner-integrations/custom-properties"
+              },
+              {
+                "label": "Triggers capability",
+                "path": "/integrations/partner-integrations/triggers"
+              }
+            ]
           }
         ]
       }
@@ -1514,16 +1548,6 @@
             "svg": "c"
           },
           {
-            "label": "Cloudflare SDK reference",
-            "path": "/sdk/server-side/cloudflare",
-            "items": [
-              {
-                "label": "Cloudflare SDK 1.x to 2.0 migration guide",
-                "path": "/sdk/server-side/cloudflare/migration-1-to-2"
-              }
-            ]
-          },
-          {
             "label": "Erlang SDK reference",
             "path": "/sdk/server-side/erlang",
             "items": [
@@ -1644,7 +1668,13 @@
         "items": [
           {
             "label": "Cloudflare SDK reference",
-            "path": "/sdk/edge/cloudflare"
+            "path": "/sdk/edge/cloudflare",
+            "items": [
+              {
+                "label": "Cloudflare SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/edge/cloudflare/migration-1-to-2"
+              }
+            ]
           },
           {
             "label": "Vercel SDK reference",

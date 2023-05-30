@@ -23,4 +23,4 @@ runs:
     - uses: dkershner6/aws-ssm-getparameters-action@v1
       with:
         parameterPairs: ${{ inputs.ssm_parameter_pairs }}
-        withDecryption: "true"
+        withDecryption: 'true'

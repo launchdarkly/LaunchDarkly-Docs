@@ -11,7 +11,7 @@ type LayoutContainerProps = {
 }
 
 const LayoutContainer = ({ children, pageContext }: LayoutContainerProps) => {
-  const { isInternal } = pageContext.frontmatter
+  const isInternal = pageContext?.frontmatter?.isInternal
   if (isInternal) {
     return <InternalLayout>{children}</InternalLayout>
   }

@@ -13,7 +13,5 @@
     "flagKey": "^flagKey=\""
   },
 
-  "ignoreRegExpList": [
-    "flagKey"
-  ]
+  "ignoreRegExpList": ["flagKey"]
 }
