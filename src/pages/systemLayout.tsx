@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { Fragment, FunctionComponent } from 'react'
-import { Helmet } from 'react-helmet'
 import { jsx } from 'theme-ui'
 
 import Header from '../components/header'
@@ -36,18 +35,17 @@ type SystemLayoutProps = {
   description: string
 }
 
-const SystemLayout: FunctionComponent<React.PropsWithChildren<SystemLayoutProps>> = ({
-  title,
-  description,
-  children,
-}) => {
+export const Head = ({ title, description }: SystemLayoutProps) => (
+  <Fragment>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </Fragment>
+)
+
+const SystemLayout: FunctionComponent<React.PropsWithChildren<SystemLayoutProps>> = ({ children }) => {
   return (
     <Fragment>
       <Reset />
-      <Helmet>
-        <title>{title}</title>
-        <meta name="description" content={description} />
-      </Helmet>
       <div sx={rootGridStyles}>
         <Header />
         <main sx={{ gridArea: 'main', px: [5, 7, 8], pt: '2.75rem' }}>{children}</main>
