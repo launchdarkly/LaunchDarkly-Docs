@@ -2,13 +2,12 @@
 import { FC, PropsWithChildren } from 'react'
 import { Box, Card, Flex, jsx, Text, ThemeUIStyleObject } from 'theme-ui'
 
+import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 import { SiteType } from '../../types/siteType'
 import { errorOnInvalidSite } from '../../utils/siteAwareUtils'
 import Icon, { IconName } from '../icon'
 import { Intent } from '../intent'
-
-import useSite from '@/components/siteSelector/useSite'
-import useGitGatsbyTheme from '@/hooks/useGitGatsbyTheme'
+import useSite from '../siteSelector/useSite'
 
 const iconNames: { [key in Intent]: IconName } = {
   info: 'information',

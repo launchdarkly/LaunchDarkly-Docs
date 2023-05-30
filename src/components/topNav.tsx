@@ -4,14 +4,13 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { jsx } from 'theme-ui'
 
+import { useFlaggedPagesConfig } from '../hooks/useFlaggedPagesConfig'
 import useGitGatsbyTheme from '../hooks/useGitGatsbyTheme'
 import isExternalLink from '../utils/isExternalLink'
 
 import { SideNavItem } from './sideNav/types'
 import Icon, { IconName } from './icon'
 import Link from './link'
-
-import { useFlaggedPagesConfig } from '@/hooks/useFlaggedPagesConfig'
 
 const variant = 'links.topNav'
 
