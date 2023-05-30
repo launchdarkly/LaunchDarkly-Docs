@@ -1,6 +1,5 @@
 /** @jsx jsx */
 import { Fragment } from 'react'
-import { Helmet } from 'react-helmet'
 import { CSSObject, keyframes } from '@emotion/react'
 import { Themed } from '@theme-ui/mdx'
 import { graphql, useStaticQuery } from 'gatsby'
@@ -110,6 +109,13 @@ const jetpackBaseStyles: CSSObject = {
 // clashing with our current breakpoints
 const desktopBreakPoint = '@media screen and (min-width: 900px)'
 
+export const Head = () => (
+  <Fragment>
+    <title>404 | Page not found</title>
+    <meta name="description" content={'Page not found'} />
+  </Fragment>
+)
+
 const NotFoundPage = () => {
   const { allFile } = useStaticQuery(graphql`
     {
@@ -146,10 +152,6 @@ const NotFoundPage = () => {
   return (
     <Fragment>
       <Reset />
-      <Helmet>
-        <title>404 | Page not found</title>
-        <meta name="description" content={'Page not found'} />
-      </Helmet>
       <main
         sx={{
           backgroundImage: `url('${images['noise']}')`,
