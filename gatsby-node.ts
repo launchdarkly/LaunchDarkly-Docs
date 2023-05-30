@@ -1,30 +1,35 @@
-const { execSync } = require('child_process')
-const path = require('path')
-const slug = require('slug')
-const readingTime = require('reading-time')
-const redirectRules = require('./redirectRules')
-const getFinalDestination = require('./getFinalDestination')
+import { execSync } from 'child_process'
+import type { GatsbyNode } from 'gatsby'
+import readingTime from 'reading-time'
+import slug from 'slug'
+
+import { MdxNode } from './src/types/mdxNode'
+import { SiteMetadata } from './src/types/siteMetadata'
+import getFinalDestination from './getFinalDestination'
+import redirectRules from './redirectRules'
+
 const isDev = process.env.GATSBY_ACTIVE_ENV === 'development'
 
 // This generates URL-safe slugs.
 slug.defaults.mode = 'rfc3986'
 
-const getLastModifiedFromGitLog = absolutePath => {
+const getLastModifiedFromGitLog = (absolutePath: string) => {
   return execSync(`git log -1 --pretty=format:%aI ${absolutePath}`).toString()
 }
 
-exports.onCreateNode = async ({ node, actions }) => {
+export const onCreateNode: GatsbyNode<MdxNode>['onCreateNode'] = async ({ node, actions }) => {
   const { createNodeField } = actions
+
   const {
     internal: { type, contentFilePath },
   } = node
-  if (contentFilePath && type === 'Mdx') {
+
+  if (type === 'Mdx' && contentFilePath) {
     const repoPrefix = 'ld-docs-private/src/'
     const fileRelativePath = contentFilePath.substring(contentFilePath.indexOf(repoPrefix) + repoPrefix.length)
 
     let lastModifiedTime
     if (isDev) {
-      // for local dev use local git commits to speed up the build
       lastModifiedTime = getLastModifiedFromGitLog(contentFilePath)
     } else {
       const gitCommits = JSON.parse(
@@ -32,7 +37,7 @@ exports.onCreateNode = async ({ node, actions }) => {
       gh api -XGET \\
         -H "Accept: application/vnd.github.v3+json" \\
         /repos/launchdarkly/ld-docs-private/commits \\
-        -F path=src/${fileRelativePath}`),
+        -F path=src/${fileRelativePath}`).toString(),
       )
 
       // the first commit is most recent one. Fallback to git log.
@@ -42,7 +47,6 @@ exports.onCreateNode = async ({ node, actions }) => {
       if (!lastModifiedTime || lastModifiedTime === '') {
         lastModifiedTime = new Date().toISOString()
       }
-      console.log(`${fileRelativePath} last modified ${lastModifiedTime}`)
     }
 
     createNodeField({
@@ -71,8 +75,18 @@ exports.onCreateNode = async ({ node, actions }) => {
   }
 }
 
-// https://www.gatsbyjs.org/docs/mdx/programmatically-creating-pages/#create-pages-from-sourced-mdx-files
-exports.createPages = async ({ graphql, actions, reporter }) => {
+type PageQuery = {
+  allMdx: {
+    nodes: MdxNode[]
+  }
+}
+
+type SiteQuery = {
+  site: {
+    siteMetadata: SiteMetadata
+  }
+}
+export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions, reporter }) => {
   const { createRedirect, createPage } = actions
 
   const redirectMap = redirectRules.reduce((map, r) => ({ ...map, [r.fromPath]: r.toPath }), {})
@@ -95,21 +109,47 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
     }
   })
 
+  const siteResult = await graphql<SiteQuery>(`
+    query {
+      site {
+        siteMetadata {
+          title
+          siteUrl
+        }
+      }
+    }
+  `)
+
+  const { siteMetadata } = siteResult.data.site
+
   // https://github.com/algolia/gatsby-plugin-algolia#partial-updates
   // internal.contentDigest is required
-  const result = await graphql(`
+  // Querying for pageData during createPages because
+  // mdx seems to have an issue with running out of memory
+  // when using page queries
+  const result = await graphql<PageQuery>(`
     {
       allMdx(filter: { frontmatter: { published: { eq: true } } }) {
         nodes {
           id
+          toc: tableOfContents(maxDepth: 2)
           frontmatter {
             path
             isInternal
+            description
+            title
+            site
+            siteAlertTitle
           }
           internal {
             contentFilePath
             contentDigest
           }
+          fileAbsolutePath
+          timeToRead
+          lastModifiedTime
+          isLandingPage
+          modifiedDate
         }
       }
     }
@@ -120,18 +160,28 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   }
 
   const mdxFiles = result.data.allMdx.nodes
-  mdxFiles.forEach(({ internal, id, frontmatter }) => {
-    createPage({
-      path: frontmatter.path,
-      component: frontmatter.isInternal
-        ? `${path.resolve('./src/components/internalLayout.tsx')}?__contentFilePath=${internal.contentFilePath}`
-        : `${path.resolve('./src/components/layout.tsx')}?__contentFilePath=${internal.contentFilePath}`,
-      context: { id },
-    })
-  })
+  mdxFiles.forEach(
+    ({
+      id,
+      frontmatter,
+      internal,
+      toc,
+      fileAbsolutePath,
+      timeToRead,
+      lastModifiedTime,
+      isLandingPage,
+      modifiedDate,
+    }) => {
+      createPage({
+        path: frontmatter.path,
+        component: internal.contentFilePath,
+        context: { id, toc, fileAbsolutePath, lastModifiedTime, modifiedDate, isLandingPage, timeToRead, siteMetadata },
+      })
+    },
+  )
 }
 
-exports.createSchemaCustomization = ({ actions }) => {
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async ({ actions }) => {
   const { createTypes } = actions
   const typeDefs = `
     type NavigationDataJson implements Node {
@@ -149,6 +199,9 @@ exports.createSchemaCustomization = ({ actions }) => {
     type Mdx implements Node {
       fileAbsolutePath: String @proxy(from: "fields.fileAbsolutePath")
       timeToRead: Int @proxy(from: "fields.timeToRead")
+      isLandingPage: Boolean @proxy(from: "fields.isLandingPage")
+      lastModifiedTime: Date @proxy(from: "fields.lastModifiedTime")
+      modifiedDate: Date @proxy(from: "fields.lastModifiedTime") @dateformat(formatString: "DD-MM-YYYY")
     }
   `
   createTypes(typeDefs)
