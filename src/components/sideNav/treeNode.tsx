@@ -205,13 +205,12 @@ const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
   // Detect if this tree node has ever been expanded/collapsed
   const [isPristine, setIsPristine] = useState(true)
 
-  // use local state to manage expand/collapse states on menu item clicks
   const initialState: Record<string, ExpandCollapseEnum> = nodes.reduce(
     (state, node) => ({ ...state, [node.path]: ExpandCollapseEnum.Collapsed }),
     {},
   )
 
-  const [expandCollapseStates, setState] = useState(initialState)
+  const [expandCollapseStates, setState] = useState<Record<string, ExpandCollapseEnum>>(initialState)
 
   const setActiveLinkStyles = ({ isCurrent, isPartiallyCurrent, href, location: { pathname } }: LinkGetProps) => {
     const hrefWithoutParams = href.split('?')[0]
@@ -228,13 +227,13 @@ const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
 
   const onExpandCollapse = (node: SideNavItem) => {
     if (!isLeafNode(node)) {
-      setState(prevState => ({
-        ...prevState,
+      setState({
+        ...initialState,
         [node.path]:
-          prevState[node.path] === ExpandCollapseEnum.Collapsed
+          initialState[node.path] === ExpandCollapseEnum.Collapsed
             ? ExpandCollapseEnum.Expanded
             : ExpandCollapseEnum.Collapsed,
-      }))
+      })
     }
   }
 
@@ -250,6 +249,8 @@ const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
   )
 
   const hasGroupedNodes = groupedNodes.some(group => group[0] !== 'ungrouped')
+
+  if (!expandCollapseStates) return null
 
   return (
     <ul sx={{ fontWeight: 'body' }}>
