@@ -76,7 +76,7 @@ jobs:
       - name: Build and deploy
         timeout-minutes: 30
         if: steps.build-status.outputs.deploy == 'true'
-        run: NODE_OPTIONS=--max-old-space-size=8192 yarn build-deploy-prod
+        run: yarn build-deploy-prod
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
@@ -132,9 +132,7 @@ jobs:
 
   smoke-test:
     needs: build-deploy
-    # gatsby requires more ram with the upgrades
-    # ubuntu only limited to 7gb; this macos-latest provides up to 14gb
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     name: Smoke test production
     steps:
       - name: Checkout
