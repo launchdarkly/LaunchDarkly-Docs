@@ -1,5 +1,5 @@
-jest.mock('@/hooks/useGitGatsbyTheme', () => () => {
-  const theme = jest.requireActual('@/gatsby-plugin-theme-ui')
+jest.mock('../../hooks/useGitGatsbyTheme', () => () => {
+  const theme = jest.requireActual('../../gatsby-plugin-theme-ui')
   return { theme: theme.default }
 })
 
