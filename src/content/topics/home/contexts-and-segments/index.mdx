@@ -20,6 +20,15 @@ Contexts let you create targeting rules for feature flags based on a variety of 
 
 You can manage the way contexts interact with flags, and which contexts encounter which flags, by targeting flags to specific contexts. You can even choose which contexts to include or exclude in the data you collect. When a flag evaluation occurs, the feature flag uses the **evaluation context** to understand what variation to serve. The evaluation context is an object including one or more contexts and its attributes that you pass to the SDK's variation method when you evaluate flags.
 
+<Callout intent="alert">
+<CalloutTitle>Only the context attributes you provide are available for targeting</CalloutTitle>
+<CalloutDescription>
+
+The SDK only evaluates flags based on the context you provide in the evaluation call. You must provide all applicable attributes for each evaluation in the SDK for your targeting rules to apply correctly. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+
+</CalloutDescription>
+</Callout>
+
 For a list of SDKs that support contexts, read our [SDK documentation](/sdk).
 
 To learn more about upgrading to contexts, read [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).

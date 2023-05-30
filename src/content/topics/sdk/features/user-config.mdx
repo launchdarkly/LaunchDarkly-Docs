@@ -29,6 +29,15 @@ Every object is required to have a `key`. Keys are always transmitted to LaunchD
 
 Keys must be a string type. Keys must be unique, deterministic, and should not contain Personally Identifiable Information (PII). Keys must be consistent, which means the same person must correspond to the same key across different services to contribute to consistent flag evaluations and accurate monthly context instances (MCI). You can use a primary key or a hash, as long as the same person always has the same key. We recommend using a hash if possible.
 
+<Callout intent="alert">
+<CalloutTitle>Only the context attributes you provide are available for targeting</CalloutTitle>
+<CalloutDescription>
+
+The SDK only evaluates flags based on the context you configure and then provide in the evaluation call. The SDK does not use the attributes shown on the **Contexts** list, and context attributes are not synchronized across SDK instances. You must provide all applicable attributes for each evaluation in the SDK for your targeting rules to apply correctly.
+
+</CalloutDescription>
+</Callout>
+
 ### Using built-in and custom attributes
 
 Attributes other than the key are optional. There are two types of attributes: built-in attributes, which are LaunchDarkly names, and custom attributes, which you can name anything you choose.
