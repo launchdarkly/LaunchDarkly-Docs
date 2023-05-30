@@ -1,6 +1,11 @@
+/** @jsx jsx */
+import type { GatsbyBrowser } from 'gatsby'
 import aa from 'search-insights'
+import { jsx } from 'theme-ui'
 import { TrackJS } from 'trackjs'
 
+import LayoutContainer from './src/layouts/layoutContainer'
+import { PageContext } from './src/types/pageContext'
 import { initDataDogLogging } from './src/utils/browserMetricsUtils'
 import { addRemoveSiteParam, getSiteFromHref } from './src/utils/siteAwareUtils'
 import { initUAParser } from './src/utils/userAgent'
@@ -21,7 +26,7 @@ export const onClientEntry = () => {
   // be an issue on prod and can be removed over time.
   if (siteLocalStorage !== JSON.stringify('launchDarkly') && siteLocalStorage !== JSON.stringify('federal')) {
     localStorage.removeItem('site')
-    siteLocalStorage = undefined
+    siteLocalStorage = null
   }
 
   if (isProd || (isDev && process.env.RUN_DATADOG_LOCALLY === 'true')) {
@@ -30,7 +35,8 @@ export const onClientEntry = () => {
 
   if (isProd || isStaging) {
     TrackJS.install({
-      token: process.env.GATSBY_TRACKJS_TOKEN,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      token: process.env.GATSBY_TRACKJS_TOKEN!,
       application: isProd ? 'docs-production' : 'docs-staging',
     })
   }
@@ -71,4 +77,8 @@ export const onClientEntry = () => {
       // ls should already be launchDarkly so we do nothing here
     }
   }
+}
+
+export const wrapPageElement: GatsbyBrowser<unknown, PageContext>['wrapPageElement'] = ({ element, props }) => {
+  return <LayoutContainer pageContext={props.pageContext}>{element}</LayoutContainer>
 }
