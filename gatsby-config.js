@@ -49,14 +49,14 @@ const loadImagesAndTopics = () => {
         resolve: 'gatsby-source-filesystem',
         options: {
           name: 'mdx-images',
-          path: `${__dirname}/src/content/images/`,
+          path: `${__dirname}/src/content/images`,
           fastHash: true,
         },
       },
       {
         resolve: 'gatsby-source-filesystem',
         options: {
-          path: `${__dirname}/src/content/topics/`,
+          path: `${__dirname}/src/content/topics`,
           name: 'mdx',
           fastHash: true,
         },
