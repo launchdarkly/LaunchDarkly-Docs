@@ -231,7 +231,7 @@ We strongly recommend upgrading your SDK to take advantage of the context functi
 
 After initialization is complete, your flags and the client are available at the start of your React app lifecycle. This ensures your app does not flicker due to flag changes at startup time.
 
-If your app does not yet have the context when you call `asyncWithLDProvider`, you can omit the `context` option. This instantiates the client without explicitly specifying a context. Instead, the React SDK uses an anonymous context. Later, when you have the context, you can call `identify`.
+If your app does not yet have the context when you initialize, you can omit the `context` option. This instantiates the client without explicitly specifying a context. Instead, the React SDK uses an anonymous context. Later, when you have the context, you can call `identify`.
 
 Here's how to identify the context after initialization:
 
@@ -284,7 +284,7 @@ renderApp();
 </CSTab>
 </CodeSample>
 
-To learn more, read [Identifying and changing contexts](/sdk/features/identify#react).
+This example uses `asyncWithLDProvider`, but you can also omit the `context` option when you initialize using `withLDProvider` and then identify the context after initialization. To learn more, read [Identifying and changing contexts](/sdk/features/identify#react).
 
 <Callout intent="alert">
 <CalloutTitle>This function requires React 16.8.0 or later</CalloutTitle>
