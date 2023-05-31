@@ -1,4 +1,6 @@
-import React, { Fragment, ReactNode } from 'react'
+/** @jsx jsx */
+import { Fragment, ReactNode } from 'react'
+import { jsx } from 'theme-ui'
 
 import { PageContext } from '../types/pageContext'
 
