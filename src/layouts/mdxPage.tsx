@@ -1,5 +1,5 @@
 // /** @jsx jsx */
-import { Fragment, FunctionComponent, PropsWithChildren, ReactNode } from 'react'
+import React, { Fragment, FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { withPrefix } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
