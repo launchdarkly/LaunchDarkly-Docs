@@ -1,5 +1,6 @@
 import { execSync } from 'child_process'
 import type { GatsbyNode } from 'gatsby'
+import path from 'path'
 import readingTime from 'reading-time'
 import slug from 'slug'
 
@@ -12,6 +13,8 @@ const isDev = process.env.GATSBY_ACTIVE_ENV === 'development'
 
 // This generates URL-safe slugs.
 slug.defaults.mode = 'rfc3986'
+
+const MdxPage = path.resolve('./src/layouts/mdxPage.tsx')
 
 const getLastModifiedFromGitLog = (absolutePath: string) => {
   return execSync(`git log -1 --pretty=format:%aI ${absolutePath}`).toString()
@@ -174,8 +177,20 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     }) => {
       createPage({
         path: frontmatter.path,
-        component: internal.contentFilePath,
-        context: { id, toc, fileAbsolutePath, lastModifiedTime, modifiedDate, isLandingPage, timeToRead, siteMetadata },
+        // have to use the param here with page component to properly generate the html head
+        component: frontmatter.isInternal
+          ? internal.contentFilePath
+          : `${MdxPage}?__contentFilePath=${internal.contentFilePath}`,
+        context: {
+          id,
+          toc,
+          fileAbsolutePath,
+          lastModifiedTime,
+          modifiedDate,
+          isLandingPage,
+          timeToRead,
+          siteMetadata,
+        },
       })
     },
   )
