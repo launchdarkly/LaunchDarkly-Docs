@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { ComponentProps, FunctionComponent, useLayoutEffect, useState } from 'react'
+import { ComponentProps, FunctionComponent, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { LinkGetProps } from '@reach/router'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
@@ -198,6 +198,7 @@ const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
 }) => {
   const flags = useFlags()
   const { theme } = useGitGatsbyTheme()
+  const firstRender = useRef(true)
 
   const isRootNode = depth === 0
   const isMaxDepth = depth === maxDepth
@@ -205,12 +206,34 @@ const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
   // Detect if this tree node has ever been expanded/collapsed
   const [isPristine, setIsPristine] = useState(true)
 
-  const initialState: Record<string, ExpandCollapseEnum> = nodes.reduce(
-    (state, node) => ({ ...state, [node.path]: ExpandCollapseEnum.Collapsed }),
-    {},
+  const getInitialState = useCallback(() => {
+    const initialState: Record<string, ExpandCollapseEnum> = nodes.reduce(
+      (state, node) => ({ ...state, [node.path]: ExpandCollapseEnum.Collapsed }),
+      {},
+    )
+
+    return initialState
+  }, [nodes])
+
+  const groupedNodes = Object.entries(
+    nodes.reduce(
+      (map, node) => ({ ...map, [node.group || 'ungrouped']: [...(map[node.group || 'ungrouped'] || []), node] }),
+      {} as { [key: string]: SideNavItem[] },
+    ),
   )
 
-  const [expandCollapseStates, setState] = useState<Record<string, ExpandCollapseEnum>>(initialState)
+  const hasGroupedNodes = groupedNodes.some(group => group[0] !== 'ungrouped')
+
+  const [expandCollapseStates, setState] = useState<Record<string, ExpandCollapseEnum>>(getInitialState())
+
+  useLayoutEffect(() => {
+    // allows for entry to a specific nested url, such as /home/flags/targeting-rules
+    if (firstRender.current) {
+      firstRender.current = false
+      return
+    }
+    setState(getInitialState())
+  }, [getInitialState])
 
   const setActiveLinkStyles = ({ isCurrent, isPartiallyCurrent, href, location: { pathname } }: LinkGetProps) => {
     const hrefWithoutParams = href.split('?')[0]
@@ -227,30 +250,20 @@ const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
 
   const onExpandCollapse = (node: SideNavItem) => {
     if (!isLeafNode(node)) {
-      setState({
-        ...initialState,
+      setState(prevState => ({
+        // tree not closing when clicking another tree - resetting back to initial state fixed it
+        ...getInitialState(),
         [node.path]:
-          initialState[node.path] === ExpandCollapseEnum.Collapsed
+          prevState[node.path] === ExpandCollapseEnum.Collapsed
             ? ExpandCollapseEnum.Expanded
             : ExpandCollapseEnum.Collapsed,
-      })
+      }))
     }
   }
 
   const onFirstExpand = (node: SideNavItem) => {
     setState(prevState => ({ ...prevState, [node.path]: ExpandCollapseEnum.Expanded }))
   }
-
-  const groupedNodes = Object.entries(
-    nodes.reduce(
-      (map, node) => ({ ...map, [node.group || 'ungrouped']: [...(map[node.group || 'ungrouped'] || []), node] }),
-      {} as { [key: string]: SideNavItem[] },
-    ),
-  )
-
-  const hasGroupedNodes = groupedNodes.some(group => group[0] !== 'ungrouped')
-
-  if (!expandCollapseStates) return null
 
   return (
     <ul sx={{ fontWeight: 'body' }}>
