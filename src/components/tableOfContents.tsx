@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { Themed } from '@theme-ui/mdx'
 import { jsx, Link } from 'theme-ui'
 

@@ -66,8 +66,9 @@
     "yarn": "^1.22.18"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.8",
+    "@babel/core": "^7.22.1",
     "@babel/preset-env": "^7.21.5",
+    "@babel/preset-react": "^7.22.3",
     "@cspell/cspell-types": "^5.20.0",
     "@emotion/jest": "^11.9.1",
     "@svgr/cli": "^6.2.1",

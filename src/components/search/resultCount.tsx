@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FunctionComponent } from 'react'
 import pluralize from 'pluralize'
 import { Box, jsx } from 'theme-ui'

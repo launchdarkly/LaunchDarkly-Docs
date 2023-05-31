@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { SearchResults, SearchState } from 'react-instantsearch-core'
 import { connectStateResults } from 'react-instantsearch-dom'

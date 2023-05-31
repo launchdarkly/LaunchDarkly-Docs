@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { globalHistory } from '@reach/router'
 import { Themed } from '@theme-ui/mdx'
 import { graphql, Link, useStaticQuery } from 'gatsby'

@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { Fragment, FunctionComponent, PropsWithChildren } from 'react'
 import { jsx } from 'theme-ui'
 

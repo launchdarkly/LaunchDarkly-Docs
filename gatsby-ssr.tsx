@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import type { GatsbySSR } from 'gatsby'
 import { jsx } from 'theme-ui'
 

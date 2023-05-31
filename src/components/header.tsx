@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { navigate } from 'gatsby'
 import { jsx } from 'theme-ui'
 

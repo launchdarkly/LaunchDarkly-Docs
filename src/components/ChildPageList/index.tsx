@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FC } from 'react'
 import { jsx } from 'theme-ui'
 

@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { Fragment, FunctionComponent } from 'react'
 import { Themed } from '@theme-ui/mdx'
 import { Flex, jsx } from 'theme-ui'

@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FunctionComponent } from 'react'
 import { Themed } from '@theme-ui/mdx'
 import pluralize from 'pluralize'

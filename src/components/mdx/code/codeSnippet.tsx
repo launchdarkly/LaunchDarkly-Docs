@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useCallback, useState } from 'react'
 import { Themed } from '@theme-ui/mdx'

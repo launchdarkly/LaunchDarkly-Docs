@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { ReactNode } from 'react'
 import { Card, jsx } from 'theme-ui'
 

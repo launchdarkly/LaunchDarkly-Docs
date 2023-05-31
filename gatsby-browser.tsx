@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import type { GatsbyBrowser } from 'gatsby'
 import aa from 'search-insights'
 import { jsx } from 'theme-ui'

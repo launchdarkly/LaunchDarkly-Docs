@@ -298,6 +298,8 @@ const config = {
   },
   plugins,
   trailingSlash: 'never',
+  jsxRuntime: 'automatic',
+  jsxImportSource: 'theme-ui',
 }
 
 module.exports = config

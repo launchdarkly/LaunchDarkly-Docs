@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { Fragment, FunctionComponent, useEffect, useRef } from 'react'
 import { Configure, connectSearchBox, InstantSearch } from 'react-instantsearch-dom'
 import { jsx } from 'theme-ui'

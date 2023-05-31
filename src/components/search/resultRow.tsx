@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FunctionComponent, MouseEvent } from 'react'
 import { Hit, WrappedInsightsClient } from 'react-instantsearch-core'
 import { connectHitInsights, Highlight, Snippet } from 'react-instantsearch-dom'

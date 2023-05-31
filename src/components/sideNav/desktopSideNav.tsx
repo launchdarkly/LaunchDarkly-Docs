@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { Suspense } from 'react'
 import { globalHistory } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'

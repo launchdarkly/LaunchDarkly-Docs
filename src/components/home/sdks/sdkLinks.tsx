@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FunctionComponent } from 'react'
 import { jsx } from 'theme-ui'
 

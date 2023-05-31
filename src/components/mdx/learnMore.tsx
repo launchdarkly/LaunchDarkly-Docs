@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FC, Fragment, ReactElement } from 'react'
 import { Box, Card, Flex, jsx } from 'theme-ui'
 

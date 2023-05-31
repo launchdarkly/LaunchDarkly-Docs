@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { ForwardRefExoticComponent, FunctionComponent, PropsWithoutRef, RefAttributes } from 'react'
 import { GatsbyLinkProps, graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
 import { OutboundLink, OutboundLinkProps } from 'gatsby-plugin-google-gtag'

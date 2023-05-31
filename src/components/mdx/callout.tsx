@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { FC, PropsWithChildren } from 'react'
 import { Box, Card, Flex, jsx, Text, ThemeUIStyleObject } from 'theme-ui'
 

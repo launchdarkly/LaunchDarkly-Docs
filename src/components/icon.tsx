@@ -1,4 +1,4 @@
-/** @jsx jsx */
+// /** @jsx jsx */
 import { HTMLProps } from 'react'
 import { BoxOwnProps, jsx } from 'theme-ui'
 
