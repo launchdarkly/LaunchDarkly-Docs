@@ -1,6 +1,8 @@
+/* eslint-disable simple-import-sort/imports */
+// eslint complains about path not being before 'gatsby' but it is
 import { execSync } from 'child_process'
-import type { GatsbyNode } from 'gatsby'
 import path from 'path'
+import type { GatsbyNode } from 'gatsby'
 import readingTime from 'reading-time'
 import slug from 'slug'
 
