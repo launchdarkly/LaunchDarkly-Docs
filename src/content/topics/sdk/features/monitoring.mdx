@@ -23,6 +23,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -433,6 +434,165 @@ class MainActivity : Activity() {
 
 </CSTab>
 </CodeSample>
+</Details>
+
+### C++ (client-side)
+
+<Details summary="Expand C++ (client-side) code sample">
+
+The C++ (client-side) SDK exposes some of its internal status to let your application monitor it.
+
+The SDK has several data source states dependent on its configuration, network connectivity, and calls explicitly setting the client offline or online.
+
+This table describes the states:
+
+<Table>
+<TableHeader>
+  <TableHeadCell>Data source state</TableHeadCell>
+  <TableHeadCell>Description</TableHeadCell>
+</TableHeader>
+<TableBody>
+  <TableRow>
+    <TableCell><code>kInitializing</code></TableCell>
+    <TableCell>The initial state of the data source when the SDK is being initialized.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kValid</code></TableCell>
+    <TableCell>The data source is currently operational and has not had any problems since the last time it received data.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kInterrupted</code></TableCell>
+    <TableCell>The data source encountered an error that it will attempt to recover from.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kSetOffline</code></TableCell>
+    <TableCell>The application has told the SDK to stay offline.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kShutdown</code></TableCell>
+    <TableCell>The data source has been permanently shut down. This could be because it encountered an unrecoverable error, or because the SDK client was explicitly shut down.</TableCell>
+  </TableRow>
+</TableBody>
+</Table>
+
+The SDK stores a timestamp of when the data source state most recently changed. It also stores information about the last error that the data source encountered, if any.
+
+This table describes the possible errors:
+
+<Table>
+<TableHeader>
+  <TableHeadCell><code>LastError</code> value</TableHeadCell>
+  <TableHeadCell>Description</TableHeadCell>
+</TableHeader>
+<TableBody>
+  <TableRow>
+    <TableCell><code>kUnknown</code></TableCell>
+    <TableCell>An unexpected error, such as an uncaught exception.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kNetworkError</code></TableCell>
+    <TableCell>An I/O error, such as a dropped connection.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kErrorResponse</code></TableCell>
+    <TableCell>The LaunchDarkly service returned an HTTP response with an error status.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kInvalidData</code></TableCell>
+    <TableCell>The SDK received malformed data from the LaunchDarkly service.</TableCell>
+  </TableRow>
+  <TableRow>
+    <TableCell><code>kStoreError</code></TableCell>
+    <TableCell>The data source itself is working, but when it tried to put an update into the data store, the data store failed. The SDK may not have the latest data.</TableCell>
+  </TableRow>
+</TableBody>
+</Table>
+
+Here's how to monitor the data source state:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+client.DataSourceStatus().OnDataSourceStatusChange([](client_side::data_sources::DataSourceStatus status) {
+  if (status.State() ==
+  client_side::data_sources::DataSourceStatus::
+  DataSourceState::kValid) {
+    /* Flag data has been received from LaunchDarkly.*/
+  }
+});
+```
+
+</CSTab>
+</CodeSample>
+
+If you are working in C, there are a few more steps:
+
+1. Define a callback to receive the data source status change:
+  <CodeSample>
+  <CSTab label="C++ SDK v3.0 (C binding), define callback">
+
+  ```c
+  void OnDataSourceStatusChanged(LDDataSourceStatus status, void* user_data) {
+    printf("status: %d\n", LDDataSourceStatus_GetState(status));
+  }
+  ```
+  </CSTab>
+  </CodeSample>
+
+2. Assign the callback by creating a listener connection:
+  <CodeSample>
+  <CSTab label="C++ SDK v3.0 (C binding), create listener connection">
+
+  ```c
+  struct LDDataSourceStatusListener listener;
+  LDDataSourceStatusListener_Init(listener);
+
+  listener.StatusChanged = OnDataSourceStatusChanged;
+
+  /* You may optionally assign the UserData pointer, which will be passed into StatusChanged. */
+  /* listener.UserData = &some_struct; */
+
+  LDListenerConnection connection =
+          LDClientSDK_DataSourceStatus_OnStatusChange(sdk, listener);
+
+  /* You can disconnect the listener later */
+  LDListenerConnection_Disconnect(connection);
+  ```
+  </CSTab>
+  </CodeSample>
+
+3. Ensure the connection is freed when you are done with it:
+  <CodeSample>
+  <CSTab label="C++ SDK v3.0 (C binding), free connection">
+
+  ```c
+  LDListenerConnection_Free(connection);
+  ```
+  </CSTab>
+  </CodeSample>
+
+Finally, if you are working in C but are still using the older v2.x SDK, the data source status interface is not available. To wait indefinitely, use a callback:
+
+<CodeSample>
+<CSTab label="C SDK v2.x (native)">
+
+```c
+void initCallback(LDStatus status)
+{
+    if (status == LDStatusInitialized) {
+        printf("Completed LaunchDarkly client initialization");
+    }
+}
+
+LDSetClientStatusCallback(initCallback);
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`DataSourceStatus`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html#adedade4cae0355b19f954907dbcf2362).
+
 </Details>
 
 ### Electron

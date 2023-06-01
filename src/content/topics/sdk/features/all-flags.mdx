@@ -45,6 +45,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -97,6 +98,76 @@ client.allFlags()
 </CodeSample>
 
 To learn more, read the [API documentation](https://launchdarkly.github.io/android-client-sdk/).
+</Details>
+
+### C++ (client-side)
+
+<Details summary="Expand C++ (client-side) code sample">
+
+The `AllFlags` method produces a map of feature flag keys to their values. Here's how to call it and output the result:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+for (auto [flag_key, flag_value] : client.AllFlags()) {
+    std::cout << flag_key << ": " << flag_value << std::endl;
+}
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+LDValue all_flags = LDClientSDK_AllFlags(client);
+
+LDValue_ObjectIter it;
+
+for (it = LDValue_CreateObjectIter(all_flags); !LDValue_ObjectIter_End(it); LDValue_ObjectIter_Next(it)) {
+
+  char const* flag_key = LDValue_ObjectIter_Key(it);
+  LDValue flag_val_ref = LDValue_ObjectIter_Value(it);
+
+  if (LDValue_Type(flag_val_ref) == LDValueType_Bool) {
+      printf("%s: %d\n", flag_key, LDValue_GetBool(flag_val_ref));
+  }
+}
+```
+</CSTab>
+<CSTab label="C SDK v2.x (native)">
+
+```c
+struct LDJSON *allFlagsObject = LDAllFlags(client);
+
+const struct LDJSON *iter;
+for (iter = LDGetIter(allFlagsObject); iter; iter = LDIterNext(iter)) {
+   char *serialized_value = LDJSONSerialize(iter);
+   printf("%s: %s\n", LDIterKey(iter), serialized_value);
+   LDFree(serialized_value);
+}
+
+LDJSONFree(allFlagsObject);
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (C++ binding)">
+
+```cpp
+LDJSON *allFlagsObject = client->getAllFlags();
+
+const LDJSON *iter;
+for (iter = LDGetIter(allFlagsObject); iter; iter = LDIterNext(iter)) {
+   char *serialized_value = LDJSONSerialize(iter);
+   std::cout << LDIterKey(iter) << ": " << serialized_value << std::endl;
+   LDFree(serialized_value);
+}
+
+LDJSONFree(allFlagsObject);
+```
+</CSTab>
+</CodeSample>
+
+To learn more, read `AllFlags` in the [`Client` documentation](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html).
 </Details>
 
 ### Electron

@@ -37,6 +37,7 @@ certifi
 Cfunc
 choco
 cfworkers
+chrono
 circleci
 classname
 classpath
@@ -49,6 +50,7 @@ codebases
 coderefs
 configurability
 Contentful
+cout
 Cristiano
 databind
 datacenter
@@ -59,6 +61,7 @@ defp
 Delivr
 deserialization
 deviceid
+djarek
 Dockerized
 docsite
 Dynatrace
@@ -68,6 +71,7 @@ eCommerce
 elif
 elsewhere
 emptystate
+endl
 evalx
 eventhub
 eventsource
@@ -88,6 +92,7 @@ getenv
 Gleb
 goboringcrypto
 GOEXPERIMENT
+googletest
 GOPATH
 gopkg
 govendor
@@ -155,6 +160,7 @@ logdna
 lookback
 Lstd
 manifestjson
+maxwait
 maxwaitmilliseconds
 mebibyte
 mebibytes
@@ -172,8 +178,11 @@ nameid
 Newtonsoft
 nextjs
 ngrok
+nlohmann
 nmake
 nodesdk
+noexcept
+nonblocking
 Nonnull
 NRQL
 objc

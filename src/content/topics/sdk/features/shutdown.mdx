@@ -41,7 +41,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -90,23 +90,32 @@ client.close()
 </CodeSample>
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-To fully uninitialize the C/C++ SDK resources, you must use `close`. The operation blocks until all resources are free.
+In the C++ SDK v3.0, the SDK will be automatically closed.
+
+If you are using the C binding, you must specifically close the client. The operation blocks until all resources are free.
 
 To shut down:
 
 <CodeSample>
-<CSTab label="C">
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+LDClientSDK_Free(client);
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (native)">
 
 ```c
 LDClientClose(client);
 ```
 
 </CSTab>
-<CSTab label="C++">
+<CSTab label="C SDK v2.x (C++ binding)">
 
 ```cpp
 client->close();

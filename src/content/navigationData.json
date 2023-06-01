@@ -1395,13 +1395,17 @@
             ]
           },
           {
-            "label": "C/C++ SDK reference",
-            "shortLabel": "C/C++",
+            "label": "C++ SDK reference",
+            "shortLabel": "C++",
             "path": "/sdk/client-side/c-c--",
             "svg": "c",
             "items": [
               {
-                "label": "C/C++ (client-side) SDK 1.x to 2.0 migration guide",
+                "label": "C++ (client-side) SDK 2.x to 3.0 migration guide",
+                "path": "/sdk/client-side/c-c--/migration-2-to-3"
+              },
+              {
+                "label": "C (client-side) SDK 1.x to 2.0 migration guide",
                 "path": "/sdk/client-side/c-c--/migration-1-to-2"
               }
             ]

@@ -25,7 +25,7 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 The identify feature's behavior differs between client-side and server-side SDKs.
 
-Client-side SDKs are configured to operate for one end user at a time, identified or anonymous. In these SDKs, the identify feature allows you to change the context, such as when an end user logs in or changes their settings. Identifying contexts and users causes LaunchDarkly to index them. To associate two contexts with each other, such as an end user before and after they log in, call identify with a multi-context that contains both contexts. The association doesn't persist between calls, so you must call identify with the multi-context each time. 
+Client-side SDKs are configured to operate for one end user at a time, identified or anonymous. In these SDKs, the identify feature allows you to change the context, such as when an end user logs in or changes their settings. Identifying contexts and users causes LaunchDarkly to index them. To associate two contexts with each other, such as an end user before and after they log in, call identify with a multi-context that contains both contexts. The association doesn't persist between calls, so you must call identify with the multi-context each time.
 
 Server-side SDKs operate for multiple end users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because contexts or users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying contexts and users is that they are added to the **Contexts** and **Users** lists, respectively. However, in most applications this is not needed because they are automatically indexed when used for a flag evaluation. Instead, you should provide the evaluation object in a variation or all flags call to get the expected flag evaluation. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Getting all flags](/sdk/features/all-flags).
 
@@ -42,7 +42,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -168,20 +168,58 @@ The `identify()` call loads any saved flag values for the new user context and i
 To learn more, read [`identify`](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDClient.html#identify(com.launchdarkly.sdk.LDContext)).
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (server-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-The `Identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+The identify method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be similar to the previous context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call identify so that the person receives the correct feature flag settings for their account.
 
-<!-- cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-174758) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable -->
+In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information.
 
-You can use the `LDClientIdentify` method to switch users:
+Here's how to update your initial context when you have additional information:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C++ SDK v3 (native)">
+
+```cpp
+/* before end user logs in */
+auto context = ContextBuilder()
+  .Kind("device", "device-key-123abc")
+  .Build();
+
+/* after end user logs in */
+auto updated_context = ContextBuilder(context)
+  .Kind("user", "user-key-123abc")
+  .Name("Sandy")
+  .Kind("organization", "org-key-123abc")
+  .Name("Global Health Services")
+  .Build();
+```
+</CSTab>
+</CodeSample>
+
+After you update the context, you must call identify with the updated context in order to evaluate flags based on the updated information.
+
+Here's how to use the identify method to switch contexts:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+client.IdentifyAsync(updated_context);
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+LDClientSDK_Identify(client, updated_context, LD_NONBLOCKING, NULL);
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x">
 
 ```c
 LDClientIdentify(client, newUser);
@@ -190,7 +228,48 @@ LDClientIdentify(client, newUser);
 </CSTab>
 </CodeSample>
 
-The `LDClientIdentify()` call loads any saved flag values for the new user and immediately trigger an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the new user, you should should not call it at high frequency. The intended use case for switching user contexts is the login/logout flow. To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#a7ee43b2353f00798979ba51cfebb1a53).
+You can also examine the result to determine if the identification succeeded. Here's how:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto identify_result = client.IdentifyAsync(updated_context);
+auto status = identify_result.wait_for(maxwait);
+
+if (status == std::future_status::ready) {
+  /* The client's attempt to identify succeeded or failed in the specified amount of time. */
+  if (identify_result.get()) {
+    /* Identification succeeded */
+  } else {
+    /* Identification failed */
+  }
+} else {
+  /* The specified timeout was reached, but the client is still identifying. */
+}
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+bool identified_successfully;
+if (LDClientSDK_Identify(client, updated_context, maxwait, &identified_successfully)) {
+  /* The client's attempt to identify succeeded or failed in the specified amount of time. */
+  if (identified_successfully) {
+    /* Identification succeeded. */
+  else {
+    /* Identification failed. */
+  }
+} else {
+   /* The specified timeout was reached, but the client is still identifying. */
+}
+```
+
+</CSTab>
+</CodeSample>
+
+The `IdentifyAsync` call loads any saved flag values for the new context and immediately triggers an update of the latest flags from LaunchDarkly. Because this method re-fetches flag settings for the updated context, you should not call it at high frequency. The intended use case for switching contexts is the login/logout flow. To learn more, read [`IdentifyAsync`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html#a62fc1fe135495b72fa37ecedf5a2c7e2).
 </Details>
 
 ### Electron
