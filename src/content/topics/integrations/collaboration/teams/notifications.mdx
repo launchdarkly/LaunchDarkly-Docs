@@ -15,7 +15,77 @@ To use this feature, you must have installed and configured the LaunchDarkly Mic
 
 ## Subscribing to flag notifications
 
-To receive notifications when a flag is changed, you must follow the flag. To learn more, read [Following flags](/home/organize/flags-list#following-flags).
+You can subscribe to updates for flags, segments, metrics, projects, or environments. When someone updates a resource LaunchDarkly sends a notification of the change to all channels subscribed to updates for that resource.
+
+There are two ways to subscribe to flag notifications:
+* Follow a specific flag in LaunchDarkly. To learn more, read [Following flags](/home/organize/flags-list#following-flags).
+* Create a subscription in Microsoft Teams.
+
+### Creating a subscription in Microsoft Teams
+
+You can create a subscription using the `subscribe` command with keyword arguments, or using the `subscribe` command with positional arguments. We recommend using keyword arguments. To view more information and examples of the subscribe command, run `@launchdarkly help subscribe` in a channel or direct message that the LaunchDarkly bot is in.
+
+#### Subscribing with keyword arguments
+---
+
+You can use keyword arguments to create a subscription with any combination of parameters. At least one parameter is required.
+
+Here's how:
+
+1. Open the Microsoft Teams channel you want notifications in.
+2. Run `@launchdarkly subscribe` and pass in any combination of the following arguments:
+   - `-p` or `--project=`
+   - `-e` or `--environment=`
+   - `-f` or `--flag_key=`
+   - `-s` or `--status=`
+   - `-a` or `--action=`
+   - `-t` or `--tag=`
+3. Press **Enter**.
+
+For example, the following command creates a subscription for all flags in the `qa` environment of the `chatbot` project, with status `active` and tag `production`:
+
+<CodeSample>
+<CSTab label="Example subscription with keyword arguments">
+
+```bash
+@launchdarkly subscribe -p chatbot -e qa -s active -t production
+```
+
+</CSTab>
+
+</CodeSample>
+
+### Subscribing with positional arguments
+---
+
+You can use positional arguments to create a subscription for a single flag. You must provide all three arguments.
+
+Here's how:
+
+1. Open the Slack channel you want notifications in.
+2. Run `@launchdarkly subscribe` and provide in order the project, environment, and flag key of the flag you would like to subscribe to.
+3. Press **Enter**.
+
+For example, the following command creates a subscription for the `chat-response` flag in the `qa` environment of the `chatbot` project:
+
+<CodeSample>
+<CSTab label="Example subscription with positional arguments">
+
+```bash
+@launchdarkly subscribe chatbot qa chat-response
+```
+
+</CSTab>
+</CodeSample>
+
+## Managing subscriptions
+
+You can view and remove subscriptions in a Teams channel using the `@launchdarkly list` command:
+
+1. Open the Teams channel where you would like to remove notifications.
+2. Type `@launchdarkly list` and press **Enter**. A list of subscriptions for the channel appears.
+3. Locate the subscription you wish to remove from the channel.
+4. Click **Delete**.
 
 ## Viewing flag change notifications in Microsoft Teams
 
