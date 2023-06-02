@@ -761,106 +761,6 @@
     "path": "/integrations",
     "items": [
       {
-        "label": "APM tools",
-        "path": "/integrations/app-performance",
-        "items": [
-          {
-            "label": "AppDynamics",
-            "path": "/integrations/appdynamics"
-          },
-          {
-            "label": "Datadog",
-            "path": "/integrations/datadog",
-            "items": [
-              {
-                "label": "Using the Datadog events integration",
-                "path": "/integrations/datadog/events"
-              },
-              {
-                "label": "Using the Datadog dashboard widget",
-                "path": "/integrations/datadog/dashboard-widget"
-              },
-              {
-                "label": "Using flag triggers with Datadog",
-                "path": "/integrations/datadog/triggers"
-              },
-              {
-                "label": "Using the Datadog RUM integration",
-                "path": "/integrations/datadog/rum"
-              }
-            ]
-          },
-          {
-            "label": "Dynatrace",
-            "path": "/integrations/dynatrace",
-            "items": [
-              {
-                "label": "Using the Dynatrace events integration",
-                "path": "/integrations/dynatrace/events"
-              },
-              {
-                "label": "Using flag triggers with Dynatrace",
-                "path": "/integrations/dynatrace/triggers"
-              }
-            ]
-          },
-          {
-            "label": "Elastic (ELK) Stack",
-            "path": "/integrations/elastic-stack"
-          },
-          {
-            "label": "Grafana",
-            "path": "/integrations/grafana"
-          },
-          {
-            "label": "Honeycomb",
-            "path": "/integrations/honeycomb",
-            "items": [
-              {
-                "label": "Using the Honeycomb events integration",
-                "path": "/integrations/honeycomb/events"
-              },
-              {
-                "label": "Using flag triggers with Honeycomb",
-                "path": "/integrations/honeycomb/triggers"
-              }
-            ]
-          },
-          {
-            "label": "New Relic One",
-            "path": "/integrations/new-relic",
-            "items": [
-              {
-                "label": "Using the New Relic One events integration",
-                "path": "/integrations/new-relic/events"
-              },
-              {
-                "label": "Using flag triggers with New Relic One",
-                "path": "/integrations/new-relic/triggers"
-              }
-            ]
-          },
-          {
-            "label": "SignalFx",
-            "path": "/integrations/signalfx",
-            "items": [
-              {
-                "label": "Using the SignalFx events integration",
-                "path": "/integrations/signalfx/events"
-              },
-              {
-                "label": "Using flag triggers with SignalFx",
-                "path": "/integrations/signalfx/triggers"
-              }
-            ]
-          },
-          {
-            "label": "Splunk",
-            "path": "/integrations/splunk"
-          }
-        ]
-      },
-      {
         "label": "Collaboration tools",
         "path": "/integrations/collaboration",
         "items": [
@@ -923,6 +823,38 @@
         ]
       },
       {
+        "label": "Edge tools",
+        "path": "/integrations/edge",
+        "items": [
+          {
+            "label": "Cloudflare",
+            "path": "/integrations/cloudflare"
+          },
+          {
+            "label": "Vercel",
+            "path": "/integrations/vercel"
+          }
+        ]
+      },
+      {
+        "label": "Environments as a service",
+        "path": "/integrations/eaas",
+        "items": [
+          {
+            "label": "Okteto",
+            "path": "/integrations/okteto"
+          },
+          {
+            "label": "Release",
+            "path": "/integrations/release"
+          },
+          {
+            "label": "Roost.ai",
+            "path": "/integrations/roost-ai"
+          }
+        ]
+      },
+      {
         "label": "Experimentation tools",
         "path": "/integrations/experimentation",
         "items": [
@@ -955,9 +887,121 @@
         ]
       },
       {
+        "label": "Observability tools",
+        "path": "/integrations/observability",
+        "items": [
+          {
+            "label": "AppDynamics",
+            "path": "/integrations/appdynamics"
+          },
+          {
+            "label": "AWS CloudWatch RUM",
+            "path": "/integrations/aws-cloudwatch-rum"
+          },
+          {
+            "label": "Datadog",
+            "path": "/integrations/datadog",
+            "items": [
+              {
+                "label": "Using the Datadog events integration",
+                "path": "/integrations/datadog/events"
+              },
+              {
+                "label": "Using the Datadog dashboard widget",
+                "path": "/integrations/datadog/dashboard-widget"
+              },
+              {
+                "label": "Using flag triggers with Datadog",
+                "path": "/integrations/datadog/triggers"
+              },
+              {
+                "label": "Using the Datadog RUM integration",
+                "path": "/integrations/datadog/rum"
+              }
+            ]
+          },
+          {
+            "label": "Dynatrace",
+            "path": "/integrations/dynatrace",
+            "items": [
+              {
+                "label": "Using the Dynatrace events integration",
+                "path": "/integrations/dynatrace/events"
+              },
+              {
+                "label": "Using flag triggers with Dynatrace",
+                "path": "/integrations/dynatrace/triggers"
+              }
+            ]
+          },
+          {
+            "label": "Elastic (ELK) Stack",
+            "path": "/integrations/elastic-stack"
+          },
+          {
+            "label": "Grafana",
+            "path": "/integrations/grafana"
+          },
+          {
+            "label": "Honeycomb",
+            "path": "/integrations/honeycomb",
+            "items": [
+              {
+                "label": "Using the Honeycomb events integration",
+                "path": "/integrations/honeycomb/events"
+              },
+              {
+                "label": "Using flag triggers with Honeycomb",
+                "path": "/integrations/honeycomb/triggers"
+              }
+            ]
+          },
+          {
+            "label": "LogDNA",
+            "path": "/integrations/logdna"
+          },
+          {
+            "label": "New Relic One",
+            "path": "/integrations/new-relic",
+            "items": [
+              {
+                "label": "Using the New Relic One events integration",
+                "path": "/integrations/new-relic/events"
+              },
+              {
+                "label": "Using flag triggers with New Relic One",
+                "path": "/integrations/new-relic/triggers"
+              }
+            ]
+          },
+          {
+            "label": "SignalFx",
+            "path": "/integrations/signalfx",
+            "items": [
+              {
+                "label": "Using the SignalFx events integration",
+                "path": "/integrations/signalfx/events"
+              },
+              {
+                "label": "Using flag triggers with SignalFx",
+                "path": "/integrations/signalfx/triggers"
+              }
+            ]
+          },
+          {
+            "label": "Splunk",
+            "path": "/integrations/splunk"
+          }
+        ]
+      },
+      {
         "label": "Workflow management tools",
         "path": "/integrations/workflow",
         "items": [
+          {
+            "label": "Azure DevOps",
+            "path": "/integrations/azure-devops"
+          },
           {
             "label": "Jira Cloud",
             "path": "/integrations/jira"
@@ -987,6 +1031,10 @@
           {
             "label": "Trello",
             "path": "/integrations/trello"
+          },
+          {
+            "label": "Zapier",
+            "path": "/integrations/zapier"
           }
         ]
       },
@@ -1003,20 +1051,8 @@
             "path": "/integrations/cloudtrail"
           },
           {
-            "label": "AWS CloudWatch RUM",
-            "path": "/integrations/aws-cloudwatch-rum"
-          },
-          {
-            "label": "Azure DevOps",
-            "path": "/integrations/azure-devops"
-          },
-          {
             "label": "Bitbucket Pipelines",
             "path": "/integrations/bitbucket-pipelines"
-          },
-          {
-            "label": "Cloudflare",
-            "path": "/integrations/cloudflare"
           },
           {
             "label": "CloudQuery",
@@ -1035,28 +1071,12 @@
             "path": "/integrations/heap"
           },
           {
-            "label": "LogDNA",
-            "path": "/integrations/logdna"
-          },
-          {
             "label": "ngrok",
             "path": "/integrations/ngrok"
           },
           {
-            "label": "Okteto",
-            "path": "/integrations/okteto"
-          },
-          {
             "label": "Pendo",
             "path": "/integrations/pendo"
-          },
-          {
-            "label": "Roost.ai",
-            "path": "/integrations/roost-ai"
-          },
-          {
-            "label": "Release",
-            "path": "/integrations/release"
           },
           {
             "label": "Terraform",
@@ -1067,14 +1087,6 @@
                 "path": "/integrations/terraform/migration-1-to-2"
               }
             ]
-          },
-          {
-            "label": "Vercel",
-            "path": "/integrations/vercel"
-          },
-          {
-            "label": "Zapier",
-            "path": "/integrations/zapier"
           },
           {
             "label": "Zendesk",
