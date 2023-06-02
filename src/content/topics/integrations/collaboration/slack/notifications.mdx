@@ -63,9 +63,9 @@ Here's how:
 For example, the following command creates a subscription for all flags in the `qa` environment of the `chatbot` project, with status `active` and tag `production`:
 
 <CodeSample>
-<CSTab label="Example subscription">
+<CSTab label="Example subscription with keyword arguments">
 
-```
+```bash
 /launchdarkly subscribe -p chatbot -e qa -s active -t production
 ```
 
@@ -86,9 +86,9 @@ Here's how:
 For example, the following command creates a subscription for the `chat-response` flag in the `qa` environment of the `chatbot` project:
 
 <CodeSample>
-<CSTab label="Example subscription">
+<CSTab label="Example subscription with positional arguments">
 
-```
+```bash
 /launchdarkly subscribe chatbot qa chat-response
 ```
 
