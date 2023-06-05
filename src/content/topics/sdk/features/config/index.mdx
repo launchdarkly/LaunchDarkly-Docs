@@ -39,7 +39,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -118,14 +118,24 @@ val ldConfig: LDConfig = LDConfig.Builder()
 To learn more about the specific configuration options that are available in this SDK, read the [Javadoc](https://launchdarkly.github.io/android-client-sdk/com/launchdarkly/sdk/android/LDConfig.Builder.html).
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
 This code sample shows you how to configure the event queue capacity and flush interval parameters:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto config = client_side::ConfigBuilder("mobile-key-123abc").Events()
+    .Capacity(1000)
+    .FlushInterval(std::chrono::seconds(30))
+    .Build();
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (native)">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -136,7 +146,7 @@ LDConfigSetEventsFlushIntervalMillis(config, 30000);
 </CSTab>
 </CodeSample>
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/c-client-sdk/config_8h.html).
+To learn more about the configuration options that are available in this SDK, read [`ConfigBuilder`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1config_1_1shared_1_1builders_1_1ConfigBuilder.html). To learn more about the event queue capacity and flush interval parameters specifically, read [`EventsBuilder`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1config_1_1shared_1_1builders_1_1EventsBuilder.html).
 </Details>
 
 ### Electron

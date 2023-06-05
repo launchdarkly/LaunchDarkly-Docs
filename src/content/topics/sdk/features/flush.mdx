@@ -31,7 +31,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
@@ -90,14 +90,28 @@ client.flush()
 The flush interval is configurable.
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (server-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, for example, if you're testing the SDK in a simulator, you may want to manually call flush to process events immediately.
+The LaunchDarkly SDK keeps an internal event buffer for analytics events. These are flushed periodically in a background thread. In some situations, for example if you're testing the SDK in a simulator, you may want to manually call flush to process events immediately.
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+client.FlushAsync();
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+LDClientSDK_Flush(client, LD_NONBLOCKING);
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x">
 
 ```c
 LDClientFlush(client);
@@ -106,7 +120,48 @@ LDClientFlush(client);
 </CSTab>
 </CodeSample>
 
-The flush interval is configurable. If you need to change the interval, you can do so via the configuration.
+You can also examine the result to determine if the flush succeeded. Here's how:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto flush_result = client.FlushAsync(context);
+auto status = flush_result.wait_for(maxwait);
+
+if (status == std::future_status::ready) {
+  /* The client's attempt to flush succeeded or failed in the specified amount of time. */
+  if (flush_result.get()) {
+    /* Flush succeeded */
+  } else {
+    /* Flush failed */
+  }
+} else {
+  /* The specified timeout was reached, but the client is still attempting to flush. */
+}
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```cpp
+bool flushed_successfully;
+if (LDClientSDK_Identify(client, context, maxwait, &flushed_successfully)) {
+  /* The client's attempt to flush succeeded or failed in the specified amount of time. */
+  if (flushed_successfully) {
+    /* Flush succeeded. */
+  else {
+    /* Flush failed. */
+  }
+} else {
+   /* The specified timeout was reached, but the client is still attempting to flush. */
+}
+```
+
+</CSTab>
+</CodeSample>
+
+The flush interval is configurable. If you need to change the interval, you can do so using the configuration. To learn more, read [`FlushAsync`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html#ad19e6199bff8c0c0caa94e28f44ded3f) and [`FlushInterval`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1config_1_1shared_1_1builders_1_1EventsBuilder.html#a999ee341dcf36b412e14ec5c923cceff).
 </Details>
 
 ### Flutter

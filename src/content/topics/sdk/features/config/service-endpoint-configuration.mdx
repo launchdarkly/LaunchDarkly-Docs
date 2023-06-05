@@ -41,7 +41,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -141,14 +141,26 @@ val ldConfig: LDConfig = LDConfig.Builder()
 </CodeSample>
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-To configure an alternate service endpoint for the SDK, use `LDConfigSetStreamURI`, `LDConfigSetAppURI`, and `LDConfigSetEventsURI` to specify the base URIs:
+To configure an alternate service endpoint for the SDK, use `StreamingBaseUrl`, `PollingBaseUrl`, and `EventsBaseUrl` to specify the base URIs:
 
 <CodeSample>
-<CSTab label="C/C++, connecting to federal instance">
+<CSTab label="C++ SDK v3.0 (native), connecting to federal instance">
+
+```cpp
+auto config_builder = client_side::ConfigBuilder("mobile-key-123abc");
+config_builder.ServiceEndpoints()
+    .StreamingBaseUrl("https://clientstream.launchdarkly.us")
+    .PollingBaseUrl("https://app.launchdarkly.us")
+    .EventsBaseUrl("https://events.launchdarkly.us")
+auto config = config_builder.Build();
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (native), connecting to federal instance">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -159,6 +171,9 @@ LDConfigSetEventsURI(config, "https://events.launchdarkly.us");
 
 </CSTab>
 </CodeSample>
+
+To learn more, read [`ServiceEndpoints`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1config_1_1shared_1_1builders_1_1ConfigBuilder.html#ae28867ba563432a91f355d04f45daec2).
+
 </Details>
 
 ### Electron

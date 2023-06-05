@@ -46,7 +46,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Flutter](#flutter)
 * [iOS](#ios)
 * [JavaScript](#javascript)
@@ -204,18 +204,53 @@ To learn more, read [`EvaluationReason`](https://javadoc.io/static/com.launchdar
 
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-By passing an `LDVariationDetails` struct to a variation call you can programmatically inspect the reason for a particular evaluation.
+You can request and then programmatically inspect the reason for a particular feature flag evaluation.
 
-The `details.reason` member is the `reason` object described in [Evaluation reasons](/sdk/concepts/evaluation-reasons).
+The `detail.Reason()` response is described in [Evaluation reasons](/sdk/concepts/evaluation-reasons).
 
 Here is an example:
 
 <CodeSample>
-<CSTab label="C">
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto detail = client.BoolVariationDetail("flag-key-123abc", false);
+if (detail.Value()) {
+   std::cout << "Value was true!" << std::endl;
+} else {
+   // it was false, let's find out why.
+   if (auto reason = detail.Reason()) {
+      // reason might not be present, so we have to check
+      std::cout << "Value was false because of " << reason << std::endl;
+   } else {
+      std::cout << "No reason provided to explain why flag was false!" << std::endl;
+   }
+}
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+LDEvalDetail detail;
+if (LDClientSDK_BoolVariationDetail(client, "flag-key-123abc", false, &detail)) {
+    printf("Value was true!\n");
+} else {
+    LDEvalReason reason;
+    if (LDEvalDetail_Reason(detail, &reason)) {
+       printf("Value was false because of %d\n", LDEvalReason_Kind(reason));
+    } else {
+       printf("No reason provided to explain why flag was false!\n");
+    }
+}
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (native)">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -236,7 +271,7 @@ LDFreeDetailContents(&details);
 ```
 
 </CSTab>
-<CSTab label="C++">
+<CSTab label="C SDK v2.x (C++ binding)">
 
 ```cpp
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -258,7 +293,7 @@ LDFreeDetailContents(&details);
 </CSTab>
 </CodeSample>
 
-To learn more about the `LDVariationDetails` structure, inspect [`client.h`](https://launchdarkly.github.io/c-client-sdk/structLDVariationDetails.html). To learn more about the configuration option, inspect [`config.h`](https://launchdarkly.github.io/c-client-sdk/config_8h.html).
+To learn more, read [`EvaluationDetail`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1EvaluationDetail.html) and [`BoolVariationDetail`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html#a81d57edf13a87562d328174d7f9d6f09).
 </Details>
 
 ### Flutter

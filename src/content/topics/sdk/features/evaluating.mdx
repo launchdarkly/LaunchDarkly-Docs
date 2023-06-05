@@ -54,7 +54,7 @@ This feature is available for all of our client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -118,18 +118,43 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (server-side) code sample">
+<Details summary="Expand C++ (server-side) code sample">
 
-The variation methods determine whether or not a flag is enabled for a specific user. The variation method signatures take the feature flag key and a fallback value. When the client is initialized for the first time, users receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
+The variation methods determine whether or not a flag is enabled for a specific context. The variation method signatures take the feature flag key and a fallback value. When the client is initialized for the first time, contexts receive the feature flag fallback values until an initial connection to LaunchDarkly completes.
 
-There are variation methods for each type, such as `LDBoolVariation`/`boolVariation` or `LDStringVariation`/`stringVariation`.
+There are variation methods for each type, such as `BoolVariation` or `StringVariation`.
 
 Here is an example:
 
 <CodeSample>
-<CSTab label="C">
+
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+bool show_feature = client.BoolVariation("flag-key-123abc", false);
+if (show_feature) {
+    // Application code to show the feature
+} else {
+    // The code to run if the feature is off
+}
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+bool show_feature = LDClientSDK_BoolVariation(client, "flag-key-123abc", false);
+if (show_feature) {
+    // Application code to show the feature
+} else {
+    // The code to run if the feature is off
+}
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (native)">
 
 ```c
 bool show_feature = LDBoolVariation(client, "flag-key-123abc", false);
@@ -142,7 +167,7 @@ if (show_feature) {
 
 </CSTab>
 
-<CSTab label="C++">
+<CSTab label="C SDK v2.x (C++ binding)">
 
 ```cpp
 bool show_feature = client->boolVariation("flag-key-123abc", false);
@@ -157,7 +182,9 @@ if (show_feature) {
 </CSTab>
 </CodeSample>
 
-You must provide all relevant user attributes for each evaluation for your targeting rules to apply correctly.
+You must provide all relevant context attributes for each evaluation for your targeting rules to apply correctly.
+
+To learn more, read the [`Client` documentation](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html).
 
 </Details>
 

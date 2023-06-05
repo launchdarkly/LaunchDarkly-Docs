@@ -14,31 +14,20 @@ This guide explains how using LaunchDarkly with external tools enhances your tea
 
 LaunchDarkly's integrations span the following categories:
 
-- [Application performance management (APM) tools](#application-performance-management-apm-tools)
 - [Code references](#code-references)
 - [Collaboration tools](#collaboration-tools)
 - [Data Export destinations](#data-export-destinations)
+- [Edge tools](#edge-tools)
+- [Environments as a service](#environments-as-a-service)
+- [Experimentation tools](#experimentation-tools)
 - [Integrated development environment (IDE) connectors](#integrated-development-environment-ide-connectors)
+- [Observability tools](#observability-tools)
 - [Workflow management tools](#workflow-management-tools)
 - [Other developer tools](#other-developer-tools)
 
 For a list of all supported integrations, visit the [Integrations page](https://app.launchdarkly.com/integrations) in your LaunchDarkly app, or read the [Integrations documentation](/integrations).
 
 To learn about common problems integrations can help solve, read [Integrations use cases](/guides/integrations/integrations-use-cases).
-
-## Application performance management (APM) tools
-
-LaunchDarkly offers integrations with many monitoring, observability, and APM tools.
-
-Many software teams use these tools to identify anomalies. These integrations make it possible to surface flag change events and display them in context with other events or metrics being monitored and tracked inside the corresponding tool. You can even use tools like these to catch when bugs are introduced by your feature flagging practices.
-
-Here is an example of the SignalFx dashboard:
-
-![An example of LaunchDarkly flag change inside SignalFx.](signalfx-marker-1.png)
-
-LaunchDarkly integrates with the following APM tools:
-
-<ChildPageList path="/integrations/app-performance" />
 
 ## Code references
 
@@ -78,6 +67,32 @@ LaunchDarkly's Data Export supports the following destinations:
 
 <ChildPageList path="/home/data-export" omit="/home/data-export/schema-reference" />
 
+## Edge tools
+
+You can use LaunchDarkly with several edge providers. This eliminates the initial remote call to LaunchDarkly, providing zero-latency client-side feature flags with no flash of original content or shift in content layout. This means you can use your LaunchDarkly flags without an added latency from network requests.
+
+To use each of these integrations, you also need to use the corresponding LaunchDarkly edge SDK. To learn more, read [Edge SDKs](/sdk/edge).
+
+LaunchDarkly integrates with the following edge providers:
+
+<ChildPageList path="/integrations/edge" />
+
+## Environments as a service
+
+Organizations that use ephemeral environments for development and testing need feature management specific to their ephemeral environment. This gives developers control of application features independent of other environments. It minimizes the risk of toggling features impacting other development efforts.
+
+LaunchDarkly integrates with the following environment as a service (EaaS) providers:
+
+<ChildPageList path="/integrations/eaas" />
+
+## Experimentation tools
+
+LaunchDarkly provides integrations with several third-party applications related to Experimentation, which you can use in conjunction with the LaunchDarkly Experimentation product.
+
+LaunchDarkly integrates with the following Experimentation tools:
+
+<ChildPageList path="/integrations/experimentation" />
+
 ## Integrated development environment (IDE) connectors
 
 You can use LaunchDarkly with your preferred IDE to do things like autocomplete feature flag keys, view lists of feature flags, and update flag settings.
@@ -89,6 +104,20 @@ Here is an example of the LaunchDarkly VSCode extension:
 LaunchDarkly integrates with the following IDE connectors:
 
 <ChildPageList path="/integrations/ide" />
+
+## Observability tools
+
+LaunchDarkly offers integrations with many monitoring, observability, and application performance management (APM) tools.
+
+Many software teams use these tools to identify anomalies. These integrations make it possible to surface flag change events and display them in context with other events or metrics being monitored and tracked inside the corresponding tool. You can even use tools like these to catch when bugs are introduced by your feature flagging practices.
+
+Here is an example of the SignalFx dashboard:
+
+![An example of LaunchDarkly flag change inside SignalFx.](signalfx-marker-1.png)
+
+LaunchDarkly integrates with the following observability tools:
+
+<ChildPageList path="/integrations/observability" />
 
 ## Workflow management tools
 

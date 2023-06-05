@@ -24,6 +24,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [JavaScript](#javascript)
 * [Node.js (client-side)](#nodejs-client-side)
@@ -67,6 +68,130 @@ if (BuildConfig.DEBUG) {
 if (BuildConfig.DEBUG) {
     Timber.plant(Timber.DebugTree())
 }
+```
+
+</CSTab>
+</CodeSample>
+</Details>
+
+### C++ (client-side)
+
+<Details summary="Expand C++ (client-side) code sample">
+
+By default, there is no log output, but we provide a default logger you can enable. The SDK does not lock on any logging. Ensure that your implementation is thread safe.
+
+Whether you use a custom logger or the default one, you must call use the `LoggingBuilder` to configure logging before the client is initialized. You cannot modify logging while the client is running.
+
+If you use the default logger, you can configure how verbose it should be. The options are debug, info, warn, and error.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto config = ConfigBuilder().Logging().Logging(
+        LoggingBuilder::BasicLogging().Tag("ArbitraryLogTag").Level(LogLevel::kWarn)
+   ).Build();
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+LDClientConfigBuilder config_builder = LDClientConfigBuilder_New(key);
+
+LDLoggingBasicBuilder basic_logging = LDLoggingBasicBuilder_New();
+LDLoggingBasicBuilder_Tag(basic_logging, "ArbitraryLogTag");
+LDLoggingBasicBuilder_Level(basic_logging, LD_LOG_WARN);
+
+LDClientConfigBuilder_Logging_Basic(builder, basic_logging);
+
+LDClientConfig config;
+LDStatus status = LDClientConfigBuilder_Build(config_builder, &config);
+```
+
+</CSTab>
+</CodeSample>
+
+You can also use your own custom log function.
+
+First, implement the log backend interface. For C++, this means implementing the `ILogBackend` interface. If you are working with the C binding, define the callback functions to implement the log backend interface.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+#include <launchdarkly/logging/log_level.hpp>
+#include <launchdarkly/logging/log_backend.hpp>
+
+using namespace launchdarkly;
+
+class CustomLogger : public ILogBackend {
+   public:
+    /* Should return true if the specified level is enabled; in this example, return true to log all messages. */
+    bool Enabled(LogLevel level) noexcept override { return true; }
+
+    /* Forwards to stdout as an example, printing the log tag along with the message. */
+    void Write(LogLevel level, std::string message) noexcept override {
+        std::cout << GetLogLevelName(level, "unknown") << ": " << message << std::endl;
+}
+};
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+
+/* Should return true if the specified level is enabled; in this example, return true to log all messages. */
+static bool enabled(enum LDLogLevel level, void *user_data) {
+    return true;
+}
+
+/* Forwards to stdout as an example, printing the log tag along with the message. */
+static void write(enum LDLogLevel level, const char *msg, void *user_data) {
+    printf("%d: %s\n", level, msg);
+}
+```
+
+</CSTab>
+</CodeSample>
+
+Then, install the custom logger in the SDK's config:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+// Make sure the <memory> header is included for std::make_shared
+#include <memory>
+
+auto config = config_builder.Logging().Logging(LoggingBuilder::CustomLogging().Backend(
+        std::make_shared<CustomLogger>()));
+```
+
+</CSTab>
+<CSTab label="C++ SDK v3.0 (C binding)">
+
+```c
+struct LDLogBackend backend;
+LDLogBackend_Init(&backend);
+
+backend.Write = write;
+backend.Enabled = enabled;
+
+/* You may optionally assign the UserData pointer, which will be passed into Write and Enabled. */
+/* backend.UserData = &some_struct; */
+
+LDLoggingCustomBuilder custom_logging = LDLoggingCustomBuilder_New();
+LDLoggingCustomBuilder_Backend(custom_logging, backend);
+LDClientConfigBuilder_Logging_Custom(builder, custom_logging);
+
+LDClientConfig config;
+LDStatus status = LDClientConfigBuilder_Build(builder, &config);
 ```
 
 </CSTab>

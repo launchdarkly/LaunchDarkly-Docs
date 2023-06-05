@@ -31,6 +31,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -92,6 +93,28 @@ val ldConfig: LDConfig = LDConfig.Builder()
 
 </CSTab>
 </CodeSample>
+</Details>
+
+### C++ (client-side)
+
+<Details summary="Expand C++ code sample">
+
+To connect the SDK to the Relay Proxy, use `RelayProxyBaseURL` to set the base URI of your Relay Proxy:
+
+<CodeSample>
+<CSTab label="C++ SDK v3 (native)">
+
+```cpp
+auto config_builder = client_side::ConfigBuilder("mobile-key-123abc");
+config_builder.ServiceEndpoints().RelayProxyBaseURL("https://your-relay-proxy.com:8030");
+auto config = config_builder.Build();
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`ServiceEndpoints`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1config_1_1shared_1_1built_1_1ServiceEndpoints.html).
+
 </Details>
 
 ### Electron

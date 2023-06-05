@@ -71,7 +71,7 @@ Here are the configuration options for context and user entities in client-side 
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -264,16 +264,28 @@ To learn how to configure private attributes in the Android SDK, read [Private a
 To learn how to configure anonymous contexts in the Android SDK, read [Anonymous contexts and users](/sdk/features/anonymous#android).
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-In the C/C++ (client-side) SDK, you can construct a user using `LDUserNew`.
+In the C++ (client-side) SDK, you can construct a context using the `ContextBuilder`.
 
 Here's an example:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto context = ContextBuilder()
+  .Kind("user", "user-key-123abc")
+  .Set("firstName", "Sandy")
+  .Set("lastName", "Smith")
+  .Set("groups", Value::Object{{"string", "Google"}, {"string", "Microsoft"}})
+  .Build();
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (native)">
 
 ```c
 struct LDJSON *attributes, *groups;
@@ -291,20 +303,37 @@ LDUserSetCustomAttributesJSON(user, attributes);
 </CSTab>
 </CodeSample>
 
-The argument to `LDUserNew` is the user's key. The key should uniquely identify each user. You can use a primary key, an email address, or a hash, as long as the same user always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
+The arguments to `.Kind()` are the context kind and key. Together these must uniquely identify each context. You can use a primary key, an email address, or a hash for the key, as long as the same context always has the same key. We recommend using a hash if possible. In this example, the hash is `"user-key-123abc"`.
 
 <Callout intent="info">
 <CalloutTitle>Interpreting custom attribute types</CalloutTitle>
 <CalloutDescription>
 
-Most of the built-in attributes, like names and email addresses, expect string values. Custom attributes values can be booleans, numbers, strings, or arrays. If you enter a custom value on the **Users** list that looks like a number or a boolean, the SDK interprets it that way.
+The name and kind attributes, which you can set with `.Name()` and `.Kind()`, expect string values. Other attribute values can be any JSON type, including boolean, number, string, array, or object.
 
 </CalloutDescription>
 </Callout>
 
-To learn how to configure private attributes in the C/C++ (client-side) SDK, read [Private attributes](/sdk/features/private-attributes#cc-client-side).
+You can also construct a context that includes multiple kinds. Here's how:
 
-To learn how to configure anonymous users in the C/C++ (client-side) SDK, read [Anonymous contexts and users](/sdk/features/anonymous#cc-client-side).
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto context = ContextBuilder()
+  .Kind("user", "user-key-123abc")
+  .Name("Sandy")
+  .Kind("organization", "org-key-123abc")
+  .Name("Global Health Services")
+  .Build();
+```
+
+</CSTab>
+</CodeSample>
+
+To learn how to configure private attributes in the C++ (client-side) SDK, read [Private attributes](/sdk/features/private-attributes#c-client-side).
+
+To learn how to configure anonymous users in the C++ (client-side) SDK, read [Anonymous contexts and users](/sdk/features/anonymous#c-client-side).
 </Details>
 
 ### Electron
@@ -2102,6 +2131,6 @@ The Cloudflare SDK does not support sending events, so [private attributes](/sdk
 
 To configure contexts, the Vercel SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
 
-The Vercel SDK does not support sending events, so [private attributes](/sdk/features/private-attributes) are not supported. 
+The Vercel SDK does not support sending events, so [private attributes](/sdk/features/private-attributes) are not supported.
 
 </Details>

@@ -38,7 +38,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -99,14 +99,21 @@ You can also attach custom data to your event by calling [`TrackData`](https://l
 
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-The `track` method allows you to record `custom` events in your application with LaunchDarkly:
+The `Track` method allows you to record `custom` events in your application with LaunchDarkly:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+client.Track("event-key-123abc");
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x">
 
 ```c
 LDClientTrack(client, "event-key-123abc");
@@ -115,10 +122,7 @@ LDClientTrack(client, "event-key-123abc");
 </CSTab>
 </CodeSample>
 
-
-To learn more, read [`LDClientTrack`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#aed07ba2acbb632f26e63c633b0ef5df5).
-
-You can also attach custom data to your event by calling [`LDClientTrackData`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#aa46b7314691b447f514a432c673a54c3) or [`LDClientTrackMetric`](https://launchdarkly.github.io/c-client-sdk/client_8h.html#ab43d4a144c18509986b5e0a2f747cb8b).
+To learn more, read [`Track`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html#a7c4ec4ae3cb04cb4fac27335834f3257).
 
 </Details>
 

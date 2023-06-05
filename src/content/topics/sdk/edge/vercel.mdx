@@ -94,23 +94,23 @@ Next, import the LaunchDarkly client in your application code:
 <CSTab label="TypeScript/JavaScript ES6">
 
 ```ts
-import init from '@launchdarkly/vercel-server-sdk';
-import { createClient } from '@vercel/edge-config';
+import { init } from '@launchdarkly/vercel-server-sdk'
+import { createClient } from '@vercel/edge-config'
 ```
 
 </CSTab>
 <CSTab label="JavaScript CJS">
 
 ```js
-const { init } = require('@launchdarkly/vercel-server-sdk');
-const { createClient } = require('@vercel/edge-config');
+const { init } = require('@launchdarkly/vercel-server-sdk')
+const { createClient } = require('@vercel/edge-config')
 ```
 
 </CSTab>
 
 </CodeSample>
 
-After you install and import the SDK, create an edge client using your [Edge Config ID](https://vercel.com/docs/storage/edge-config). Then, initialize an `LDClient` using your LaunchDarkly client-side SDK key and this edge client.
+After you install and import the SDK, create an edge client using your [Edge Config ID](https://vercel.com/docs/storage/edge-config). Then, initialize an `LDClient` using your [LaunchDarkly client-side ID](/sdk/concepts/client-side-server-side/#client-side-id) and this edge client.
 
 Here's how:
 
@@ -118,10 +118,10 @@ Here's how:
 <CSTab label="TypeScript">
 
 ```js
-const edgeClient = createClient(process.env.EDGE_CONFIG);
-const ldClient = init('sdk-key-123abc', edgeClient);
+const edgeClient = createClient(process.env.EDGE_CONFIG)
+const ldClient = init('<YOUR_CLIENT-SIDE_ID>', edgeClient)
 
-await ldClient.waitForInitialization();
+await ldClient.waitForInitialization()
 ```
 
 </CSTab>
@@ -141,12 +141,18 @@ const ldContext = {
   kind: 'org',
   key: 'org-key-123abc',
   someAttribute: 'example-attribute-value',
-};
-const flagValue = await ldClient.variation('flag-key-123abc', ldContext, true);
+}
+const flagValue = await ldClient.variation('flag-key-123abc', ldContext, true)
 ```
 
 </CSTab>
 </CodeSample>
+
+## Bootstrapping flags with Next.js
+
+If you are using [Next.js](https://nextjs.org/) with Vercel, you can bootstrap feature flags on the [Root Layout](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts#root-layout-required) for use in the LaunchDarkly React SDK. To bootstrap flags, specify the root layout's runtime with a value of `edge` and pass the flags to a [client component](https://nextjs.org/docs/getting-started/react-essentials#client-components) that initializes the LaunchDarkly React SDK.
+
+The Vercel SDK's GitHub repository contains an [example application](https://github.com/launchdarkly/js-core/blob/main/packages/sdk/vercel/examples/complete/README.md) that takes advantage of bootstrapping flags from the edge for use in the LaunchDarkly React SDK.
 
 ## Promises and async
 

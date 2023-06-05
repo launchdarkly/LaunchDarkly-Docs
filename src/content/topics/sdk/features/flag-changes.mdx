@@ -34,6 +34,7 @@ This feature is available in the following client-side SDKs:
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -190,6 +191,90 @@ LDClient.get().unregisterAllFlagsListener(listener)
 
 </CSTab>
 </CodeSample>
+</Details>
+
+### C++ (client-side)
+
+<Details summary="Expand C++ (client-side) code sample">
+
+The client exposes an interface which allows your app to subscribe to feature flag changes in real time.
+
+To subscribe to feature flag changes, register listeners for change events from the SDK:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+auto listener = client.FlagNotifier().OnFlagChange("flag-key-123abc", [](auto event) {
+  if (event->Deleted()) {
+    std::cout << "The flag was deleted" << std::endl;
+  } else {
+    std::cout << "The flag was " << event->OldValue() << " and now it is " << event->NewValue() << std::endl;
+  }
+});
+
+/* Then, you can disconnect the listener later */
+listener->Disconnect();
+```
+
+</CSTab>
+</CodeSample>
+
+If you are working in C, there are a few more steps:
+
+1. Define a callback to receive the flag change notification:
+  <CodeSample>
+  <CSTab label="C++ SDK v3.0 (C binding), define callback">
+
+  ```c
+  void OnFlagChange(char const* flag_key,
+                        LDValue new_value,
+                        LDValue old_value,
+                        bool deleted,
+                        void* user_data) {
+       if (deleted) {
+         printf("The flag %s was deleted\n", flag_key);
+       } else {
+         printf("The flag %s was updated\n", flag_key);
+       }
+  }
+  ```
+  </CSTab>
+  </CodeSample>
+
+2. Assign the callback by creating a listener connection:
+  <CodeSample>
+  <CSTab label="C++ SDK v3.0 (C binding), create listener connection">
+
+  ```c
+  struct LDFlagListener listener;
+  LDFlagListener_Init(listener);
+
+  listener.FlagChanged = OnFlagChange;
+
+  /* You may optionally assign the UserData pointer, which will be passed into FlagChanged. */
+  /* listener.UserData = &some_struct; */
+
+  LDListenerConnection connection =
+         LDClientSDK_FlagNotifier_OnFlagChange(sdk, "flag-key-123abc", listener);
+
+  /* You can disconnect the listener later */
+   LDListenerConnection_Disconnect(connection);
+  ```
+  </CSTab>
+  </CodeSample>
+
+3. Ensure the connection is freed when you are done with it:
+  <CodeSample>
+  <CSTab label="C++ SDK v3.0 (C binding), free connection">
+
+  ```c
+  LDListenerConnection_Free(connection);
+  ```
+  </CSTab>
+  </CodeSample>
+
+To learn more, read [`FlagNotifier`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html#a0406a57e9c751b013696f6f7663a7170).
 </Details>
 
 ### Electron
@@ -801,10 +886,10 @@ The Ruby SDK only supports subscribing to flag changes in versions 7.2.0 and hig
 
 The SDK provides a listener-based mechanism to notify you when flag configurations change. The [`LDClient#flag_tracker`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/LDClient.html#flag_tracker-instance_method) method returns an interface for this mechanism, [`FlagTracker`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagTracker.html).
 
-Calling [`flag_tracker.add_listener`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagTracker.html#add_listener-instance_method) calls your listener with a [`FlagChange`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagChange.html) event whenever there is a change to any of the following: 
+Calling [`flag_tracker.add_listener`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagTracker.html#add_listener-instance_method) calls your listener with a [`FlagChange`](https://launchdarkly.github.io/ruby-server-sdk/LaunchDarkly/Interfaces/FlagChange.html) event whenever there is a change to any of the following:
 
 * the flag's configuration
-* the prerequisite flag's configuration 
+* the prerequisite flag's configuration
 * a segment used by the flag
 
 

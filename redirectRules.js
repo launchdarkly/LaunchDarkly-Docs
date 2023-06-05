@@ -344,6 +344,10 @@ module.exports = [
   },
   // Redirects from integrations section
   {
+    fromPath: '/integrations/app-performance',
+    toPath: '/integrations/observability',
+  },
+  {
     fromPath: '/integrations/triggers/',
     toPath: '/home/feature-workflows/triggers',
   },

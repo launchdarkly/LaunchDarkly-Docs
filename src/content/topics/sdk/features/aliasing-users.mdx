@@ -34,14 +34,9 @@ Details about each SDK's configuration are available in the SDK-specific section
 
 ## Client-side SDKs
 
-This feature is available in the following client-side SDKs:
+This feature is no longer supported or required in any client-side SDKs. To learn more, read the [custom contexts migration guides](/sdk) for client-side SDKs.
 
-* [.NET (client-side)](#net-client-side)
-* [C/C++ (client-side)](#cc-client-side)
-* [Electron](#electron)
-* [Flutter](#flutter)
-* [React Native](#react-native)
-* [Roku](#roku)
+Older versions of these SDKs still support aliasing. Details for these older versions are included below.
 
 ### .NET (client-side)
 
@@ -89,14 +84,16 @@ client.alias(newUser, previousUser)
 </CodeSample>
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+In version 3 and newer of the C++ (client-side) SDK, aliasing is no longer supported or required. To learn more, read [C++ (client-side) SDK 2.x to 3.0 migration guide](/sdk/client-side/c-c--/migration-2-to-3).
+
+<Details summary="Expand C/C++ (client-side) code sample for older versions">
 
 To manually send an `alias` event:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C SDK v2.0 (native)">
 
 ```c
 LDClientAlias(client, newUser, previousUser);

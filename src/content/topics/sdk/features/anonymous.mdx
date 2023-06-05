@@ -37,7 +37,7 @@ Here are the configuration options for anonymous contexts and users in client-si
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -160,37 +160,67 @@ val user: LDUser = LDUser.Builder("user-key-123abc")
 When you mark the context as anonymous, you can leave the key parameter in the Builder null or make it an empty string. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
 To distinguish logged-in end users from anonymous end users in the SDK:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C++ SDK v3.0 (native)">
 
-```c
-struct LDUser *user = LDUserNew("user-key-123abc");
-LDUserSetAnonymous(user, true);
+```cpp
+auto context = ContextBuilder()
+  .Kind("user", "user-key-123abc")
+  .Anonymous(true)
+  .Build();
 ```
 
 </CSTab>
-</CodeSample>
-
-When you mark the context as anonymous, you can leave the key parameter null. The client will automatically set it to a LaunchDarkly-specific, device-unique string that is consistent between app restarts and device reboots.
-
-<CodeSample>
-<CSTab label="C">
+<CSTab label="C++ SDK v3.0 (C binding)">
 
 ```c
+
+LDContextBuilder builder = LDContextBuilder_New();
+
+LDContextBuilder_AddKind(builder, "user", "user-key-123abc");
+LDContextBuilder_Attributes_SetAnonymous(builder, "user", true);
+
+LDContext context = LDContextBuilder_Build(builder);
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x (native)">
+
+```c
+/* anonymous user, with key specified */
+struct LDUser *user = LDUserNew("user-key-123abc");
+LDUserSetAnonymous(user, true);
+
+/*
+  In v2.x, when you mark the context as anonymous, you can
+  leave the key parameter null and the client will automatically
+  set it to a LaunchDarkly-specific, device-unique string
+  that is consistent between app restarts and device reboots.
+*/
 struct LDUser *user = LDUserNew(NULL);
 LDUserSetAnonymous(user, LDBooleanTrue);
 ```
 
 </CSTab>
-<CSTab label="C++">
+<CSTab label="C SDK v2.x (C++ binding)">
 
-```c
+```cpp
+/* anonymous user, with key specified */
+struct LDUser *user = LDUserNew("user-key-123abc");
+LDUserSetAnonymous(user, true);
+
+/*
+  In v2.x, when you mark the context as anonymous, you can
+  leave the key parameter null and the client will automatically
+  set it to a LaunchDarkly-specific, device-unique string
+  that is consistent between app restarts and device reboots.
+*/
 LDUser *user = LDUserNew(nullptr);
 LDUserSetAnonymous(user, true);
 ```
@@ -198,6 +228,7 @@ LDUserSetAnonymous(user, true);
 </CSTab>
 </CodeSample>
 
+To learn more, read [`ContextBuilder`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1ContextBuilder.html).
 
 </Details>
 

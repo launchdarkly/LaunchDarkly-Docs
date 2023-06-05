@@ -50,7 +50,7 @@ Here are the configuration options for private context and user attributes in cl
 
 * [.NET (client-side)](#net-client-side)
 * [Android](#android)
-* [C/C++ (client-side)](#cc-client-side)
+* [C++ (client-side)](#c-client-side)
 * [Electron](#electron)
 * [Flutter](#flutter)
 * [iOS](#ios)
@@ -204,17 +204,34 @@ val user: LDUser = LDUser.Builder("user-key-123abc")
 When the SDK sends this context back to LaunchDarkly, it removes the `name` and `group` attributes.
 </Details>
 
-### C/C++ (client-side)
+### C++ (client-side)
 
-<Details summary="Expand C/C++ (client-side) code sample">
+<Details summary="Expand C++ (client-side) code sample">
 
-In the C/C++ SDK there are two ways to define private attributes for the LaunchDarkly client:
+In the C++ SDK there are two ways to define private attributes for the LaunchDarkly client:
 
-- When creating the `LDConfig` object, you can set the `allAttributesPrivate` value to `true`. When you do this, all user attributes except the key are removed before the SDK sends the user to LaunchDarkly.
-- When creating the `LDConfig` object, you can configure a map of `privateAttributeNames`. If any user has a custom or built-in attribute named in this list, the SDK removes it before sending the user to LaunchDarkly.
+- When using the `ConfigBuilder`, you can call `AllAttributesPrivate()`. When you do this, all context attributes except the kind and key are removed before the SDK sends the context to LaunchDarkly.
+- When using the `ConfigBuilder`, you can configure a set of `PrivateAttributes()`. If any context has an attribute named in this list, the SDK removes it before sending the context to LaunchDarkly.
+
+Here's how:
 
 <CodeSample>
-<CSTab label="C/C++">
+<CSTab label="C++ SDK v3.0 (native)">
+
+```cpp
+/* sets all attributes private */
+auto configAllPrivate = client_side::ConfigBuilder("mobile-key-123abc").Events()
+    .AllAttributesPrivate(true)
+    .Build();
+
+/* sets "email" and "address" private */
+auto configSomePrivate = client_side::ConfigBuilder("mobile-key-123abc").Events()
+    .PrivateAttributes({"email", "address"})
+    .Build();
+```
+
+</CSTab>
+<CSTab label="C SDK v2.x">
 
 ```c
 struct LDConfig *config = LDConfigNew("mobile-key-123abc");
@@ -224,6 +241,27 @@ LDConfigSetAllAttributesPrivate(config, true);
 
 </CSTab>
 </CodeSample>
+
+You can also define private attributes for a particular context by calling `.SetPrivate()` in the `ContextBuilder`.
+
+Here's how:
+
+<CodeSample>
+<CSTab label="C++ SDK v3.0">
+
+```cpp
+auto context = ContextBuilder()
+  .Kind("user", "user-key-123abc")
+  .Name("Sandy Smith")
+  .SetPrivate("email", "sandy@example.com")
+  .Build();
+```
+
+</CSTab>
+</CodeSample>
+
+To learn more, read [`ContextBuilder`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1ContextBuilder.html).
+
 </Details>
 
 ### Electron
