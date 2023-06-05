@@ -30,7 +30,7 @@ To complete this procedure, you must have the following prerequisites:
 To set up GitHub code references:
 
 1. Log into GitHub and navigate to your repo.
-2. Navigate to **Settings** > **Secrets** and click **Add a new secret**.
+2. Navigate to **Settings** then **Secrets** and click **Add a new secret**.
 3. Paste in your access token to the field that appears and click **Save secret**.
 4. Return to your GitHub repository to create a new Actions workflow.
 
@@ -88,7 +88,7 @@ You do not need to have this branch merged into the main branch for code referen
 
 As shown in the example above, the workflow should run on the `push` event and contain an action provided by the [launchdarkly/find-code-references](https://github.com/launchdarkly/find-code-references) repository.
 
-Include the `LD_ACCESS_TOKEN` as a secret, and include a new environment variable containing your LaunchDarkly project key. This is represented by `YOUR_PROJECT_KEY` in the above example. You can find your project key on the **Projects** tab under **Account Settings**, immediately following the project name. Do not use an environment's SDK key, mobile key, or client-side ID for this purpose.
+Include the `LD_ACCESS_TOKEN` as a secret, and include a new environment variable containing your LaunchDarkly project key. This is represented by `YOUR_PROJECT_KEY` in the above example. You can find your project key on the **Projects** tab under **Account settings**, immediately following the project name. Do not use an environment's SDK key, mobile key, or client-side ID for this purpose.
 
 ## Troubleshooting
 
