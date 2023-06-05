@@ -43,9 +43,9 @@ Here's how to structure your import metric request:
         <br /> Replace <code>YOUR_PROJECT_KEY</code> and <code>YOUR_ENVIRONMENT_KEY</code> with the project key and
         environment key, respectively, for the environment your metric events pertain to. You can find these under{' '}
         <strong>Environments</strong> on the <strong>Projects</strong> tab on the{' '}
-        <a href="https://app.launchdarkly.com/settings#/projects">
-          <strong>Account settings</strong>
-        </a>
+        <strong>
+          [Account settings](https://app.launchdarkly.com/settings#/projects)
+        </strong>
         {' '}page.
       </TableCell>
     </TableRow>
@@ -63,7 +63,7 @@ Here's how to structure your import metric request:
             <code>Authorization: YOUR_ACCESS_TOKEN</code>, required. This can be either a personal or service token. The
             access token must have a role that allows the <code>importEventData</code> action. We strongly recommend
             using an dedicated access token with this permission. To learn more, read{' '}
-            <a href="/home/members/role-actions#environment-actions">Environment actions</a>.
+            [Environment actions](/home/members/role-actions#environment-actions).
           </li>
           <li>
             <code>Content-Type: application/json</code>, required
@@ -76,7 +76,7 @@ Here's how to structure your import metric request:
           </li>
           <li>
             <code>X-LaunchDarkly-Payload-ID: YOUR_PAYLOAD_ID</code>, optional. Use this to send a unique ID for the
-            payload, which you can use to <a href="#retrying-failed-requests">retry failed requests</a>.
+            payload, which you can use to [retry failed requests](#retrying-failed-requests).
           </li>
           <li>
             <code>User-Agent: MetricImport-YOUR_COMPANY_NAME-int/VERSION</code>, required. This helps us identify the
@@ -144,7 +144,7 @@ Here are the details of each `custom` event field:
       </TableCell>
       <TableCell>
         Identifies your metric. When you create your metric in LaunchDarkly, its <strong>Event name</strong> must
-        exactly match this value. To learn more, read <a href="/home/creating-experiments/metrics">Creating metrics</a>.
+        exactly match this value. To learn more, read [Creating metrics](/home/creating-experiments/metrics).
       </TableCell>
     </TableRow>
     <TableRow>
@@ -175,9 +175,7 @@ Here are the details of each `custom` event field:
         SDKs evaluating flags that will be used in the experiments.
         <br />
         <br />
-        To learn more about using context kinds in experiments, read <a href="/home/creating-experiments/allocation#randomization-units">
-          Randomization units
-        </a>.
+        To learn more about using context kinds in experiments, read [Randomization units](/home/creating-experiments/allocation#randomization-units).
       </TableCell>
     </TableRow>
   </TableBody>
@@ -219,9 +217,7 @@ Clients should expect to receive the following response status codes from the AP
       <TableCell>
         {' '}
         The request completed successfully and the metric events were accepted for import. Events may still not be recorded
-        if their format does not conform to the required JSON schema. To learn more, read <a href="#known-limitations">
-          Known limitations
-        </a>.{' '}
+        if their format does not conform to the required JSON schema. To learn more, read [Known limitations](#known-limitations).{' '}
       </TableCell>
     </TableRow>
     <TableRow>

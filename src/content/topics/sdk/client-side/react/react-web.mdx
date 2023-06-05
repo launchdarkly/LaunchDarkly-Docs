@@ -44,19 +44,19 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell><a href="https://launchdarkly.github.io/react-client-sdk/">SDK API docs</a></TableCell>
+      <TableCell>[SDK API docs](https://launchdarkly.github.io/react-client-sdk/)</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/react-client-sdk">react-client-sdk</a></TableCell>
+      <TableCell>[react-client-sdk](https://github.com/launchdarkly/react-client-sdk)</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="/sdk/client-side/react/react-web#example-app">React Web</a></TableCell>
+      <TableCell>[React Web](/sdk/client-side/react/react-web#example-app)</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
-      <TableCell><a href="https://www.npmjs.com/package/launchdarkly-react-client-sdk">npm</a></TableCell>
+      <TableCell>[npm](https://www.npmjs.com/package/launchdarkly-react-client-sdk)</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -221,8 +221,8 @@ Overall, this should make your upgrade easier, because your existing code will c
 However, if you are using version 3.0 of the SDK and you are omitting the `kind` attribute, then the following caveats apply:
 
 <ul>
-<li>The fields in your user object must be <code>LDUser</code> fields, not <code>LDContext</code> fields. For example, to mark an attribute as private, you must use <code>privateAttributeNames</code> in the user object, not <code>_meta.privateAttributes</code> as you would for a context object. To learn more, read <a href="/sdk/client-side/javascript/migration-2-to-3#understanding-changes-to-private-attributes">Understanding changes to private attributes</a>.</li>
-<li>Any additional attributes in your user object need to be inside the <code>custom</code> property of the <code>LDUser</code>, not at the top-level as they would in a context object. To learn more, read <a href="/sdk/client-side/javascript/migration-2-to-3#working-with-built-in-and-custom-attributes">Working with built-in and custom attributes</a>.</li>
+<li>The fields in your user object must be <code>LDUser</code> fields, not <code>LDContext</code> fields. For example, to mark an attribute as private, you must use <code>privateAttributeNames</code> in the user object, not <code>_meta.privateAttributes</code> as you would for a context object. To learn more, read [Understanding changes to private attributes](/sdk/client-side/javascript/migration-2-to-3#understanding-changes-to-private-attributes).</li>
+<li>Any additional attributes in your user object need to be inside the <code>custom</code> property of the <code>LDUser</code>, not at the top-level as they would in a context object. To learn more, read [Working with built-in and custom attributes](/sdk/client-side/javascript/migration-2-to-3#working-with-built-in-and-custom-attributes).</li>
 </ul>
 
 We strongly recommend upgrading your SDK to take advantage of the context functionality.

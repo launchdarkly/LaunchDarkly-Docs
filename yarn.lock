@@ -3433,8 +3433,8 @@ __metadata:
   linkType: hard
 
 "@npmcli/config@npm:^6.0.0":
-  version: 6.1.7
-  resolution: "@npmcli/config@npm:6.1.7"
+  version: 6.2.0
+  resolution: "@npmcli/config@npm:6.2.0"
   dependencies:
     "@npmcli/map-workspaces": ^3.0.2
     ini: ^4.1.0
@@ -3443,7 +3443,7 @@ __metadata:
     read-package-json-fast: ^3.0.2
     semver: ^7.3.5
     walk-up-path: ^3.0.1
-  checksum: 1812ed321375f357e072d408ff44795dcf82e20c7f501bf0a5bd0d3232a4158b7e76366a27e5c75d2d2f4f0ee52a76bd0c870279189cfc7f170d6b29e3031063
+  checksum: 5c5bf66820e3ad7ddcdcfdc5930c0aa1ca2c290f1bda894656be1b22c81ea96c104b2249a95515e1d8714bfc6cdf7343cef2005549832297e6079a6e6f571f1b
   languageName: node
   linkType: hard
 
@@ -9479,9 +9479,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.411":
-  version: 1.4.414
-  resolution: "electron-to-chromium@npm:1.4.414"
-  checksum: 6ffb295747f42301c7e685574ed21eb5af5fe081dfeb67dea16a5cb4a12b5a4028ade574053c1368e837eaa5d2e3903b753298d8dd09bfd7306a6db9b19ffec7
+  version: 1.4.416
+  resolution: "electron-to-chromium@npm:1.4.416"
+  checksum: a1804fe6f1955b3b80519bf2feb69d5e2111914e824cdacdff85545dba48da44d16f43d5fb702ff4cfc9148f7d0be7cd2669cb5e939b0ed13ee9772cae3edfd4
   languageName: node
   linkType: hard
 
@@ -11301,9 +11301,9 @@ __metadata:
   linkType: hard
 
 "fs-monkey@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "fs-monkey@npm:1.0.3"
-  checksum: cf50804833f9b88a476911ae911fe50f61a98d986df52f890bd97e7262796d023698cb2309fa9b74fdd8974f04315b648748a0a8ee059e7d5257b293bfc409c0
+  version: 1.0.4
+  resolution: "fs-monkey@npm:1.0.4"
+  checksum: 8b254c982905c0b7e028eab22b410dc35a5c0019c1c860456f5f54ae6a61666e1cb8c6b700d6c88cc873694c00953c935847b9959cc4dcf274aacb8673c1e8bf
   languageName: node
   linkType: hard
 
@@ -17025,11 +17025,11 @@ __metadata:
   linkType: hard
 
 "node-abi@npm:^3.3.0":
-  version: 3.42.0
-  resolution: "node-abi@npm:3.42.0"
+  version: 3.43.0
+  resolution: "node-abi@npm:3.43.0"
   dependencies:
     semver: ^7.3.5
-  checksum: bb439f8778c0dcc57496d30267ca50c93306da42e1f1395f234952fce782306f28fa7bb06cd7e8109096883794176b7b6e07ae456927f24851d4cfd426c4e31a
+  checksum: 6765bf1f362fb1fbf4a4462f4e5c634fd1566d73b3c49704b949be370275a5d72d41cd89de72338ca91df07a1c6418bed16b652dd45cc3c62e2862ee99a80f5d
   languageName: node
   linkType: hard
 

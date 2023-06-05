@@ -24,15 +24,22 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell><a href="https://launchdarkly.github.io/c-client-sdk/">SDK API docs</a></TableCell>
+      <TableCell>
+        [SDK API docs](https://launchdarkly.github.io/c-client-sdk/)
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/c-client-sdk">c-client-sdk</a></TableCell>
+      <TableCell>
+        [c-client-sdk](https://github.com/launchdarkly/c-client-sdk)
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample applications</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/hello-c-client">C (client-side)</a><br/> <a href="https://github.com/launchdarkly/hello-cpp-client">C++ (client-side)</a></TableCell>
+      <TableCell>
+        [C (client-side)](https://github.com/launchdarkly/hello-c-client)
+        <br /> [C++ (client-side)](https://github.com/launchdarkly/hello-cpp-client)
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
@@ -48,15 +55,15 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
 
 To use the C/C++ SDK, you must have the following prerequisites:
 
-* Windows or a POSIX environment (Linux, OSX, BSD)
-* The networking library `libcurl`
-* `libpthread`, if you are using a POSIX environment
+- Windows or a POSIX environment (Linux, OSX, BSD)
+- The networking library `libcurl`
+- `libpthread`, if you are using a POSIX environment
 
 <Callout intent="info">
 <CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in single-user mobile, desktop, and embedded applications. If you have a C/C++ application and want to set up LaunchDarkly on the server-side, read the [server-side C/C++  SDK reference](/sdk/server-side/c-c--).
+This SDK is intended for use in single-user mobile, desktop, and embedded applications. If you have a C/C++ application and want to set up LaunchDarkly on the server-side, read the [server-side C/C++ SDK reference](/sdk/server-side/c-c--).
 
 To learn more about LaunchDarkly's different SDK types, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -73,8 +80,10 @@ Here's how to install the SDK:
 
 1. Clone [the GitHub repository](https://github.com/launchdarkly/c-client-sdk) or download a release archive from the [GitHub Releases](https://github.com/launchdarkly/c-client-sdk/releases) page.
 2. Install the SDK locally.
- * If you use `cmake`, the build system will expect that `libcurl`, and `libpthread` if you are on POSIX, exist on the system. The `cmake` configuration exports the target `ldclientapi`.
- * If you don't use `cmake` and you cannot use LaunchDarkly's artifacts, use `cmake install` to install the SDK in directory you choose. This copies the required headers, and binaries equivalent to LaunchDarkly's release bundles.
+
+- If you use `cmake`, the build system will expect that `libcurl`, and `libpthread` if you are on POSIX, exist on the system. The `cmake` configuration exports the target `ldclientapi`.
+- If you don't use `cmake` and you cannot use LaunchDarkly's artifacts, use `cmake install` to install the SDK in directory you choose. This copies the required headers, and binaries equivalent to LaunchDarkly's release bundles.
+
 3. Build the C++ wrapper, which is not included in the release binaries. Copy the [header](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/include/launchdarkly/api.hpp) and [source](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/api.cpp) files and add them to your own build system.
 4. Include the LaunchDarkly SDK headers:
 
@@ -96,7 +105,7 @@ Here's how to install the SDK:
 </CodeSample>
 
 5. Create a single shared instance of `LDClient`.
-6. Specify your *mobile key* to authorize your application to connect to a particular environment within LaunchDarkly:
+6. Specify your _mobile key_ to authorize your application to connect to a particular environment within LaunchDarkly:
 
 <CodeSample>
 <CSTab label="C">
@@ -160,7 +169,7 @@ Here's how to verify the SDK is configured correctly by fetching flag configurat
 
 1. Call `LDClientInit` to initiate a remote call to the LaunchDarkly service. This fetches the feature flag settings for a given user.
 
- This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before initialization completes, you will receive the default flag value. If you want to wait for client initialization, register a callback:
+This call blocks up to the time defined by `maxwaitmilliseconds`. If you request a feature flag before initialization completes, you will receive the default flag value. If you want to wait for client initialization, register a callback:
 
 <CodeSample>
 <CSTab label="C">
@@ -217,15 +226,15 @@ Shut down the client when your application terminates. To learn more, read [Shut
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#cc-client-side)
-* [Anonymous contexts and users](/sdk/features/anonymous#cc-client-side)
-* [Configuration](/sdk/features/config#cc-client-side)
-* [Evaluating flags](/sdk/features/evaluating#cc-client-side)
-* [Flushing events](/sdk/features/flush#cc-client-side)
-* [Identifying and changing contexts](/sdk/features/identify#cc-client-side)
-* [Private attributes](/sdk/features/private-attributes#cc-client-side)
-* [Sending custom events](/sdk/features/events#cc-client-side)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#cc-client-side)
-* [Shutting down](/sdk/features/shutdown#cc-client-side)
-* [User and context configuration](/sdk/features/user-context-config#cc-client-side)
-* [Web proxy configuration](/sdk/features/web-proxy#cc-client-side)
+- [Aliasing users](/sdk/features/aliasing-users#cc-client-side)
+- [Anonymous contexts and users](/sdk/features/anonymous#cc-client-side)
+- [Configuration](/sdk/features/config#cc-client-side)
+- [Evaluating flags](/sdk/features/evaluating#cc-client-side)
+- [Flushing events](/sdk/features/flush#cc-client-side)
+- [Identifying and changing contexts](/sdk/features/identify#cc-client-side)
+- [Private attributes](/sdk/features/private-attributes#cc-client-side)
+- [Sending custom events](/sdk/features/events#cc-client-side)
+- [Service endpoint configuration](/sdk/features/service-endpoint-configuration#cc-client-side)
+- [Shutting down](/sdk/features/shutdown#cc-client-side)
+- [User and context configuration](/sdk/features/user-context-config#cc-client-side)
+- [Web proxy configuration](/sdk/features/web-proxy#cc-client-side)

@@ -68,7 +68,7 @@ This table explains available account actions:
       </TableCell>
       <TableCell>
         Delete account tokens (for the{' '}
-        <a href="https://apidocs.launchdarkly.com/#section/Authentication">LaunchDarkly REST API</a>).
+        [LaunchDarkly REST API](https://apidocs.launchdarkly.com/#section/Authentication)).
       </TableCell>
     </TableRow>
     <TableRow>
@@ -107,7 +107,7 @@ This table explains available account actions:
       </TableCell>
       <TableCell>
         Reset account tokens (for the{' '}
-        <a href="https://apidocs.launchdarkly.com/#section/Authentication">LaunchDarkly REST API</a>).
+        [LaunchDarkly REST API](https://apidocs.launchdarkly.com/#section/Authentication)).
       </TableCell>
     </TableRow>
     <TableRow>
@@ -132,7 +132,9 @@ This table explains available account actions:
       <TableCell>
         <code>updateRequireMfa</code>
       </TableCell>
-      <TableCell>Change whether multi-factor authentication (MFA) is required for all members on the account.</TableCell>
+      <TableCell>
+        Change whether multi-factor authentication (MFA) is required for all members on the account.
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -184,14 +186,14 @@ This table explains available account actions:
 This table explains available account ownership actions:
 
 <Table>
-<TableBody>
-<TableRow>
-  <TableCell>
-    <code>updateAccountOwner</code>
-  </TableCell>
-  <TableCell>Update the account owner.</TableCell>
-</TableRow>
-</TableBody>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>updateAccountOwner</code>
+      </TableCell>
+      <TableCell>Update the account owner.</TableCell>
+    </TableRow>
+  </TableBody>
 </Table>
 
 </Details>
@@ -226,49 +228,37 @@ This table explains available code reference actions:
       <TableCell>
         <code>createCodeRefsRepository</code>
       </TableCell>
-      <TableCell>
-        Connect a Git repository.
-      </TableCell>
+      <TableCell>Connect a Git repository.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteCodeRefsRepository</code>
       </TableCell>
-      <TableCell>
-        Delete a Git repository connection.
-      </TableCell>
+      <TableCell>Delete a Git repository connection.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateCodeRefsRepositoryBranches</code>
       </TableCell>
-      <TableCell>
-        Update the stored branch data for a Git repository connection.
-      </TableCell>
+      <TableCell>Update the stored branch data for a Git repository connection.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateCodeRefsRepositoryConfiguration</code>
       </TableCell>
-      <TableCell>
-        Update a Git repository connection configuration.
-      </TableCell>
+      <TableCell>Update a Git repository connection configuration.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateCodeRefsRepositoryName</code>
       </TableCell>
-      <TableCell>
-        Update a Git repository connection name.
-      </TableCell>
+      <TableCell>Update a Git repository connection name.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateCodeRefsRepositoryOn</code>
       </TableCell>
-      <TableCell>
-        Flip the on/off status of a Git repository connection.
-      </TableCell>
+      <TableCell>Flip the on/off status of a Git repository connection.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -301,28 +291,25 @@ This table explains available context kind actions:
     <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
-     <TableRow>
+    <TableRow>
       <TableCell>
         <code>createContextKind</code>
       </TableCell>
-      <TableCell>
-        Create a context kind.
-      </TableCell>
+      <TableCell>Create a context kind.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateContextKind</code>
       </TableCell>
-      <TableCell>
-        Update a context kind.
-      </TableCell>
+      <TableCell>Update a context kind.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateAvailabilityForExperiments</code>
       </TableCell>
       <TableCell>
-        Update whether a context kind is available for experiments, the standard randomization that it maps to, and whether it's the project's default.
+        Update whether a context kind is available for experiments, the standard randomization that it maps to, and
+        whether it's the project's default.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -360,41 +347,31 @@ This table explains available destinations actions:
       <TableCell>
         <code>createDestination</code>
       </TableCell>
-      <TableCell>
-        Create a new Data Export destination.
-      </TableCell>
+      <TableCell>Create a new Data Export destination.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteDestination</code>
       </TableCell>
-      <TableCell>
-        Delete a Data Export destination.
-      </TableCell>
+      <TableCell>Delete a Data Export destination.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateConfiguration</code>
       </TableCell>
-      <TableCell>
-        Change a Data Export destination.
-      </TableCell>
+      <TableCell>Change a Data Export destination.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>
-        Change the name of a Data Export destination.
-      </TableCell>
+      <TableCell>Change the name of a Data Export destination.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateOn</code>
       </TableCell>
-      <TableCell>
-        Flip the on/off status of a Data Export destination.
-      </TableCell>
+      <TableCell>Flip the on/off status of a Data Export destination.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -443,15 +420,16 @@ This table explains available environments actions:
       <TableCell>
         <code>deleteContextInstance</code>
       </TableCell>
-      <TableCell>
-        Delete a context's instances.
-      </TableCell>
+      <TableCell>Delete a context's instances.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>importEventData</code>
       </TableCell>
-      <TableCell>Import event data using the API for <a href="/home/creating-experiments/import-metric-events">Importing metric events</a>.</TableCell>
+      <TableCell>
+        Import event data using the API for{' '}
+        [Importing metric events](/home/creating-experiments/import-metric-events).
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
@@ -519,14 +497,15 @@ This table explains available environments actions:
       </TableCell>
       <TableCell>Change the TTL for an environment.</TableCell>
     </TableRow>
-      <TableRow>
-          <TableCell>
-              <code>viewSdkKey</code>
-          </TableCell>
-          <TableCell>
-              View the server-side SDK key. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted by this policy can neither view nor reset SDK keys.
-          </TableCell>
-      </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>viewSdkKey</code>
+      </TableCell>
+      <TableCell>
+        View the server-side SDK key. All custom roles can take this action by default. If set to <code>deny</code>,
+        anyone impacted by this policy can neither view nor reset SDK keys.
+      </TableCell>
+    </TableRow>
   </TableBody>
 </Table>
 
@@ -577,20 +556,16 @@ This table explains available experiment actions:
       <TableCell>
         <code>updateExperiment</code>
       </TableCell>
-      <TableCell>
-        Start, stop, or edit an existing experiment.
-      </TableCell>
+      <TableCell>Start, stop, or edit an existing experiment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateExperimentArchived</code>
       </TableCell>
-      <TableCell>
-        Archive an experiment.
-      </TableCell>
+      <TableCell>Archive an experiment.</TableCell>
     </TableRow>
-    </TableBody>
-  </Table>
+  </TableBody>
+</Table>
 
 </Details>
 
@@ -626,81 +601,61 @@ This table explains feature flag actions related to targeting changes. Unless ot
       <TableCell>
         <code>updateFallthrough</code>
       </TableCell>
-      <TableCell>
-        Update the default rule, also called the "fallthrough" rule.
-      </TableCell>
+      <TableCell>Update the default rule, also called the "fallthrough" rule.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateFeatureWorkflows</code>
       </TableCell>
-      <TableCell>
-        Change a flag's feature workflows.
-      </TableCell>
+      <TableCell>Change a flag's feature workflows.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateFlagVariations</code>
       </TableCell>
-      <TableCell>
-        Change the flag's variations. This action affects all environments in a project.
-      </TableCell>
+      <TableCell>Change the flag's variations. This action affects all environments in a project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateGlobalArchived</code>
       </TableCell>
-      <TableCell>
-        Change whether a flag is archived. Impacts all environments in a project.
-      </TableCell>
+      <TableCell>Change whether a flag is archived. Impacts all environments in a project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateOffVariation</code>
       </TableCell>
-      <TableCell>
-        Update the variation returned when flag is toggled off.
-      </TableCell>
+      <TableCell>Update the variation returned when flag is toggled off.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateOn</code>
       </TableCell>
-      <TableCell>
-        Toggle a flag on or off.
-      </TableCell>
+      <TableCell>Toggle a flag on or off.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updatePrerequisites</code>
       </TableCell>
-      <TableCell>
-        Update flag prerequisites.
-      </TableCell>
+      <TableCell>Update flag prerequisites.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateRules</code>
       </TableCell>
-      <TableCell>
-        Update custom targeting rules.
-      </TableCell>
+      <TableCell>Update custom targeting rules.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateScheduledChanges</code>
       </TableCell>
-      <TableCell>
-        Change the scheduled updates on a flag.
-      </TableCell>
+      <TableCell>Change the scheduled updates on a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTargets</code>
       </TableCell>
-      <TableCell>
-        Update individual context targeting rules.
-      </TableCell>
+      <TableCell>Update individual context targeting rules.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -717,81 +672,64 @@ This table explains feature flag actions related to flag settings. Each of these
       <TableCell>
         <code>createFlag</code>
       </TableCell>
-      <TableCell>
-        Create a flag.
-      </TableCell>
+      <TableCell>Create a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteFlag</code>
       </TableCell>
-      <TableCell>
-        Delete a flag.
-      </TableCell>
+      <TableCell>Delete a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateClientSideFlagAvailability</code>
       </TableCell>
-      <TableCell>
-        Change whether the flag is available to client-side SDKs.
-      </TableCell>
+      <TableCell>Change whether the flag is available to client-side SDKs.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateDescription</code>
       </TableCell>
-      <TableCell>
-        Change the description of a flag.
-      </TableCell>
+      <TableCell>Change the description of a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateFlagCustomProperties</code>
       </TableCell>
-      <TableCell>
-        Update custom properties attached to a flag.
-      </TableCell>
+      <TableCell>Update custom properties attached to a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateFlagDefaultVariations</code>
       </TableCell>
-      <TableCell>
-        Change the default flag variations used by newly-created environments for a flag.
-      </TableCell>
+      <TableCell>Change the default flag variations used by newly-created environments for a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateIncludeInSnippet</code>
       </TableCell>
       <TableCell>
-        Change whether the flag is available to front-end code with the <a href="/sdk/client-side/javascript">JavaScript SDK</a>.
+        Change whether the flag is available to front-end code with the{' '}
+        [JavaScript SDK](/sdk/client-side/javascript).
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>
-        Change the name of a flag.
-      </TableCell>
+      <TableCell>Change the name of a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTags</code>
       </TableCell>
-      <TableCell>
-        Update tags associated with a flag.
-      </TableCell>
+      <TableCell>Update tags associated with a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTemporary</code>
       </TableCell>
-      <TableCell>
-        Mark a flag temporary or permanent.
-      </TableCell>
+      <TableCell>Mark a flag temporary or permanent.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -808,24 +746,21 @@ This table explains feature flag actions related to environment-specific setting
       <TableCell>
         <code>createTriggers</code>
       </TableCell>
-      <TableCell>
-        Create a new trigger.
-      </TableCell>
+      <TableCell>Create a new trigger.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteTriggers</code>
       </TableCell>
-      <TableCell>
-        Delete a trigger.
-      </TableCell>
+      <TableCell>Delete a trigger.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateFlagFallthroughTrackEvents</code>
       </TableCell>
       <TableCell>
-        Change whether to send detailed event information for a flag in a given environment when the SDK selects the default rule, also called the "fallthrough" rule.
+        Change whether to send detailed event information for a flag in a given environment when the SDK selects the
+        default rule, also called the "fallthrough" rule.
       </TableCell>
     </TableRow>
     <TableRow>
@@ -838,17 +773,13 @@ This table explains feature flag actions related to environment-specific setting
       <TableCell>
         <code>updateTrackEvents</code>
       </TableCell>
-      <TableCell>
-        Change whether to send detailed event information for a flag in a given environment.
-      </TableCell>
+      <TableCell>Change whether to send detailed event information for a flag in a given environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTriggers</code>
       </TableCell>
-      <TableCell>
-        Update an existing trigger.
-      </TableCell>
+      <TableCell>Update an existing trigger.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -865,89 +796,67 @@ This table explains feature flag actions related to collaboration:
       <TableCell>
         <code>applyApprovalRequest</code>
       </TableCell>
-      <TableCell>
-        Apply an approved approval request for a flag.
-      </TableCell>
+      <TableCell>Apply an approved approval request for a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>bypassRequiredApproval</code>
       </TableCell>
-      <TableCell>
-        Bypass required approvals in the environment.
-      </TableCell>
+      <TableCell>Bypass required approvals in the environment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>createApprovalRequest</code>
       </TableCell>
-      <TableCell>
-        Create an approval request for a flag.
-      </TableCell>
+      <TableCell>Create an approval request for a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>createFlagLink</code>
       </TableCell>
-      <TableCell>
-        Create a flag link.
-      </TableCell>
+      <TableCell>Create a flag link.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteApprovalRequest</code>
       </TableCell>
-      <TableCell>
-        Delete an approval request for a flag.
-      </TableCell>
+      <TableCell>Delete an approval request for a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteFlagLink</code>
       </TableCell>
-      <TableCell>
-        Delete a flag link. This affects all environments in a project.
-      </TableCell>
+      <TableCell>Delete a flag link. This affects all environments in a project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>manageFlagFollowers</code>
       </TableCell>
-      <TableCell>
-        Manage the list of members who receive flag change notifications.
-      </TableCell>
+      <TableCell>Manage the list of members who receive flag change notifications.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>reviewApprovalRequest</code>
       </TableCell>
-      <TableCell>
-        Review an approval request for a flag.
-      </TableCell>
+      <TableCell>Review an approval request for a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateApprovalRequest</code>
       </TableCell>
-      <TableCell>
-        Update an existing approval request for a flag.
-      </TableCell>
+      <TableCell>Update an existing approval request for a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateMaintainer</code>
       </TableCell>
-      <TableCell>
-        Update the flag maintainer. This affects all environments in a project.
-      </TableCell>
+      <TableCell>Update the flag maintainer. This affects all environments in a project.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateFlagLink</code>
       </TableCell>
-      <TableCell>
-        Update a flag link. This affects all environments in a project.
-      </TableCell>
+      <TableCell>Update a flag link. This affects all environments in a project.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -965,48 +874,40 @@ This table explains feature flag actions related to other flag changes:
         <code>cloneFlag</code>
       </TableCell>
       <TableCell>
-        Create a new flag with settings based on an existing flag. To clone a flag, members need to have the <code>cloneFlag</code> permission on the source flag, as well as the <code>createFlag</code> permission for the new flag. This affects all environments in a project.
+        Create a new flag with settings based on an existing flag. To clone a flag, members need to have the{' '}
+        <code>cloneFlag</code> permission on the source flag, as well as the <code>createFlag</code> permission for the
+        new flag. This affects all environments in a project.
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>copyFlagConfigFrom</code>
       </TableCell>
-      <TableCell>
-        Copy settings from a flag.
-      </TableCell>
+      <TableCell>Copy settings from a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>copyFlagConfigTo</code>
       </TableCell>
-      <TableCell>
-        Copy settings to a flag.
-      </TableCell>
+      <TableCell>Copy settings to a flag.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateExpiringRules</code>
       </TableCell>
-      <TableCell>
-        Change a flag's expiring custom targeting rules.
-      </TableCell>
+      <TableCell>Change a flag's expiring custom targeting rules.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateExpiringTargets</code>
       </TableCell>
-      <TableCell>
-        Change a flag's expiring individual context targeting rules.
-      </TableCell>
+      <TableCell>Change a flag's expiring individual context targeting rules.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateFlagRuleDescription</code>
       </TableCell>
-      <TableCell>
-        Update the description for custom targeting rules.
-      </TableCell>
+      <TableCell>Update the description for custom targeting rules.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -1024,7 +925,8 @@ This table explains feature flag actions related to legacy experiments. To learn
         <code>createExperiment</code>
       </TableCell>
       <TableCell>
-        Create a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Create a legacy experiment. Impacts all environments in a project. To learn more, read{' '}
+        [Legacy experiments](/home/analyzing-experiments/managing#legacy-experiments).
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1032,21 +934,26 @@ This table explains feature flag actions related to legacy experiments. To learn
         <code>deleteExperiment</code>
       </TableCell>
       <TableCell>
-        Delete a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Delete a legacy experiment. Impacts all environments in a project. To learn more, read{' '}
+        [Legacy experiments](/home/analyzing-experiments/managing#legacy-experiments).
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteExperimentResults</code>
       </TableCell>
-      <TableCell>Delete legacy experiment results. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.</TableCell>
+      <TableCell>
+        Delete legacy experiment results. To learn more, read{' '}
+        [Legacy experiments](/home/analyzing-experiments/managing#legacy-experiments).
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteFlagAttachedGoalResults</code>
       </TableCell>
       <TableCell>
-        Reset legacy experiment results for a flag in a given environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Reset legacy experiment results for a flag in a given environment. To learn more, read{' '}
+        [Legacy experiments](/home/analyzing-experiments/managing#legacy-experiments).
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1054,7 +961,8 @@ This table explains feature flag actions related to legacy experiments. To learn
         <code>updateAttachedGoals</code>
       </TableCell>
       <TableCell>
-        Stop a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Stop a legacy experiment. Impacts all environments in a project. To learn more, read{' '}
+        [Legacy experiments](/home/analyzing-experiments/managing#legacy-experiments).
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1062,7 +970,8 @@ This table explains feature flag actions related to legacy experiments. To learn
         <code>updateExperimentActive</code>
       </TableCell>
       <TableCell>
-        Stop a legacy experiment in an environment. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Stop a legacy experiment in an environment. To learn more, read{' '}
+        [Legacy experiments](/home/analyzing-experiments/managing#legacy-experiments).
       </TableCell>
     </TableRow>
     <TableRow>
@@ -1070,7 +979,8 @@ This table explains feature flag actions related to legacy experiments. To learn
         <code>updateExperimentBaseline</code>
       </TableCell>
       <TableCell>
-        Change a flag's baseline variation for a legacy experiment. Impacts all environments in a project. To learn more, read <a href="/home/analyzing-experiments/managing#legacy-experiments">Legacy experiments</a>.
+        Change a flag's baseline variation for a legacy experiment. Impacts all environments in a project. To learn
+        [Legacy experiments]more, read (/home/analyzing-experiments/managing#legacy-experiments).
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1089,73 +999,62 @@ Most third-party integrations use a shared set of custom role actions.
   <CodeSample>
   <CSTab label="Integration resource">
 
-  ```json
-  integration/*
-  ```
+```json
+integration/*
+```
 
   </CSTab>
   </CodeSample>
 
-  To learn more, read [Integrations](/integrations).
+To learn more, read [Integrations](/integrations).
 
-  This table explains available integrations actions:
+This table explains available integrations actions:
 
-  <Table>
-    <TableHeader>
-      <TableHeadCell>Action</TableHeadCell>
-      <TableHeadCell>Description</TableHeadCell>
-    </TableHeader>
-    <TableBody>
-      <TableRow>
-        <TableCell>
-          <code>createIntegration</code>
-        </TableCell>
-        <TableCell>
-          Create and configure new third-party integrations.
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>
-          <code>deleteIntegration</code>
-        </TableCell>
-        <TableCell>
-          Delete existing third-party integrations.
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>
-          <code>updateConfiguration</code>
-        </TableCell>
-        <TableCell>
-          Modify existing third-party integration configurations.
-        </TableCell>
-      </TableRow>
-      <TableRow>
-        <TableCell>
-          <code>updateName</code>
-        </TableCell>
-        <TableCell>
-          Change the name of third-party integration configurations.
-        </TableCell>
-      </TableRow>
-       <TableRow>
-        <TableCell>
-          <code>updateOn</code>
-        </TableCell>
-        <TableCell>
-          Enable and disabled existing third-party integrations.
-        </TableCell>
-      </TableRow>
-      <TableRow>
-       <TableCell>
-         <code>validateConnection</code>
-       </TableCell>
-       <TableCell>
-         Validate the third-party connection.
-       </TableCell>
-     </TableRow>
-    </TableBody>
-  </Table>
+{' '}
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createIntegration</code>
+      </TableCell>
+      <TableCell>Create and configure new third-party integrations.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteIntegration</code>
+      </TableCell>
+      <TableCell>Delete existing third-party integrations.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateConfiguration</code>
+      </TableCell>
+      <TableCell>Modify existing third-party integration configurations.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateName</code>
+      </TableCell>
+      <TableCell>Change the name of third-party integration configurations.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateOn</code>
+      </TableCell>
+      <TableCell>Enable and disabled existing third-party integrations.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>validateConnection</code>
+      </TableCell>
+      <TableCell>Validate the third-party connection.</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
 
 </Details>
 
@@ -1469,7 +1368,8 @@ This table explains available project actions:
         <code>viewProject</code>
       </TableCell>
       <TableCell>
-        View a project. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted by this policy can neither view nor modify a project.
+        View a project. All custom roles can take this action by default. If set to <code>deny</code>, anyone impacted
+        by this policy can neither view nor modify a project.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -1481,7 +1381,7 @@ This table explains available project actions:
 
 The `deny` effect in the `viewProject` action hides the projects you specify from the member. However, the `allow` effect for the same resource and action pairing doesn't do anything. Your LaunchDarkly member does not need explicit permission to view the project, because all custom roles can view all projects in a LaunchDarkly instance by default.
 
-To learn more, read <a href="/home/organize/private-projects">Configuring private projects with custom roles</a>
+To learn more, read [Configuring private projects with custom roles](/home/organize/private-projects)
 
 </CalloutDescription>
 </Callout>
@@ -1650,89 +1550,67 @@ This table explains available segments actions:
       <TableCell>
         <code>createSegment</code>
       </TableCell>
-      <TableCell>
-        Create new segments.
-      </TableCell>
+      <TableCell>Create new segments.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteSegment</code>
       </TableCell>
-      <TableCell>
-        Delete segments.
-      </TableCell>
+      <TableCell>Delete segments.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateDescription</code>
       </TableCell>
-      <TableCell>
-        Update a segment's description.
-      </TableCell>
+      <TableCell>Update a segment's description.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateExcluded</code>
       </TableCell>
-      <TableCell>
-        Change a segment's excluded contexts.
-      </TableCell>
+      <TableCell>Change a segment's excluded contexts.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateExpiringRules</code>
       </TableCell>
-      <TableCell>
-        Change a segment's expiring custom targeting rules.
-      </TableCell>
+      <TableCell>Change a segment's expiring custom targeting rules.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateExpiringTargets</code>
       </TableCell>
-      <TableCell>
-        Change a segment's expiring individual context targeting rules.
-      </TableCell>
+      <TableCell>Change a segment's expiring individual context targeting rules.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateIncluded</code>
       </TableCell>
-      <TableCell>
-        Change a segment's included contexts.
-      </TableCell>
+      <TableCell>Change a segment's included contexts.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>
-        Change the name of a segment.
-      </TableCell>
+      <TableCell>Change the name of a segment.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateRules</code>
       </TableCell>
-      <TableCell>
-        Change a segment's custom targeting rules.
-      </TableCell>
+      <TableCell>Change a segment's custom targeting rules.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateScheduledChanges</code>
       </TableCell>
-      <TableCell>
-        Change the scheduled updates on a segment.
-      </TableCell>
+      <TableCell>Change the scheduled updates on a segment.</TableCell>
     </TableRow>
-     <TableRow>
+    <TableRow>
       <TableCell>
         <code>updateTags</code>
       </TableCell>
-      <TableCell>
-        Change the tags associated with a segment.
-      </TableCell>
+      <TableCell>Change the tags associated with a segment.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -1963,73 +1841,55 @@ This table explains available webhooks actions:
       <TableCell>
         <code>createWebhook</code>
       </TableCell>
-      <TableCell>
-        Create new webhooks.
-      </TableCell>
+      <TableCell>Create new webhooks.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>deleteWebhook</code>
       </TableCell>
-      <TableCell>
-        Delete existing webhooks.
-      </TableCell>
+      <TableCell>Delete existing webhooks.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateName</code>
       </TableCell>
-      <TableCell>
-        Change the name of webhook configurations.
-      </TableCell>
+      <TableCell>Change the name of webhook configurations.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateOn</code>
       </TableCell>
-      <TableCell>
-        Enable and disabled existing webhooks.
-      </TableCell>
+      <TableCell>Enable and disabled existing webhooks.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateQuery</code>
       </TableCell>
-      <TableCell>
-        Modify webhook query.
-      </TableCell>
+      <TableCell>Modify webhook query.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateSecret</code>
       </TableCell>
-      <TableCell>
-        Modify an existing webhook's signing secret.
-      </TableCell>
+      <TableCell>Modify an existing webhook's signing secret.</TableCell>
     </TableRow>
-     <TableRow>
+    <TableRow>
       <TableCell>
         <code>updateStatements</code>
       </TableCell>
-      <TableCell>
-        Modify webhook policy statements.
-      </TableCell>
+      <TableCell>Modify webhook policy statements.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateTags</code>
       </TableCell>
-      <TableCell>
-        Modify webhook tags.
-      </TableCell>
+      <TableCell>Modify webhook tags.</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
         <code>updateUrl</code>
       </TableCell>
-      <TableCell>
-        Change the URL for a webhook.
-      </TableCell>
+      <TableCell>Change the URL for a webhook.</TableCell>
     </TableRow>
   </TableBody>
 </Table>

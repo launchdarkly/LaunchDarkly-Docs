@@ -46,7 +46,8 @@ The table below summarizes the differences between these categories:
       <TableCell>
         These SDKs are designed for single-user desktop, mobile, and embedded applications.
         <br />
-        These SDKs are intended to be used in a potentially less secure environment, such as a personal computer or mobile device.
+        These SDKs are intended to be used in a potentially less secure environment, such as a personal computer or
+        mobile device.
         <br />
         These SDKs include mobile SDKs.
       </TableCell>
@@ -56,16 +57,20 @@ The table below summarizes the differences between these categories:
       <TableCell>
         These SDKs are designed for multi-user systems.
         <br />
-        These SDKs are intended to be used in a trusted environment, such as inside a corporate network or on a web server.
+        These SDKs are intended to be used in a trusted environment, such as inside a corporate network or on a web
+        server.
         <br />
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Edge</TableCell>
       <TableCell>
-        These SDKs are designed for edge layers in content delivery networks (CDNs). LaunchDarkly supports <a href="/sdk/edge/cloudflare">Cloudflare</a> and <a href="/sdk/edge/vercel">Vercel</a>.
+        These SDKs are designed for edge layers in content delivery networks (CDNs). LaunchDarkly supports{' '}
+        [Cloudflare](/sdk/edge/cloudflare) and [Vercel](/sdk/edge/vercel).
         <br />
-        These SDKs are intended to be used together with a matching <a href="/integrations">CDN integration</a>. The CDN integration allows LaunchDarkly to write to your edge database. Then, you can use the edge SDK to read from that database to provide flag evaluations. This eliminates the need to make a remote call to LaunchDarkly.
+        These SDKs are intended to be used together with a matching [CDN integration](/integrations). The CDN
+        integration allows LaunchDarkly to write to your edge database. Then, you can use the edge SDK to read from that
+        database to provide flag evaluations. This eliminates the need to make a remote call to LaunchDarkly.
       </TableCell>
     </TableRow>
   </TableBody>
@@ -109,23 +114,23 @@ Mobile applications are more likely than web or desktop software to lose their n
 Here's how mobile connections work:
 
 - When the app is foregrounded, the SDK opens a streaming connection to LaunchDarkly.
-   - The initial payload from the streaming connection contains the variations a context instance receives.
-   - The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
-   - The streaming connection idles unless there are updates. This requires minimal data and battery power to maintain.
-   - The SDK actively monitors network availability. They avoid requests when the network is unavailable, and reconnect when the network becomes available again.
+  - The initial payload from the streaming connection contains the variations a context instance receives.
+  - The streaming connection stays open as long as your app is in the foreground and is connected to the internet.
+  - The streaming connection idles unless there are updates. This requires minimal data and battery power to maintain.
+  - The SDK actively monitors network availability. They avoid requests when the network is unavailable, and reconnect when the network becomes available again.
 - When the app is backgrounded, the stream connection terminates and the SDK uses polling instead.
-   - The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
 
-   <Callout intent="info">
-   <CalloutTitle>The iOS SDK does not support background fetch</CalloutTitle>
-   <CalloutDescription>
+  - The SDK polls for flag updates every hour to stay in sync. This strategy has higher latency, but optimizes battery and data usage.
 
-   Unlike other mobile SDKs, the iOS SDK does not fetch flag values from the background.
+<Callout intent="info">
+  <CalloutTitle>The iOS SDK does not support background fetch</CalloutTitle>
+  <CalloutDescription>
+    Unlike other mobile SDKs, the iOS SDK does not fetch flag values from the background.
+  </CalloutDescription>
+</Callout>
 
-   </CalloutDescription>
-   </Callout>
+  - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
 
-   - The SDK checks for network connectivity at the current polling interval, only making the request if the check succeeds. When it reconnects, it automatically syncs its local cache with LaunchDarkly.
 - When the app is foregrounded again, the SDK reconnects to the stream which sends the latest flag values.
 - If the app closes and reopens without a connection to LaunchDarkly, the flag values cached in local storage are still available.
 
@@ -182,7 +187,7 @@ When your application requests flag evaluation, server-side SDKs evaluate featur
 
 Server-side SDKs can evaluate flags because these SDKs know your complete flag ruleset. These SDKs can determine contexts' flag variations without having to make requests to LaunchDarkly's servers for every evaluated flag.
 
-You can think of each flag evaluation as a pure function, where LaunchDarkly uses the provided evaluation context along with the complete ruleset to check if a specific context should be included in an evaluation or not. It is important to note that LaunchDarkly passes along *rule data*, not context data. If a context does not have the correct attributes locally, then it will not be evaluated by the rules that are cached by the SDK.
+You can think of each flag evaluation as a pure function, where LaunchDarkly uses the provided evaluation context along with the complete ruleset to check if a specific context should be included in an evaluation or not. It is important to note that LaunchDarkly passes along _rule data_, not context data. If a context does not have the correct attributes locally, then it will not be evaluated by the rules that are cached by the SDK.
 
 ### Edge SDKs
 
@@ -200,15 +205,13 @@ Here is an example of the differences in flag evaluation between SDKs:
 <CSTab label="Client-side">
 
 ```js
+// JavaScript pseudocode
 
-  // JavaScript pseudocode
+var context = { kind: 'user', key: 'context-key-123abc' }
 
-  var context = {"kind": "user", "key": "context-key-123abc"}
+var ldclient = LDClient.initialize('client-side-id-123abc', context)
 
-  var ldclient = LDClient.initialize("client-side-id-123abc", context);
-
-  var flagValue = ldclient.variation("flag-key-123abc", false);
-
+var flagValue = ldclient.variation('flag-key-123abc', false)
 ```
 
 </CSTab>
@@ -230,15 +233,14 @@ Here is an example of the differences in flag evaluation between SDKs:
 <CSTab label="Edge">
 
 ```js
+// JavaScript pseudocode
 
-  // JavaScript pseudocode
+const client = initLD(sdkKey, env.LD_KV)
+await client.waitForInitialization()
 
-  const client = initLD(sdkKey, env.LD_KV);
-  await client.waitForInitialization();
+const context = { kind: 'user', key: 'user-key-123abc' }
 
-  const context = { "kind": 'user', "key": 'user-key-123abc' };
-
-  const flagValue = await client.variation('flag-key-123abc', context, false);
+const flagValue = await client.variation('flag-key-123abc', context, false)
 ```
 
 </CSTab>
@@ -252,17 +254,15 @@ Here is an example of the differences in flag data received by the different SDK
 <CSTab label="Client-side">
 
 ```json
-
-  {
-    "show-widgets": {
-      "version":97,
-      "flagVersion": 4,
-      "value": false,
-      "variation": 1,
-      "trackEvents": false
-    }
+{
+  "show-widgets": {
+    "version": 97,
+    "flagVersion": 4,
+    "value": false,
+    "variation": 1,
+    "trackEvents": false
+  }
 }
-
 ```
 
 </CSTab>
@@ -309,15 +309,15 @@ You may not want to send all of the context attributes that you are recording ba
 
 You can use private attributes with client-side, server-side, and edge SDKs. All LaunchDarkly SDKs have configuration options to set all or specified context attributes as private attributes. There are two scopes for which you can mark attributes as private:
 
-* Across all contexts of any context kind. You might use this if you want an "email" attribute to be private whether it occurs in a user context, an organization context, or something else.
-* Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
+- Across all contexts of any context kind. You might use this if you want an "email" attribute to be private whether it occurs in a user context, an organization context, or something else.
+- Within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
 
 Depending on the type of SDK you use, LaunchDarkly does not receive or store the information in private attributes:
 
-* If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.
-* If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Contexts** list or on the detail page for the context.
+- If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.
+- If you are using a client-side SDK, the SDK will send the private attribute back to LaunchDarkly for evaluation. However, the SDK won't send the attribute to LaunchDarkly in events data, LaunchDarkly won't store the private attribute, and the private attribute will not appear on the **Contexts** list or on the detail page for the context.
 
-* If you are using an edge SDK, the SDK does not support sending events. There is no ability to mark attributes as private.
+- If you are using an edge SDK, the SDK does not support sending events. There is no ability to mark attributes as private.
 
 Here is an example of setting all attributes as private:
 
@@ -325,12 +325,9 @@ Here is an example of setting all attributes as private:
 <CSTab label="Client-side">
 
 ```js
+// JavaScript pseudocode
 
-  // JavaScript pseudocode
-
-  var ldclient = LDClient.initialize('client-side-id-123abc', context,
-    options = { allAttributesPrivate: true });
-
+var ldclient = LDClient.initialize('client-side-id-123abc', context, (options = { allAttributesPrivate: true }))
 ```
 
 </CSTab>
@@ -360,12 +357,9 @@ Here is an example of setting just the end user's email address as private:
 <CSTab label="Client-side">
 
 ```js
+// JavaScript pseudocode
 
-  // JavaScript pseudocode
-
-  var ldclient = LDClient.initialize('client-sideID-123abc', context,
-    options = { privateAttributeNames: ["email"] });
-
+var ldclient = LDClient.initialize('client-sideID-123abc', context, (options = { privateAttributeNames: ['email'] }))
 ```
 
 </CSTab>
@@ -458,189 +452,189 @@ Explore the following SDK reference guides for specific details about how to use
   <TableBody>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/dotnet">.NET (client-side)</a>
+        [.NET (client-side)](/sdk/client-side/dotnet)
       </TableCell>
       <TableCell>Client-side (mobile)</TableCell>
       <TableCell>Mobile key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/dotnet">.NET (server-side)</a>
+        [.NET (server-side)](/sdk/server-side/dotnet)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/android">Android</a>
+        [Android](/sdk/client-side/android)
       </TableCell>
       <TableCell>Client-side (mobile)</TableCell>
       <TableCell>Mobile key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/apex">Apex</a>
+        [Apex](/sdk/server-side/apex)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/c-c--">C/C++ (client-side)</a>
+        [C/C++ (client-side)](/sdk/client-side/c-c--)
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Mobile key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/c-c--">C/C++ (server-side)</a>
+        [C/C++ (server-side)](/sdk/server-side/c-c--)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/edge/cloudflare">Cloudflare</a>
+        [Cloudflare](/sdk/edge/cloudflare)
       </TableCell>
       <TableCell>Edge</TableCell>
       <TableCell>Client-side ID</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/electron">Electron</a>
+        [Electron](/sdk/client-side/electron)
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Client-side ID</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/erlang">Erlang</a>
+        [Erlang](/sdk/server-side/erlang)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/flutter">Flutter</a>
+        [Flutter](/sdk/client-side/flutter)
       </TableCell>
       <TableCell>Client-side (mobile)</TableCell>
       <TableCell>Mobile key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/go">Go</a>
+        [Go](/sdk/server-side/go)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/haskell">Haskell</a>
+        [Haskell](/sdk/server-side/haskell)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/ios">iOS</a>
+        [iOS](/sdk/client-side/ios)
       </TableCell>
       <TableCell>Client-side (mobile)</TableCell>
       <TableCell>Mobile key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/java">Java</a>
+        [Java](/sdk/server-side/java)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/javascript">JavaScript</a>
+        [JavaScript](/sdk/client-side/javascript)
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Client-side ID</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/lua">Lua</a>
+        [Lua](/sdk/server-side/lua)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/node-js">Node.js (client-side)</a>
+        [Node.js (client-side)](/sdk/client-side/node-js)
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Client-side ID</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/node-js">Node.js (server-side)</a>
+        [Node.js (server-side)](/sdk/server-side/node-js)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/php">PHP</a>
+        [PHP](/sdk/server-side/php)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/python">Python</a>
+        [Python](/sdk/server-side/python)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/react">React</a>
+        [React](/sdk/client-side/react)
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Client-side ID</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/react/react-native">React Native</a>
+        [React Native](/sdk/client-side/react/react-native)
       </TableCell>
       <TableCell>Client-side (mobile)</TableCell>
       <TableCell>Mobile key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/roku">Roku</a>
+        [Roku](/sdk/client-side/roku)
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Mobile key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/ruby">Ruby</a>
+        [Ruby](/sdk/server-side/ruby)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/server-side/rust/">Rust</a>
+        [Rust](/sdk/server-side/rust/)
       </TableCell>
       <TableCell>Server-side</TableCell>
       <TableCell>SDK Key</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/edge/vercel">Vercel</a>
+        [Vercel](/sdk/edge/vercel)
       </TableCell>
       <TableCell>Edge</TableCell>
       <TableCell>Client-side ID</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>
-        <a href="/sdk/client-side/vue/">Vue</a>
+        [Vue](/sdk/client-side/vue/)
       </TableCell>
       <TableCell>Client-side</TableCell>
       <TableCell>Client-side ID</TableCell>

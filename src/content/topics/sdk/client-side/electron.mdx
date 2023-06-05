@@ -24,19 +24,27 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell><a href="https://launchdarkly.github.io/electron-client-sdk/">SDK API docs</a></TableCell>
+      <TableCell>
+        [SDK API docs](https://launchdarkly.github.io/electron-client-sdk/)
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/electron-client-sdk">electron-client-sdk</a></TableCell>
+      <TableCell>
+        [electron-client-sdk](https://github.com/launchdarkly/electron-client-sdk)
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample application</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/hello-electron">Electron</a></TableCell>
+      <TableCell>
+        [Electron](https://github.com/launchdarkly/hello-electron)
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
-      <TableCell><a href="https://www.npmjs.com/package/launchdarkly-electron-client-sdk">npm</a></TableCell>
+      <TableCell>
+        [npm](https://www.npmjs.com/package/launchdarkly-electron-client-sdk)
+      </TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -67,15 +75,15 @@ Here's how to create the wrapper:
 <CSTab label="JavaScript">
 
 ```js
-const realClient = LDElectron.initializeInMain('client-side-id-123abc', user, options);
+const realClient = LDElectron.initializeInMain('client-side-id-123abc', user, options)
 
-const wrappedClient = LDElectron.createNodeSdkAdapter(realClient);
+const wrappedClient = LDElectron.createNodeSdkAdapter(realClient)
 
-wrappedClient.waitForInitialization().then(function() {
-  wrappedClient.variation(flagKey, user, defaultValue, function(err, result) {
-    console.log('flag value is ' + result);
-  });
-});
+wrappedClient.waitForInitialization().then(function () {
+  wrappedClient.variation(flagKey, user, defaultValue, function (err, result) {
+    console.log('flag value is ' + result)
+  })
+})
 ```
 
 </CSTab>
@@ -133,22 +141,22 @@ To initialize the client:
 <CSTab label="JavaScript">
 
 ```js
-const LDElectron = require('launchdarkly-electron-client-sdk');
+const LDElectron = require('launchdarkly-electron-client-sdk')
 
-const user = { key: 'example' };
-const options = {};
-const client = LDElectron.initializeInMain('client-side-id-123abc', user, options);
+const user = { key: 'example' }
+const options = {}
+const client = LDElectron.initializeInMain('client-side-id-123abc', user, options)
 ```
 
 </CSTab>
 <CSTab label="TypeScript">
 
 ```ts
-import * as LDElectron from 'launchdarkly-electron-client-sdk';
+import * as LDElectron from 'launchdarkly-electron-client-sdk'
 
-const user: LDElectron.LDUser = { key: 'example' };
-const options: LDElectron.LDOptions = {};
-const client = LDElectron.initializeInMain('client-side-id-123abc', user, options);
+const user: LDElectron.LDUser = { key: 'example' }
+const options: LDElectron.LDOptions = {}
+const client = LDElectron.initializeInMain('client-side-id-123abc', user, options)
 ```
 
 </CSTab>
@@ -169,18 +177,18 @@ To create a client object that uses the same feature flag data in a renderer pro
 <CSTab label="JavaScript">
 
 ```js
-const LDElectron = require('launchdarkly-electron-client-sdk');
+const LDElectron = require('launchdarkly-electron-client-sdk')
 
-const client = LDElectron.initializeInRenderer();
+const client = LDElectron.initializeInRenderer()
 ```
 
 </CSTab>
 <CSTab label="TypeScript">
 
 ```ts
-import * as LDElectron from 'launchdarkly-electron-client-sdk';
+import * as LDElectron from 'launchdarkly-electron-client-sdk'
 
-const client = LDElectron.initializeInRenderer();
+const client = LDElectron.initializeInRenderer()
 ```
 
 </CSTab>
@@ -206,14 +214,14 @@ The SDK initializes both types of client asynchronously, so if you want to deter
 
 ```js
 // Using an event listener:
-client.on('ready', function() {
+client.on('ready', function () {
   // Now we can evaluate some feature flags
-});
+})
 
 // Or, using a Promise:
-client.waitForInitialization().then(function() {
+client.waitForInitialization().then(function () {
   // Now we can evaluate some feature flags
-});
+})
 ```
 
 </CSTab>
@@ -229,19 +237,19 @@ Shut down the client when your application terminates. To learn more, read [Shut
 
 This SDK supports the following features:
 
-* [Aliasing users](/sdk/features/aliasing-users#electron)
-* [Anonymous contexts and users](/sdk/features/anonymous#electron)
-* [Bootstrapping](/sdk/features/bootstrapping#electron)
-* [Configuration](/sdk/features/config#electron)
-* [Evaluating flags](/sdk/features/evaluating#electron)
-* [Getting all flags](/sdk/features/all-flags#electron)
-* [Identifying and changing contexts](/sdk/features/identify#electron)
-* [Logging configuration](/sdk/features/logging#electron)
-* [Monitoring SDK status](/sdk/features/monitoring#electron)
-* [Private attributes](/sdk/features/private-attributes#electron)
-* [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#electron)
-* [Sending custom events](/sdk/features/events#electron)
-* [Service endpoint configuration](/sdk/features/service-endpoint-configuration#electron)
-* [Shutting down](/sdk/features/shutdown#electron)
-* [Subscribing to flag changes](/sdk/features/flag-changes#electron)
-* [User and context configuration](/sdk/features/user-context-config#electron)
+- [Aliasing users](/sdk/features/aliasing-users#electron)
+- [Anonymous contexts and users](/sdk/features/anonymous#electron)
+- [Bootstrapping](/sdk/features/bootstrapping#electron)
+- [Configuration](/sdk/features/config#electron)
+- [Evaluating flags](/sdk/features/evaluating#electron)
+- [Getting all flags](/sdk/features/all-flags#electron)
+- [Identifying and changing contexts](/sdk/features/identify#electron)
+- [Logging configuration](/sdk/features/logging#electron)
+- [Monitoring SDK status](/sdk/features/monitoring#electron)
+- [Private attributes](/sdk/features/private-attributes#electron)
+- [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#electron)
+- [Sending custom events](/sdk/features/events#electron)
+- [Service endpoint configuration](/sdk/features/service-endpoint-configuration#electron)
+- [Shutting down](/sdk/features/shutdown#electron)
+- [Subscribing to flag changes](/sdk/features/flag-changes#electron)
+- [User and context configuration](/sdk/features/user-context-config#electron)
