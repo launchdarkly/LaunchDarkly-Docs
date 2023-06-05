@@ -75,11 +75,12 @@ If you choose additional environments, LaunchDarkly performs the checks again an
 
 ### Description of checks
 
-LaunchDarkly runs three checks to determine if a flag is stale. They are:
+LaunchDarkly runs four checks to determine if a flag is stale. They are:
 
-- Verify absence of code references: If you use code references and there are no references to this flag in your code, this check passes. If you do not use code references, this check does not run.
-- Verify the flag has not been requested: If the flag has not been requested in the last seven days, this check passes.
-- Verify only one variation is being served: If all environments are serving the same variation as the selected environment at the top of the page, this check passes.
+- **Verify absence of code references**: If you use code references and there are no references to this flag in your code, this check passes with the explanation "No code references." If you use code references and have removed this flag from your code completely, this check passes with the explanation "Removed code references on [date]," and links to the extinction message. To learn more, read [Understanding extinction events](/home/code/code-references#understanding-extinction-events). If you do not use code references, this check does not run.
+- **Verify the flag has not been requested**: If the flag has not been requested in the last seven days, this check passes.
+- **Verify only one variation is being served**: If all environments are serving the same variation as the selected environment at the top of the page, this check passes.
+- **Verify the flag is not a prerequisite**: If the flag is not a prerequisite of any other flags, this check passes.
 
 To view additional information about these checks, click **Show archive checks**. Here's an example:
 
