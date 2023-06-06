@@ -363,6 +363,8 @@ client.on('ready', () => {
 </CSTab>
 </CodeSample>
 
+The client emits the `ready` event only once, when it finishes initializing. If you receive an error message about the `ldclient.on('ready')` callback not firing, this means that the SDK began listening for the `ready` event too late, after the client already emitted it. To fix this, move the `ready` listener to immediately after you call `initialize`, or use a promise instead.
+
 ### Use promises to determine when the client is ready
 
 To find out when the client is ready, you can use one of two mechanisms: [events](#use-events-to-determine-when-the-client-is-ready) or promises.
