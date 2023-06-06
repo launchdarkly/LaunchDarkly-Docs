@@ -1,7 +1,6 @@
-// /** @jsx jsx */
 import { PropsWithChildren, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { keyframes } from '@emotion/react'
-import { jsx, ThemeUIStyleObject } from 'theme-ui'
+import { ThemeUIStyleObject } from 'theme-ui'
 
 import { getQueryParams } from '../../utils/queryUtils'
 

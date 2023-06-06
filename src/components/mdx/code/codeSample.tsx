@@ -1,6 +1,5 @@
-// /** @jsx jsx */
 import { Children, ReactNode, useState } from 'react'
-import { Box, Button, Card, Flex, jsx } from 'theme-ui'
+import { Box, Button, Card, Flex } from 'theme-ui'
 
 import { CSTab, CSTabProps } from './csTab'
 

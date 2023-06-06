@@ -2,7 +2,7 @@ describe('Documentation website', () => {
   it('should be navigable', () => {
     cy.visit('/home', { failOnStatusCode: false })
     cy.title().should('equal', 'Welcome to LaunchDarkly docs')
-    cy.wait(1000) // wait for hydration
+    cy.wait(5000) // wait for hydration
 
     // navigate to a page
     cy.get('main a').contains('Getting started').click()

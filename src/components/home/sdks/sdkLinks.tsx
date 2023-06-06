@@ -1,6 +1,4 @@
-// /** @jsx jsx */
 import { FunctionComponent } from 'react'
-import { jsx } from 'theme-ui'
 
 import useGitGatsbyTheme from '../../../hooks/useGitGatsbyTheme'
 import Icon, { IconName } from '../../icon'

@@ -59,6 +59,7 @@ const excludedPages = [
   '/sdk/index.mdx',
   '/guides/index.mdx',
   '/components.mdx',
+  '/flags-in-docs',
 ]
 const excludedHeadings = [
   'getting started',

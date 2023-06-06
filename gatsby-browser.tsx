@@ -1,7 +1,5 @@
-// /** @jsx jsx */
 import type { GatsbyBrowser } from 'gatsby'
 import aa from 'search-insights'
-import { jsx } from 'theme-ui'
 import { TrackJS } from 'trackjs'
 
 import LayoutContainer from './src/layouts/layoutContainer'

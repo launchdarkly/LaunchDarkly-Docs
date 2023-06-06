@@ -1,6 +1,3 @@
-// /** @jsx jsx */
-import { jsx } from 'theme-ui'
-
 import { SpanFigure } from './spanFigure'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

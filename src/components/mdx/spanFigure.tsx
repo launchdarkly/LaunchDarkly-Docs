@@ -1,6 +1,3 @@
-// /** @jsx jsx */
-import { jsx } from 'theme-ui'
-
 type SpanFigureProps = {
   htmlString: string
 }

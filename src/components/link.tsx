@@ -1,9 +1,8 @@
-// /** @jsx jsx */
 import { ForwardRefExoticComponent, FunctionComponent, PropsWithoutRef, RefAttributes } from 'react'
 import { GatsbyLinkProps, graphql, Link as GatsbyLink, useStaticQuery } from 'gatsby'
 import { OutboundLink, OutboundLinkProps } from 'gatsby-plugin-google-gtag'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { jsx, Link as ThemeUILink, LinkProps } from 'theme-ui'
+import { Link as ThemeUILink, LinkProps } from 'theme-ui'
 
 import isExternalLink from '../utils/isExternalLink'
 import { addRemoveSiteParam, setSubdomain } from '../utils/siteAwareUtils'

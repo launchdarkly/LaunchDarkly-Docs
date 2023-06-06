@@ -1,8 +1,6 @@
-// /** @jsx jsx */
 import { FunctionComponent } from 'react'
 import { Themed } from '@theme-ui/mdx'
 import pluralize from 'pluralize'
-import { jsx } from 'theme-ui'
 
 interface MetadataProps {
   timeToRead: number

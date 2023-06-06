@@ -1,7 +1,6 @@
-// /** @jsx jsx */
 import type { NavigateFn } from '@reach/router'
 import { useSelect } from 'downshift'
-import { Button, jsx } from 'theme-ui'
+import { Button } from 'theme-ui'
 
 import { SiteType } from '../../types/siteType'
 import { trackSiteSelection } from '../../utils/analyticsUtils'

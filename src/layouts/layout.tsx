@@ -1,6 +1,4 @@
-// /** @jsx jsx */
 import { Fragment, FunctionComponent, PropsWithChildren } from 'react'
-import { jsx } from 'theme-ui'
 
 import Header from '../components/header'
 import MdxHeader from '../components/mdx/mdxHeader'

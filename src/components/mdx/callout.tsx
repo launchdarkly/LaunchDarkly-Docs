@@ -1,6 +1,5 @@
-// /** @jsx jsx */
 import { FC, PropsWithChildren } from 'react'
-import { Box, Card, Flex, jsx, Text, ThemeUIStyleObject } from 'theme-ui'
+import { Box, Card, Flex, Text, ThemeUIStyleObject } from 'theme-ui'
 
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 import { SiteType } from '../../types/siteType'

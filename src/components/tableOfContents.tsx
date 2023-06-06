@@ -1,6 +1,5 @@
-// /** @jsx jsx */
 import { Themed } from '@theme-ui/mdx'
-import { jsx, Link } from 'theme-ui'
+import { Link } from 'theme-ui'
 
 type TOCItem = {
   url: string

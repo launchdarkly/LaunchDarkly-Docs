@@ -1,8 +1,6 @@
-// /** @jsx jsx */
 import { LinkGetProps } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { jsx } from 'theme-ui'
 
 import { useFlaggedPagesConfig } from '../hooks/useFlaggedPagesConfig'
 import useGitGatsbyTheme from '../hooks/useGitGatsbyTheme'

@@ -1,6 +1,5 @@
-// /** @jsx jsx */
 import { FC, Fragment, ReactElement } from 'react'
-import { Box, Card, Flex, jsx } from 'theme-ui'
+import { Box, Card, Flex } from 'theme-ui'
 
 import Icon from '../icon'
 

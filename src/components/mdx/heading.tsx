@@ -1,7 +1,5 @@
-// /** @jsx jsx */
 import React from 'react'
 import { Themed } from '@theme-ui/mdx'
-import { jsx } from 'theme-ui'
 
 import { copyToClipboard } from '../../utils/copyToClipboard'
 import Icon from '../icon'

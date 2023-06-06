@@ -1,6 +1,4 @@
-// /** @jsx jsx */
 import { FunctionComponent } from 'react'
-import { jsx } from 'theme-ui'
 
 import Icon, { IconName } from '../icon'
 import Link from '../link'

@@ -1,7 +1,5 @@
-// /** @jsx jsx */
 import { Fragment, FunctionComponent, useEffect, useRef } from 'react'
 import { Configure, connectSearchBox, InstantSearch } from 'react-instantsearch-dom'
-import { jsx } from 'theme-ui'
 
 import { getAlgoliaAnalyticsTags, trackSearch } from '../../utils/analyticsUtils'
 import { algoliaIndex } from '../../utils/envUtils'

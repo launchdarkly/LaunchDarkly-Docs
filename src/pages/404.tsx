@@ -1,4 +1,3 @@
-// /** @jsx jsx */
 import { Fragment } from 'react'
 import { CSSObject, keyframes } from '@emotion/react'
 import { Themed } from '@theme-ui/mdx'

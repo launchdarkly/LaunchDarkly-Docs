@@ -1,10 +1,9 @@
-// /** @jsx jsx */
 import { Fragment, useEffect, useRef, useState } from 'react'
 import { globalHistory } from '@reach/router'
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { graphql, navigate, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { jsx, ThemeUICSSObject } from 'theme-ui'
+import { ThemeUICSSObject } from 'theme-ui'
 
 import Icon from '../icon'
 import SiteSelector from '../siteSelector/siteSelector'

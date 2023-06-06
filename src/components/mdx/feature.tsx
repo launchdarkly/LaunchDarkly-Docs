@@ -1,8 +1,6 @@
-// /** @jsx jsx */
 import { Fragment, FunctionComponent, ReactNode } from 'react'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
-import { jsx } from 'theme-ui'
 
 type FeatureProps = {
   flag: <T>(flags: LDFlagSet) => T

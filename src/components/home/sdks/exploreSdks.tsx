@@ -1,6 +1,4 @@
-// /** @jsx jsx */
 import { graphql, useStaticQuery } from 'gatsby'
-import { jsx } from 'theme-ui'
 
 import Link from '../../link'
 import { SideNavItem } from '../../sideNav/types'

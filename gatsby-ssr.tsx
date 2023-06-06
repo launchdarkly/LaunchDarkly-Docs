@@ -1,6 +1,4 @@
-// /** @jsx jsx */
 import type { GatsbySSR } from 'gatsby'
-import { jsx } from 'theme-ui'
 
 import LayoutContainer from './src/layouts/layoutContainer'
 import { PageContext } from './src/types/pageContext'

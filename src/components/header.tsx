@@ -1,6 +1,4 @@
-// /** @jsx jsx */
 import { navigate } from 'gatsby'
-import { jsx } from 'theme-ui'
 
 import { useIsFederal } from '../utils/siteAwareUtils'
 

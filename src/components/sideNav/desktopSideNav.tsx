@@ -1,8 +1,6 @@
-// /** @jsx jsx */
 import { Suspense } from 'react'
 import { globalHistory } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
-import { jsx } from 'theme-ui'
 
 import { findRootTopic } from '../../utils/navigationDataUtils'
 

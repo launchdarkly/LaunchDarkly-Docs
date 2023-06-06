@@ -1,6 +1,5 @@
-// /** @jsx jsx */
 import { ReactNode } from 'react'
-import { Card, jsx } from 'theme-ui'
+import { Card } from 'theme-ui'
 
 type TableProps = {
   children: ReactNode

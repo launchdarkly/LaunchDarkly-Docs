@@ -1,4 +1,4 @@
-// /** @jsx jsx */
+// need to import React here
 import React, { Fragment, FunctionComponent, PropsWithChildren, ReactNode } from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { withPrefix } from 'gatsby'

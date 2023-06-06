@@ -1,10 +1,9 @@
-// /** @jsx jsx */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Fragment, useCallback, useState } from 'react'
 import { Themed } from '@theme-ui/mdx'
 import Highlight, { defaultProps, Language } from 'prism-react-renderer'
 import Prism from 'prismjs'
-import { Box, Button, jsx } from 'theme-ui'
+import { Box, Button } from 'theme-ui'
 
 import 'prismjs/components/prism-go'
 import 'prismjs/components/prism-ruby'

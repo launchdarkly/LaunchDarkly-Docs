@@ -1,9 +1,8 @@
-// /** @jsx jsx */
 import { ComponentProps, FunctionComponent, useCallback, useLayoutEffect, useRef, useState } from 'react'
 import { LinkGetProps } from '@reach/router'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
-import { Flex, jsx, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
+import { Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
 
 import { useFlaggedPagesConfig } from '../../hooks/useFlaggedPagesConfig'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
