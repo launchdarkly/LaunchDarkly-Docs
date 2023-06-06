@@ -128,8 +128,8 @@
     "rimraf": "^3.0.2",
     "scanfs": "^1.1.1",
     "ts-jest": "^29.1.0",
-    "ts-loader": "^9.3.0",
-    "typescript": "^5.0.4",
+    "ts-loader": "^9.4.3",
+    "typescript": "^5.1.3",
     "webpack": "^5.83.1"
   },
   "keywords": [
@@ -175,7 +175,7 @@
   "peerDependencies": {
     "graphql": "^14.0.0"
   },
-  "packageManager": "yarn@3.5.1",
+  "packageManager": "yarn@3.6.0",
   "dependenciesMeta": {
     "gatsby-plugin-s3@0.4.1": {
       "unplugged": true
