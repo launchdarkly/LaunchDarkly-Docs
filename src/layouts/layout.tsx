@@ -1,4 +1,4 @@
-import { Fragment, FunctionComponent, PropsWithChildren } from 'react'
+import { Fragment, FunctionComponent, PropsWithChildren, Suspense } from 'react'
 
 import Header from '../components/header'
 import MdxHeader from '../components/mdx/mdxHeader'
@@ -37,7 +37,9 @@ const Layout: FunctionComponent<PropsWithChildren<LayoutProps>> = ({ pageContext
             top: '4.5rem',
           }}
         >
-          <DesktopSideNav />
+          <Suspense fallback={null}>
+            <DesktopSideNav />
+          </Suspense>
           <article
             sx={{
               px: '3.5rem',
