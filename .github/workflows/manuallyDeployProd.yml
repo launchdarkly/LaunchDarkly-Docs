@@ -1,0 +1,171 @@
+name: Manually Deploy to Production
+on:
+  workflow_dispatch:
+    inputs:
+      message:
+        description: Why are you deploying?
+        required: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to s3 production
+    permissions:
+      id-token: write
+      contents: read
+      actions: write
+    environment:
+      name: production
+      url: https://docs.launchdarkly.com/
+    concurrency: prod_deploys
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # fetch entire history to get last edit date for topics
+          fetch-depth: 0
+      - name: Find last successful run
+        uses: SamhammerAG/last-successful-build-action@v4
+        id: last-success
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
+          workflow: Deploy to Production
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          audience: https://github.com/launchdarkly
+          role-to-assume: ${{ vars.AWS_PROD_ROLE_ARN }}
+          aws-region: us-east-1
+      - name: Yarn install
+        run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
+      - name: Build and deploy
+        run: yarn build-deploy-prod
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
+          GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
+          GATSBY_ALGOLIA_INDEX: 'Docs'
+          LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.PROD_LAUNCHDARKLY_CLIENT_SIDE_ID }}
+          GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.PROD_DATADOG_CLIENT_TOKEN }}
+          GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
+          GATSBY_DATADOG_RUM_CLIENT_TOKEN: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
+          GATSBY_TRACKJS_TOKEN: ${{ secrets.TRACKJS_TOKEN }}
+          SEGMENT_KEY: 'RUtph5AIOikMUv9vQUVqHrb6G2pALs0T'
+          AWS_S3_BUCKET: 'launchdarkly-docs-production'
+          AWS_HOSTNAME: 'docs.launchdarkly.com'
+      - name: Notify slack
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rotating_light::rotating_light::rotating_light::rocket: Docs site failed to deploy to *<https://docs.launchdarkly.com|Production>*. :rotating_light::rotating_light::rotating_light:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View failed run"
+                    },
+                    "action_id": "view-action-${{github.run_id}}",
+                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "plain_text",
+                      "text": ":github: Deploy triggered by ${{github.actor}}",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+
+  smoke-test:
+    needs: build-deploy
+    runs-on: ubuntu-latest
+    name: Smoke test production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'yarn'
+      - name: Yarn install
+        run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
+      # This is a workaround for the cypress yarn berry issue:
+      # https://github.com/cypress-io/github-action/issues/430#issuecomment-1295770606
+      - name: Resolve Cypress PNP
+        run: yarn run cypress:pnp
+      - name: Cypress run
+        uses: cypress-io/github-action@v5.8.0
+        timeout-minutes: 7
+        id: cypress
+        continue-on-error: true
+        with:
+          command: yarn dlx cypress@11 run --headless --record --tag production,smoke --config baseUrl=https://docs.launchdarkly.com,retries=2 --spec cypress/e2e/smoke.cy.ts
+          install: false
+          build: yarn build-nav-data
+          config: baseUrl=https://docs.launchdarkly.com,retries=2
+          wait-on: 'https://docs.launchdarkly.com/home'
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check Cypress outcome
+        if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
+        run: exit 1
+      - name: Notify slack
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rotating_light::rotating_light::rotating_light::test_tube: Smoke tests failed on *<https://docs.launchdarkly.com|Production>* :rotating_light::rotating_light::rotating_light:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View failed run"
+                    },
+                    "action_id": "view-action-${{github.run_id}}",
+                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "plain_text",
+                      "text": ":github: Deploy triggered by ${{github.actor}}",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
