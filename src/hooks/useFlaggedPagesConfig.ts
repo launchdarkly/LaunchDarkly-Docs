@@ -1,12 +1,6 @@
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 
-type config = {
-  disabled_paths: string[]
-}
-
-const defaultConfig: config = {
-  disabled_paths: [],
-}
+import { defaultConfig } from '../utils/flaggedPages/defaultConfig'
 
 export const useFlaggedPagesConfig = () => {
   const flags = useFlags()

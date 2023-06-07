@@ -5,6 +5,8 @@
 // https://www.gatsbyjs.org/docs/adding-search-with-algolia/#configuring-the-algolia-plugin
 
 const { activeEnv, algoliaIndex } = require('./envUtils')
+const { getFlaggedPagesConfig } = require('./flaggedPages/ld-server')
+
 require('dotenv').config({
   path: `.env.${activeEnv}`,
 })
@@ -71,10 +73,15 @@ const excludedHeadings = [
   'related content',
 ]
 
-const flatten = (mdx, rootTopics, secondLevelTopics) => {
+const flatten = async (mdx, rootTopics, secondLevelTopics) => {
+  const { isPathDisabled } = await getFlaggedPagesConfig()
+
   const result = []
   mdx.forEach(({ id, fileAbsolutePath, frontmatter, excerpt, tableOfContents, fields }) => {
-    const included = frontmatter.published && !excludedPages.find(p => fileAbsolutePath.includes(p))
+    const included =
+      frontmatter.published &&
+      !excludedPages.find(p => fileAbsolutePath.includes(p)) &&
+      !isPathDisabled(frontmatter.path)
 
     if (included) {
       const { tags, title, path, description } = frontmatter
@@ -149,8 +156,8 @@ const settings = {
 const queries = [
   {
     query: pageQuery,
-    transformer: ({ data: { mdx, rootTopics, secondLevelTopics } }) =>
-      flatten(mdx.nodes, rootTopics.nodes, secondLevelTopics.nodes),
+    transformer: async ({ data: { mdx, rootTopics, secondLevelTopics } }) =>
+      await flatten(mdx.nodes, rootTopics.nodes, secondLevelTopics.nodes),
     indexName: algoliaIndex,
     settings,
   },

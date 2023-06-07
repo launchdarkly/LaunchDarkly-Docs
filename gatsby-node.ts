@@ -10,6 +10,7 @@ import { MdxNode } from './src/types/mdxNode'
 import { SiteMetadata } from './src/types/siteMetadata'
 import getFinalDestination from './getFinalDestination'
 import redirectRules from './redirectRules'
+import { getFlaggedPagesConfig } from './src/utils/flaggedPages/ld-server'
 
 const isDev = process.env.GATSBY_ACTIVE_ENV === 'development'
 
@@ -114,6 +115,8 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
     }
   })
 
+  const { isPathDisabled } = await getFlaggedPagesConfig()
+
   const siteResult = await graphql<SiteQuery>(`
     query {
       site {
@@ -165,8 +168,8 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   }
 
   const mdxFiles = result.data.allMdx.nodes
-  mdxFiles.forEach(
-    ({
+  for (const node of mdxFiles) {
+    const {
       id,
       frontmatter,
       internal,
@@ -176,26 +179,31 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
       lastModifiedTime,
       isLandingPage,
       modifiedDate,
-    }) => {
-      createPage({
-        path: frontmatter.path,
-        // have to use the param here with page component to properly generate the html head
-        component: frontmatter.isInternal
-          ? internal.contentFilePath
-          : `${MdxPage}?__contentFilePath=${internal.contentFilePath}`,
-        context: {
-          id,
-          toc,
-          fileAbsolutePath,
-          lastModifiedTime,
-          modifiedDate,
-          isLandingPage,
-          timeToRead,
-          siteMetadata,
-        },
-      })
-    },
-  )
+    } = node
+
+    if (isPathDisabled(frontmatter.path)) {
+      console.info(`🚨 Skipping ${frontmatter.path} because it is disabled`)
+      continue
+    }
+
+    createPage({
+      path: frontmatter.path,
+      // have to use the param here with page component to properly generate the html head
+      component: frontmatter.isInternal
+        ? internal.contentFilePath
+        : `${MdxPage}?__contentFilePath=${internal.contentFilePath}`,
+      context: {
+        id,
+        toc,
+        fileAbsolutePath,
+        lastModifiedTime,
+        modifiedDate,
+        isLandingPage,
+        timeToRead,
+        siteMetadata,
+      },
+    })
+  }
 }
 
 export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async ({ actions }) => {
