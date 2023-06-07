@@ -1,0 +1,79 @@
+name: Smoke Test
+description: Action for running Cypress smoke tests
+
+inputs:
+  environment:
+    description: staging or prod
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'yarn'
+    - name: Yarn install
+      run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
+    # This is a workaround for the cypress yarn berry issue:
+    # https://github.com/cypress-io/github-action/issues/430#issuecomment-1295770606
+    - name: Resolve Cypress PNP
+      run: yarn run cypress:pnp
+    - name: Resolve Cypress PNP
+      run: yarn run cypress:pnp
+    - name: Cypress run
+      uses: cypress-io/github-action@v5.8.1
+      timeout-minutes: 7
+      id: cypress
+      continue-on-error: true
+      with:
+        command: ${{ inputs.environment == 'staging' && 'yarn dlx cypress@11 run --headless --record --tag production,smoke --config baseUrl=https://docs.launchdarkly.com,retries=2 --spec cypress/e2e/smoke.cy.ts' ||  'yarn dlx cypress@11 run --headless --record --tag production,smoke --config baseUrl=https://docs.launchdarkly.com,retries=2 --spec cypress/e2e/smoke.cy.ts' }}
+        install: false
+        build: yarn build-nav-data
+        wait-on: ${{inputs.environment == 'staging' && 'https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}/home' || 'https://docs.launchdarkly.com/home'}}
+      env:
+        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Check Cypress outcome
+        if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
+        run: exit 1
+    - name: Notify slack
+      if: ${{ inputs.environment == 'prod' }} && failure()
+      uses: slackapi/slack-github-action@v1
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      with:
+        payload: |
+          {
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": ":rotating_light::rotating_light::rotating_light::test_tube: Smoke tests failed on *<https://docs.launchdarkly.com|Production>* :rotating_light::rotating_light::rotating_light:"
+                },
+                "accessory": {
+                  "type": "button",
+                  "text": {
+                    "type": "plain_text",
+                    "text": "View failed run"
+                  },
+                  "action_id": "view-action-${{github.run_id}}",
+                  "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                }
+              },
+              {
+                "type": "context",
+                "elements": [
+                  {
+                    "type": "plain_text",
+                    "text": ":github: Deploy triggered by ${{github.actor}}",
+                    "emoji": true
+                  }
+                ]
+              }
+            ]
+          }
