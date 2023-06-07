@@ -1,6 +1,8 @@
 import { ReactNode } from 'react'
 import { Card } from 'theme-ui'
 
+import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
+
 type TableProps = {
   children: ReactNode
 }
@@ -44,14 +46,19 @@ export const TableRow = (props: TableProps) => (
   </tr>
 )
 
-export const TableCell = (props: TableProps) => (
-  <td
-    sx={{
-      p: [1, 2],
-    }}
-  >
-    {props.children}
-  </td>
-)
+export const TableCell = (props: TableProps) => {
+  const { theme } = useGitGatsbyTheme()
+
+  return (
+    <td
+      sx={{
+        p: [1, 2],
+        ...theme.styles,
+      }}
+    >
+      {props.children}
+    </td>
+  )
+}
 
 export const TableBody = (props: TableProps) => <tbody>{props.children}</tbody>

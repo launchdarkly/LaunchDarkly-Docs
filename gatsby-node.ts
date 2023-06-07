@@ -226,7 +226,7 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       timeToRead: Int @proxy(from: "fields.timeToRead")
       isLandingPage: Boolean @proxy(from: "fields.isLandingPage")
       lastModifiedTime: Date @proxy(from: "fields.lastModifiedTime")
-      modifiedDate: Date @proxy(from: "fields.lastModifiedTime") @dateformat(formatString: "DD-MM-YYYY")
+      modifiedDate: Date @proxy(from: "fields.lastModifiedTime") @dateformat(formatString: "MMM DD, YYYY")
     }
   `
   createTypes(typeDefs)
