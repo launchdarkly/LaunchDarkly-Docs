@@ -31,6 +31,9 @@ jobs:
     concurrency:
       group: staging-${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER || github.ref_name }}
       cancel-in-progress: true
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/build-deploy
@@ -41,6 +44,9 @@ jobs:
     needs: build-deploy
     runs-on: ubuntu-latest
     name: Smoke test staging
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/smoke-test

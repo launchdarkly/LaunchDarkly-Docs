@@ -16,6 +16,9 @@ jobs:
       name: production
       url: https://docs.launchdarkly.com/
     concurrency: prod_deploys
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/build-deploy
@@ -26,6 +29,9 @@ jobs:
     needs: build-deploy
     runs-on: ubuntu-latest
     name: Smoke test production
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/smoke-test

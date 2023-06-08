@@ -8,8 +8,6 @@ inputs:
 
 runs:
   using: composite
-  runs-on: ubuntu-latest
-  shell: bash
   steps:
     - name: Checkout
       uses: actions/checkout@v3
