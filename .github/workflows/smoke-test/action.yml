@@ -16,14 +16,15 @@ runs:
         node-version: '18.x'
         cache: 'yarn'
     - name: Yarn install
+      shell: bash
       run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
     # This is a workaround for the cypress yarn berry issue:
     # https://github.com/cypress-io/github-action/issues/430#issuecomment-1295770606
     - name: Resolve Cypress PNP
-      run: yarn run cypress:pnp
-    - name: Resolve Cypress PNP
+      shell: bash
       run: yarn run cypress:pnp
     - name: Cypress run
+      shell: bash
       uses: cypress-io/github-action@v5.8.1
       timeout-minutes: 7
       id: cypress
