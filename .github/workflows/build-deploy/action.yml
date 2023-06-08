@@ -41,9 +41,6 @@ inputs:
   secret_docs_deploybot_webhook_url:
     description: Deploybot webhook url
     required: true
-  aws_prod_role_arn:
-    description: AWS prod role arn
-    required: true
   aws_role_arn:
     description: AWS role arn
     required: true
