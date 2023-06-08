@@ -115,7 +115,7 @@ runs:
     - name: Get LD SDK Key
       uses: ./.github/workflows/ssm-secrets
       with:
-        aws_assume_role: ${{ inputs.aws_role_arn }}
+        aws_assume_role: ${{ inputs.aws_prod_role_arn }}
         ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Configure AWS
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
