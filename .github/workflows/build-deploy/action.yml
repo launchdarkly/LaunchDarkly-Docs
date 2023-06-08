@@ -41,7 +41,12 @@ inputs:
   secret_docs_deploybot_webhook_url:
     description: Deploybot webhook url
     required: true
-  
+  aws_prod_role_arn:
+    description: AWS role arn
+    required: true
+  aws_role_arn:
+    description: AWS role arn
+    required: true
   
 
 runs:
@@ -112,7 +117,7 @@ runs:
       uses: aws-actions/configure-aws-credentials@v2
       with:
         audience: https://github.com/launchdarkly
-        role-to-assume: ${{ inputs.environment == 'staging' && vars.AWS_STAGING_ROLE_ARN || vars.AWS_PROD_ROLE_ARN }}
+        role-to-assume: ${{ inputs.aws_role_arn }}
         aws-region: us-east-1
     - name: Caching Gatsby
     # -eap builds are customer facing so we can't take any chances with build cache issues
@@ -135,7 +140,7 @@ runs:
         - uses: actions/checkout@v3
         - uses: ./.github/workflows/ssm-secrets
           with:
-            aws_assume_role: ${{ vars.AWS_PROD_ROLE_ARN }}
+            aws_assume_role: ${{ inputs.aws_prod_role_arn }}
             ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Build and deploy
       shell: bash
