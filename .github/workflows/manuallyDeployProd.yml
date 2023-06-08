@@ -30,6 +30,8 @@ jobs:
           secret_datadog_rum_client_token: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
           secret_track_js_token: ${{ secrets.TRACKJS_TOKEN }}
           secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          # used to fetch sdk key from ssm
+          aws_prod_role_arn: ${{ vars.AWS_PROD_ROLE_ARN }}
           aws_role_arn: ${{ vars.AWS_PROD_ROLE_ARN }}
 
   smoke-test:
