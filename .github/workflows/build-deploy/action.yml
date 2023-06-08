@@ -136,12 +136,12 @@ runs:
       shell: bash
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
       run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
+    - uses: actions/checkout@v3
     - name: Get LD SDK Key
-        - uses: actions/checkout@v3
-        - uses: ./.github/workflows/ssm-secrets
-          with:
-            aws_assume_role: ${{ inputs.aws_prod_role_arn }}
-            ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
+      uses: ./.github/workflows/ssm-secrets
+      with:
+        aws_assume_role: ${{ inputs.aws_prod_role_arn }}
+        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Build and deploy
       shell: bash
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
