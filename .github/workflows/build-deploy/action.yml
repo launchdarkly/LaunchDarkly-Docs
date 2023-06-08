@@ -11,6 +11,7 @@ inputs:
 
 runs:
   using: composite
+  runs-on: ubuntu-latest
   steps:
     - name: Fetch git history
       uses: actions/checkout@v3
