@@ -112,7 +112,6 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: '18.x'
-    - uses: actions/checkout@v3
     - name: Get LD SDK Key
       uses: ./.github/workflows/ssm-secrets
       with:
