@@ -233,6 +233,7 @@ rebrands
 redigo
 redis
 reinitializes
+resmo
 relayproxy
 Retryable
 Riensche

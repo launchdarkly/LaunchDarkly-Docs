@@ -1079,6 +1079,10 @@
             "path": "/integrations/pendo"
           },
           {
+            "label": "Resmo",
+            "path": "/integrations/resmo"
+          },
+          {
             "label": "Terraform",
             "path": "/integrations/terraform",
             "items": [

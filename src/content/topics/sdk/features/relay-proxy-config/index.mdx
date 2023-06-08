@@ -27,7 +27,7 @@ The Relay Proxy has two modes:
 
 * In **daemon** mode, the SDK connects directly to the Relay Proxy's datastore. We recommend this configuration when you're using LaunchDarkly with PHP or in a serverless environment. To learn more, read [Using LaunchDarkly in serverless environments](/guides/infrastructure/serverless).
 
-Client-side SDKs should only use proxy mode. Server-side SDKs can use either mode. The two modes are not mutually exclusive. If you configure multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+Client-side SDKs should only use proxy mode. Server-side SDKs can use either mode. The two modes are not mutually exclusive. If you configure multiple services to use Relay Proxy, some of these services can operate in proxy mode while others are in daemon mode. To learn more, read [Configuring SDKs to use different modes](/home/relay-proxy/using#configuring-sdks-to-use-different-modes).
 
 After you set up the Relay Proxy, you can configure your SDKs to run in the mode you've decided upon. To learn how, read [Configuring an SDK to use the Relay Proxy](#configuring-an-sdk-to-use-the-relay-proxy).
 
@@ -39,7 +39,7 @@ There are three options for handling analytics events:
 
 * The SDK can send events to the Relay Proxy. In this situation, the SDK connects to the Relay Proxy for the events service. To configure this you must:
   - Change the base uniform resource identifier (URI) for the events service in the SDK configuration to connect to the Relay Proxy. To learn how, read [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode).
-  - Enable event forwarding in the Relay Proxy. To learn how, read [Event forwarding](https://github.com/launchdarkly/ld-relay/blob/v7/docs/events.md).
+  - Enable event forwarding in the Relay Proxy. To learn how, read the Relay Proxy GitHub repository's [Event forwarding](https://github.com/launchdarkly/ld-relay/blob/v7/docs/events.md).
 * The SDK can send events to LaunchDarkly. In this situation, the SDK connects directly to LaunchDarkly for the events service. You do not need to change any configuration in your SDK.
 * You can disable events. You should only disable sending events for testing purposes.
 

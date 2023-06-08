@@ -42,13 +42,13 @@ You must install and configure the Vercel SDK to use this integration. To learn 
 
 You can use the Vercel integration to bootstrap your application with the latest client-side feature flags. This eliminates the initial remote call to LaunchDarkly, providing zero-latency client-side feature flags with no flash of original content or shift in content layout. The Vercel integration also enables flag evaluations within Vercel Edge Middleware and Vercel Edge Workers. This means you can use your LaunchDarkly flags without an added latency from network requests.
 
-## Creating a Vercel integration
+## Installing a Vercel integration
 
-For a Vercel integration to work, you need a Vercel account with at least one project.
+For the Vercel integration to work, you need a Vercel account with at least one project.
 
-You can create a Vercel integration on the [LaunchDarkly](https://vercel.com/integrations/launchdarkly) page in the Vercel integrations marketplace.
+You can install a Vercel integration on the [LaunchDarkly](https://vercel.com/integrations/launchdarkly) page in the Vercel integrations marketplace.
 
-To create a new Vercel integration for your environment:
+To install a Vercel integration for your environment:
 
 1. Navigate to [Vercel's **Integrations** page for LaunchDarkly](https://vercel.com/integrations/launchdarkly).
 2. Click **Add Integration**.
@@ -57,12 +57,12 @@ To create a new Vercel integration for your environment:
 5. Click **Continue**.
 6. Review the permissions that this integration requires. Then click **Add Integration**. A LaunchDarkly configuration screen appears:
 
-  ![The LaunchDarkly authorization panel.](vercel-auth-panel.png)
+![The LaunchDarkly authorization panel.](vercel-auth-panel.png)
 
 7. Click **Authorize** to grant access to the LaunchDarkly integration.
 8. Enter a **Name** for the integration. This integration is specific to this combination of your LaunchDarkly environment and the Vercel edge config ID.
 9. Choose an environment from the **Environment** menu. Your data will appear in your Edge Config under the key `LD-Env-{{environment client-side ID}}`.
-10. Choose an edge configuration from the **Edge config ID** menu. Alternatively, click **Click to create new edge config** to create a new edge config.
+10. Choose an Edge Config from the **Edge Config** menu. Alternatively, click **Click to create new edge config** to create a new edge config.
 11. Click **Save configuration**.
 
 ![The LaunchDarkly "Vercel Integration" panel.](vercel-create-integration.png)
@@ -81,9 +81,9 @@ To manage an existing Vercel integration:
 4. Click **Edit** to modify the integration. You can change the configuration name or select another Edge Config destination to export to.
 5. Click **Save** to save your changes.
 
-## Deleting the LaunchDarkly Vercel integration
+## Uninstalling the LaunchDarkly Vercel integration
 
-To delete an existing Vercel integration:
+To uninstall an existing Vercel integration:
 
 1. Navigate to the [Vercel **Integrations** dashboard](https://vercel.com/dashboard/integrations).
 2. Find your LaunchDarkly integration and click **Manage**.

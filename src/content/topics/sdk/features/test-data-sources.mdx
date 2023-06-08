@@ -1056,7 +1056,7 @@ There are other ways you can configure flag behavior using a test data source. H
 ```ruby
 # This flag is true for the context key "context-key-123abc" and false for everyone else
 td.update(td.flag("flag-key-456def").
-    variation_for_key("context-key-123abc", true).
+    variation_for_user("context-key-123abc", true).
     fallthrough_variation(false))
 
 # This flag returns the string variation "green" for contexts who have the custom

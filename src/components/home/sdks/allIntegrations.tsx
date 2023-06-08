@@ -248,6 +248,12 @@ const AllIntegrations = () => {
       svg: 'integrations/release',
     },
     {
+      label: 'Resmo',
+      shortLabel: 'Resmo',
+      path: '/integrations/resmo',
+      svg: 'integrations/resmo',
+    },
+    {
       label: 'Roost.ai',
       shortLabel: 'Roost.ai',
       path: '/integrations/roost-ai',

@@ -88,7 +88,7 @@ Next, you must connect your tagged flag so it triggers a rebuild. The following 
 In the [Netlify admin dashboard](https://app.netlify.com):
 
 1. Click on the site you would like to connect the webhook to.
-2. Navigate to Site Settings > Build & Deploy > Build Hooks.
+2. Navigate to **Site Settings**, then **Build & Deploy**, then **Build Hooks**.
 3. Click the button to add a new build hook and give it a name (for example, "LaunchDarkly").
 4. Choose the git branch that will be used as the source when this build hook is called.
 
@@ -103,7 +103,7 @@ In the [Netlify admin dashboard](https://app.netlify.com):
 In the Vercel admin dashboard:
 
 1. Click on the site you would like to connect the webhook to.
-2. Navigate to **Settings** > **Git** > **Deploy Hooks**.
+2. Navigate to **Settings**, then **Git**, then **Deploy Hooks**.
 3. Give the deploy hook a human-readable name and specify the git branch to use.
 
   ![Adding a deploy hook in Vercel](nextjs-create-deploy-hook.png)
@@ -205,17 +205,17 @@ export async function getClient() {
 You must have a `LAUNCHDARKLY_SDK_KEY` environment variable set in a `.env.local` file. In addition, you must ensure that wherever you deploy this application, that environment variable is set as well.
 
 For example, if you are deploying to Netlify:
-1. Within the site's settings on the dashboard, go to Build & Deploy > Environment.
+1. Within the site's settings on the dashboard, go to **Build & Deploy**, then **Environment**.
 2. Click **Edit Variables**.
 3. Click **Add Variable**.
 4. Add the `LAUNCHDARKLY_SDK_KEY` variable.
 
 Alternatively, if you are deploying to Vercel:
-1. Open the site in Vercel's dashboard and go to **Settings** > **Environment Variables**.
+1. Open the site in Vercel's dashboard and go to **Settings**, then **Environment Variables**.
 2. Give the variable a name and value and then choose the environments that you would like it to apply to.
 3. Click **Add**. This saves the environment variable.
 
-To get your LaunchDarkly SDK key, go to [Account Settings > Projects](https://app.launchdarkly.com/settings/projects). Choose your project and then copy the SDK key for the environment you wish to work with.
+To get your LaunchDarkly SDK key, go to **Account settings**, then [**Projects**](https://app.launchdarkly.com/settings/projects). Choose your project and then copy the SDK key for the environment you wish to work with.
 
 ### Static rendering (SSG)
 
@@ -343,7 +343,7 @@ export async function getServerSideProps() {
 
 Client-side rendering is the only scenario in this guide that requires the React SDK. This means that it works differently than the previous examples.
 
-The client-side SDK uses a different, more restricted key than the server-side SDKs. To get the client-side ID, go to [Account Settings > Projects](https://app.launchdarkly.com/settings/projects). Copy the ID and add a `LAUNCHDARKLY_SDK_CLIENT_SIDE_ID` value to `.env.local`. You also must verify that this ID exists on your deployment provider.
+The client-side SDK uses a different, more restricted key than the server-side SDKs. To get the client-side ID, go to **Account settings**, then [**Projects**](https://app.launchdarkly.com/settings/projects). Copy the ID and add a `LAUNCHDARKLY_SDK_CLIENT_SIDE_ID` value to `.env.local`. You also must verify that this ID exists on your deployment provider.
 
 Environment variables are not automatically made available to the client in Next.js. In order to do that, you must alter the `next.config.js` file in your project to add the code below to the `module.exports` block. This code essentially says to make the `LAUNCHDARKLY_SDK_CLIENT_SIDE_ID` variable available on the client using the same variable name.
 

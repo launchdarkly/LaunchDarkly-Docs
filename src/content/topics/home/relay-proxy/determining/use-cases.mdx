@@ -24,11 +24,13 @@ The Relay Proxy was developed to address specific scenarios, and it works best w
 
 ### Reducing outbound connections to LaunchDarkly
 
-A large number of servers, such as thousands or tens of thousands, can present too many outbound persistent connections to LaunchDarkly's streaming API for a proxy or firewall to realistically handle. Use the Relay Proxy in **proxy mode** so your servers can connect directly to hosts in your own data center, instead of connecting directly to LaunchDarkly's streaming API. On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API. To learn more, read [Using the Relay Proxy in different modes](/home/relay-proxy/using#using-the-relay-proxy-in-different-modes).
+A large number of servers, such as thousands or tens of thousands, can present too many outbound persistent connections to LaunchDarkly's streaming API for a proxy or firewall to realistically handle. Use the Relay Proxy in **proxy mode** so your servers can connect directly to hosts in your own data center, instead of connecting directly to LaunchDarkly's streaming API. On an appropriately configured host, each Relay Proxy can handle tens of thousands of concurrent connections. This dramatically reduces the number of outbound connections to the LaunchDarkly streaming API. To learn more, read [Configuring SDKs to use different modes](/home/relay-proxy/using#configuring-sdks-to-use-different-modes).
 
 ### Using PHP
 
-PHP's shared-nothing architecture prevents LaunchDarkly from re-using the streaming API connection across requests. You can use PHP without the Relay Proxy, but we strongly recommend using the Relay Proxy in **daemon mode** if you are using PHP in a high-throughput setting. This makes the Relay Proxy receive feature flag updates. To learn more, read [Using PHP](https://github.com/launchdarkly/ld-relay/blob/v7/docs/php.md).
+The PHP SDK communicates differently with LaunchDarkly than other LaunchDarkly SDKs because it does not support long-lived streaming connections. It must either use HTTP to poll for flags on demand, or get them from a feature store while using the Relay Proxy. We recommend using the Relay Proxy and a feature store, as it is more efficient than polling for flags on demand.
+
+To learn more, read the Relay Proxy GitHub repository's [Using PHP](https://github.com/launchdarkly/ld-relay/blob/v7/docs/php.md).
 
 ### Reducing initialization latency in short-lived and serverless environments
 

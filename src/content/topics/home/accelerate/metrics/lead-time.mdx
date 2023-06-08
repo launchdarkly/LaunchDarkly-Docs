@@ -26,12 +26,14 @@ Accelerate defines lead time as the time between first code commit and successfu
 
 The lead time summary includes the following information:
 
-- Average lead time
+- Lead time by average, median, or percentile
 - Total pull requests
 
 ![The lead time summary.](accelerate-lead-time-summary.png)
 
 You can use the selection menus to narrow your view to a specific LaunchDarkly project, environment, or application. You can also change the time period to display the last 7, 14, or 28 days, or a custom range.
+
+By default, Accelerate displays the lead time metric as an average over the selected time period. If your average is being skewed by outliers or you prefer to view by percentile, you can use the summary menu to change the display to the median, the 75th percentile, the 90th percentile, the 95th percentile, or the 99th percentile.
 
 ## Reading the lead time chart
 
@@ -43,7 +45,7 @@ You can use the "Group by" menu to group the results by application or environme
 
 ## Reading the lead time breakdown chart
 
-The lead time breakdown chart includes the average time spent on each of these steps for all PRs in the time period selected:
+The lead time breakdown chart includes the average, median, or chosen percentile time spent on each of these steps for all PRs in the time period selected:
 
 - Coding time, which measures the time between when you made your first commit and when you opened a PR containing that commit
 - PR lifespan, which measures the time between when you opened the PR and when you merged the PR

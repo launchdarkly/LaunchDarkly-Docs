@@ -93,7 +93,7 @@ The screenshots below are from the Flow Designer, but you can create a workflow 
 To create a LaunchDarkly approvals workflow in ServiceNow:
 
 1. Create a new Workflow Trigger for record "Created" on the "Change Request [change_request]" table.  To learn how to do this, search for "Create Security Operations workflow triggers" in [ServiceNow's documentation](https://docs.servicenow.com/) and choose the article for your ServiceNow version.
-2. Set two conditions on your trigger: "State" `is` "New" and "Standard Change Template version > Template > Name" `is` "LaunchDarkly template."
+2. Set two conditions on your trigger: "State" `is` "New" and "Standard Change Template version," "Template," "Name" `is` "LaunchDarkly template."
 
 ![A configured Workflow Trigger in the ServiceNow Flow Designer.](servicenow-workflow-trigger.png)
 
@@ -139,12 +139,12 @@ To create an automatic approval workflow:
 2. Set two conditions on your trigger:
 
 - "State" `is` "New"
-- "Standard Change Template version > Template > Name" `is` "LaunchDarkly auto-approve template"
+- "Standard Change Template version," "Template," "Name" `is` "LaunchDarkly auto-approve template"
 
 ![A Workflow Trigger in the ServiceNow Flow Designer.](servicenow-workflow-trigger.png)
 
 3. Add two "Update Change Request Record" Actions as extensions of the `if` condition.
-4. On the first Action, set the Action to "Update Record" on the latest version of the triggering Change Request Record. Set "State" to "Scheduled.""
+4. On the first Action, set the Action to "Update Record" on the latest version of the triggering Change Request Record. Set "State" to "Scheduled."
 5. On the second Action, set the Action to "Update Record" on the latest version of the triggering Change Request Record. Set "State" to "Implemented."
 
 <Callout intent="warning">

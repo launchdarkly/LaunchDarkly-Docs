@@ -187,8 +187,7 @@ Only describe what the reader is doing and experiencing. Procedures are not for 
 
 Example:
 
-1. Log in to LaunchDarkly.
-1. Click **Account Settings**. The Account Settings page opens.
+1. Log in to LaunchDarkly. The Account settings page opens.
 
 ### Conclusion
 
