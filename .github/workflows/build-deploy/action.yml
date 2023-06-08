@@ -56,7 +56,7 @@ runs:
       uses: ./.github/workflows/ssm-secrets
       with:
         aws_assume_role: ${{ inputs.aws_prod_role_arn }}
-        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
+        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Fetch git history
       uses: actions/checkout@v3
       with:
