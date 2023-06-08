@@ -5,6 +5,15 @@ inputs:
   environment:
     description: staging or prod
     required: true
+  secret_cypress_record_key:
+    description: Cypress record key
+    required: true
+  secret_github_token:
+    description: Github token
+    required: true
+  secret_docs_deploybot_webhook_url:
+    description: Deploybot webhook url
+    required: true
 
 runs:
   using: composite
@@ -35,8 +44,8 @@ runs:
         build: yarn build-nav-data
         wait-on: ${{ inputs.environment == 'staging' && format('{0}{1}{2}', 'https://docs-stg.launchdarkly.com/', env.BUCKET_PREFIX, '/home') || 'https://docs.launchdarkly.com/home' }}
       env:
-        CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        CYPRESS_RECORD_KEY: ${{ inputs.secret_cypress_record_key }}
+        GITHUB_TOKEN: ${{ inputs.secret_github_token }}
     - name: Check Cypress outcome
         if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
         run: exit 1
@@ -44,7 +53,7 @@ runs:
       if: ${{ inputs.environment == 'prod' }} && failure()
       uses: slackapi/slack-github-action@v1
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ inputs.secret_docs_deploybot_webhook_url }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       with:
         payload: |

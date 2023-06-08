@@ -39,6 +39,17 @@ jobs:
       - uses: ./.github/workflows/build-deploy
         with:
           environment: staging
+          secret_github_token: ${{ secrets.GITHUB_TOKEN }}
+          secret_gh_token: ${{ secrets.GH_TOKEN }}
+          secret_algolia_admin_key: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          secret_gatsby_algolia_app_id: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
+          secret_gatsby_algolia_search_key: ${{ secrets.ALGOLIA_SEARCH_KEY }}
+          secret_launchdarkly_client_side_id: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
+          secret_gatsby_datadog_client_token: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
+          secret_gatsby_datadog_rum_application_id: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
+          secret_datadog_rum_client_token: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
+          secret_track_js_token: ${{ secrets.TRACKJS_TOKEN }}
+          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
 
   smoke-test:
     needs: build-deploy
@@ -49,4 +60,7 @@ jobs:
       - uses: ./.github/workflows/smoke-test
         with:
           environment: staging
+          secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
+          secret_github_token: ${{ secrets.GITHUB_TOKEN }}
+          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
       

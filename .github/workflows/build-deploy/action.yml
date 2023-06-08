@@ -8,6 +8,41 @@ inputs:
   force_build:
     description: Force a build
     required: false
+  secret_github_token:
+    description: Github token
+    required: true
+  secret_gh_token:
+    description: GH token
+    required: true
+  secret_algolia_admin_key:
+    description: Algolia admin key
+    required: true
+  secret_gatsby_algolia_app_id:
+    description: Algolia app id
+    required: true
+  secret_gatsby_algolia_search_key:
+    description: Algolia search key
+    required: true
+  secret_launchdarkly_client_side_id:
+    description: Launchdarkly client side id
+    required: true
+  secret_gatsby_datadog_client_token:
+    description: Datadog client token
+    required: false
+  secret_gatsby_datadog_rum_application_id:
+    description: Datadog rum application id
+    required: true
+  secret_datadog_rum_client_token:
+    description: Datadog rum client token
+    required: true
+  secret_track_js_token:
+    description: Track js token
+    required: true
+  secret_docs_deploybot_webhook_url:
+    description: Deploybot webhook url
+    required: true
+  
+  
 
 runs:
   using: composite
@@ -28,7 +63,7 @@ runs:
       uses: SamhammerAG/last-successful-build-action@v4
       id: last-success
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ inputs.secret_github_token }}
         branch: main
         workflow: Deploy to ${{ inputs.environment == 'staging' && 'Staging' || 'Production' }}
     - name: Get specific changed files
@@ -107,17 +142,17 @@ runs:
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
       run: ${{ inputs.environment == 'staging' && 'yarn build-deploy-staging' || 'yarn build-deploy-prod' }}
       env:
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
-        GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
-        GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
+        GH_TOKEN: ${{ inputs.secret_gh_token }}
+        ALGOLIA_ADMIN_KEY: ${{ inputs.secret_algolia_admin_key }}
+        GATSBY_ALGOLIA_APP_ID: ${{ inputs.secret_gatsby_algolia_app_id }}
+        GATSBY_ALGOLIA_SEARCH_KEY: ${{ inputs.secret_gatsby_algolia_search_key }}
         GATSBY_ALGOLIA_INDEX: 'Docs'
-        LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ inputs.environment == 'staging' && secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID || secrets.PROD_LAUNCHDARKLY_CLIENT_SIDE_ID }}
+        LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ inputs.secret_launchdarkly_client_side_id }}
         LAUNCHDARKLY_SDK_KEY: ${{ env.LAUNCHDARKLY_SDK_KEY }}
-        GATSBY_DATADOG_CLIENT_TOKEN: ${{ inputs.environment == 'staging' && secrets.STG_DATADOG_CLIENT_TOKEN }}
-        GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
-        GATSBY_DATADOG_RUM_CLIENT_TOKEN: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
-        GATSBY_TRACKJS_TOKEN: ${{ secrets.TRACKJS_TOKEN }}
+        GATSBY_DATADOG_CLIENT_TOKEN: ${{ inputs.environment == 'staging' && inputs.secret_gatsby_datadog_client_token }}
+        GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ inputs.secret_gatsby_datadog_rum_application_id }}
+        GATSBY_DATADOG_RUM_CLIENT_TOKEN: ${{ inputs.secret_datadog_rum_client_token }}
+        GATSBY_TRACKJS_TOKEN: ${{ inputs.secret_track_js_token }}
         SEGMENT_KEY: ${{ inputs.environment == 'staging' && '' || 'RUtph5AIOikMUv9vQUVqHrb6G2pALs0T' }}
         AWS_S3_BUCKET: ${{ inputs.environment == 'staging' && 'launchdarkly-docs-staging' || 'launchdarkly-docs-production' }}
         AWS_HOSTNAME: ${{ inputs.environment == 'staging' && 'docs-stg.launchdarkly.com' || 'docs.launchdarkly.com'}}
@@ -126,7 +161,7 @@ runs:
       if: ${{ inputs.environment == 'prod' }} && failure()
       uses: slackapi/slack-github-action@v1
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ inputs.secret_docs_deploybot_webhook_url }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       with:
         payload: |
