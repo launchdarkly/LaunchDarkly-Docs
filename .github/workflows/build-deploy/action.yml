@@ -41,11 +41,8 @@ inputs:
   secret_docs_deploybot_webhook_url:
     description: Deploybot webhook url
     required: true
-  aws_prod_role_arn:
-    description: AWS prod role arn used to fetch sdk key from ssm
-    required: true
   aws_role_arn:
-    description: AWS role arn used for deploying
+    description: AWS role arn used for fetching from SSM and deploying to S3
     required: true
   bucket_prefix:
     description: Bucket prefix used for staging deployments
@@ -55,11 +52,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Get LD SDK Key
-      uses: ./.github/workflows/ssm-secrets
-      with:
-        aws_assume_role: ${{ inputs.aws_prod_role_arn }}
-        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Fetch git history
       uses: actions/checkout@v3
       with:
@@ -120,6 +112,11 @@ runs:
       uses: actions/setup-node@v3
       with:
         node-version: '18.x'
+    - name: Get LD SDK Key
+    uses: ./.github/workflows/ssm-secrets
+    with:
+      aws_assume_role: ${{ inputs.aws_role_arn }}
+      ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Configure AWS
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
       uses: aws-actions/configure-aws-credentials@v2
