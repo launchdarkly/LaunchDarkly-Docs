@@ -28,9 +28,9 @@ Expand each section below to learn how to configure the Relay Proxy.
 
 It's common to use a configuration file when you deploy the Relay Proxy from a release binary or build it from source.
 
-You can also use a configuration file when you run the Relay Proxy from a Docker container, but it is less convenient to do because you *must* place the configuration file at `/ldr/ld-relay.conf`.
+You can also use a configuration file when you run the Relay Proxy from a Docker container, but it is less convenient to do because you must place the configuration file at `/ldr/ld-relay.conf`.
 
-To learn more about the supported configuration options, read the Relay Proxy GitHub repository's [Configuration docs](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md).
+To learn more about the supported configuration options, read the Relay Proxy GitHub repository's [Configuration docs](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md). To learn about Relay Proxy logging level options, read [Logging](https://github.com/launchdarkly/ld-relay/blob/v7/docs/logging.md).
 
 To use a configuration file:
 
@@ -77,7 +77,7 @@ To use a configuration file:
   </CSTab>
   </CodeSample>
 
-If you're using Relay Proxy Enterprise and want to enable automatic configuration or offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
+If you're using Relay Proxy Enterprise and want to enable automatic configuration or use it in offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
 </Details>
 
 <Details summary="Expand Using environment variables">
@@ -86,7 +86,7 @@ If you're using Relay Proxy Enterprise and want to enable automatic configuratio
 
 The other way to configure your Relay Proxy is with environment variables. This method is available regardless of how you deploy the Relay Proxy, although it is most commonly used with Docker containers.
 
-To learn more about supported environment variables, read [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md#configuration-file-format-and-environment-variables).
+To learn more about supported environment variables, read the Relay Proxy GitHub repository's [Configuration file format and environment variables](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md#configuration-file-format-and-environment-variables). To learn about Relay Proxy logging level options, read [Logging](https://github.com/launchdarkly/ld-relay/blob/v7/docs/logging.md).
 
 To use environment variables:
 
@@ -116,7 +116,7 @@ To use environment variables:
   </CSTab>
   </CodeSample>
 
-If you're using Relay Proxy Enterprise and want to enable automatic configuration or offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
+If you're using Relay Proxy Enterprise and want to enable automatic configuration or use it in offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
 </Details>
 
 ## Deploying the Relay Proxy
@@ -154,7 +154,7 @@ To deploy the Relay Proxy with Docker:
 
 The simplest way to specify the configuration is with environment variables, using the `-e` option of `docker run`. An example configuration that uses environment variables appears below.
 
-For examples and a full list of allowable variables, read the documentation in the GitHub repository on [Using with Docker](https://github.com/launchdarkly/ld-relay/blob/v7/docs/docker.md) and [Configuration](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md).
+For examples and a full list of allowable variables, read the Relay Proxy GitHub repository's [Using with Docker](https://github.com/launchdarkly/ld-relay/blob/v7/docs/docker.md) and [Configuration](https://github.com/launchdarkly/ld-relay/blob/v7/docs/configuration.md).
 
 In the following example, the Relay Proxy is configured to have two LaunchDarkly environments.
 
@@ -245,7 +245,7 @@ If you want to download a release binary from the GitHub repository, you should 
 
 When executing the binary, use either a [configuration file](#using-a-configuration-file) or [environment variables](#using-environment-variables) to set up your desired configuration.
 
-For an example of running the binary with Windows, read [Building and running in Windows](https://github.com/launchdarkly/ld-relay/blob/v7/docs/windows.md).
+For an example of running the binary with Windows, read the Relay Proxy GitHub repository's [Building and running in Windows](https://github.com/launchdarkly/ld-relay/blob/v7/docs/windows.md).
 </Details>
 
 <Details summary="Expand Building within an existing Go app">
@@ -274,5 +274,5 @@ go install github.com/launchdarkly/ld-relay/v6@latest
 
 When executing the binary, use either a [configuration file](#using-a-configuration-file) or [environment variables](#using-environment-variables) to set up your desired configuration.
 
-To learn more, read [Building within an application](https://github.com/launchdarkly/ld-relay/blob/v7/docs/in-app.md).
+To learn more, read the Relay Proxy GitHub repository's [Building within an application](https://github.com/launchdarkly/ld-relay/blob/v7/docs/in-app.md).
 </Details>
