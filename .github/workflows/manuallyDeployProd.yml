@@ -33,6 +33,7 @@ jobs:
           # used to fetch sdk key from ssm
           aws_prod_role_arn: ${{ vars.AWS_PROD_ROLE_ARN }}
           aws_role_arn: ${{ vars.AWS_PROD_ROLE_ARN }}
+          bucket_prefix: null
 
   smoke-test:
     needs: build-deploy

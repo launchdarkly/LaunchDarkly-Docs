@@ -47,6 +47,9 @@ inputs:
   aws_role_arn:
     description: AWS role arn used for deploying
     required: true
+  bucket_prefix:
+    description: Bucket prefix used for staging deployments
+    required: false
   
 
 runs:
@@ -56,7 +59,7 @@ runs:
       uses: ./.github/workflows/ssm-secrets
       with:
         aws_assume_role: ${{ inputs.aws_prod_role_arn }}
-        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
+        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Fetch git history
       uses: actions/checkout@v3
       with:
@@ -134,9 +137,9 @@ runs:
         path: |
           public
           .cache
-        key: ${{ runner.os }}-gatsby-build-${{ env.BUCKET_PREFIX }}-${{ hashFiles('**/yarn.lock') }}
+        key: ${{ runner.os }}-gatsby-build-${{ inputs.bucket_prefix }}-${{ hashFiles('**/yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-gatsby-build-${{ env.BUCKET_PREFIX }}-${{ hashFiles('**/yarn.lock') }}
+          ${{ runner.os }}-gatsby-build-${{ inputs.bucket_prefix }}-${{ hashFiles('**/yarn.lock') }}
     - name: Yarn install
       shell: bash
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
