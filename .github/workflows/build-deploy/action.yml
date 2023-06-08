@@ -43,7 +43,7 @@ runs:
         sha: ${{ github.sha }}
         separator: ' '
       # fetch_depth increased to 120 as an attempt to resolve sc-176350
-        fetch_depth: ${{ inputs.environment == 'staging' && '120 || null }}
+        fetch_depth: ${{ inputs.environment == 'staging' && '120' || null }}
         files: |
           assets
           src
@@ -99,7 +99,7 @@ runs:
       uses: ./.github/workflows/ssm-secrets
       with:
         aws_assume_role: ${{ vars.AWS_PROD_ROLE_ARN }}
-        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY'}}
+        ssm_parameter_pairs: ${{ inputs.environment == 'staging' && '/staging/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' || '/production/common/services/docs/ld_sdk_key = LAUNCHDARKLY_SDK_KEY' }}
     - name: Build and deploy
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
       run: ${{ inputs.environment == 'staging' && 'yarn build-deploy-staging' || 'yarn build-deploy-prod' }}
