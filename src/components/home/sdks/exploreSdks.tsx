@@ -1,5 +1,6 @@
 import { graphql, useStaticQuery } from 'gatsby'
 
+import { useFlaggedPagesConfig } from '../../../hooks/useFlaggedPagesConfig'
 import Link from '../../link'
 import { SideNavItem } from '../../sideNav/types'
 
@@ -45,14 +46,18 @@ export const AllSdks = () => {
       }
     }
   `)
+
+  const { isPathDisabled } = useFlaggedPagesConfig()
+
   const sdkNavItems = navigationDataArray[0].items
-  const clientSdkItems = sdkNavItems.find((i: SideNavItem) =>
+
+  const clientSdkItems: Array<SideNavItem> = sdkNavItems.find((i: SideNavItem) =>
     i.items.some((ii: SideNavItem) => ii.path.startsWith('/sdk/client-side')),
   ).items
-  const serverSdkItems = sdkNavItems.find((i: SideNavItem) =>
+  const serverSdkItems: Array<SideNavItem> = sdkNavItems.find((i: SideNavItem) =>
     i.items.some((ii: SideNavItem) => ii.path.startsWith('/sdk/server-side')),
   ).items
-  const edgeSdkItems = sdkNavItems.find((i: SideNavItem) =>
+  const edgeSdkItems: Array<SideNavItem> = sdkNavItems.find((i: SideNavItem) =>
     i.items.some((ii: SideNavItem) => ii.path.startsWith('/sdk/edge')),
   ).items
 
@@ -70,9 +75,12 @@ export const AllSdks = () => {
       }}
     >
       <ul sx={{ 'li:last-child': { mt: 6 } }}>
-        <SdkLinks heading="CLIENT-SIDE / MOBILE SDKS" sideNavItems={clientSdkItems} />
-        <SdkLinks heading="SERVER-SIDE SDKS" sideNavItems={serverSdkItems} />
-        <SdkLinks heading="EDGE SDKS" sideNavItems={edgeSdkItems} />
+        <SdkLinks
+          heading="CLIENT-SIDE / MOBILE SDKS"
+          sideNavItems={clientSdkItems.filter(item => !isPathDisabled(item.path))}
+        />
+        <SdkLinks heading="SERVER-SIDE SDKS" sideNavItems={serverSdkItems.filter(item => !isPathDisabled(item.path))} />
+        <SdkLinks heading="EDGE SDKS" sideNavItems={edgeSdkItems.filter(item => !isPathDisabled(item.path))} />
       </ul>
     </div>
   )

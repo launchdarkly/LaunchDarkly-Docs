@@ -1,8 +1,11 @@
+import { useFlaggedPagesConfig } from '../../../hooks/useFlaggedPagesConfig'
 import { SideNavItem } from '../../sideNav/types'
 
 import SdkLinks from './sdkLinks'
 
 const AllIntegrations = () => {
+  const { isPathDisabled } = useFlaggedPagesConfig()
+
   const intItems: SideNavItem[] = [
     {
       label: 'ADFS',
@@ -360,7 +363,7 @@ const AllIntegrations = () => {
         maxWidth: '60rem',
       }}
     >
-      <SdkLinks heading="" sideNavItems={intItems} />
+      <SdkLinks heading="" sideNavItems={intItems.filter(item => !isPathDisabled(item.path))} />
     </ul>
   )
 }
