@@ -880,9 +880,31 @@ You must provide all relevant context attributes for each evaluation for your ta
 
 This feature is available for all of our edge SDKs:
 
+* [Akamai](#akamai)
 * [Cloudflare](#cloudflare)
 * [Vercel](#vercel)
 
+### Akamai
+
+<Details summary="Expand Akamai code sample">
+
+The `variation` method determines which variation of a feature flag a context receives. `variation` calls take the feature flag key, an `LDContext`, and a default value.
+
+Here is an example:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```typescript
+const flagValue = await client.variation('flag-key-123abc', context, false);
+```
+
+</CSTab>
+</CodeSample>
+
+You must provide all relevant attributes for each evaluation for your targeting rules to apply correctly.
+
+</Details>
 
 ### Cloudflare
 

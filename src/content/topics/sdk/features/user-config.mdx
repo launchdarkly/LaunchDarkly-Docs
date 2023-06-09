@@ -2112,8 +2112,19 @@ To learn how to configure anonymous contexts in the Rust SDK, read [Anonymous co
 
 Here are the configuration options for context and user entities in edge SDKs.
 
+* [Akamai](#akamai)
 * [Cloudflare](#cloudflare)
 * [Vercel](#vercel)
+
+### Akamai
+
+<Details summary="Expand Akamai code sample">
+
+To configure contexts, the Akamai SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
+
+The Akamai SDK does not support sending events, so [private attributes](/sdk/features/private-attributes) are not supported.
+
+</Details>
 
 ### Cloudflare
 
@@ -2121,7 +2132,7 @@ Here are the configuration options for context and user entities in edge SDKs.
 
 To configure contexts, the Cloudflare SDK uses the same code as the [Node.js server-side SDK](#nodejs-server-side).
 
-The Cloudflare SDK does not support sending events, so [private attributes](/sdk/features/private-attributes) are not supported. 
+The Cloudflare SDK does not support sending events, so [private attributes](/sdk/features/private-attributes) are not supported.
 
 </Details>
 

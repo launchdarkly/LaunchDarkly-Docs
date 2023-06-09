@@ -888,8 +888,70 @@ The `Config` type lets you specify a variety of options. To learn more about the
 
 This feature is available in the following edge SDKs:
 
+* [Akamai](#akamai)
 * [Cloudflare](#cloudflare)
 * [Vercel](#vercel)
+
+### Akamai
+
+<Details summary="Expand Akamai code sample">
+
+This code sample shows you how to pass custom parameters to the client by creating a custom configuration object. The Akamai SDK only supports the logger configuration option.
+
+<CodeSample>
+<CSTab label="Akamai SDK">
+
+```ts
+import { init, LDOptions, BasicLogger } from '@launchdarkly/akamai-server-edgekv-sdk';
+
+const options: LDOptions = {
+  logger: BasicLogger.get(),
+};
+
+const ldClient = init({
+  sdkKey: 'client-side-ID-123abc',
+  namespace: 'your-edgekv-namespace',
+  group: 'your-edgekv-group-id',
+  options: options,
+});
+```
+
+</CSTab>
+<CSTab label="Akamai SDK, if using your own feature store">
+
+```ts
+// If you are using your own feature store,
+// make sure to import 'init' from the 'akamai-server-base-sdk'
+// rather than from 'akamai-server-edgekv-sdk'
+
+import { init, EdgeProvider, LDOptions, BasicLogger } from '@launchdarkly/akamai-server-base-sdk';
+
+// When using your own feature store, you must create a new class that
+// implements EdgeProvider. To learn more, read
+// https://docs.launchdarkly.com/sdk/edge/akamai#getting-started
+class FeatureStore implements EdgeProvider {
+  async get(rootKey: string): Promise<string> {
+    return flagData;
+  }
+}
+
+const options: LDOptions = {
+  logger: BasicLogger.get(),
+};
+
+const ldClient = init({
+  sdkKey: 'client-side-ID-123abc',
+  featureStoreProvider: new FeatureStore(),
+  options: options,
+});
+```
+
+
+</CSTab>
+</CodeSample>
+
+To learn more about the specific configuration options that are available in this SDK, read [`LDOptions`](https://launchdarkly.github.io/js-core/packages/sdk/akamai-edgekv/docs/types/LDOptions.html).
+</Details>
 
 ### Cloudflare
 

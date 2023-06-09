@@ -68,6 +68,9 @@ Dynatrace
 Dynatrace's
 eaas
 eCommerce
+edgekv
+edgeworker
+edgeworkers
 elif
 elsewhere
 emptystate

@@ -1,0 +1,87 @@
+---
+path: /integrations/akamai
+title: Akamai
+description: This topic explains how to use LaunchDarkly's Akamai integration.
+published: true
+tags: ['akamai', 'worker', 'edge', 'integration']
+site: launchDarklyOnly
+---
+
+<Callout intent="alert">
+<CalloutTitle>This integration is in beta</CalloutTitle>
+<CalloutDescription>
+
+Development work on the Akamai integration is ongoing. Elements of this integration may change without notice.
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="primary">
+  <CalloutTitle>The Akamai integration is an Enterprise feature</CalloutTitle>
+  <CalloutDescription>
+
+The Akamai integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use LaunchDarkly's Akamai integration. This integration enables flag evaluation within Akamai EdgeWorker functions. The integration writes the latest flag data from the configured environment directly to an Akamai EdgeKV store in your account. It also sends any change to a flag or segment configuration in your selected environment to your Akamai EdgeKV, ensuring your store is always up to date.
+
+<Callout intent="info">
+  <CalloutTitle>This integration requires LaunchDarkly's Akamai SDK</CalloutTitle>
+  <CalloutDescription>
+
+You must install and configure the Akamai SDK to use this integration. To learn more, read [Akamai SDK reference](/sdk/edge/akamai).
+
+  </CalloutDescription>
+</Callout>
+
+You can use the Akamai integration to bootstrap your application with the latest client-side feature flags. This eliminates the initial remote call to LaunchDarkly, providing zero-latency client-side feature flags with no flash of original content or shift in content layout. The Akamai integration also enables flag evaluations within Akamai EdgeWorker functions. This means you can use your LaunchDarkly flags without an added latency from network requests.
+
+<Callout intent="info">
+  <CalloutTitle>This integration is only required for Akamai EdgeKV</CalloutTitle>
+  <CalloutDescription>
+
+If you are using Akamai's EdgeWorkers, but not using the Akamai EdgeKV, this integration is not required. However, you still must install and configure the Akamai SDK to read flag data from your Akamai EdgeWorkers. To learn more, read [Akamai SDK reference](/sdk/edge/akamai).
+
+  </CalloutDescription>
+</Callout>
+
+## Creating an Akamai integration
+
+For an Akamai integration to work, you need an Akamai account with at least one namespace and group. You must create one integration for each LaunchDarkly environment.
+
+To create a new Akamai integration for your environment:
+
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find "Akamai EdgeWorkers."
+
+  ![The Akamai EdgeWorkers section of the Integrations page.](akamai-edgeworkers-integration.png)
+
+2. Click **Add integration**. The "Create Akamai EdgeWorkers configuration" panel appears.
+3. Give the integration a human-readable **Name**.
+4. Select a LaunchDarkly **Environment**. You cannot change this after you configure the integration.
+5. In the **Host** field, enter the unique host domain to which LaunchDarkly should send requests. You can find this on the API client details page that's linked from your Akamai "Identity and Access Management" dashboard. To learn more, read Akamai's [Create an API client with custom permissions](https://techdocs.akamai.com/developer/docs/create-a-client-with-custom-permissions) documentation.
+6. Select the Akamai **Network** environment that this integration should connect to. You can change this after you configure the integration.
+7. Enter the **EdgeKV namespace** and **EdgeKV group**. These are the identifiers from your Akamai account where you will store LaunchDarkly flag information.
+8. Enter the **Client secret**, **Client token**, and **Access token**. These are authentication credentials that you can generate from your Akamai Control Center. To learn more, read Akamai's [Create authentication credentials](https://techdocs.akamai.com/developer/docs/set-up-authentication-credentials) documentation.
+9. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+10. (Optional) Click **Validate connection**. This sends a test request to your Akamai EdgeWorkers using the information provided.
+11. Click **Save configuration**.
+
+## Managing an Akamai integration
+
+After you have created an Akamai integration, you can change its status, test it, or delete it.
+
+Here's how:
+
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) and find "Akamai EdgeWorkers."
+2. Click the **arrow** menu to display the existing Akamai EdgeWorkers integrations.
+3. Find your integration and click the **pencil** icon to edit. The "Edit Akamai EdgeWorkers configuration" panel appears.
+
+Then complete one of the following actions:
+
+* To change the status of an existing Akamai integration, toggle the **Status** to **Off** or **On**.
+* To test an existing Akamai integration, click **Validate connection**. This sends a test request to your Akamai EdgeWorkers using your current configuration.
+* To delete an existing Akamai integration, click **Delete**.

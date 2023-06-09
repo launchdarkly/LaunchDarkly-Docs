@@ -14,6 +14,12 @@ const AllIntegrations = () => {
       svg: 'integrations/adfs',
     },
     {
+      label: 'Akamai',
+      shortLabel: 'Akamai',
+      path: '/integrations/akamai',
+      svg: 'akamai',
+    },
+    {
       label: 'Amazon Kinesis',
       shortLabel: 'Amazon Kinesis',
       path: '/home/data-export/kinesis',
