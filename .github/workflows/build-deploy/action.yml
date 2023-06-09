@@ -48,12 +48,11 @@ inputs:
     description: Bucket prefix used for staging deployments
     required: false
   
-env:
-  BUCKET_PREFIX: ${{ inputs.bucket_prefix }}
-
 runs:
   using: composite
   steps:
+    - name: Set BUCKET_PREFIX ENV
+      run: echo "BUCKET_PREFIX=${{ inputs.bucket_prefix }}" >> $GITHUB_ENV
     - name: Fetch git history
       uses: actions/checkout@v3
       with:
