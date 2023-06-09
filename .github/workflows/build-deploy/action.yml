@@ -51,9 +51,6 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Set BUCKET_PREFIX ENV
-      run: echo "BUCKET_PREFIX=${{ inputs.bucket_prefix }}" >> $GITHUB_ENV
-      shell: bash
     - name: Fetch git history
       uses: actions/checkout@v3
       with:
@@ -152,6 +149,7 @@ runs:
         ALGOLIA_ADMIN_KEY: ${{ inputs.secret_algolia_admin_key }}
         GATSBY_ALGOLIA_APP_ID: ${{ inputs.secret_gatsby_algolia_app_id }}
         GATSBY_ALGOLIA_SEARCH_KEY: ${{ inputs.secret_gatsby_algolia_search_key }}
+        GATSBY_BUCKET_PREFIX: ${{ inputs.environment == 'staging' && inputs.bucket_prefix || null }}
         GATSBY_ALGOLIA_INDEX: 'Docs'
         LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ inputs.secret_launchdarkly_client_side_id }}
         LAUNCHDARKLY_SDK_KEY: ${{ env.LAUNCHDARKLY_SDK_KEY }}
