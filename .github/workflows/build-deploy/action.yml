@@ -53,6 +53,7 @@ runs:
   steps:
     - name: Set BUCKET_PREFIX ENV
       run: echo "BUCKET_PREFIX=${{ inputs.bucket_prefix }}" >> $GITHUB_ENV
+      shell: bash
     - name: Fetch git history
       uses: actions/checkout@v3
       with:
