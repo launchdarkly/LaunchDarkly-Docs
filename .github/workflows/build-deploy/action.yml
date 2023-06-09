@@ -52,6 +52,10 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Debug
+      shell: bash
+      run: |
+        echo "DEBUG ${{ inputs.aws_role_arn }}"
     - name: Fetch git history
       uses: actions/checkout@v3
       with:
