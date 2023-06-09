@@ -13,5 +13,9 @@
     "flagKey": "^flagKey=\""
   },
 
-  "ignoreRegExpList": ["flagKey"]
+  "ignoreRegExpList": [
+    "^flag={",
+    "^import {",
+    "/from\\s+(['\"]).*\\1/"
+  ]
 }
