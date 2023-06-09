@@ -48,6 +48,8 @@ inputs:
     description: Bucket prefix used for staging deployments
     required: false
   
+env:
+  BUCKET_PREFIX: ${{ inputs.bucket_prefix }}
 
 runs:
   using: composite
