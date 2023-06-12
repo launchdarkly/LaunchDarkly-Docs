@@ -56,7 +56,7 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-You can use the `Identify` or `IdentifyAsync` method to switch contexts. This loads any saved flag values for the next context, and tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The identify method tells the client to change the current context and obtain the feature flag values for the new context. In the .NET SDK, you can use either the `Identify` or `IdentifyAsync` method to switch contexts.
 
 In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify()` or `IdentifyAsync()` so that the person receives the correct feature flag settings for their account.
 
@@ -106,7 +106,7 @@ To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-client-sd
 
 <Details summary="Expand Android code sample">
 
-The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
 In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
 
@@ -172,7 +172,7 @@ To learn more, read [`identify`](https://launchdarkly.github.io/android-client-s
 
 <Details summary="Expand C++ (client-side) code sample">
 
-The identify method tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The identify method tells the client to change the current context and obtain the feature flag values for the new context.
 
 In some situations, the new context may be similar to the previous context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call identify so that the person receives the correct feature flag settings for their account.
 
@@ -276,7 +276,7 @@ The `IdentifyAsync` call loads any saved flag values for the new context and imm
 
 <Details summary="Expand Electron code sample">
 
-The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
 
 In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
@@ -333,7 +333,7 @@ To learn more, read [`identify`](https://launchdarkly.github.io/electron-client-
 
 <Details summary="Expand Flutter code sample">
 
-The `identifyWithContext()` method tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identifyWithContext()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
 In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identifyWithContext()` so that the person receives the correct feature flag settings for their account.
 
@@ -388,7 +388,7 @@ To learn more, read [`identifyWithContext`](https://pub.dev/documentation/launch
 
 <Details summary="Expand iOS code sample">
 
-The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
 In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
 
@@ -465,7 +465,7 @@ To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/C
 
 <Details summary="Expand JavaScript code sample">
 
-The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
 In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
 
@@ -536,7 +536,7 @@ The hash parameter is the hash for the new context, assuming that the context's 
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
 
 In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
@@ -610,7 +610,7 @@ To learn more, read [`identify`](https://launchdarkly.github.io/node-client-sdk/
 
 <Details summary="Expand React code sample">
 
-The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
 In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
 
@@ -642,9 +642,11 @@ To learn more, read [`identify`](https://launchdarkly.github.io/react-native-cli
 
 <Details summary="Expand React Native code sample">
 
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The identify method tells the client to change the current context and obtain the feature flag values for the new context.
+
 If multiple customers use your app on a single device, you may want to change contexts and have separate flag settings for each one. To do this, the SDK stores the last five user contexts on a single device, and supports switching between different user contexts. You can use the `identify` method to switch user contexts. `identify` loads any saved flag values for the new context and immediately triggers an update of the latest flags from LaunchDarkly.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+You might also call `identify` when your app gathers additional information about the end user. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. Then you can evaluate flags using attributes from all three context kinds together.
 
 Here's how:
 
@@ -696,7 +698,7 @@ Alert.alert('identify', 'success');
 
 <Details summary="Expand Roku code sample">
 
-The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
+Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
 In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous context before they log in, and a different context after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
@@ -764,9 +766,9 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-`Identify` creates or updates contexts on LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `Identify` creates or updates contexts on LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` methods automatically create contexts on the **Contexts** list for you. `Identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` methods automatically create contexts on the **Contexts** list for you, using the context you pass to each `Variation` method. `Identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `Identify`:
 
@@ -794,7 +796,7 @@ To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-server-sd
 
 <Details summary="Expand Apex code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+In server-side SDKs, `identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
 <Callout intent="info">
 <CalloutTitle>Apex variation methods do not automatically add users to the Users list</CalloutTitle>
@@ -826,9 +828,9 @@ To learn more, read [Other methods](https://github.com/launchdarkly/apex-server-
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-`LDClientIdentify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+In server-side SDKs, `LDClientIdentify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `LDClientIdentify`. The `variation` call automatically creates users on the **Users** list for you. `LDClientIdentify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `LDClientIdentify`. The `variation` call automatically creates users on the **Users** list for you, using the user object you pass to each `variation` method. `LDClientIdentify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -849,9 +851,9 @@ To learn more, read [`LDClientIdentify`](https://launchdarkly.github.io/c-server
 
 <Details summary="Expand Erlang code sample">
 
-`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create contexts on the **Contexts** list for you, using the context you pass to each `variation` method. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -879,9 +881,9 @@ To learn more, read [`identify`](https://hexdocs.pm/launchdarkly_server_sdk/ldcl
 
 <Details summary="Expand Go code sample">
 
-`Identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `Identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `Identify`. The `Variation` method automatically creates contexts on the **Contexts** list for you. `Identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `Identify`. The `Variation` method automatically creates contexts on the **Contexts** list for you, using the context you pass to each `Variation` method. `Identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `Identify`:
 
@@ -909,9 +911,9 @@ To learn more, read [`Identify`](https://pkg.go.dev/gopkg.in/launchdarkly/go-ser
 
 <Details summary="Expand Haskell code sample">
 
-`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `Variation` methods automatically create contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create contexts on the **Contexts** list for you, using the context you pass to each `variation` method. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -940,9 +942,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/haskell-server-s
 
 <Details summary="Expand Java code sample">
 
-`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create contexts on the **Contexts** list for you, using the context you pass to each `variation` method. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -970,9 +972,9 @@ To learn more, read [`identify`](https://javadoc.io/doc/com.launchdarkly/launchd
 
 <Details summary="Expand Lua code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+In server-side SDKs, `identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the **Users** list for you. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create users on the **Users** list for you, using the user object you pass to each `variation` method. `identify` is useful if you want to pre-populate your **Users** list before you launch any features.
 
 To use `identify`:
 
@@ -993,9 +995,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/lua-server-sdk/m
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates users on the **Contexts** list for you, using the context you pass to each `variation` method. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -1023,9 +1025,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/node-server-sdk/
 
 <Details summary="Expand PHP code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you, using the context you pass to each `variation` call. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -1054,9 +1056,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/php-server-sdk/c
 
 <Details summary="Expand Python code sample">
 
-`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` method automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` method automatically creates contexts on the **Contexts** list for you, using the context you pass to each `variation` method. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -1084,9 +1086,9 @@ To learn more, read [`identify`](https://launchdarkly-python-sdk.readthedocs.io/
 
 <Details summary="Expand Ruby code sample">
 
-`identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
+In server-side SDKs, `identify` creates or updates contexts in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` call automatically creates contexts on the **Contexts** list for you, using the context you pass to each `variation` method. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
@@ -1114,9 +1116,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/ruby-server-sdk/
 
 <Details summary="Expand Rust code sample">
 
-`identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Users** list.
+In server-side SDKs, `identify` creates or updates users in LaunchDarkly, which makes them available for targeting and autocomplete on the **Contexts** list.
 
-In most cases, you do not need to call `identify`. The `variation` methods automatically create users or contexts on the **Users** or **Contexts** list for you. `identify` is useful if you want to pre-populate your **Users** or **Contexts** list before you launch any features.
+In most cases, you do not need to call `identify`. The `variation` methods automatically create users or contexts on the **Contexts** list for you, using the context you pass to each `Variation` method. `identify` is useful if you want to pre-populate your **Contexts** list before you launch any features.
 
 To use `identify`:
 
