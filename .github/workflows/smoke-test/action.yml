@@ -46,8 +46,8 @@ runs:
         CYPRESS_RECORD_KEY: ${{ inputs.secret_cypress_record_key }}
         GITHUB_TOKEN: ${{ inputs.secret_github_token }}
     - name: Check Cypress outcome
-        if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
-        run: exit 1
+      if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
+      run: exit 1
     - name: Notify slack
       if: ${{ inputs.environment == 'prod' }} && failure()
       uses: slackapi/slack-github-action@v1
