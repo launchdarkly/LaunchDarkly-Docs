@@ -34,7 +34,6 @@ runs:
       shell: bash
       run: yarn run cypress:pnp
     - name: Cypress run
-      shell: bash
       uses: cypress-io/github-action@v5.8.1
       timeout-minutes: 7
       id: cypress
