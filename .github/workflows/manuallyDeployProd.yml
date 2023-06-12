@@ -1,8 +1,5 @@
-name: Deploy to Production
-on:
-  push:
-    branches:
-      - main
+name: Manually deploy to production
+on: workflow_dispatch
 
 jobs:
   build-deploy:
@@ -16,14 +13,12 @@ jobs:
       name: production
       url: https://docs.launchdarkly.com/
     concurrency: prod_deploys
-    defaults:
-      run:
-        shell: bash
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/build-deploy
         with:
           environment: prod
+          force_build: true
           secret_github_token: ${{ secrets.GITHUB_TOKEN }}
           secret_gh_token: ${{ secrets.GH_TOKEN }}
           secret_algolia_admin_key: ${{ secrets.ALGOLIA_ADMIN_KEY }}
@@ -45,9 +40,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/smoke-test
-        timeout-minutes: 10
         with:
           environment: prod
           secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
           secret_github_token: ${{ secrets.GITHUB_TOKEN }}
           secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          
+    

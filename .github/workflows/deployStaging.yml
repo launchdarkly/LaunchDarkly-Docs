@@ -31,131 +31,39 @@ jobs:
     concurrency:
       group: staging-${{ github.event.pull_request.number || github.event.inputs.PR_NUMBER || github.ref_name }}
       cancel-in-progress: true
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v3
+      - uses: ./.github/workflows/build-deploy
         with:
-          # fetch entire history to get Last Edit date for topics
-          fetch-depth: 0
-      - run: |
-          echo "REF NAME: ${{ github.ref_name }}"
-          echo "SHA ${{ github.sha }}"
-      - name: Find last successful run
-        uses: SamhammerAG/last-successful-build-action@v4
-        id: last-success
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref_name }}
-          workflow: Deploy to Staging
-      - name: Get specific changed files
-        # skip if we are checking self
-        # last-success default to github.sha
-        # for PR that is the merge commit, which is why we don't use it elsewhere
-        if: steps.last-success.outputs.sha != github.sha
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v36
-        with:
-          separator: ' '
-          # fetch_depth increased to 120 as an attempt to resolve sc-176350
-          fetch_depth: '120'
-          base_sha: ${{ steps.last-success.outputs.sha }}
-          sha: '${{ github.sha }}'
-          files: |
-            assets
-            src
-            .github/workflows/deployStaging.yml
-            package.json
-            yarn.lock
-            *.ts
-            *.js
-          files_ignore: |
-            cypress
-            .eslintrc.js
-            jest.config.js
-            jest.setup.js
-      - name: Should deploy?
-        id: build-status
-        run: |
-          echo "::debug::any changed: ${{ steps.changed-files-specific.outputs.any_changed }}"
-          echo "::debug::only changed: ${{ steps.changed-files-specific.outputs.only_changed }}"
-          echo "::debug::any modified: ${{ steps.changed-files-specific.outputs.any_modified }}"
-          echo "deploy=${{ toJSON(steps.changed-files-specific.outputs) == '{}' || steps.changed-files-specific.outputs.any_modified == 'true' }}" >> $GITHUB_OUTPUT
-      - uses: actions/setup-node@v3
-        if: steps.build-status.outputs.deploy == 'true'
-        with:
-          node-version: '18.x'
-          cache: 'yarn'
-      - uses: aws-actions/configure-aws-credentials@v2
-        if: steps.build-status.outputs.deploy == 'true'
-        with:
-          audience: https://github.com/launchdarkly
-          role-to-assume: ${{ vars.AWS_STAGING_ROLE_ARN }}
-          aws-region: us-east-1
-      - name: Caching Gatsby
-        # -eap builds are customer facing so we can't take any chances with build cache issues
-        # sc-176925
-        if: steps.build-status.outputs.deploy == 'true' &&  !(endsWith(github.ref_name, '-eap'))
-        id: gatsby-cache-build
-        uses: actions/cache@v3
-        with:
-          path: |
-            public
-            .cache
-          key: ${{ runner.os }}-gatsby-build-${{ env.BUCKET_PREFIX }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gatsby-build-${{ env.BUCKET_PREFIX }}-${{ hashFiles('**/yarn.lock') }}
-      - name: Yarn install
-        if: steps.build-status.outputs.deploy == 'true'
-        run: CYPRESS_INSTALL_BINARY=0 PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
-      - name: Build and deploy
-        if: steps.build-status.outputs.deploy == 'true'
-        run: yarn build-deploy-staging
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          ALGOLIA_ADMIN_KEY: ${{ secrets.ALGOLIA_ADMIN_KEY }}
-          GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
-          GATSBY_ALGOLIA_SEARCH_KEY: ${{ secrets.GATSBY_ALGOLIA_SEARCH_KEY }}
-          GATSBY_ALGOLIA_INDEX: 'Docs'
-          GATSBY_BUCKET_PREFIX: ${{ env.BUCKET_PREFIX }}
-          LAUNCHDARKLY_CLIENT_SIDE_ID: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
-          GATSBY_DATADOG_CLIENT_TOKEN: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
-          GATSBY_DATADOG_RUM_APPLICATION_ID: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
-          GATSBY_DATADOG_RUM_CLIENT_TOKEN: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
-          GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES: true
-          GATSBY_TRACKJS_TOKEN: ${{ secrets.TRACKJS_TOKEN }}
-          AWS_S3_BUCKET: 'launchdarkly-docs-staging'
-          AWS_HOSTNAME: 'docs-stg.launchdarkly.com'
-          CI: true
+          environment: staging
+          secret_github_token: ${{ secrets.GITHUB_TOKEN }}
+          secret_gh_token: ${{ secrets.GH_TOKEN }}
+          secret_algolia_admin_key: ${{ secrets.ALGOLIA_ADMIN_KEY }}
+          secret_gatsby_algolia_app_id: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
+          secret_gatsby_algolia_search_key: ${{ secrets.ALGOLIA_SEARCH_KEY }}
+          secret_launchdarkly_client_side_id: ${{ secrets.STG_LAUNCHDARKLY_CLIENT_SIDE_ID }}
+          secret_gatsby_datadog_client_token: ${{ secrets.STG_DATADOG_CLIENT_TOKEN }}
+          secret_gatsby_datadog_rum_application_id: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
+          secret_datadog_rum_client_token: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
+          secret_track_js_token: ${{ secrets.TRACKJS_TOKEN }}
+          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          aws_role_arn: ${{ vars.AWS_STAGING_ROLE_ARN }}
+          bucket_prefix: ${{ env.BUCKET_PREFIX }}
 
   smoke-test:
     needs: build-deploy
     runs-on: ubuntu-latest
     name: Smoke test staging
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: ./.github/workflows/smoke-test
+        timeout-minutes: 10
         with:
-          node-version: '18.x'
-          cache: 'yarn'
-      - name: Yarn install
-        run: PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn install --immutable
-      # This is a workaround for the cypress yarn berry issue:
-      # https://github.com/cypress-io/github-action/issues/430#issuecomment-1295770606
-      - name: Resolve Cypress PNP
-        run: yarn run cypress:pnp
-      - name: Cypress run
-        uses: cypress-io/github-action@v5.8.1
-        timeout-minutes: 7
-        id: cypress
-        continue-on-error: true
-        with:
-          command: yarn dlx cypress@11 run --headless --record --tag staging,smoke --config baseUrl=https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }},retries=2 --spec cypress/e2e/smoke.cy.ts --env bucket_prefix=${{ env.BUCKET_PREFIX }}
-          install: false
-          build: yarn build-nav-data
-          wait-on: 'https://docs-stg.launchdarkly.com/${{ env.BUCKET_PREFIX }}/home'
-        env:
-          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Check Cypress outcome
-        if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
-        run: exit 1
+          environment: staging
+          secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
+          secret_github_token: ${{ secrets.GITHUB_TOKEN }}
+          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+      
