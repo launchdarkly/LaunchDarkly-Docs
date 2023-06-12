@@ -45,6 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/workflows/smoke-test
+        timeout-minutes: 10
         with:
           environment: prod
           secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
