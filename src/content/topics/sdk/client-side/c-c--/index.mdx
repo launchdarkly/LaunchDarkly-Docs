@@ -254,9 +254,16 @@ auto config = launchdarkly::client_side::ConfigBuilder("mobile-key-123abc").Buil
 
 ### Initializing the client and fetching flag configuration
 
-After you install the SDK, initialize a single shared `Client`. To create a client instance, you need your environment's mobile key and the context for which you want to evaluate flags.
+<Callout intent="info">
+<CalloutTitle>The C++ (client-side) SDK uses a mobile key</CalloutTitle>
+<CalloutDescription>
 
-The mobile key authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page.
+The C++ (client-side) SDK uses a mobile key. Your environment's mobile key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
+After you install the SDK, initialize a single shared `Client`. To create a client instance, you need your environment's mobile key and the context for which you want to evaluate flags. The mobile key authorizes your application to connect to a particular environment within LaunchDarkly.
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>

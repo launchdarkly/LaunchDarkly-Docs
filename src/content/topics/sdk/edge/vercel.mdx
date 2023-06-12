@@ -110,7 +110,16 @@ const { createClient } = require('@vercel/edge-config')
 
 </CodeSample>
 
-After you install and import the SDK, create an edge client using your [Edge Config ID](https://vercel.com/docs/storage/edge-config). Then, initialize an `LDClient` using your [LaunchDarkly client-side ID](/sdk/concepts/client-side-server-side/#client-side-id) and this edge client.
+<Callout intent="info">
+<CalloutTitle>The Vercel SDK uses a client-side ID</CalloutTitle>
+<CalloutDescription>
+
+The Vercel SDK uses a client-side ID. Your environment's client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
+After you install and import the SDK, create an edge client using your [Edge Config ID](https://vercel.com/docs/storage/edge-config). Then, initialize an `LDClient` using your LaunchDarkly client-side ID and this edge client.
 
 Here's how:
 
@@ -119,7 +128,7 @@ Here's how:
 
 ```js
 const edgeClient = createClient(process.env.EDGE_CONFIG)
-const ldClient = init('<YOUR_CLIENT-SIDE_ID>', edgeClient)
+const ldClient = init('<client-side-id-123abc>', edgeClient)
 
 await ldClient.waitForInitialization()
 ```

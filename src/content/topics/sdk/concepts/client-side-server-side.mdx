@@ -38,34 +38,38 @@ The table below summarizes the differences between these categories:
 <Table>
   <TableHeader>
     <TableHeadCell>SDK Type</TableHeadCell>
-    <TableHeadCell>Details</TableHeadCell>
+    <TableHeadCell>These SDKs:</TableHeadCell>
   </TableHeader>
   <TableBody>
     <TableRow>
       <TableCell>Client-side</TableCell>
       <TableCell>
-        These SDKs are designed for single-user desktop, mobile, and embedded applications.
-        <br />
-        These SDKs are intended to be used in a potentially less secure environment, such as a personal computer or mobile device.
-        <br />
-        These SDKs include mobile SDKs.
+        <ul>
+        <li>are designed for single-user desktop, mobile, and embedded applications.</li>
+        <li>are intended to be used in a potentially less secure environment, such as a personal computer or mobile device.</li>
+        <li>include mobile SDKs.</li>
+        <li>use client-side ID or mobile keys.</li>
+        </ul>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Server-side</TableCell>
       <TableCell>
-        These SDKs are designed for multi-user systems.
-        <br />
-        These SDKs are intended to be used in a trusted environment, such as inside a corporate network or on a web server.
-        <br />
+        <ul>
+        <li>are designed for multi-user systems.</li>
+        <li>are intended to be used in a trusted environment, such as inside a corporate network or on a web server.</li>
+        <li>use SDK keys.</li>
+        </ul>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Edge</TableCell>
       <TableCell>
-        These SDKs are designed for edge layers in content delivery networks (CDNs). LaunchDarkly supports <a href="/sdk/edge/cloudflare">Cloudflare</a> and <a href="/sdk/edge/vercel">Vercel</a>.
-        <br />
-        These SDKs are intended to be used together with a matching <a href="/integrations">CDN integration</a>. The CDN integration allows LaunchDarkly to write to your edge database. Then, you can use the edge SDK to read from that database to provide flag evaluations. This eliminates the need to make a remote call to LaunchDarkly.
+        <ul>
+        <li>are designed for edge layers in content delivery networks (CDNs). LaunchDarkly supports <a href="/sdk/edge/akamai">Akamai</a>, <a href="/sdk/edge/cloudflare">Cloudflare</a>, and <a href="/sdk/edge/vercel">Vercel</a>.</li>
+        <li>are intended to be used together with a matching <a href="/integrations">CDN integration</a>. The CDN integration allows LaunchDarkly to write to your edge database. Then, you can use the edge SDK to read from that database to provide flag evaluations. This eliminates the need to make a remote call to LaunchDarkly.</li>
+        <li>use client-side IDs.</li>
+        </ul>
       </TableCell>
     </TableRow>
   </TableBody>
@@ -391,7 +395,7 @@ To learn more, read [Using private context attributes](/home/contexts/attributes
 
 ## Keys
 
-Before embedding an SDK key into your application's LaunchDarkly configuration, you must identify which category of SDK you're using so that you can select the appropriate SDK key.
+Before embedding an SDK key into your application's LaunchDarkly configuration, you must identify which category of SDK you're using so that you can select the appropriate type of SDK key.
 
 The [Account settings](https://app.launchdarkly.com/settings/projects) page lists three keys for each environment:
 
@@ -403,14 +407,12 @@ Each of these keys grants different access levels to LaunchDarkly's SDKs.
 
 LaunchDarkly enforces that each of the SDK types use the appropriate key as described below. Requests made with one of the other two keys will be rejected. To identify which keys are used by each SDK, read [Language support](#language-support).
 
-<Callout intent="info">
-<CalloutTitle>Making flags available to client-side SDKs</CalloutTitle>
-<CalloutDescription>
+To find and copy your LaunchDarkly SDK key, mobile key, or client-side ID:
 
-Use the "Client-side SDK availability" section on a flag's **Settings** tab to make flags available to client-side SDKs.
-
-</CalloutDescription>
-</Callout>
+1. Navigate to the **Account settings** page.
+2. Click the **Projects** tab.
+3. Click the name of your project. The **Environments** tab appears.
+4. Click the environment's SDK key, mobile key, or client-side ID to copy it to your clipboard.
 
 ### SDK key
 
@@ -420,6 +422,15 @@ The SDK key should be kept a secret. If an SDK key is exposed, you can reset it 
 
 ### Mobile key
 
+<Callout intent="info">
+<CalloutTitle>Making flags available to mobile SDKs</CalloutTitle>
+<CalloutDescription>
+
+Use the "Client-side SDK availability" section on a flag's **Settings** tab to make flags available to mobile SDKs.
+
+</CalloutDescription>
+</Callout>
+
 Configure mobile SDKs, and other non-JavaScript client-side SDKs, to use the mobile key. The mobile key grants these SDKs access to evaluate any flag that is associated with the key's environment, and that you have enabled for client-side SDK availability by checking the flag's "SDKs using mobile key" checkbox.
 
 Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
@@ -428,18 +439,20 @@ The mobile key does not need to be kept a secret. However, if you wish to reset 
 
 ### Client-side ID
 
+<Callout intent="info">
+<CalloutTitle>Making flags available to client-side SDKs</CalloutTitle>
+<CalloutDescription>
+
+Use the "Client-side SDK availability" section on a flag's **Settings** tab to make flags available to client-side SDKs.
+
+</CalloutDescription>
+</Callout>
+
 Configure JavaScript-based client-side SDKs to use the client-side ID. Configure edge SDKs to use the client-side ID to connect to the edge database for your CDN.
 
 The client-side ID grants these SDKs access to evaluate any flags that are associated with the key's environment, and that you have enabled for client-side SDK availability by checking the flag's **SDKs using Client-side key** checkbox. Because you must manually connect flags to a client-side SDK, you can restrict which flags are accessible by the client-side ID.
 
 Unlike a mobile key, the client-side ID for an environment never changes. The client-side ID does not need to be kept a secret.
-
-To find and copy your LaunchDarkly client-side ID:
-
-1. Navigate to the **Account settings** page.
-2. Click the **Projects** tab.
-3. Click the name of your project. The **Environments** tab appears.
-4. Click the environment's client-side ID to copy it to your clipboard.
 
 ## Language support
 

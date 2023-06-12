@@ -79,14 +79,16 @@ To make a flag available to this SDK, check the **SDKs using Client-side ID** ch
 </CalloutDescription>
 </Callout>
 
-To install the Vue SDK, you need your LaunchDarkly environment's client-side ID.
+<Callout intent="info">
+<CalloutTitle>The Vue SDK uses a client-side ID</CalloutTitle>
+<CalloutDescription>
 
-To find and copy your LaunchDarkly client-side ID:
+The Vue SDK uses a client-side ID. Your environment's client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
 
-1. Navigate to the **Account settings** page.
-2. Click the **Projects** tab.
-3. Click the name of your project. The **Environments** tab appears.
-4. Click the environment's client-side ID to copy it to your clipboard.
+</CalloutDescription>
+</Callout>
+
+To install the Vue SDK, you need your LaunchDarkly environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly.
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>

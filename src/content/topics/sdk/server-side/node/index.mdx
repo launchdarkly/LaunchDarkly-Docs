@@ -59,7 +59,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
 <CalloutTitle>For use in server-side applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in multi-user Node.js server applications. If you want to set up LaunchDarkly in JavaScript in a browser environment, read the [JavaScript SDK reference](/sdk/client-side/javascript). If you're creating a client-side Node application, read the [Node SDK reference](/sdk/client-side/node-js). If you're creating a desktop application in Electron, read the [Electron SDK reference](/sdk/client-side/electron).
+This SDK is intended for use in multi-user Node.js server applications. If you want to set up LaunchDarkly in JavaScript in a browser environment, read the [JavaScript SDK reference](/sdk/client-side/javascript). If you're creating a client-side Node application, read the [Node.js SDK reference (client-side)](/sdk/client-side/node-js). If you're creating a desktop application in Electron, read the [Electron SDK reference](/sdk/client-side/electron).
 
 To learn more about LaunchDarkly's different SDK types, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -106,6 +106,15 @@ import * as ld from 'launchdarkly-node-server-sdk';
 
 </CSTab>
 </CodeSample>
+
+<Callout intent="info">
+<CalloutTitle>The Node.js (server-side) SDK uses an SDK key</CalloutTitle>
+<CalloutDescription>
+
+The Node.js (server-side) SDK uses an SDK key. Your environment's SDK key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
 
 After you install and import the SDK, create a single, shared instance of `LDClient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 

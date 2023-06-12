@@ -81,8 +81,8 @@ Client-side browser environments:
 
 Non-browser environments:
 
-- For server-side Node applications, read the [Node SDK reference (server-side)](/sdk/server-side/node-js).
-- For client-side Node applications, read the [Node SDK reference (client-side)](/sdk/client-side/node-js).
+- For server-side Node applications, read the [Node.js SDK reference (server-side)](/sdk/server-side/node-js).
+- For client-side Node applications, read the [Node.js SDK reference (client-side)](/sdk/client-side/node-js).
 - For React Native mobile applications read the [React Native SDK reference](/sdk/client-side/react/react-native).
 - For Electron desktop applications, read the [Electron SDK reference](/sdk/client-side/electron).
 
@@ -154,7 +154,16 @@ const { init } = require('@launchdarkly/cloudflare-server-sdk');
 
 </CodeSample>
 
-After you install and import the SDK, create an instance of `LDClient`. Specify your client-side SDK key and Cloudflare KV namespace here. The client-side SDK key is only used to query the KV namespace, not to connect with LaunchDarkly servers.
+<Callout intent="info">
+<CalloutTitle>The Cloudflare SDK uses a client-side ID</CalloutTitle>
+<CalloutDescription>
+
+The Cloudflare SDK uses a client-side ID. Your environment's client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
+After you install and import the SDK, create an instance of `LDClient`. Specify your client-side ID and Cloudflare KV namespace here. The client-side ID is only used to query the KV namespace, not to connect with LaunchDarkly servers.
 
 Here's how:
 
