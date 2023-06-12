@@ -47,6 +47,7 @@ runs:
         GITHUB_TOKEN: ${{ inputs.secret_github_token }}
     - name: Check Cypress outcome
       if: steps.cypress.outcome == 'failure' || steps.cypress.outcome == 'cancelled'
+      shell: bash
       run: exit 1
     - name: Notify slack
       if: ${{ inputs.environment == 'prod' }} && failure()
