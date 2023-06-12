@@ -827,6 +827,10 @@
         "path": "/integrations/edge",
         "items": [
           {
+            "label": "Akamai",
+            "path": "/integrations/akamai"
+          },
+          {
             "label": "Cloudflare",
             "path": "/integrations/cloudflare"
           },
@@ -1686,6 +1690,10 @@
         "path": "/sdk/edge",
         "svg": "database-export",
         "items": [
+          {
+            "label": "Akamai SDK reference",
+            "path": "/sdk/edge/akamai"
+          },
           {
             "label": "Cloudflare SDK reference",
             "path": "/sdk/edge/cloudflare",

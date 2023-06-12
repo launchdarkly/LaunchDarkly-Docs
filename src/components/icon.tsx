@@ -2,6 +2,7 @@ import { HTMLProps } from 'react'
 import { BoxOwnProps, jsx } from 'theme-ui'
 
 export type IconName =
+  | 'akamai'
   | 'android'
   | 'c'
   | 'cloudflare'

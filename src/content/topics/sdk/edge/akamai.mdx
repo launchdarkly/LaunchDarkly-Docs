@@ -1,0 +1,256 @@
+---
+path: /sdk/edge/akamai
+title: Akamai SDK reference
+description: This topic documents how to get started with the Akamai SDK, and links to reference information on all of the supported features.
+tags: ['akamai', 'edge', 'sdk']
+published: true
+site: launchDarklyOnly
+---
+
+<Callout intent="alert">
+  <CalloutTitle>This SDK is in beta</CalloutTitle>
+  <CalloutDescription>
+
+Development work on the Akamai SDK is ongoing. Elements of the Akamai SDK may change without notice, including becoming backwards incompatible.
+
+  </CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic documents how to get started with the Akamai SDK, and links to reference information on all of the supported features.
+
+<Callout intent="primary">
+<CalloutTitle>SDK quick links</CalloutTitle>
+<CalloutDescription>
+
+LaunchDarkly's SDKs are open source. In addition to this reference guide, we provide source, API reference documentation, and a sample application:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Resource</TableHeadCell>
+    <TableHeadCell>Location</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>SDK API documentation</TableCell>
+      <TableCell>
+        <a href="https://launchdarkly.github.io/js-core/packages/sdk/akamai-edgekv/docs/">SDK API docs</a>
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>GitHub repository</TableCell>
+      <TableCell>
+        <a href="https://github.com/launchdarkly/js-core/tree/main/packages/sdk/akamai-edgekv">LaunchDarkly Akamai SDK</a>
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="info">
+  <CalloutTitle>Using this SDK with Akamai EdgeKV requires LaunchDarkly's Akamai integration</CalloutTitle>
+  <CalloutDescription>
+
+If you are using Akamai EdgeKV, configure the Akamai integration to use this SDK successfully. To learn more, read [Akamai](/integrations/akamai).
+
+If you are using Akamai's EdgeWorkers, but not using the Akamai EdgeKV, the Akamai integration is not required.
+
+The Akamai integration is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+  </CalloutDescription>
+</Callout>
+
+## Getting started
+
+To install and configure the Akamai SDK if you are using Akamai EdgeKV:
+
+1. Complete the [Creating an Akamai integration](/integrations/akamai#creating-an-akamai-integration) procedure.
+
+2. Install the Akamai SDK as a dependency in your application using your application's dependency manager:
+
+  <CodeSample>
+  <CSTab label="yarn">
+
+  ```bash
+  yarn add @launchdarkly/akamai-server-edgekv-sdk
+  ```
+
+  </CSTab>
+  <CSTab label="npm">
+
+  ```bash
+  npm i @launchdarkly/akamai-server-edgekv-sdk
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+3. Import the `init` method in your application code:
+
+  <CodeSample>
+  <CSTab label="TypeScript">
+
+  ```ts
+  import { init } from '@launchdarkly/akamai-server-edgekv-sdk';
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+4. After you install and import the SDK, initialize the client with your LaunchDarkly SDK client-side ID and the namespace and group from your Akamai EdgeKV. These should be the same namespace and group that you used to [configure the Akamai integration](/integrations/akamai).
+
+  Here's how:
+
+  <CodeSample>
+  <CSTab label="TypeScript">
+
+  ```ts
+  const ldClient = init({
+    sdkKey: 'client-side-ID-123abc',
+    namespace: 'your-edgekv-namespace',
+    group: 'your-edgekv-group-id'
+  });
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+5. Using the client, check which variation a particular context will receive for a given feature flag:
+
+  <CodeSample>
+  <CSTab label="TypeScript">
+
+  ```ts
+  import { LDContext } from '@launchdarkly/akamai-server-edgekv-sdk';
+
+  const context: LDContext = {
+    kind: 'org',
+    key: 'org-key-123abc',
+    someAttribute: 'example-attribute-value',
+  };
+
+  const flagValue = await ldClient.variation('flag-key-123abc', context, false);
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+<Details summary="Expand for instructions if you are using Akamai EdgeWorkers with a non-EdgeKV store">
+
+Most customers use the Akamai EdgeKV and the Akamai integration. If you are using Akamai's EdgeWorkers, but not using the Akamai EdgeKV store, you can use the LaunchDarkly Akamai SDK to access your own feature store instead. However, the package and method names are slightly different. Additionally, you are responsible for putting flag data into your EdgeWorker. LaunchDarkly does not provide an integration for this.
+
+To install and configure the Akamai SDK if you are using Akamai EdgeWorkers with a non-EdgeKV store:
+
+1. Install the Akamai SDK as a dependency in your application using your application's dependency manager:
+
+  <CodeSample>
+  <CSTab label="yarn">
+
+  ```bash
+  yarn add @launchdarkly/akamai-server-base-sdk
+  ```
+
+  </CSTab>
+  <CSTab label="npm">
+
+  ```bash
+  npm i @launchdarkly/akamai-server-base-sdk
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+2. Import the `init` method in your application code:
+
+  <CodeSample>
+  <CSTab label="TypeScript">
+
+  ```ts
+  import { init } from '@launchdarkly/akamai-server-base-sdk';
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+3. Create a new class that implements `EdgeProvider`. It should take a key, formatted as `LD-Env-{your LaunchDarkly client-side ID for this environment}`. It should return a promise to return flag data. To learn more about how to retrieve and store flag data, read [Creating a flag data file](/sdk/features/flags-from-files#creating-a-flag-data-file). To learn more, read [`EdgeProvider`](https://launchdarkly.github.io/js-core/packages/sdk/akamai-base/docs/interfaces/EdgeProvider.html).
+
+  Here's an example:
+
+  <CodeSample>
+  <CSTab label="TypeScript">
+
+  ```ts
+  import { EdgeProvider } from '@launchdarkly/akamai-server-base-sdk';
+
+  class FeatureStore implements EdgeProvider {
+    // rootKey is formatted as LD-Env-{LaunchDarkly client-side ID}
+    async get(rootKey: string): Promise<string> {
+      // You should provide an implementation to retrieve your flags from
+      // LaunchDarkly's https://sdk.launchdarkly.com/sdk/latest-all endpoint.
+      // Read https://docs.launchdarkly.com/sdk/features/flags-from-files for more information.
+      return flagData;
+    }
+  }
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+4. After you install and import the SDK, initialize the client with your LaunchDarkly SDK client-side ID and an instance of the class you created in the previous step.
+
+  Here's how:
+
+  <CodeSample>
+  <CSTab label="TypeScript">
+
+  ```ts
+  const ldClient = init({
+    sdkKey: 'client-side-ID-123abc',
+    featureStoreProvider: new FeatureStore(),
+  });
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+5. Using the client, check which variation a particular context will receive for a given feature flag:
+
+  <CodeSample>
+  <CSTab label="TypeScript">
+
+  ```ts
+  import { LDContext } from '@launchdarkly/akamai-server-base-sdk';
+
+  const context: LDContext = {
+    kind: 'org',
+    key: 'org-key-123abc',
+    someAttribute: 'example-attribute-value',
+  };
+
+  const flagValue = await ldClient.variation('flag-key-123abc', context, false);
+  ```
+
+  </CSTab>
+  </CodeSample>
+
+</Details>
+
+## Promises and async
+
+All asynchronous SDK methods that return a `Promise` are compatible with `then/catch` or `async/await`. You can use either.
+
+## Shutting down
+
+In the Akamai SDK, the client will be automatically closed when your application terminates.
+
+## Supported features
+
+This SDK supports the following features:
+
+- [Anonymous contexts and users](/sdk/features/anonymous#akamai)
+- [Configuration](/sdk/features/config#akamai)
+- [Evaluating flags](/sdk/features/evaluating#akamai)
+- [User and context configuration](/sdk/features/user-context-config#akamai)

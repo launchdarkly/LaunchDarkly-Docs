@@ -1021,8 +1021,28 @@ let user = User::with_key("user-key-123abc").
 
 Here are the configuration options for anonymous contexts and users in edge SDKs.
 
+* [Akamai](#akamai)
 * [Cloudflare](#cloudflare)
 * [Vercel](#vercel)
+
+### Akamai
+
+<Details summary="Expand Akamai code sample">
+
+To distinguish logged-in end users from anonymous end users in the SDK:
+
+<CodeSample>
+<CSTab label="TypeScript">
+
+```ts
+import { LDContext } from '@launchdarkly/akamai-edgeworker-sdk-common';
+
+const anonymousContext: LDContext = { kind: 'user', key: 'user-key-123abc', anonymous: true };
+```
+
+</CSTab>
+</CodeSample>
+</Details>
 
 ### Cloudflare
 
