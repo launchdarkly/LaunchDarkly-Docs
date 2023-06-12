@@ -120,27 +120,21 @@ To incorporate the SDK using `cmake`:
 
 1. Clone the [GitHub repository](https://github.com/launchdarkly/cpp-sdks) as a subdirectory of your project.
 2. Update your project's `CMakeLists.txt` to include the SDK repository:
-
-  <CodeSample>
-  <CSTab label="Using add_subdirectory">
-
-```bash
-add_subdirectory(cpp-sdks)
-```
-
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+      <CSTab label="Using add_subdirectory">
+        ```bash
+        add_subdirectory(cpp-sdks)
+        ```
+      </CSTab>
+    </CodeSample>
 3. Link your project's target against the `launchdarkly::client` target:
-
-  <CodeSample>
-  <CSTab label="Linking your target">
-
-```bash
-target_link_libraries(your-target PRIVATE launchdarkly::client)
-```
-
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+      <CSTab label="Linking your target">
+        ```bash
+        target_link_libraries(your-target PRIVATE launchdarkly::client)
+        ```
+      </CSTab>
+    </CodeSample>
 
 #### Incorporating the SDK using prebuilt artifacts
 
@@ -154,17 +148,14 @@ To incorporate the SDK using prebuilt artifacts:
 
 1. Download the correct release for your platform from the GitHub [Releases](https://github.com/launchdarkly/cpp-sdks/releases) page.
 2. Ensure the SDK's headers are installed on the build system. One way to do this is to clone the [GitHub repository](https://github.com/launchdarkly/cpp-sdks) and install the headers using `cmake`:
-
-  <CodeSample>
-  <CSTab label="Install headers">
-
-```bash
-cmake --build .
-cmake --install .
-```
-
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+      <CSTab label="Install headers">
+        ```bash
+        cmake --build .
+        cmake --install .
+        ```
+      </CSTab>
+    </CodeSample>
 
 You can now reference the installed headers and link against the prebuilt libraries.
 
