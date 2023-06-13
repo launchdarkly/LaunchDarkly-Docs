@@ -24,6 +24,7 @@ import Metadata from '../components/mdx/metadata'
 import Pre from '../components/mdx/pre'
 import { Span } from '../components/mdx/span'
 import Table, { TableBody, TableCell, TableHeadCell, TableHeader, TableRow } from '../components/mdx/table'
+import { Paragraph } from '../components/paragraph'
 
 const components = {
   h1: H1,
@@ -33,6 +34,7 @@ const components = {
   h5: H5,
   h6: H6,
   a: Link,
+  p: Paragraph,
   figure: Figure,
   figcaption: FigCaption,
   Card,
