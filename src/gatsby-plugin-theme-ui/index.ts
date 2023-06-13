@@ -500,7 +500,7 @@ const theme = makeTheme({
     strong: {
       fontWeight: 'bold',
     },
-    a: {
+    'p a, a': {
       color: 'primary',
       textDecoration: 'underline',
       ':hover': {
