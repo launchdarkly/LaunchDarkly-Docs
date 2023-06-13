@@ -52,8 +52,8 @@ export const TableCell = (props: TableProps) => {
   return (
     <td
       sx={{
-        p: [1, 2],
         ...theme.styles,
+        p: [1, 2],
       }}
     >
       {props.children}
