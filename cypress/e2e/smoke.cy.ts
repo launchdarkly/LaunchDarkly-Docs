@@ -10,6 +10,7 @@ describe('Documentation website', () => {
 
     cy.title().should('equal', 'Getting started')
 
+    cy.wait(2000)
     // interact with nav
     cy.get('nav').contains('a', 'Getting started').isActiveLink()
     // sub link under getting started
