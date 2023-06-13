@@ -86,6 +86,15 @@ from ldclient.config import Config
 </CSTab>
 </CodeSample>
 
+<Callout intent="info">
+<CalloutTitle>The Python SDK uses an SDK key</CalloutTitle>
+<CalloutDescription>
+
+The Python SDK uses an SDK key. Your environment's SDK key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
 After you install and import the SDK, create a single, shared instance of `ldclient`. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 The `get()` function enforces the singleton pattern. You should only have one instance of the client in your application.

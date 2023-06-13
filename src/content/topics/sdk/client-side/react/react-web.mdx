@@ -94,17 +94,6 @@ The LaunchDarkly React SDK version 3.0.0 uses optional chaining. If you encounte
 
 After you complete the [Getting started](/home/getting-started) process, follow these instructions to start using the LaunchDarkly React SDK in your React code.
 
-To install the React SDK, you need your LaunchDarkly environment's client-side ID. Your client-side ID is available under **Environments** on the **Projects** tab on the [**Account settings** page](https://app.launchdarkly.com/settings#/projects).
-
-<Callout intent="alert">
-<CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
-<CalloutDescription>
-
-Client-side IDs are not secret and you can expose them in your client-side code without risk. However, never embed a server-side SDK key into a client-side application.
-
-</CalloutDescription>
-</Callout>
-
 Install the React SDK using either `npm` or `yarn`:
 
 <CodeSample>
@@ -145,6 +134,26 @@ Initializing with `asyncWithLDProvider` can help prevent a flicker on page load 
 </Callout>
 
 When you use `withLDProvider`, it initializes the underlying JavaScript SDK at `componentDidMount`. This means your flags and the LaunchDarkly client only become available after your app has mounted. Use this method if you prefer to render your app first, and then process flag updates after rendering is complete. You can also optionally defer initialization further, until after you define a context. Because your app renders before initialization, using `withLDProvider` can result in a flicker due to flag changes at startup time. To learn more, read [Initializing using the `withLDProvider` function](#initializing-using-withldprovider).
+
+<Callout intent="info">
+<CalloutTitle>The React Web SDK uses a client-side ID</CalloutTitle>
+<CalloutDescription>
+
+The React Web SDK uses a client-side ID. Your environment's client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
+To initialize the React SDK, you need your LaunchDarkly environment's client-side ID. This authorizes your application to connect to a particular environment within LaunchDarkly.
+
+<Callout intent="alert">
+<CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
+<CalloutDescription>
+
+Client-side IDs are not secret and you can expose them in your client-side code without risk. However, never embed a server-side SDK key into a client-side application.
+
+</CalloutDescription>
+</Callout>
 
 ### Initializing using `asyncWithLDProvider`
 

@@ -129,7 +129,16 @@ using LaunchDarkly.Sdk.Client;
 </CSTab>
 </CodeSample>
 
-After you install the dependency, initialize the LaunchDarkly client by creating a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly. Your mobile key is available in the Projects tab of your [Account settings page](https://app.launchdarkly.com/settings/projects).
+<Callout intent="info">
+<CalloutTitle>The .NET (client-side) SDK uses a mobile key</CalloutTitle>
+<CalloutDescription>
+
+The .NET (client-side) SDK uses a mobile key. Your environment's mobile key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
+After you install the dependency, initialize the LaunchDarkly client by creating a single, shared instance of `LdClient`. To create a client instance, you need your environment's mobile key. This authorizes your application to connect to a particular environment within LaunchDarkly.
 
 <Callout intent="alert">
 <CalloutTitle>Never embed a server-side SDK key into a client-side application</CalloutTitle>
@@ -247,7 +256,7 @@ You can configure the client-side .NET SDK to connect to the [Relay Proxy](https
 <CSTab label="C#">
 
 ```csharp
-Configuration config = Configuration.Builder("sdk-key-123abc")
+Configuration config = Configuration.Builder("mobile-key-123abc")
     .ServiceEndpoints(
         Components.ServiceEndpoints().RelayProxy("YOUR_RELAY_URI")
     )

@@ -83,6 +83,15 @@ use launchdarkly_server_sdk::{Client, ConfigBuilder, ContextBuilder, ServiceEndp
 </CSTab>
 </CodeSample>
 
+<Callout intent="info">
+<CalloutTitle>The Rust SDK uses an SDK key</CalloutTitle>
+<CalloutDescription>
+
+The Rust SDK uses an SDK key. Your environment's SDK key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
 After you install and import the SDK, create a single, shared instance of the LaunchDarkly client. Specify your SDK key here so that your application is authorized to connect to LaunchDarkly, your application, and your environment.
 
 Once you have created the client, start the client process and wait for the client to initialize. This SDK depends on the tokio crate to provide a default runtime and as such it is a required dependency.
@@ -97,7 +106,7 @@ Here's how:
 ```rust
 #[tokio::main]
 async fn main () {
-    let config = ConfigBuilder::new(&sdk_key).build();
+    let config = ConfigBuilder::new(&sdk-key-123abc).build();
     let client = Client::build(config).unwrap();
 
     client.start_with_default_executor();
@@ -130,8 +139,8 @@ Here's how:
 <CSTab label="Rust">
 
 ```rust
-let context = ContextBuilder::new("specific.context.key").build();
-let show_feature = client.bool_variation(&context, "your.flag.key", false);
+let context = ContextBuilder::new("context-key-123abc").build();
+let show_feature = client.bool_variation(&context, "flag-key-123abc", false);
 
 if show_feature {
   # application code to show the feature

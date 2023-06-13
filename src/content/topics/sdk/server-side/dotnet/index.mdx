@@ -118,6 +118,15 @@ using LaunchDarkly.Client;
 </CSTab>
 </CodeSample>
 
+<Callout intent="info">
+<CalloutTitle>The .NET (server-side) SDK uses an SDK key</CalloutTitle>
+<CalloutDescription>
+
+The .NET (server-side) SDK uses an SDK key. Your environment's SDK key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
 After you install and import the SDK, create a single, shared instance of [`LdClient`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html). Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 To create a single instance:

@@ -105,7 +105,16 @@ end
 </CSTab>
 </CodeSample>
 
-After you install the SDK dependency, create an instance of the SDK.
+<Callout intent="info">
+<CalloutTitle>The Erlang SDK uses an SDK key</CalloutTitle>
+<CalloutDescription>
+
+The Erlang SDK uses an SDK key. Your environment's SDK key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
+After you install the SDK dependency, create an instance of the SDK. Specify your SDK key here to authorize your application to connect to a particular environment within LaunchDarkly.
 
 <Callout intent="info">
 <CalloutTitle>Use a single instance</CalloutTitle>

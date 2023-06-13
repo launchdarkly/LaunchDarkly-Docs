@@ -100,6 +100,15 @@ To install and configure the Akamai SDK if you are using Akamai EdgeKV:
   </CSTab>
   </CodeSample>
 
+<Callout intent="info">
+<CalloutTitle>The Akamai SDK uses a client-side ID</CalloutTitle>
+<CalloutDescription>
+
+The Akamai SDK uses a client-side ID. Your environment's client-side ID is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
 4. After you install and import the SDK, initialize the client with your LaunchDarkly SDK client-side ID and the namespace and group from your Akamai EdgeKV. These should be the same namespace and group that you used to [configure the Akamai integration](/integrations/akamai).
 
   Here's how:
@@ -109,7 +118,7 @@ To install and configure the Akamai SDK if you are using Akamai EdgeKV:
 
   ```ts
   const ldClient = init({
-    sdkKey: 'client-side-ID-123abc',
+    sdkKey: 'client-side-id-123abc',
     namespace: 'your-edgekv-namespace',
     group: 'your-edgekv-group-id'
   });
@@ -208,7 +217,7 @@ To install and configure the Akamai SDK if you are using Akamai EdgeWorkers with
 
   ```ts
   const ldClient = init({
-    sdkKey: 'client-side-ID-123abc',
+    sdkKey: 'client-side-id-123abc',
     featureStoreProvider: new FeatureStore(),
   });
   ```

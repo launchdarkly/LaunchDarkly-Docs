@@ -73,6 +73,15 @@ import LaunchDarkly.Server
 </CSTab>
 </CodeSample>
 
+<Callout intent="info">
+<CalloutTitle>The Haskell SDK uses an SDK key</CalloutTitle>
+<CalloutDescription>
+
+The Haskell SDK uses an SDK key. Your environment's SDK key is available in the **Projects** tab of your [**Account settings**](https://app.launchdarkly.com/settings#/projects) page. To learn more about key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
+
+</CalloutDescription>
+</Callout>
+
 After you import and install the SDK, create a single shared instance of `Client`. Specify your SDK key to authorize your application to connect to a particular environment within LaunchDarkly.
 
 Here's how:
