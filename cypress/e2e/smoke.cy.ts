@@ -10,7 +10,6 @@ describe('Documentation website', () => {
 
     cy.title().should('equal', 'Getting started')
 
-    cy.wait(2000)
     // interact with nav
     cy.get('nav').contains('a', 'Getting started').isActiveLink()
     // sub link under getting started
@@ -22,6 +21,7 @@ describe('Documentation website', () => {
     // cy.get('nav').contains('a', 'Setting up an SDK').should('not.exist')
     cy.get('nav').contains('a', 'Getting started').isActiveLink()
     cy.get('nav').contains('a', 'Setting up an SDK').click()
+    cy.wait(2000)
     cy.get('nav').contains('a', 'Setting up an SDK').isActiveLink()
 
     // click a link in the table of contents
@@ -32,9 +32,12 @@ describe('Documentation website', () => {
 
     // interact with nav again
     cy.get('nav').contains('Organizing your flags').click()
+    cy.wait(2000)
     cy.title().should('equal', 'Organizing your flags')
     cy.get('nav').contains('Organizing your flags').isActiveLink()
+
     cy.get('nav').contains('The flags list').click()
+    cy.wait(2000)
     cy.title().should('equal', 'The flags list')
     cy.get('nav').contains('The flags list').isActiveLink()
     cy.get('nav').contains('Organizing your flags').isPartiallyActiveLink()
@@ -67,7 +70,7 @@ describe('Documentation website', () => {
 
     // click search result
     cy.get('[data-test="result-Home-Advanced concepts"]').click()
-
+    cy.wait(2000)
     cy.location('search').should('equal', '?q=advanced')
     cy.get('nav').contains('Advanced').isActiveLink()
 
