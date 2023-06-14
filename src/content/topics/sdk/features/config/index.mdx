@@ -743,15 +743,17 @@ To pass custom parameters:
 
 ```go
 import (
+    "time"
+
     ld "github.com/launchdarkly/go-server-sdk/v6"
     "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
 )
 
 var config ld.Config
 
-config.Events = ldcomponents.SendEvents().FlushInterval(10 * time.Second)
+config.Events = ldcomponents.SendEvents().FlushInterval(10*time.Second)
 
-client := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5*time.Second)
 ```
 
 </CSTab>
@@ -759,15 +761,17 @@ client := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
 
 ```go
 import (
+    "time"
+
     ld "gopkg.in/launchdarkly/go-server-sdk.v5"
     "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
 )
 
 var config ld.Config
 
-config.Events = ldcomponents.SendEvents().FlushInterval(10 * time.Second)
+config.Events = ldcomponents.SendEvents().FlushInterval(10*time.Second)
 
-client := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5*time.Second)
 ```
 
 </CSTab>

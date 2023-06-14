@@ -85,6 +85,8 @@ The Go integration is in [`github.com/launchdarkly/go-server-sdk-consul`](https:
 
 ```go
 import (
+    "time"
+
     ld "github.com/launchdarkly/go-server-sdk/v6"
     "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
     ldconsul "github.com/launchdarkly/go-server-sdk-consul"
@@ -96,7 +98,7 @@ config.DataStore = ldcomponents.PersistentDataStore(
         Address("http://my-consul:8100").
         Prefix("my-key-prefix"),
 ).CacheSeconds(30)
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
+client, _ := ld.MakeCustomClient(sdkKey, config, 5*time.Second)
 ```
 
 </CSTab>
@@ -104,6 +106,8 @@ client := ld.MakeCustomClient(sdkKey, config, waitTime)
 
 ```go
 import (
+    "time"
+
     ld "gopkg.in/launchdarkly/go-server-sdk.v5"
     "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
     ldconsul "github.com/launchdarkly/go-server-sdk-consul"
@@ -115,7 +119,7 @@ config.DataStore = ldcomponents.PersistentDataStore(
         Address("http://my-consul:8100").
         Prefix("my-key-prefix"),
 ).CacheSeconds(30)
-client := ld.MakeCustomClient(sdkKey, config, waitTime)
+client, _ := ld.MakeCustomClient(sdkKey, config, 5*time.Second)
 ```
 
 </CSTab>

@@ -337,7 +337,7 @@ Here's how:
 var config ld.Config
 config.Offline = true
 
-client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5*time.Second)
 client.BoolVariation("any.feature.flag", context, false) // will always return the default value (false)
 ```
 
@@ -348,7 +348,7 @@ client.BoolVariation("any.feature.flag", context, false) // will always return t
 var config ld.Config
 config.Offline = true
 
-client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5 * time.Second)
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 5*time.Second)
 client.BoolVariation("any.feature.flag", user, false) // will always return the default value (false)
 ```
 
