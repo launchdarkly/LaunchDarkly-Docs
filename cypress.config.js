@@ -14,6 +14,6 @@ module.exports = defineConfig({
   projectId: 'vhorzj',
 
   e2e: {
-    baseUrl: 'https://docs-stg.launchdarkly.com/3087',
+    baseUrl: 'http://localhost:8000',
   },
 })
