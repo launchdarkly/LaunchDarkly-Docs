@@ -198,6 +198,10 @@ const theme = makeTheme({
       width: '100%',
       my: [4, 5],
       overflowX: 'auto',
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     image: {
       borderRadius: 1,
@@ -219,6 +223,7 @@ const theme = makeTheme({
       lineHeight: 'regular',
       my: [4, 5],
       p: {
+        fontSize: 'unset',
         mb: 0,
       },
       ol: {
@@ -254,6 +259,10 @@ const theme = makeTheme({
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     warning: {
       padding: 2,
@@ -268,6 +277,10 @@ const theme = makeTheme({
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     alert: {
       padding: 2,
@@ -282,6 +295,10 @@ const theme = makeTheme({
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     primary: {
       padding: 2,
@@ -296,6 +313,10 @@ const theme = makeTheme({
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
   },
   details: {
