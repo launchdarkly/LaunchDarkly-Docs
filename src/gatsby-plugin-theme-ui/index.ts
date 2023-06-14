@@ -500,7 +500,21 @@ const theme = makeTheme({
     strong: {
       fontWeight: 'bold',
     },
-    'p a, a': {
+    a: {
+      color: 'primary',
+      textDecoration: 'underline',
+      ':hover': {
+        color: 'accent',
+      },
+      ':visited': {
+        color: 'primary',
+      },
+      ':active': {
+        color: 'accent',
+      },
+    },
+    // target links within paragraphs, same as styles above
+    'p a': {
       color: 'primary',
       textDecoration: 'underline',
       ':hover': {
