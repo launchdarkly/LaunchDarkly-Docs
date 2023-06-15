@@ -23,6 +23,11 @@
         "releaseMonthDay": "12-07"
       },
       {
+        "versionMajorMinor": "6.8",
+        "releaseYear":2023,
+        "releaseMonthDay":"03-17"
+      },
+      {
         "versionMajorMinor": "6.7",
         "releaseYear": 2022,
         "releaseMonthDay": "03-24"
