@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-import { globalHistory } from '@reach/router'
 import { graphql, useStaticQuery } from 'gatsby'
 
 import { findRootTopic } from '../../utils/navigationDataUtils'
@@ -70,14 +69,7 @@ const DesktopSideNav = () => {
             width: '19rem',
           }}
         >
-          <TreeNode
-            currentPath={
-              pathPrefix !== ''
-                ? globalHistory.location.pathname.replace(pathPrefix, '')
-                : globalHistory.location.pathname
-            }
-            nodes={currentNode.items}
-          />
+          <TreeNode pathPrefix={pathPrefix} nodes={currentNode.items} />
         </nav>
       )}
     </Suspense>

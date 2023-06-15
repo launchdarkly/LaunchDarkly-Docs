@@ -1,11 +1,12 @@
-import { ComponentProps, FunctionComponent, useCallback, useLayoutEffect, useRef, useState } from 'react'
-import { LinkGetProps } from '@reach/router'
+import { ComponentProps, FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react'
+import { LinkGetProps, useLocation } from '@reach/router'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
 import { Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
 
 import { useFlaggedPagesConfig } from '../../hooks/useFlaggedPagesConfig'
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
+import { usePrevious } from '../../hooks/usePrevious'
 import isExternalLink from '../../utils/isExternalLink'
 import { stripTrailingSlash } from '../../utils/navigationDataUtils'
 import Icon, { IconName } from '../icon'
@@ -30,6 +31,7 @@ const defaultLabelStyles = {
   },
   lineHeight: 'regular',
 }
+
 const maxDepthLabelStyles = {
   ...defaultLabelStyles,
   fontSize: 3,
@@ -61,35 +63,12 @@ type TreeNodeProps = {
   nodes: Array<SideNavItem>
   maxDepth?: number
   depth?: number
-  currentPath: string
+  pathPrefix: string
 }
 
 enum ExpandCollapseEnum {
   Collapsed,
   Expanded,
-}
-
-function isLeafNode(node: SideNavItem) {
-  return (node.items?.length ?? 0) === 0
-}
-
-// Determine whether a node is active or not based given a URL path
-function isActiveNodeOrAncestor(pathname: string, node: SideNavItem): boolean {
-  // This is the active node itself
-  // support trailing slash
-  if (node.path === stripTrailingSlash(pathname)) {
-    return true
-  }
-
-  const items = node.items
-
-  // If this is not the active node and it has not children
-  if (!items || items.length === 0) {
-    return false
-  }
-
-  // Active descendant
-  return items.some(descendant => isActiveNodeOrAncestor(pathname, descendant))
 }
 
 const groupLabels: Readonly<Record<string, string>> = {
@@ -104,216 +83,281 @@ function GroupHeader(props: ComponentProps<'div'>) {
   return <div {...props} sx={groupHeaderStyles} />
 }
 
-function Node({
-  node,
-  itemStyles,
-  labelStyles,
-  flags,
-  depth,
-  maxDepth,
-  currentPath,
-  isLeaf,
-  isPristine,
-  isCollapsed,
-  setIsPristine,
-  setActiveLinkStyles,
-  onExpandCollapse,
-  onFirstExpand,
-}: {
+type NodeProps = {
   node: SideNavItem
-  itemStyles: ThemeUIStyleObject
-  labelStyles: ThemeUIStyleObject
-  flags: LDFlagSet
+  currentPath: string
+  isCollapsed: boolean
+  isLeaf: boolean
+  isActive: boolean
   depth: number
   maxDepth: number
-  currentPath: string
-  isLeaf: boolean
-  isPristine: boolean
-  isCollapsed: boolean
-  setIsPristine(isPristine: boolean): void
-  setActiveLinkStyles(props: LinkGetProps): Record<string, unknown>
-  onExpandCollapse(node: SideNavItem): void
-  onFirstExpand(node: SideNavItem): void
-}) {
+  itemStyles: ThemeUIStyleObject
+  labelStyles: ThemeUIStyleObject
+  pathPrefix: string
+  onExpandCollapse: (node: SideNavItem) => void
+  onFirstExpand: (node: SideNavItem) => void
+  setActiveLinkStyles: (props: LinkGetProps) => Record<string, unknown>
+  flags: LDFlagSet
+}
+
+const Node = ({
+  node,
+  isCollapsed,
+  isLeaf,
+  isActive,
+  depth,
+  maxDepth,
+  itemStyles,
+  labelStyles,
+  pathPrefix,
+  onExpandCollapse,
+  onFirstExpand,
+  setActiveLinkStyles,
+  flags,
+}: NodeProps) => {
   const { label, path, svg, flagKey, items } = node
   const showItem = flagKey ? flags[flagKey] : true
-  const isActive = isActiveNodeOrAncestor(currentPath, node)
-  const { isPathDisabled } = useFlaggedPagesConfig()
 
-  // https://kentcdodds.com/blog/useeffect-vs-uselayouteffect#useeffect
-  useLayoutEffect(() => {
-    if (isPristine && isActive && isCollapsed) {
-      setIsPristine(false)
+  useEffect(() => {
+    if (isActive && isCollapsed) {
       onFirstExpand(node)
     }
-  }, [node, isPristine, isActive, isCollapsed, onFirstExpand, setIsPristine])
+  }, [node, isActive, isCollapsed, onFirstExpand])
 
   const handleExpandCollapse = () => {
     onExpandCollapse(node)
   }
 
-  if (isPathDisabled(path)) return null
+  const externalLink = (
+    <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
+      {label}
+      {svg && <Icon name={svg as IconName} height="0.8rem" fill="text" ml={1} />}
+    </ThemeUILink>
+  )
 
-  return showItem ? (
-    <li sx={itemStyles}>
-      {isExternalLink(path) ? (
-        <ThemeUILink href={path} sx={labelStyles} target="_blank" rel="noopener noreferrer">
+  // sx={labelStyles}
+  const internalLink = (
+    <Flex>
+      <Link to={path} sx={labelStyles} onClick={handleExpandCollapse} getProps={setActiveLinkStyles}>
+        <Flex sx={{ alignItems: 'center' }}>
+          {svg && <Icon name={svg as IconName} height="1rem" fill="text" mr={2} />}
           {label}
-          {svg && <Icon name={svg as IconName} height="0.8rem" fill="text" ml={1} />}
-        </ThemeUILink>
-      ) : (
-        <Flex>
-          <Link getProps={setActiveLinkStyles} sx={labelStyles} to={path} onClick={handleExpandCollapse}>
-            <Flex sx={{ alignItems: 'center' }}>
-              {svg && <Icon name={svg as IconName} height="1rem" fill="text" mr={2} />}
-              {label}
-            </Flex>
-          </Link>
-          {!isLeaf && (
-            <Icon
-              name={isCollapsed ? 'arrow-right' : 'arrow-down'}
-              onClick={handleExpandCollapse}
-              variant="sideNav"
-              fill="grayBase"
-              ml={2}
-            />
-          )}
         </Flex>
+      </Link>
+      {!isLeaf && (
+        <Icon
+          name={isCollapsed ? 'arrow-right' : 'arrow-down'}
+          onClick={handleExpandCollapse}
+          variant="sideNav"
+          fill="grayBase"
+          ml={2}
+        />
       )}
-      {isLeaf || isCollapsed ? null : (
-        <TreeNode currentPath={currentPath} nodes={items} depth={depth + 1} maxDepth={maxDepth} />
-      )}
+    </Flex>
+  )
+
+  const renderLink = () => {
+    if (isExternalLink(path)) {
+      return externalLink
+    }
+    return internalLink
+  }
+
+  const renderChildren = () => {
+    if (isLeaf || isCollapsed) {
+      return null
+    }
+
+    return <TreeNode nodes={items} depth={depth + 1} maxDepth={maxDepth} pathPrefix={pathPrefix} />
+  }
+
+  if (!showItem) {
+    return null
+  }
+
+  return (
+    <li sx={itemStyles}>
+      {renderLink()}
+      {renderChildren()}
     </li>
-  ) : null
+  )
 }
+
+type treeNodeExpandCollapseState = Record<string, ExpandCollapseEnum>
 
 // Hamburger maxDepth is 3 since root topics are displayed.
 // Desktop sideNav maxDepth is 2 since root topics are displayed in the top nav.
 const TreeNode: FunctionComponent<React.PropsWithChildren<TreeNodeProps>> = ({
   nodes,
-  currentPath,
   maxDepth = 2,
   depth = 0,
+  pathPrefix,
 }) => {
+  // Keep track of previous nodes to use a default collapsed state when changing pages
+  // to avoid a flicker while the collapse state is being set up.
+  const previousNodes = usePrevious(nodes)
+
+  // EXPAND COLLAPSE STATE EXAMPLE
+  /*
+   * /sdk/concepts: 0
+   * /sdk/features: 0
+   * /sdk/client-side: 0
+   * /sdk/server-side: 0
+   * /sdk/edge: 0
+   */
+  const getExpandCollapseState = useCallback(() => {
+    return nodes.reduce((state, node) => ({ ...state, [node.path]: ExpandCollapseEnum.Collapsed }), {})
+  }, [nodes])
+
+  const [expandCollapseStates, setExpandCollapseStates] = useState<treeNodeExpandCollapseState>(
+    getExpandCollapseState(),
+  )
+
   const flags = useFlags()
+  const { isPathDisabled } = useFlaggedPagesConfig()
   const { theme } = useGitGatsbyTheme()
-  const firstRender = useRef(true)
+  const { pathname } = useLocation()
 
   const isRootNode = depth === 0
   const isMaxDepth = depth === maxDepth
 
-  // Detect if this tree node has ever been expanded/collapsed
-  const [isPristine, setIsPristine] = useState(true)
+  const currentPath = (() => {
+    if (pathPrefix !== '') {
+      return pathname.replace(pathPrefix, '')
+    }
+    return pathname
+  })()
 
-  const getInitialState = useCallback(() => {
-    const initialState: Record<string, ExpandCollapseEnum> = nodes.reduce(
-      (state, node) => ({ ...state, [node.path]: ExpandCollapseEnum.Collapsed }),
-      {},
+  // NODE EXAMPLE
+  /*
+   * label: SDK Concepts
+   * path: /sdk/concepts
+   * svg: puzzle-variation
+   * flagKey: null
+   * group: null
+   * items: [
+   *  {
+   *    path: /sdk/concepts/getting-started
+   *    label: Getting started with SDKs
+   *    flagKey: null
+   *    items: null
+   *  }
+   * ]
+   */
+
+  // reset when nodes change (changing pages)
+  useEffect(() => {
+    setExpandCollapseStates(getExpandCollapseState())
+  }, [getExpandCollapseState])
+
+  const groupedNodes = useMemo(() => {
+    return Object.entries(
+      nodes.reduce(
+        (map, node) => ({ ...map, [node.group || 'ungrouped']: [...(map[node.group || 'ungrouped'] || []), node] }),
+        {} as { [key: string]: SideNavItem[] },
+      ),
     )
-
-    return initialState
   }, [nodes])
-
-  const groupedNodes = Object.entries(
-    nodes.reduce(
-      (map, node) => ({ ...map, [node.group || 'ungrouped']: [...(map[node.group || 'ungrouped'] || []), node] }),
-      {} as { [key: string]: SideNavItem[] },
-    ),
-  )
 
   const hasGroupedNodes = groupedNodes.some(group => group[0] !== 'ungrouped')
 
-  const [expandCollapseStates, setState] = useState<Record<string, ExpandCollapseEnum>>(getInitialState())
+  const isNodeCollapsed = (node: SideNavItem) => expandCollapseStates[node.path] === ExpandCollapseEnum.Collapsed
 
-  useLayoutEffect(() => {
-    // allows for entry to a specific nested url, such as /home/flags/targeting-rules
-    if (firstRender.current) {
-      firstRender.current = false
+  // a node without any further children (items)
+  const isLeafNode = (node: SideNavItem) => (node.items?.length ?? 0) === 0
+
+  const isActiveNodeOrAncestor = (_currentPath: string, node: SideNavItem): boolean => {
+    // This is the active node itself
+    // support trailing slash
+    if (node.path === stripTrailingSlash(_currentPath)) {
+      return true
+    }
+
+    const items = node.items
+
+    // If this is not the active node and it has no children
+    if (!items || items.length === 0) {
+      return false
+    }
+
+    // Active descendant
+    return items.some(descendant => isActiveNodeOrAncestor(_currentPath, descendant))
+  }
+
+  const onFirstExpand = (node: SideNavItem) => {
+    setExpandCollapseStates(prevState => ({ ...prevState, [node.path]: ExpandCollapseEnum.Expanded }))
+  }
+
+  const onExpandCollapse = (node: SideNavItem) => {
+    if (isLeafNode(node)) {
       return
     }
-    setState(getInitialState())
-  }, [getInitialState])
 
-  const setActiveLinkStyles = ({ isCurrent, isPartiallyCurrent, href, location: { pathname } }: LinkGetProps) => {
+    setExpandCollapseStates(prevState => ({
+      ...prevState,
+      [node.path]: isNodeCollapsed(node) ? ExpandCollapseEnum.Expanded : ExpandCollapseEnum.Collapsed,
+    }))
+  }
+
+  const setActiveLinkStyles = ({
+    isCurrent,
+    isPartiallyCurrent,
+    href,
+    location: { pathname: activePathname },
+  }: LinkGetProps) => {
     const hrefWithoutParams = href.split('?')[0]
     // support matching paths with ending slash
     // this happens when there are query params
-    if (isCurrent || hrefWithoutParams === stripTrailingSlash(pathname)) {
+    if (isCurrent || hrefWithoutParams === stripTrailingSlash(activePathname)) {
       return { style: { color: theme.colors.primarySafe, fontWeight: theme.fontWeights.bold } }
-    } else if (isPartiallyCurrent || pathname.startsWith(hrefWithoutParams)) {
+    } else if (isPartiallyCurrent || activePathname.startsWith(hrefWithoutParams)) {
       return { style: { fontWeight: theme.fontWeights.bold } }
     }
     // use defaultLabelStyles specified at the Link depth below
     return null
   }
 
-  const onExpandCollapse = (node: SideNavItem) => {
-    if (!isLeafNode(node)) {
-      setState(prevState => ({
-        // tree not closing when clicking another tree - resetting back to initial state fixed it
-        ...getInitialState(),
-        [node.path]:
-          prevState[node.path] === ExpandCollapseEnum.Collapsed
-            ? ExpandCollapseEnum.Expanded
-            : ExpandCollapseEnum.Collapsed,
-      }))
+  const renderNode = (node: SideNavItem) => {
+    const isDisabledViaFlag = isPathDisabled(node.path)
+    if (isDisabledViaFlag) {
+      return null
     }
+
+    return (
+      <Node
+        key={node.path}
+        node={node}
+        currentPath={currentPath}
+        isCollapsed={isNodeCollapsed(node) || previousNodes !== nodes}
+        isLeaf={isLeafNode(node)}
+        isActive={isActiveNodeOrAncestor(currentPath, node)}
+        depth={depth}
+        maxDepth={maxDepth}
+        itemStyles={isRootNode ? rootListItemStyles : defaultListItemStyles}
+        labelStyles={isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles}
+        pathPrefix={pathPrefix}
+        onExpandCollapse={onExpandCollapse}
+        onFirstExpand={onFirstExpand}
+        setActiveLinkStyles={setActiveLinkStyles}
+        flags={flags}
+      />
+    )
   }
 
-  const onFirstExpand = (node: SideNavItem) => {
-    setState(prevState => ({ ...prevState, [node.path]: ExpandCollapseEnum.Expanded }))
+  const renderNodes = () => {
+    if (hasGroupedNodes) {
+      return groupedNodes.map(([groupId, items]) => (
+        <div key={groupId} sx={groupStyles}>
+          {groupId !== 'ungrouped' && <GroupHeader>{groupLabels[groupId]}</GroupHeader>}
+          <div>{items.map(node => renderNode(node))}</div>
+        </div>
+      ))
+    }
+
+    return nodes.map(node => renderNode(node))
   }
 
-  return (
-    <ul sx={{ fontWeight: 'body' }}>
-      {hasGroupedNodes
-        ? groupedNodes.map(([groupId, items]) => (
-            <div key={groupId} sx={groupStyles}>
-              {groupId !== 'ungrouped' && <GroupHeader>{groupLabels[groupId]}</GroupHeader>}
-              <div>
-                {items.map(node => (
-                  <Node
-                    key={node.path}
-                    node={node}
-                    flags={flags}
-                    depth={depth}
-                    maxDepth={maxDepth}
-                    currentPath={currentPath}
-                    itemStyles={isRootNode ? rootListItemStyles : defaultListItemStyles}
-                    labelStyles={isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles}
-                    isLeaf={isLeafNode(node)}
-                    isPristine={isPristine}
-                    isCollapsed={expandCollapseStates[node.path] === ExpandCollapseEnum.Collapsed}
-                    setIsPristine={setIsPristine}
-                    setActiveLinkStyles={setActiveLinkStyles}
-                    onExpandCollapse={onExpandCollapse}
-                    onFirstExpand={onFirstExpand}
-                  />
-                ))}
-              </div>
-            </div>
-          ))
-        : nodes.map(node => (
-            <Node
-              key={node.path}
-              node={node}
-              flags={flags}
-              depth={depth}
-              maxDepth={maxDepth}
-              currentPath={currentPath}
-              itemStyles={isRootNode ? rootListItemStyles : defaultListItemStyles}
-              labelStyles={isMaxDepth ? maxDepthLabelStyles : defaultLabelStyles}
-              isLeaf={isLeafNode(node)}
-              isPristine={isPristine}
-              isCollapsed={expandCollapseStates[node.path] === ExpandCollapseEnum.Collapsed}
-              setIsPristine={setIsPristine}
-              setActiveLinkStyles={setActiveLinkStyles}
-              onExpandCollapse={onExpandCollapse}
-              onFirstExpand={onFirstExpand}
-            />
-          ))}
-    </ul>
-  )
+  return <ul sx={{ fontWeight: 'body' }}>{renderNodes()}</ul>
 }
 
 export default TreeNode

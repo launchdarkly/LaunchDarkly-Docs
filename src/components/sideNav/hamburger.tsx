@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
-import { globalHistory } from '@reach/router'
 import { clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { graphql, navigate, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
@@ -119,15 +118,7 @@ const Hamburger = () => {
         </div>
         {enableSiteSelection && <SiteSelector navigateFn={navigate} />}
         <div sx={{ mb: 9 }}>
-          <TreeNode
-            currentPath={
-              pathPrefix !== ''
-                ? globalHistory.location.pathname.replace(pathPrefix, '')
-                : globalHistory.location.pathname
-            }
-            nodes={navigationData}
-            maxDepth={3}
-          />
+          <TreeNode pathPrefix={pathPrefix} nodes={navigationData} maxDepth={3} />
         </div>
         <div
           key="footer"
