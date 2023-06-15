@@ -90,8 +90,8 @@ export const shouldUpdateScroll: GatsbyBrowser['shouldUpdateScroll'] = ({ router
     if (offset !== null) {
       setTimeout(() => {
         scrollToYPosition(offset)
-      }, 250)
-      return false
+      }, 100)
+      return [0, offset]
     }
   }
 
