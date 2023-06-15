@@ -1,4 +1,4 @@
-import { LinkGetProps } from '@reach/router'
+import { LinkGetProps } from '@gatsbyjs/reach-router'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 

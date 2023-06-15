@@ -1,4 +1,4 @@
-import { globalHistory } from '@reach/router'
+import { globalHistory } from '@gatsbyjs/reach-router'
 import qs from 'qs'
 
 import useSite from '../components/siteSelector/useSite'

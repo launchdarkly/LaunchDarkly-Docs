@@ -1,4 +1,4 @@
-import { globalHistory } from '@reach/router'
+import { globalHistory } from '@gatsbyjs/reach-router'
 import { Themed } from '@theme-ui/mdx'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 

@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { SearchResults, SearchState } from 'react-instantsearch-core'
 import { connectStateResults } from 'react-instantsearch-dom'
-import { navigate } from '@reach/router'
+import { navigate } from '@gatsbyjs/reach-router'
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import { withPrefix } from 'gatsby'
 

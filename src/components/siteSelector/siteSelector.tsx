@@ -1,4 +1,4 @@
-import type { NavigateFn } from '@reach/router'
+import type { NavigateFn } from '@gatsbyjs/reach-router'
 import { useSelect } from 'downshift'
 import { Button } from 'theme-ui'
 

@@ -1,5 +1,5 @@
 import { ComponentProps, FunctionComponent, useCallback, useEffect, useMemo, useState } from 'react'
-import { LinkGetProps, useLocation } from '@reach/router'
+import { LinkGetProps, useLocation } from '@gatsbyjs/reach-router'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
 import { LDFlagSet } from 'launchdarkly-js-client-sdk'
 import { Flex, Link as ThemeUILink, ThemeUIStyleObject } from 'theme-ui'
