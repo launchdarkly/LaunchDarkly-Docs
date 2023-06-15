@@ -87,11 +87,13 @@ export const shouldUpdateScroll: GatsbyBrowser['shouldUpdateScroll'] = ({ router
   // this fixes that problem.
   if (location.hash) {
     const offset = getTargetYOffset(location.hash)
-    if (offset !== 0) {
-      scrollToYPosition(offset)
-      return [0, offset]
+    if (offset !== null) {
+      setTimeout(() => {
+        scrollToYPosition(offset)
+      }, 250)
+      return false
     }
   }
 
-  return false
+  return true
 }

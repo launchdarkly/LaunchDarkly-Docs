@@ -1,21 +1,22 @@
-const DEFAULT_OFFSET_Y = 20
+const DEFAULT_LEFT_OFFSET = 0
+const OFFSET_TOP_GUTTER = 20
 
 export const getTargetYOffset = (hash: string) => {
   const id = decodeURI(hash.replace('#', ''))
   if (id === '') {
-    return 0
+    return null
   }
 
   const element = document.getElementById(id)
   if (!element) {
-    return 0
+    return null
   }
 
-  return element.offsetTop - DEFAULT_OFFSET_Y
+  return element.offsetTop - OFFSET_TOP_GUTTER
 }
 
 export const scrollToYPosition = (offset: number) => {
   requestAnimationFrame(() => {
-    window.scrollTo(DEFAULT_OFFSET_Y, offset)
+    window.scrollTo({ left: DEFAULT_LEFT_OFFSET, top: offset, behavior: 'instant' })
   })
 }
