@@ -5,6 +5,7 @@ import { TrackJS } from 'trackjs'
 import LayoutContainer from './src/layouts/layoutContainer'
 import { PageContext } from './src/types/pageContext'
 import { initDataDogLogging } from './src/utils/browserMetricsUtils'
+import { getTargetYOffset, scrollToYPosition } from './src/utils/scrollUtils'
 import { addRemoveSiteParam, getSiteFromHref } from './src/utils/siteAwareUtils'
 import { initUAParser } from './src/utils/userAgent'
 
@@ -79,4 +80,18 @@ export const onClientEntry = () => {
 
 export const wrapPageElement: GatsbyBrowser<unknown, PageContext>['wrapPageElement'] = ({ element, props }) => {
   return <LayoutContainer pageContext={props.pageContext}>{element}</LayoutContainer>
+}
+
+export const shouldUpdateScroll: GatsbyBrowser['shouldUpdateScroll'] = ({ routerProps: { location } }) => {
+  // gatsby with reach router has a known scrolling issue where it doesn't work.
+  // this fixes that problem.
+  if (location.hash) {
+    const offset = getTargetYOffset(location.hash)
+    if (offset !== 0) {
+      scrollToYPosition(offset)
+      return [0, offset]
+    }
+  }
+
+  return false
 }
