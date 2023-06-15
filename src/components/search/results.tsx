@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { SearchResults, SearchState } from 'react-instantsearch-core'
 import { connectStateResults } from 'react-instantsearch-dom'
-import { navigate } from '@gatsbyjs/reach-router'
+import { globalHistory } from '@gatsbyjs/reach-router'
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import { withPrefix } from 'gatsby'
 
@@ -35,7 +35,7 @@ const Results: FunctionComponent<React.PropsWithChildren<ResultsProps>> = ({ sea
 
   const onClickRow = (path: string) => {
     setShow(false)
-    navigate(withPrefix(path))
+    globalHistory.navigate(withPrefix(path))
   }
 
   return (

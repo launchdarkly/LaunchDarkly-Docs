@@ -15,10 +15,6 @@ describe('Documentation website', () => {
     // sub link under getting started
     cy.get('nav').contains('a', 'Setting up an SDK')
 
-    // close
-    // skipping for now because cypress is having trouble with useLayoutEffect
-    // cy.get('nav').contains('a', 'Getting started').click()
-    // cy.get('nav').contains('a', 'Setting up an SDK').should('not.exist')
     cy.get('nav').contains('a', 'Getting started').isActiveLink()
     cy.get('nav').contains('a', 'Setting up an SDK').click()
     cy.wait(2000)
