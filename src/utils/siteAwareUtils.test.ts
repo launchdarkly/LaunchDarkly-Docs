@@ -33,8 +33,8 @@ describe('setSubdomain', () => {
   })
 })
 
-jest.mock('@reach/router', () => {
-  const actual = jest.requireActual('@reach/router')
+jest.mock('@gatsbyjs/reach-router', () => {
+  const actual = jest.requireActual('@gatsbyjs/reach-router')
   return {
     ...actual,
     globalHistory: { location: { search: '', hash: '#mock-anchor' } },
