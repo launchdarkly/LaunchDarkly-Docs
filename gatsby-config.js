@@ -233,7 +233,7 @@ if (isStaging || isProd || buildDevIndex) {
       apiKey: process.env.ALGOLIA_ADMIN_KEY,
       queries,
       chunkSize: 10000, // default: 1000
-      continueOnFailure: !isProd,
+      continueOnFailure: false,
       enablePartialUpdates: true,
     },
   })
