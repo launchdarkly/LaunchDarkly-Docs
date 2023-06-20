@@ -1067,6 +1067,10 @@
             "path": "/integrations/compass"
           },
           {
+            "label": "CtrlStack",
+            "path": "/integrations/ctrlstack"
+          },
+          {
             "label": "GitHub Actions Flag Evaluations",
             "path": "/integrations/github-actions-flag-evaluations"
           },

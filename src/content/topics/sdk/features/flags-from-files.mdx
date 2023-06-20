@@ -275,6 +275,8 @@ To configure the client:
 
 ```go
 import (
+    "time"
+
     ld "github.com/launchdarkly/go-server-sdk/v6"
     "github.com/launchdarkly/go-server-sdk/v6/ldcomponents"
     "github.com/launchdarkly/go-server-sdk/v6/ldfiledata"
@@ -287,7 +289,7 @@ config.DataSource = ldfiledata.DataSource().
     Reloader(ldfilewatch.WatchFiles)
 config.Events = ldcomponents.NoEvents()
 
-client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
+client, _ := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 ```
 
 </CSTab>
@@ -295,6 +297,8 @@ client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 
 ```go
 import (
+    "time"
+
     ld "gopkg.in/launchdarkly/go-server-sdk.v5"
     "gopkg.in/launchdarkly/go-server-sdk.v5/ldcomponents"
     "gopkg.in/launchdarkly/go-server-sdk.v5/ldfiledata"
@@ -307,7 +311,7 @@ config.DataSource = ldfiledata.DataSource().
     Reloader(ldfilewatch.WatchFiles)
 config.Events = ldcomponents.NoEvents()
 
-client := ld.MakeCustomClient("sdk key", config, 5*time.Second)
+client, _ := ld.MakeCustomClient("sdk key", config, 5*time.Second)
 ```
 
 </CSTab>

@@ -116,6 +116,12 @@ const AllIntegrations = () => {
       svg: 'integrations/compass-logo',
     },
     {
+      label: 'CtrlStack',
+      shortLabel: 'CtrlStack',
+      path: '/integrations/ctrlstack',
+      svg: 'integrations/ctrlstack',
+    },
+    {
       label: 'Confluence',
       shortLabel: 'Confluence',
       path: '/integrations/confluence',

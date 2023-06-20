@@ -511,7 +511,7 @@ td := ldtestdata.DataSource()
 config := ld.Config{
     DataSource: td,
 }
-client := ld.MakeCustomClient("sdk-key-123abc", config, 0)
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 0)
 ```
 
 </CSTab>
@@ -531,7 +531,7 @@ td := ldtestdata.DataSource()
 config := ld.Config{
     DataSource: td,
 }
-client := ld.MakeCustomClient("sdk-key-123abc", config, 0)
+client, _ := ld.MakeCustomClient("sdk-key-123abc", config, 0)
 ```
 
 </CSTab>

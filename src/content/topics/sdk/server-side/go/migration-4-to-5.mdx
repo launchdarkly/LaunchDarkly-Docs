@@ -100,11 +100,11 @@ config := ld.DefaultConfig
 
 // 4.x model: setting custom options for streaming mode
 config.Stream = true
-config.StreamInitialReconnectDelay = 500 * time.Millisecond
+config.StreamInitialReconnectDelay = 500*time.Millisecond
 
 // 4.x model: specifying polling mode and setting custom polling options
 config.Stream = false
-config.PollInterval = 60 * time.Second
+config.PollInterval = 60*time.Second
 ```
 </CSTab>
 <CSTab label="5.0 syntax">
@@ -119,11 +119,11 @@ var config ld.Config
 
 // 5.0 model: setting custom options for streaming mode
 config.DataSource = ldcomponents.StreamingDataSource().
-    InitialReconnectDelay(500 * time.Millisecond)
+    InitialReconnectDelay(500*time.Millisecond)
 
 // 5.0 model: specifying polling mode and setting custom polling options
 config.DataSource = ldcomponents.PollingDataSource().
-    PollInterval(60 * time.Second)
+    PollInterval(60*time.Second)
 ```
 </CSTab>
 </CodeSample>
@@ -163,7 +163,7 @@ config := ld.DefaultConfig
 config.FeatureStoreFactory = redis.NewRedisFeatureStoreWithDefaults(
     ldredis.URI("redis://my-redis-host"),
     ldredis.Prefix("my-key-prefix"),
-    ldredis.CacheTTL(45 * time.Second))
+    ldredis.CacheTTL(45*time.Second))
 ```
 </CSTab>
 <CSTab label="5.0 syntax">
@@ -210,7 +210,7 @@ config.SendEvents = false
 
 // 4.x model: customizing event behavior
 config.Capacity = 20000
-config.FlushInterval = 10 * time.Second
+config.FlushInterval = 10*time.Second
 config.PrivateAttributeNames = []string{
     "email",
     "name",
@@ -235,7 +235,7 @@ config.Events: ldcomponents.NoEvents()
 // 5.0 model: customizing event behavior
 config.Events = ldcomponents.SendEvents().
     Capacity(20000).
-    FlushInterval(10 * time.Second).
+    FlushInterval(10*time.Second).
     PrivateAttributeNames(
         lduser.EmailAttribute,
         lduser.NameAttribute,
@@ -317,7 +317,7 @@ import (
 config := ld.DefaultConfig
 
 // 4.x model: setting socket connection timeout
-config.Timeout = 3 * time.Second
+config.Timeout = 3*time.Second
 
 // 4.x model: specifying a secure HTTPS proxy with a custom CA certificate
 config.HTTPClientFactory = ld.NewHTTPClientFactory(
@@ -338,7 +338,7 @@ var config ld.Config
 
 // 5.0 model: setting socket connection timeout
 config.HTTP = ldcomponents.HTTPConfiguration().
-    ConnectTimeout(3 * time.Second)
+    ConnectTimeout(3*time.Second)
 
 // 5.0 model: specifying a secure HTTPS proxy with a custom CA certificate
 config.HTTP = ldcomponents.HTTPConfiguration().
