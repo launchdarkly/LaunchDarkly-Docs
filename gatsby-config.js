@@ -13,7 +13,7 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-const queries = require('./src/utils/algolia')
+const { queries } = require('./src/utils/algolia')
 
 const isStaging = process.env.GATSBY_ACTIVE_ENV === 'staging'
 const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
@@ -233,7 +233,7 @@ if (isStaging || isProd || buildDevIndex) {
       apiKey: process.env.ALGOLIA_ADMIN_KEY,
       queries,
       chunkSize: 10000, // default: 1000
-      continueOnFailure: !isProd,
+      continueOnFailure: false,
       enablePartialUpdates: true,
     },
   })
