@@ -302,6 +302,12 @@ const AllIntegrations = () => {
       svg: 'integrations/sleuth',
     },
     {
+      label: 'Snowflake',
+      shortLabel: 'Snowflake',
+      path: '/home/data-export/snowflake',
+      svg: 'integrations/snowflake',
+    },
+    {
       label: 'Snowplow',
       shortLabel: 'Snowplow',
       path: '/integrations/snowplow',

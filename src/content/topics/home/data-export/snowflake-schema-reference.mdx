@@ -1,0 +1,94 @@
+---
+path: /home/data-export/snowflake-schema-reference
+title: Snowflake schema reference
+description: This topic explains the different event kinds for Snowflake Data Export destinations.
+tags: ['schema', 'destination', 'event', 'data export']
+published: true
+site: launchDarklyOnly
+siteAlertTitle: Snowflake is not available in federal environments
+---
+
+## Overview
+
+This topic explains the different event kinds for Snowflake Data Export destinations. The JSON schemas for Snowflake are formatted differently than LaunchDarkly's.
+
+To learn more about the Snowflake destination, read [Snowflake's documentation](https://docs.Snowflake.com/).
+
+Snowflake Data Export destinations only support [`feature` events](#feature-events). A feature event is emitted when a feature flag connected to an experiment is evaluated.
+
+### Additional properties
+
+Snowflake events include additional information about different LaunchDarkly properties. These properties are included in all event kinds.
+
+These properties are:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Property details</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>`event`</TableCell>
+      <TableCell>The event kind. This field maps onto [Snowflake's event field](https://snowflake.com/docs/connections/spec/track/).</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`environment`</TableCell>
+      <TableCell>The LaunchDarkly environment ID corresponding to event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`project`</TableCell>
+      <TableCell>The LaunchDarkly project ID corresponding to the event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`key`</TableCell>
+      <TableCell>The flag key corresponding to the event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`snowflakeAccountId`</TableCell>
+      <TableCell>The account locator of the snowflake account associated with the emitted event.
+      This is the key you provided when you set up the destination.</TableCell>
+   </TableRow>
+   </TableBody>
+</Table>
+
+## Feature events
+
+This table explains `feature` event properties:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Property name</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>`id`</TableCell>
+      <TableCell>The uuid of the evaluation event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`contextKind`</TableCell>
+      <TableCell>The kind of the context that the flag was evaluated for.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`contextKey`</TableCell>
+      <TableCell>The key of the context that the flag was evaluated for.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`variationIndex`</TableCell>
+      <TableCell>The variation of the flag requested. The SDK stores flag variation values in an array. This value corresponds to the index of the variation the array. Boolean flags show as `0` or `1` for `true` and `false`, and other flag types are numbered starting with `0` for their different variations.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`variationValue`</TableCell>
+      <TableCell>The value of the variation that was served.</TableCell>
+    </TableRow>
+        <TableRow>
+      <TableCell>`variationName`</TableCell>
+      <TableCell>The evaluated variation's name, if it exists. If the evaluated variation doesn't have a name, this field doesn't appear.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`timestamp`</TableCell>
+      <TableCell>The time the evaluation event occurred.</TableCell>
+    </TableRow>
+   </TableBody>
+</Table>

@@ -1,0 +1,144 @@
+---
+path: /home/data-export/snowflake
+title: Snowflake
+description: This topic explains how to create and test a Snowflake destination for Data Export.
+tags: ['snowflake', 'destination', 'event', 'data export']
+published: true
+site: launchDarklyOnly
+siteAlertTitle: Snowflake is not available in federal environments
+---
+
+## Overview
+
+This topic explains how to create and test a Snowflake destination for Data Export. 
+
+<Callout intent="info">
+<CalloutTitle>Exported Event Types</CalloutTitle>
+<CalloutDescription>
+
+Snowflake Data Export only exports flag evaluation events for flags used in an experiment.
+        
+</CalloutDescription>
+</Callout>
+
+## Prerequisites
+
+As a prerequisite to configuring the Snowflake integration, you must find the **Account Locator** for your Snowflake account. You can use the `current_account()` helper to find this. To learn how, read [Snowflake's documentation](https://docs.snowflake.com/en/sql-reference/functions/current_account).
+
+Next, configure the Snowflake integration in LaunchDarkly. To do this, you need the **Account Locator** from your Snowflake account.
+
+## Creating a Snowflake destination in LaunchDarkly
+
+To create the Snowflake destination:
+
+1. Navigate to the **[Integrations](https://app.launchdarkly.com/default/integrations)** page and find "Snowflake."
+2. Click **Add integration.** The "Create a destination" panel appears.
+3. (Optional) Give your integration a human-readable **Name**.
+4. Choose an **Environment** for this integration to apply to.
+5. Enter the Snowflake **Account Locator**:
+
+![The "Create a destination" panel.](integrations-snowflake-create.png)<br/>
+
+6. Click **Save destination**. The new integration appears in the list of integrations.
+
+## Testing a Snowflake destination
+
+After you save the destination, send a test event to confirm that the destination is configured properly.
+
+To send a test event:
+
+1. Navigate to the **Integrations** page and find "Snowflake."
+2. Click into the "Snowflake" section to display a list of destinations.
+3. Click the **edit** icon next to the destination you want to test. The "Edit destination" panel appears.
+4. In the "Send a test event" section, click **Send event**.
+5. Verify the event appears in the Snowflake **Debugger**.
+
+## Consuming shared data in Snowflake
+
+After you have created your destination, LaunchDarkly will add you to a [secure share](https://docs.snowflake.com/en/user-guide/data-sharing-secure-views) for you to consume your events.  
+Create a database in your Snowflake account to query the shared data. 
+
+You can create the database using the user interface (UI) or a Snowflake worksheet.
+
+### Snowflake worksheet
+
+Open a worksheet using an account that has access to the `accountadmin` role in Snowflake.
+Use the code below to create a database from the share.  
+Replace `<database_name>` with your chosen values.
+
+{/* cSpell:disable csv content doesn't need to be spellchecked */}
+
+<CodeSample>
+<CSTab label="Creating the database">
+
+```sql
+use role accountadmin;
+
+show shares;
+
+desc share ACCOUNT_TO_BE_CREATED.SHARED_ACCESS;
+
+create database <database_name> from share ACCOUNT_TO_BE_CREATED.SHARED_ACCESS;
+```
+
+</CSTab>
+</CodeSample>
+
+{/* cSpell:enable */}
+
+Use the following sample to grant `SELECT` permissions to any of your custom roles that require them.  
+Replace `<database_name>` and `<role_name>` with your chosen values.
+
+{/* cSpell:disable csv content doesn't need to be spellchecked */}
+
+<CodeSample>
+<CSTab label="Creating the database">
+
+```sql
+grant imported privileges on database <database_name> to <role_name>;
+```
+
+</CSTab>
+</CodeSample>
+
+{/* cSpell:enable */}
+
+## Example events
+
+These example events display the structure of the events LaunchDarkly sends to Snowflake.
+
+LaunchDarkly sends events in the following formats:
+
+{/* cSpell:disable csv content doesn't need to be spellchecked */}
+
+<CodeSample>
+<CSTab label="Evaluation event">
+
+```csv
+ID,PROJECTID,ENVIRONMENTID,CONTEXTKIND,CONTEXTKEY,VARIATIONINDEX,VARIATIONVALUE,VARIATIONNAME,FLAGKEY,TIMESTAMP,SNOWFLAKEACCOUNTID
+642aa35a545fbb000e123456,5866f3891cd8810a42123456,586c33cf1cd88133f9123456,user,5efa6ca891e30321f0123456,1,false,,enable-confluence-smart-links,2023-04-03 09:58:47.000,hs00696
+```
+
+</CSTab>
+</CodeSample>
+
+{/* cSpell:enable */}
+
+## Enabling Data Export for flags and environments
+
+After you create a Data Export destination, you must start sending flag or environment event data to it. You can enable Data Export for individual flags, or for all the flags in an environment.
+
+To learn more about exporting event data from flags and environments, read [Exporting event data for flags and environments](/home/data-export#exporting-event-data-for-flags-and-environments).
+
+## Deleting a Snowflake destination
+
+You can delete a Data Export destination from the **Integrations** screen.
+
+To delete a destination:
+
+1. Navigate to the **Integrations** page and find "Snowflake."
+2. Click into the "Snowflake" section to display a list of destinations.
+3. Click the **edit** icon next to the destination you wish to delete. The "Edit destination" panel appears.
+4. Click **Delete destination**:
+
+![The "Delete destination" section of the "Edit destination" panel.](destination-delete.png)

@@ -668,6 +668,16 @@
             ]
           },
           {
+            "label": "Snowflake",
+            "path": "/home/data-export/snowflake",
+            "items": [
+              {
+                "label": "Snowflake schema reference",
+                "path": "/home/data-export/snowflake-schema-reference"
+              }
+            ]
+          },
+          {
             "label": "Data Export schema reference",
             "path": "/home/data-export/schema-reference"
           }
