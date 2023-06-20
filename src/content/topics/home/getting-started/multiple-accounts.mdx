@@ -1,0 +1,98 @@
+---
+path: /home/getting-started/multiple-accounts
+title: Using one email for multiple accounts
+description: This topic explains how to use the same email address for multiple LaunchDarkly accounts.
+published: true
+tags: ['email', 'accounts', 'authentication', 'sso', 'mfa']
+---
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+Multiple accounts is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+</CalloutDescription>
+</Callout>
+
+## Overview
+
+This topic explains how to use the same email address for multiple LaunchDarkly accounts.
+
+Using the same email across multiple accounts enables you to:
+
+- Select which LaunchDarkly organization you want to sign in to
+- Receive all LaunchDarkly email notifications at the same address, if you have email notifications enabled
+
+## Creating new accounts using a single email address
+
+To create a new account using an email address already associated with a LaunchDarkly account:
+
+ 1. Navigate to the [Sign up page](https://app.launchdarkly.com/signup).
+ 2. Enter the email address you wish to use.
+
+You can create up to three trial accounts using the same email address. If you require additional trial accounts, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+
+## Updating existing accounts to use the same email address
+
+If you already have multiple accounts, you can update them to use the same email address. 
+
+Here's how:
+
+1. Determine the email address you want to use to sign in and receive notifications.
+2. Sign in to an existing account that you want to update.
+3. Click your **display picture** and choose "My profile" from the menu.
+4. In the "My profile" section, enter the email address from step 1 in the **Email address** field.
+5. Click **Update my info**. You are logged out and prompted to log back in using your original email address.
+
+Your changes are confirmed. Test them by logging out and logging back in with your updated email address.
+
+You can repeat this procedure for other existing accounts for which you also want to use the same email address.
+
+The authentication method is unique to each account. This includes your password, the account settings for single sign-on (SSO), and whether multi-factor authentication (MFA) is enabled. Only the email address is the same across multiple accounts.
+
+## Signing in with an email address associated with multiple LaunchDarkly accounts
+
+<Callout intent="info">
+<CalloutTitle>Google OAuth customers must use the "Continue with Google" button</CalloutTitle>
+<CalloutDescription>
+
+If you use the same email address with multiple LaunchDarkly accounts and one of those accounts uses Google OAuth as the SSO provider, you must use the "Continue with Google" button to sign in to your accounts.
+
+</CalloutDescription>
+</Callout>
+
+To sign in to LaunchDarkly using an email address that is associated with multiple accounts:
+
+1. Enter the email address associated with your LaunchDarkly accounts. The system will redirect you to a page that lists all of the organizations associated with that email address.
+2. Click on an organization to continue.
+3. Authenticate your account:
+
+    * If your selected organization uses Single sign-on (SSO), the system will redirect you to sign in through your SSO provider. 
+    * If your selected organization uses multi-factor authentication (MFA), LaunchDarkly requests that you enter the code from your authenticator app.
+    * If your selected organization uses password authentication, enter the password associated with the account.  
+4. If LaunchDarkly doesn't recognize the device you're signing in from, it will send a verification link to your email. Click **Verify email** to confirm your identity. You are directed to a "Trust this browser?" page.
+5. If you want to trust the browser and skip identity verification for the next 30 days, click **Trust this browser**. Otherwise, click **Don't trust**.
+6. Select which organization to log in to.
+7. Enter your password.
+
+You are now logged in to your selected organization.
+## Switching to another organization while signed in
+
+To switch to another organization while signed in:
+
+ 1. Click your **display picture** and choose “Switch organization”:
+  
+![The "Switch organization" option.](switch-organization-menu.png)
+
+2. Select the organization to sign in to. 
+
+When you sign in to a second organization, LaunchDarkly signs you out of the first organization. You can only be signed in to one organization at a time.
+
+## Finding your organization during sign in
+
+There are several reasons your organization may not be listed during the sign in process: 
+
+- **You may need to join your company’s LaunchDarkly organization:** If you have a pending invite to join an organization, accept the invite and complete the account creation process. If your new account is using the same email address as your other accounts, you will be able to see the organization you just joined the next time you sign in.
+- **Your accounts may have different email aliases:** If your accounts are using different email aliases, you will need to [update the email of those accounts to the same email address you want to use](/home/getting-started/multiple-accounts#updating-existing-accounts-to-use-the-same-email-address)
+- **If your company uses single sign-on (SSO), your initial sign in must be from your SSO provider:** LaunchDarkly must be assigned to you by an admin within your company. To access LaunchDarkly for the first time, sign in from your company’s SSO provider to create your new LaunchDarkly account. Your company’s organization will be listed the next time you sign in.

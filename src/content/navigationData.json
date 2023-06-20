@@ -26,6 +26,10 @@
             "path": "/home/getting-started/your-account"
           },
           {
+            "label": "Using one email for multiple accounts",
+            "path": "/home/getting-started/multiple-accounts"
+          },
+          {
             "label": "Using the learning center",
             "path": "/home/getting-started/learning-center"
           },
