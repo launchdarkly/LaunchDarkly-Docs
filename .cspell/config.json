@@ -7,5 +7,15 @@
       "path": "./custom-words.txt",
       "addWords": true
     }
+  ],
+
+  "patterns": {
+    "flagKey": "^flagKey=\""
+  },
+
+  "ignoreRegExpList": [
+    "^flag={",
+    "^import {",
+    "/from\\s+(['\"]).*\\1/"
   ]
 }

@@ -1,16 +1,27 @@
 {
   "compilerOptions": {
     "outDir": "./dist/",
+    "target": "esnext",
+    "lib": ["dom", "esnext"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "theme-ui",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "noImplicitAny": true,
     "resolveJsonModule": true,
-    "module": "commonjs",
-    "target": "ES2019",
-    "jsx": "react",
-    "lib": ["dom", "es2015", "esnext"],
-    "skipLibCheck": true
+    // cannot use baseUrl with gatsby
+    // https://www.gatsbyjs.com/docs/how-to/custom-configuration/typescript/#parcel-typescript-features
   },
-  "include": ["./src/**/*"],
+  "ts-node": {
+    // these options are overrides used only by ts-node
+    // same as the --compilerOptions flag and the TS_NODE_COMPILER_OPTIONS environment variable
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  },
+  "include": ["./src/**/*", "./gatsby-node.ts", "./gatsby-ssr.tsx", "./gatsby-browser.tsx"],
   "exclude": [".cache", ".github", "assets", "dist", "node_modules", "public", "cypress"]
 }

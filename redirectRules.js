@@ -364,12 +364,20 @@ module.exports = [
     toPath: '/integrations/slack/approvals',
   },
   {
+    fromPath: '/integrations/slack/managing/',
+    toPath: '/integrations/slack',
+  },
+  {
     fromPath: '/integrations/gatsby/',
     toPath: '/sdk/client-side/react/gatsby',
   },
   {
     fromPath: '/integrations/dynatrace-cloud-automation/',
     toPath: '/integrations/dynatrace',
+  },
+  {
+    fromPath: '/integrations/new-relic/new-relic-legacy',
+    toPath: '/integrations/new-relic',
   },
   // Redirects to new Data Export section
   {
@@ -815,7 +823,11 @@ module.exports = [
   },
   {
     fromPath: '/guides/best-practices/terraform/',
-    toPath: '/guides/platform-specific/terraform',
+    toPath: '/guides/infrastructure/terraform',
+  },
+  {
+    fromPath: '/guides/best-practices/terraform/',
+    toPath: '/guides/infrastructure/terraform',
   },
   {
     fromPath: '/guides/best-practices/using-feature-flags-on-static-sites/',

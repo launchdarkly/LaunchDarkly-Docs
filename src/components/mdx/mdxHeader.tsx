@@ -1,6 +1,6 @@
-/** @jsx jsx */
 import { Fragment, FunctionComponent } from 'react'
-import { Flex, jsx, Themed } from 'theme-ui'
+import { Themed } from '@theme-ui/mdx'
+import { Flex } from 'theme-ui'
 
 import { SiteFrontmatter } from '../../types/siteType'
 import { useIsFederal } from '../../utils/siteAwareUtils'

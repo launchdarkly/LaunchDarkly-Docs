@@ -1,7 +1,6 @@
-/** @jsx jsx */
+import type { NavigateFn } from '@gatsbyjs/reach-router'
 import { useSelect } from 'downshift'
-import { navigate } from 'gatsby'
-import { Button, jsx } from 'theme-ui'
+import { Button } from 'theme-ui'
 
 import { SiteType } from '../../types/siteType'
 import { trackSiteSelection } from '../../utils/analyticsUtils'
@@ -14,18 +13,22 @@ const items: SiteType[] = ['launchDarkly', 'federal']
 
 const getLabel = (site: SiteType) => (site === 'federal' ? 'Federal docs' : 'LaunchDarkly docs')
 
-const SiteSelector = () => {
+type SiteSelectorProps = {
+  navigateFn: NavigateFn
+}
+const SiteSelector = ({ navigateFn }: SiteSelectorProps) => {
   const [site, setSite] = useSite()
-  const { isOpen, getToggleButtonProps, getMenuProps, highlightedIndex, selectedItem, getItemProps } = useSelect({
-    items,
-    selectedItem: site,
-    onSelectedItemChange,
-  })
+  const { isOpen, getToggleButtonProps, getMenuProps, getLabelProps, highlightedIndex, selectedItem, getItemProps } =
+    useSelect({
+      items,
+      selectedItem: site,
+      onSelectedItemChange,
+    })
 
   function onSelectedItemChange({ selectedItem: selectedSite }: { selectedItem?: SiteType }) {
     trackSiteSelection(selectedSite)
     setSite(selectedSite)
-    navigate(addRemoveSiteParam('', selectedSite, true), { replace: true })
+    navigateFn(addRemoveSiteParam('', selectedSite, true), { replace: true })
   }
   const dropdownWidth = '11rem'
 
@@ -38,12 +41,18 @@ const SiteSelector = () => {
           width: ['100%', dropdownWidth],
         }}
         {...getToggleButtonProps()}
+        id="dropdown-button"
+        aria-labelledby="dropdown-label"
       >
-        <span data-testid="dropdown-label">{getLabel(site)}</span>
+        <span data-testid="dropdown-label" {...getLabelProps()} id="dropdown-label" htmlFor="dropdown-button">
+          {getLabel(site)}
+        </span>
         <Icon name="expand-more" sx={{ height: 1, fill: ['grayscaleBlack300', 'grayscaleWhite'] }} />
       </Button>
       <ul
         {...getMenuProps()}
+        id="dropdown-menu"
+        aria-labelledby="dropdown-label"
         sx={{
           position: 'absolute',
           mt: '10px',

@@ -1,9 +1,8 @@
-/** @jsx jsx */
-import { LinkGetProps } from '@reach/router'
+import { LinkGetProps } from '@gatsbyjs/reach-router'
 import { graphql, useStaticQuery } from 'gatsby'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { jsx } from 'theme-ui'
 
+import { useFlaggedPagesConfig } from '../hooks/useFlaggedPagesConfig'
 import useGitGatsbyTheme from '../hooks/useGitGatsbyTheme'
 import isExternalLink from '../utils/isExternalLink'
 
@@ -16,6 +15,8 @@ const variant = 'links.topNav'
 const TopNav = () => {
   const { theme } = useGitGatsbyTheme()
   const flags = useFlags()
+  const { isPathDisabled } = useFlaggedPagesConfig()
+
   const {
     allNavigationDataJson: { nodes: navigationData },
   } = useStaticQuery(graphql`
@@ -55,6 +56,9 @@ const TopNav = () => {
       {navigationData.map((rootItem: SideNavItem) => {
         const { label, path, flagKey, svg } = rootItem
         const showItem = flagKey ? flags[flagKey] : true
+
+        if (isPathDisabled(path)) return null
+
         return showItem ? (
           <li key={label} sx={{ display: 'flex', height: '100%', alignItems: 'center' }}>
             {isExternalLink(path) ? (

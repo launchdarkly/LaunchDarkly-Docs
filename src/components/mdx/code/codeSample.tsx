@@ -1,6 +1,5 @@
-/** @jsx jsx */
 import { Children, ReactNode, useState } from 'react'
-import { Box, Button, Card, Flex, jsx } from 'theme-ui'
+import { Box, Button, Card, Flex } from 'theme-ui'
 
 import { CSTab, CSTabProps } from './csTab'
 
@@ -14,12 +13,13 @@ export function CodeSample({ children }: CodeSampleProps) {
     throw new Error(`Error: There is a ${CodeSample.name} that is missing a child component. Add a CSTab.`)
   } else {
     const validChildren = Children.toArray(children).filter((child: JSX.Element) => {
-      return child.props.mdxType === 'CSTab'
+      // mdx wraps the name and it ends up looking like: MdxComponents('CSTab')
+      return child.type.displayName.includes('CSTab')
     })
     const selectedChild = validChildren.find((_child, index: number) => {
       return index === selectedIndex
     })
-    console.log('validChildren', validChildren)
+
     validChildren.forEach((CSTabItem: JSX.Element, index: number) => {
       throwErrorIfLabelMissing(CSTabItem, index)
     })

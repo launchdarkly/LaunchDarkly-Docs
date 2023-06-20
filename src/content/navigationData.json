@@ -692,9 +692,9 @@
         "svg": "relay-proxy",
         "items": [
           {
-          "label": "Determining whether to use the Relay Proxy",
-          "path": "/home/relay-proxy/determining",
-          "items": [
+            "label": "Determining whether to use the Relay Proxy",
+            "path": "/home/relay-proxy/determining",
+            "items": [
               {
                 "label": "Relay Proxy use cases",
                 "path": "/home/relay-proxy/use-cases"

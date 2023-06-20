@@ -1,4 +1,4 @@
-import { globalHistory } from '@reach/router'
+import { globalHistory } from '@gatsbyjs/reach-router'
 import qs from 'qs'
 
 import useSite from '../components/siteSelector/useSite'
@@ -16,7 +16,7 @@ const siteAwareSubdomains = [
 ] as const
 
 type SubdomainMap = {
-  [key in typeof siteAwareSubdomains[number]]?: {
+  [key in (typeof siteAwareSubdomains)[number]]?: {
     searchValue: string
     searchRegExp: RegExp
     replaceValue: string

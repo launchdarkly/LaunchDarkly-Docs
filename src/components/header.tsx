@@ -1,5 +1,4 @@
-/** @jsx jsx */
-import { jsx } from 'theme-ui'
+import { navigate } from 'gatsby'
 
 import { useIsFederal } from '../utils/siteAwareUtils'
 
@@ -84,7 +83,7 @@ const Header = () => {
                 display: ['none', 'flex'],
               }}
             >
-              <SiteSelector />
+              <SiteSelector navigateFn={navigate} />
             </span>
             <SearchRoot />
           </div>

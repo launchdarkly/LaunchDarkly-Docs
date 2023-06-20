@@ -50,7 +50,9 @@ describe('code', () => {
     const { asFragment } = render(<Code className="test">app.launchdarkly.com</Code>)
     expect(asFragment()).toMatchInlineSnapshot(`
       <DocumentFragment>
-        CodeSnippetComponent: app.launchdarkly.us
+        <code>
+          app.launchdarkly.us
+        </code>
       </DocumentFragment>
     `)
   })

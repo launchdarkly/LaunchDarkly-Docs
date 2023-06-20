@@ -1,0 +1,72 @@
+---
+path: /flags-in-docs
+title: Flags in docs
+isInternal: false
+published: false
+---
+import { docsDemoFlagBoolean } from '@/flags'
+
+# Flags in docs
+
+<Feature flag={docsDemoFlagBoolean} showWhenVariation={true}>
+## I am on
+
+<CodeSample>
+<CSTab label="yarn">
+```bash
+yarn add -D jest-launchdarkly-mock
+```
+</CSTab>
+
+<CSTab label="npm">
+```bash
+npm install jest-launchdarkly-mock --save-dev
+```
+</CSTab>
+</CodeSample>
+
+</Feature>
+
+<Feature flag={docsDemoFlagBoolean} showWhenVariation={false}>
+## I am off
+</Feature>
+
+<TableCell>
+  Filter by flag status. Available statuses are:
+  <ul>
+  <li>Any</li>
+  <li>Active</li>
+  <li>Inactive</li>
+  <li>Archived</li>
+  <li>Launched</li>
+  <li>New</li>
+  </ul>
+</TableCell>
+
+
+
+<Feature flag={docsDemoFlagBoolean} showWhenVariation={true}>
+  <Table>
+    <TableHeader>
+      <TableHeadCell>Version</TableHeadCell>
+      <TableHeadCell>Initial release date</TableHeadCell>
+      <TableHeadCell>End of life (EOL)</TableHeadCell>
+    </TableHeader>
+    <TableBody>
+      <TableRow>
+        <TableCell>1</TableCell>
+        <TableCell>2</TableCell>
+        <TableCell>
+          <ul>
+            <li>Any</li>
+            <li>Active</li>
+            <li>Inactive</li>
+            <li>Archived</li>
+            <li>Launched</li>
+            <li>New</li>
+          </ul>
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</Feature>

@@ -1,3 +1,8 @@
+jest.mock('../../hooks/useGitGatsbyTheme', () => () => {
+  const theme = jest.requireActual('../../gatsby-plugin-theme-ui')
+  return { theme: theme.default }
+})
+
 import React from 'react'
 import { render } from '@testing-library/react'
 

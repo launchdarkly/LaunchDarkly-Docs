@@ -5,11 +5,15 @@
 // https://www.gatsbyjs.org/docs/adding-search-with-algolia/#configuring-the-algolia-plugin
 
 const { activeEnv, algoliaIndex } = require('./envUtils')
+const { getFlaggedPagesConfig } = require('./flaggedPages/ld-server')
+
 require('dotenv').config({
   path: `.env.${activeEnv}`,
 })
 console.log(`Using environment config: '${activeEnv}', indexing to: ${algoliaIndex}`)
 
+// https://github.com/algolia/gatsby-plugin-algolia#partial-updates
+// internal.contentDigest is required
 const pageQuery = `{
   mdx: allMdx(filter: {fileAbsolutePath: {regex: "/src/content/topics/"}}) {
     nodes {
@@ -26,6 +30,9 @@ const pageQuery = `{
       tableOfContents(maxDepth: 2)
       fields {
         lastModifiedTime
+      }
+      internal {
+        contentDigest
       }
     }
   }
@@ -54,6 +61,7 @@ const excludedPages = [
   '/sdk/index.mdx',
   '/guides/index.mdx',
   '/components.mdx',
+  '/flags-in-docs',
 ]
 const excludedHeadings = [
   'getting started',
@@ -65,10 +73,15 @@ const excludedHeadings = [
   'related content',
 ]
 
-const flatten = (mdx, rootTopics, secondLevelTopics) => {
+const flatten = async (mdx, rootTopics, secondLevelTopics) => {
+  const { isPathDisabled } = await getFlaggedPagesConfig()
+
   const result = []
   mdx.forEach(({ id, fileAbsolutePath, frontmatter, excerpt, tableOfContents, fields }) => {
-    const included = frontmatter.published && !excludedPages.find(p => fileAbsolutePath.includes(p))
+    const included =
+      frontmatter.published &&
+      !excludedPages.find(p => fileAbsolutePath.includes(p)) &&
+      !isPathDisabled(frontmatter.path)
 
     if (included) {
       const { tags, title, path, description } = frontmatter
@@ -143,8 +156,8 @@ const settings = {
 const queries = [
   {
     query: pageQuery,
-    transformer: ({ data: { mdx, rootTopics, secondLevelTopics } }) =>
-      flatten(mdx.nodes, rootTopics.nodes, secondLevelTopics.nodes),
+    transformer: async ({ data: { mdx, rootTopics, secondLevelTopics } }) =>
+      await flatten(mdx.nodes, rootTopics.nodes, secondLevelTopics.nodes),
     indexName: algoliaIndex,
     settings,
   },

@@ -52,7 +52,7 @@ const handleMdx = (_err: Error, filepath: string, _stat: Stats) => {
 const trimPath = (path: string) => (path.endsWith('/') ? path.slice(0, -1) : path)
 
 const withRedirect = (path: string): string => {
-  const redirectRule = redirectRules.find(({ fromPath }) => fromPath === path)
+  const redirectRule = redirectRules.find(({ fromPath }) => trimPath(fromPath) === path)
   return redirectRule ? withRedirect(redirectRule.toPath) : path
 }
 

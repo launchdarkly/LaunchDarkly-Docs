@@ -7,6 +7,7 @@ module.exports = {
     'plugin:prettier/recommended',
     'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
+    'plugin:mdx/recommended',
   ],
   settings: {
     react: {
@@ -16,6 +17,7 @@ module.exports = {
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
+      typescript: {},
     },
   },
   env: {
@@ -69,12 +71,16 @@ module.exports = {
     // https://github.com/prettier/eslint-config-prettier/blob/master/README.md#forbid-unnecessary-backticks
     quotes: ['error', 'single', { avoidEscape: true, allowTemplateLiterals: false }],
 
+    // no longer needed
+    'react/jsx-uses-react': 'off',
+    'react/react-in-jsx-scope': 'off',
+
+    'react/no-unknown-property': ['error', { ignore: ['sx', 'css'] }],
+
     // Disable prop-types as we use TypeScript for type checking
     'react/prop-types': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-
-    'react/no-unknown-property': ['error', { ignore: ['sx', 'css'] }],
 
     'import/no-unresolved': 'error',
     'import/default': 'error',
@@ -94,7 +100,7 @@ module.exports = {
 
     '@typescript-eslint/camelcase': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: 'jsx' }],
   },
   ignorePatterns: ['cypress/plugins', 'cypress/support', 'cypress/fixtures'],
   globals: {

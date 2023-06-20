@@ -35,16 +35,18 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell><a href="https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/">SDK API docs</a></TableCell>
+      <TableCell>[SDK API docs](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/)</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/cpp-sdks">cpp-sdks</a></TableCell>
+      <TableCell>[cpp-sdks](https://github.com/launchdarkly/cpp-sdks)</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample applications</TableCell>
-      <TableCell><a href="https://github.com/launchdarkly/cpp-sdks/tree/main/examples/hello-cpp-client
-">C++ (client-side) (native)</a><br/> <a href="https://github.com/launchdarkly/cpp-sdks/tree/main/examples/hello-c-client">C++ (client-side) (C binding)</a></TableCell>
+      <TableCell>
+        [C++ (client-side) (native)](https://github.com/launchdarkly/cpp-sdks/tree/main/examples/hello-cpp-client)
+        <br /> [C++ (client-side) (C binding)](https://github.com/launchdarkly/cpp-sdks/tree/main/examples/hello-c-client)
+      </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
@@ -60,21 +62,21 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
 
 To use the C++ SDK, you must have the following prerequisites installed on your build machine:
 
-* Windows or a POSIX environment (Linux, OSX, BSD)
-* `cmake`, version 3.19 or above
-* `boost`, version 1.81 or above
-* `openssl`, version 1.1 or above
-* `libpthread`, if you are using a POSIX environment
+- Windows or a POSIX environment (Linux, OSX, BSD)
+- `cmake`, version 3.19 or above
+- `boost`, version 1.81 or above
+- `openssl`, version 1.1 or above
+- `libpthread`, if you are using a POSIX environment
 
 To build the C++ SDK, you must have the following dependencies. These are automatically fetched by `cmake` during the build process:
 
-* [`tl/expected`](https://github.com/TartanLlama/expected)
-* [`djarek/certify`](https://github.com/djarek/certify.git)
+- [`tl/expected`](https://github.com/TartanLlama/expected)
+- [`djarek/certify`](https://github.com/djarek/certify.git)
 
 If you are planning to run the C++ SDK test suite, you will also need the following:
 
-* [`nlohmann/json`](https://github.com/nlohmann/json)
-* [`googletest`](https://github.com/google/googletest)
+- [`nlohmann/json`](https://github.com/nlohmann/json)
+- [`googletest`](https://github.com/google/googletest)
 
 You do not need to run the test suite in order to use the SDK.
 
@@ -82,7 +84,7 @@ You do not need to run the test suite in order to use the SDK.
 <CalloutTitle>For use in mobile, desktop, and embedded client applications only</CalloutTitle>
 <CalloutDescription>
 
-This SDK is intended for use in single-user mobile, desktop, and embedded applications. If you have a C/C++ application and want to set up LaunchDarkly on the server-side, read the [server-side C/C++  SDK reference](/sdk/server-side/c-c--).
+This SDK is intended for use in single-user mobile, desktop, and embedded applications. If you have a C/C++ application and want to set up LaunchDarkly on the server-side, read the [server-side C/C++ SDK reference](/sdk/server-side/c-c--).
 
 To learn more about LaunchDarkly's different SDK types, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).
 
@@ -109,38 +111,36 @@ The following sections explain how to install and configure the SDK, and then to
 You can incorporate the SDK by building from source using `cmake`, or by using pre-built artifacts. Then, include the LaunchDarkly headers.
 
 #### Incorporating the SDK using cmake
-----
-<br/>
+
+---
+
+<br />
 
 To incorporate the SDK using `cmake`:
 
 1. Clone the [GitHub repository](https://github.com/launchdarkly/cpp-sdks) as a subdirectory of your project.
 2. Update your project's `CMakeLists.txt` to include the SDK repository:
-
-  <CodeSample>
-  <CSTab label="Using add_subdirectory">
-
-  ```bash
-  add_subdirectory(cpp-sdks)
-  ```
-
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+      <CSTab label="Using add_subdirectory">
+        ```bash
+        add_subdirectory(cpp-sdks)
+        ```
+      </CSTab>
+    </CodeSample>
 3. Link your project's target against the `launchdarkly::client` target:
-
-  <CodeSample>
-  <CSTab label="Linking your target">
-
-  ```bash
-  target_link_libraries(your-target PRIVATE launchdarkly::client)
-  ```
-
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+      <CSTab label="Linking your target">
+        ```bash
+        target_link_libraries(your-target PRIVATE launchdarkly::client)
+        ```
+      </CSTab>
+    </CodeSample>
 
 #### Incorporating the SDK using prebuilt artifacts
-----
-<br/>
+
+---
+
+<br />
 
 The C++ (client-side) SDK releases include 64-bit static and dynamic libraries for Linux, Mac, and Windows.
 
@@ -148,23 +148,22 @@ To incorporate the SDK using prebuilt artifacts:
 
 1. Download the correct release for your platform from the GitHub [Releases](https://github.com/launchdarkly/cpp-sdks/releases) page.
 2. Ensure the SDK's headers are installed on the build system. One way to do this is to clone the [GitHub repository](https://github.com/launchdarkly/cpp-sdks) and install the headers using `cmake`:
-
-  <CodeSample>
-  <CSTab label="Install headers">
-
-  ```bash
-  cmake --build .
-  cmake --install .
-  ```
-
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+      <CSTab label="Install headers">
+        ```bash
+        cmake --build .
+        cmake --install .
+        ```
+      </CSTab>
+    </CodeSample>
 
 You can now reference the installed headers and link against the prebuilt libraries.
 
 #### Including the LaunchDarkly headers
-----
-<br/>
+
+---
+
+<br />
 
 To include the LaunchDarkly SDK headers:
 
@@ -185,8 +184,7 @@ To include the LaunchDarkly SDK headers:
 </CSTab>
 </CodeSample>
 
-  The C wrapper is included in the release binaries.
-
+The C wrapper is included in the release binaries.
 
 <Details summary="Expand for how to install the SDK if you are using v2.x">
 
@@ -194,8 +192,10 @@ Here's how to install the SDK:
 
 1. Clone [the GitHub repository](https://github.com/launchdarkly/c-client-sdk) or download a release archive from the [GitHub Releases](https://github.com/launchdarkly/c-client-sdk/releases) page.
 2. Install the SDK locally.
- * If you use `cmake`, the build system will expect that `boost` and `openssl` exist on the system. The `cmake` configuration exports the target `ldclientapi`.
- * If you don't use `cmake` and you cannot use LaunchDarkly's artifacts, use `cmake install` to install the SDK in directory you choose. This copies the required headers, and binaries equivalent to LaunchDarkly's release bundles.
+
+- If you use `cmake`, the build system will expect that `boost` and `openssl` exist on the system. The `cmake` configuration exports the target `ldclientapi`.
+- If you don't use `cmake` and you cannot use LaunchDarkly's artifacts, use `cmake install` to install the SDK in directory you choose. This copies the required headers, and binaries equivalent to LaunchDarkly's release bundles.
+
 3. (Optional) Build the C++ wrapper, which is not included in the release binaries. Copy the [header](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/include/launchdarkly/api.hpp) and [source](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/api.cpp) files and add them to your own build system.
 4. Include the LaunchDarkly SDK headers:
 
@@ -525,20 +525,20 @@ Shut down the client when your application terminates. To learn more, read [Shut
 
 This SDK supports the following features:
 
-* [Anonymous contexts and users](/sdk/features/anonymous#c-client-side)
-* [Configuration](/sdk/features/config#c-client-side), including
-  * [Application metadata configuration](/sdk/features/app-config#c-client-side)
-  * [Service endpoint configuration](/sdk/features/service-endpoint-configuration#c-client-side)
-* [Evaluating flags](/sdk/features/evaluating#c-client-side)
-* [Flag evaluation reasons](/sdk/features/evaluation-reasons#c-client-side)
-* [Flushing events](/sdk/features/flush#c-client-side)
-* [Getting all flags](/sdk/features/all-flags#c-client-side)
-* [Identifying and changing contexts](/sdk/features/identify#c-client-side)
-* [Monitoring SDK status](/sdk/features/monitoring#c-client-side)
-* [Private attributes](/sdk/features/private-attributes#c-client-side)
-* [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#c-client-side)
-* [Sending custom events](/sdk/features/events#c-client-side)
-* [Shutting down](/sdk/features/shutdown#c-client-side)
-* [Subscribing to flag changes](/sdk/features/flag-changes#c-client-side)
-* [User and context configuration](/sdk/features/user-context-config#c-client-side)
-* [Web proxy configuration](/sdk/features/web-proxy#c-client-side)
+- [Anonymous contexts and users](/sdk/features/anonymous#c-client-side)
+- [Configuration](/sdk/features/config#c-client-side), including
+  - [Application metadata configuration](/sdk/features/app-config#c-client-side)
+  - [Service endpoint configuration](/sdk/features/service-endpoint-configuration#c-client-side)
+- [Evaluating flags](/sdk/features/evaluating#c-client-side)
+- [Flag evaluation reasons](/sdk/features/evaluation-reasons#c-client-side)
+- [Flushing events](/sdk/features/flush#c-client-side)
+- [Getting all flags](/sdk/features/all-flags#c-client-side)
+- [Identifying and changing contexts](/sdk/features/identify#c-client-side)
+- [Monitoring SDK status](/sdk/features/monitoring#c-client-side)
+- [Private attributes](/sdk/features/private-attributes#c-client-side)
+- [Relay Proxy configuration, using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode#c-client-side)
+- [Sending custom events](/sdk/features/events#c-client-side)
+- [Shutting down](/sdk/features/shutdown#c-client-side)
+- [Subscribing to flag changes](/sdk/features/flag-changes#c-client-side)
+- [User and context configuration](/sdk/features/user-context-config#c-client-side)
+- [Web proxy configuration](/sdk/features/web-proxy#c-client-side)

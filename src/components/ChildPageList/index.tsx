@@ -1,6 +1,4 @@
-/** @jsx jsx */
 import { FC } from 'react'
-import { jsx } from 'theme-ui'
 
 import useGitGatsbyTheme from '../../hooks/useGitGatsbyTheme'
 import Link from '../link'

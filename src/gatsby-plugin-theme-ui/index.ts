@@ -128,7 +128,7 @@ const theme = makeTheme({
         bg: 'transparent',
         '&:hover': {
           color: 'text',
-          boxShadow: (theme: Theme) => `inset 0px -2px 0px ${theme.colors.primary}`,
+          boxShadow: (theme: Theme) => `inset 0px -2px 0px ${get(theme, 'colors.primary')}`,
         },
       },
       languageActive: (theme: Theme) => ({
@@ -176,7 +176,7 @@ const theme = makeTheme({
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${get(theme, 'colors.muted')}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
@@ -190,7 +190,7 @@ const theme = makeTheme({
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${get(theme, 'colors.muted')}`,
       paddingX: [3, 5],
       paddingY: [2, 4],
       lineHeight: 'regular',
@@ -198,12 +198,16 @@ const theme = makeTheme({
       width: '100%',
       my: [4, 5],
       overflowX: 'auto',
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     image: {
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${get(theme, 'colors.muted')}`,
       maxWidth: '100%',
       my: [4, 5],
     },
@@ -213,12 +217,13 @@ const theme = makeTheme({
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) => `0 2px 4px ${get(theme, 'colors.muted')}`,
       paddingX: 5,
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
       p: {
+        fontSize: 'unset',
         mb: 0,
       },
       ol: {
@@ -247,12 +252,17 @@ const theme = makeTheme({
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.secondary}, 0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) =>
+        `inset 6px 0 0 ${get(theme, 'colors.secondary')}, 0 2px 4px ${get(theme, 'colors.muted')}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     warning: {
       padding: 2,
@@ -260,12 +270,17 @@ const theme = makeTheme({
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.systemYellow}, 0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) =>
+        `inset 6px 0 0 ${get(theme, 'colors.systemYellow')}, 0 2px 4px ${get(theme, 'colors.muted')}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     alert: {
       padding: 2,
@@ -273,12 +288,17 @@ const theme = makeTheme({
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.systemRed}, 0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) =>
+        `inset 6px 0 0 ${get(theme, 'colors.systemRed')}, 0 2px 4px ${get(theme, 'colors.muted')}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
     primary: {
       padding: 2,
@@ -286,12 +306,17 @@ const theme = makeTheme({
       borderRadius: 1,
       border: '1px solid',
       borderColor: 'muted',
-      boxShadow: (theme: Theme) => `inset 6px 0 0 ${theme.colors.primary}, 0 2px 4px ${theme.colors.muted}`,
+      boxShadow: (theme: Theme) =>
+        `inset 6px 0 0 ${get(theme, 'colors.primary')}, 0 2px 4px ${get(theme, 'colors.muted')}`,
       paddingLeft: 5,
       paddingRight: 4,
       paddingY: 4,
       lineHeight: 'regular',
       my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
     },
   },
   details: {
@@ -497,6 +522,20 @@ const theme = makeTheme({
       fontWeight: 'bold',
     },
     a: {
+      color: 'primary',
+      textDecoration: 'underline',
+      ':hover': {
+        color: 'accent',
+      },
+      ':visited': {
+        color: 'primary',
+      },
+      ':active': {
+        color: 'accent',
+      },
+    },
+    // target links within paragraphs, same as styles above
+    'p a': {
       color: 'primary',
       textDecoration: 'underline',
       ':hover': {

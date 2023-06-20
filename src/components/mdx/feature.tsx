@@ -1,11 +1,11 @@
-/** @jsx jsx */
-import { Fragment, FunctionComponent } from 'react'
+import { Fragment, FunctionComponent, ReactNode } from 'react'
 import { useFlags } from 'gatsby-plugin-launchdarkly'
-import { jsx } from 'theme-ui'
+import { LDFlagSet } from 'launchdarkly-js-client-sdk'
 
-interface FeatureProps {
-  flagKey: string
-  showWhenVariation: boolean
+type FeatureProps = {
+  flag: <T>(flags: LDFlagSet) => T
+  children: ReactNode
+  showWhenVariation: boolean | string
 }
 
 /**
@@ -14,20 +14,15 @@ interface FeatureProps {
  *
  * Note that we can't really target user contexts or account members because docs readers are public and there's no logins.
  *
- * @param {String} flagKey - This is the camelCased flag key in catfood
- * @param {Boolean} showWhenVariation - This is the flag value to show content. Defaults to true.
+ * @param {Function} flag - The flag as defined in flags/index.ts
+ * @param {Boolean|String|Number} showWhenVariation - This is the flag value to show content.
  * @param children - This is the content to be flagged. This needs to be a react element or html
- * element and not a markdown shorthand element. There are issues with mdx parsing that prevents
- * nesting of markdown elements under react elements.
+ * element and not a markdown shorthand element.
  *
  */
-const Feature: FunctionComponent<React.PropsWithChildren<FeatureProps>> = ({
-  flagKey,
-  showWhenVariation = true,
-  children,
-}) => {
+const Feature: FunctionComponent<React.PropsWithChildren<FeatureProps>> = ({ flag, children, showWhenVariation }) => {
   const flags = useFlags()
-  const flagValue = flags[flagKey]
+  const flagValue = flag(flags)
 
   if (typeof flagValue !== 'undefined' && showWhenVariation === flagValue) {
     return <Fragment>{children}</Fragment>

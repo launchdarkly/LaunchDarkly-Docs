@@ -177,8 +177,8 @@ Overall, this should make your upgrade easier, because your existing code will c
 However, if you are using version 2.0 of the SDK and you are omitting the `kind` attribute, then the following caveats apply:
 
 <ul>
-<li>The fields in your user object must be <code>LDUser</code> fields, not <code>LDContext</code> fields. For example, to mark an attribute as private, you must use <code>privateAttributeNames</code> in the user object, not <code>_meta.privateAttributes</code> as you would for a context object. To learn more, read <a href="#understanding-changes-to-private-attributes">Understanding changes to private attributes</a>.</li>
-<li>Any additional attributes in your user object need to be inside the <code>custom</code> property of the <code>LDUser</code>, not at the top-level as they would in a context object. To learn more, read <a href="#working-with-built-in-and-custom-attributes">Working with built-in and custom attributes</a>.</li>
+<li>The fields in your user object must be <code>LDUser</code> fields, not <code>LDContext</code> fields. For example, to mark an attribute as private, you must use <code>privateAttributeNames</code> in the user object, not <code>_meta.privateAttributes</code> as you would for a context object.</li>
+<li>Any additional attributes in your user object need to be inside the <code>custom</code> property of the <code>LDUser</code>, not at the top-level as they would in a context object. To learn more, read [Working with built-in and custom attributes](#working-with-built-in-and-custom-attributes).</li>
 </ul>
 
 We strongly recommend upgrading your SDK to take advantage of the context functionality.

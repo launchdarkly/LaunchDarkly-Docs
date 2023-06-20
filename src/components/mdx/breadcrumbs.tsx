@@ -1,7 +1,6 @@
-/** @jsx jsx */
-import { globalHistory } from '@reach/router'
+import { globalHistory } from '@gatsbyjs/reach-router'
+import { Themed } from '@theme-ui/mdx'
 import { graphql, Link, useStaticQuery } from 'gatsby'
-import { jsx, Themed } from 'theme-ui'
 
 import { SideNavItem } from '../sideNav/types'
 

@@ -1,38 +1,39 @@
 describe('Documentation website', () => {
   it('should be navigable', () => {
-    cy.visit('/', { failOnStatusCode: false })
-
+    cy.visit('/home', { failOnStatusCode: false })
     cy.title().should('equal', 'Welcome to LaunchDarkly docs')
+    cy.wait(1000) // wait for hydration
 
     // navigate to a page
-    cy.get('main')
-      .contains(/^Getting started$/)
-      .scrollIntoView()
-      .click()
+    cy.get('main a').contains('Getting started').click()
+    cy.wait(5000) // wait for hydration
+
     cy.title().should('equal', 'Getting started')
 
     // interact with nav
-    cy.get('nav')
-      .contains(/^Getting started$/)
-      .isActiveLink()
-    cy.get('nav').contains('Setting up an SDK')
+    cy.get('nav').contains('a', 'Getting started').isActiveLink()
+    // sub link under getting started
+    cy.get('nav').contains('a', 'Setting up an SDK')
 
-    // close
-    cy.get('nav')
-      .contains(/^Getting started$/)
-      .click()
-    cy.get('nav').contains('Setting up an SDK').should('not.exist')
+    cy.get('nav').contains('a', 'Getting started').isActiveLink()
+    cy.get('nav').contains('a', 'Setting up an SDK').click()
+    cy.wait(2000)
+    cy.get('nav').contains('a', 'Setting up an SDK').isActiveLink()
 
     // click a link in the table of contents
+    cy.get('nav').contains('a', 'Getting started').click()
     cy.get('aside').contains('Additional resources').click()
     cy.location('hash').should('equal', '#additional-resources')
     cy.get('main h2').contains('Additional resources')
 
     // interact with nav again
     cy.get('nav').contains('Organizing your flags').click()
+    cy.wait(2000)
     cy.title().should('equal', 'Organizing your flags')
     cy.get('nav').contains('Organizing your flags').isActiveLink()
+
     cy.get('nav').contains('The flags list').click()
+    cy.wait(2000)
     cy.title().should('equal', 'The flags list')
     cy.get('nav').contains('The flags list').isActiveLink()
     cy.get('nav').contains('Organizing your flags').isPartiallyActiveLink()
@@ -61,14 +62,11 @@ describe('Documentation website', () => {
 
     cy.contains(/Results \(\d+\)/)
 
-    // if it's too fast the result won't be clickable because it detaches from the page during re-render
-    cy.wait(2000)
+    cy.wait(1000) // wait for hydration
 
     // click search result
     cy.get('[data-test="result-Home-Advanced concepts"]').click()
-
-    cy.reload()
-
+    cy.wait(2000)
     cy.location('search').should('equal', '?q=advanced')
     cy.get('nav').contains('Advanced').isActiveLink()
 

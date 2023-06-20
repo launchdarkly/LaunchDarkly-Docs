@@ -6,6 +6,8 @@ published: true
 tags: ['guide', 'static', 'cdn']
 ---
 
+import { StaticSiteDemo } from '@/components/flags/StaticSiteDemo'
+
 ## Overview
 
 This guide explores some best practices for using feature flags on static websites.
@@ -271,12 +273,7 @@ You can delay rendering your site until the feature flags are available. For exa
 
 Here's [a simple demonstration](https://feature-flagging-static-sites.netlify.app/) of this scenario:
 
-<div style="height:450px; width: 100%;margin-bottom:20px">
-  <iframe
-    src="https://feature-flagging-static-sites.netlify.app/"
-    style="height: 100%; width: 100%; border:1px solid #ccc;border-radius:5px">
-  </iframe>
-</div>
+<StaticSiteDemo />
 
 The examples above showcase several strategies you can apply to reduce the risk of your page flickering after the feature flags are loaded.
 

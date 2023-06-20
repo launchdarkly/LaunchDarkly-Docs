@@ -75,7 +75,7 @@ This section corresponds to a subset of LaunchDarkly's client-side SDKs. To lear
 
 Flag updates are triggered when you make changes on your flags list, and arrive by one of two mechanisms:
 
-1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events). This call must include an Authorization header with the value ${mobile_key}, where ${mobile_key} is the mobile key the client application passes to the LaunchDarkly client configuration.
+1. **Through LaunchDarkly's streaming API**: LaunchDarkly's streaming API uses the [server-sent events protocol](https://html.spec.whatwg.org/multipage/comms.html#server-sent-events). This call must include an Authorization header with the value `${mobile_key}`, where `${mobile_key}` is the mobile key the client application passes to the LaunchDarkly client configuration.
 
   There are two ways to use this method:
   * **Using a `GET` request**: subscribe to our streaming API at `https://clientstream.launchdarkly.com/meval/<context>`. Replace the `context` variable with the base64-encoded, URL-safe version of the context's JSON object.

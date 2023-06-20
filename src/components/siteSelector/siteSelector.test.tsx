@@ -1,16 +1,8 @@
-jest.mock('gatsby', () => {
-  const actual = jest.requireActual('gatsby')
-  return {
-    ...actual,
-    navigate: jest.fn(),
-  }
-})
 jest.mock('../../utils/siteAwareUtils', () => ({ __esModule: true, addRemoveSiteParam: jest.fn() }))
 jest.mock('./useSite', () => ({ __esModule: true, default: jest.fn() }))
 
 import React from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { navigate } from 'gatsby'
 
 import { addRemoveSiteParam } from '../../utils/siteAwareUtils'
 
@@ -19,18 +11,20 @@ import useSite from './useSite'
 
 const mockUseSite = useSite as jest.Mock
 const mockSetSite = jest.fn()
-const mockNavigate = navigate as jest.Mock
 const mockGetUrlSiteAware = addRemoveSiteParam as jest.Mock
+const mockNavigate = jest.fn()
+
+// jest was having an issue mocking 'navigate' from 'gatsby',
+// maybe because it's re-exported from @reach/router?
+// to overcome this, the function is now passed to the component as a prop
+// so we can create a mock function here.
+const createComponent = () => <SiteSelector navigateFn={mockNavigate} />
+const getSiteSelector = () => screen.getByTestId('dropdown-label')
 
 describe('site selector', () => {
-  let siteSelector: HTMLElement
-
   beforeEach(() => {
     mockUseSite.mockImplementation(() => ['launchDarkly', mockSetSite])
     mockGetUrlSiteAware.mockImplementation(() => 'mockUrl')
-    render(<SiteSelector />)
-
-    siteSelector = screen.getByTestId('dropdown-label')
   })
 
   afterEach(() => {
@@ -38,11 +32,14 @@ describe('site selector', () => {
   })
 
   test('renders correctly with launchDarkly as default', () => {
-    expect(siteSelector.textContent).toBe('LaunchDarkly docs')
+    render(createComponent())
+    expect(getSiteSelector()).toHaveTextContent('LaunchDarkly docs')
   })
 
   test('renders launchDarkly and federal options', () => {
-    fireEvent.click(siteSelector)
+    render(createComponent())
+
+    fireEvent.click(getSiteSelector())
 
     const [launchDarklyDocs, federalDocs] = screen.getAllByTestId('option')
     expect(launchDarklyDocs).toHaveTextContent('LaunchDarkly docs')
@@ -50,7 +47,9 @@ describe('site selector', () => {
   })
 
   test('url update on site change', () => {
-    fireEvent.click(siteSelector)
+    render(createComponent())
+
+    fireEvent.click(getSiteSelector())
     const [, federalDocs] = screen.getAllByTestId('option')
 
     fireEvent.click(federalDocs)
@@ -61,7 +60,9 @@ describe('site selector', () => {
   })
 
   test('check appears beside selected item', () => {
-    fireEvent.click(siteSelector)
+    render(createComponent())
+
+    fireEvent.click(getSiteSelector())
 
     const [launchDarklyDocs] = screen.getAllByTestId('option')
     const check = screen.getByText('Icon: check', { exact: false })

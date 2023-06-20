@@ -1,4 +1,4 @@
-import { globalHistory } from '@reach/router'
+import { globalHistory } from '@gatsbyjs/reach-router'
 
 import { SideNavItem } from '../components/sideNav/types'
 
