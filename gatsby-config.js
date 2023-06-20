@@ -13,7 +13,7 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-const queries = require('./src/utils/algolia')
+const { queries } = require('./src/utils/algolia')
 
 const isStaging = process.env.GATSBY_ACTIVE_ENV === 'staging'
 const isProd = process.env.GATSBY_ACTIVE_ENV === 'production'
