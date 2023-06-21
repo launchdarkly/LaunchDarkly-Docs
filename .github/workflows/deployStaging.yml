@@ -64,4 +64,3 @@ jobs:
           environment: staging
           secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
           secret_github_token: ${{ secrets.GITHUB_TOKEN }}
-      
