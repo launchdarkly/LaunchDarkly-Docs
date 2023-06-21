@@ -37,6 +37,46 @@ jobs:
           secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
           aws_role_arn: ${{ vars.AWS_PROD_ROLE_ARN }}
           bucket_prefix: null
+      - name: Notify slack
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rotating_light::rotating_light::rotating_light::rocket: Docs site failed to deploy to *<https://docs.launchdarkly.com|Production>*. :rotating_light::rotating_light::rotating_light:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View failed run"
+                    },
+                    "action_id": "view-action-${{github.run_id}}",
+                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "plain_text",
+                      "text": ":github: Deploy triggered by ${{github.actor}}",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }
+
+        
 
   smoke-test:
     needs: build-deploy
@@ -51,3 +91,41 @@ jobs:
           secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
           secret_github_token: ${{ secrets.GITHUB_TOKEN }}
           secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+      - name: Notify slack
+        if: failure()
+        uses: slackapi/slack-github-action@v1
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rotating_light::rotating_light::rotating_light::test_tube: Smoke tests failed on *<https://docs.launchdarkly.com|Production>* :rotating_light::rotating_light::rotating_light:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View failed run"
+                    },
+                    "action_id": "view-action-${{github.run_id}}",
+                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "plain_text",
+                      "text": ":github: Deploy triggered by ${{github.actor}}",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }

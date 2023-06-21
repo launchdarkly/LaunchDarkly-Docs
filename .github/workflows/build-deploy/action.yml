@@ -38,9 +38,6 @@ inputs:
   secret_track_js_token:
     description: Track js token
     required: true
-  secret_docs_deploybot_webhook_url:
-    description: Deploybot webhook url
-    required: true
   aws_role_arn:
     description: AWS role arn used for fetching from SSM and deploying to S3
     required: true
@@ -161,41 +158,3 @@ runs:
         AWS_S3_BUCKET: ${{ inputs.environment == 'staging' && 'launchdarkly-docs-staging' || 'launchdarkly-docs-production' }}
         AWS_HOSTNAME: ${{ inputs.environment == 'staging' && 'docs-stg.launchdarkly.com' || 'docs.launchdarkly.com'}}
         CI: ${{ inputs.environment == 'staging' }}
-    - name: Notify slack
-      if: ${{ inputs.environment == 'prod' }} && failure()
-      uses: slackapi/slack-github-action@v1
-      env:
-        SLACK_WEBHOOK_URL: ${{ inputs.secret_docs_deploybot_webhook_url }}
-        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-      with:
-        payload: |
-          {
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": ":rotating_light::rotating_light::rotating_light::rocket: Docs site failed to deploy to *<https://docs.launchdarkly.com|Production>*. :rotating_light::rotating_light::rotating_light:"
-                },
-                "accessory": {
-                  "type": "button",
-                  "text": {
-                    "type": "plain_text",
-                    "text": "View failed run"
-                  },
-                  "action_id": "view-action-${{github.run_id}}",
-                  "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
-                }
-              },
-              {
-                "type": "context",
-                "elements": [
-                  {
-                    "type": "plain_text",
-                    "text": ":github: Deploy triggered by ${{github.actor}}",
-                    "emoji": true
-                  }
-                ]
-              }
-            ]
-          }
