@@ -1,0 +1,37 @@
+name: Clear GitHub Cachee
+description: Action for clearing cache from a branch
+
+inputs:
+  branch:
+    description: 'Branch to clear cache for'
+    required: true
+  github_token:
+    description: 'GitHub token'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Check out
+      uses: actions/checkout@v3
+    - name: Install gh actions cache tool
+      shell: bash
+      run: gh extension install actions/gh-actions-cache
+    - name: Clear cache for branch
+      shell: bash
+      run: |
+        REPO=${{ github.repository }}
+
+        echo "Fetching cache keys for branch ${{ inputs.branch }}..."
+        cacheKeysForBranch=$(gh actions-cache list -R $REPO -B ${{ inputs.branch }} | cut -f 1 )
+
+        ## Setting this to not fail the workflow while deleting cache keys.
+        set +e
+        echo "Deleting cache keys for branch ${{ inputs.branch }}..."
+        for cacheKey in $cacheKeysForPR
+        do
+            gh actions-cache delete $cacheKey -R $REPO -B ${{ inputs.branch }} --confirm
+        done
+        echo "Done cleaning up cache for branch ${{ inputs.branch }}"
+      env:
+        GH_TOKEN: ${{ inputs.github_token }}
