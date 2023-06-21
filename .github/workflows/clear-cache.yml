@@ -1,0 +1,23 @@
+name: Cleanup caches
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        
+      - name: Cleanup PR cache
+        uses: ./.github/workflows/clear-cache
+        with:
+          branch: "refs/pull/${{ github.event.pull_request.number }}/merge"
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Cleanup Main cache
+        uses: ./.github/workflows/clear-cache
+        with:
+          branch: "main"
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
