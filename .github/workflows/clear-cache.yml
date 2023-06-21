@@ -1,0 +1,47 @@
+name: Cleanup caches
+on:
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        
+      - name: Cleanup
+        run: |
+          gh extension install actions/gh-actions-cache
+          
+          # Cleanup feature branch cache
+          REPO=${{ github.repository }}
+          BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
+
+          echo "Fetching list of cache key for feature branch"
+          cacheKeysForPR=$(gh actions-cache list -R $REPO -B $BRANCH | cut -f 1 )
+
+          ## Setting this to not fail the workflow while deleting cache keys. 
+          set +e
+          echo "Deleting caches for feature branch..."
+          for cacheKey in $cacheKeysForPR
+          do
+              gh actions-cache delete $cacheKey -R $REPO -B $BRANCH --confirm
+          done
+          echo "Done cleaning up branch cache"
+
+          # Cleanup main branch cache
+          MAIN_BRANCH="main"
+          echo "Fetching list of cache key for main branch"
+          cacheKeysForMain=$(gh actions-cache list -R $REPO -B $MAIN_BRANCH | cut -f 1 )
+          set +e
+          echo "Deleting caches for main branch..."
+          for cacheKey in $cacheKeysForMain
+          do
+              gh actions-cache delete $cacheKey -R $REPO -B $MAIN_BRANCH --confirm
+          done
+          echo "Done cleaning up main branch cache"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
