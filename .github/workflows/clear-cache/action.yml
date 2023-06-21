@@ -1,4 +1,4 @@
-name: Clear GitHub Cachee
+name: Clear GitHub Cache
 description: Action for clearing cache from a branch
 
 inputs:
