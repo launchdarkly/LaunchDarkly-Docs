@@ -1,0 +1,51 @@
+name: Notify slack
+description: Used to notify slack on prod build failure or prod smoke test failure
+
+inputs:
+  kind:
+    description: build_failure or smoke_test_failure
+    required: true
+  secret_docs_deploybot_webhook_url:
+    description: Webhook URL secret
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Send slack notification
+      uses: slackapi/slack-github-action@v1
+      env:
+        SLACK_WEBHOOK_URL: ${{ inputs.secret_docs_deploybot_webhook_url }}
+        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":rotating_light::rotating_light::rotating_light::test_tube: ${{ inputs.kind == 'build_failure' && 'Docs site failed to deploy to' || 'Smoke tests failed on' }} *<https://docs.launchdarkly.com|Production>* :rotating_light::rotating_light::rotating_light:"
+                  },
+                  "accessory": {
+                    "type": "button",
+                    "text": {
+                      "type": "plain_text",
+                      "text": "View failed run"
+                    },
+                    "action_id": "view-action-${{github.run_id}}",
+                    "url": "https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+                  }
+                },
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "plain_text",
+                      "text": ":github: Deploy triggered by ${{github.actor}}",
+                      "emoji": true
+                    }
+                  ]
+                }
+              ]
+            }

@@ -18,6 +18,7 @@ jobs:
       - uses: ./.github/workflows/build-deploy
         with:
           environment: prod
+          # skips finding the last successful run
           force_build: true
           secret_github_token: ${{ secrets.GITHUB_TOKEN }}
           secret_gh_token: ${{ secrets.GH_TOKEN }}
@@ -29,9 +30,14 @@ jobs:
           secret_gatsby_datadog_rum_application_id: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
           secret_datadog_rum_client_token: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
           secret_track_js_token: ${{ secrets.TRACKJS_TOKEN }}
-          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
           aws_role_arn: ${{ vars.AWS_PROD_ROLE_ARN }}
           bucket_prefix: null
+      - name: Notify slack
+        if: failure()
+        uses: ./.github/workflows/notify-slack
+        with:
+          kind: 'build_failure'
+          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
 
   smoke-test:
     needs: build-deploy
@@ -44,6 +50,9 @@ jobs:
           environment: prod
           secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
           secret_github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Notify slack
+        if: failure()
+        uses: ./.github/workflows/notify-slack
+        with:
+          kind: 'smoke_test_failure'
           secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
-          
-    

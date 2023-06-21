@@ -49,7 +49,6 @@ jobs:
           secret_gatsby_datadog_rum_application_id: ${{ secrets.DATADOG_RUM_APPLICATION_ID }}
           secret_datadog_rum_client_token: ${{ secrets.DATADOG_RUM_CLIENT_TOKEN }}
           secret_track_js_token: ${{ secrets.TRACKJS_TOKEN }}
-          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
           aws_role_arn: ${{ vars.AWS_STAGING_ROLE_ARN }}
           bucket_prefix: ${{ env.BUCKET_PREFIX }}
 
@@ -65,5 +64,3 @@ jobs:
           environment: staging
           secret_cypress_record_key: ${{ secrets.CYPRESS_RECORD_KEY }}
           secret_github_token: ${{ secrets.GITHUB_TOKEN }}
-          secret_docs_deploybot_webhook_url: ${{ secrets.DOCS_DEPLOYBOT_WEBHOOK_URL }}
-      
