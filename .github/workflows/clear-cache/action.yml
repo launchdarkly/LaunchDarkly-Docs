@@ -14,12 +14,11 @@ runs:
   steps:
     - name: Check out
       uses: actions/checkout@v3
-    - name: Install gh actions cache tool
-      shell: bash
-      run: gh extension install actions/gh-actions-cache
     - name: Clear cache for branch
       shell: bash
       run: |
+        gh extension install actions/gh-actions-cache
+
         REPO=${{ github.repository }}
 
         echo "Fetching cache keys for branch ${{ inputs.branch }}..."
