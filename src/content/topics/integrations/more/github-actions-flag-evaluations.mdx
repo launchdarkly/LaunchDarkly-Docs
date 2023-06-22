@@ -52,7 +52,7 @@ jobs:
     steps:
       - name: Evaluate flags
         id: ld
-        uses: launchdarkly/gha-flags@v0.1.0
+        uses: launchdarkly/gha-flags@v0.0.1
         with:
           sdk-key: ${{ secrets.LAUNCHDARKLY_SDK_KEY }}
           flags: test-boolean-flag,false
