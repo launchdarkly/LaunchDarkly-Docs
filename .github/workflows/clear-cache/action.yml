@@ -17,8 +17,6 @@ runs:
     - name: Clear cache for branch
       shell: bash
       run: |
-        gh extension install actions/gh-actions-cache
-
         REPO=${{ github.repository }}
 
         echo "Fetching cache keys for branch ${{ inputs.branch }}..."
