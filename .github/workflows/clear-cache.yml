@@ -15,7 +15,7 @@ jobs:
         uses: ./.github/workflows/clear-cache
         with:
           branch: "refs/pull/${{ github.event.pull_request.number }}/merge"
-          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Cleanup Main cache
         uses: ./.github/workflows/clear-cache
         with:
