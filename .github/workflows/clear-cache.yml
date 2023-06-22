@@ -10,14 +10,40 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v3
-        
-      - name: Cleanup PR cache
-        uses: ./.github/workflows/clear-cache
-        with:
-          branch: "refs/pull/${{ github.event.pull_request.number }}/merge"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Cleanup Main cache
-        uses: ./.github/workflows/clear-cache
-        with:
-          branch: "main"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Clear caches
+        run: |
+          ## Snippet taken from
+          ## https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#viewing-cache-entries
+          gh extension install actions/gh-actions-cache
+
+          REPO=${{ github.repository }}
+
+          ## Clear cache for PR branch
+          PR_BRANCH="refs/pull/${{ github.event.pull_request.number }}/merge"
+  
+          echo "Fetching cache keys for branch $PR_BRANCH..."
+          cacheKeysForPrBranch=$(gh actions-cache list -R $REPO -B $PR_BRANCH | cut -f 1 )
+  
+          ## Setting this to not fail the workflow while deleting cache keys.
+          set +e
+          echo "Deleting cache keys for branch $PR_BRANCH..."
+          for cacheKey in $cacheKeysForPrBranch
+          do
+              gh actions-cache delete $cacheKey -R $REPO -B $PR_BRANCH --confirm
+          done
+          echo "Done cleaning up cache for branch $PR_BRANCH"
+
+          ## Clear cache for main branch
+          MAIN_BRANCH="main"
+  
+          echo "Fetching cache keys for branch $MAIN_BRANCH..."
+          cacheKeysForMainBranch=$(gh actions-cache list -R $REPO -B $MAIN_BRANCH | cut -f 1 )
+  
+          echo "Deleting cache keys for main branch $MAIN_BRANCH..."
+          for cacheKey in $cacheKeysForMainBranch
+          do
+              gh actions-cache delete $cacheKey -R $REPO -B $MAIN_BRANCH --confirm
+          done
+          echo "Done cleaning up cache for branch $MAIN_BRANCH"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
