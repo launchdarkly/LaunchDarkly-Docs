@@ -13,7 +13,7 @@ siteAlertTitle: Snowflake is not available in federal environments
 This topic explains how to create and test a Snowflake destination for Data Export. 
 
 <Callout intent="info">
-<CalloutTitle>Exported Event Types</CalloutTitle>
+<CalloutTitle>Exported event types</CalloutTitle>
 <CalloutDescription>
 
 Snowflake Data Export only exports flag evaluation events for flags used in an experiment.
@@ -55,16 +55,15 @@ To send a test event:
 
 ## Consuming shared data in Snowflake
 
-After you have created your destination, LaunchDarkly will add you to a [secure share](https://docs.snowflake.com/en/user-guide/data-sharing-secure-views) for you to consume your events.  
-Create a database in your Snowflake account to query the shared data. 
+After you have created your destination, LaunchDarkly adds you to a [secure share](https://docs.snowflake.com/en/user-guide/data-sharing-secure-views) for you to consume your events.  
 
-You can create the database using the user interface (UI) or a Snowflake worksheet.
+Create a database in your Snowflake account to query the shared data. You can create the database using the user interface (UI) or a Snowflake worksheet.
 
 ### Snowflake worksheet
 
-Open a worksheet using an account that has access to the `accountadmin` role in Snowflake.
-Use the code below to create a database from the share.  
-Replace `<database_name>` with your chosen values.
+Open a worksheet using an account that has access to the `accountadmin` role in Snowflake. Use the code below to create a database from the share.
+
+Replace `<database_name>` with your chosen values:
 
 {/* cSpell:disable csv content doesn't need to be spellchecked */}
 
@@ -86,8 +85,9 @@ create database <database_name> from share ACCOUNT_TO_BE_CREATED.SHARED_ACCESS;
 
 {/* cSpell:enable */}
 
-Use the following sample to grant `SELECT` permissions to any of your custom roles that require them.  
-Replace `<database_name>` and `<role_name>` with your chosen values.
+Use the following sample to grant `SELECT` permissions to any of your custom roles that require them.
+
+Replace `<database_name>` and `<role_name>` with your chosen values:
 
 {/* cSpell:disable csv content doesn't need to be spellchecked */}
 
