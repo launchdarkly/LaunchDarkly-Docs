@@ -1,0 +1,23 @@
+name: Notify LaunchDarkly of deployments
+on: deployment_status
+
+jobs:
+  notify:
+    name: Notify LaunchDarkly of deployments
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify
+        uses: launchdarkly/deployment-events-action@main
+        with:
+          access-token: ${{ secrets.LD_ACCESS_TOKEN }}
+          base-uri: https://app.ld.catamorphic.com
+          project-key: docs
+          environment-key: ${{ github.event.deployment_status.environment }}
+          status: ${{ github.event.deployment_status.state }}
+          deployment-metadata: '
+            {
+              "actor": "${{ github.triggering_actor }}",
+              "ref": "${{ github.ref }}",
+              "ref_name": "${{ github.ref_name }}",
+              "ref_type": "${{ github.ref_type }}"
+            }'
