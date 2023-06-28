@@ -575,7 +575,20 @@ local config = {
 To connect the SDK to the Relay Proxy, set the `streamUri`, `baseUri`, and `eventsUri` properties to the base URI of your Relay Proxy:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const options ld.LDOptions = {
+  streamUri: 'https://your-relay-proxy.com:8030',
+  baseUri: 'https://your-relay-proxy.com:8030',
+  eventsUri: 'https://your-relay-proxy.com:8030',
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const options = {
@@ -586,7 +599,7 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';

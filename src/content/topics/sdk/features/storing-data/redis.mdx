@@ -278,10 +278,50 @@ local c = l.clientInit({
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-In version 6.0.0 and higher of the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-redis`](https://github.com/launchdarkly/node-server-sdk-redis). In Node.js SDK 5.x and earlier, this integration is part of the main SDK distribution.
+In version 8.0.0 and higher of the Node.js SDK, you must install the additional package [`@launchdarkly/node-server-sdk-redis`](https://github.com/launchdarkly/js-core/tree/main/packages/store/node-server-sdk-redis). In versions 6.0.0-7.x of the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-redis`](https://github.com/launchdarkly/node-server-sdk-redis).
+
+In version 3.0 and higher of the Node.js SDK Redis integration, the [`ioredis`](https://github.com/redis/ioredis) package is used for Redis operations. In versions 2.x of the Node.js SDK Redis integration, the [`redis`](https://github.com/redis/node-redis) package is used for Redis operations.
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (JavaScript)">
+
+```js
+const ld = require('@launchdarkly/node-server-sdk');
+const RedisFeatureStore = require('@launchdarkly/node-server-sdk-redis');
+
+const store = RedisFeatureStore({
+    redisOpts: { host: 'redis-host', port: 6379 },
+    prefix: 'your-key-prefix',
+    cacheTTL: 30,
+});
+
+const options = {
+  featureStore: store
+};
+const client = ld.init(sdkKey, options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+import { RedisFeatureStore } from '@launchdarkly/node-server-sdk-redis';
+
+const store = RedisFeatureStore({
+    redisOpts: { host: 'redis-host', port: 6379 },
+    prefix: 'your-key-prefix',
+    cacheTTL: 30,
+});
+
+const options: ld.LDOptions = {
+  featureStore: store,
+};
+const client = ld.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x and earlier (JavaScript)">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -299,7 +339,7 @@ const client = LaunchDarkly.init(sdkKey, options);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x and earlier (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';

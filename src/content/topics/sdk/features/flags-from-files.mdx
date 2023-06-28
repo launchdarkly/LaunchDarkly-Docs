@@ -374,7 +374,44 @@ To learn more, read [`FileData`](https://javadoc.io/doc/com.launchdarkly/launchd
 To configure the client:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (JavaScript)">
+
+```js
+const ld = require('@launchdarkly/node-server-sdk');
+const { FileDataSourceFactory } = require('@launchdarkly/node-server-sdk/integrations');
+
+const fileData = new FileDataSourceFactory({
+  paths: [ 'file1.json', 'file2.json' ]
+});
+
+const options = {
+  updateProcessor: fileData.getFactory()
+};
+
+const client = ld.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+const { FileDataSourceFactory } = require('@launchdarkly/node-server-sdk/integrations');
+
+const fileData = new FileDataSourceFactory({
+  paths: [ 'file1.json', 'file2.json' ],
+});
+
+const options: ld.LDOptions = {
+  updateProcessor: fileData.getFactory()
+};
+
+const client = ld.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -392,7 +429,7 @@ const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -412,7 +449,7 @@ const client = ld.init('sdk-key-123abc', options);
 </CSTab>
 </CodeSample>
 
-To learn more, read [`FileDataSource`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_integrations_.html#FileDataSource).
+To learn more, read [`FileDataSourceFactory`](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/classes/integrations.FileDataSourceFactory.html).
 </Details>
 
 ### Python

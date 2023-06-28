@@ -7,12 +7,14 @@ published: true
 ---
 
 <Callout intent="info">
-<CalloutTitle>Version 7 of the Node.js (server-side) SDK replaces users with contexts</CalloutTitle>
+<CalloutTitle>Recent major versions</CalloutTitle>
 <CalloutDescription>
 
-A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users."
+**Version 8 of the Node.js (server-side) SDK has been re-written in TypeScript**, and the GitHub repository and package names have been updated. To learn more about upgrading, read [Node.js (server-side) 7.x to 8.0 migration guide](/sdk/server-side/node-js/migration-7-to-8).
 
-Code samples on this page are from the two most recent SDK versions where they differ. To learn more about upgrading, read [Node.js (server-side) 6.x to 7.0 migration guide](/sdk/server-side/node-js/migration-6-to-7) and [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
+**Version 7 of the Node.js (server-side) SDK replaces users with contexts**. A context is a generalized way of referring to the people, services, machines, or other resources that encounter feature flags in your product. Contexts replace another data object in LaunchDarkly: "users." To learn more about upgrading, read [Node.js (server-side) 6.x to 7.0 migration guide](/sdk/server-side/node-js/migration-6-to-7) and [Best practices for upgrading users to contexts](/guides/flags/upgrading-contexts).
+
+Code samples on this page are from the three most recent SDK versions where they differ.
 
 </CalloutDescription>
 </Callout>
@@ -35,11 +37,11 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
   <TableBody>
     <TableRow>
       <TableCell>SDK API documentation</TableCell>
-      <TableCell>[SDK API docs](https://launchdarkly.github.io/node-server-sdk/)</TableCell>
+      <TableCell>[SDK API docs](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/)</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>GitHub repository</TableCell>
-      <TableCell>[node-server-sdk](https://github.com/launchdarkly/node-server-sdk)</TableCell>
+      <TableCell>[node-server-sdk](https://github.com/launchdarkly/js-core/tree/main/packages/sdk/server-node)</TableCell>
     </TableRow>
     <TableRow>
       <TableCell>Sample applications</TableCell>
@@ -47,7 +49,7 @@ LaunchDarkly's SDKs are open source. In addition to this reference guide, we pro
     </TableRow>
     <TableRow>
       <TableCell>Published module</TableCell>
-      <TableCell>[npm](https://www.npmjs.com/package/launchdarkly-node-server-sdk)</TableCell>
+      <TableCell>[npm](https://www.npmjs.com/package/@launchdarkly/node-server-sdk)</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -80,9 +82,9 @@ Here's how:
 <CSTab label="shell">
 
 ```bash
-npm install launchdarkly-node-server-sdk
+npm install @launchdarkly/node-server-sdk
 
-# In earlier versions, the package name was ldclient-node
+# In earlier versions, the package name was launchdarkly-node-server-sdk or ldclient-node
 ```
 
 </CSTab>
@@ -91,14 +93,28 @@ npm install launchdarkly-node-server-sdk
 Next, import the LaunchDarkly client in your application code:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (JavaScript)">
+
+```js
+const ld = require('@launchdarkly/node-server-sdk');
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -148,7 +164,7 @@ Using `client`, you can check which variation a particular context will receive 
 Here is an example:
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
 
 ```js
 const context = {
@@ -170,7 +186,7 @@ client.once('ready', () => {
 ```
 
 </CSTab>
-<CSTab label="Node.js SDK v7.0 (TypeScript)">
+<CSTab label="Node.js SDK v7.x and later (TypeScript)">
 
 ```ts
 const context = {
@@ -244,7 +260,7 @@ All asynchronous SDK methods which accept a callback also return a `Promise`. Th
 Here is an example:
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
 
 ```js
 // Using the .then() method to add a continuation handler for a Promise
@@ -257,7 +273,7 @@ const value = await client.variation('flag-key-123abc', context, false);
 ```
 
 </CSTab>
-<CSTab label="Node.js SDK v7.0 (TypeScript)">
+<CSTab label="Node.js SDK v7.x and later (TypeScript)">
 
 ```ts
 // Using the .then() method to add a continuation handler for a Promise
@@ -343,7 +359,7 @@ This SDK supports the following features:
 
 * [Anonymous contexts and users](/sdk/features/anonymous#nodejs-server-side)
 * [Big Segments](/sdk/features/big-segments#nodejs-server-side)
-* [Bootstrapping](/sdk/features/bootstrapping)
+* [Bootstrapping](/sdk/features/bootstrapping#bootstrapping-using-server-rendered-content)
 * [Configuration](/sdk/features/config#nodejs-server-side)
 * [Evaluating flags](/sdk/features/evaluating#nodejs-server-side)
 * [Flag evaluation reasons](/sdk/features/evaluation-reasons#nodejs-server-side)

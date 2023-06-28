@@ -164,8 +164,17 @@ To learn more, read [`java-server-sdk-consul`](https://github.com/launchdarkly/j
 
 If using the Node.js SDK you must install the additional package [`launchdarkly-node-server-consul`](https://github.com/launchdarkly/node-server-sdk-consul).
 
+<Callout intent="info">
+<CalloutTitle>SDK version compatibility</CalloutTitle>
+<CalloutDescription>
+
+The Node.js (server-side) SDK v8.0 does not include Consul support. If you have questions or want to request this, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
+
+</CalloutDescription>
+</Callout>
+
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -187,7 +196,7 @@ const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';

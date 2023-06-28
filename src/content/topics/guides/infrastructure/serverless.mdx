@@ -72,7 +72,7 @@ Here is a code sample that shows how to evaluate a feature flag with the NodeJS 
 <CSTab label="JavaScript">
 
 ```javascript
-const LaunchDarkly = require('launchdarkly-node-server-sdk');
+const LaunchDarkly = require('@launchdarkly/node-server-sdk');
 const client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY);
 
 exports.handler = async event => {
@@ -122,7 +122,7 @@ We configure it using the `RedisFeatureStore` method. The AWS Lambda function bu
 <CSTab label="JavaScript">
 
 ```javascript
-var LaunchDarkly = require('launchdarkly-node-server-sdk');
+var LaunchDarkly = require('@launchdarkly/node-server-sdk');
 
 exports.handler = (event, context, callback) => {
     setTimeout(() => {
@@ -183,7 +183,7 @@ Here is an example:
 <CSTab label="JavaScript">
 
 ```javascript
-var LaunchDarkly = require('launchdarkly-node-server-sdk');
+var LaunchDarkly = require('@launchdarkly/node-server-sdk');
 
 var redisConfig = {
     port: process.env.ELASTICACHE_PORT,

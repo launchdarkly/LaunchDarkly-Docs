@@ -1648,6 +1648,10 @@
             "svg": "nodejs",
             "items": [
               {
+                "label": "Node.js (server-side) SDK 7.x to 8.0 migration guide",
+                "path": "/sdk/server-side/node-js/migration-7-to-8"
+              },
+              {
                 "label": "Node.js (server-side) SDK 6.x to 7.0 migration guide",
                 "path": "/sdk/server-side/node-js/migration-6-to-7"
               },

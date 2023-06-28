@@ -203,7 +203,21 @@ local config = {
 Set the `featureStore` property to use a persistent feature store. Then, set the `useLdd` property to configure daemon mode:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const store = SomeKindOfFeatureStore(storeOptions);
+
+const options: ld.LDOptions = {
+  featureStore: store,
+  useLdd: true,
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const store = SomeKindOfFeatureStore(storeOptions);
@@ -215,14 +229,14 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
-import * as LaunchDarkly from 'launchdarkly-node-server-sdk';
+import * as ld from 'launchdarkly-node-server-sdk';
 
 const store = SomeKindOfFeatureStore(storeOptions);
 
-const options: LaunchDarkly.LDOptions = {
+const options: ld.LDOptions = {
   featureStore: store,
   useLdd: true,
 };

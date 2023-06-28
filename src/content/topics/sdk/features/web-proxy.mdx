@@ -336,22 +336,34 @@ LDConfig config = new LDConfig.Builder()
 To configure the server-side Node.js SDK to connect to LaunchDarkly through a web proxy:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
 
-```js
-const options = {
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const options: ld.LDOptions = {
   proxyHost: 'your-proxy-host',
   proxyPort: 8080
 };
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const options: ld.LDOptions = {
+  proxyHost: 'your-proxy-host',
+  proxyPort: 8080
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
+
+```js
+const options = {
   proxyHost: 'your-proxy-host',
   proxyPort: 8080
 };
@@ -363,24 +375,37 @@ const options: ld.LDOptions = {
 To configure the server-side Node.js SDK to connect to LaunchDarkly through a web proxy with authentication:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
 
-```js
-const options = {
-  proxyHost: 'my-proxy-host',
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const options: ld.LDOptions = {
+  proxyHost: 'your-proxy-host',
   proxyPort: 8080,
   proxyAuth: 'username:password'
 };
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
 
 const options: ld.LDOptions = {
   proxyHost: 'your-proxy-host',
+  proxyPort: 8080,
+  proxyAuth: 'username:password'
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
+
+```js
+const options = {
+  proxyHost: 'my-proxy-host',
   proxyPort: 8080,
   proxyAuth: 'username:password'
 };

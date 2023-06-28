@@ -903,10 +903,25 @@ local config = {
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-To configure an alternate service endpoint for the SDK, use the `streamUri`, `baseUri`, and `eventsUri` properties to specify the base URIs:
+To configure an alternate service endpoint for the SDK, use the `streamUri`, `baseUri`, and `eventsUri` properties to specify the base URIs.
+
+Here's an example of connecting to the federal instance:
 
 <CodeSample>
-<CSTab label="JavaScript, connecting to federal instance">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const options ld.LDOptions = {
+  streamUri: 'https://stream.launchdarkly.us',
+  baseUri: 'https://sdk.launchdarkly.us',
+  eventsUri: 'https://events.launchdarkly.us',
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const options = {
@@ -917,7 +932,7 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript, connecting to federal instance">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -930,7 +945,25 @@ const options ld.LDOptions = {
 ```
 
 </CSTab>
-<CSTab label="JavaScript, connecting to Relay Proxy">
+</CodeSample>
+
+Here's an example of connecting to the Relay Proxy:
+
+<CodeSample>
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const options ld.LDOptions = {
+  streamUri: 'https://your-relay-proxy.com:8030',
+  baseUri: 'https://your-relay-proxy.com:8030',
+  eventsUri: 'https://your-relay-proxy.com:8030',
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const options = {
@@ -941,7 +974,7 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript, connecting to Relay Proxy">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';

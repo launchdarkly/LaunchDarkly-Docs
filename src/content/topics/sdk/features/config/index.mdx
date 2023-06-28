@@ -923,7 +923,19 @@ The Node.js (server-side) SDK uses an SDK key. Your environment's SDK key is ava
 This code sample shows you how to pass custom parameters to the client by creating a custom configuration object:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const options: ld.LDOptions = {
+  timeout: 3,
+};
+const client = ld.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const options = {
@@ -933,7 +945,7 @@ client = ld.init('sdk-key-123abc', options);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -947,7 +959,7 @@ const client = ld.init('sdk-key-123abc', options);
 </CSTab>
 </CodeSample>
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html).
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDOptions.html).
 </Details>
 
 ### PHP

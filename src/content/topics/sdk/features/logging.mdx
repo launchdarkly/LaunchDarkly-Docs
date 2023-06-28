@@ -690,14 +690,28 @@ In the default configuration, the SDK sends output to the console and enables al
 
 Pre-6.0 versions of the SDK used the [`winston`](https://www.npmjs.com/package/winston) logging package for the default configuration. Versions 6.0 and later write directly to the console by default.
 
-For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDLogger.html).
+For full control over logging behavior, you can set the [`logger`](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDOptions.html#logger) option to an object that implements the `LDLogger` interface. To learn more about the logger's requirements and methods, read [LDLogger](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDLogger.html).
 
-You can use [`basicLogger`](https://launchdarkly.github.io/node-server-sdk/modules/_launchdarkly_node_server_sdk_.html#basicLogger) for simpler control over logging behavior. Versions 5.x and earlier of the SDK do not support `basicLogger`.
+You can use [`basicLogger`](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/functions/basicLogger-1.html) for simpler control over logging behavior. Versions 5.x and earlier of the SDK do not support `basicLogger`.
 
 This example shows how to use `basicLogger` to enable debug-level logging in your SDK configuration:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const logger: ld.LDLogger = ld.basicLogger({
+  level: 'debug',
+  destination: console.log,
+});
+
+const options: ld.LDOptions = { logger: logger };
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x and earlier (JavaScript)">
 
 ```javascript
 const ld = require('launchdarkly-node-server-sdk');
@@ -710,7 +724,7 @@ const options = {
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x and earlier (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';

@@ -1117,6 +1117,11 @@
     "u2cVersion": "7.0",
     "versions": [
       {
+        "versionMajorMinor": "8.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "06-26"
+      },
+      {
         "versionMajorMinor": "7.0",
         "releaseYear": 2022,
         "releaseMonthDay": "12-07"

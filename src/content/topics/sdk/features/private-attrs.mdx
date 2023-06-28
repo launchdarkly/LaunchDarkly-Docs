@@ -1368,7 +1368,21 @@ In the Node.js SDK there are two ways to define private attributes for the entir
 You can also define a set of `privateAttributes` on the context object. For example:
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const user: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  email: 'sandy@example.com',
+  privateAttributes: ['email'],
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const context = {
@@ -1382,7 +1396,7 @@ const context = {
 ```
 
 </CSTab>
-<CSTab label="Node.js SDK v7.0 (TypeScript)">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';

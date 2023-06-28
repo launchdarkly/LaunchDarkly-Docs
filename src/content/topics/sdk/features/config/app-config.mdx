@@ -447,7 +447,21 @@ config = makeConfig "sdk-key-123abc" & configSetApplicationInfo appInfo
 This code sample shows you how to configure the application identifier and application version:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+const options: ld.LDOptions = {
+  application: {
+    id: 'authentication-service',
+    version: '1.0.0'
+  }
+};
+const client = ld.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 var options = {
@@ -460,7 +474,7 @@ client = ld.init('sdk-key-123abc', options);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -476,7 +490,7 @@ const client = ld.init('sdk-key-123abc', options);
 </CSTab>
 </CodeSample>
 
-To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDOptions.html).
+To learn more about the specific configuration options that are available in this SDK, read the [SDK's API docs](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDOptions.html).
 </Details>
 
 ### PHP

@@ -1625,7 +1625,23 @@ In the Node.js SDK, contexts are JSON objects.
 Here's an example:
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+const ld = require('@launchdarkly/node-server-sdk');
+
+const context: ld.LDContext = {
+  kind: 'user',
+  key: 'user-key-123abc',
+  firstName: 'Sandy',
+  lastName: 'Smith',
+  email: 'sandy@example.com',
+  groups: ['Google', 'Microsoft'],
+};
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
 
 ```js
 const context = {
@@ -1639,7 +1655,7 @@ const context = {
 ```
 
 </CSTab>
-<CSTab label="Node.js SDK v7.0 (TypeScript)">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
@@ -1705,10 +1721,20 @@ If an attribute is a JSON object, then in your flag or segment targeting, you ca
 Here's how to construct a basic context with a context kind of something other than "user":
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
 
 ```js
 const context = {
+   kind: 'device',
+   key: 'device-key-123abc'
+}
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x and later (TypeScript)">
+
+```js
+const context: ld.LDContext = {
    kind: 'device',
    key: 'device-key-123abc'
 }
@@ -1720,7 +1746,7 @@ const context = {
 Here's how to construct a multi-context, which includes multiple context kinds:
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
 
 ```js
 const context = {
@@ -1731,7 +1757,7 @@ const context = {
 ```
 
 </CSTab>
-<CSTab label="Node.js SDK v7.0 (TypeScript)">
+<CSTab label="Node.js SDK v7.x and later (TypeScript)">
 
 ```ts
 const context: ld.LDContext = {

@@ -271,7 +271,32 @@ To learn more about the available Big Segments configuration options, read [`Big
 Big Segments is available in version 6.2.0 and later:
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (JavaScript)">
+
+```js
+const LaunchDarkly = require('@launchdarkly/node-server-sdk');
+const { RedisBigSegmentStore } = require('@launchdarkly/node-server-sdk-redis');
+
+const store = RedisBigSegmentStore({
+  redisOpts: {
+    host: 'your-redis',
+    port: 6379
+  },
+  prefix: 'your-key-prefix'
+});
+
+const config = {
+  bigSegments: {
+    store: store,
+    userCacheSize: 2000,
+    userCacheTime: 30
+  }
+};
+const client = LaunchDarkly.init(sdkKey, config);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v6.2.0 -  v7.x (JavaScript)">
 
 ```js
 const LaunchDarkly = require('launchdarkly-node-server-sdk');
@@ -293,7 +318,32 @@ const client = LaunchDarkly.init(sdkKey, config);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as LaunchDarkly from '@launchdarkly/node-server-sdk';
+import { RedisBigSegmentStore } from '@launchdarkly/node-server-sdk-redis';
+
+const store = RedisBigSegmentStore({
+  redisOpts: {
+    host: 'your-redis',
+    port: 6379
+  },
+  prefix: 'your-key-prefix'
+});
+
+const options: LaunchDarkly.LDOptions = {
+  bigSegments: {
+    store: store,
+    userCacheSize: 2000,
+    userCacheTime: 30
+  }
+};
+const client = LaunchDarkly.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v6.2.0 - v7.x (TypeScript)">
 
 ```ts
 import * as LaunchDarkly from 'launchdarkly-node-server-sdk';
@@ -317,7 +367,7 @@ const client = LaunchDarkly.init('sdk-key-123abc', options);
 </CSTab>
 </CodeSample>
 
-To learn more about the available Big Segments configuration options, read [`LDBigSegmentsOptions`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDBigSegmentsOptions.html).
+To learn more about the available Big Segments configuration options, read [`LDBigSegmentsOptions`](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDBigSegmentsOptions.html).
 
 </Details>
 

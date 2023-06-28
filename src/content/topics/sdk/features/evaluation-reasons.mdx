@@ -1050,7 +1050,7 @@ The variation detail is returned in an object that contains both the result valu
 Here is an example:
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v7.x and later (JavaScript)">
 
 ```js
 var detail = client.variationDetail('flag-key-123abc', context, false);
@@ -1061,7 +1061,7 @@ var reason = detail.reason;
 ```
 
 </CSTab>
-<CSTab label="Node.js SDK v7.0 (TypeScript)">
+<CSTab label="Node.js SDK v7.x and later (TypeScript)">
 
 ```ts
 client.variationDetail('flag-key-123abc', context, false,
@@ -1098,7 +1098,7 @@ client.variationDetail('flag-key-123abc', user, false,
 </CSTab>
 </CodeSample>
 
-To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDEvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDClient.html#variationDetail).
+To learn more, read [`LDEvaluationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDEvaluationDetail.html) and [`variationDetail`](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDClient.html#variationDetail).
 
 Here is an example of how to access the details of a reason object:
 
@@ -1133,7 +1133,7 @@ function printReason(reason) {
 </CSTab>
 </CodeSample>
 
-To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/node-server-sdk/interfaces/_launchdarkly_node_server_sdk_.LDEvaluationReason.html).
+To learn more, read [`LDEvaluationReason`](https://launchdarkly.github.io/js-core/packages/sdk/server-node/docs/interfaces/LDEvaluationReason.html).
 
 </Details>
 

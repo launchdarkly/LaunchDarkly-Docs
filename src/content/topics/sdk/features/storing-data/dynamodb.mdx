@@ -185,10 +185,48 @@ To learn more, read [`java-server-sdk-dynamodb`](https://github.com/launchdarkly
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-If using the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-dynamodb`](https://github.com/launchdarkly/node-server-sdk-dynamodb). As of the 2.0.0 release of that package, the `aws-sdk` package that it uses is _not_ automatically loaded as a transitive dependency. This saves space when running in AWS Lambda, where `aws-sdk` is built in. If you are not running in Lambda, you must separately install `aws-sdk`.
+In version 8.0.0 and higher of the Node.js SDK, you must install the additional package [`@launchdarkly/node-server-sdk-dynamodb`](https://github.com/launchdarkly/js-core/tree/main/packages/store/node-server-sdk-dynamodb). If using version 7.x and lower of the Node.js SDK, you must install the additional package [`launchdarkly-node-server-sdk-dynamodb`](https://github.com/launchdarkly/node-server-sdk-dynamodb).
+
+In version 5.0 and higher of the Node.js SDK DynamoDB integration, the [`AWS SDK for JavaScript v3`](https://github.com/aws/aws-sdk-js-v3) package is used for DynamoDB operations. As of the 2.0.0 release of that package, the `aws-sdk` package that it uses is _not_ automatically loaded as a transitive dependency. This saves space when running in AWS Lambda, where `aws-sdk` is built in. If you are not running in Lambda, you must separately install `aws-sdk`.
 
 <CodeSample>
-<CSTab label="JavaScript">
+<CSTab label="Node.js SDK v8.x (JavaScript)">
+
+```js
+const ld = require('@launchdarkly/node-server-sdk');
+const { DynamoDBFeatureStore } = require('@launchdarkly/node-server-sdk-dynamodb');
+
+const store = DynamoDBFeatureStore(
+  'your-table',
+  { cacheTTL: 30 }
+);
+
+const options = {
+  featureStore: store
+};
+const client = ld.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+import { DynamoDBFeatureStore } from '@launchdarkly/node-server-sdk-dynamodb';
+
+const store = DynamoDBFeatureStore(
+  'your-table',
+  { cacheTTL: 30 }
+);
+
+const options: ld.LDOptions = {
+  featureStore: store,
+};
+const client = ld.init('sdk-key-123abc', options);
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x and earlier (JavaScript)">
 
 ```js
 const ld = require('launchdarkly-node-server-sdk');
@@ -203,7 +241,7 @@ const client = ld.init('sdk-key-123abc', options);
 ```
 
 </CSTab>
-<CSTab label="TypeScript">
+<CSTab label="Node.js SDK v7.x and earlier (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';

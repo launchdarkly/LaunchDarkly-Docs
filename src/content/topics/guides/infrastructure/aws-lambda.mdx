@@ -140,10 +140,7 @@ The function you created doesn't do anything yet. In order to modify the code, l
 After you download the function locally, install the [LaunchDarkly Node.js (server-side) SDK](/sdk/server-side/node-js).
 
 1. Open the command line in the `launchDarklyExample` folder that contains the Lambda function.
-2. Run `npm install launchdarkly-node-server-sdk`.
-
- ![Installing the server-side Node.js (server-side) SDK.](aws-vscode-terminal.png)
-
+2. Run `npm install @launchdarkly/node-server-sdk`.
 3. Place the following code above the handler in `index.js`. Replace `sdk-key-123abc` with the SDK key from your LaunchDarkly environment. You can get this from **Account settings** in LaunchDarkly.
 
     Use this code:
@@ -152,7 +149,7 @@ After you download the function locally, install the [LaunchDarkly Node.js (serv
     <CSTab label="JavaScript">
 
     ```js
-    const LaunchDarkly = require('launchdarkly-node-server-sdk')
+    const LaunchDarkly = require('@launchdarkly/node-server-sdk')
     const client = LaunchDarkly.init('sdk-key-123abc')
     ```
 
@@ -538,7 +535,7 @@ Here's how:
 <CSTab label="Closing and listening">
 
 ```js
-const LaunchDarkly = require("launchdarkly-node-server-sdk");
+const LaunchDarkly = require('@launchdarkly/node-server-sdk');
 const client = LaunchDarkly.init(process.env.sdk-key-123abc);
 
 exports.handler = async (event) => {
@@ -559,7 +556,7 @@ process.on('SIGTERM', async () => {
     await client.flush()
     client.close();
     console.info('LaunchDarkly connection closed');
-    
+
     console.info('[runtime] exiting');
     process.exit(0)
 });

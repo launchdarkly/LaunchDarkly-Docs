@@ -427,7 +427,18 @@ In some situations, you might want to stop making remote calls to LaunchDarkly a
 Here's how:
 
 <CodeSample>
-<CSTab label="Node.js SDK v7.0 (JavaScript)">
+<CSTab label="Node.js SDK v8.x (TypeScript)">
+
+```ts
+import * as ld from '@launchdarkly/node-server-sdk';
+
+const options: ld.LDOptions = { offline: true };
+const client = ld.init('sdk-key-123abc', options);
+client.variation('any.feature.flag', context, false, cb); // cb will always be invoked with the default value (false)
+```
+
+</CSTab>
+<CSTab label="Node.js SDK v7.x (JavaScript)">
 
 ```js
 const options = { offline: true };
@@ -436,7 +447,7 @@ client.variation('any.feature.flag', user, false, cb) // cb will always be invok
 ```
 
 </CSTab>
-<CSTab label="Node.js SDK v7.0 (TypeScript)">
+<CSTab label="Node.js SDK v7.x (TypeScript)">
 
 ```ts
 import * as ld from 'launchdarkly-node-server-sdk';
