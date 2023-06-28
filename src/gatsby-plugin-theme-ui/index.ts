@@ -239,10 +239,10 @@ const theme = makeTheme({
         mb: 0,
       },
       a: {
-        color: 'secondary',
+        color: 'primary',
         textDecoration: 'none',
-        fontWeight: 'bold',
-        '&:visited': { color: 'secondary' },
+        fontWeight: 'body',
+        '&:visited': { color: 'primary' },
         '&:hover': { color: 'grayBlack', textDecoration: 'underline' },
       },
     },
