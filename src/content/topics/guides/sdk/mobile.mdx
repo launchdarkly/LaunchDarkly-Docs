@@ -86,7 +86,7 @@ To learn more, read [Getting started](/sdk/client-side/react/react-native#gettin
 
 LaunchDarkly delivers flag updates to your app as soon as possible. This is great for ensuring that flag evaluations are up to date with the current flag settings, but may cause problems depending on how the flag is used. For example, consider a user interface (UI) configured by flags. If the flags change in the middle of a customer's session, the customer may be confused or alarmed by the interface changing without warning.
 
-For each flag used by your app, decide on a policy for how updates to the flag should be handled while the app is running. You may want to ignore updates to certain flags if they happen in the middle of a customer session, whereas other flags, such as kill switches, should update immediately.
+For each flag used by your app, decide on a policy for how updates to the flag should be handled while the app is running. You may want to ignore updates to certain flags if they happen in the middle of a customer session, whereas other flags, such as circuit breakers, should update immediately.
 
 These policies can be implemented as wrapper methods around the LaunchDarkly SDK, rather than configuration changes to the SDK itself.
 

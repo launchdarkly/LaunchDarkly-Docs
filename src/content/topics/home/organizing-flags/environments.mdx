@@ -201,9 +201,7 @@ You can also use the REST API: [Reset environment SDK key](https://apidocs.launc
 
 ## TTL settings
 
-Each environment also has a time-to-live (TTL) setting. This sets the number of minutes that the PHP SDK can cache feature flag rules locally.
-
-The TTL is only used in the PHP SDK, because PHP's shared-nothing architecture makes our streaming model impossible.
+Each environment also has a time-to-live (TTL) setting. This sets the number of minutes that the PHP SDK can cache feature flag rules locally. The TTL is only used in the PHP SDK, because PHP's shared-nothing architecture makes LaunchDarkly's streaming model impossible. To learn more, read the [PHP SDK reference](/sdk/server-side/php).
 
 For customers using PHP, we recommend setting your TTL to at least five minutes in production environments. This lets the PHP SDK cache feature flag rules for five minutes, so most calls to `variation` will not make a remote request. The tradeoff is that changes you make to your feature flag rules on your flags list will not take effect for five minutes.
 

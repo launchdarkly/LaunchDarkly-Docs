@@ -34,6 +34,10 @@ The context key is not optional. You cannot set either the context key or the co
 
 If you initially mark an attribute as private, LaunchDarkly will continue to treat the attribute as private in subsequent evaluations as long as the context is in the **Contexts** list, even if you later remove the "private" designation from the attribute. If you no longer want LaunchDarkly to treat the attribute as private, remove the "private" designation within the SDK, delete the context from the **Contexts** list, and re-evaluate the context.
 
+After you configure a private attribute within your SDK, the **Contexts** list displays the attribute with a lock icon: 
+
+![The "Contexts" list with a private attribute called out.](contexts-private-attribute-callout.png)
+
 Depending on the type of SDK you use, LaunchDarkly does not receive or store the information in private attributes:
 
 * If you are using a server-side SDK, the SDK will not send the private attribute back to LaunchDarkly.

@@ -28,7 +28,9 @@ You can use workflows to automate the process of changing rollout percentages ov
 
 To learn more about contexts, read [Contexts and segments](/home/contexts).
 
-## Understanding percentage rollout logic
+<Details summary="Expand Understanding percentage rollout logic">
+
+### Understanding percentage rollout logic
 
 When you set up a percentage rollout, each context receives a particular variation based on their context key.
 
@@ -37,6 +39,8 @@ The percentage rollout logic generates a hash based on both the context key and 
 A common use case for percentage rollouts is to increment the percentage of customers targeted by a flag over time until 100% of the customers receive one variation of a flag. When you change the percentage allocation of contexts to flag variations, those contexts are reassigned different flag variations based on their partition's position in the 1 to 100,000 hash list. For example, if you change the percentage of contexts receiving variation A from 50% to 70%, partitions 50,001 to 70,000 would be added to the set of partitions already receiving variation A.
 
 To learn more about rollouts and variation assignments, read [Percentage rollouts](/sdk/concepts/flag-evaluation-rules#percentage-rollouts).
+
+</Details>
 
 ### Targeting the same contexts in multiple percentage rollouts
 
@@ -68,7 +72,10 @@ The attribute must have either string values or integer numeric values. If you u
 
 Contexts are designed to let you target different types of entities, such as devices and organizations, precisely. However, if your application requires a user login, you will probably use a "user" context, at least for some of the attributes you are storing. When your application has both anonymous and logged-in states, you want to maintain the customer experience across both states.
 
-There are two approaches to maintaining the customer experience across pre-login (anonymous end user) and post-login (known end user) states.
+There are two approaches to maintaining the customer experience across pre-login (anonymous end user) and post-login (known end user) states: single contexts and multi-contexts.
+
+#### Single contexts
+---
 
 The first approach uses single contexts. You can set an attribute in a user context and set your percentage rollouts to roll out based on that attribute.
 
@@ -76,7 +83,7 @@ Here's how to do this:
 
 1. Store a unique identifier for the anonymous end user. A session ID or UUID works well.
   * You can store this identifier in local storage or a cookie.
-  * If you are using a mobile SDK, the SDK can generate the unique identifier for you and use it as the context key. To learn more, read [Anonymous contexts and users](/sdk/features/anonymous).
+  * If you are using a mobile SDK, the SDK can generate the unique identifier for you and use it as the context key. To learn more, read about [setting anonymous contexts in client-side SDKs](/sdk/features/anonymous#client-side-sdks).
 2. Use this unique identifier as both the context's key and an attribute in the user context until the end user logs in. The attribute can be named anything, for example, `uniqueId`.
 3. While the end user is logged in, set the context's key to their real (primary) context key, but continue to use the stored unique identifier as the context's `uniqueId` attribute.
 4. For all flags, or for those that may affect logged out users, set your flags to serve percentage rollouts based on the `uniqueId` attribute.
@@ -84,6 +91,9 @@ Here's how to do this:
 To learn more about anonymous contexts, read [Anonymous contexts](/home/contexts/anonymous-contexts).
 
 One disadvantage to this approach is that using a `uniqueId` attribute, rather than context key, means that you cannot easily convert the rollout strategy from percentage rollout to experiment. To learn more, read [Allocating audiences](/home/creating-experiments/allocation#allocating-audiences).
+
+#### Multi-contexts
+---
 
 The second approach uses multi-contexts. You can use an attribute, such as the context key, in a non-user context and set flags' percentage rollouts based on that attribute.
 

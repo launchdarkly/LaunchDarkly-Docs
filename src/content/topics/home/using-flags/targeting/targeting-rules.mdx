@@ -49,6 +49,12 @@ You can add multiple conditions to a rule. Here is how rules handle multiple con
 - If a condition has multiple values, LaunchDarkly considers the condition met if there is a match on *any* of the values.
 - If an attribute has an array value, LaunchDarkly treats it as multiple values and allows any of the values within the array to match a rule.
 
+<LearnMore>
+
+You can also use the REST API: [Update feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/patchFeatureFlag)
+
+</LearnMore>
+
 ### Rule Duplication
 
 You can create new targeting rules by duplicating a flag's existing targeting rule and modifying the new rule.
@@ -88,7 +94,7 @@ Experimentation is available to customers on a Pro or Enterprise plan. To learn 
 </CalloutDescription>
 </Callout>
 
-After you save a targeting rule, you can click the **graph** icon to run an experiment on the rule. To learn more, read [Creating experiments](/home/creating-experiments).
+After you save a targeting rule, you can click the **graph** icon and select "Run an experiment on this rule" to create an experiment. To learn more, read [Creating experiments](/home/creating-experiments).
 
 Here is an image of the **graph** icon on a flag's targeting rule:
 
@@ -96,7 +102,26 @@ Here is an image of the **graph** icon on a flag's targeting rule:
 
 ### Attributes
 
-LaunchDarkly allows you to create your own attributes. For instance, you might want to target contexts based on plan, group, role, or location. Using attributes, you could show some features to customers on your regular plan, and additional features to customers on your premium plan. Or you could roll out a new feature to 30% of end users at a particular location, rather than 30% of all end users. To learn more, read [Context attributes](/home/contexts/attributes).
+LaunchDarkly allows you to create your own attributes. For instance, you might want to target contexts based on plan, group, role, or location.
+
+Here is an example of a context with custom attribute values:
+
+<CodeSample>
+<CSTab label="A context with custom attributes">
+
+```json
+"context": {
+  "kind": "user",
+  "name": "Sandy",
+  "email": "sandy@example.com",
+  "gymMember": "true"
+  }
+```
+
+</CSTab>
+</CodeSample>
+
+Using attributes, you could show some features to customers on your regular plan, and additional features to customers on your premium plan. Or you could roll out a new feature to 30% of end users at a particular location, rather than 30% of all end users. To learn more, read [Context attributes](/home/contexts/attributes).
 
 In each targeting rule, you can choose an attribute specific to your chosen context kind using the "Select an attribute" menu.
 

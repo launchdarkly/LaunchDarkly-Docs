@@ -17,6 +17,52 @@ An Experimentation event is any event an SDK produces that impacts your experime
 - **Metric events**: `click`, `page view`, and `custom` events from metrics used in running experiments.
 - **Evaluation events**: `feature` events from flags with targeting rules included in running experiments.
 
+Here are examples of each event:
+
+<CodeSample>
+<CSTab label="Click metric event">
+
+```json
+{
+  "kind": "click",
+  "key": "click-metric-key-123abc",
+  "url": "https://example.com/",
+  "creationDate": 16420388151234,
+  "selector": "button.click-track"
+  "contextKeys": {
+    "user": "Sandy",
+    "anonymousUser": "123213421231"
+  }
+}
+```
+
+</CSTab>
+<CSTab label="Feature evaluation event">
+
+```json
+{
+  "kind": "feature",
+  "creationDate": 1462220944000,
+  "key": "flag-key-123abc",
+  "variation": 0,
+  "variationName": "my variation",
+  "value": false,
+  "default": false,
+  "version": 42,
+  "reason": {
+    "inExperiment": "true"
+  },
+  "prereqOf": "prereq-flag-key-123abc",
+  "contextKeys": {
+    "user": "sandy",
+    "anonymousUser": "123213421231"
+  }
+}
+```
+
+</CSTab>
+</CodeSample>
+
 ### Understanding metric events
 
 Server-side, client-side, and mobile LaunchDarkly SDKs send `custom` metric events when you call the SDK's track method. To learn more about the track method, read [Sending custom events](/sdk/features/events).

@@ -58,9 +58,11 @@ There are three types of events that can appear on the **Live events** page when
 * Summary events
 * Debug events
 
-Feature events include specific flag evaluation details. For more information about the contexts used in the flag evaluation, click **View attributes**. The Attribute viewer dialog appears. It lists the context attributes and includes a link to the [context details page](/home/contexts/context-details).
+Feature events include specific flag evaluation details. For more information about the contexts used in the flag evaluation, click **View attributes**. The Attribute viewer dialog appears. It lists the context attributes and includes a link to the [context details page](/home/contexts/context-details). To view an example, read [Feature events](/home/data-export/schema-reference#feature-events).
 
-Summary events display a summary of flag evaluation events. This saves data load. To review detailed evaluation event information for a flag, click **Full fidelity details**.
+Summary events display a summary of flag evaluation events. This saves data load. To view an example, read [Summary events](/home/data-export/schema-reference#summary-events).
+
+To review detailed evaluation event information for a flag, click **Full fidelity details**.
 
 Older SDK versions send detailed events for every evaluation, rather than summary events.
 
@@ -82,7 +84,7 @@ The minimum required version for each SDK to use `summary` events is:
 
 </Details>
 
-Debug events describe feature flag evaluations when debugging mode is on in your SDK. They are listed when you view the **Full fidelity details** of a summary event for a flag.
+Debug events describe feature flag evaluations when debugging mode is on in your SDK. They are listed when you view the **Full fidelity details** of a summary event for a flag. To view an example, read [Debug events](/home/data-export/schema-reference#debug-events).
 
 ## Context events
 
@@ -96,6 +98,8 @@ There are two types of context events that display on the **Live events** page:
 
 - Identify events are explicitly triggered by your application code
 - Index events are automatically triggered by the LaunchDarkly SDK based on flag evaluations
+
+To view examples, read [Identify events](/home/data-export/schema-reference#identify-events) and [Index events](/home/data-export/schema-reference#index-events).
 
 For more information about the context, click **View attributes**. The Attribute viewer dialog appears. It lists the context attributes and includes a link to the [context details page](/home/contexts/context-details).
 
@@ -117,7 +121,7 @@ There are three types of experiment events that display on the **Live events** p
 - Page view events
 - Custom events
 
-These events correspond to the kind of metric that triggered the event.
+These events correspond to the kind of metric that triggered the event. To view examples, read [Click events](/home/data-export/schema-reference#click-events), [Page view events](/home/data-export/schema-reference#page-view-events), and [Custom events](/home/data-export/schema-reference#custom-events).
 
 For more information about the experiment, click the name of the experiment in the "Event" column.
 
