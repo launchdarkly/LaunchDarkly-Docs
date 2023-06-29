@@ -28,8 +28,10 @@ Alternatively, you can configure an external database to act as a feature store.
 
 Whichever database you use, there are two ways to use it:
 
-- Exactly like the default configuration, except substituting a database for the in-memory store, or
-- Using _only_ the database as a source of flag data, without connecting to LaunchDarkly.
+- Exactly like the default configuration, except substituting a [database for the in-memory store while connecting to LaunchDarkly](#using-a-persistent-feature-store-while-still-connecting-to-launchdarkly), or
+- Using [_only_ the database as a source of flag data, without connecting to LaunchDarkly](#using-a-persistent-feature-store-without-connecting-to-launchdarkly).
+
+In both configurations, you can control when the SDK checks the database, as opposed to in-memory caching, using the cache time-to-live (TTL) configuration option for your SDK. There is a tradeoff here that will be different for each customer. Most customers find that it's generally unacceptable from a performance standpoint to read from the database on every flag evaluation. If you prefer faster evaluations and can accept some stale data, you can have the SDK check the in-memory caching more frequently. If you prefer fresher data and can accept slower evaluations, you can have the SDK check the database more frequently.
 
 ### Using a persistent feature store while still connecting to LaunchDarkly
 
@@ -43,7 +45,7 @@ If there are multiple instances of your application configured in this way with 
 
 ### Using a persistent feature store without connecting to LaunchDarkly
 
-This is similar to the previous configuration, except that the SDK does not connect to LaunchDarkly at all. Instead, it relies on some other process which _does_ have a LaunchDarkly connection to write the latest flag data to the database, where the SDK will then read it.
+This is similar to the previous configuration: When flags are evaluated, the SDK checks the database to get the latest flag state, usually with some form of in-memory caching. However, in this configuration the SDK does not connect to LaunchDarkly at all. Instead, it relies on some other process which _does_ have a LaunchDarkly connection to write the latest flag data to the database, where the SDK will then read it.
 
 The other process could be the Relay Proxy in offline or daemon mode, or any other application that creates an SDK client with the same persistent store. To learn more about the Relay Proxy, read [The Relay Proxy](/home/relay-proxy).
 
