@@ -58,9 +58,9 @@ This feature is available in the following client-side SDKs:
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The identify method tells the client to change the current context and obtain the feature flag values for the new context. In the .NET SDK, you can use either the `Identify` or `IdentifyAsync` method to switch contexts.
 
-In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `Identify()` or `IdentifyAsync()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `Identify()` or `IdentifyAsync()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+In general, however, we recommend composing the new context as a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 You may want to wait until the flag values for the new context have been loaded before proceeding. You can do this either by calling the synchronous method `Identify` with a timeout, or by calling the asynchronous method `IdentifyAsync` and awaiting the result.
 
@@ -108,9 +108,9 @@ To learn more, read [`Identify`](https://launchdarkly.github.io/dotnet-client-sd
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
@@ -174,9 +174,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/android-client-s
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The identify method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new context may be similar to the previous context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call identify so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `Identify` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `Identify` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how to update your initial context when you have additional information:
 
@@ -278,9 +278,9 @@ The `IdentifyAsync` call loads any saved flag values for the new context and imm
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
 
-In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-{/* cSpell:disable (TKTK uncomment this section after this SDK is updated to use contexts. SC-163925) In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user. cSpell:enable */}
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
@@ -335,9 +335,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/electron-client-
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identifyWithContext()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identifyWithContext()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identifyWithContext()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identifyWithContext()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identifyWithContext()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
@@ -390,9 +390,9 @@ To learn more, read [`identifyWithContext`](https://pub.dev/documentation/launch
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 If the client app does not identify an `LDContext`, `LDClient` creates an anonymous default context, which can affect which feature flags LaunchDarkly delivers to the `LDClient`. Client apps should follow the [Apple Privacy Policy](https://apple.com/legal/privacy) when collecting end user information.
 
@@ -467,9 +467,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/ios-client-sdk/C
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 If you provide a callback function, it is called with a map of flag keys and values after the flag values for the new context are available. After that point, `variation()` uses the new values. You can also use a Promise for the same purpose.
 
@@ -538,9 +538,9 @@ The hash parameter is the hash for the new context, assuming that the context's 
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current user and obtain the feature flag values for the new user.
 
-In some situations, the new user may be an updated version of the existing user. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user information. You can call `identify()` with a multi-context that contains the "device" and "user" contexts for the end user.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
@@ -612,9 +612,9 @@ To learn more, read [`identify`](https://launchdarkly.github.io/node-client-sdk/
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context and call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 Here's how:
 
@@ -700,9 +700,9 @@ Alert.alert('identify', 'success');
 
 Client-side SDKs are configured to operate for one context at a time, whether identified or anonymous. The `identify()` method tells the client to change the current context and obtain the feature flag values for the new context.
 
-In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as an anonymous context before they log in, and a different context after they log in. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
+In some situations, the new context may be an updated version of the existing context. For example, on a sign-in page in a single-page app, you could represent the same person as a multi-context that combines a pre-login anonymous context and a post-login context with the "user" kind. After the person logs in, you can call `identify()` so that the person receives the correct feature flag settings for their account.
 
-In other situations, the new context may be a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
+In other situations, the new context may be a multi-context based on multiple identifiers, rather than only pre- and post-login contexts. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user and organization information. You can call `identify()` with a multi-context that contains the "device," "user," and "organization" contexts for the end user.
 
 To do this:
 
