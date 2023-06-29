@@ -14,6 +14,13 @@ jobs:
           project-key: docs
           environment-key: ${{ github.event.deployment_status.environment }}
           status: ${{ github.event.deployment_status.state }}
+          event-time: ${{ github.event.deployment_status.created_at }}
+          event-metadata: '
+            {
+              "run_id": "${{ github.run_id }}",
+              "run_number": "${{ github.run_number }}",
+              "run_attempt": "${{ github.run_attempt }}"
+            }'
           deployment-metadata: '
             {
               "actor": "${{ github.triggering_actor }}",
