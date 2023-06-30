@@ -1713,6 +1713,11 @@
     "name": "Vue",
     "versions": [
       {
+        "versionMajorMinor": "2.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "06-30"
+      },
+      {
         "versionMajorMinor": "1.2",
         "releaseYear": 2022,
         "releaseMonthDay": "10-18"

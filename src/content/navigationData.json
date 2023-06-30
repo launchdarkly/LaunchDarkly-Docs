@@ -1555,7 +1555,13 @@
           },
           {
             "label": "Vue SDK reference",
-            "path": "/sdk/client-side/vue"
+            "path": "/sdk/client-side/vue",
+            "items": [
+              {
+                "label": "Vue SDK 1.x to 2.0 migration guide",
+                "path": "/sdk/client-side/vue/migration-1-to-2"
+              }
+            ]
           }
         ]
       },
