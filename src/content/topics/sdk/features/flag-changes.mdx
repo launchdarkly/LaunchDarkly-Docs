@@ -289,7 +289,7 @@ To subscribe to feature flag changes, register listeners for change events from 
 <CSTab label="JavaScript">
 
 ```js
-client.on('change:flag-key-123abc', (newValue, oldValue) => {
+client.on('update:flag-key-123abc', (newValue, oldValue) => {
   console.log('The flag was ' + oldValue + ' and now it is ' + newValue);
 });
 ```
@@ -304,7 +304,7 @@ Or, you can listen for all feature flag changes:
 <CSTab label="JavaScript">
 
 ```js
-client.on('change', (allFlagChanges) => {
+client.on('update', (allFlagChanges) => {
   Object.keys(allFlagChanges).forEach((key) => {
     console.log('Flag ' + key + ' is now ' + allFlagChanges[key]);
   });
