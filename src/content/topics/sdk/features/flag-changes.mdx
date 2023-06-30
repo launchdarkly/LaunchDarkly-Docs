@@ -456,7 +456,7 @@ To subscribe to all feature flag changes, register listeners for change events f
 <CSTab label="JavaScript">
 
 ```js
-client.on('update', (settings) => {
+client.on('change', (settings) => {
   console.log('flags changed:', settings);
 });
 ```
@@ -472,7 +472,7 @@ Here's how:
 <CSTab label="JavaScript">
 
 ```js
-client.on('update:flag-key-123abc', (value, previous) => {
+client.on('change:flag-key-123abc', (value, previous) => {
   console.log('flag-key-123abc changed:', value, '(' + previous + ')');
 });
 ```
@@ -493,7 +493,7 @@ To subscribe to all feature flag changes, register listeners for change events f
 <CSTab label="JavaScript">
 
 ```js
-client.on('update', allChanges => {
+client.on('change', allChanges => {
   console.log('flags changed:', JSON.stringify(allChanges));
 });
 ```
@@ -509,7 +509,7 @@ Here's how:
 <CSTab label="JavaScript">
 
 ```js
-client.on('update:flag-key-123abc', (value, previous) => {
+client.on('change:flag-key-123abc', (value, previous) => {
   console.log('flag-key-123abc changed:', value, '(was ' + previous + ')');
 });
 ```
