@@ -54,7 +54,7 @@ Here is an example of that rule:
 
 ![A rule serving "true" to contexts affected by two conditions.](flag-targeting-multiple-rules.png)
 
-After you have set up the conditions for your rule, you can decide whether your contexts will receive one variation, or a percentage rollout across several variations. To learn more, read [Targeting rules](/home/flags/targeting-rules).
+After you have set up the conditions for your rule, you can decide to roll out one variation to all your contexts, or do a percentage rollout across several variations. To learn more, read [Targeting rules](/home/flags/targeting-rules).
 
 ## Viewing and managing contexts
 
@@ -81,9 +81,9 @@ The SDK only evaluates flags based on the evaluation context you provide in the 
 
 You may not want to send all attributes back to, or store all attributes in, LaunchDarkly. The security or data protection requirements of your organization may require you to limit what customer data is transmitted to or stored within a third-party platform like LaunchDarkly. For example, you may want to target customers by their personally identifying information (PII), such as their email address. You can mark the email address attribute as private, but still use it in targeting rules and segments.
 
-You can't mark attributes as private from within the LaunchDarkly UI. Instead, you must configure them within your SDK. 
+You can't mark attributes as private from within the LaunchDarkly UI. Instead, you must configure them within your SDK.
 
-After you configure a private attribute within your SDK, the **Contexts** list displays the attribute with a lock icon: 
+After you configure a private attribute within your SDK, the **Contexts** list displays the attribute with a lock icon:
 
 ![The "Contexts" list with a private attribute called out.](contexts-private-attribute-callout.png)
 
