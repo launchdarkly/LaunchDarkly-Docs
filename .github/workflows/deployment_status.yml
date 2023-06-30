@@ -13,6 +13,7 @@ jobs:
           base-uri: https://app.ld.catamorphic.com
           project-key: docs
           environment-key: ${{ github.event.deployment_status.environment }}
+          version: ${{ github.event.deployment.sha }}
           status: ${{ github.event.deployment_status.state }}
           event-time: ${{ github.event.deployment_status.created_at }}
           event-metadata: '
