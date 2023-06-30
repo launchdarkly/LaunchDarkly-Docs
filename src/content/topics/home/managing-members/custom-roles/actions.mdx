@@ -5,6 +5,7 @@ description: This topic explains how to use actions in custom roles policies. Th
 published: true
 tags: ['action', 'policy', 'resource', 'custom role']
 ---
+import { docsRiskFreeReleasesM1 } from '@/flags'
 
 ## Overview
 
@@ -756,6 +757,12 @@ This table explains feature flag actions related to environment-specific setting
     </TableRow>
     <TableRow>
       <TableCell>
+        <code>updateFlagCodeReferences</code>
+      </TableCell>
+      <TableCell>Update flag code references.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
         <code>updateFlagFallthroughTrackEvents</code>
       </TableCell>
       <TableCell>
@@ -907,7 +914,7 @@ This table explains feature flag actions related to other flag changes:
       <TableCell>
         <code>updateFlagRuleDescription</code>
       </TableCell>
-      <TableCell>Update the description for custom targeting rules.</TableCell>
+      <TableCell>Change the description of a flag's custom targeting rules.</TableCell>
     </TableRow>
   </TableBody>
 </Table>
@@ -1084,6 +1091,12 @@ This table explains available member actions:
     <TableHeadCell>Description</TableHeadCell>
   </TableHeader>
   <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>approveDomainMatchedMember</code>
+      </TableCell>
+      <TableCell>Approve a join request from a domain-matched member. To learn more, read [Enabling domain matching](/home/account-security/organization-access-settings#enabling-domain-matching).</TableCell>
+    </TableRow>
     <TableRow>
       <TableCell>
         <code>createMember</code>
@@ -1456,6 +1469,57 @@ This table explains available Relay Proxy automatic configuration actions:
 </Table>
 
 </Details>
+
+<Feature flag={docsRiskFreeReleasesM1} showWhenVariation={true}>
+
+## Release pipeline actions
+
+<Details summary="Expand Release pipeline actions">
+
+`release-pipeline` is a child of project. A code sample is below:
+
+<CodeSample>
+<CSTab label="Release pipeline resource">
+
+```json
+proj/*:release-pipeline/*
+```
+
+</CSTab>
+</CodeSample>
+
+This table explains available role actions:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Action</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>
+        <code>createReleasePipeline</code>
+      </TableCell>
+      <TableCell>Create a new release pipeline</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>deleteReleasePipeline</code>
+      </TableCell>
+      <TableCell>Delete a release pipeline</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>
+        <code>updateReleasePipeline</code>
+      </TableCell>
+      <TableCell>Update a release pipeline</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+</Details>
+
+</Feature>
 
 ## Role actions
 
