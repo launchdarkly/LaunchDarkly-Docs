@@ -1,4 +1,4 @@
-import { TOC } from '../components/tableOfContents'
+import { CustomTOCItem } from '../components/tableOfContents'
 
 import { Frontmatter } from './frontmatter'
 import { SiteMetadata } from './siteMetadata'
@@ -10,7 +10,7 @@ export type PageContext = {
   lastModifiedTime: string
   modifiedDate: string
   timeToRead: number
-  toc: TOC
+  toc: Array<CustomTOCItem>
   fileAbsolutePath: string
   siteMetadata: SiteMetadata
 }
