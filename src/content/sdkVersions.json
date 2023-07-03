@@ -1710,6 +1710,16 @@
     ]
   },
   {
+    "name": "Vercel",
+    "versions": [
+      {
+        "versionMajorMinor": "1.0",
+        "releaseYear": 2023,
+        "releaseMonthDay": "06-20"
+      }
+    ]
+  },
+  {
     "name": "Vue",
     "versions": [
       {
