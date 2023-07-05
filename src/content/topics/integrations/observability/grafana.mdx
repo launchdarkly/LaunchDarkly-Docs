@@ -17,36 +17,47 @@ The Grafana integration is available to customers on a Pro or Enterprise plan. T
 
 ## Overview
 
-This topic explains how to use the LaunchDarkly Grafana integration. You can use the integration to send flag, environment, and project updates to Grafana to add context to your graphs.
+This topic explains how to use the LaunchDarkly Grafana integration. You can use the integration to send flag, environment, and project updates to Grafana as annotations to add context to your graphs.
+
+![An example Grafana dashboard configured with LaunchDarkly feature flag change event annotations.](grafana-dashboard-with-annotations.png)
 
 ## Prerequisites
 
 To use the Grafana integration, you must have the following prerequisites:
 
 - A Grafana instance that is accessible to LaunchDarkly's servers.
-- An API key from Grafana with editor privileges.
+- An Grafana [service account](https://grafana.com/docs/grafana/latest/administration/service-accounts/#service-accounts) with the "Annotation writer" role and a corresponding service account token.
 
-To generate an API key:
+To create a Grafana service account and generate a service account token:
 
-1. In Grafana, open the the **Configuration** menu and select "API keys." The "API keys" tab appears.
+1. In Grafana, open the the **Administration** menu and select "Service accounts." The "Service accounts" tab appears.
 
-![The "API keys" tab in Grafana.](grafana-api-tab.png)
+![The "Service accounts" tab in Grafana.](grafana-service-accounts-tab.png)
 
-2. Click **Add API key**. An "Add API Key" section appears.
-3. Enter a **Key name**.
-4. Change the **Role** selection to "Editor" or "Admin."
-5. Click **Add**. An "API Key Created" dialog appears.
-6. Copy the key from the **Key** field and save it somewhere secure. Grafana displays this key only once, so you must copy and store it now. You will use it to set up the Grafana integration in LaunchDarkly.
+2. Click **Add service account**. The "Create service account" page appears.
+3. Enter a **Display name**.
+4. Change the **Role** selection to "Annotation writer."
+
+![The "Create service account" page with the "Annotation writer" role selected.](grafana-create-service-account-with-role.png)
+
+5. Click **Create**. The "Service token" page appears.
+6. Click **Add service account token**.
+
+![An example "Service token" page with the mouse cursor hovering over the "Add service account token" button.](grafana-service-token-page.png)
+
+7. Enter a **Display name** for the token.
+8. Click **Generate token**.
+9. Copy the token and save if somewhere secure. Grafana displays this token only once, so you must copy and store it now. You will use it to set up the Grafana integration in LaunchDarkly.
 
 ## Setting up the Grafana integration
 
-After you create an API key in Grafana, you can set up the integration in LaunchDarkly.
+After you create a service account token in Grafana, you can set up the integration in LaunchDarkly.
 
 1. Navigate to the [**Integrations** page](https://app.launchdarkly.com/default/integrations) and find "Grafana."
 2. Click **Add integration**. The "Create Grafana configuration" panel appears.
 3. (Optional) Give your integration a human-readable **Name**.
-4. Enter your Grafana instance URL.
-5. Enter the Grafana **API key**. You created this key in the [Prerequisites](#prerequisites) section.
+4. Enter your Grafana instance URL. Do not include a trailing `/`.
+5. Enter the Grafana **service account token**. You created this token in the [Prerequisites](#prerequisites) section.
 6. (Optional) Configure a custom policy to control which events LaunchDarkly sends to Grafana. To learn more, read [Filtering the events you send to Grafana](#filtering-the-events-you-send-to-grafana).
 
 ![The "Create Grafana integration" panel.](grafana-config.png)
@@ -99,3 +110,71 @@ To add a custom filter:
 5. Click **Save configuration**.
 
 You can verify that LaunchDarkly is sending a customized set of events by viewing the events in your Grafana dashboard.
+
+## Adding LaunchDarkly annotations to Grafana dashboards
+
+To add LaunchDarkly events as annotations in Grafana dashboards:
+
+1. Open the Grafana dashboard in edit mode.
+2. Click the **Dashboard settings** gear icon button located at the top of the page.
+3. Click **Annotations**.
+4. Click **New query**. The "New annotation" page appears.
+5. Enter a human readable name for the annotation, such as "LaunchDarkly feature flags."
+6. Change the **Data source** select menu to "-- Grafana --".
+7. Change the **Filter by** select menu to "Tags".
+
+![The Grafana "Add annotation" page.](grafana-add-annotation.png)
+
+8. The LaunchDarkly integration sends annotation events to Grafana with event-specific tags. You can use one or more of the following tags to filter the annotations that appear on your dashboard:
+
+<Table>
+  <TableHeader>
+    <TableHeadCell>Tag</TableHeadCell>
+    <TableHeadCell>Description</TableHeadCell>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>`launchdarkly`</TableCell>
+      <TableCell>This tag is added to all LaunchDarkly annotation events.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`ld_tag:TAG`</TableCell>
+      <TableCell>
+        The LaunchDarkly tag associated with the resource that changed. For example, if a feature flag has the tag
+        `grafana` in LaunchDarky, all event annotations associated with that flag will be sent to Grafana with the tag
+        `ld_tag:grafana`.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`project_key:PROJECT_KEY`</TableCell>
+      <TableCell>The LaunchDarkly project key that is associated with the change event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`environment_key:ENVIRONMENT_KEY`</TableCell>
+      <TableCell>The LaunchDarkly environment key that is associated with the change event.</TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`flag_key:FLAG_KEY`</TableCell>
+      <TableCell>
+        The LaunchDarkly feature flag key that is associated with the change event. This tag is only applied to feature
+        flag change events.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`segment_key:SEGMENT_KEY`</TableCell>
+      <TableCell>
+        The LaunchDarkly segment flag key that is associated with the change event. This tag is only applied to segment
+        change events.
+      </TableCell>
+    </TableRow>
+    <TableRow>
+      <TableCell>`kind:RESOURCE_KIND`</TableCell>
+      <TableCell>
+        The resource kind associated with the change event where `RESOURCE_KIND` is one of `flag`, `segment`, `project`,
+        `environment`, or `member`.
+      </TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+
+9. Click **Apply**.
