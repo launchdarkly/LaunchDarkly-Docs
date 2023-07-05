@@ -285,7 +285,9 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       modifiedDate: Date @proxy(from: "fields.lastModifiedTime") @dateformat(formatString: "MMM DD, YYYY")
     }
     type CustomToc {
-      heading: String
+      value: String
+      hash: String
+      depth: Int
     }
   `
 
