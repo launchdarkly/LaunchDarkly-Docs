@@ -86,7 +86,7 @@ LDClient client = new LDClient(config);
 </CSTab>
 </CodeSample>
 
-You can use `client` to check which variation a particular user will receive for a given feature flag.
+You can use the `Variation` methods available from the client to check which variation a particular user will receive for a given feature flag.
 
 Here's how:
 
@@ -119,9 +119,13 @@ Because the SDK uses a bridge to handle state management, there is no initializa
 
 The Apex SDK exposes two HTTP endpoints that the bridge uses: `/store` and `/event`. The bridge pushes flag updates to Salesforce through one endpoint, and pulls events from Salesforce with the other.
 
-The bridge is a Go application configured with environment variables. The bridge needs authorization for both LaunchDarkly and Salesforce.
+### Installing the bridge
 
-To build the bridge from source install Go 1.14 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install).
+The bridge is designed to be run as a [daemon](https://en.wikipedia.org/wiki/Daemon_(computing)) on your server infrastructure, either with a cloud provider or your own on-premise infrastructure.
+
+The bridge is a Go application configured with environment variables. To build the bridge from source install Go 1.14 or higher. To install Go, read [Go's documentation](https://golang.org/doc/install).
+
+The bridge needs authorization for both LaunchDarkly and Salesforce.
 
 <Callout intent="info">
 <CalloutTitle>The Apex SDK uses an SDK key</CalloutTitle>
@@ -153,7 +157,9 @@ export OAUTH_PASSWORD='Your Salesforce password + security token'
 </CSTab>
 </CodeSample>
 
-The logs indicate if the bridge is running. If it fails, the logs show the errors that occurred. You must deploy the SDK to Salesforce before you run the bridge.
+The logs indicate if the bridge is running. If it fails, the logs show the errors that occurred.
+
+You must deploy the SDK to Salesforce before you run the bridge. After the SDK is deployed to Salesforce, start the bridge to begin evaluating flags. The bridge must be running in order to receive flag updates and publish events to LaunchDarkly.
 
 ## Supported features
 
