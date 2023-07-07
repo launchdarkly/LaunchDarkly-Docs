@@ -31,6 +31,7 @@ api
 apple
 application
 approval
+architecture
 attribute
 audience
 audit log
@@ -296,7 +297,6 @@ reset
 resource
 rest
 result
-rest api
 roku
 role
 ruby
