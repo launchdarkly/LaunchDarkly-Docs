@@ -464,7 +464,7 @@ module.exports = [
   },
   {
     fromPath: '/home/managing-flags/flag-toggle/',
-    toPath: '/home/getting-started/toggle',
+    toPath: '/home/flags/toggle',
   },
   {
     fromPath: '/home/managing-flags/flag-compare-copy/',
@@ -841,10 +841,18 @@ module.exports = [
     fromPath: '/guides/blog/',
     toPath: '/guides/additional-resources',
   },
-  // Other redirects
+  // Getting started redirects
   {
     fromPath: '/home/getting-started/in-app-options',
     toPath: '/home/getting-started/learning-center',
+  },
+  {
+    fromPath: '/home/getting-started/toggle',
+    toPath: '/home/flags/toggle',
+  },
+  {
+    fromPath: '/home/getting-started/feature-flags',
+    toPath: '/home/flags/feature-flags',
   },
   // Redirect from the readme-hosted docs site. Any redirect from a `/docs/` URL should go in this section.
   {

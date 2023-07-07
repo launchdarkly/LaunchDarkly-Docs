@@ -14,14 +14,6 @@
             "path": "/home/getting-started/setting-up"
           },
           {
-            "label": "Your first feature flag",
-            "path": "/home/getting-started/feature-flags"
-          },
-          {
-            "label": "Turning flags on and off",
-            "path": "/home/getting-started/toggle"
-          },
-          {
             "label": "Joining an account",
             "path": "/home/getting-started/your-account"
           },
@@ -49,6 +41,14 @@
         "path": "/home/flags",
         "svg": "toggle-switch",
         "items": [
+          {
+            "label": "Creating feature flags",
+            "path": "/home/flags/feature-flags"
+          },
+          {
+            "label": "Turning flags on and off",
+            "path": "/home/flags/toggle"
+          },
           {
             "label": "Targeting with flags",
             "path": "/home/flags/targeting",

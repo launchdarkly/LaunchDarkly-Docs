@@ -59,7 +59,7 @@ const QuickLinks = () => (
           { path: '/home/getting-started', label: 'Getting started' },
           { path: '/home/getting-started/your-account', label: 'Joining an account' },
           { path: '/home/getting-started/setting-up', label: 'Setting up an SDK' },
-          { path: '/home/getting-started/feature-flags', label: 'Your first feature flag' },
+          { path: '/home/flags/feature-flags', label: 'Creating feature flags' },
         ]}
       />
       <QuickLink
