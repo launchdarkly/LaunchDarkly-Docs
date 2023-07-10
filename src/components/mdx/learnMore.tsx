@@ -10,7 +10,7 @@ const LearnMore: FC<React.PropsWithChildren<unknown>> = ({ children }): ReactEle
         <Box>
           <Fragment>{children}</Fragment>
         </Box>
-        <Icon name="lightbulb-on-outline" variant="learnMore" sx={{ marginTop: 1, marginLeft: 'auto' }} />
+        <Icon name="openapi-logo" variant="learnMore" sx={{ marginTop: 1, marginLeft: 'auto' }} />
       </Flex>
     </Card>
   )

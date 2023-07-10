@@ -35,7 +35,7 @@ exports[`learn more renders correctly with a single link 1`] = `
         </a>
       </div>
       <div>
-        Icon: lightbulb-on-outline
+        Icon: openapi-logo
       </div>
     </div>
   </div>
@@ -86,7 +86,7 @@ exports[`learn more renders correctly with multiple links 1`] = `
         </a>
       </div>
       <div>
-        Icon: lightbulb-on-outline
+        Icon: openapi-logo
       </div>
     </div>
   </div>

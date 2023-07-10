@@ -1,0 +1,14 @@
+{
+    "Create Learn More SDK card": {
+	"scope": "markdown, mdx",
+	"prefix": "lm",
+	"body": [
+	  "<LearnMoreSdk>",
+	  "",
+	  "Learn more: [$1]($2)",
+	  "",
+	  "</LearnMoreSdk>"
+	],
+	"description": "Add a Learn More SDK snippet"
+	}
+}

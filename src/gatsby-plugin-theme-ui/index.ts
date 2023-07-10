@@ -246,6 +246,41 @@ const theme = makeTheme({
         '&:hover': { color: 'grayBlack', textDecoration: 'underline' },
       },
     },
+    learnMoreSdk: {
+      padding: 2,
+      bg: 'muted',
+      borderRadius: 1,
+      border: '1px solid',
+      borderColor: 'muted',
+      boxShadow: (theme: Theme) => `0 2px 4px ${get(theme, 'colors.muted')}`,
+      paddingX: 5,
+      paddingY: 4,
+      lineHeight: 'regular',
+      my: [4, 5],
+      p: {
+        fontSize: 'unset',
+        mb: 0,
+      },
+      ol: {
+        margin: 0,
+        listStylePosition: 'outside',
+      },
+      ul: {
+        margin: 0,
+        listStyleType: 'none',
+        listStylePosition: 'outside',
+      },
+      li: {
+        mb: 0,
+      },
+      a: {
+        color: 'primary',
+        textDecoration: 'none',
+        fontWeight: 'body',
+        '&:visited': { color: 'primary' },
+        '&:hover': { color: 'grayBlack', textDecoration: 'underline' },
+      },
+    },
     info: {
       padding: 2,
       bg: 'muted',
@@ -373,6 +408,11 @@ const theme = makeTheme({
       m: 2,
     },
     learnMore: {
+      width: 2,
+      height: 2,
+      fill: 'grayBase',
+    },
+    learnMoreSdk: {
       width: 2,
       height: 2,
       fill: 'grayBase',

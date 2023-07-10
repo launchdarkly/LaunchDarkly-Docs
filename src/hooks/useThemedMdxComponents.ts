@@ -20,6 +20,7 @@ import Feature from '../components/mdx/feature'
 import Figure, { FigCaption } from '../components/mdx/figure'
 import { H1, H2, H3, H4, H5, H6 } from '../components/mdx/heading'
 import LearnMore from '../components/mdx/learnMore'
+import LearnMoreSdk from '../components/mdx/learnMoreSdk'
 import Metadata from '../components/mdx/metadata'
 import Pre from '../components/mdx/pre'
 import { Span } from '../components/mdx/span'
@@ -49,6 +50,7 @@ const components = {
   CalloutTitle,
   CalloutDescription,
   LearnMore,
+  LearnMoreSdk,
   Link,
   CodeSample,
   CSTab,
