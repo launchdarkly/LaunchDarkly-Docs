@@ -120,19 +120,6 @@ runs:
         audience: https://github.com/launchdarkly
         role-to-assume: ${{ inputs.aws_role_arn }}
         aws-region: us-east-1
-    - name: Caching Gatsby
-    # -eap builds are customer facing so we can't take any chances with build cache issues
-    # sc-176925
-      if: ${{ inputs.environment == 'staging' }} && steps.build-status.outputs.deploy == 'true' && !(endsWith(github.ref_name, '-eap'))
-      id: gatsby-cache-build
-      uses: actions/cache@v3
-      with:
-        path: |
-          public
-          .cache
-        key: ${{ runner.os }}-gatsby-build-${{ inputs.bucket_prefix }}-${{ hashFiles('**/yarn.lock') }}
-        restore-keys: |
-          ${{ runner.os }}-gatsby-build-${{ inputs.bucket_prefix }}-${{ hashFiles('**/yarn.lock') }}
     - name: Yarn install
       shell: bash
       if: ${{ inputs.force_build == 'true' }} || steps.build-status.outputs.deploy == 'true'
