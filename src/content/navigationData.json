@@ -1568,7 +1568,7 @@
       {
         "label": "Server-side SDKs",
         "path": "/sdk/server-side",
-        "svg": "database-export",
+        "svg": "antenna",
         "items": [
           {
             "label": ".NET SDK reference",
