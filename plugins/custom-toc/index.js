@@ -1,14 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
 
-const GithubSlugger = require('github-slugger')
+const { slug } = require('github-slugger')
 
 // These two utils are pinned to version 2 for cjs support in package.json.
 // Versions beyond are esm only.
 const visit = require('unist-util-visit')
 const toString = require('mdast-util-to-string')
-
-const slugger = new GithubSlugger()
 
 // The tableOfContents gatsby querier doesn't pick up
 // headings nested within mdx components, such as
@@ -31,7 +29,7 @@ export default function createCustomToc() {
         customToc.push({
           value,
           depth: heading.depth,
-          hash: `#${slugger.slug(value)}`,
+          hash: `#${slug(value)}`,
         })
       }
     })
