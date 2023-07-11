@@ -31,11 +31,22 @@ To create a new account using an email address already associated with a LaunchD
  1. Navigate to the [Sign up page](https://app.launchdarkly.com/signup).
  2. Enter the email address you wish to use.
 
+<Callout intent="info">
+<CalloutTitle>Email addresses are case sensitive</CalloutTitle>
+<CalloutDescription>
+
+You must use your email address to join a LaunchDarkly account. The email address you enter during initial setup is case sensitive. Future attempts to log in with that email address will fail if you use different casing.<br /><br />
+
+For example, if you sign up as "example@your-work-email.com" and later log in as "EXAMPLE@Your-Work-Email.com", the login attempt will fail.
+
+</CalloutDescription>
+</Callout>
+
 You can create up to three trial accounts using the same email address. If you require additional trial accounts, [contact Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 ## Updating existing accounts to use the same email address
 
-If you already have multiple accounts, you can update them to use the same email address. 
+If you already have multiple accounts, you can update them to use the same email address.
 
 Here's how:
 
@@ -68,9 +79,9 @@ To sign in to LaunchDarkly using an email address that is associated with multip
 2. Click on an organization to continue.
 3. Authenticate your account:
 
-    * If your selected organization uses Single sign-on (SSO), the system will redirect you to sign in through your SSO provider. 
+    * If your selected organization uses Single sign-on (SSO), the system will redirect you to sign in through your SSO provider.
     * If your selected organization uses multi-factor authentication (MFA), LaunchDarkly requests that you enter the code from your authenticator app.
-    * If your selected organization uses password authentication, enter the password associated with the account.  
+    * If your selected organization uses password authentication, enter the password associated with the account.
 4. If LaunchDarkly doesn't recognize the device you're signing in from, it will send a verification link to your email. Click **Verify email** to confirm your identity. You are directed to a "Trust this browser?" page.
 5. If you want to trust the browser and skip identity verification for the next 30 days, click **Trust this browser**. Otherwise, click **Don't trust**.
 6. Select which organization to log in to.
@@ -82,16 +93,16 @@ You are now logged in to your selected organization.
 To switch to another organization while signed in:
 
  1. Click your **display picture** and choose “Switch organization”:
-  
+
 ![The "Switch organization" option.](switch-organization-menu.png)
 
-2. Select the organization to sign in to. 
+2. Select the organization to sign in to.
 
 When you sign in to a second organization, LaunchDarkly signs you out of the first organization. You can only be signed in to one organization at a time.
 
 ## Finding your organization during sign in
 
-There are several reasons your organization may not be listed during the sign in process: 
+There are several reasons your organization may not be listed during the sign in process:
 
 - **You may need to join your company’s LaunchDarkly organization:** If you have a pending invite to join an organization, accept the invite and complete the account creation process. If your new account is using the same email address as your other accounts, you will be able to see the organization you just joined the next time you sign in.
 - **Your accounts may have different email aliases:** If your accounts are using different email aliases, you will need to [update the email of those accounts to the same email address you want to use](/home/getting-started/multiple-accounts#updating-existing-accounts-to-use-the-same-email-address)
