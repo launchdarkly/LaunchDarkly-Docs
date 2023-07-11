@@ -23,7 +23,9 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 ## Understanding the all flags feature
 
-The all flags feature returns the state of all feature flags targeted to a context or user. This includes the flag values, and, for server-side SDKs, metadata for use on the front end.
+The all flags feature returns an object containing the variation values of all the feature flags targeted to a specific context object or user object.
+
+Server-side SDKs also return metadata for use on the front end. You can use this metadata to provide bootstrap flag settings for LaunchDarkly's JavaScript SDK. To learn more, read the [JavaScript SDK reference](/sdk/client-side/javascript).
 
 The all flags method does not send analytics events to LaunchDarkly by default for most SDKs. The exceptions to this are Electron, JavaScript, Node.js (client-side), and Vue, which do send analytics events by default. For these SDKs, you can disable sending analytics events when calling the all flags method if needed. To learn more about what analytics events do in LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
@@ -59,7 +61,7 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-The `AllFlags` method produces a map of feature flag keys to their values:
+The `AllFlags` method produces a map of feature flag keys to their values for a context object:
 
 <CodeSample>
 <CSTab label="C#">
@@ -78,7 +80,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/dotne
 
 <Details summary="Expand Android code sample">
 
-The `allFlags` method produces a map of feature flag keys to their values:
+The `allFlags` method produces a map of feature flag keys to their values for a context object:
 
 <CodeSample>
 <CSTab label="Java">
@@ -104,7 +106,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/andro
 
 <Details summary="Expand C++ (client-side) code sample">
 
-The `AllFlags` method produces a map of feature flag keys to their values. Here's how to call it and output the result:
+The `AllFlags` method produces a map of feature flag keys to their values for a context object:
 
 <CodeSample>
 <CSTab label="C++ SDK v3.0 (native)">
@@ -174,7 +176,7 @@ To learn more, read `AllFlags` in the [`Client` documentation](https://launchdar
 
 <Details summary="Expand Electron code sample">
 
-The `allFlags()` method produces a map of feature flag keys to their values. The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
+The `allFlags()` method produces a map of feature flag keys to their values for a user object. The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
 Unlike most of our SDKs, our Electron SDK's `allFlags()` method sends analytics events to LaunchDarkly. If you do not want `allFlags()` to generate any analytics events, you can turn this off by setting the configuration option [`sendEventsOnlyForVariation`](https://launchdarkly.github.io/node-client-sdk/interfaces/LDOptions.html#sendEventsOnlyForVariation) to `true`.
 
@@ -197,7 +199,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/elect
 
 <Details summary="Expand Flutter code sample">
 
-The `allFlags` method produces a map of feature flag keys to their values:
+The `allFlags` method produces a map of feature flag keys to their values for a context object:
 
 <CodeSample>
 <CSTab label="Dart">
@@ -216,7 +218,7 @@ To learn more, read [`allFlags`](https://pub.dev/documentation/launchdarkly_flut
 
 <Details summary="Expand iOS code sample">
 
-All flags returns a dictionary with the flag keys and their values. If the `LDClient` is not started, it returns `nil`.
+The all flags method produces a dictionary of feature flag keys to their values for a context object. If the `LDClient` is not started, it returns `nil`.
 
 To use the all flags feature:
 
@@ -245,7 +247,7 @@ To learn more, read the API documentation for [Swift](https://launchdarkly.githu
 
 <Details summary="Expand JavaScript code sample">
 
-The `allFlags()` method produces a map of feature flag keys to their values.
+The `allFlags()` method produces a map of feature flag keys to their values for a context object.
 
 The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
@@ -270,7 +272,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/js-cl
 
 <Details summary="Expand Node.js (client-side) code sample">
 
-The `allFlags` method produces a map of feature flag keys to their values.
+The `allFlags` method produces a map of feature flag keys to their values for a context object.
 
 The map contains null values for any flags that would return the fallback value. The fallback value is the second argument that you normally pass to `variation`.
 
@@ -299,7 +301,7 @@ All context- and user-related functionality provided by the [JavaScript SDK](#ja
 
 <Details summary="Expand React Native code sample">
 
-The `allFlags` method returns a map containing all flag keys and values for the current context. You can also register a listener that fires when any flag in your environment changes.
+The `allFlags` method produces a map of feature flag keys to their values for a context object. You can also register a listener that fires when any flag in your environment changes.
 
 To use the all flags feature:
 
@@ -328,7 +330,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/react
 
 <Details summary="Expand Roku code sample">
 
-You can get an associative array of `flagKey` to `flagValue` for all flags from the client with:
+The all flags method produces a map of feature flag keys to their values for a context object:
 
 <CodeSample>
 <CSTab label="BrightScript">
@@ -366,7 +368,7 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-The [`AllFlagsState`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_AllFlagsState_) method captures the state of all feature flags with regard to a specific context. This includes the flag values, as well as other metadata.
+The [`AllFlagsState`](https://launchdarkly.github.io/dotnet-server-sdk/api/LaunchDarkly.Sdk.Server.LdClient.html#LaunchDarkly_Sdk_Server_LdClient_AllFlagsState_) method produces a map of feature flag keys to their values and other metadata for a specific context object.
 
 To use the all flags feature:
 
@@ -394,9 +396,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/dotne
 
 <Details summary="Expand Apex code sample">
 
-The `allFlags` method produces a map of feature flag keys to their values for a specific user. This does not send any evaluation events to LaunchDarkly.
-
-To use the all flags feature:
+The `allFlags` method produces a map of feature flag keys to their values for a specific user object:
 
 <CodeSample>
 <CSTab label="Apex">
@@ -415,11 +415,7 @@ To learn more, read the [API documentation](https://github.com/launchdarkly/apex
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-The `LDAllFlags` function captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
-
-This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
-
-To use the all flags feature:
+The `LDAllFlags` method produces a map of feature flag keys to their values and other metadata for a specific user object:
 
 <CodeSample>
 <CSTab label="C/C++">
@@ -438,7 +434,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/c-ser
 
 <Details summary="Expand Erlang code sample">
 
-The `all_flags_state` function captures the state of all feature flag keys as evaluated for a specific context. This includes their values and other metadata.
+The `all_flags_state` method produces a map of feature flag keys to their values and other metadata for a specific context object.
 
 To use the all flags feature:
 
@@ -466,9 +462,9 @@ To learn more, read the [API documentation](https://hexdocs.pm/launchdarkly_serv
 
 <Details summary="Expand Go code sample">
 
-The [`AllFlagsState`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.AllFlagsState) method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
+The [`AllFlagsState`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#LDClient.AllFlagsState) method produces a map of feature flag keys to their values and other metadata for a specific context object.
 
-In this example, the extra `ClientSideOnly` option is specified so that only the feature flags designated for client-side use are included in the result.
+This example specifies the extra `ClientSideOnly` option so that only the feature flags designated for client-side use are included in the result.
 
 To use the all flags feature:
 
@@ -504,7 +500,7 @@ To learn more, read the [API documentation](https://pkg.go.dev/github.com/launch
 
 <Details summary="Expand Haskell code sample">
 
-The `allFlags` function captures the state of all feature flag keys as evaluated for a specific context. This includes their values, as well as other metadata.
+The `allFlags` method produces a map of feature flag keys to their values and other metadata for a specific context object.
 
 To use the all flags feature:
 
@@ -532,11 +528,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/haske
 
 <Details summary="Expand Java code sample">
 
-The [`allFlagsState`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#allFlagsState(com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.server.FlagsStateOption...)) method captures the state of all feature flags with regard to a specific context. This includes their values as well as other metadata.
-
-This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
-
-To use the all flags feature:
+The [`allFlagsState`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDClient.html#allFlagsState(com.launchdarkly.sdk.LDContext,com.launchdarkly.sdk.server.FlagsStateOption...)) method produces a map of feature flag keys to their values and other metadata for a specific context object:
 
 <CodeSample>
 <CSTab label="Java SDK v6.0">
@@ -562,7 +554,7 @@ To learn more, read [`allFlagsState`](https://javadoc.io/doc/com.launchdarkly/la
 
 <Details summary="Expand Lua code sample">
 
-The `allFlags` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
+The `allFlags` method produces a map of feature flag keys to their values and other metadata for a specific user object.
 
 To use the all flags feature:
 
@@ -583,7 +575,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/lua-s
 
 <Details summary="Expand Node.js (server-side) code sample">
 
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
+The `allFlagsState` method produces a map of feature flag keys to their values and other metadata for a specific context object.
 
 To use the all flags feature:
 
@@ -616,11 +608,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/js-co
 
 <Details summary="Expand PHP code sample">
 
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
-
-This method can be useful for passing feature flags to your front end. In particular, you can use it to provide bootstrap flag settings for LaunchDarkly's [JavaScript SDK](/sdk/client-side/javascript).
-
-To use the all flags feature:
+The `allFlagsState` method produces a map of feature flag keys to their values and other metadata for a specific context object:
 
 <CodeSample>
 <CSTab label="PHP SDK v5.0">
@@ -647,11 +635,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/php-s
 
 <Details summary="Expand Python code sample">
 
-The `all_flags_state` method captures the state of all feature flag keys with regard to a specific user. This includes their values, as well as other metadata.
-
-This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
-
-To use the all flags feature:
+The `all_flags_state` method produces a map of feature flag keys to their values and other metadata for a specific context object:
 
 <CodeSample>
 <CSTab label="Python SDK v8.0">
@@ -677,11 +661,7 @@ To learn more, read the [API documentation](https://launchdarkly-python-sdk.read
 
 <Details summary="Expand Ruby code sample">
 
-The `all_flags_state` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
-
-This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
-
-To use the all flags feature:
+The `all_flags_state` method produces a map of feature flag keys to their values and other metadata for a specific context object:
 
 <CodeSample>
 <CSTab label="Ruby SDK v7.0">
@@ -707,11 +687,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/ruby-
 
 <Details summary="Expand Rust code sample">
 
-The `all_flags_detail` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
-
-This method can be useful for passing feature flags to your front end. In particular, it can be used to provide bootstrap flag settings for our [JavaScript SDK](/sdk/client-side/javascript).
-
-To use the all flags feature:
+The `all_flags_detail` method produces a map of feature flag keys to their values and other metadata for a specific context object:
 
 <CodeSample>
 <CSTab label="Rust SDK v1">
@@ -745,7 +721,7 @@ This feature is available for all of our edge SDKs:
 
 <Details summary="Expand Cloudflare code sample">
 
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
+The `allFlagsState` method produces a map of feature flag keys to their values and other metadata for a specific context object.
 
 To use the all flags feature:
 
@@ -767,7 +743,7 @@ To learn more, read the [API documentation](https://launchdarkly.github.io/js-co
 
 <Details summary="Expand Vercel code sample">
 
-The `allFlagsState` method captures the state of all feature flag keys with regard to a specific context. This includes their values, as well as other metadata.
+The `allFlagsState` method produces a map of feature flag keys to their values and other metadata for a specific context object.
 
 To use the all flags feature:
 

@@ -8,7 +8,7 @@ tags: ['offline', 'mode', 'sdk']
 
 ## Overview
 
-This topic explains how to set an SDK to offline mode.
+This topic explains how to set an SDK to offline mode. Offline mode closes an SDK's connection to LaunchDarkly and switches to a feature flag's last known values.
 
 <Callout intent="info">
 <CalloutTitle>Newer versions of LaunchDarkly SDKs replace users with contexts</CalloutTitle>
@@ -21,9 +21,11 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 </CalloutDescription>
 </Callout>
 
-## Understanding offline mode
+### Using fallback values with client-side SDKs
 
-Offline mode closes an SDK's connection to LaunchDarkly and switches to a feature flag's last known values.
+For client-side SDKs, if an end user's device is not connected to a network, such as when the device is in airplane mode, the SDK uses the latest stored flag variation values in memory. If there are no previously stored variation values, the SDK uses the fallback values. The fallback values are defined in your code. The SDK returns the fallback value if it encounters an error or if LaunchDarkly is unreachable.
+
+In some situations, you might want avoid remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting offline mode in the client's config object. When the client is in offline mode, it makes no network requests, so it is suitable for unit-testing.
 
 Details about each SDK's configuration are available in the SDK-specific sections below.
 
@@ -31,8 +33,6 @@ Details about each SDK's configuration are available in the SDK-specific section
 * [Server-side SDKs](#server-side-sdks)
 
 ## Client-side SDKs
-
-If a user's device is not connected to a network, such as when the device is in airplane mode, the SDK uses the latest stored flag settings in memory. If there are no previously stored flag settings, the SDK uses the default values.
 
 This feature is available in the following client-side SDKs:
 
@@ -46,9 +46,7 @@ This feature is available in the following client-side SDKs:
 
 <Details summary="Expand .NET (client-side) code sample">
 
-The fallback values are defined in your code. The SDK returns the fallback value only if it encounters an error or if LaunchDarkly is unreachable.
-
-In some situations, you might want avoid remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, it makes no network requests, so it is suitable for unit-testing.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -70,7 +68,7 @@ LdClient client = LdClient.Init(config);
 
 <Details summary="Expand Android code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. `offline` mode lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -142,7 +140,7 @@ client.setOffline()
 
 <Details summary="Expand Flutter code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached values for your feature flags for future evaluations. `offline` mode lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -182,7 +180,7 @@ await LDClient.setOnline(false);
 
 <Details summary="Expand iOS code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. Offline mode lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 The SDK protects itself from multiple rapid calls to `setOnline(true)` by enforcing an increasing delay (called _throttling_) each time `setOnline(true)` is called within a short time. The first time, the call proceeds normally. For each subsequent call, the delay is enforced, and if waiting, increased to a maximum delay. When the delay has elapsed, the `setOnline(true)` proceeds, assuming that the client app has not called `setOnline(false)` during the delay. Therefore, a call to `setOnline(true)` may not immediately result in the LDClient going online.
 
@@ -225,7 +223,7 @@ let connectionStatus = LDClient.get()!.isOnline
 
 <Details summary="Expand React Native code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and switch to the last known values for your feature flags. You can use offline mode to do this.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -262,9 +260,7 @@ This feature is available in the following server-side SDKs:
 
 <Details summary="Expand .NET (server-side) code sample">
 
-The feature flag fallback values are defined in your code. The fallback value only returns if the SDK encounters an error or if LaunchDarkly is unreachable.
-
-In some situations, you might want avoid remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting offline mode in the client's Config. When the client is in offline mode, no network requests will be made, so it is suitable for unit-testing.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -286,7 +282,7 @@ LdClient client = new LdClient(config);
 
 <Details summary="Expand C/C++ (server-side) code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -305,9 +301,7 @@ LDConfigSetOffline(config, true);
 
 <Details summary="Expand Erlang code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when the software runs on-premises.
-
-You can do this by setting offline mode in the config map with the `offline` key.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -326,7 +320,7 @@ ldclient:start_instance("sdk-key-123abc", #{offline => true})
 
 <Details summary="Expand Go code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting `Offline` mode in the client's [`Config`](https://pkg.go.dev/github.com/launchdarkly/go-server-sdk/v6#Config).
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -360,7 +354,7 @@ client.BoolVariation("any.feature.flag", user, false) // will always return the 
 
 <Details summary="Expand Haskell code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. You can do this by setting offline mode in the config object with `configSetOffline`. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -379,7 +373,7 @@ config' = configSetOffline True config
 
 <Details summary="Expand Java code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting [`offline`](https://javadoc.io/doc/com.launchdarkly/launchdarkly-java-server-sdk/latest/com/launchdarkly/sdk/server/LDConfig.Builder.html#offline(boolean)) mode in the client's `LDConfig`.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -419,10 +413,9 @@ client.boolVariation("any.feature.flag", user, false)
 
 ### Node.js (server-side)
 
-
 <Details summary="Expand Node.js (server-side) code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting `offline` mode in the client's `config` object.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -488,7 +481,7 @@ The default value you set in the variation method is returned in offline mode. T
 
 <Details summary="Expand PHP code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. `setOffline` lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -516,7 +509,7 @@ $client->variation("any.feature.flag", $user, false); // will always return the 
 
 <Details summary="Expand Python code sample">
 
-In some situations, you might want avoid remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. You can do this by setting `offline` mode in the client's `Config`.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -548,7 +541,7 @@ ldclient.get().variation("any.feature.flag", context, False) # will always retur
 
 <Details summary="Expand Ruby code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. Offline mode lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
@@ -578,7 +571,7 @@ client.variation("any.feature.flag", user, false) # will always return the defau
 
 <Details summary="Expand Rust code sample">
 
-In some situations, you might want to stop making remote calls to LaunchDarkly and use fallback values for your feature flags. For example, if your software is both cloud-hosted and distributed to customers to run on-premises, it might make sense to use fallback values when running on-premises. Offline mode lets you do this easily.
+In some situations, you might want to stop making remote calls to LaunchDarkly and rely on locally cached flag values for future evaluations.
 
 Here's how:
 
