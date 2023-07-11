@@ -48,7 +48,7 @@ The table below summarizes the differences between these categories:
         <li>are designed for single-user desktop, mobile, and embedded applications.</li>
         <li>are intended to be used in a potentially less secure environment, such as a personal computer or mobile device.</li>
         <li>include mobile SDKs.</li>
-        <li>use client-side ID or mobile keys.</li>
+        <li>use client-side ID or mobile keys for authorization.</li>
         </ul>
       </TableCell>
     </TableRow>
@@ -58,7 +58,7 @@ The table below summarizes the differences between these categories:
         <ul>
         <li>are designed for multi-user systems.</li>
         <li>are intended to be used in a trusted environment, such as inside a corporate network or on a web server.</li>
-        <li>use SDK keys.</li>
+        <li>use SDK keys for authorization.</li>
         </ul>
       </TableCell>
     </TableRow>
@@ -68,7 +68,7 @@ The table below summarizes the differences between these categories:
         <ul>
         <li>are designed for edge layers in content delivery networks (CDNs). LaunchDarkly supports [Akamai](/sdk/edge/akamai), [Cloudflare](/sdk/edge/cloudflare), and [Vercel](/sdk/edge/vercel).</li>
         <li>are intended to be used together with a matching [CDN integration](/integrations). The CDN integration allows LaunchDarkly to write to your edge database. Then, you can use the edge SDK to read from that database to provide flag evaluations. This eliminates the need to make a remote call to LaunchDarkly.</li>
-        <li>use client-side IDs.</li>
+        <li>use client-side IDs to associate LaunchDarkly environments with CDN integrations.</li>
         </ul>
       </TableCell>
     </TableRow>
@@ -191,9 +191,15 @@ You can think of each flag evaluation as a pure function, where LaunchDarkly use
 
 ### Edge SDKs
 
-Edge SDKs must be used in conjunction with an edge provider-specific integration. For example, you can only use the [Cloudflare SDK](/sdk/edge/cloudflare) if you are also using the [Cloudflare integration](/integrations/cloudflare). You can only use the [Vercel SDK](/sdk/edge/vercel) if you are also using the [Vercel integration](/integrations/vercel).
+Edge SDKs must be used in conjunction with an edge provider-specific integration:
 
-The integration enables flag evaluation within the edge provider by writing the latest flag data from the configured environment directly to your provider store. LaunchDarkly continuously updates the edge provider's cached flag ruleset whenever flag rules change on LaunchDarkly. The edge SDKs do not have to make requests to LaunchDarkly for every evaluated flag. Instead, these SDKs check with the edge provider store to determine which variation a particular context will receive for a given feature flag.
+  * You can only use the [Akamai SDK](/sdk/edge/akamai) if you are also using the [Akamai integration](/integrations/akamai).
+  * You can only use the [Cloudflare SDK](/sdk/edge/cloudflare) if you are also using the [Cloudflare integration](/integrations/cloudflare).
+  * You can only use the [Vercel SDK](/sdk/edge/vercel) if you are also using the [Vercel integration](/integrations/vercel).
+
+The integration writes the latest flag data from the configured environment directly to the edge provider store. It continuously updates the edge provider's cached flag ruleset whenever flag rules change on LaunchDarkly.
+
+Because of this integration, edge SDKs can evaluate flags within the edge provider. The edge SDKs do not have to make requests to LaunchDarkly for every evaluated flag. Instead, these SDKs check with the edge provider store to determine which variation a particular context will receive for a given feature flag.
 
 ### Flag evaluation comparison
 
