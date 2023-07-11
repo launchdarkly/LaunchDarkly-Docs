@@ -101,7 +101,7 @@ There is also no way to share resources between accounts including flags, experi
 
 ### Separate projects for each app or executable
 
-This approach is best when you are rolling out LaunchDarkly to the whole organization, or you have microservices that are functionally distinct from one another or share few dependencies. This option lets you manage permissions for members on a per-project basis easily. You can also use LaunchDarkly teams to manage access and permissions. 
+This approach is best when you are rolling out LaunchDarkly to the whole organization, or you have microservices that are functionally distinct from one another or share few dependencies. This option lets you manage permissions for members on a per-project basis easily. You can also use LaunchDarkly teams to manage access and permissions.
 
 One disadvantage to this method is that you can’t apply flags from one project to another project. You may also need to manage multiple SDK instances within the same project, which adds complexity.
 </Details>
@@ -197,11 +197,11 @@ Here is an example of how to build the `SDK key viewer - eCommerce - Production`
 
 ```json
 [
-  {
+    {
     "effect": "allow",
     "actions": ["viewSdkKey"],
     "resources": ["proj/ecommerce:env/production"]
-  }
+    }
 ]
 ```
 
@@ -436,7 +436,7 @@ After you decide to invest in LaunchDarkly, investing in available professional 
 In particular, we recommend these services to make sure that your platform and your application are ready to launch:
 - [LaunchDarkly Platform Readiness](https://launchdarkly.com/platform-readiness/)
 - [LaunchDarkly Application Readiness](https://launchdarkly.com/application-readiness/)
- 
+
 To help with onboarding, you may also be interested in our [LaunchDarkly Academy](https://academy.launchdarkly.com/).
 
 ## Conclusion

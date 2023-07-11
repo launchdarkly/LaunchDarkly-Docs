@@ -263,21 +263,21 @@ To create a role with the same permissions as the built-in Reader role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-<CodeSample>
-<CSTab label="Reader">
+    <CodeSample>
+    <CSTab label="Reader">
 
-```json
-[
-  {
-    "effect": "allow",
-    "actions": ["viewProject"],
-    "resources": ["proj/*"]
-  }
-]
-```
+    ```json
+    [
+      {
+        "effect": "allow",
+        "actions": ["viewProject"],
+        "resources": ["proj/*"]
+      }
+    ]
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 7. Click **Save role**.
 
@@ -298,21 +298,21 @@ To create a role with the same permissions as the built-in Writer role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-<CodeSample>
-<CSTab label="Writer">
+    <CodeSample>
+    <CSTab label="Writer">
 
-```json
-[
-  {
-    "effect": "allow",
-    "actions": ["*"],
-    "resources": ["proj/*"]
-  }
-]
-```
+    ```json
+    [
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*"]
+      }
+    ]
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 7. Click **Save role**.
 
@@ -336,86 +336,86 @@ To create a role with the same permissions as the built-in Admin role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-  <CodeSample>
-  <CSTab label="Administrator">
+    <CodeSample>
+    <CSTab label="Administrator">
 
-  ```json
-  [
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/*:env/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/*:metric/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["member/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["member/*:token/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["role/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/*:env/*:flag/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["integration/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/*:env/*:segment/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["webhook/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/*:env/*:user/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["code-reference-repository/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/*:env/*:destination/*"]
-    },
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["acct"]
-    }
-  ]
-  ```
+    ```json
+    [
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*:env/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*:metric/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["member/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["member/*:token/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["role/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*:env/*:flag/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["integration/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*:env/*:segment/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["webhook/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*:env/*:user/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["code-reference-repository/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/*:env/*:destination/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["acct"]
+      }
+    ]
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 7. Click "Simple editor." You are returned to the simple editor displaying the policy details. The details should look like the following:
 
@@ -443,21 +443,21 @@ To create a role with the same permissions as the built-in No access role:
 5. Click **Advanced editor**.
 6. Copy the following policy and paste it into the **Role policy** window:
 
-  <CodeSample>
-  <CSTab label="No access">
+    <CodeSample>
+    <CSTab label="No access">
 
-  ```json
-  [
-    {
-      "effect": "deny",
-      "actions": ["viewProject"],
-      "resources": ["proj/*"]
-    }
-  ]
-  ```
+    ```json
+    [
+      {
+        "effect": "deny",
+        "actions": ["viewProject"],
+        "resources": ["proj/*"]
+      }
+    ]
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 7. Click "Simple editor." You are returned to the simple editor displaying the policy details.
 8. Click **Save role**.

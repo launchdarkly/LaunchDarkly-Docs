@@ -19,7 +19,7 @@ The Snowflake integration is only available to members of LaunchDarkly's Early A
 
 ## Overview
 
-This topic explains how to create and test a Snowflake destination for Data Export. 
+This topic explains how to create and test a Snowflake destination for Data Export.
 
 <Callout intent="info">
 <CalloutTitle>Exported event types</CalloutTitle>
@@ -82,11 +82,11 @@ Replace `<database_name>` with your chosen values:
 ```sql
 use role accountadmin;
 
-show shares;
+    show shares;
 
-desc share ACCOUNT_TO_BE_CREATED.SHARED_ACCESS;
+    desc share ACCOUNT_TO_BE_CREATED.SHARED_ACCESS;
 
-create database <database_name> from share ACCOUNT_TO_BE_CREATED.SHARED_ACCESS;
+    create database <database_name> from share ACCOUNT_TO_BE_CREATED.SHARED_ACCESS;
 ```
 
 </CSTab>
@@ -124,8 +124,8 @@ LaunchDarkly sends events in the following formats:
 <CSTab label="Evaluation event">
 
 ```csv
-ID,PROJECTID,ENVIRONMENTID,CONTEXTKIND,CONTEXTKEY,VARIATIONINDEX,VARIATIONVALUE,VARIATIONNAME,FLAGKEY,TIMESTAMP,SNOWFLAKEACCOUNTID
-642aa35a545fbb000e123456,5866f3891cd8810a42123456,586c33cf1cd88133f9123456,user,5efa6ca891e30321f0123456,1,false,,enable-confluence-smart-links,2023-04-03 09:58:47.000,hs00696
+    ID,PROJECTID,ENVIRONMENTID,CONTEXTKIND,CONTEXTKEY,VARIATIONINDEX,VARIATIONVALUE,VARIATIONNAME,FLAGKEY,TIMESTAMP,SNOWFLAKEACCOUNTID
+    642aa35a545fbb000e123456,5866f3891cd8810a42123456,586c33cf1cd88133f9123456,user,5efa6ca891e30321f0123456,1,false,,enable-confluence-smart-links,2023-04-03 09:58:47.000,hs00696
 ```
 
 </CSTab>

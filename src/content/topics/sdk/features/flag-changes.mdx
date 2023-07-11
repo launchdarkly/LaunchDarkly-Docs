@@ -223,56 +223,62 @@ listener->Disconnect();
 If you are working in C, there are a few more steps:
 
 1. Define a callback to receive the flag change notification:
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0 (C binding), define callback">
 
-  ```c
-  void OnFlagChange(char const* flag_key,
-                        LDValue new_value,
-                        LDValue old_value,
-                        bool deleted,
-                        void* user_data) {
-       if (deleted) {
-         printf("The flag %s was deleted\n", flag_key);
-       } else {
-         printf("The flag %s was updated\n", flag_key);
-       }
-  }
-  ```
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0 (C binding), define callback">
+
+    ```c
+    void OnFlagChange(char const* flag_key,
+                          LDValue new_value,
+                          LDValue old_value,
+                          bool deleted,
+                          void* user_data) {
+         if (deleted) {
+           printf("The flag %s was deleted\n", flag_key);
+         } else {
+           printf("The flag %s was updated\n", flag_key);
+         }
+    }
+    ```
+    
+    </CSTab>
+    </CodeSample>
 
 2. Assign the callback by creating a listener connection:
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0 (C binding), create listener connection">
 
-  ```c
-  struct LDFlagListener listener;
-  LDFlagListener_Init(listener);
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0 (C binding), create listener connection">
 
-  listener.FlagChanged = OnFlagChange;
+    ```c
+    struct LDFlagListener listener;
+    LDFlagListener_Init(listener);
 
-  /* You may optionally assign the UserData pointer, which will be passed into FlagChanged. */
-  /* listener.UserData = &some_struct; */
+    listener.FlagChanged = OnFlagChange;
 
-  LDListenerConnection connection =
-         LDClientSDK_FlagNotifier_OnFlagChange(sdk, "flag-key-123abc", listener);
+    /* You may optionally assign the UserData pointer, which will be passed into FlagChanged. */
+    /* listener.UserData = &some_struct; */
 
-  /* You can disconnect the listener later */
-   LDListenerConnection_Disconnect(connection);
-  ```
-  </CSTab>
-  </CodeSample>
+    LDListenerConnection connection =
+           LDClientSDK_FlagNotifier_OnFlagChange(sdk, "flag-key-123abc", listener);
+
+    /* You can disconnect the listener later */
+     LDListenerConnection_Disconnect(connection);
+    ```
+    
+    </CSTab>
+    </CodeSample>
 
 3. Ensure the connection is freed when you are done with it:
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0 (C binding), free connection">
 
-  ```c
-  LDListenerConnection_Free(connection);
-  ```
-  </CSTab>
-  </CodeSample>
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0 (C binding), free connection">
+
+    ```c
+    LDListenerConnection_Free(connection);
+    ```
+    
+    </CSTab>
+    </CodeSample>
 
 To learn more, read [`FlagNotifier`](https://launchdarkly.github.io/cpp-sdks/libs/client-sdk/docs/html/classlaunchdarkly_1_1client__side_1_1Client.html#a0406a57e9c751b013696f6f7663a7170).
 </Details>

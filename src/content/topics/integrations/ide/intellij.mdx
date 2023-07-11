@@ -76,26 +76,26 @@ To create a custom role for the API access token:
 5. Click **Advanced editor**.
 6. Enter this policy in the "Role policy" field:
 
-<CodeSample>
-<CSTab label="Read access to all and write access to some projects">
+    <CodeSample>
+    <CSTab label="Read access to all and write access to some projects">
 
-```json
-[
-  {
-    "effect": "allow",
-    "actions": ["viewProject"],
-    "resources": ["proj/*"]
-  },
-  {
-    "effect": "allow",
-    "actions": ["updateOn", "updateFallthrough", "updateOffVariation"],
-    "resources": ["proj/*:env/*:flag/*"]
-  }
-]
-```
+    ```json
+    [
+      {
+        "effect": "allow",
+        "actions": ["viewProject"],
+        "resources": ["proj/*"]
+      },
+      {
+        "effect": "allow",
+        "actions": ["updateOn", "updateFallthrough", "updateOffVariation"],
+        "resources": ["proj/*:env/*:flag/*"]
+      }
+    ]
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 7. Click **Save role**.
 

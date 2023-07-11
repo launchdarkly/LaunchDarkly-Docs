@@ -37,34 +37,34 @@ To set up GitHub code references:
 - **If you already have an `action.yml` file**: Copy and paste the `launchDarklyCodeReferences` job declaration below into the jobs section in your `action.yml` file.
 - **If you don't already have a workflow file:** Create a new file titled `action.yml` in the `.github/workflows` directory of your repository. Paste the following code in the **Edit file** section:
 
-<CodeSample>
-<CSTab label="YAML">
+    <CodeSample>
+    <CSTab label="YAML">
 
-```yaml
-name: Find LaunchDarkly flag code references
-on: push
-# cancel in-flight workflow run if another push was triggered
-concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+    ```yaml
+    name: Find LaunchDarkly flag code references
+    on: push
+    # cancel in-flight workflow run if another push was triggered
+    concurrency:
+    group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: true
 
-jobs:
-  launchDarklyCodeReferences:
+    jobs:
+    launchDarklyCodeReferences:
     name: LaunchDarkly Code References
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 11 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
-      - name: LaunchDarkly Code References
-        uses: launchdarkly/find-code-references@v2.8.0
-        with:
-          accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
-          projKey: YOUR_PROJECT_KEY
-```
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 11 # This value must be set if the lookback configuration option is not disabled for find-code-references. Read more: https://github.com/launchdarkly/ld-find-code-refs#searching-for-unused-flags-extinctions
+    - name: LaunchDarkly Code References
+      uses: launchdarkly/find-code-references@v2.8.0
+      with:
+        accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
+        projKey: YOUR_PROJECT_KEY
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 <Callout intent="info">
 <CalloutTitle>Best practices for configuring an Actions file</CalloutTitle>

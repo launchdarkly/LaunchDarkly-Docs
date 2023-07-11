@@ -39,99 +39,99 @@ To create a new Cloudflare Worker project with the LaunchDarkly Cloudflare SDK u
 
 2. Authenticate Wrangler:
 
-<CodeSample>
-<CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-```bash
-wrangler login
-```
+    ```bash
+    wrangler login
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 To learn more about the `wrangler login` command, read [`login`](https://developers.cloudflare.com/workers/cli-wrangler/commands#login).
 
 3. Create a new project using the LaunchDarkly Cloudflare Worker template. Replace `my-project` with the name of the project you wish to create:
 
-<CodeSample>
-<CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-```bash
-wrangler generate my-project https://github.com/launchdarkly/launchdarkly-cloudflare-worker-template
-```
+    ```bash
+    wrangler generate my-project https://github.com/launchdarkly/launchdarkly-cloudflare-worker-template
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 To learn more about the `wrangler generate` command, read [`generate`](https://developers.cloudflare.com/workers/cli-wrangler/commands#generate).
 
 4. Add your Cloudflare account ID to your `wrangler.toml` file:
 
-<CodeSample>
-<CSTab label="wrangler.toml">
+    <CodeSample>
+    <CSTab label="wrangler.toml">
 
-```toml
-account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
-```
+    ```toml
+    account_id = "<YOUR_CLOUDFLARE_ACCOUNT_ID>"
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 If you do not know your Cloudflare account ID, use the command `wrangler whoami`.
 
 5. Create a new Cloudflare Workers KV namespace:
 
-<CodeSample>
-<CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-```bash
-wrangler kv:namespace create "LD_KV"
-```
+    ```bash
+    wrangler kv:namespace create "LD_KV"
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 Wrangler responds with the namespace ID of the newly created namespace.
 
 6. Add the `nodejs_compat` flag to `wrangler.toml`. This is required because the Cloudflare SDK uses `node:events`, which needs to be enabled:
 
-<CodeSample>
-<CSTab label="wrangler.toml">
+    <CodeSample>
+    <CSTab label="wrangler.toml">
 
-```toml
-compatibility_flags = [ "nodejs_compat" ]
-```
+    ```toml
+    compatibility_flags = [ "nodejs_compat" ]
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
-To learn more, read [Node.js compatibility](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#enable-nodejs-with-workers).
+    To learn more, read [Node.js compatibility](https://developers.cloudflare.com/workers/runtime-apis/nodejs/#enable-nodejs-with-workers).
 
 7. Bind your Worker with the new KV namespace by adding the code Wrangler returned in step 5 to the `kv_namespaces` array in your Worker's `wrangler.toml` file:
 
-<CodeSample>
-<CSTab label="wrangler.toml">
+    <CodeSample>
+    <CSTab label="wrangler.toml">
 
-```toml
-kv_namespaces = [
-  { binding = "LD_KV", id="<LD_KV NAMESPACE ID>" }
-]
-```
+    ```toml
+    kv_namespaces = [
+      { binding = "LD_KV", id="<LD_KV NAMESPACE ID>" }
+    ]
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 8. (Optional) If you intend to use `wrangler dev` for local development, you can also create a preview namespace:
 
-<CodeSample>
-<CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-```bash
-wrangler kv:namespace create "LD_KV" --preview
-```
+    ```bash
+    wrangler kv:namespace create "LD_KV" --preview
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 Wrangler responds with the updated IDs for your `kv_namespaces` array. Replace the existing array entry created above with the value returned by Wrangler.
 
@@ -151,29 +151,29 @@ Each LaunchDarkly Cloudflare integration only populates one KV namespace. If you
 
 9. (Optional) If you set up a preview namespace, you may run your worker locally:
 
-<CodeSample>
-<CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-```bash
-wrangler dev
-```
+    ```bash
+    wrangler dev
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 To learn more about the `wrangler dev` command, read [`dev`](https://developers.cloudflare.com/workers/cli-wrangler/commands#dev).
 
 10. Publish your Worker to Cloudflare:
 
-<CodeSample>
-<CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-```bash
-wrangler publish
-```
+    ```bash
+    wrangler publish
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 To learn more about the `wrangler publish` command, read [`publish`](https://developers.cloudflare.com/workers/cli-wrangler/commands#publish).
 

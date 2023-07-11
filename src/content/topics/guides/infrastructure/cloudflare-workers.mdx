@@ -76,15 +76,15 @@ Here's how to set up local development:
 
 1. Open the folder containing the site assets and enter the following command:
 
-  <CodeSample>
-   <CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-  ```bash
-  wrangler init -y
-  ```
+    ```bash
+    wrangler init -y
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
   This command adds or updates the following files:
 
@@ -95,51 +95,51 @@ Here's how to set up local development:
 
 2. Tell wrangler where your static site is located. To do this, open the `wrangler.toml` and add the following line:
 
-  <CodeSample>
-  <CSTab label="wrangler.toml">
+    <CodeSample>
+    <CSTab label="wrangler.toml">
 
-  ```toml
-  [site]
-  bucket = "./public"
-  ```
+    ```toml
+    [site]
+    bucket = "./public"
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 3. Install the `@cloudflare/kv-asset-handler` package in your project:
 
-  <CodeSample>
-  <CSTab label="npm">
+    <CodeSample>
+    <CSTab label="npm">
 
-  ```bash
-  npm i @cloudflare/kv-asset-handler
+    ```bash
+    npm i @cloudflare/kv-asset-handler
 
-  ```
+    ```
 
-  </CSTab>
-  <CSTab label="Yarn">
+    </CSTab>
+    <CSTab label="Yarn">
 
-  ```bash
-  yarn add @cloudflare/kv-asset-handler
-  ```
+    ```bash
+    yarn add @cloudflare/kv-asset-handler
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 4. Use Hugo to build the site and then run a local server with Wrangler. You use Wrangler to run the site locally, even though you haven't created a Worker yet.
 
-  Here's how:
+    Here's how:
 
-  <CodeSample>
-  <CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-  ```bash
-  hugo
-  wrangler dev
-  ```
+    ```bash
+    hugo
+    wrangler dev
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 You can view the site at the URL and port indicated in the console, typically `localhost:8787`. You should see "Hello world," because the generated worker overrides the output of your site. You will modify this in the next section.
 
@@ -191,51 +191,51 @@ Here's how to set up the integration:
 
 1. Add the `nodejs_compat` flag to your `wrangler.toml`:
 
-  <CodeSample>
-  <CSTab label="wrangler.toml">
+    <CodeSample>
+    <CSTab label="wrangler.toml">
 
-  ```toml
-  compatibility_flags = [ "nodejs_compat" ]
-  ```
+    ```toml
+    compatibility_flags = [ "nodejs_compat" ]
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
-  The `compatibility_flags` should be above the site block in your `wrangler.toml`.
+    The `compatibility_flags` should be above the site block in your `wrangler.toml`.
 
 2. Copy and store your account ID as you need it to enable the Cloudflare integration.
 
 3. Create a new KV namespace by entering the following command. Run this command from within your project folder:
 
-  <CodeSample>
-  <CSTab label="Console">
+    <CodeSample>
+    <CSTab label="Console">
 
-  ```bash
-  wrangler kv:namespace create "LD_KV"
-  ```
+    ```bash
+    wrangler kv:namespace create "LD_KV"
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
   The namespace name on Cloudflare is a combination of the name you provided (`LD_KV`) and the project name. For example, if your project is named `cfworkers-ld`, the name of the created namespace on Cloudflare will be `cfworkers-ld-LD_KV`. After the namespace is created, Wrangler returns the ID of the new KV namespace.
 
 4. Open `wrangler.toml` and add the namespace ID to the `kv_namespaces` configuration. If this configuration key does not exist yet, create it. If it does exist with the KV namespace that was created for your site assets, add the new namespace to the array of namespaces.
 
-  Here's how:
+    Here's how:
 
-  <CodeSample>
-  <CSTab label="wrangler.toml">
+    <CodeSample>
+    <CSTab label="wrangler.toml">
 
-  ```toml
-  kv_namespaces = [
-     {binding = "LD_KV", id="<LD_KV NAMESPACE_ID>"},
-  ]
-  ```
+    ```toml
+    kv_namespaces = [
+       {binding = "LD_KV", id="<LD_KV NAMESPACE_ID>"},
+    ]
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
-  The `kv_namespaces` should be above the site block in your `wrangler.toml`.
+    The `kv_namespaces` should be above the site block in your `wrangler.toml`.
 
 5. Copy and store the namespace ID as you'll need it to enable LaunchDarkly's Cloudflare integration.
 
@@ -307,64 +307,64 @@ Here's how:
 
 1. Install the SDK:
 
-  <CodeSample>
-  <CSTab label="npm">
+    <CodeSample>
+    <CSTab label="npm">
 
-  ```bash
-  npm i @launchdarkly/cloudflare-server-sdk
-  ```
+    ```bash
+    npm i @launchdarkly/cloudflare-server-sdk
+    ```
 
-  </CSTab>
-  <CSTab label="Yarn">
+    </CSTab>
+    <CSTab label="Yarn">
 
-  ```bash
-  yarn add @launchdarkly/cloudflare-server-sdk
-  ```
+    ```bash
+    yarn add @launchdarkly/cloudflare-server-sdk
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 2. Open the `index.ts` file within the `src` folder of your project. This folder was created by the `wrangler init` command you ran earlier. If you don't have an `index.ts` file, create it now.
 
 3. At the top of the file, add the `import` statement to import the SDK into the Worker file. In addition, initialize the variable that will contain the instance of the LaunchDarkly client when it is initialized.
 
-  Here's how:
+    Here's how:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```js
-  import { init, LDClient } from "@launchdarkly/cloudflare-server-sdk";
+    ```js
+    import { init, LDClient } from "@launchdarkly/cloudflare-server-sdk";
 
-  // Declare LD_KV as a global variable
-  declare global {
-    var LD_KV: KVNamespace;
-  }
+    // Declare LD_KV as a global variable
+    declare global {
+      var LD_KV: KVNamespace;
+    }
 
-  let ldClient: LDClient;
-  ```
+    let ldClient: LDClient;
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
-  Within your Worker, there is an event listener for the `fetch` event that calls a `handleEvent()` function. The `fetch` event is triggered by any incoming HTTP request. You can initialize the LaunchDarkly client within this function.
+    Within your Worker, there is an event listener for the `fetch` event that calls a `handleEvent()` function. The `fetch` event is triggered by any incoming HTTP request. You can initialize the LaunchDarkly client within this function.
 
 5. Pass in both the KV namespace defined within your `wrangler.toml` and your LaunchDarkly client ID, which you can find in [Account settings](https://app.launchdarkly.com/settings/projects).
 
-  Here's how:
+    Here's how:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  if (!ldClient) {
-    ldClient = init('<LD_CLIENT_SIDE_ID>', LD_KV)
-    await ldClient.waitForInitialization()
-  }
-  ```
+    ```ts
+    if (!ldClient) {
+      ldClient = init('<LD_CLIENT_SIDE_ID>', LD_KV)
+      await ldClient.waitForInitialization()
+    }
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 Now you are ready to use flag variations within your application.
 
@@ -406,92 +406,92 @@ Here's how to bootstrap the client-side flag values:
 
 1. Instantiate an instance of the HTMLRewriter class in your Cloudflare Worker file. You can place this prior to the `addEventListener()` block within `/src/index.ts`.
 
-  Here's how:
+    Here's how:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  const rewriter = new HTMLRewriter()
-  ```
+    ```ts
+    const rewriter = new HTMLRewriter()
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 2. Inject these values in the HTML `<head>` so that they are available immediately before the browser engine processes any of the DOM or JavaScript. You can do this by having the HTMLRewriter listen for the head element. Place this directly after the `rewriter` instantiation.
 
-  To inject the values:
+    To inject the values:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  rewriter.on('head', new FlagsStateInjector())
-  ```
+    ```ts
+    rewriter.on('head', new FlagsStateInjector())
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
   When the rewriter finds a `<head>` element, it creates a new instance of the `FlagStateInjector` class. This class contains an element handler that injects the flag values into a `<script>` element within the `<head>`. In this example, the LaunchDarkly client is only pulling flag values that have client-side SDK availability enabled using an anonymous context.
 
 3. (Optional) Pass an evaluation context. If you have context details available within your Worker, you can use them instead of the anonymous context. Place this code anywhere in the Worker file, as long as it is outside of existing function blocks.
 
-  In this example, the code is at the top of the file immediately after the `ldClient` variable instantiation:
+    In this example, the code is at the top of the file immediately after the `ldClient` variable instantiation:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  class FlagsStateInjector {
-    async element(element: Element) {
-      // fetch all flag values for client-side SDKs
-      // as evaluated for a context that has not logged in
-      // use a more appropriate context key if needed
-      const context = { key: 'guest' }
-      const allFlags = await ldClient.allFlagsState(context, {
-        clientSideOnly: true,
-      })
-      element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true })
+    ```ts
+    class FlagsStateInjector {
+      async element(element: Element) {
+        // fetch all flag values for client-side SDKs
+        // as evaluated for a context that has not logged in
+        // use a more appropriate context key if needed
+        const context = { key: 'guest' }
+        const allFlags = await ldClient.allFlagsState(context, {
+          clientSideOnly: true,
+        })
+        element.append(`<script>window.ldFlags = ${JSON.stringify(allFlags)}</script>`, { html: true })
+      }
     }
-  }
-  ```
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 4. Call the `HTMLRewriter` instance to alter the response. Replace the existing `return` statement in the `handleEvent()` method. Instead of returning just `response`, wrap the `response` in the rewriter's `transform()` method.
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  return rewriter.transform(response)
-  ```
+    ```ts
+    return rewriter.transform(response)
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 5. Open the `/assets/custom.js` file and add the following code at the top of the file, replacing `<LD_CLIENT_SIDE_ID>` with your LaunchDarkly project's client ID. This tells LaunchDarkly to [bootstrap the client](/guides/flags/static-sites#bootstrapping-the-client) using the injected script.
 
-  Here's how to bootstrap the client:
+    Here's how to bootstrap the client:
 
-  <CodeSample>
-  <CSTab label="JavaScript">
+    <CodeSample>
+    <CSTab label="JavaScript">
 
-  ```js
-  const client = LDClient.initialize(
-    '<LD_CLIENT_SIDE_ID>',
-    {
-      key: 'anonymous',
-    },
-    {
-      bootstrap: window.ldFlags,
-    },
-  )
-  ```
+    ```js
+    const client = LDClient.initialize(
+      '<LD_CLIENT_SIDE_ID>',
+      {
+        key: 'anonymous',
+      },
+      {
+        bootstrap: window.ldFlags,
+      },
+    )
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 Because the flag values are automatically synced between LaunchDarkly and the KV store, every time this page is served it automatically injects the current flag state values before it sends the page to the end user. This eliminates any flash of content caused even by a very brief rendering delay between when the user interface (UI) initially displays, and when the LaunchDarkly client receives flag values that are used to update the UI.
 
@@ -538,60 +538,60 @@ Here's how to replace the header text:
 
   The following function passes in a context `key` and a `context` object and returns the value of the flag for that context. If you do not pass a context, it defaults to `anonymous` as a context key. You can place this function anywhere within the `/src/index.ts` Worker file that is outside an existing code block.
 
-  In this example, it is just prior to the `addEventListener` function block:
+    In this example, it is just prior to the `addEventListener` function block:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  async function getFlagValue(key: string, context?) {
-    let flagValue
-    if (!context) {
-      context = {
-        key: 'guest',
+    ```ts
+    async function getFlagValue(key: string, context?) {
+      let flagValue
+      if (!context) {
+        context = {
+          key: 'guest',
+        }
       }
+      flagValue = await ldClient.variation(key, context, false)
+      return flagValue
     }
-    flagValue = await ldClient.variation(key, context, false)
-    return flagValue
-  }
-  ```
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 3. Create an element handler to modify the DOM element that you want to populate with the returned value of the string flag in LaunchDarkly. In the below example, the element handler is called for every `<h1>` element within the page HTML. Use the same instance of `HTMLRewriter` from the above example. Trying to create more than one instance of `HTMLRewriter` in a single Worker causes errors.
 
-  Place the following line immediately after the `rewriter.on()` call from the prior example:
+    Place the following line immediately after the `rewriter.on()` call from the prior example:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  rewriter.on('h1', new H1ElementHandler())
-  ```
+    ```ts
+    rewriter.on('h1', new H1ElementHandler())
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 4. Give the element handler the value of the flag named `header-text` and replace the text within the `<h1>` tag with the result.
 
-  Place this code following the existing `FlagsStateInjector` block from the previous example:
+    Place this code following the existing `FlagsStateInjector` block from the previous example:
 
-  <CodeSample>
-  <CSTab label="TypeScript">
+    <CodeSample>
+    <CSTab label="TypeScript">
 
-  ```ts
-  class H1ElementHandler {
-    async element(element: Element) {
-      // replace the header text with the value of a string flag
-      const headerText = await getFlagValue('header-text')
-      element.setInnerContent(headerText)
+    ```ts
+    class H1ElementHandler {
+      async element(element: Element) {
+        // replace the header text with the value of a string flag
+        const headerText = await getFlagValue('header-text')
+        element.setInnerContent(headerText)
+      }
     }
-  }
-  ```
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 The video clip below demonstrates how changing the flag in LaunchDarkly will trigger the Worker to alter the text response in the `h1` tag before the page is received by the context. Because the change happens within the Worker, an end user must refresh the page to reflect any flag change after the context has already received the page source.
 

@@ -12,10 +12,10 @@ This topic explains how to configure and deploy the Relay Proxy.
 
 ## Configuring the Relay Proxy
 
-After you have downloaded or built the Relay Proxy, you need to set its configuration options. 
+After you have downloaded or built the Relay Proxy, you need to set its configuration options.
 
 You can set these options by either:
-- using a configuration file, or 
+- using a configuration file, or
 - using environment variables.
 
 If you are using Relay Proxy Enterprise, you can also use automatic configuration. To learn more, read [Automatic configuration](/home/relay-proxy/automatic-configuration).
@@ -36,46 +36,46 @@ To use a configuration file:
 
 1. Create a new file:
 
-  <CodeSample>
-  <CSTab label="Basic example">
+    <CodeSample>
+    <CSTab label="Basic example">
 
-  ```text
-  # A single environment which only proxies server-side SDKs
-  [environment "Production"]
-      sdkKey = "sdk-key-123abc"
-  ```
+    ```text
+        # A single environment which only proxies server-side SDKs
+        [environment "Production"]
+            sdkKey = "sdk-key-123abc"
+    ```
 
-  </CSTab>
-  <CSTab label="Multiple environments">
+    </CSTab>
+    <CSTab label="Multiple environments">
 
-  ```text
-  # An environment which proxies SDKs with SDK keys or client-side IDs
-  [environment "Production"]
-      sdkKey = "sdk-key-123abc"
-      envId = "client-side-id-123abc"
+    ```text
+        # An environment which proxies SDKs with SDK keys or client-side IDs
+        [environment "Production"]
+            sdkKey = "sdk-key-123abc"
+            envId = "client-side-id-123abc"
 
-  # An environment which proxies SDKs with SDK keys or mobile keys
-  [environment "Mobile Production"]
-      sdkKey = "sdk-key-123abc"
-      mobileKey = "mobile-key-123abc"
-  ```
+        # An environment which proxies SDKs with SDK keys or mobile keys
+        [environment "Mobile Production"]
+            sdkKey = "sdk-key-123abc"
+            mobileKey = "mobile-key-123abc"
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 2. Run the Relay Proxy binary while passing an argument to identify your configuration file's location. The following example assumes that the configuration file is in your current directory and named `ld-relay.conf`, and that the `ld-relay` binary is in `$GOPATH/bin`.
 
-  Run the following code:
+    Run the following code:
 
-  <CodeSample>
-  <CSTab label="Run the binary">
+    <CodeSample>
+    <CSTab label="Run the binary">
 
-  ```bash
-  $GOPATH/bin/ld-relay --config ./ld-relay.conf
-  ```
+    ```bash
+    $GOPATH/bin/ld-relay --config ./ld-relay.conf
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 If you're using Relay Proxy Enterprise and want to enable automatic configuration or use it in offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
 </Details>
@@ -92,29 +92,29 @@ To use environment variables:
 
 1. Confirm that all of your Relay Proxy configuration values are specified with the appropriate environment variables.
 
-  For example, to specify the SDK key for an environment named `MyEnvName`:
+    For example, to specify the SDK key for an environment named `MyEnvName`:
 
-  <CodeSample>
-  <CSTab label="Example environment variable">
+    <CodeSample>
+    <CSTab label="Example environment variable">
 
-  ```bash
-  export LD_ENV_MyEnvName=<sdk-key-123abc>
-  ```
+    ```bash
+    export LD_ENV_MyEnvName=<sdk-key-123abc>
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 2. Run the Relay Proxy binary while passing the `--from-env` argument. The following command assumes that the `ld-relay` binary is in `$GOPATH/bin`.
 
-  <CodeSample>
-  <CSTab label="Run the binary">
+    <CodeSample>
+    <CSTab label="Run the binary">
 
-  ```bash
-  $GOPATH/bin/ld-relay --from-env
-  ```
+    ```bash
+    $GOPATH/bin/ld-relay --from-env
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 If you're using Relay Proxy Enterprise and want to enable automatic configuration or use it in offline mode, read [Enabling automatic configuration](/home/relay-proxy/automatic-configuration#enabling-automatic-configuration) or [Enabling offline mode](/home/relay-proxy/offline#enabling-offline-mode).
 </Details>
@@ -140,15 +140,15 @@ To deploy the Relay Proxy with Docker:
 
 1. Use `docker pull` to pull the latest Relay Proxy Docker image:
 
-  <CodeSample>
-  <CSTab label="Update your Docker container">
+    <CodeSample>
+    <CSTab label="Update your Docker container">
 
-  ```bash
-  docker pull launchdarkly/ld-relay
-  ```
+    ```bash
+    docker pull launchdarkly/ld-relay
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 2. Use `docker run` to run the Relay Proxy from your Docker container while specifying your configuration details.
 
@@ -191,42 +191,42 @@ To deploy the Relay Proxy using this Helm chart:
 
 1. Add the LaunchDarkly Relay Proxy Helm chart repository.
 
-  <CodeSample>
-  <CSTab label="Add chart repository">
+    <CodeSample>
+    <CSTab label="Add chart repository">
 
-  ```bash
-  helm repo add launchdarkly-ld-relay https://launchdarkly.github.io/ld-relay-helm
-  ```
-  </CSTab>
-  </CodeSample>
+    ```bash
+    helm repo add launchdarkly-ld-relay https://launchdarkly.github.io/ld-relay-helm
+    ```
+    </CSTab>
+    </CodeSample>
 
 2. Use `helm install` to install the chart archive and deploy the proxy into your cluster.
 
-  The fastest way to configure installation is through Helm's `--set` flag. However, we recommend using files with the `--values` flag as this enables easier long term maintenance. In the examples below, replace `MyEnvironment` with the name of your Relay Proxy environment and `sdk-key` with your SDK key.
+    The fastest way to configure installation is through Helm's `--set` flag. However, we recommend using files with the `--values` flag as this enables easier long term maintenance. In the examples below, replace `MyEnvironment` with the name of your Relay Proxy environment and `sdk-key` with your SDK key.
 
   Here's how:
 
-<CodeSample>
-<CSTab label="Using command line flags">
+    <CodeSample>
+    <CSTab label="Using command line flags">
 
-```bash
-helm install relay --set relay.environment.LD_ENV_environment-key-123abc=sdk-key123bc launchdarkly-ld-relay/ld-relay
-```
+    ```bash
+    helm install relay --set relay.environment.LD_ENV_environment-key-123abc=sdk-key123bc launchdarkly-ld-relay/ld-relay
+    ```
 
-</CSTab>
-<CSTab label="Using values file">
+    </CSTab>
+    <CSTab label="Using values file">
 
-```yaml
-# values.yaml
-relay:
-    environment:
-        LD_ENV_environment-key-123abc: sdk-key123bc
+    ```yaml
+    # values.yaml
+    relay:
+        environment:
+            LD_ENV_environment-key-123abc: sdk-key123bc
 
-# Run on the terminal
-helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
-```
-</CSTab>
-</CodeSample>
+    # Run on the terminal
+    helm install relay --values ./values.yaml launchdarkly-ld-relay/ld-relay
+    ```
+    </CSTab>
+    </CodeSample>
 
 You can find examples and full documentation on all configuration options in the [GitHub repository](https://github.com/launchdarkly/ld-relay-helm).
 </Details>

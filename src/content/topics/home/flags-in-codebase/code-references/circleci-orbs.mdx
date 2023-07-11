@@ -43,26 +43,26 @@ To set up the LaunchDarkly orb in CircleCI:
 2. Create a YAML file in CircleCI with configuration including LaunchDarkly's Orb.
    Here's an example minimal configuration using LaunchDarkly's Orb:
 
-<CodeSample>
-<CSTab label="YAML">
+    <CodeSample>
+    <CSTab label="YAML">
 
-```yaml
-version: 2.1
+    ```yaml
+    version: 2.1
 
-orbs:
-  launchdarkly: launchdarkly/ld-find-code-refs@2.7.0
+    orbs:
+      launchdarkly: launchdarkly/ld-find-code-refs@2.7.0
 
-workflows:
-  main:
-    jobs:
-      - launchdarkly/find-code-references:
-          proj_key: $YOUR_LAUNCHDARKLY_PROJECT_KEY
-          repo_type: github # can be 'bitbucket', 'custom', 'github', or 'gitlab'
-          repo_url: $YOUR_REPO_URL # used to generate links to your repository
-```
+    workflows:
+      main:
+        jobs:
+          - launchdarkly/find-code-references:
+              proj_key: $YOUR_LAUNCHDARKLY_PROJECT_KEY
+              repo_type: github # can be 'bitbucket', 'custom', 'github', or 'gitlab'
+              repo_url: $YOUR_REPO_URL # used to generate links to your repository
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 ## Additional configuration options
 

@@ -52,26 +52,26 @@ Here's how to create an API access token with the appropriate inline policy:
 4. Give your token an "Inline policy" **Role**.
 5. Click the **Advanced editor** button and specify the following policy in the **Editor** field to allow the token to perform the `createIntegration` and `deleteIntegration` actions on integration resources and the `viewProject` action on project resources:
 
-<CodeSample>
-<CSTab label="Compass integration Inline policy">
+    <CodeSample>
+    <CSTab label="Compass integration Inline policy">
 
-```json
-[
-  {
-    "actions": ["createIntegration", "deleteIntegration"],
-    "effect": "allow",
-    "resources": ["integration/*"]
-  },
-  {
-    "resources": ["proj/*"],
-    "effect": "allow",
-    "actions": ["viewProject"]
-  }
-]
-```
+    ```json
+    [
+      {
+        "actions": ["createIntegration", "deleteIntegration"],
+        "effect": "allow",
+        "resources": ["integration/*"]
+      },
+      {
+        "resources": ["proj/*"],
+        "effect": "allow",
+        "actions": ["viewProject"]
+      }
+    ]
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 6. If you are on an Enterprise LaunchDarkly plan, select **This is a service token**.
 

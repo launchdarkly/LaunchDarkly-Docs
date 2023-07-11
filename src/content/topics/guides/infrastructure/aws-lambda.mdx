@@ -410,54 +410,54 @@ Here are the steps to set this up:
 
 1. Clone the GitHub repository, change directory into the project, and install the project dependencies:
 
-  <CodeSample>
-  <CSTab label="Clone and install">
+    <CodeSample>
+    <CSTab label="Clone and install">
 
-  ```bash
-  git clone https://github.com/halex5000/launchdarkly-relay-proxy-aws-serverless-cdk
-  cd launchdarkly-relay-proxy-aws-serverless-cdk
-  npm install
-  ```
+    ```bash
+    git clone https://github.com/halex5000/launchdarkly-relay-proxy-aws-serverless-cdk
+    cd launchdarkly-relay-proxy-aws-serverless-cdk
+    npm install
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 2. Copy the example environment file and then edit it with your own environment variables, including your LaunchDarkly SDK keys:
 
-  <CodeSample>
-  <CSTab label="Copy and edit">
+    <CodeSample>
+    <CSTab label="Copy and edit">
 
-  ```bash
-  cp .env.example .env
-  ```
+    ```bash
+    cp .env.example .env
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 3. Install the [AWS CLI](https://aws.amazon.com/cli/) if you don't already have it.
 4. Set up your account and region to use the AWS CDK, making sure to replace the account number and region placeholders below with your own details:
 
-  <CodeSample>
-  <CSTab label="Set account and region">
+    <CodeSample>
+    <CSTab label="Set account and region">
 
-  ```bash
-  npm run cdk bootstrap aws://{ACCOUNT-NUMBER}/{REGION}
-  ```
+    ```bash
+    npm run cdk bootstrap aws://{ACCOUNT-NUMBER}/{REGION}
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 5. Finally, deploy the stack to AWS:
 
-  <CodeSample>
-  <CSTab label="Deploy">
+    <CodeSample>
+    <CSTab label="Deploy">
 
-  ```bash
-  npm run cdk deploy
-  ```
+    ```bash
+    npm run cdk deploy
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 The deployment should take about two minutes to run and it will deploy to the account and region that you configured using the credentials from your CLI. During the process, you'll be prompted to approve new roles and permissions created by this stack.
 

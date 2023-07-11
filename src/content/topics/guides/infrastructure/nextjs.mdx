@@ -131,23 +131,23 @@ To add a policy to the webhook:
 1. Navigate to the "Policy" section of the webhook and click **Advanced editor**. This lets you create a policy with very specific restrictions. The example code below says that this webhook has access to the environments (`env/*`) and flags (`flag/*`) tagged with `build-impact`.
 2. Paste this code into the advanced editor. Change the project key from `proj-key-123abc` to your LaunchDarkly project key. You can get the project key from the **Projects** tab under **Account settings**.
 
-  Here is the code to paste and modify:
+    Here is the code to paste and modify:
 
-  <CodeSample>
-  <CSTab label="JSON">
+    <CodeSample>
+    <CSTab label="JSON">
 
-  ```json
-  [
-    {
-      "effect": "allow",
-      "actions": ["*"],
-      "resources": ["proj/proj-key-123abc:env/*:flag/*;build-impact"]
-    }
-  ]
-  ```
+    ```json
+    [
+      {
+        "effect": "allow",
+        "actions": ["*"],
+        "resources": ["proj/proj-key-123abc:env/*:flag/*;build-impact"]
+      }
+    ]
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 3. Click **Save settings**.
 

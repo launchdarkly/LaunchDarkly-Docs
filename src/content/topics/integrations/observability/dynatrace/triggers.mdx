@@ -66,18 +66,18 @@ To configure the template:
 2. Paste the LaunchDarkly trigger URL into the **Webhook URL** field.
 3. Copy this payload into the **Custom payload** field in Dynatrace:
 
-<CodeSample>
-<CSTab label="JSON">
+    <CodeSample>
+    <CSTab label="JSON">
 
-```json
-{
-  "title": "{ProblemTitle}",
-  "url": "{ProblemURL}"
-}
-```
+    ```json
+    {
+      "title": "{ProblemTitle}",
+      "url": "{ProblemURL}"
+    }
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>You must customize the payload to render LaunchDarkly audit logs correctly</CalloutTitle>

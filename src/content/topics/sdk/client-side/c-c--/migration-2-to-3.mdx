@@ -36,67 +36,67 @@ Here's how:
 
 2. Then, include the LaunchDarkly SDK headers for version 3:
 
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0 (C binding)">
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0 (C binding)">
 
-  ```c
-  #include <launchdarkly/client_side/bindings/c/sdk.h>
-  ```
+    ```c
+    #include <launchdarkly/client_side/bindings/c/sdk.h>
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
-  The C wrapper is included in the release binaries.
+    The C wrapper is included in the release binaries.
 
 3. Update your configuration code that specifies your mobile key. In version 2.x, you specified configuration details using the `LDConfig` struct. In version 3.0, you must use the `LDClientConfigBuilder` instead. Here's how:
 
-  <CodeSample>
-  <CSTab label="C/C++ SDK v2.x">
+    <CodeSample>
+    <CSTab label="C/C++ SDK v2.x">
 
-  ```c
-  struct LDConfig *config = LDConfigNew("mobile-key-123abc");
-  ```
+    ```c
+    struct LDConfig *config = LDConfigNew("mobile-key-123abc");
+    ```
 
-  </CSTab>
-  <CSTab label="C++ SDK v3.0 (C binding)">
+    </CSTab>
+    <CSTab label="C++ SDK v3.0 (C binding)">
 
-  ```c
-  LDClientConfigBuilder builder = LDClientConfigBuilder_New("mobile-key-123abc");
-  LDClientConfig config;
-  LDStatus status = LDClientConfigBuilder_Build(builder, &config);
-  if (!LDStatus_Ok(status)) {
+    ```c
+    LDClientConfigBuilder builder = LDClientConfigBuilder_New("mobile-key-123abc");
+    LDClientConfig config;
+    LDStatus status = LDClientConfigBuilder_Build(builder, &config);
+    if (!LDStatus_Ok(status)) {
        /* an error occurred, config is not valid */
-  }
-  ```
+    }
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 4. Update your code that creates a single shared instance of the client. In version 2.x, you created a client using the `LDClient` struct and an `LDUser` object. In version 3.0, you must use the `LDClientSDK` object and the `LDContextBuilder` instead. Here's how:
 
-  <CodeSample>
-  <CSTab label="C/C++ SDK v2.x">
+    <CodeSample>
+    <CSTab label="C/C++ SDK v2.x">
 
-  ```c
-  struct LDUser *user = LDUserNew("user-key-123abc");
-  struct LDClient *client = LDClientInit(config, user, maxwait);
-  ```
+    ```c
+    struct LDUser *user = LDUserNew("user-key-123abc");
+    struct LDClient *client = LDClientInit(config, user, maxwait);
+    ```
 
-  </CSTab>
-  <CSTab label="C++ SDK v3.0 (C binding)">
+    </CSTab>
+    <CSTab label="C++ SDK v3.0 (C binding)">
 
-  ```c
-  LDContextBuilder context_builder = LDContextBuilder_New();
-  LDContextBuilder_AddKind(context_builder, "user", "user-key-123abc");
-  LDContext context = LDContextBuilder_Build(context_builder);
+    ```c
+    LDContextBuilder context_builder = LDContextBuilder_New();
+    LDContextBuilder_AddKind(context_builder, "user", "user-key-123abc");
+    LDContext context = LDContextBuilder_Build(context_builder);
 
-  LDClientSDK client = LDClientSDK_New(config, context);
-  unsigned int maxwait = 10 * 1000; /* 10 seconds */
-  LDClientSDK_Start(client, maxwait, NULL);
-  ```
+    LDClientSDK client = LDClientSDK_New(config, context);
+    unsigned int maxwait = 10 * 1000; /* 10 seconds */
+    LDClientSDK_Start(client, maxwait, NULL);
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 The third parameter to `LDClientSDK_Start` is new. If you pass `NULL`, the call will block for `maxwait` milliseconds for the client to initialize. If you pass a pointer to a `bool`, you can also determine whether initialization succeeded.
 
@@ -138,60 +138,60 @@ Here's how:
 
 2. Then, include the LaunchDarkly SDK headers for version 3:
 
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0">
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0">
 
-  ```cpp
-  #include <launchdarkly/client_side/client.hpp>
-  ```
+    ```cpp
+    #include <launchdarkly/client_side/client.hpp>
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 3. Update your configuration code that specifies your mobile key. In version 2.x, you specified configuration details using the `LDConfig` struct. In version 3.0, you must use the `ConfigBuilder` instead. Here's how:
 
-  <CodeSample>
-  <CSTab label="C/C++ SDK v2.x">
+    <CodeSample>
+    <CSTab label="C/C++ SDK v2.x">
 
-  ```cpp
-  struct LDConfig *config = LDConfigNew("mobile-key-123abc");
-  ```
+    ```cpp
+    struct LDConfig *config = LDConfigNew("mobile-key-123abc");
+    ```
 
-  </CSTab>
-  <CSTab label="C++ SDK v3.0 (native)">
+    </CSTab>
+    <CSTab label="C++ SDK v3.0 (native)">
 
-  ```cpp
-  auto config = client_side::ConfigBuilder("mobile-key-123abc").Build();
-  if (!config) {
-     /* an error occurred, config is not valid */
-  }
-  ```
+    ```cpp
+    auto config = client_side::ConfigBuilder("mobile-key-123abc").Build();
+    if (!config) {
+       /* an error occurred, config is not valid */
+    }
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 4. Update your code that creates a single shared instance of the client. In version 2.x, you created a client using the `LDClient` struct and an `LDUser` object. In version 3.0, you must use the `Client` object and the `ContextBuilder` instead. Here's how:
 
-  <CodeSample>
-  <CSTab label="C/C++ SDK v2.x">
+    <CodeSample>
+    <CSTab label="C/C++ SDK v2.x">
 
-  ```cpp
-  struct LDUser *user = LDUserNew("user-key-123abc");
-  struct LDClient *client = LDClientInit(config, user, maxwait);
-  ```
+    ```cpp
+    struct LDUser *user = LDUserNew("user-key-123abc");
+    struct LDClient *client = LDClientInit(config, user, maxwait);
+    ```
 
-  </CSTab>
-  <CSTab label="C++ SDK v3.0 (native)">
+    </CSTab>
+    <CSTab label="C++ SDK v3.0 (native)">
 
-  ```cpp
-  auto context = ContextBuilder().Kind("user", "user-key-123abc").Build();
+    ```cpp
+    auto context = ContextBuilder().Kind("user", "user-key-123abc").Build();
 
-  client_side::Client client(config, context);
-  client.StartAsync().wait_for(std::chrono::seconds(10));
-  ```
+    client_side::Client client(config, context);
+    client.StartAsync().wait_for(std::chrono::seconds(10));
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 You can also examine the result to determine if initialization succeeded. Here's how:
 

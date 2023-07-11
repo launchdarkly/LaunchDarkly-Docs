@@ -808,20 +808,20 @@ There are two important things to consider before you enable the DEBUG log level
 1. Debug-level logs can be very verbose. We do not recommend using debug logging in high-volume environments.
 2. Debug-level logs include sensitive information, including LaunchDarkly contexts you create when you use this SDK.
 
-You can pass a custom logger to the SDK by using the configurable `logger` property:
+    You can pass a custom logger to the SDK by using the configurable `logger` property:
 
-<CodeSample>
-<CSTab label="Ruby">
+    <CodeSample>
+    <CSTab label="Ruby">
 
-```ruby
-log = ::Logger.new($stdout)
-log.level = ::Logger::DEBUG
-config = LaunchDarkly::Config.new({logger: log})
-client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
-```
+    ```ruby
+    log = ::Logger.new($stdout)
+    log.level = ::Logger::DEBUG
+    config = LaunchDarkly::Config.new({logger: log})
+    client = LaunchDarkly::LDClient.new("sdk-key-123abc", config)
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 </Details>
 
 ### Rust

@@ -89,25 +89,25 @@ Next you must specify the key in a Relay Proxy configuration file so it includes
  * If you configured the Relay Proxy with a configuration file, specify the Relay Proxy key in an `AutoConfig` section as the `key` property.
  * If you configured the Relay Proxy with environment variables, specify the Relay Proxy key with the `AUTO_CONFIG_KEY` environment variable. Here's how:
 
-  <CodeSample>
-  <CSTab label="Configuration file">
+    <CodeSample>
+    <CSTab label="Configuration file">
 
-  ```bash
-[AutoConfig]
-   key = "rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY"
-  ```
+    ```bash
+    [AutoConfig]
+    key = "rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY"
+    ```
 
-  </CSTab>
-  <CSTab label="Environment variables">
+    </CSTab>
+    <CSTab label="Environment variables">
 
-  ```bash
-docker run --name ld-relay           \
-   -e AUTO_CONFIG_KEY="rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY" \
-   launchdarkly/ld-relay
-  ```
+    ```bash
+    docker run --name ld-relay           \
+     -e AUTO_CONFIG_KEY="rel-EXAMPLE-RELAY-PROXY-CONFIGURATION-KEY" \
+     launchdarkly/ld-relay
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 2. Start the Relay Proxy.
 
@@ -193,7 +193,7 @@ Use this policy to give the Relay Proxy access to the production environment in 
 [
   {
     "actions": ["*" ],
-    "effect": "allow", 
+    "effect": "allow",
     "resources": ["proj/*:env/production" ]
   }
 ]

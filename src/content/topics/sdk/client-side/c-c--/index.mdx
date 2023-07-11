@@ -121,19 +121,19 @@ To incorporate the SDK using `cmake`:
 1. Clone the [GitHub repository](https://github.com/launchdarkly/cpp-sdks) as a subdirectory of your project.
 2. Update your project's `CMakeLists.txt` to include the SDK repository:
     <CodeSample>
-      <CSTab label="Using add_subdirectory">
-        ```bash
-        add_subdirectory(cpp-sdks)
-        ```
-      </CSTab>
+    <CSTab label="Using add_subdirectory">
+    ```bash
+    add_subdirectory(cpp-sdks)
+    ```
+    </CSTab>
     </CodeSample>
 3. Link your project's target against the `launchdarkly::client` target:
     <CodeSample>
-      <CSTab label="Linking your target">
-        ```bash
-        target_link_libraries(your-target PRIVATE launchdarkly::client)
-        ```
-      </CSTab>
+    <CSTab label="Linking your target">
+    ```bash
+    target_link_libraries(your-target PRIVATE launchdarkly::client)
+    ```
+    </CSTab>
     </CodeSample>
 
 #### Incorporating the SDK using prebuilt artifacts
@@ -149,12 +149,12 @@ To incorporate the SDK using prebuilt artifacts:
 1. Download the correct release for your platform from the GitHub [Releases](https://github.com/launchdarkly/cpp-sdks/releases) page.
 2. Ensure the SDK's headers are installed on the build system. One way to do this is to clone the [GitHub repository](https://github.com/launchdarkly/cpp-sdks) and install the headers using `cmake`:
     <CodeSample>
-      <CSTab label="Install headers">
-        ```bash
-        cmake --build .
-        cmake --install .
-        ```
-      </CSTab>
+    <CSTab label="Install headers">
+    ```bash
+    cmake --build .
+    cmake --install .
+    ```
+    </CSTab>
     </CodeSample>
 
 You can now reference the installed headers and link against the prebuilt libraries.
@@ -199,22 +199,22 @@ Here's how to install the SDK:
 3. (Optional) Build the C++ wrapper, which is not included in the release binaries. Copy the [header](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/include/launchdarkly/api.hpp) and [source](https://github.com/launchdarkly/c-client-sdk/blob/master/cpp/api.cpp) files and add them to your own build system.
 4. Include the LaunchDarkly SDK headers:
 
-<CodeSample>
-<CSTab label="C">
+    <CodeSample>
+    <CSTab label="C">
 
-```c
-#include <launchdarkly/api.h>
-```
+    ```c
+    #include <launchdarkly/api.h>
+    ```
 
-</CSTab>
-<CSTab label="C++">
+    </CSTab>
+    <CSTab label="C++">
 
-```cpp
-#include <launchdarkly/api.hpp>
-```
+    ```cpp
+    #include <launchdarkly/api.hpp>
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 </Details>
 

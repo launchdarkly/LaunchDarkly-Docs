@@ -51,18 +51,18 @@ To configure the template:
 3. Create a new webhook based on the **Installation** instructions and paste the LaunchDarkly trigger URL into the URL field.
 4. Copy this Datadog payload into the configuration field in Datadog:
 
-<CodeSample>
-<CSTab label="JSON">
+    <CodeSample>
+    <CSTab label="JSON">
 
-```json
-{
-  "title": "$EVENT_TITLE",
-  "url": "$LINK"
-}
-```
+    ```json
+    {
+      "title": "$EVENT_TITLE",
+      "url": "$LINK"
+    }
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 <Callout intent="alert">
 <CalloutTitle>You must customize the payload to view trigger details in LaunchDarkly</CalloutTitle>
@@ -84,17 +84,17 @@ After you create the webhook in Datadog, you must connect it to an event in orde
 1. Navigate to **Monitors**.
 2. Choose the **Alert** you wish to connect to the trigger and add the webhook you created earlier to that alert.
 
-If you don't want Datadog to trigger when the alert recovers, wrap the webhook in the following template expression:
+    If you don't want Datadog to trigger when the alert recovers, wrap the webhook in the following template expression:
 
- <CodeSample>
- <CSTab label="Expression">
+    <CodeSample>
+    <CSTab label="Expression">
 
-```json
-`{{#is_alert}} @webhook-<YOUR_WEBHOOK_NAME> {{/is_alert}}`
-```
+    ```json
+    `{{#is_alert}} @webhook-<YOUR_WEBHOOK_NAME> {{/is_alert}}`
+    ```
 
- </CSTab>
- </CodeSample>
+    </CSTab>
+    </CodeSample>
 
 3. Click **Save.**
 4. In the Datadog metric alert you want to activate the flag trigger, add `@webhook-<YOUR_WEBHOOK_NAME>`.

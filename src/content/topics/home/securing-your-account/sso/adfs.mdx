@@ -164,16 +164,16 @@ To send claims using a custom rule:
 7. Enter a human-readable name, such as "Map groups to LD custom roles."
 8. In the Custom rule window, enter the following:
 
-<CodeSample>
-<CSTab label="ADFS">
+    <CodeSample>
+    <CSTab label="ADFS">
 
-```
- c:[Type == "http://temp/variable"]
- => issue(Type = "customRole", Value = c.Value)
-```
+    ```
+    c:[Type == "http://temp/variable"]
+     => issue(Type = "customRole", Value = c.Value)
+    ```
 
-</CSTab>
-</CodeSample>
+    </CSTab>
+    </CodeSample>
 
 Here is an image of the custom rule:
 

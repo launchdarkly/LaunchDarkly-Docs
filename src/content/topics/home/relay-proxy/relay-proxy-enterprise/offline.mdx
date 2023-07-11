@@ -26,7 +26,7 @@ The Relay Proxy can run in two modes:
 
 ## Benefits of offline mode
 
-For most customers, we do not recommend running the Relay Proxy in offline mode. Running the Relay Proxy in offline mode means that any time you make changes to your flag rules, you must re-download the flag rule file, update it on the Relay Proxy's filesystem, and restart the Relay Proxy. In contrast, running the Relay Proxy in online mode handles these changes automatically. 
+For most customers, we do not recommend running the Relay Proxy in offline mode. Running the Relay Proxy in offline mode means that any time you make changes to your flag rules, you must re-download the flag rule file, update it on the Relay Proxy's filesystem, and restart the Relay Proxy. In contrast, running the Relay Proxy in online mode handles these changes automatically.
 
 However, there are benefits to using offline mode in certain circumstances. Enabling offline mode on the Relay Proxy lets you run the Relay Proxy without ever connecting it to LaunchDarkly. Instead of retrieving flag and segment values from LaunchDarkly's servers, the Relay Proxy gets them from files located on your local host or filesystem.
 
@@ -88,7 +88,7 @@ To get your flag rules and make them accessible to the Relay Proxy:
 
 1. `curl /relay/latest-all`. This generates a file containing all your flag rules.
 
-  An example `curl` is below:
+    An example `curl` is below:
 
     <CodeSample>
     <CSTab label="Curl">
@@ -106,25 +106,25 @@ To get your flag rules and make them accessible to the Relay Proxy:
 3. The next step varies depending on whether you're using a configuration file or environment variables:
  * If you're using a **configuration file**, configure it to read the file you saved in step 2. In the file, specify an `OfflineMode` section with the `fileDataSource` key and a value of the file's path.
  * If you're using **environment variables**, specify the file with the `FILE_DATA_SOURCE` environment variable.
-  <CodeSample>
-  <CSTab label="Configuration file">
+    <CodeSample>
+    <CSTab label="Configuration file">
 
-  ```bash
-[OfflineMode]
-   fileDataSource = "/path/to/file.tar.gz"
-  ```
+    ```bash
+    [OfflineMode]
+    fileDataSource = "/path/to/file.tar.gz"
+    ```
 
-  </CSTab>
-  <CSTab label="Environment variables">
+    </CSTab>
+    <CSTab label="Environment variables">
 
-  ```bash
-docker run --name ld-relay           \
-   -e FILE_DATA_SOURCE="/path/to/file.tar.gz" \
-   launchdarkly/ld-relay
-  ```
+    ```bash
+    docker run --name ld-relay           \
+     -e FILE_DATA_SOURCE="/path/to/file.tar.gz" \
+     launchdarkly/ld-relay
+    ```
 
-  </CSTab>
-  </CodeSample>
+    </CSTab>
+    </CodeSample>
 4. Start the Relay Proxy.
 
 From now on, the Relay Proxy will serve flag values based on the contents of the file you downloaded, not by contacting LaunchDarkly for updates.

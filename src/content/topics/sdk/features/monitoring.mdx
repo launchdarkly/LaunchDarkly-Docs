@@ -529,48 +529,48 @@ client.DataSourceStatus().OnDataSourceStatusChange([](client_side::data_sources:
 If you are working in C, there are a few more steps:
 
 1. Define a callback to receive the data source status change:
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0 (C binding), define callback">
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0 (C binding), define callback">
 
-  ```c
-  void OnDataSourceStatusChanged(LDDataSourceStatus status, void* user_data) {
-    printf("status: %d\n", LDDataSourceStatus_GetState(status));
-  }
-  ```
-  </CSTab>
-  </CodeSample>
+    ```c
+    void OnDataSourceStatusChanged(LDDataSourceStatus status, void* user_data) {
+      printf("status: %d\n", LDDataSourceStatus_GetState(status));
+    }
+    ```
+    </CSTab>
+    </CodeSample>
 
 2. Assign the callback by creating a listener connection:
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0 (C binding), create listener connection">
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0 (C binding), create listener connection">
 
-  ```c
-  struct LDDataSourceStatusListener listener;
-  LDDataSourceStatusListener_Init(listener);
+    ```c
+    struct LDDataSourceStatusListener listener;
+    LDDataSourceStatusListener_Init(listener);
 
-  listener.StatusChanged = OnDataSourceStatusChanged;
+    listener.StatusChanged = OnDataSourceStatusChanged;
 
-  /* You may optionally assign the UserData pointer, which will be passed into StatusChanged. */
-  /* listener.UserData = &some_struct; */
+    /* You may optionally assign the UserData pointer, which will be passed into StatusChanged. */
+    /* listener.UserData = &some_struct; */
 
-  LDListenerConnection connection =
-          LDClientSDK_DataSourceStatus_OnStatusChange(sdk, listener);
+    LDListenerConnection connection =
+            LDClientSDK_DataSourceStatus_OnStatusChange(sdk, listener);
 
-  /* You can disconnect the listener later */
-  LDListenerConnection_Disconnect(connection);
-  ```
-  </CSTab>
-  </CodeSample>
+    /* You can disconnect the listener later */
+    LDListenerConnection_Disconnect(connection);
+    ```
+    </CSTab>
+    </CodeSample>
 
 3. Ensure the connection is freed when you are done with it:
-  <CodeSample>
-  <CSTab label="C++ SDK v3.0 (C binding), free connection">
+    <CodeSample>
+    <CSTab label="C++ SDK v3.0 (C binding), free connection">
 
-  ```c
-  LDListenerConnection_Free(connection);
-  ```
-  </CSTab>
-  </CodeSample>
+    ```c
+    LDListenerConnection_Free(connection);
+    ```
+    </CSTab>
+    </CodeSample>
 
 Finally, if you are working in C but are still using the older v2.x SDK, the data source status interface is not available. To wait indefinitely, use a callback:
 
