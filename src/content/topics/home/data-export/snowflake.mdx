@@ -21,6 +21,15 @@ The Snowflake integration is only available to members of LaunchDarkly's Early A
 
 This topic explains how to create and test a Snowflake destination for Data Export.
 
+<Callout intent="warning">
+<CalloutTitle>Your Snowflake instance must be in AWS us-east-1</CalloutTitle>
+<CalloutDescription>
+
+To use the Snowflake integration, your Snowflake instance must be in the AWS us-east-1 region.
+
+</CalloutDescription>
+</Callout>
+
 <Callout intent="info">
 <CalloutTitle>Exported event types</CalloutTitle>
 <CalloutDescription>
@@ -32,9 +41,10 @@ Snowflake Data Export only exports flag evaluation events for flags used in expe
 
 ## Prerequisites
 
-As a prerequisite to configuring the Snowflake integration, you must find the **Account Locator** for your Snowflake account. You can use the `current_account()` helper to find this. To learn how, read [Snowflake's documentation](https://docs.snowflake.com/en/sql-reference/functions/current_account).
+To configure the Snowflake integration, you must have the following prerequisites:
 
-Next, configure the Snowflake integration in LaunchDarkly. To do this, you need the **Account Locator** from your Snowflake account.
+- Your Snowflake instance must be in the AWS us-east-1 region.
+- You must have the **Account Locator** for your Snowflake account. You can use the `current_account()` helper to find this. To learn how, read [Snowflake's documentation](https://docs.snowflake.com/en/sql-reference/functions/current_account).
 
 ## Creating a Snowflake destination in LaunchDarkly
 
