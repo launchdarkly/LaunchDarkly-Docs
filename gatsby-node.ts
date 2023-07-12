@@ -11,6 +11,9 @@ import { SiteMetadata } from './src/types/siteMetadata'
 import getFinalDestination from './getFinalDestination'
 import redirectRules from './redirectRules'
 import { getFlaggedPagesConfig } from './src/utils/flaggedPages/ld-server'
+import { compileMDXWithCustomOptions } from 'gatsby-plugin-mdx'
+
+import remarkCreateCustomToc from './plugins/custom-toc'
 
 const isDev = process.env.GATSBY_ACTIVE_ENV === 'development'
 
@@ -140,7 +143,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
       allMdx(filter: { frontmatter: { published: { eq: true } } }) {
         nodes {
           id
-          toc: tableOfContents(maxDepth: 2)
+          customToc
           frontmatter {
             path
             isInternal
@@ -173,7 +176,7 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
       id,
       frontmatter,
       internal,
-      toc,
+      customToc,
       fileAbsolutePath,
       timeToRead,
       lastModifiedTime,
@@ -194,7 +197,9 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
         : `${MdxPage}?__contentFilePath=${internal.contentFilePath}`,
       context: {
         id,
-        toc,
+        // using customToc instead of toc from tableOfContents so it doesnt skip nested headings in the
+        // case of flagged headings (headings within <Feature></Feature>)
+        toc: customToc,
         fileAbsolutePath,
         lastModifiedTime,
         modifiedDate,
@@ -206,8 +211,59 @@ export const createPages: GatsbyNode['createPages'] = async ({ graphql, actions,
   }
 }
 
-export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async ({ actions }) => {
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = async ({
+  actions,
+  schema,
+  getNode,
+  getNodesByType,
+  pathPrefix,
+  reporter,
+  cache,
+  store,
+}) => {
   const { createTypes } = actions
+  const customTocResolver = schema.buildObjectType({
+    name: 'Mdx',
+    fields: {
+      customToc: {
+        type: 'JSON',
+        async resolve(mdxNode) {
+          const fileNode = getNode(mdxNode.parent)
+          if (!fileNode) {
+            return null
+          }
+
+          const result = await compileMDXWithCustomOptions(
+            {
+              source: mdxNode.body,
+              absolutePath: fileNode.absolutePath as string,
+            },
+            {
+              pluginOptions: { plugins: [] },
+              customOptions: {
+                mdxOptions: {
+                  remarkPlugins: [remarkCreateCustomToc],
+                },
+              },
+              getNode,
+              getNodesByType,
+              pathPrefix,
+              reporter,
+              cache,
+              store,
+            },
+          )
+
+          if (!result) {
+            return null
+          }
+
+          return result.metadata.customToc
+        },
+      },
+    },
+  })
+
   const typeDefs = `
     type NavigationDataJson implements Node {
       flagKey: String
@@ -228,6 +284,12 @@ export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] 
       lastModifiedTime: Date @proxy(from: "fields.lastModifiedTime")
       modifiedDate: Date @proxy(from: "fields.lastModifiedTime") @dateformat(formatString: "MMM DD, YYYY")
     }
+    type CustomToc {
+      value: String
+      hash: String
+      depth: Int
+    }
   `
-  createTypes(typeDefs)
+
+  createTypes([typeDefs, customTocResolver])
 }

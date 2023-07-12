@@ -1,4 +1,4 @@
-import { TOC } from '../components/tableOfContents'
+import { CustomTOCItem, TOC } from '../components/tableOfContents'
 
 import { Frontmatter } from './frontmatter'
 
@@ -6,6 +6,7 @@ export type MdxNode = {
   id: string
   frontmatter: Frontmatter
   toc: TOC
+  customToc: CustomTOCItem
   fileAbsolutePath: string
   timeToRead: number
   lastModifiedTime: string

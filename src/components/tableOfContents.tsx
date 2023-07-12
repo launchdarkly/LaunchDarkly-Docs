@@ -1,6 +1,8 @@
 import { Themed } from '@theme-ui/mdx'
 import { Link } from 'theme-ui'
 
+import { useFlaggedPagesConfig } from '../hooks/useFlaggedPagesConfig'
+
 type TOCItem = {
   url: string
   title: string
@@ -12,17 +14,62 @@ export type TOC = {
 }
 
 export type TableOfContentsProps = {
-  toc: TOC
+  toc: Array<CustomTOCItem>
+}
+
+export type CustomTOCItem = {
+  value: string
+  hash: string
+  depth: number
 }
 
 export function TableOfContents({ toc }: TableOfContentsProps) {
-  const tocItems = toc.items
+  const { isPathDisabled } = useFlaggedPagesConfig()
 
-  if (!tocItems) {
+  if (!toc) {
     console.warn("There's no heading to render for toc")
     return null
   }
 
+  const renderTocItem = (item: CustomTOCItem) => {
+    const { hash: url, value: title } = item
+
+    if (isPathDisabled(url, { isHashPath: true })) {
+      return null
+    }
+
+    return (
+      <li
+        key={url}
+        sx={{
+          lineHeight: 'small',
+          borderBottomStyle: 'dotted',
+          borderBottomWidth: 1,
+          borderColor: 'grayMed',
+          px: 2,
+          py: 2,
+        }}
+      >
+        <Link
+          href={url}
+          sx={{
+            fontSize: '3',
+            color: 'graySafe',
+            textDecoration: 'none',
+            ':visited': {
+              color: 'graySafe',
+            },
+            ':hover': {
+              textDecoration: 'none',
+              color: 'primarySafe',
+            },
+          }}
+        >
+          {title}
+        </Link>
+      </li>
+    )
+  }
   return (
     <aside
       sx={{ pt: 4, display: ['none', 'none', 'block'], position: 'fixed', right: 0, top: '4.5rem', width: '18rem' }}
@@ -40,39 +87,7 @@ export function TableOfContents({ toc }: TableOfContentsProps) {
       >
         On this page
       </Themed.h5>
-      <ul>
-        {tocItems.map(({ url, title }) => (
-          <li
-            key={url}
-            sx={{
-              lineHeight: 'small',
-              borderBottomStyle: 'dotted',
-              borderBottomWidth: 1,
-              borderColor: 'grayMed',
-              px: 2,
-              py: 2,
-            }}
-          >
-            <Link
-              href={url}
-              sx={{
-                fontSize: '3',
-                color: 'graySafe',
-                textDecoration: 'none',
-                ':visited': {
-                  color: 'graySafe',
-                },
-                ':hover': {
-                  textDecoration: 'none',
-                  color: 'primarySafe',
-                },
-              }}
-            >
-              {title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <ul>{toc.map(tocItem => renderTocItem(tocItem))}</ul>
     </aside>
   )
 }
