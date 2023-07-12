@@ -1,13 +1,13 @@
 ---
 path: /home/account-security/azure
 title: Azure Active Directory
-description: This topic explains how to integrate LaunchDarkly with Microsoft Azure Active Directory, using a template from Azure's App Gallery.
+description: This topic explains how to integrate LaunchDarkly with Microsoft Azure Active Directory (Azure AD).The Azure AD App Gallery includes LaunchDarkly and provides a LaunchDarkly application template that facilitates configuration.
 published: true
 tags: ['azure', 'sso', 'enterprise', 'attribute', 'context', 'idp', 'user']
 ---
 
 <Callout intent="primary">
-<CalloutTitle>Support for Azure is an Enterprise feature</CalloutTitle>
+<CalloutTitle>Support for Azure Active Directory is an Enterprise feature</CalloutTitle>
 <CalloutDescription>
 
 Azure Active Directory is available to customers on a Starter or Pro plan with the SSO add-on, and to all customers on an Enterprise plan. However, support for Azure from our Support team is available only to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
@@ -17,40 +17,40 @@ Azure Active Directory is available to customers on a Starter or Pro plan with t
 
 ## Overview
 
-This topic explains how to integrate LaunchDarkly with Microsoft Azure Active Directory.
+This topic explains how to integrate LaunchDarkly with Microsoft Azure Active Directory (Azure AD).
 
-LaunchDarkly is included in Azure AD's App Gallery. Azure provides a LaunchDarkly application template that facilitates configuration.
+The Azure AD App Gallery includes LaunchDarkly and provides a LaunchDarkly application template that facilitates configuration.
 
-## Integrating LaunchDarkly with Azure
+## Integrating LaunchDarkly with Azure AD
 
-To integrate LaunchDarkly with Azure:
+To integrate LaunchDarkly with Azure AD:
 
-1. Log in to Azure.
+1. Log in to Azure AD.
 2. Navigate to your Enterprise applications.
 3. Click **New application**:
 
-![The Azure "Enterprise Applications" page with "New application" called out.](azure-new-application.png)
+![The Azure AD "Enterprise Applications" page with "New application" called out.](azure-new-application.png)
 
 
 4. Search for the LaunchDarkly application.
 5. After you add it, follow the [Azure LaunchDarkly Application Tutorial](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-saas-launchdarkly-tutorial).
 
 <Callout intent="info">
-<CalloutTitle>Azure user identifier guidelines</CalloutTitle>
+<CalloutTitle>Azure AD user identifier guidelines</CalloutTitle>
 <CalloutDescription>
 
-During configuration, we recommend using the identifier `user.mail`, provided that every user has their email addresses attribute set. If you haven't set attributes for every user, use the identifier `user.userprincipalname`.
+During configuration, we recommend using the identifier `user.mail`, provided that every user has their email address attribute set. If you haven't set attributes for every user, use the identifier `user.userprincipalname`.
 
 </CalloutDescription>
 </Callout>
 
-## Mapping user attributes
+## Setting up custom roles for Azure User Attributes
 
-After LaunchDarkly is integrated with Azure, you can map LaunchDarkly role and custom role attributes to Azure using Azure claims. The LaunchDarkly Azure SSO integration only provides Just-In-Time user provisioning for IdP-Initiated SSO.
+After you integrate LaunchDarkly with Azure AD, you can map LaunchDarkly role and custom role attributes to Azure User Attributes using Azure claims. The LaunchDarkly Azure SSO integration provides Just-In-Time (JIT) user provisioning for IdP-Initiated SSO.
 
 To learn more about SSO provisioning for roles and custom roles, read [Custom roles](/home/members/custom-roles).
 
-To set up `role` and `customRole` claims in Azure:
+To set up `role` and `customRole` claims in Azure AD:
 
 1. Navigate to the User Attributes & Claims section.
 2. Click **Edit**.
@@ -72,3 +72,99 @@ SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all 
 
 </CalloutDescription>
 </Callout>
+
+## Setting up custom roles for Azure Security Groups
+
+In addition to Azure User Attributes, you can also assign LaunchDarkly custom roles to Azure Security Groups.
+
+There are five steps to this process:
+
+1. [Create custom roles in LaunchDarkly](#create-custom-roles-in-launchdarkly)
+2. [Create groups in Azure AD](#create-groups-in-azure-ad)
+3. [Create roles for the Azure LaunchDarkly Enterprise Application](#create-roles-for-the-azure-launchdarkly-enterprise-application)
+4. [Set up groups and roles in the Azure LaunchDarkly Enterprise Application](#set-up-groups-and-roles-in-the-azure-launchdarkly-enterprise-application)
+5. [Update the Azure LaunchDarkly Enterprise Application SSO configuration](#update-the-azure-launchdarkly-enterprise-application-sso-configuration)
+
+Each of these steps are outlined below.
+
+### Create custom roles in LaunchDarkly
+
+To begin, create the custom roles in LaunchDarkly that you want to use with the Azure LaunchDarkly Enterprise Application. Make note of each custom role's key, as you will need the key when you set up your Azure AD app role.
+
+To learn how, read [Custom roles](/home/members/custom-roles).
+
+### Create groups in Azure AD
+
+After you have created your custom roles in LaunchDarkly, set up your groups in Azure AD:
+
+1. In Azure AD, navigate to Groups, then click **New group**.
+2. Select a group type and enter a group name.
+3. Click “No members selected” to add new members.
+4. Select members from the list to add to the group, then click **Select**:
+
+![Adding members to a new Azure AD group.](azure-new-group-members.png)
+
+Your Azure AD members are now in the group.
+
+### Create roles for the Azure LaunchDarkly Enterprise Application
+
+Next, create roles within Azure AD:
+
+1. In Azure AD, open the LaunchDarkly Enterprise Application.
+2. Navigate to App Registrations, then click **All applications**.
+3. Click **LaunchDarkly** to open the application:
+
+![The App registrations page in Azure AD.](azure-app-registrations.png)
+
+4. Navigate to App roles and click **Create app role**.
+5. Enter the role information. The **value** must be the key of the custom role you created during the [Create custom roles in LaunchDarkly](#create-custom-roles-in-launchdarkly) step:
+
+![A new role in Azure AD with the "Value" field called out.](azure-new-role.png)
+
+6. Click **Apply**.
+
+Repeat this procedure for each new Azure app role.
+
+### Set up groups and roles in the Azure LaunchDarkly Enterprise Application
+
+Then, set up groups and roles in Azure AD:
+
+1. In Azure AD, open the LaunchDarkly Enterprise Application.
+2. Click **Users and groups**.
+
+![The "Users and groups" screen in Azure AD.](azure-users-and-groups.png)
+
+3. Click **Add user/group**. The "Add Assignment" screen appears.
+3. Click **None Selected** under "Users and groups" to add a new group. The "Users and groups" screen appears.
+4. Choose the group you created in the [Create groups in Azure AD](#create-groups-in-azure-ad) step.
+5. Click **Select**. You are returned to the "Add Assignment" screen. 
+6. Click **None Selected** under "Select a new role" to add a new role:
+
+![Selecting a role to add to a group.](azure-select-a-role.png)
+
+7. Choose the role you created in the [Create roles for the Azure LaunchDarkly Enterprise Application](#create-roles-for-the-azure-launchdarkly-enterprise-application) step.
+8. Click **Select**. You are returned to the "Add Assignment" screen.
+9. Click **Assign**.
+
+Repeat this procedure for each group and role you want to set up.
+
+### Update the Azure LaunchDarkly Enterprise Application SSO configuration
+
+Finally, update Azure's SSO configuration:
+
+1. In Azure AD, open the LaunchDarkly Enterprise Application.
+2. Click **Single sign-on**.
+3. Scroll to the "User Attributes & Claims” section.
+4. Click **Edit**. The "Manage claims" form appears.
+
+![The "User Attributes & Claims” section with the "Edit" button called out.](azure-edit-user-attributes-callout.png)
+
+5. Enter `customRole` in the **Name** field.
+6. Leave the **Namespace** field empty.
+7. Select "Attribute" as the source.
+{/* cSpell:disable */}
+8. Enter `user.assignedroles` in the **Source attribute** field.
+{/* cSpell:enable */}
+9. Click **Save**. You are returned to the "User Attributes & Claims” screen.
+
+Close the "User Attributes & Claims” screen to return to the Single sign-on page. To test your SSO configuration, click **Test** at the bottom of the page.
