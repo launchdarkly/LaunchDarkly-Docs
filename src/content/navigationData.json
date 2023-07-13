@@ -881,6 +881,10 @@
             "path": "/integrations/census"
           },
           {
+            "label": "Sentry",
+            "path": "/integrations/sentry"
+          },
+          {
             "label": "Snowplow",
             "path": "/integrations/snowplow"
           },

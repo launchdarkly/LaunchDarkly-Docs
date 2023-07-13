@@ -278,6 +278,12 @@ const AllIntegrations = () => {
       svg: 'integrations/segment',
     },
     {
+      label: 'Sentry',
+      shortLabel: 'Sentry',
+      path: '/integrations/sentry',
+      svg: 'integrations/sentry',
+    },
+    {
       label: 'ServiceNow',
       shortLabel: 'ServiceNow',
       path: '/integrations/servicenow',

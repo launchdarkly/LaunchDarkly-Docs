@@ -1,0 +1,93 @@
+---
+path: /integrations/sentry
+title: Sentry
+description: This topic explains how to use the LaunchDarkly Sentry integration. Sentry is an application performance monitoring and error tracking tool. You can use Sentry to forward error events to a LaunchDarkly metric event name.
+published: true
+tags: ['sentry', 'integration']
+site: launchDarklyOnly
+---
+
+<Callout intent="info">
+<CalloutTitle>This feature is for Early Access Program customers only</CalloutTitle>
+<CalloutDescription>
+
+The Sentry integration is only available to members of LaunchDarkly's Early Access Program (EAP). If you want access to this feature, [join the EAP](https://launchdarkly.com/eap).
+
+</CalloutDescription>
+</Callout>
+
+{/* When Sentry is GA, add back the Pro/Ent-only callout here */}
+
+## Overview
+
+This topic explains how to use the LaunchDarkly Sentry integration. Sentry is an application performance monitoring and error tracking tool. You can use Sentry to forward error events to a LaunchDarkly metric event name. You must be using LaunchDarkly's Experimentation product to integrate with Sentry. To learn more, read [About Experimentation](/home/about-experimentation).
+
+![An installed Sentry integration.](sentry-integration.png)
+
+## Installation
+
+To install the Sentry integration:
+
+1. Log in to LaunchDarkly.
+2. Navigate to the public integrations directory in Sentry's application.
+3. Click **Install**.
+
+You are redirected to the Sentry integration panel in LaunchDarkly.
+
+## Configuring the integration
+
+There are two pieces of configuration required for the Sentry integration to work: event names and environment mappings.
+
+### Event names
+
+Sentry uses the event name to aggregate events for Experimentation. We recommend using an event name of `sentry-errors` or similar, but you can use any event name you like.
+
+![The "Metric event name" section of the integration panel.](sentry-metric-event-name.png)
+
+A LaunchDarkly metric must exist with the designated event name for the integration to work in a given project. If there is not an existing custom conversion metric with the chosen event name, create a custom conversion metric with that event name. To learn how, read [Custom conversion metrics](/home/creating-experiments/metrics/custom-conversion/).
+
+When you set a metric event name, a green check mark appears in the integration panel.
+
+### Environment mappings
+
+The Sentry integration requires you to map Sentry environments to LaunchDarkly environments. This allows you to send Sentry errors to different LaunchDarkly environments. For example, you can send errors from your production Sentry environment to your production LaunchDarkly environment, and errors from your staging Sentry environment to your staging LaunchDarkly environment.
+
+To map Sentry environments to LaunchDarkly environments:
+
+1. Navigate to the Integrations page in LaunchDarkly. 
+2. Open the Sentry integration panel.
+3. In the "Environment mappings" section, choose a LaunchDarkly project and environment from the **Project - Environment** menu.
+4. Choose a Sentry project and environment from the **Sentry Project - Environment** menu.
+5. Click **Create**.
+
+The sets of projects and environments are now mapped to each other.
+
+![Sentry environment mappings.](sentry-environment-mappings.png)
+
+If an environment mapping is highlighted in red, it means that there is no metric for the event name in that LaunchDarkly project.
+
+## Attaching LaunchDarkly contexts to Sentry error events
+
+<Callout intent="info">
+<CalloutTitle>Sentry custom contexts are not the same as LaunchDarkly contexts</CalloutTitle>
+<CalloutDescription>
+
+Sentry provides functionality called "custom contexts." These are distinct from LaunchDarkly's custom contexts. In this section, "custom contexts" refers to the Sentry functionality. 
+
+</CalloutDescription>
+</Callout>
+
+Sentry provides a `custom context` field which lets you attach arbitrary data to a Sentry event. To use the Sentry integration, you must name the Sentry `custom context` field `launchdarklyContext` and then attach LaunchDarkly contexts to error events. To learn how, read Sentry's [Add Context docs](https://docs.sentry.io/platform-redirect/?next=/enriching-events/context/#extra-context). 
+
+<Callout intent="warning">
+<CalloutTitle>You must name the Sentry custom context <code>launchdarklyContext</code></CalloutTitle>
+<CalloutDescription>
+
+In Sentry, you must name the Sentry custom context <code>launchdarklyContext</code>. If the Sentry custom context is not present or you have named it something else, LaunchDarkly will ignore the error event.
+
+</CalloutDescription>
+</Callout>
+
+## Using the integration
+
+After you create the environment mappings, set the metric event name, create metrics for your desired projects, and add your LaunchDarkly contexts to the Sentry SDK, you can use the metric in LaunchDarkly experiments the same way as any other metric. When you configure an experiment to use a Sentry error metric, error events will flow from Sentry into that metric.
