@@ -777,6 +777,7 @@
       {
         "label": "Collaboration tools",
         "path": "/integrations/collaboration",
+        "svg": "people",
         "items": [
           {
             "label": "Microsoft Teams",
@@ -839,6 +840,7 @@
       {
         "label": "Edge tools",
         "path": "/integrations/edge",
+        "svg": "database-export",
         "items": [
           {
             "label": "Akamai",
@@ -857,6 +859,7 @@
       {
         "label": "Environments as a service",
         "path": "/integrations/eaas",
+        "svg": "antenna",
         "items": [
           {
             "label": "Okteto",
@@ -875,6 +878,7 @@
       {
         "label": "Experimentation tools",
         "path": "/integrations/experimentation",
+        "svg": "chart-areaspline",
         "items": [
           {
             "label": "Census",
@@ -897,6 +901,7 @@
       {
         "label": "IDE connectors",
         "path": "/integrations/ide",
+        "svg": "documents",
         "items": [
           {
             "label": "IntelliJ IDEA",
@@ -911,6 +916,7 @@
       {
         "label": "Observability tools",
         "path": "/integrations/observability",
+        "svg": "bullseye-arrow",
         "items": [
           {
             "label": "AppDynamics",
@@ -1019,6 +1025,7 @@
       {
         "label": "Workflow management tools",
         "path": "/integrations/workflow",
+        "svg": "merge",
         "items": [
           {
             "label": "Azure DevOps",
@@ -1063,6 +1070,7 @@
       {
         "label": "More integrations",
         "path": "/integrations/more",
+        "svg": "arrows",
         "items": [
           {
             "label": "Ansible Collection",
@@ -1126,15 +1134,18 @@
       },
       {
         "label": "Managing integrations",
-        "path": "/integrations/managing"
+        "path": "/integrations/managing",
+        "svg": "puzzle-variation"
       },
       {
         "label": "Using the LaunchDarkly integration framework",
-        "path": "/integrations/building-integrations"
+        "path": "/integrations/building-integrations",
+        "svg": "menu"
       },
       {
         "label": "Building partner integrations",
         "path": "/integrations/partner-integrations",
+        "svg": "bank-account",
         "items": [
           {
             "label": "Getting started",
