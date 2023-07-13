@@ -5,6 +5,8 @@ description: This topic explains how to integrate LaunchDarkly with Microsoft Az
 published: true
 tags: ['azure', 'sso', 'enterprise', 'attribute', 'context', 'idp', 'user']
 ---
+import { docsEnableScimForAzure } from '@/flags'
+
 
 <Callout intent="primary">
 <CalloutTitle>Support for Azure Active Directory is an Enterprise feature</CalloutTitle>
@@ -34,6 +36,8 @@ To integrate LaunchDarkly with Azure AD:
 
 4. Search for the LaunchDarkly application.
 5. After you add it, follow the [Azure LaunchDarkly Application Tutorial](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-saas-launchdarkly-tutorial).
+
+If your instance of Azure AD manages multiple LaunchDarkly accounts, contact [Support](https://support.launchdarkly.com/hc/en-us/requests/new).
 
 <Callout intent="info">
 <CalloutTitle>Azure AD user identifier guidelines</CalloutTitle>
@@ -72,6 +76,93 @@ SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all 
 
 </CalloutDescription>
 </Callout>
+
+<Feature flag={docsEnableScimForAzure} showWhenVariation={true}>
+
+## Using Azure AD to manage LaunchDarkly members with SCIM
+
+<Callout intent="primary">
+<CalloutTitle>SCIM-based user provisioning is an Enterprise feature</CalloutTitle>
+<CalloutDescription>
+
+SCIM facilitates _automatic user provisioning_, which means your IdP can create, update, and deactivate LaunchDarkly members before the first time a user authenticates in LaunchDarkly. User provisioning with SCIM is available to customers on an Enterprise plan. To learn more, [read about our pricing](https://launchdarkly.com/pricing/). To upgrade your plan, [contact Sales](https://launchdarkly.com/contact-sales/).
+
+</CalloutDescription>
+</Callout>
+
+<Callout intent="alert">
+<CalloutTitle>Errors due to more than one SCIM connection</CalloutTitle>
+<CalloutDescription>
+
+If you get an error during configuration that you cannot add an additional SCIM connection, go to the **Security** tab in LaunchDarkly's **Account settings** and click **Disconnect SCIM.** This allows you to connect Azure's SCIM-based protocols to LaunchDarkly.
+
+</CalloutDescription>
+</Callout>
+
+You can use SCIM to connect the LaunchDarkly app to Azure AD. This lets you provision, manage, and deprovision LaunchDarkly account members in Azure. If you have not configured SAML SSO for LaunchDarkly in Azure, you must do that first. To learn how, read the [Azure LaunchDarkly Application Tutorial](https://docs.microsoft.com/en-us/azure/active-directory/active-directory-saas-launchdarkly-tutorial).
+
+To grant Azure permission to manage account members:
+
+1. Navigate to the LaunchDarkly app in the Azure portal.
+2. Select the **Provisioning** tab and click the **Get started** button.
+
+![The Azure application's Manage options with the Provisioning option called out.](azure-provisioning-tab.png)
+
+3. Set the **Provision Mode** to automatic.
+
+![The Azure Provisioning Mode dropdown list with the Automatic option called out.](azure-provisioning-mode.png)
+
+4. Under the Admin Credentials section, click **Authorize**. A new browser window appears describing what permissions Azure requires to integrate with LaunchDarkly. Review the permissions and verify that you are comfortable granting them.
+{/* cSpell:disable  TKTK: add screenshots of authorize section when we can get them cSpell:enable */}
+5. In the Azure portal, click **Test Connection** to ensure Azure AD can connect to your LaunchDarkly app.
+6. Select **Save**.
+7. Under the Mappings section, select **Provision Azure Active Directory Users**.
+8. In the Attribute Mappings section, review the user attributes that will be synchronized from Azure AD to LaunchDarkly. The matching attribute should be an email address. For the full list of custom attributes that LaunchDarkly supports, read [Setting custom attributes](/home/account-security/sso/saml#setting-custom-attributes).
+
+![The Azure Attribute Mappings section within provisioning, with the relevant attributes for LaunchDarkly shown.](azure-attribute-mappings.png)
+
+9. To configure scoping filters, refer to the instructions provided in Azure's [Scoping filter tutorial](https://learn.microsoft.com/en-us/azure/active-directory/app-provisioning/define-conditional-rules-for-provisioning-user-accounts?pivots=app-provisioning).
+10. To enable the Azure AD provisioning service for LaunchDarkly, change the Provisioning Status to **On** in the Settings section.
+
+![The Azure Provisioning Status section within provisioning settings, with the status set to On.](azure-provisioning-status.png)
+
+11. Define the users and/or groups that you would like to provision to LaunchDarkly by choosing the desired values in Scope in the Settings section.
+
+![The Azure Scope section within provisioning settings, with the available scoping options shown.](azure-scope-settings.png)
+
+12. When you are ready to provision, click **Save**.
+
+This operation starts the initial synchronization cycle of all users and groups defined in Scope in the Settings section. The initial cycle takes longer to perform than subsequent cycles, which occur approximately every 40 minutes as long as the Azure AD provisioning service is running.
+
+## Assigning custom roles in Azure
+
+You can assign custom roles that you created in LaunchDarkly to account members through the Azure UI. For more details about the available custom attributes LaunchDarkly supports, read [Setting custom attributes](/home/account-security/sso/saml#setting-custom-attributes).
+
+<Callout intent="info">
+<CalloutTitle>If you use your IdP to manage account members, you cannot change back to LaunchDarkly</CalloutTitle>
+<CalloutDescription>
+
+SCIM setup takes precedence over LaunchDarkly's configuration options. If you begin to manage account members and their role assignment in your IdP, you must continue managing them in Azure for additional changes to take effect.
+
+</CalloutDescription>
+</Callout>
+
+## Using Azure to manage LaunchDarkly teams with SCIM
+
+LaunchDarkly also supports [using a group to manage access with Azure](https://learn.microsoft.com/en-us/azure/active-directory/enterprise-users/groups-saasapps), which adds the ability to create teams within LaunchDarkly based off of Azure security groups. To learn more about LaunchDarkly teams, read [Teams](/home/teams).
+
+To use team sync, you must have administrator access in LaunchDarkly and you must have configured SCIM for your LaunchDarkly account.
+
+To turn on team sync in LaunchDarkly:
+
+1. Log in to LaunchDarkly as an owner or admin.
+2. Navigate to the "SSO management" section of the **Security** tab on the **Account settings** page.
+3. Click **Turn on team sync**. A confirmation dialog appears.
+4. Click **Turn on team sync**.
+
+You can now manage teams within the admin portal of Azure. Teams you have synced with Azure have limited team management permissions in LaunchDarkly.
+
+</Feature>
 
 ## Setting up custom roles for Azure Security Groups
 

@@ -5,6 +5,7 @@ description: This topic explains what Single Sign-On (SSO) features are availabl
 published: true
 tags: ['sso', 'enterprise', 'admin', 'member', 'idp']
 ---
+import { docsEnableScimForAzure } from '@/flags'
 
 <Callout intent="primary">
 <CalloutTitle>Single sign-on is an Enterprise feature and is available to Starter and Pro plans as an add-on</CalloutTitle>
@@ -73,9 +74,31 @@ We provide support for the following IdP connectors:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
+<Feature flag={docsEnableScimForAzure} showWhenVariation={true}>
     <TableRow>
       <TableCell>
-      Azure
+      Azure AD
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+      <TableCell>
+      </TableCell>
+      <TableCell>
+        <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
+      </TableCell>
+    </TableRow>
+</Feature>
+<Feature flag={docsEnableScimForAzure} showWhenVariation={false}>
+    <TableRow>
+      <TableCell>
+      Azure AD
       </TableCell>
       <TableCell>
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
@@ -90,6 +113,7 @@ We provide support for the following IdP connectors:
         <Icon name="checkbox-marked-circle" height="1.5rem" fill="primarySafe"></Icon>
       </TableCell>
     </TableRow>
+</Feature>
     <TableRow>
       <TableCell>
       Google Apps

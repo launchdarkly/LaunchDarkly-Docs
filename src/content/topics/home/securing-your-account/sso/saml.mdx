@@ -19,7 +19,7 @@ To set up a LaunchDarkly connection, follow the instructions for your chosen IdP
 We provide support for the following IdP connectors:
 
 * [ADFS](/home/account-security/adfs)
-* [Azure](/home/account-security/azure)
+* [Azure AD](/home/account-security/azure)
 * [Google Apps](/home/account-security/google)
 * [Okta](/home/account-security/okta#configuring-okta-saml-sso-for-launchdarkly)
 * [OneLogin](/home/account-security/onelogin#adding-a-launchdarkly-saml-application)
@@ -122,17 +122,17 @@ These attributes are available for SAML SSO provisioning and SCIM provisioning:
     <TableRow>
       <TableCell>role</TableCell>
       <TableCell>string</TableCell>
-      <TableCell>SSO & SCIM</TableCell>
+      <TableCell>SSO and SCIM</TableCell>
       <TableCell>
-        One of the built-in LaunchDarkly roles: <code>reader</code>, <code>writer</code>, <code>admin</code>, and for some customers, <code>no_access</code>. If unspecified, the default role is <code>reader</code>.
+        One of the built-in LaunchDarkly roles: <code>reader</code>, <code>writer</code>, <code>admin</code>, and for some customers, <code>no_access</code>. If unspecified, the default role is <code>reader</code>. <br/><br/>SCIM attribute name: <code>urn:ietf:params:scim:schemas:extension:launchdarkly:2.0:User:role</code>
       </TableCell>
     </TableRow>
     <TableRow>
       <TableCell>customRole</TableCell>
       <TableCell>String array, or comma-separated string</TableCell>
-      <TableCell>SSO & SCIM</TableCell>
+      <TableCell>SSO and SCIM</TableCell>
       <TableCell>
-        A list of the keys of the custom roles to assign to the account member. These replace the member's existing custom roles. If a member has any custom roles, they supersede the built-in role. The elements of the <code>customRole</code> list are case-sensitive, and each element of the list must match a custom role key in LaunchDarkly exactly.
+        A list of the keys of the custom roles to assign to the account member. These replace the member's existing custom roles. If a member has any custom roles, they supersede the built-in role. The elements of the <code>customRole</code> list are case-sensitive, and each element of the list must match a custom role key in LaunchDarkly exactly. <br/><br/>SCIM attribute name: <code>urn:ietf:params:scim:schemas:extension:launchdarkly:2.0:User:customRole</code>
       </TableCell>
     </TableRow>
     <TableRow>

@@ -5,6 +5,7 @@ description: This topic explains how to enable SCIM user provisioning to work wi
 published: true
 tags: ['scim', 'sso', 'idp']
 ---
+import { docsEnableScimForAzure } from '@/flags'
 
 ## Overview
 
@@ -36,8 +37,20 @@ LaunchDarkly has a SCIM API available to allow for user provisioning of account 
 
 We have pre-built integrations with the following providers:
 
+<Feature flag={docsEnableScimForAzure} showWhenVariation={true}>
+
+* [Azure AD](/home/account-security/azure)
 * [Okta](/home/account-security/okta)
 * [OneLogin](/home/account-security/onelogin)
+
+</Feature>
+
+<Feature flag={docsEnableScimForAzure} showWhenVariation={false}>
+
+* [Okta](/home/account-security/okta)
+* [OneLogin](/home/account-security/onelogin)
+
+</Feature>
 
 You may also configure your provider manually with the following information. Specific names for these fields may vary by IdP:
 
