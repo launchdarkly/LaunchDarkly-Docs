@@ -10,11 +10,11 @@ tags: ['relay proxy', 'sdk']
 
 This topic explains how to configure LaunchDarkly SDKs to connect to your Relay Proxy.
 
-The Relay Proxy lets multiple servers connect to a local stream instead of making a large number of outbound connections to LaunchDarkly's streaming service. To learn more, read [The Relay Proxy](/home/relay-proxy).
+The Relay Proxy is a small Go application that lets multiple servers connect to a local stream instead of making a large number of outbound connections to LaunchDarkly's streaming service. To learn more, read [The Relay Proxy](/home/relay-proxy).
 
 When you use the Relay Proxy, there are two choices you need to make:
 
-* What mode will the Relay Proxy run in?
+* Will the Relay Proxy run in proxy mode or daemon mode?
 * Will the Relay Proxy handle your analytics events?
 
 Your decisions determine the details of how you need to configure an SDK to use the Relay Proxy.

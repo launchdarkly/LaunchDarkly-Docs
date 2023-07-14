@@ -222,7 +222,13 @@ The downside to bootstrapping using server-rendered content is that it requires 
 
 All of the server-side SDKs have a function, named some variation of `allFlagsState`, to evaluate flags on behalf of a specified context. We recommend populating the initial set of bootstrap values with a JSON object containing flag metadata derived from calling the server-side SDK's all flags method.
 
-If your back end passes values to your front end on page load, you can call your server-side SDK's all flags function on page load and pass the results as a parameter to your front-end initialization code. To learn more, read [Getting all flags](/sdk/features/all-flags).
+If your back end passes values to your front end on page load, you can call your server-side SDK's all flags function on page load and pass the results as a parameter to your front-end initialization code.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Getting all flags](/sdk/features/all-flags)
+
+</LearnMoreSdk>
 
 Here's an example of how to bootstrap from a server:
 
@@ -265,7 +271,11 @@ onPageLoad({
 
 All LaunchDarkly server-side SDKs can evaluate all flags on a context's behalf. These flags can then be combined with the HTML response.
 
-To learn more, read about [bootstrapping with JavaScript](/sdk/features/bootstrapping#javascript).
+<LearnMoreSdk>
+
+Configure your SDK: [Bootstrapping with JavaScript](/sdk/features/bootstrapping#javascript)
+
+</LearnMoreSdk>
 
 ## Timing when your site renders
 
@@ -312,7 +322,11 @@ ldclient.on('change:flag-key-123abc', function(value, previous) {
 
 Use this technique to release features to your clients in real-time.
 
-To learn more, read [Subscribing to flag changes](/sdk/features/flag-changes#javascript).
+<LearnMoreSdk>
+
+Configure your SDK: [Subscribing to flag changes](/sdk/features/flag-changes#javascript)
+
+</LearnMoreSdk>
 
 ## Using React
 

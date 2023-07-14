@@ -514,7 +514,11 @@ exports.handler = async (event) => {
 </CSTab>
 </CodeSample>
 
-To learn more, read [Flushing events](/sdk/features/flush).
+<LearnMoreSdk>
+
+Try it in your SDK: [Flushing events](/sdk/features/flush)
+
+</LearnMoreSdk>
 
 While this works, it has also effectively eliminated the buffer entirely since all events will be flushed on every invocation, making a call to LaunchDarkly's servers in the process. This may not be the ideal solution for you, but there's another option.
 

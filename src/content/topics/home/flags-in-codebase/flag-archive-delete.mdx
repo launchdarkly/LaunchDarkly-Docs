@@ -16,7 +16,13 @@ LaunchDarkly will not let you archive a flag that is a prerequisite of other fla
 
 When you archive a flag in LaunchDarkly, you should also remove the flag from your code. LaunchDarkly's code references feature can help you quickly identify all the places a flag is referenced in your code. To learn more, read [Code references](/home/code/code-references).
 
-If you do not remove a flag from your code after you archive it, then all end users encountering the feature will receive the flag's fallback value. To learn more about fallback values, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+If you do not remove a flag from your code after you archive it, then all end users encountering the feature will receive the flag's fallback value.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Configuring variations](/sdk/features/evaluating#configuring-variations)
+
+</LearnMoreSdk>
 
 You can delete an archived flag after you determine your project no longer needs it.
 

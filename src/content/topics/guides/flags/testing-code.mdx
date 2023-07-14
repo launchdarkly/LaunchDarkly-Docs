@@ -32,7 +32,13 @@ Flag variations let you use one flag to serve multiple variations of a feature t
 
 ### Fallback values
 
-Fallback values are what your app serves to a context if it can't evaluate a flag, such as if your app can’t connect to LaunchDarkly. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+A fallback value is the variation your app serves to a context if it can't evaluate a flag, such as if your app can’t connect to LaunchDarkly. Configure your flags' fallback values within your SDK.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Configuring variations](/sdk/features/evaluating#configuring-variations)
+
+</LearnMoreSdk>
 
 ### Flag targeting
 
@@ -70,7 +76,13 @@ You can write unit tests for individual pieces of code in your application and t
 
 You don’t want to connect to a LaunchDarkly SDK when running unit tests because you can’t ensure the values you’re pulling into your test will be consistent. You can use a mock test instead, which prevents variation in the values you’re using. To learn more, read [Mock testing](#mock-testing).
 
-You can also use a test data source to mock the behavior of a LaunchDarkly SDK so it has predictable behavior when evaluating flags. However, not all SDKs support using a test data source. To learn more, read [Test data sources](/sdk/features/test-data-sources).
+You can also use a test data source to mock the behavior of a LaunchDarkly SDK so it has predictable behavior when evaluating flags. However, not all SDKs support using a test data source.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Test data sources](/sdk/features/test-data-sources)
+
+</LearnMoreSdk>
 
 ### Example unit test
 
@@ -175,7 +187,13 @@ To keep your input consistent, you should use one of the following methods to ge
 
 ### Reading flags from a file
 
-Reading flags from a file is our recommended approach for testing with feature flags without connecting to LaunchDarkly. With this method, you configure your SDK to read from a file instead of connecting to LaunchDarkly. Reading from a file allows you to run tests in a local environment without connecting to an external network. However, not all SDKs support using flag files. To learn more, read [Reading flags from a file](/sdk/features/flags-from-files).
+Reading flags from a file is our recommended approach for testing with feature flags without connecting to LaunchDarkly. With this method, you configure your SDK to read from a file instead of connecting to LaunchDarkly. Reading from a file allows you to run tests in a local environment without connecting to an external network. However, not all SDKs support using flag files.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Reading flags from a file](/sdk/features/flags-from-files)
+
+</LearnMoreSdk>
 
 ### Using a dedicated LaunchDarkly environment
 
@@ -202,7 +220,13 @@ Here are some examples:
 
 ### Bootstrapping
 
-The bootstrapping feature lets you provide browser-based SDKs with an initial set of flag values. To learn more, read [Bootstrapping](/sdk/features/bootstrapping).
+The bootstrapping feature lets you provide browser-based SDKs with an initial set of flag values.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Bootstrapping](/sdk/features/bootstrapping)
+
+</LearnMoreSdk>
 
 ### Using the Relay Proxy in offline mode
 

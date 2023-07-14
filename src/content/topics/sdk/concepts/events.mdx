@@ -54,15 +54,33 @@ Here is a list of LaunchDarkly features that rely on analytics events:
 
 Server-side, client-side, and mobile LaunchDarkly SDKs automatically send pending analytics events to LaunchDarkly at regular intervals. This is called a flush interval. The buffer between flushes prevents the SDK from having to send constant network requests, and varies by SDK. By default, server-side SDK buffer time is usually a few seconds, and mobile SDK buffer time is around 30 seconds. A longer buffer time for mobile SDKs helps preserve the device's battery life, and events do not need to be flushed as often because events build up much more slowly for client-side SDKs with only a small number of contexts.
 
-You can configure your SDK's buffer time between flushes. To learn how, read [Configuration](/sdk/features/config).
+You can configure your SDK's buffer time between flushes.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Configuration](/sdk/features/config)
+
+</LearnMoreSdk>
 
 ### Manually calling flush
 
-You can manually call flush to send events immediately without waiting for the next interval. Most customers do not need to use the manual flush feature, but it can be useful if you test the SDK in a simulator. To learn how, read [Flushing events](/sdk/features/flush).
+You can manually call flush to send events immediately without waiting for the next interval. Most customers do not need to use the manual flush feature, but it can be useful if you test the SDK in a simulator.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Flushing events](/sdk/features/flush)
+
+</LearnMoreSdk>
 
 ### Shutting down your SDK
 
-You will not need to manually shut down your SDK in most situations. However, if your app dies while there are still events in the buffer, the SDK discards them. If you know your application is about to terminate, or if you're testing an app, you should manually shut down the LaunchDarkly client before quitting to ensure it delivers any pending analytics events to LaunchDarkly. To learn how, read [Shutting down](/sdk/features/shutdown).
+You will not need to manually shut down your SDK in most situations. However, if your app dies while there are still events in the buffer, the SDK discards them. If you know your application is about to terminate, or if you're testing an app, you should manually shut down the LaunchDarkly client before quitting to ensure it delivers any pending analytics events to LaunchDarkly.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Shutting down](/sdk/features/shutdown)
+
+</LearnMoreSdk>
 
 ### Disabling SDKs from sending events
 

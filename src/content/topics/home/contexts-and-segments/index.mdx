@@ -57,7 +57,13 @@ You can organize information about the different entities that encounter feature
 
 Each context also has a `key`. Each combination of `kind` and `key` must be unique across all your contexts. Other context attributes can be strings, booleans, numbers, arrays, or JSON objects. When you evaluate a feature flag within your application, the flag's targeting rules use information from one or more kinds of contexts. When you build your targeting rules, the attributes are automatically organized by context kind. To learn more, read [Targeting with flags](/home/flags/targeting).
 
-When you use the LaunchDarkly SDK to evaluate a flag, you provide an evaluation context to that call. To learn more, read [User and context configuration](/sdk/features/user-context-config).
+When you use the LaunchDarkly SDK to evaluate a flag, you provide an evaluation context to that call.
+
+<LearnMoreSdk>
+
+Configure your SDK: [User and context configuration](/sdk/features/user-context-config), [Evaluating flags](/sdk/features/evaluating)
+
+</LearnMoreSdk>
 
 After different contexts encounter your application, you can view them on the **Contexts** list. To learn more, read [The Contexts list](/home/contexts/contexts-list).
 

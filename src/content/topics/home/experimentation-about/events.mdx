@@ -65,7 +65,13 @@ Here are examples of each event:
 
 ### Understanding metric events
 
-Server-side, client-side, and mobile LaunchDarkly SDKs send `custom` metric events when you call the SDK's track method. To learn more about the track method, read [Sending custom events](/sdk/features/events).
+Server-side, client-side, and mobile LaunchDarkly SDKs send `custom` metric events when you call the SDK's track method.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Sending custom events](/sdk/features/events)
+
+</LearnMoreSdk>
 
 In addition, the JavaScript SDK also sends a `click` metric event when an end user clicks on a page URL or anchor tag that you have included in a click conversion metric, and sends a `page view` metric event when an end user visits a URL that you have included in a page view conversion metric.
 
@@ -77,7 +83,13 @@ If you prefer to import metric events from your existing data pipeline, read [Im
 
 Server-side, client-side, and mobile LaunchDarkly SDKs send a `feature` event when you call the SDK's `variation` method to evaluate a flag in an experiment. To learn more about the `variation` method, read [Evaluating flags](/sdk/features/evaluating).
 
-The JavaScript SDK and JavaScript-based SDKs also send a `feature` event when you call the SDK's `allFlags` method, unless you configure it not to. To learn more about the `allFlags` method, read [Getting all flags](/sdk/features/all-flags#javascript).
+The JavaScript SDK and JavaScript-based SDKs also send a `feature` event when you call the SDK's `allFlags` method, unless you configure it not to.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Getting all flags](/sdk/features/all-flags#javascript)
+
+</LearnMoreSdk>
 
 Although it is a JavaScript-based SDK, the React Web SDK's default configuration is to not send a event when you call the `allFlags` method. To learn more about events in the React Web SDK, read [Events](/sdk/client-side/react/react-web#events).
 
@@ -114,6 +126,10 @@ A conversion is when a user action provides a measurable value for a metric. For
 
 LaunchDarkly uses variation calls to correlate the variation an end user received to a conversion within a 90-day window. If there are more than 90 days between the time of a variation call and a track call on a user key, then LaunchDarkly does not register the metric in the experiment.
 
-To learn more about variation calls, read [Evaluating flags](/sdk/features/evaluating). To learn more about track calls, read [Sending custom events](/sdk/features/events).
+<LearnMoreSdk>
+
+Try it in your SDK: [Evaluating flags](/sdk/features/evaluating), [Sending custom events](/sdk/features/events)
+
+</LearnMoreSdk>
 
 In rare cases, unexpected behavior may cause an end user to receive multiple variations in the 90 days prior to a conversion. In these cases, LaunchDarkly attributes the conversion to the first variation the end user received in that 90-day period.

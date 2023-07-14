@@ -222,10 +222,17 @@ This diagram represents rule matching behavior:
 
 At each step in the process, if the context instance matches the rule, it receives the appropriate variation. If it does not match the rule, it moves on to the next rule.
 
+<LearnMoreSdk>
+
+Configure your SDK: [Configuring variations](/sdk/features/evaluating#configuring-variations)
+
+</LearnMoreSdk>
+
 Here is how a context instance moves through a flag evaluation:
 
-1. If your app can't connect to LaunchDarkly, the context receives the fallback value. Otherwise, it moves to the next step. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+1. If your app can't connect to LaunchDarkly, the context receives the fallback value. Otherwise, it moves to the next step.
 2. If the flag is off, the context receives the default off variation. Otherwise, it moves to the next step. To learn more, read [Setting default values](/home/flags/feature-flags#setting-default-values).
+
 3. If the flag has prerequisites, and the context doesn't meet the prerequisites, it receives the default off variation. Otherwise, it moves to the next step. To learn more, read [Flag prerequisites](/home/flags/prerequisites).
 4. If the context is individually targeted, it receives the chosen variation in the individual targeting rule. Otherwise, it moves to the next step. To learn more, read [Individual targeting](/home/flags/individual-targeting).
 5. If the context meets a flag rule, it receives the chosen variation. Otherwise, it moves to the next step. If there are multiple flag rules, the context moves through the rules from top to bottom.

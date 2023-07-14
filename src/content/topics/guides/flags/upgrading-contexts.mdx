@@ -28,7 +28,13 @@ In addition to built-in attributes, you can create your own custom attributes ac
 
 When you evaluate a feature flag within your application, the flag's targeting rules can use information from one or more kinds of contexts. For example, you might evaluate a flag using only the "user" context. Or, you might evaluate a flag using both the "user" context and the "device" context simultaneously. We refer to evaluations with more than one context as a multi-context. To learn more, read [Context attributes](/home/contexts/attributes).
 
-You can configure your SDKs to send multi-contexts to LaunchDarkly, or you can create multi-contexts when you use an SDK's identify method to associate two contexts together. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+You can configure your SDKs to send multi-contexts to LaunchDarkly, or you can create multi-contexts when you use an SDK's identify method to associate two contexts together.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Identifying and changing contexts](/sdk/features/identify)
+
+</LearnMoreSdk>
 
 ## Prerequisites
 
@@ -96,7 +102,13 @@ Not all SDKs support contexts at this time. If you are still using SDKs that do 
 
 Some SDK functionality is changing as part of upgrading to contexts. For a full list of changing features, [read your SDK's migration guide](/sdk).
 
-One significant feature change is that SDKs that support contexts no longer support user aliasing. Instead, if you want to associate two contexts with each other, you should identify a multi-context. Unlike the aliasing method, the association doesn't persist between calls. You must send the contexts you want to associate in each `variation` or `identify` call and each `track` call. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+One significant feature change is that SDKs that support contexts no longer support user aliasing. Instead, if you want to associate two contexts with each other, you should identify a multi-context. Unlike the aliasing method, the association doesn't persist between calls. You must send the contexts you want to associate in each `variation` or `identify` call and each `track` call.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Identifying and changing contexts](/sdk/features/identify)
+
+</LearnMoreSdk>
 
 ## Choose your context kinds
 
@@ -127,11 +139,15 @@ When you add contexts to your code, you can specify various attributes to differ
 
 Then, consider if you want to customize your application metadata. You can view your default application metadata on a context's details page under "From source:" as context instance versions. To learn more, read [The context details page](/home/contexts/context-details).
 
+<LearnMoreSdk>
+
+Configure your SDK: [Application metadata configuration](/sdk/features/app-config)
+
+</LearnMoreSdk>
+
 In this example, this context's instance version is "NodeJSClient":
 
 ![A user context with an instance version of "NodeJSClient."](contexts-details-instance-version.png)
-
-To learn how to customize your application metadata, read [Application metadata configuration](/sdk/features/app-config).
 
 ### When to use multi-contexts
 

@@ -83,7 +83,14 @@ Here's how to do this:
 
 1. Store a unique identifier for the anonymous end user. A session ID or UUID works well.
   * You can store this identifier in local storage or a cookie.
-  * If you are using a mobile SDK, the SDK can generate the unique identifier for you and use it as the context key. To learn more, read about [setting anonymous contexts in client-side SDKs](/sdk/features/anonymous#client-side-sdks).
+  * If you are using a mobile SDK, the SDK can generate the unique identifier for you and use it as the context key.
+
+  <LearnMoreSdk>
+
+  Configure your SDK: [Anonymous contexts in client-side SDKs](/sdk/features/anonymous#client-side-sdks)
+
+  </LearnMoreSdk>
+
 2. Use this unique identifier as both the context's key and an attribute in the user context until the end user logs in. The attribute can be named anything, for example, `uniqueId`.
 3. While the end user is logged in, set the context's key to their real (primary) context key, but continue to use the stored unique identifier as the context's `uniqueId` attribute.
 4. For all flags, or for those that may affect logged out users, set your flags to serve percentage rollouts based on the `uniqueId` attribute.
@@ -104,4 +111,10 @@ Here's how to do this:
 3. After the end user logs in, store their user information in a user context. Associate the device context and the user context with each other. To do this, identify a multi-context that includes both individual contexts when you want the association to occur.
 4. For all flags, or for those that may affect logged out users, set your flags to serve percentage rollouts based on the unique identifier in the device context.
 
-To learn more, read [Multi-contexts and context instances](/home/contexts/multi-contexts) and [Identifying and changing contexts](/sdk/features/identify).
+To learn more, read [Multi-contexts and context instances](/home/contexts/multi-contexts).
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Identifying and changing contexts](/sdk/features/identify)
+
+</LearnMoreSdk>

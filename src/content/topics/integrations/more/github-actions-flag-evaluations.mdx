@@ -82,7 +82,13 @@ We strongly recommend that you update the `uses` attribute value to reference th
 
 The workflow evaluates the flags listed under the `flags` key of the action. Each flag that the workflow evaluates must include a flag key and fallback value. 
 
-The flag key identifies the flag. The fallback value is served if LaunchDarkly is unreachable or if the flag does not have an off variation set. To learn more, read [Configuring variations](/sdk/features/evaluating#configuring-variations).
+The flag key identifies the flag. The SDK serves the fallback value if LaunchDarkly is unreachable or if the flag does not have an off variation set.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Configuring variations](/sdk/features/evaluating#configuring-variations)
+
+</LearnMoreSdk>
 
 In the example workflow above, the key is `test-boolean-flag` and the fallback value is `false`.
 

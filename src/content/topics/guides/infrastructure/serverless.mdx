@@ -173,7 +173,11 @@ Here is an image of the "Create a webhook" panel:
 
 Finally, with the persistent feature store active and continuously updated, you can configure the app to use the feature store instead of connecting to LaunchDarkly's servers. This is called "daemon mode."
 
-To learn more, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
+<LearnMoreSdk>
+
+Configure your SDK: [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode)
+
+</LearnMoreSdk>
 
 The app code retains the same structure as the example in Option 1 above, but with additional configuration to point at the feature store and enable daemon mode.
 
@@ -211,7 +215,13 @@ exports.handler = (event, context, callback) => {
 
 ## Sending analytics events to the Contexts list
 
-The **Contexts** list is populated with data from analytics events. You must call close in your SDK before shutting down to ensure the SDK sends analytics events and your **Contexts** list displays context data. To learn how, read [Shutting down](/sdk/features/shutdown).
+The **Contexts** list is populated with data from analytics events. You must call close in your SDK before shutting down to ensure the SDK sends analytics events and your **Contexts** list displays context data.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Shutting down](/sdk/features/shutdown)
+
+</LearnMoreSdk>
 
 To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 

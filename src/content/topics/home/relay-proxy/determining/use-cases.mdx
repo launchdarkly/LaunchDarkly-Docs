@@ -16,7 +16,13 @@ The LaunchDarkly client-side and server-side SDKs you use impact whether you sho
 
 The Relay Proxy does not scale well when it has to maintain streaming connections with a large number of client-side SDKs, including mobile SDKs. If you're utilizing LaunchDarkly's streaming architecture in a heavily-used client-side or mobile application, connecting directly to LaunchDarkly's main service may give you the best performance. You could also bootstrap flag rules from the server-side, without using the client-side SDK, in this situation.
 
-If you choose to use the Relay Proxy, you must configure your SDKs to connect to it. To learn how, read [Relay Proxy configuration](/sdk/features/relay-proxy-configuration).
+If you choose to use the Relay Proxy, you must configure your SDKs to connect to it.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
+
+</LearnMoreSdk>
 
 ## Common use cases for the Relay Proxy
 

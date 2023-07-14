@@ -23,7 +23,13 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 ## Tracking events
 
-The track feature lets you record actions your customers take in your application as events. You can connect these events to metrics in experiments in the flags list. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
+The track feature lets you record actions your customers take in your application as events. You can connect these events to metrics for use in experiments. To learn more, read [Creating metrics](/home/creating-experiments/metrics).
+
+This is an example of an event within a custom metric for use in Experimentation:
+
+![A custom metric event kind.](metrics-event-kind-custom.png)
+
+To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
 You can view events in the **Debugger** page.
 
@@ -203,9 +209,7 @@ To learn more, read the generated API documentation for [Swift](https://launchda
 
 <Details summary="Expand JavaScript code sample">
 
-You can record `custom` events using the `track` function. In LaunchDarkly, you can connect these events to metrics in experiments. To learn more, read [About Experimentation](/home/about-experimentation).
-
-Call `track` with the event name to record custom conversion metrics.
+You can record `custom` events using the `track` function. Call `track` with the event name to record custom conversion metrics.
 
 The second argument is optional. It assists with observational analytics for Data Export destinations. With Data Export, the second argument gives additional information without saving the data to the LaunchDarkly context.
 

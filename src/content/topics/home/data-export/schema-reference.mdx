@@ -431,7 +431,13 @@ An example `pageview` event is shown below:
 
 ## Custom events
 
-SDKs produce `custom` events when the client application calls the SDK's track method. To learn more, read [Sending custom events](/sdk/features/events).
+SDKs produce `custom` events when the client application calls the SDK's track method.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Sending custom events](/sdk/features/events)
+
+</LearnMoreSdk>
 
 <Callout intent="alert">
 <CalloutTitle>mParticle and Segment schema differences</CalloutTitle>
@@ -690,4 +696,11 @@ Here is a list of the `debug` event properties:
 * `creationDate`: When the SDK requested the feature flag, as UNIX epoch time in milliseconds.
 * `key`: The key of the feature flag requested.
 * `value`: The value of the feature flag returned by feature flag evaluation.
-* `default`: Optional. This will be `true` if the feature flag evaluation failed and the default flag value that your app passed into the SDK [evaluation](/sdk/features/evaluating) was used instead. This field will be `false` or omitted if the default flag value was not used.
+* `default`: Optional. This will be `true` if the feature flag evaluation failed and the SDK served the fallback value instead. This field will be `false` or omitted if the SDK did not serve the fallback value.
+
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Evaluating flags](/sdk/features/evaluating)
+
+</LearnMoreSdk>

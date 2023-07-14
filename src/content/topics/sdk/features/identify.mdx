@@ -27,6 +27,30 @@ The identify feature's behavior differs between client-side and server-side SDKs
 
 Client-side SDKs are configured to operate for one end user at a time, identified or anonymous. In these SDKs, the identify feature allows you to change the context, such as when an end user logs in or changes their settings. Identifying contexts and users causes LaunchDarkly to index them. To associate two contexts with each other, such as an end user before and after they log in, call identify with a multi-context that contains both contexts. The association doesn't persist between calls, so you must call identify with the multi-context each time.
 
+Here is an example of a multi-context:
+
+<CodeSample>
+<CSTab label="Example multi-context">
+
+```json
+"context": {
+  "kind": "multi",
+  "user": {
+    "key": "user-key-123abc",
+    "name": "Sandy",
+    "email": "sandy@example.com",
+    },
+  "device": {
+    "key": "device-key-123abc",
+    "type": "iPhone",
+    "deviceId": 12345
+    }
+}
+```
+
+</CSTab>
+</CodeSample>
+
 Server-side SDKs operate for multiple end users concurrently. Unlike in client-side SDKs, server-side SDKs do not have a notion of "changing the user context" because contexts or users are directly passed to client method invocations for actions such as evaluating flag variations. In server-side SDKs, the only impact of identifying contexts and users is that they are added to the **Contexts** and **Users** lists, respectively. However, in most applications this is not needed because they are automatically indexed when used for a flag evaluation. Instead, you should provide the evaluation object in a variation or all flags call to get the expected flag evaluation. To learn more, read [Evaluating flags](/sdk/features/evaluating) and [Getting all flags](/sdk/features/all-flags).
 
 To learn more about the differences in how SDKs identify and use users and contexts, read [Client-side and server-side SDKs](/sdk/concepts/client-side-server-side).

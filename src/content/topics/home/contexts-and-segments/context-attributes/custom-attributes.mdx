@@ -67,13 +67,23 @@ You can create custom attributes in two ways:
 
 When you configure attributes in your SDK, they will appear as an option in targeting rules after the SDK has passed those attributes to LaunchDarkly.
 
-To learn how to configure attributes within your SDK, read [User and context configuration](/sdk/features/user-context-config).
+<LearnMoreSdk>
+
+Configure your SDK: [User and context configuration](/sdk/features/user-context-config)
+
+</LearnMoreSdk>
 
 Attributes that you have configured in your SDK may not appear in the **Contexts** list or in a flag's targeting rules yet for the following reasons:
 - The SDK has not yet passed events containing the attribute to your current environment in LaunchDarkly.
 - The SDK sent the events very recently and LaunchDarkly has not processed them yet.
 - Ad blockers or proxies are preventing the events from reaching LaunchDarkly. If so, the SDK will still evaluate contexts correctly.
-- Your SDK is not configured to send events to LaunchDarkly. To learn more, read [Configuration](/sdk/features/config).
+- Your SDK is not configured to send events to LaunchDarkly.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Configuration](/sdk/features/config)
+
+</LearnMoreSdk>
 
 Projects and environments do not share custom attributes or values because the SDK key, mobile key, or client-side ID you configured the SDK with is environment-specific. To learn more about configuring these, read the "Getting started" section for [your SDK](/sdk).
 

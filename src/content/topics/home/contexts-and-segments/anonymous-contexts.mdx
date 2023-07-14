@@ -12,9 +12,29 @@ This topic explains what anonymous contexts are, how their information is handle
 
 You can designate any context as an anonymous context. Anonymous contexts work just like other contexts, except that they don't appear on your **Contexts** list in LaunchDarkly. You can't search for anonymous contexts on your **Contexts** list, and you can't search or autocomplete by anonymous context keys. Anonymous contexts still count toward your client-side MCI limit.
 
+Here is an example of an anonymous context:
+
+<CodeSample>
+<CSTab label="An anonymous user context">
+
+```json
+"context" = {
+  "kind": 'user',
+  "anonymous": true,
+  "key": 'anon-user-key-123abc' // some SDKs will generate this for you
+}
+```
+
+</CSTab>
+</CodeSample>
+
 Designating anonymous contexts prevents unauthenticated users from diluting useful data on user contexts in the **Contexts** list. You can set the key attribute to a unique value for each context, or you can have your client-side SDK generate a unique, random value for each anonymous context and set the key attribute for you.
 
-To learn how to create anonymous contexts, read your SDK-specific section in [Anonymous contexts and users](/sdk/features/anonymous).
+<LearnMoreSdk>
+
+Configure your SDK: [Anonymous contexts and users](/sdk/features/anonymous)
+
+</LearnMoreSdk>
 
 <Callout intent="info">
 <CalloutTitle>Ensuring customer privacy</CalloutTitle>
@@ -29,7 +49,13 @@ You can use anonymous contexts to hide personally identifiable information (PII)
 <CalloutTitle>Consider using multi-contexts</CalloutTitle>
 <CalloutDescription>
 
-On a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context so that it's no longer anonymous.
+On a sign-in page in a single-page app, you could represent the same person as an anonymous user before they log in, and a different user after they log in. You can initialize the client with an anonymous context with a context kind of "user." After the person logs in, you can update the user context so that it's no longer anonymous using your SDK's identify feature.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Identifying and changing contexts](/sdk/features/identify)
+
+</LearnMoreSdk>
 
 Alternatively, you could use a multi-context, that is, a set of several different contexts that you want to evaluate together. For example, as soon as an end user visits your app, you may initialize the client with a context using a context kind of "device." When the end user logs in, you now also have their user information. To learn more, read [Associating anonymous contexts with logged-in end users](#associating-anonymous-contexts-with-logged-in-end-users).
 
@@ -58,7 +84,13 @@ Anonymous contexts can raise your MCI count, but there are actions you can take 
 
 If you provide the anonymous context key yourself, you must ensure that the context uses that same key on each subsequent visit to avoid inflating your MCI.
 
-One strategy to make sure that you're using the same anonymous context key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into our client-side SDKs. If you use a client-side SDK and want to use a unique key for your anonymous contexts, you can defer key generation onto the SDK. To do this, build a context object and omit the key completely. The SDK generates a unique identifier for the context and persists this unique identifier in local storage. Each subsequent context evaluation without a context key uses that saved unique identifier. To learn more, read [Anonymous contexts and users](/sdk/features/anonymous).
+One strategy to make sure that you're using the same anonymous context key each time is to store the unique identifier in a cookie or local storage. Because this is such a common strategy, we've implemented it directly into our client-side SDKs. If you use a client-side SDK and want to use a unique key for your anonymous contexts, you can defer key generation onto the SDK. To do this, build a context object and omit the key completely. The SDK generates a unique identifier for the context and persists this unique identifier in local storage. Each subsequent context evaluation without a context key uses that saved unique identifier.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Anonymous contexts and users](/sdk/features/anonymous)
+
+</LearnMoreSdk>
 
 A challenge from using cookies or local storage is that they are optional. End users can turn them off. They are also often not observed by bots and site crawlers.
 
@@ -94,7 +126,13 @@ These features are affected when you use a shared key between anonymous contexts
 
 Before they log in, an end user might be represented by a device context. After they log in, they might be represented by two contexts, with one context kind based on their device and the second context kind based on their user information. This one person is now represented by two unique context keys. Both contexts are counted toward your MCI limit.
 
-If you want to associate two contexts with each other, you should identify a multi-context that includes both individual contexts when you want the association to occur. Unlike the aliasing method, the association doesn't persist between calls. You must send the contexts you want to associate in each `variation` or `identify` call and each `track` call. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+If you want to associate two contexts with each other, you should identify a multi-context that includes both individual contexts when you want the association to occur. Unlike the aliasing method, the association doesn't persist between calls. You must send the contexts you want to associate in each `variation` or `identify` call and each `track` call.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Identifying and changing contexts](/sdk/features/identify)
+
+</LearnMoreSdk>
 
 If you are not yet using an SDK version that supports contexts, you can associate an anonymous user with a specific, logged-in user using the `alias` method.
 

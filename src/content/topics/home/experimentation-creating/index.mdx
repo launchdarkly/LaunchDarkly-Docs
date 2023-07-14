@@ -41,7 +41,13 @@ To find the supported SDK versions, read [Prerequisites](/home/about-experimenta
 
 All of your SDKs must send events. If you have disabled sending events for testing purposes, you must re-enable it. To learn more about the events SDKs send to LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
-The all flags method sends events for some SDKs, but not others. For SDKs that do not send events with the all flags method, you must call the variation method instead. If you call the variation method, you must use the right variation type. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+The all flags method sends events for some SDKs, but not others. For SDKs that do not send events with the all flags method, you must call the variation method instead. If you call the variation method, you must use the right variation type.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Evaluating flags](/sdk/features/evaluating)
+
+</LearnMoreSdk>
 
 ### Your network must be allowed to send events
 
@@ -49,7 +55,13 @@ Your network must be allowed to send events to LaunchDarkly. Ensure that event s
 
 ### You must be using unique context keys
 
-Your anonymous contexts must have their own unique context keys to use Experimentation. To learn more, read [Anonymous contexts and users](/sdk/features/anonymous).
+To use Experimentation, you must configure your SDK to assign anonymous contexts their own unique context keys.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Anonymous contexts and users](/sdk/features/anonymous)
+
+</LearnMoreSdk>
 
 ### You must configure the Relay Proxy to send events
 

@@ -25,6 +25,8 @@ Creating contexts and evaluating flags based on them is supported in the latest 
 
 Feature flag variations determine what a context or user receives when they encounter a feature flag. Every flag has at least two variations, one for when the flag is off, and one for when it's on. To learn more, read [Creating flag variations](/home/flags/variations).
 
+This is an example of a flag with three variations:
+
 ![The "Variations" tab with multivariate flag variations displayed.](flag-variations-multivariate.png)
 
 Flags also have fallback values. The fallback value only returns if an error occurs. For example, the SDK serves the fallback value if LaunchDarkly is unreachable, the feature flag key doesn't exist, or the context or user doesn't have a key specified.

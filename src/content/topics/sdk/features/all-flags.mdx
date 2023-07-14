@@ -27,6 +27,10 @@ The all flags feature returns an object containing the variation values of all t
 
 Server-side SDKs also return metadata for use on the front end. You can use this metadata to provide bootstrap flag settings for LaunchDarkly's JavaScript SDK. To learn more, read the [JavaScript SDK reference](/sdk/client-side/javascript).
 
+You can find the expected flag values for a specific context on its details page:
+
+![The details page for a context.](context-details-expected-variations.png)
+
 The all flags method does not send analytics events to LaunchDarkly by default for most SDKs. The exceptions to this are Electron, JavaScript, Node.js (client-side), and Vue, which do send analytics events by default. For these SDKs, you can disable sending analytics events when calling the all flags method if needed. To learn more about what analytics events do in LaunchDarkly, read [Analytics events](/sdk/concepts/events).
 
 For client-side SDKs, the all flags feature may return a null value in cases where a flag's fallback value would be served to the end user.

@@ -58,9 +58,13 @@ After you have set up the conditions for your rule, you can decide to roll out o
 
 ## Viewing and managing contexts
 
-By default, SDKs send all of a context's attributes to LaunchDarkly. This data lets LaunchDarkly determine the expected flag variations for contexts and powers the autocomplete functionality throughout the LaunchDarkly UI.
+By default, SDKs send all of a context's attributes to LaunchDarkly. This data lets LaunchDarkly determine the expected flag variations for contexts and powers the autocomplete functionality throughout the LaunchDarkly UI. You can change the value of an attribute for a context at any time.
 
-You can change the value of an attribute for a context at any point. To learn more, read [Identifying and changing contexts](/sdk/features/identify).
+<LearnMoreSdk>
+
+Try it in your SDK: [Identifying and changing contexts](/sdk/features/identify)
+
+</LearnMoreSdk>
 
 You can access context detail pages from the **Contexts** list. To learn how, read [The Contexts list](/home/contexts/contexts-list).
 
@@ -95,7 +99,11 @@ There are multiple ways you can mark attributes as private:
 * You can mark an attribute as private within a particular context or context kind. You might use this if you want an "email" attribute to be private in a user context, but not in an organization context.
 * You can mark some portions of an attribute as private. For example, if you have one attribute for address, you could mark the "street" field of the address attribute as private, but not the "city" field. You can still use all parts of the address in targeting rules, but only the city would appear in the LaunchDarkly UI.
 
-To learn more about setting these configuration options, read [Private attributes](/sdk/features/private-attributes).
+<LearnMoreSdk>
+
+Configure your SDK: [Private attributes](/sdk/features/private-attributes)
+
+</LearnMoreSdk>
 
 <Callout intent="alert">
 <CalloutTitle>Implications of using private attributes</CalloutTitle>

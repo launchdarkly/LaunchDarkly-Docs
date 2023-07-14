@@ -26,7 +26,11 @@ Each SDK uses these values to determine where to request flag updates. Change th
 
 If the Relay Proxy is unreachable for any reason, then LaunchDarkly is unreachable. LaunchDarkly SDKs do not fall back to the LaunchDarkly service URIs if the Relay Proxy is unavailable.
 
-To learn more, read [Relay Proxy configuration](/sdk/features/relay-proxy-configuration).
+<LearnMoreSdk>
+
+Configure your SDK: [Relay Proxy configuration](/sdk/features/relay-proxy-configuration)
+
+</LearnMoreSdk>
 
 ## Configuring SDKs to use different modes
 
@@ -55,7 +59,13 @@ Here is a diagram showing how the Relay Proxy works in proxy mode:
 
 ![SDKs configured to use the Relay Proxy while in proxy mode.](relay-proxy-proxy-mode.png)
 
-You should not use a persistent feature store between the Relay Proxy and your application in proxy mode. 
+You should not use a persistent feature store between the Relay Proxy and your application in proxy mode.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Using proxy mode](/sdk/features/relay-proxy-configuration/proxy-mode)
+
+</LearnMoreSdk>
 
 To learn more, read the Relay Proxy GitHub repository's [Proxy mode](https://github.com/launchdarkly/ld-relay/blob/v7/docs/proxy-mode.md) and [Using TLS docs](https://github.com/launchdarkly/ld-relay/blob/v7/docs/tls.md).
 </Details>
@@ -76,8 +86,14 @@ Here is a diagram showing how the Relay Proxy works in daemon mode:
 
 To use daemon mode:
 
-1. Configure your SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store. To learn how, read [Storing data](/sdk/features/storing-data).
-2. Configure your SDK to use daemon mode. To learn how, read [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode).
+1. Configure your SDK to use a persistent data store. The SDK and the Relay Proxy must use the same data store.
+2. Configure your SDK to use daemon mode.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Storing data](/sdk/features/storing-data), [Using daemon mode](/sdk/features/relay-proxy-configuration/daemon-mode)
+
+</LearnMoreSdk>
 
 If you use LaunchDarkly in a serverless environment, we recommend using DynamoDB as a persistent feature store. In this scenario, the Relay Proxy’s purpose is to keep the feature store updated. To learn more about setting up a persistent feature store for use in daemon mode, read [Using a persistent feature store without connecting to LaunchDarkly](/sdk/concepts/data-stores#using-a-persistent-feature-store-without-connecting-to-launchdarkly). For a tutorial that demonstrates a persistent store set up in a serverless environment, read [Use a persistent feature store](/guides/infrastructure/serverless#option-2-use-a-persistent-feature-store).
 
@@ -154,13 +170,23 @@ If your SDKs are already configured to use the Relay Proxy without a data store,
 Here are the requirements for using Big Segments with client-side and server-side SDKs:
 
 - If you use a client-side SDK, there's no additional setup required to use Big Segments. However, if you use the Relay Proxy with a client-side SDK, the Relay Proxy must be configured to use persistent storage with Redis or DynamoDB.
-- If you use a server-side SDK, you must use the Relay Proxy and configure your server-side SDKs to use the same persistent storage as the Relay Proxy. To learn how to configure server-side SDKs for Big Segments, read [Big Segments](/sdk/features/big-segments).
+- If you use a server-side SDK, you must use the Relay Proxy and configure your server-side SDKs to use the same persistent storage as the Relay Proxy.
+
+<LearnMoreSdk>
+
+Configure your SDK: [Big Segments](/sdk/features/big-segments)
+
+</LearnMoreSdk>
 
 ### Server-side flag evaluation using Big Segments and the Relay Proxy
 
 In unusual cases, server-side SDKs may return incorrect evaluations if the required segments data is unavailable. If an SDK tries to evaluate a flag rule that depends on a Big Segment but the segment data is unavailable, it continues evaluating the rest of the rules and records this problem in the `EvaluationReason`. In this case, the evaluation will return the result based on the remaining flag rules instead of the fallback value. To understand when and if this is happening, you can add code that examines the `EvaluationReason`.
 
-To learn more, read [Big Segments](/home/contexts/big-segments) and [Evaluation reasons](/sdk/features/evaluation-reasons).
+<LearnMoreSdk>
+
+Try it in your SDK: [Evaluation reasons](/sdk/features/evaluation-reasons)
+
+</LearnMoreSdk>
 
 ## Securing connections to and from the Relay Proxy
 

@@ -66,7 +66,11 @@ To learn more, read [Environments](/home/organize/environments).
 
 An `evaluation` is what happens when your application's code sends the [LaunchDarkly SDK](#sdk) information about a particular [flag](#flag) and a particular [context](#context) that has encountered that flag, and the SDK sends back the value of the [flag variation](#variation) that the context should receive. We say that the SDK evaluates the flag, or that the flag has been evaluated for a particular context or customer.
 
-To learn more, read [Evaluating flags](/sdk/features/evaluating).
+<LearnMoreSdk>
+
+Try it in your SDK: [Evaluating flags](/sdk/features/evaluating)
+
+</LearnMoreSdk>
 
 ### Experiment
 
@@ -83,7 +87,13 @@ The `fallback value` is the flag [variation](#variation) that LaunchDarkly serve
 * If your application cannot connect to LaunchDarkly.
 * If your application can connect to LaunchDarkly, but the flag is toggled off and you have not specified a default off variation. To learn more, read [Setting the default off variation](/home/flags/targeting-rules#setting-the-default-off-variation).
 
-Regardless of how you configure targeting for your feature flag, each time you evaluate a flag from the SDK, you must include a fallback value as one of the parameters. To learn more, read [Evaluating flags](/sdk/features/evaluating).
+Regardless of how you configure targeting for your feature flag, each time you evaluate a flag from the SDK, you must include a fallback value as one of the parameters.
+
+<LearnMoreSdk>
+
+Try it in your SDK: [Evaluating flags](/sdk/features/evaluating)
+
+</LearnMoreSdk>
 
 ### Fallthrough rule
 
