@@ -28,6 +28,7 @@ appdynamics
 application id
 application version
 api
+api key
 apple
 application
 approval
@@ -310,6 +311,7 @@ sample ratio
 schema
 scim
 sdk
+sdk key
 secure
 securemodehash
 security

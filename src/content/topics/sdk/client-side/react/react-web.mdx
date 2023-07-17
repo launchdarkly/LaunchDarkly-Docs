@@ -419,7 +419,7 @@ These are the properties:
 - `clientSideID`: This is your project and environment specific client-side ID. This property is mandatory.
 - `context`: A LaunchDarkly [context](/home/contexts) object. This property is optional unless you are initializing in secure mode, in which case it is mandatory. Defaults to an anonymous user.
 - `options`: The LaunchDarkly JavaScript SDK initialization [options](/sdk/features/config#javascript). This property is optional.
-- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys) of flag keys when using the React SDK, or to [disable evaluation events on read](#events). This property is optional.
+- `reactOptions`: This property is specific to the React SDK. You can use this option to [disable automatic camel casing](#flag-keys-in-the-react-sdk) of flag keys when using the React SDK, or to [disable evaluation events on read](#events). This property is optional.
 - `deferInitialization`: This property allows you to defer SDK initialization until you define the `context` property. This property is optional, and is only available in `ProviderConfig`, when you initialize using `withLDProvider`.
 
   By deferring SDK initialization, you defer all steps which take place as part of SDK initialization, including reading flag values from local storage and sending the SDK's `ready` event.
@@ -505,7 +505,7 @@ Both `useFlags` and `useLDClient` use the Hooks API, which requires React versio
 
 For an example of how to use a custom hook, read [HooksDemo](https://github.com/launchdarkly/react-client-sdk/blob/main/examples/hoc/src/universal/hooksDemo.js).
 
-## Flag keys
+## Flag keys in the React SDK
 
 LaunchDarkly primarily identifies feature flags by a key which must contain only alphanumeric characters, dots (`.`), underscores (`_`), and dashes (`-`). These keys are used in the SDKs to identify flags, and in LaunchDarkly's [REST API](/home/connecting/api).
 

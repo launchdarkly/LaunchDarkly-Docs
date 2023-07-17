@@ -3,7 +3,7 @@ path: /home/organize/environments
 title: Environments
 description: This topic explains what environments are in LaunchDarkly and how to use them to manage different business areas or areas of your product lifecycle.
 published: true
-tags: ['environment', 'project', 'key', 'mci', 'clone', 'ttl', 'mau']
+tags: ['environment', 'project', 'key', 'sdk key', 'mci', 'clone', 'ttl', 'mau']
 ---
 
 ## Overview
@@ -172,9 +172,18 @@ Alternatively, customers on a Pro or Enterprise plan can use the REST API to mig
 
 To learn more about these endpoints, read [Get feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/getFeatureFlag) and [Update feature flag](https://apidocs.launchdarkly.com/tag/Feature-flags#operation/patchFeatureFlag).
 
-## Resetting an environment's key
+## Finding and resetting an environment's SDK key, mobile key, or client-side ID
 
-You can reset an SDK or mobile key for an environment from your **Account settings** page.
+You can view and reset the SDK key, mobile key, and client-side ID for an environment from your **Account settings** page.
+
+You need one of these keys when you set up your SDK. Which key you need depends on which SDK you use. To learn more about different SDK key types, read [Understanding the different types of SDKs](/sdk/concepts/client-side-server-side#understanding-the-different-types-of-sdks) and [Keys](/sdk/concepts/client-side-server-side#keys).
+
+To find an SDK key, mobile key, or client-side ID:
+
+1. Navigate to the the **Account settings** page.
+2. Click the **Projects** tab.
+3. Click the name of the project. The **Environments** tab appears.
+4. The "Keys" column displays the SDK key, mobile key, and client-side ID.
 
 To reset an SDK or mobile key:
 
@@ -190,8 +199,6 @@ To reset an SDK or mobile key:
 ![The SDK key reset dialog.](env-sdk-key-reset.png)
 
 7. Click **Reset**.
-
-To learn more about different SDK key types, read [Keys](/sdk/concepts/client-side-server-side#keys).
 
 <LearnMore>
 
