@@ -35,8 +35,8 @@ Access the list of public IP ranges from this URL:
 
 The public IP endpoint returns a JSON object with two attributes:
 
-- `addresses`: This element contains the IP addresses LaunchDarkly uses.
-- `outboundAddresses`: This element contains the IP addresses LaunchDarkly uses for outbound webhook-based notifications and integrations. LaunchDarkly uses these addresses when making calls to your network.
+- `addresses`: This element contains the IP addresses LaunchDarkly uses. These IP addresses receive HTTPS connections your SDKs initiate through port 443. Configure your firewalls and proxies to allow persistent outbound connections so your SDKs can subscribe to updates.
+- `outboundAddresses`: This element contains the IP addresses LaunchDarkly uses for outbound webhook-based notifications and integrations. LaunchDarkly uses these addresses when making calls to your network. Add each outbound address to your allow list individually.
 
 ## Updates
 
