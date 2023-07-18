@@ -68,7 +68,7 @@ These are the practices we recommend to avoid conflicts that can arise when some
 
 You don’t need to store individual flag details in Terraform to use LaunchDarkly's Terraform provider effectively.
 
-Here's a common scenario for engineering teams collaborating on a software product: the automatic creation of  development instances and associated LaunchDarkly environments.
+Here's a common scenario for engineering teams collaborating on a software product: the automatic creation of development instances and associated LaunchDarkly environments.
 
 Each developer on the team should have their own running instance of the product with which they can experiment. Each instance requires its own set of resources, such as databases, static files, worker processes, and feature flags. The instance is created together with its resources, which include a LaunchDarkly environment. Each instance is given a unique identifier which includes the name of the developer for whom it was created.
 
@@ -123,6 +123,8 @@ resource "launchdarkly_environment" "downtown" {
 </CodeSample>
 
 In the example above, each environment is given a unique name that includes the developer’s name in the `key` and `name` properties. There's even a different color for each environment, which is derived by calculating the [MD5 hash](https://www.makeuseof.com/tag/md5-hash-stuff-means-technology-explained/) of the developer name and extracting the first six hexadecimal digits.
+
+For additional ways to approach this scenario, read [How to create multiple environments using the Terraform resource `launchdarkly_project`](https://support.launchdarkly.com/hc/en-us/articles/13196983496475-How-to-create-multiple-environments-using-the-Terraform-resource-launchdarkly-project).
 
 ## Example 2: Managing and protecting flags without changing their state
 
