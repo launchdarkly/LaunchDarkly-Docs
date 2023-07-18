@@ -39,6 +39,16 @@ For the Vercel integration to work, you need a Vercel account with at least one 
 
 You can install a Vercel integration on the [LaunchDarkly](https://vercel.com/integrations/launchdarkly) page in the Vercel integrations marketplace.
 
+<Callout intent="info">
+  <CalloutTitle>Vercel Edge Config size limits</CalloutTitle>
+  <CalloutDescription>
+
+Vercel Edge Configs enforce size limits that might be smaller than your LaunchDarkly flag data in a given environment. We recommend using a dedicated Edge Config for LaunchDarkly environments.
+To learn more, read about [Edge Config limits and pricing](https://vercel.com/docs/storage/edge-config/edge-config-limits#).
+
+  </CalloutDescription>
+</Callout>
+
 To install a Vercel integration for your environment:
 
 1. Navigate to [Vercel's **Integrations** page for LaunchDarkly](https://vercel.com/integrations/launchdarkly).
