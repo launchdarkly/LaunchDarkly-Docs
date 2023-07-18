@@ -12,7 +12,7 @@ This topic explains how to use the feature stores integration framework capabili
 
 ## Using feature stores
 
-Feature stores let LaunchDarkly to write feature flag data to a given provider. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
+Feature stores let LaunchDarkly write feature flag data to a given provider. To learn more, read [Persistent data stores](/sdk/concepts/data-stores).
 
 The feature store capability lets you to specify an endpoint that can receive a payload containing up-to-date flag data from LaunchDarkly.
 
@@ -31,20 +31,20 @@ In addition to the form variables defined in your manifest, you can use the spec
 
 ### The validation request property
 
-Specifying an optional validation request lets members to verify that they have properly filled out the details to correctly make a request.
+Specifying an optional validation request lets members verify that they have properly filled out the details to correctly make a request.
 
 The `parser` object lets LaunchDarkly interpret the response of the validation request. It allows a mapping of success and errors for the given response body of the request in the form of a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). The `parser` object has two properties: a required `success` and an optional `error`.
 
-Here is an example `parse` object:
+Here is an example `parser` object:
 
 <CodeSample>
-<CSTab label="A parse object">
+<CSTab label="A parser object">
 
 ```json
-    "parser": {
-      "success": "/success",
-      "error": "/error"
-    },
+"parser": {
+    "success": "/success",
+    "error": "/error"
+},
 ```
 
 </CSTab>
