@@ -35,16 +35,16 @@ Specifying an optional validation request lets members verify that they have pro
 
 The `parser` object lets LaunchDarkly interpret the response of the validation request. It allows a mapping of success and errors for the given response body of the request in the form of a [JSON pointer](https://datatracker.ietf.org/doc/html/rfc6901). The `parser` object has two properties: a required `success` and an optional `error`.
 
-Here is an example `parse` object:
+Here is an example `parser` object:
 
 <CodeSample>
-<CSTab label="A parse object">
+<CSTab label="A parser object">
 
 ```json
-    "parser": {
-      "success": "/success",
-      "error": "/error"
-    },
+"parser": {
+    "success": "/success",
+    "error": "/error"
+},
 ```
 
 </CSTab>
