@@ -8,15 +8,15 @@ tags: ['webhook', 'integration', 'policy']
 
 ## Overview
 
-This topic explains how to create and use webhooks in LaunchDarkly.
+Webhooks are a mechanism for real-time communication between different systems or applications. They allow one application to send automated HTTP requests to another application when a specific event or trigger occurs. 
 
-LaunchDarkly's webhooks allow you to build your own integrations that subscribe to changes in LaunchDarkly. When something changes, like when a feature flag is updated, or when an account member is invited to LaunchDarkly, LaunchDarkly sends an HTTP POST payload to the webhook's configured URL.
+With LaunchDarkly's webhooks, you have the freedom to create custom integrations that can subscribe to changes within the LaunchDarkly platform. Whenever a modification occurs, such as an update to a feature flag or an invitation sent to a new account member, LaunchDarkly promptly dispatches an HTTP POST payload to the URL configured for the webhook. This seamless communication ensures that your integrated systems stay up-to-date with the latest changes happening in LaunchDarkly.
 
 Use webhooks to update external issue trackers, update support tickets, notify customers of new feature rollouts, and more.
 
 <LearnMore>
 
-You can also use the REST API: [Webhooks](https://apidocs.launchdarkly.com/tag/Webhooks/)
+You can manage webhooks programmatically using the REST API. Checkout [Webhooks](https://apidocs.launchdarkly.com/tag/Webhooks/) page in API documentation.
 
 </LearnMore>
 
@@ -108,7 +108,7 @@ You can temporarily disable a webhook by hitting the On/Off switch on the [Integ
 
 ## Testing webhooks
 
-If you need to generate a test URL, we recommend using [RequestBin](https://requestbin.com/) or [Mockbin](https://mockbin.org/).
+To leverage webhooks, you need to deploy a service on a server-endpoint. However, the setup process for a server-endpoint can be time-consuming. If you seek to refine and test your implementation before writing the actual service code, an alternative solution is to utilize no-code tools such as [Beeceptor](https://beeceptor.com/) or [RequestBin](https://requestbin.com/). These tools are HTTP catch-all, gives you an URL endpoint, and allow inspection of incoming payloads from LaunchDarkly to enable the design and testing of webhook implementation without immediate service code development.
 
 ## Deleting webhooks
 
