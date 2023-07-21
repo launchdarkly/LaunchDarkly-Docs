@@ -74,7 +74,7 @@ To configure these fields:
 
 4. Select **Add Custom Category**.
 5. Name the custom category whatever you like. The example below uses **LaunchDarkly Attributes**.
-6. Add `role` and `customRoles` fields:
+6. Add `role` and `customRole` fields:
 
 ![The "LaunchDarkly Attributes" screen.](google-ld-attributes.png)
 
@@ -83,7 +83,7 @@ To configure these fields:
 <CalloutTitle>Allow multiple values for custom roles</CalloutTitle>
 <CalloutDescription>
 
-Set the **Multiple values** field for `customRoles` to "Yes." Some account members may have more than one custom role, which requires multiple values.
+Set the **Multiple values** field for `customRole` to "Yes." Some account members may have more than one custom role, which requires multiple values.
 
 </CalloutDescription>
 </Callout>
@@ -112,7 +112,7 @@ To add LaunchDarkly:
 ![LaunchDarkly's SAML Configuration panel.](settings-security-saml-config.png)
 
 
-8. In step 5, map the LaunchDarkly attributes `firstName` and `lastName` to Google’s “Basic Information” fields "First Name" and "Last Name." Map the LaunchDarkly attributes `role` and `customRoles` to Google's "LaunchDarkly Attributes" fields "Role" and "Custom Roles." These mappings are shown below:
+8. In step 5, map the LaunchDarkly attributes `firstName` and `lastName` to Google’s “Basic Information” fields "First Name" and "Last Name." Map the LaunchDarkly attributes `role` and `customRole` to Google's "LaunchDarkly Attributes" fields "Role" and "Custom Roles." These mappings are shown below:
 
 ![The Attribute Mappings screen.](google-attribute-mapping.png)
 
@@ -149,7 +149,7 @@ The next time this user logs into LaunchDarkly through Google Apps, their roles 
 <CalloutTitle>Removing existing roles</CalloutTitle>
 <CalloutDescription>
 
-SAML ignores empty fields if used in **Roles** or **customRoles**. To clear all existing roles, enter an empty string "" into the field.
+SAML ignores empty fields if used in **Roles** or **customRole**. To clear all existing roles, enter an empty string "" into the field.
 
 </CalloutDescription>
 </Callout>
