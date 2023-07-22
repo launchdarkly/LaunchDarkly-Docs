@@ -1,17 +1,2 @@
-# more about codeowners below:
-# https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
-
-# Content
-.cspell/custom-words.txt @launchdarkly/team-docs
-*.md @launchdarkly/team-docs
-*.mdx @launchdarkly/team-docs
-/assets/ @launchdarkly/team-docs
-/src/content/*.json @launchdarkly/team-docs
-/src/content/icons @launchdarkly/team-docs
-/src/content/images @launchdarkly/team-docs
-/templates/ @launchdarkly/team-docs
-redirectRules.js @launchdarkly/team-docs
-
-# EOL data
-/src/content/sdkVersions.json @launchdarkly/team-sdk
-/src/content/relayVersions.json @launchdarkly/team-sdk
+# Repository Maintainers
+* @launchdarkly/team-docs
