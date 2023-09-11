@@ -14,7 +14,7 @@ jobs:
       url: https://docs.launchdarkly.com/
     concurrency: prod_deploys
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/build-deploy
         with:
           environment: prod
@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Smoke test production
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/smoke-test
         with:
           environment: prod
