@@ -588,11 +588,15 @@ import (
 
 var config ld.Config
 
-// Send output to a file, and change minimum level to Warn (Debug and Info are disabled)
+loggers := ldlog.NewDefaultLoggers()
+
+// Send output to a file
 file, _ := os.Create("app.log")
+loggers.SetBaseLogger(log.New(file, "", log.LstdFlags))
+
 config.Logging = ldcomponents.Logging().
-    BaseLogger(log.New(file, "", log.LstdFlags)).
-    MinLevel(ldlog.Warn)
+    Loggers(loggers).
+    MinLevel(ldlog.Warn) // Change minimum level to Warn (Debug and Info are disabled)
 
 // Or, disable logging
 config.Logging = ldcomponents.NoLogging()
@@ -612,11 +616,15 @@ import (
 
 var config ld.Config
 
-// Send output to a file, and change minimum level to Warn (Debug and Info are disabled)
+loggers := ldlog.NewDefaultLoggers()
+
+// Send output to a file
 file, _ := os.Create("app.log")
+loggers.SetBaseLogger(log.New(file, "", log.LstdFlags))
+
 config.Logging = ldcomponents.Logging().
-    BaseLogger(log.New(file, "", log.LstdFlags)).
-    MinLevel(ldlog.Warn)
+    Loggers(loggers).
+    MinLevel(ldlog.Warn) // Change minimum level to Warn (Debug and Info are disabled)
 
 // Or, disable logging
 config.Logging = ldcomponents.NoLogging()
