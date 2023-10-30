@@ -7,7 +7,7 @@ jobs:
     name: Run eslint
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           cache: 'yarn'
@@ -19,7 +19,7 @@ jobs:
     name: Check typescript
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           cache: 'yarn'
@@ -31,7 +31,7 @@ jobs:
     needs: [lint, tsc] # ensure tests are run only after eslint and tsc pass
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           cache: 'yarn'
@@ -54,7 +54,7 @@ jobs:
     name: Check local links
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
           cache: 'yarn'
