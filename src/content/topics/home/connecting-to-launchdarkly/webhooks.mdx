@@ -108,7 +108,9 @@ You can temporarily disable a webhook by hitting the On/Off switch on the [Integ
 
 ## Testing webhooks
 
-If you need to generate a test URL, we recommend using [RequestBin](https://requestbin.com/) or [Mockbin](https://mockbin.org/).
+When developing a webhook consumer, it's crucial to thoroughly understand the payload structure. Online services like  [RequestBin](https://requestbin.com/), [Mockbin](https://mockbin.org/) or [Beeceptor](https://beeceptor.com/) are recommended for this purpose. These tools provide you with a temporary HTTPS URL to receive webhook payloads and test various scenarios. 
+
+Beeceptor's Local Tunnel feature allows you to redirect webhook payloads directly to a service operating on your local development machine, fast-tracking the testing and development.
 
 ## Deleting webhooks
 
