@@ -1,0 +1,74 @@
+---
+path: /integrations/chronosphere
+title: Chronosphere
+description: This topic explains how to configure and send LaunchDarkly events to
+Chronosphere.
+published: true
+tags: ['chronosphere', 'integration', 'event', 'observability']
+---
+
+## Overview
+
+This topic explains how to configure and send LaunchDarkly feature flag events to
+[Chronosphere](https://chronosphere.io/). These events display as change events
+within the Chronosphere Changes Explorer, and as change events on dashboards and
+query results for monitors. This integration lets you visualize more of your
+LaunchDarkly events within Chronosphere and have a single location for identifying
+anomalies across your environment.
+
+## Prerequisites
+
+To configure the Chronosphere integration, you need the following information:
+
+- **Chronosphere receiver URL**: This URL is the destination where LaunchDarkly
+  sends data to Chronosphere. The URL is structured as your Chronosphere tenant
+  URL, prefixed to the LaunchDarkly receiver endpoint. For example:
+  `https://MY_COMPANY.chronosphere.io/api/v1/data/events/receiver/launchdarkly`.
+- **Chronosphere secret token**: This credential is an API token you obtain from
+  Chronosphere Support to authenticate with Chronosphere.
+
+## Configuring the integration
+
+To configure the Chronosphere integration:
+
+1. Navigate to the [Integrations page](https://app.launchdarkly.com/default/integrations) page and find "Chronosphere".
+1. Click **Add integration**. The "Create Chronosphere configuration" panel appears.
+1. (Optional) Enter a human-readable **Name**, such as **Chronosphere**.
+1. In the **Chronosphere receiver URL** field, enter your Chronosphere receiver URL. For example, `https://MY_COMPANY.chronosphere.io/api/v1/data/events/receiver/launchdarkly`.
+1. In the **Chronosphere secret token** field, enter the API key you obtained from Chronosphere Support.
+1. (Optional) Configure a custom policy to control which information LaunchDarkly sends to Chronosphere. To learn more, see [Choosing what data to send](#choosing-what-data-to-send).
+1. After reading the Integration Terms and Conditions, check the **I have read and agree to the Integration Terms and Conditions** checkbox.
+1. Click **Save configuration**.
+
+## Choosing what data to send
+
+The "Policy" configuration field lets you control which kinds of LaunchDarkly events
+you send to Chronosphere. The default policy value restricts it to flag changes in
+production environments:
+
+<CodeSample>
+<CSTab label="Policy example">
+
+```txt
+proj/*:env/production:flag/*
+```
+
+</CSTab>
+</CodeSample>
+
+You might want to override the default policy to restrict the integration to a
+specific combination of LaunchDarkly projects and environments, or to a specific
+action or set of actions.
+
+In the following example, the policy restricts LaunchDarkly to send only changes from
+the `web-app` project's production environment to Chronosphere:
+
+<CodeSample>
+<CSTab label="Policy example">
+
+```txt
+proj/web-app:env/production:flag/*
+```
+
+</CSTab>
+</CodeSample>
