@@ -13,7 +13,7 @@ jobs:
         with:
           fetch-depth: 3 # scan previous two commits for extinctions
       - name: Find code references
-        uses: launchdarkly/find-code-references@v2.10.0
+        uses: launchdarkly/find-code-references@v2.11.4
         with:
           accessToken: ${{ secrets.LD_ACCESS_TOKEN }}
           baseUri: https://app.ld.catamorphic.com
