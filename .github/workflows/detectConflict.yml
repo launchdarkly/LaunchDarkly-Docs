@@ -13,7 +13,7 @@ jobs:
     outputs:
       pull_request_number: ${{ steps.pr.outputs.pull_request_number }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Get Pull Request Number
         id: pr
         run: echo "::set-output name=pull_request_number::$(gh pr view --json number -q .number || echo "")"
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Detect conflict
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_TOKEN }}
           fetch-depth: 0
